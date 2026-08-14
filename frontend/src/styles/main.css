@@ -177,7 +177,7 @@ main .mod-scroll__intro__text p {
 }
 
 /* ==========================================================================
-   Hero Luminous Top-to-Top Minimal U-Shape Arc
+   Hero Geometric Diagram Animation
    ========================================================================== */
 
 main .mod-scroll__intro {
@@ -185,19 +185,43 @@ main .mod-scroll__intro {
   overflow: hidden !important;
 }
 
-.hero-top-u-arc-container {
+.hero-diagram-container {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 96%;
+  max-width: 1144px;
+  height: auto;
+  aspect-ratio: 1144 / 358;
   pointer-events: none;
   z-index: 0;
-  overflow: hidden;
+  opacity: 0.85;
+  animation: diagramFloat 8s ease-in-out infinite alternate;
 }
 
-.hero-top-u-arc-svg {
+.hero-diagram-svg {
   width: 100%;
   height: 100%;
   display: block;
+}
+
+.diagram-path {
+  transition: all 0.5s ease;
+}
+
+@keyframes diagramFloat {
+  0% {
+    transform: translate(-50%, -50%) scale(0.98);
+    opacity: 0.75;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.02);
+    opacity: 0.95;
+    filter: drop-shadow(0 0 18px rgba(6, 182, 212, 0.2));
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(0.98);
+    opacity: 0.75;
+  }
 }
