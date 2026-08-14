@@ -17,22 +17,25 @@ export default function ProjectsPage() {
     <div class="wrapper">
 
         <ul id="menu-principal-1" class="mod-scroll__intro__menu f-izmir t-parrafo t-upper"><li class="link menu-item menu-item-type-post_type menu-item-object-page menu-item-1411"><a href="/about-us">About Us</a></li>
-<li class="no-show link menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-1062 current_page_item menu-item-1412"><a href="/projects" aria-current="page">Projects</a></li>
+<li class="no-show link menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-1062 current_page_item menu-item-1412"><a href="/projects" aria-current="page">Agents</a></li>
 <li class="link menu-item menu-item-type-custom menu-item-object-custom menu-item-1088"><a href="#contacto">Contact</a></li>
 <li class="no-show-scroll link menu-item menu-item-type-custom menu-item-object-custom menu-item-1089"><a href="#disponibilidad">Availability</a></li>
 </ul>
-        <div class="mod-scroll__intro__section mod-scroll__section t-parrafo-l f-edit">Projects</div>
-        <div class="mod-scroll__intro__copyright t-subtitulo f-izmir">Normal is boring ©2025</div>
+        <div class="mod-scroll__intro__section mod-scroll__section t-parrafo-l f-edit">Agents</div>
+        <div class="mod-scroll__intro__copyright t-subtitulo f-izmir">Sanjeevani OS ©2026</div>
 
         <div class="mod-scroll__intro__content">
             <div class="mod-scroll__intro__wrap-titles">
-                                    <div class="mod-scroll__intro__title f-izmir t-titulo-xxl line lh-less ">
-                        Agents<br>que redefinen                    </div>
-                                    <div class="mod-scroll__intro__title f-izmir t-titulo-xxl line lh-less ">
-                        <br><br><br>the workflow                    </div>
-                                    <div class="mod-scroll__intro__title f-izmir t-titulo-xxl line lh-less ">
-                        de la<br><em>salud</em>                    </div>
-                            </div>
+                <div class="mod-scroll__intro__title f-izmir t-titulo-xxl line lh-less ">
+                    Agents that Redefine
+                </div>
+                <div class="mod-scroll__intro__title f-izmir t-titulo-xxl line lh-less ">
+                    Clinical Workflows
+                </div>
+                <div class="mod-scroll__intro__title f-izmir t-titulo-xxl line lh-less ">
+                    In <em>Healthcare</em>
+                </div>
+            </div>
             <div class="mod-scroll__intro__text">
                 <p>The Sanjeevani OS is powered by a swarm of specialized AI agents. From OCR of medical scans to emergency symptom triage, the Orchestrator manages complex workflows across different models to deliver a unified experience.</p>
             </div>

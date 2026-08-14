@@ -129,3 +129,49 @@ html.lenis, html.lenis body {
 .animate-fadeIn {
   animation: fadeInKeyframes 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
+
+/* ==========================================================================
+   Hero & Intro Typography & Layout Enhancements
+   ========================================================================== */
+
+main .mod-scroll__intro__wrap-titles {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.35rem !important;
+  align-items: flex-start !important;
+}
+
+main .mod-scroll__intro__title {
+  font-size: clamp(2.4rem, 5.2vw, 4.2rem) !important;
+  line-height: 1.08 !important;
+  letter-spacing: -0.02em !important;
+  text-transform: uppercase !important;
+  white-space: normal !important;
+}
+
+main .mod-scroll__intro__title em {
+  font-family: var(--f-medium) !important;
+  font-style: italic !important;
+  text-transform: none !important;
+}
+
+main .mod-scroll__intro__text {
+  max-width: 32rem !important;
+  margin-top: 1.25rem !important;
+  margin-right: 0 !important;
+}
+
+main .mod-scroll__intro__text p {
+  font-size: clamp(1rem, 1.2vw, 1.15rem) !important;
+  line-height: 1.65 !important;
+  font-weight: 300 !important;
+  letter-spacing: 0.01em !important;
+}
+
+.mod-scroll__intro:not(.c-white) .mod-scroll__intro__text p {
+  color: rgba(18, 18, 18, 0.8) !important;
+}
+
+.mod-scroll__intro.c-white .mod-scroll__intro__text p {
+  color: rgba(236, 228, 218, 0.85) !important;
+}
