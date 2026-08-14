@@ -1147,3 +1147,11 @@ main .mod-scroll__terms {
   0% { transform: scaleY(0.3); }
   100% { transform: scaleY(1); }
 }
+
+/* Ensure seamless beige background on projects section without any white gaps */
+.mod-scroll__projects,
+.mod-scroll__projects__wrap-text {
+  background-color: var(--beige, #ECE4DA) !important;
+  color: var(--black, #000000) !important;
+}
+

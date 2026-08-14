@@ -659,8 +659,8 @@ export default function HomePage() {
 
     
     <!-- version home -->
-    <div class="mod-scroll__projects">
-        <div class="mod-scroll__projects__wrap-text">
+    <div class="mod-scroll__projects bg-beige c-black">
+        <div class="mod-scroll__projects__wrap-text bg-beige c-black">
             <div class="mod-scroll__projects__section mod-scroll__section t-parrafo-l f-edit">
                 Projects            </div>
             <div class="mod-scroll__projects__text f-izmir t-parrafo">
