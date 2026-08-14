@@ -159,7 +159,7 @@ export default function HomePage() {
         
 <div class="media mod-scroll__images__image-single noAspect noAnimate no-general-anim" data-delay=""> 
             <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/1st-photo.webp" alt="Sanjeevani Architecture Schematic" style={{ objectFit: 'cover', width: '100%', height: '100%' }}>
+            <img class="media__source w-100" src="/1st-photo-new.jpg" alt="Sanjeevani Architecture Schematic" style={{ objectFit: 'cover', width: '100%', height: '100%' }}>
         </div>
     </div>
 
@@ -169,14 +169,14 @@ export default function HomePage() {
                 
 <div class="media flipMedia__media flipMedia__media--down noAspect noAnimate no-general-anim" data-delay=""> 
             <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/anatomy-skull.webp" alt="Anatomical Cranial Diagram" style={{ objectFit: 'cover', width: '100%', height: '100%' }}>
+            <img class="media__source w-100" src="/anatomy-skull.webp" alt="Anatomical Cranial Diagram" style={{ objectFit: 'cover', width: '100%', height: '100%', transform: 'scale(1.8)' }}>
         </div>
     </div>
 
 
 <div class="media flipMedia__media flipMedia__media--up noAspect noAnimate no-general-anim" data-delay=""> 
             <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/anatomy-shoulder.webp" alt="Anatomical Shoulder Diagram" style={{ objectFit: 'cover', width: '100%', height: '100%' }}>
+            <img class="media__source w-100" src="/anatomy-shoulder.webp" alt="Anatomical Shoulder Diagram" style={{ objectFit: 'cover', width: '100%', height: '100%', transform: 'scale(1.8)' }}>
         </div>
     </div>
 
