@@ -349,71 +349,75 @@ export default function HomePage() {
 
 <div class="mod-scroll__terms follow__wrap bg-dark-agentic">
 
-    <!-- Ambient Radial Cyber Bloom -->
-    <div class="agentic-ambient-glow" aria-hidden="true"></div>
+    <!-- Left Column: Exact LiveKit Minimalist Typography & Feature Stack -->
+    <div class="livekit-hero-content">
+        <div class="livekit-kicker">DEVELOPER PLATFORM</div>
+        
+        <h2 class="livekit-title">
+            The <span class="accent-cyan">complete</span> stack for<br/>
+            Clinical AI
+        </h2>
 
-    <!-- Left Column: Website Signature Luxury Editorial Typography -->
-    <div class="agentic-terms-editorial">
-        <div class="agentic-section-label">
-            <span class="agentic-section-dot"></span>
-            (ARCHITECTURE) &middot; AGENTIC CLUSTER
-        </div>
-
-        <div class="agentic-terms-list">
-            <!-- 01 CLINICAL -->
-            <div class="agentic-term-row active" data-pillar="clinical">
-                <div class="agentic-term-num f-edit">01</div>
-                <div class="agentic-term-body">
-                    <h3 class="agentic-term-title f-edit">CLINICAL</h3>
-                    <p class="agentic-term-text f-izmir">
-                        Advanced multimodal agents handle OCR of handwritten prescriptions, voice triage, and cross-check drug interactions dynamically.
-                    </p>
-                    <div class="agentic-term-tags">
-                        <span class="agentic-term-tag">Multimodal OCR</span>
-                        <span class="agentic-term-tag">Voice Triage</span>
-                        <span class="agentic-term-tag">&lt; 320ms Latency</span>
-                    </div>
+        <div class="livekit-feature-list">
+            <!-- Item 1: Framework -->
+            <div class="livekit-feature-item" data-pillar="clinical">
+                <div class="livekit-feature-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="16 18 22 12 16 6"></polyline>
+                        <polyline points="8 6 2 12 8 18"></polyline>
+                    </svg>
                 </div>
+                <span>Open source multi-agent framework to build and test clinical workflows</span>
             </div>
 
-            <!-- 02 PRIVATE -->
-            <div class="agentic-term-row" data-pillar="private">
-                <div class="agentic-term-num f-edit">02</div>
-                <div class="agentic-term-body">
-                    <h3 class="agentic-term-title f-regular">PRIVATE</h3>
-                    <p class="agentic-term-text f-izmir">
-                        Medical scans and records are hashed to IPFS and Polygon testnet, giving users verifiable, zero-knowledge tamper-proof control over their data.
-                    </p>
-                    <div class="agentic-term-tags">
-                        <span class="agentic-term-tag">Polygon zkPoS</span>
-                        <span class="agentic-term-tag">IPFS Vault</span>
-                        <span class="agentic-term-tag">Tamper-Proof</span>
-                    </div>
+            <!-- Item 2: Inference Gateway -->
+            <div class="livekit-feature-item" data-pillar="clinical">
+                <div class="livekit-feature-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"></path>
+                        <path d="M12 6v6l4 2"></path>
+                    </svg>
                 </div>
+                <span>Inference gateway to access OCR, Diagnostic LLM, and STT models</span>
             </div>
 
-            <!-- 03 PREDICTIVE -->
-            <div class="agentic-term-row" data-pillar="predictive">
-                <div class="agentic-term-num f-edit">03</div>
-                <div class="agentic-term-body">
-                    <h3 class="agentic-term-title f-izmir">PREDICTIVE</h3>
-                    <p class="agentic-term-text f-izmir">
-                        Performs time-series forecasting on public health data to generate regional heatmaps and localized outbreak risk vectors.
-                    </p>
-                    <div class="agentic-term-tags">
-                        <span class="agentic-term-tag">Spatio-Temporal GNN</span>
-                        <span class="agentic-term-tag">Outbreak Heatmaps</span>
-                        <span class="agentic-term-tag">Risk Forecaster</span>
-                    </div>
+            <!-- Item 3: Cloud & Privacy -->
+            <div class="livekit-feature-item" data-pillar="private">
+                <div class="livekit-feature-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9z"></path>
+                    </svg>
                 </div>
+                <span>Polygon zkPoS testnet and IPFS encrypted health record vault</span>
+            </div>
+
+            <!-- Item 4: Telephony & Channels -->
+            <div class="livekit-feature-item" data-pillar="clinical">
+                <div class="livekit-feature-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                    </svg>
+                </div>
+                <span>WhatsApp, Telegram, SIP telephony, and real-time WebRTC audio streams</span>
+            </div>
+
+            <!-- Item 5: Observability & Forecasting -->
+            <div class="livekit-feature-item" data-pillar="predictive">
+                <div class="livekit-feature-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="20" x2="18" y2="10"></line>
+                        <line x1="12" y1="20" x2="12" y2="4"></line>
+                        <line x1="6" y1="20" x2="6" y2="14"></line>
+                    </svg>
+                </div>
+                <span>Full-stack spatio-temporal GNN disease mapping and epidemic forecasts</span>
             </div>
         </div>
 
-        <!-- Editorial Subtitle Footer -->
-        <div class="agentic-editorial-footer">
-            <span>Sanjeevani Agent Swarm</span>
-            <strong>18 Active Nodes</strong>
-        </div>
+        <a href="#agents" class="livekit-cta-btn">
+            <span>Explore the Sanjeevani Platform</span>
+            <span class="livekit-cta-arrow">→</span>
+        </a>
     </div>
 
     <!-- Right Column: LiveKit-Style Isometric Agentic Network Diagram -->

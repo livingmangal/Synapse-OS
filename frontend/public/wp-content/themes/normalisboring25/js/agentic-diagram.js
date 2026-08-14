@@ -56,7 +56,7 @@
     });
 
     // 2. Interactive 3 Pillars Hover & Click Highlighting
-    const pillars = document.querySelectorAll('.agentic-term-row, .agentic-pillar-card');
+    const pillars = document.querySelectorAll('.livekit-feature-item, .agentic-term-row, .agentic-pillar-card');
     const nodes = {
       clinical: document.querySelectorAll('.node-clinical'),
       private: document.querySelectorAll('.node-private'),
