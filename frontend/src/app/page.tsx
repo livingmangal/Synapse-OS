@@ -14,6 +14,28 @@ export default function HomePage() {
 
     
 <div class="mod-scroll__intro bg-white">
+    <!-- Top-to-Top Minimal Luminous U-Shape Arc -->
+    <div class="hero-top-u-arc-container" aria-hidden="true">
+        <svg class="hero-top-u-arc-svg" viewBox="0 0 1400 900" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="minimal-u-beam" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#06B6D4" stop-opacity="0" />
+                    <stop offset="15%" stop-color="#06B6D4" stop-opacity="0.4" />
+                    <stop offset="50%" stop-color="#10B981" stop-opacity="0.75" />
+                    <stop offset="85%" stop-color="#06B6D4" stop-opacity="0.4" />
+                    <stop offset="100%" stop-color="#06B6D4" stop-opacity="0" />
+                </linearGradient>
+                <filter id="soft-glow-filter" x="-20%" y="-20%" width="140%" height="140%">
+                    <feGaussianBlur stdDeviation="14" result="blur" />
+                </filter>
+            </defs>
+            <!-- Gentle Soft Ambient Bloom -->
+            <path d="M 0 0 C 350 440, 1050 440, 1400 0" stroke="url(#minimal-u-beam)" stroke-width="18" fill="none" filter="url(#soft-glow-filter)" opacity="0.22" />
+            <!-- Clean Minimal Thin Beam -->
+            <path d="M 0 0 C 350 440, 1050 440, 1400 0" stroke="url(#minimal-u-beam)" stroke-width="1.5" fill="none" opacity="0.75" />
+        </svg>
+    </div>
+
     <div class="wrapper">
 
         <ul id="menu-principal-1" class="mod-scroll__intro__menu f-izmir t-parrafo t-upper"><li class="link menu-item menu-item-type-post_type menu-item-object-page menu-item-1411"><a href="/about-us">About Us</a></li>
@@ -25,46 +47,6 @@ export default function HomePage() {
         <div class="mod-scroll__intro__copyright t-subtitulo f-izmir">Sanjeevani OS ©2026</div>
 
         <div class="mod-scroll__intro__content">
-            <div class="hero-glow-arc-container" aria-hidden="true">
-                <svg class="hero-glow-arc-svg" viewBox="0 0 900 550" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <filter id="hero-arc-blur-outer" x="-40%" y="-40%" width="180%" height="180%">
-                            <feGaussianBlur stdDeviation="50" result="blur" />
-                        </filter>
-                        <filter id="hero-arc-blur-mid" x="-30%" y="-30%" width="160%" height="160%">
-                            <feGaussianBlur stdDeviation="20" result="blur" />
-                        </filter>
-                        <linearGradient id="hero-arc-grad" x1="0%" y1="0%" x2="100%" y2="0%">
-                            <stop offset="0%" stop-color="#06B6D4" stop-opacity="0.85" />
-                            <stop offset="25%" stop-color="#00F2FE" stop-opacity="0.95" />
-                            <stop offset="50%" stop-color="#10B981" stop-opacity="1" />
-                            <stop offset="75%" stop-color="#00F2FE" stop-opacity="0.95" />
-                            <stop offset="100%" stop-color="#06B6D4" stop-opacity="0.85" />
-                        </linearGradient>
-                        <linearGradient id="hero-arc-beam" x1="0%" y1="0%" x2="100%" y2="0%">
-                            <stop offset="0%" stop-color="#00F2FE" stop-opacity="0.7" />
-                            <stop offset="25%" stop-color="#2DD4BF" stop-opacity="1" />
-                            <stop offset="50%" stop-color="#A7F3D0" stop-opacity="1" />
-                            <stop offset="75%" stop-color="#2DD4BF" stop-opacity="1" />
-                            <stop offset="100%" stop-color="#00F2FE" stop-opacity="0.7" />
-                        </linearGradient>
-                        <radialGradient id="hero-ambient-glow" cx="50%" cy="30%" r="55%">
-                            <stop offset="0%" stop-color="#10B981" stop-opacity="0.22" />
-                            <stop offset="45%" stop-color="#06B6D4" stop-opacity="0.14" />
-                            <stop offset="80%" stop-color="#00F2FE" stop-opacity="0.04" />
-                            <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
-                        </radialGradient>
-                    </defs>
-                    <!-- Soft diffuse ambient background -->
-                    <ellipse cx="450" cy="200" rx="420" ry="240" fill="url(#hero-ambient-glow)" />
-                    <!-- Outer Atmospheric Bloom Arc -->
-                    <path d="M 20 -20 C 60 500, 840 500, 880 -20" stroke="url(#hero-arc-grad)" stroke-width="56" fill="none" filter="url(#hero-arc-blur-outer)" opacity="0.9" />
-                    <!-- Mid Neon Corona Arc -->
-                    <path d="M 20 -20 C 60 500, 840 500, 880 -20" stroke="url(#hero-arc-grad)" stroke-width="22" fill="none" filter="url(#hero-arc-blur-mid)" opacity="1" />
-                    <!-- Core Piercing Luminous Light Ray -->
-                    <path d="M 20 -20 C 60 500, 840 500, 880 -20" stroke="url(#hero-arc-beam)" stroke-width="3.5" fill="none" opacity="0.95" />
-                </svg>
-            </div>
             <div class="mod-scroll__intro__wrap-titles">
                 <div class="mod-scroll__intro__title f-izmir t-titulo-xxl line lh-less is_home">
                     Global Health

@@ -177,7 +177,7 @@ main .mod-scroll__intro__text p {
 }
 
 /* ==========================================================================
-   Hero Luminous U-Shape Glowing Arc
+   Hero Luminous Top-to-Top Minimal U-Shape Arc
    ========================================================================== */
 
 main .mod-scroll__intro {
@@ -185,43 +185,19 @@ main .mod-scroll__intro {
   overflow: hidden !important;
 }
 
-main .mod-scroll__intro__content {
-  position: relative !important;
-  z-index: 1 !important;
-}
-
-.hero-glow-arc-container {
+.hero-top-u-arc-container {
   position: absolute;
-  top: -10%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 135%;
-  max-width: 920px;
-  height: 580px;
-  pointer-events: none;
-  z-index: -1;
-  overflow: visible;
-  animation: arcAuraBreath 7s ease-in-out infinite alternate;
-}
-
-.hero-glow-arc-svg {
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  overflow: visible;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
 }
 
-@keyframes arcAuraBreath {
-  0% {
-    transform: translateX(-50%) scale(0.98);
-    opacity: 0.85;
-  }
-  50% {
-    transform: translateX(-50%) scale(1.02);
-    opacity: 1;
-    filter: drop-shadow(0 0 35px rgba(6, 182, 212, 0.35));
-  }
-  100% {
-    transform: translateX(-50%) scale(0.98);
-    opacity: 0.85;
-  }
+.hero-top-u-arc-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
