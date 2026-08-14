@@ -18,6 +18,7 @@ export default function ProjectsPage() {
 
         <ul id="menu-principal-1" class="mod-scroll__intro__menu f-izmir t-parrafo t-upper"><li class="link menu-item menu-item-type-post_type menu-item-object-page menu-item-1411"><a href="/about-us">About Us</a></li>
 <li class="no-show link menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-1062 current_page_item menu-item-1412"><a href="/projects" aria-current="page">Agents</a></li>
+<li class="link menu-item"><a href="/vibrant" style="color: #6366f1;">3D Model</a></li>
 <li class="link menu-item menu-item-type-custom menu-item-object-custom menu-item-1088"><a href="#contacto">Contact</a></li>
 <li class="no-show-scroll link menu-item menu-item-type-custom menu-item-object-custom menu-item-1089"><a href="#disponibilidad">Availability</a></li>
 </ul>
@@ -242,6 +243,55 @@ export default function ProjectsPage() {
 <div class="media flipMedia__media flipMedia__media--up noAspect noAnimate no-general-anim" data-delay=""> 
             <div class="media__wrap-source image">
             <img class="media__source w-100" src="/wp-content/uploads/2026/04/HOME_Img_principal-1-1.jpg">
+        </div>
+    </div>
+
+                    </div>
+                                    </div>
+            </div>
+            
+        
+            <div class="mod-scroll__projectInt bg-grey expand_mouse" data-text="Explore 3D" data-url="/vibrant" style="background-color: #0b0f19;">
+                <a href="/vibrant" class="btn btn--circle follow__mouse--md f-izmir t-parrafo-l d-none d-md-flex" style="background-color: #6366f1; color: #fff;">Explore 3D</a> 
+                
+                <div class="mod-scroll__projectInt__image flipMedia flipMedia--rightLeft">
+                    
+<div class="media flipMedia__media flipMedia__media--down noAspect noAnimate no-general-anim" data-delay=""> 
+            <div class="media__wrap-source image">
+            <img class="media__source w-100" src="/original-81f128047aa980c2c10cdfb3cf6095a3.webp" style="filter: brightness(0.9);">
+        </div>
+    </div>
+
+
+<div class="media flipMedia__media flipMedia__media--up noAspect noAnimate no-general-anim" data-delay=""> 
+            <div class="media__wrap-source image">
+            <img class="media__source w-100" src="/original-0098f629a862e17d691f158a42a1b06d.webp" style="filter: brightness(0.9);">
+        </div>
+    </div>
+
+                </div>
+
+                <div class="mod-scroll__projectInt__content">
+                    <div class="mod-scroll__projectInt__section mod-scroll__section t-parrafo-l f-edit" style="color: #818cf8;">
+                        (3D LIVE)                    </div>
+                    <div class="mod-scroll__projectInt__number t-parrafo-l f-izmir" style="color: #818cf8;">04</div> 
+                    <div class="mod-scroll__projectInt__text t-parrafo-l f-edit" style="color: #cbd5e1;">
+                        Real-Time Anatomical & Organ Intelligence Engine                    </div>
+                    <div class="mod-scroll__projectInt__title t-titulo-xxl t-upper f-izmir" style="color: #ffffff;">
+                        Interactive 3D Body                    </div>
+
+                    <div class="mod-scroll__projectInt__image-small  flipMedia flipMedia--leftRight">
+                        
+<div class="media flipMedia__media flipMedia__media--down noAspect noAnimate no-general-anim" data-delay=""> 
+            <div class="media__wrap-source image">
+            <img class="media__source w-100" src="/original-0098f629a862e17d691f158a42a1b06d.webp">
+        </div>
+    </div>
+
+
+<div class="media flipMedia__media flipMedia__media--up noAspect noAnimate no-general-anim" data-delay=""> 
+            <div class="media__wrap-source image">
+            <img class="media__source w-100" src="/original-81f128047aa980c2c10cdfb3cf6095a3.webp">
         </div>
     </div>
 

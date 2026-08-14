@@ -109,6 +109,7 @@ export default function RootLayout({
 				<div class="header__menu__bg"></div>
 				<ul id="menu-principal" class="header__menu__nav-site f-izmir t-titulo-l t-upper"><li id="menu-item-1411" class="link menu-item menu-item-type-post_type menu-item-object-page menu-item-1411"><a href="/about-us">About Us</a></li>
 <li id="menu-item-1412" class="no-show link menu-item menu-item-type-post_type menu-item-object-page menu-item-1412"><a href="/projects">Agents</a></li>
+<li id="menu-item-3d-model" class="link menu-item"><a href="/vibrant" style="color: #6366f1;">3D Model</a></li>
 <li id="menu-item-1088" class="link menu-item menu-item-type-custom menu-item-object-custom menu-item-1088"><a href="#contacto">Contact</a></li>
 <li id="menu-item-1089" class="no-show-scroll link menu-item menu-item-type-custom menu-item-object-custom menu-item-1089"><a href="#disponibilidad">Availability</a></li>
 </ul>
@@ -149,7 +150,7 @@ export default function RootLayout({
 										<div class="place f-edit t-parrafo-xl t-italic">Active</div>
 									</a>
 								</div>
-																							<div class="header__menu__nav-single__proyectos__item ">
+																								<div class="header__menu__nav-single__proyectos__item ">
 									<a href="/symptom-triage-agent">
 										<div class="num-title t-titulo-l t-upper">
 											<span class="num f-edit t-parrafo-xl t-normal">(3)</span> 
@@ -158,10 +159,19 @@ export default function RootLayout({
 										<div class="place f-edit t-parrafo-xl t-italic">Active</div>
 									</a>
 								</div>
+																								<div class="header__menu__nav-single__proyectos__item ">
+									<a href="/vibrant">
+										<div class="num-title t-titulo-l t-upper">
+											<span class="num f-edit t-parrafo-xl t-normal">(4)</span> 
+											<span class="title">3D Body Explorer</span>
+										</div>
+										<div class="place f-edit t-parrafo-xl t-italic" style={{ color: '#818cf8', fontWeight: 600 }}>3D Live</div>
+									</a>
+								</div>
 																							<div class="header__menu__nav-single__proyectos__item disabled">
 									<a href="/projects">
 										<div class="num-title t-titulo-l t-upper">
-											<span class="num f-edit t-parrafo-xl t-normal">(4)</span> 
+											<span class="num f-edit t-parrafo-xl t-normal">(5)</span> 
 											<span class="title">Blockchain Records</span>
 										</div>
 										<div class="place f-edit t-parrafo-xl t-italic">Coming Soon</div>
@@ -170,7 +180,7 @@ export default function RootLayout({
 																							<div class="header__menu__nav-single__proyectos__item disabled">
 									<a href="/projects">
 										<div class="num-title t-titulo-l t-upper">
-											<span class="num f-edit t-parrafo-xl t-normal">(5)</span> 
+											<span class="num f-edit t-parrafo-xl t-normal">(6)</span> 
 											<span class="title">Outbreak Predictive</span>
 										</div>
 										<div class="place f-edit t-parrafo-xl t-italic">Coming Soon</div>

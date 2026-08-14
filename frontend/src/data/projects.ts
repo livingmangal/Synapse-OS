@@ -152,6 +152,51 @@ export const projects: Project[] = [
     chapters: [],
   },
   {
+    id: 'interactive-body-visualizer',
+    slug: 'vibrant',
+    title: 'Interactive 3D Body Visualizer',
+    subtitle: 'Real-Time Anatomical & Organ Intelligence Engine',
+    tagline: 'Interactive 3D shaders, multi-organ breakdown, and spatial biological models',
+    location: 'Visualization Cluster',
+    status: 'Available',
+    statusText: 'Interactive 3D · Live',
+    units: 'Interactive WebGL 3D Model',
+    specs: [
+      { label: 'Graphics Engine', value: 'Three.js & WebGL Shaders' },
+      { label: 'Decompression', value: 'Google Draco WASM' },
+      { label: 'Organs Supported', value: 'Brain, Heart, Liver, Gut, Hormones, DNA, Cells' },
+      { label: 'Lighting', value: 'Studio GainMap HDR Environment' },
+      { label: 'Rendering', value: 'Iridescent Pearlescent Materials' },
+      { label: 'Audio', value: 'Spatial Ambient Sound FX' },
+    ],
+    heroImage: '/uploads/2026/02/la-solana-hero.webp',
+    thumbnailImage: '/uploads/2026/02/la-solana-thumb.webp',
+    galleryImages: [
+      '/uploads/2026/02/la-solana-1.webp',
+      '/uploads/2026/02/la-solana-2.webp',
+    ],
+    description:
+      'The Interactive 3D Body & Organ Visualizer renders ultra-high-definition biological models in real-time WebGL. Users can rotate, zoom, switch male/female anatomies, and inspect deep organ health clusters—from neurology and cardiovascular systems to gut microbiomes and cellular longevity.',
+    chapters: [
+      {
+        number: '01',
+        subtitle: 'Multi-Organ Exploration',
+        title: 'Real-Time 3D Camera Focus',
+        description:
+          'Seamlessly transition the 3D viewport between brain, heart, digestive tract, endocrine system, and cellular DNA with custom dissolution shaders.',
+        features: ['Draco-compressed geometry', 'Physically based matcaps', 'Real-time organ hotspots'],
+      },
+      {
+        number: '02',
+        subtitle: 'Agent Integration',
+        title: 'Visualizing Health Swarm Data',
+        description:
+          'Directly integrates with the Medical Scan Agent and Symptom Triage Agent to highlight affected body areas and provide spatial health clarity.',
+        features: ['Bi-directional state bridging', 'Interactive tooltips & QR reports', 'Spatial sound feedback'],
+      },
+    ],
+  },
+  {
     id: 'outbreak-predictive-agent',
     slug: 'outbreak-predictive-agent',
     title: 'Outbreak Predictive Agent',

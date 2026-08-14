@@ -118,6 +118,7 @@ export default function HomePage() {
 
         <ul id="menu-principal-1" class="mod-scroll__intro__menu f-izmir t-parrafo t-upper"><li class="link menu-item menu-item-type-post_type menu-item-object-page menu-item-1411"><a href="/about-us">About Us</a></li>
 <li class="no-show link menu-item menu-item-type-post_type menu-item-object-page menu-item-1412"><a href="/projects">Agents</a></li>
+<li class="link menu-item"><a href="/vibrant" style="color: #6366f1; font-weight: 600;">3D Model</a></li>
 <li class="link menu-item menu-item-type-custom menu-item-object-custom menu-item-1088"><a href="#contacto">Contact</a></li>
 <li class="no-show-scroll link menu-item menu-item-type-custom menu-item-object-custom menu-item-1089"><a href="#disponibilidad">Availability</a></li>
 </ul>
@@ -743,7 +744,7 @@ export default function HomePage() {
                             <div class="mod-scroll__projects__item__text__data">
 
                                 <div class="f-edit t-parrafo-l"><span>2023</span></div>
-                                <div class="f-izmir t-parrafo-l"><span>OLEIROS</span></div>
+                                <div class="f-izmir t-parrafo-l"><span>CLINICAL</span></div>
                                 <div class="f-izmir t-parrafo data-number">03</div>
 
                                  
@@ -752,6 +753,34 @@ export default function HomePage() {
                                         The project                                    </a></span>
                                                             </div>
                             <div class="mod-scroll__projects__item__text__title t-upper f-edit t-titulo-xxl">Symptom Triage Agent</div>
+                        </div>
+                    </div>
+
+                                    </div>
+                
+                            <div class="mod-scroll__projects__item bg-grey" style="background-color: #0b0f19;">
+                    
+                    <!-- item-project -->
+                    <div class="mod-scroll__projects__item__content">
+                        
+<div class="media mod-scroll__projects__item__image noAnimate no-general-anim" data-delay=""> 
+            <div class="media__wrap-source image">
+            <img class="media__source w-100" src="/original-81f128047aa980c2c10cdfb3cf6095a3.webp" style="filter: brightness(0.85) contrast(1.1);">
+        </div>
+    </div>
+
+                        <div class="mod-scroll__projects__item__text">
+                            <div class="mod-scroll__projects__item__text__data">
+
+                                <div class="f-edit t-parrafo-l"><span style="color: #818cf8;">3D LIVE</span></div>
+                                <div class="f-izmir t-parrafo-l"><span>ANATOMY</span></div>
+                                <div class="f-izmir t-parrafo data-number" style="color: #818cf8;">04</div>
+
+                                 
+                                    <span><a href="/vibrant" class="btn btn--bg btn--bg-inv btn--bg-grey f-edit t-parrafo-l" style="border-color: #6366f1; color: #fff; background-color: rgba(99,102,241,0.25);">
+                                        Launch 3D Explorer                                    </a></span>
+                                                            </div>
+                            <div class="mod-scroll__projects__item__text__title t-upper f-izmir t-titulo-xxl" style="color: #ffffff;">Interactive 3D Body</div>
                         </div>
                     </div>
 
