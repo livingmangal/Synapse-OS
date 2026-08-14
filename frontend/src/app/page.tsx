@@ -153,66 +153,83 @@ export default function HomePage() {
 
 
 
-<div class="mod-scroll__images bg-white principal    ">
-
-    
-        
-<div class="media mod-scroll__images__image-single noAspect noAnimate no-general-anim" data-delay=""> 
-            <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/1st-photo-new.jpg" alt="Sanjeevani Architecture Schematic" style={{ objectFit: 'cover', width: '100%', height: '100%' }}>
+<div class="mod-scroll__images bg-white principal" style={{ overflow: 'hidden' }}>
+    <div class="media mod-scroll__images__image-single noAspect noAnimate no-general-anim" data-delay="" style={{ overflow: 'hidden' }}> 
+        <div class="media__wrap-source image" style={{ overflow: 'hidden' }}>
+            <img class="media__source w-100" src="/1st-photo-new.jpg" alt="Sanjeevani Architecture Schematic" style={{ objectFit: 'cover', width: '100%', height: '100%' }} />
         </div>
     </div>
 
-
-                    <div class="mod-scroll__images__flip flipMedia flipMedia--upDown" data-duration="1.2">
-        
-                
-<div class="media flipMedia__media flipMedia__media--down noAspect noAnimate no-general-anim" data-delay=""> 
-            <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/anatomy-skull.jpg" alt="Anatomical Cranial Diagram" style={{ objectFit: 'cover', width: '100%', height: '100%', transform: 'scale(1.8)' }}>
-        </div>
-    </div>
-
-
-<div class="media flipMedia__media flipMedia__media--up noAspect noAnimate no-general-anim" data-delay=""> 
-            <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/anatomy-shoulder.jpg" alt="Anatomical Shoulder Diagram" style={{ objectFit: 'cover', width: '100%', height: '100%', transform: 'scale(1.8)' }}>
-        </div>
-    </div>
-
-                
+    <div class="mod-scroll__images__flip flipMedia flipMedia--upDown" data-duration="1.2" style={{ overflow: 'hidden' }}>
+        <div class="media flipMedia__media flipMedia__media--down noAspect noAnimate no-general-anim" data-delay="" style={{ overflow: 'hidden' }}> 
+            <div class="media__wrap-source image" style={{ overflow: 'hidden', background: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <img class="media__source w-100" src="/anatomy-skull.jpg" alt="Anatomical Cranial Diagram" style={{ objectFit: 'contain', width: '90%', height: '90%' }} />
             </div>
-        
-             
+        </div>
+
+        <div class="media flipMedia__media flipMedia__media--up noAspect noAnimate no-general-anim" data-delay="" style={{ overflow: 'hidden' }}> 
+            <div class="media__wrap-source image" style={{ overflow: 'hidden', background: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <img class="media__source w-100" src="/anatomy-shoulder.jpg" alt="Anatomical Shoulder Diagram" style={{ objectFit: 'contain', width: '90%', height: '90%' }} />
+            </div>
+        </div>
+    </div>
 </div>
 
+<div class="mod-scroll__text bg-white platform-architecture-section" style={{ position: 'relative', overflow: 'hidden' }}>
+    {/* Elegant Ambient Background Video Merged Seamlessly with Background */}
+    <div class="platform-bg-video-wrap" aria-hidden="true">
+        <video 
+            class="platform-bg-video" 
+            src="/videos/platform_ambient_bg.mp4" 
+            autoPlay 
+            loop 
+            muted 
+            playsInline 
+        />
+        <div class="platform-bg-video-overlay"></div>
+    </div>
 
-
-<div class="mod-scroll__text bg-white">
-    <div class="wrapper">
-
-                    <div class="mod-scroll__text__section mod-scroll__section t-parrafo-l f-edit">
-                Platform            </div>
+    <div class="wrapper" style={{ position: 'relative', zIndex: 2 }}>
+        <div class="mod-scroll__text__section mod-scroll__section t-parrafo-l f-edit">
+            (02) / Platform Architecture
+        </div>
                 
         <div class="mod-scroll__text__wrap-text">
-        
             <div class="mod-scroll__text__title t-supertitulo f-regular">
-                                    <div class="mod-scroll__text__title__line line t-title-ls t-upper col-12 align-left t-left">
-                        Dual modes for                    </div>
-                                    <div class="mod-scroll__text__title__line line t-title-ls t-upper col-12 align-left t-left">
-                        a <span></span><span></span><span></span><span></span> shared                    </div>
-                                    <div class="mod-scroll__text__title__line line t-title-ls t-upper col-12 align-left t-left">
-                        memory                    </div>
-                                    <div class="mod-scroll__text__title__line line t-title-ls t-upper col-12 align-left t-right">
-                        and continuity                    </div>
-                            </div>
-
-                            <div class="mod-scroll__text__text f-izmir t-parrafo">
-                    <p>Use the standard dashboard for routine health tracking, or switch to the voice-driven Sanjeevani Assistant for interactive triage. Both interfaces are backed by the same vector database, meaning a task started on WhatsApp can be seamlessly picked up on the web. Nothing gets lost.</p>
+                <div class="mod-scroll__text__title__line line t-title-ls t-upper col-12 align-left t-left">
+                    Dual modes for
                 </div>
-            
+                <div class="mod-scroll__text__title__line line t-title-ls t-upper col-12 align-left t-left">
+                    a shared memory
+                </div>
+                <div class="mod-scroll__text__title__line line t-title-ls t-upper col-12 align-left t-left">
+                    and continuous
+                </div>
+                <div class="mod-scroll__text__title__line line t-title-ls t-upper col-12 align-left t-left">
+                    clinical care
+                </div>
+            </div>
+
+            <div class="mod-scroll__text__text f-izmir t-parrafo">
+                <p class="mod-scroll__text__lead">Use the standard clinician dashboard for routine health tracking, or switch to the voice-driven Sanjeevani Assistant for interactive triage.</p>
+                <p class="mod-scroll__text__sub">Both interfaces are synchronized across the same unified vector memory—meaning an intake consultation started on WhatsApp is seamlessly continued on the hospital workstation with zero loss of clinical context.</p>
+                
+                <div class="platform-features-grid">
+                    <div class="platform-feature-item">
+                        <span class="platform-feature-item__icon">●</span>
+                        <span class="platform-feature-item__text">Omnichannel Memory Sync</span>
+                    </div>
+                    <div class="platform-feature-item">
+                        <span class="platform-feature-item__icon">●</span>
+                        <span class="platform-feature-item__text">Voice &amp; Terminal Continuity</span>
+                    </div>
+                    <div class="platform-feature-item">
+                        <span class="platform-feature-item__icon">●</span>
+                        <span class="platform-feature-item__text">Zero Context Degradation</span>
+                    </div>
+                </div>
+            </div>
         </div>
-        
     </div>
 </div>
 

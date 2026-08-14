@@ -55,36 +55,8 @@
         //setFlips
         setFlips()
 
-        //anima mod-scroll__text
-        if(document.querySelectorAll('.mod-scroll__text').length){
-
-            document.querySelectorAll('.mod-scroll__text').forEach( elem => {
-
-                const lines = elem.querySelectorAll('.line')
-                lines.forEach(el => {
-                    const content = el.innerHTML;
-                    el.innerHTML = '<span class="cont">'+content+'</span>';
-                })
-
-                const posInitLeft = lines[3].querySelector('span.cont').offsetWidth - lines[3].offsetWidth;
-                const title_tl = gsap.timeline({paused:true})
-                title_tl.from(lines[3].querySelector('span.cont'),
-                    {left: posInitLeft, duration: 2, ease: 'power1.inOut'},0)
-
-                const textTrigger = ScrollTrigger.create({
-                    containerAnimation: scroll_tl,
-                    animation: title_tl,
-                    trigger: elem,
-                    start: "0% 50%",
-                    end: "100% 50%",
-                    scrub: 0,
-                    // toggleActions: 'play none none reverse',
-                    // markers: true,
-                })
-
-            })
-
-        }
+        //anima mod-scroll__text (disabled so text remains cleanly fixed in layout)
+        // Static clean typography without vertical/horizontal drifting
 
         //anima mod-scroll__images-text
         if(document.querySelectorAll('.mod-scroll__images-text').length){
