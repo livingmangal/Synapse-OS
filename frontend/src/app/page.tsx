@@ -26,39 +26,43 @@ export default function HomePage() {
 
         <div class="mod-scroll__intro__content">
             <div class="hero-glow-arc-container" aria-hidden="true">
-                <svg class="hero-glow-arc-svg" viewBox="0 0 900 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg class="hero-glow-arc-svg" viewBox="0 0 900 550" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <defs>
-                        <filter id="hero-arc-blur-outer" x="-30%" y="-30%" width="160%" height="160%">
-                            <feGaussianBlur stdDeviation="45" result="blur" />
+                        <filter id="hero-arc-blur-outer" x="-40%" y="-40%" width="180%" height="180%">
+                            <feGaussianBlur stdDeviation="50" result="blur" />
                         </filter>
-                        <filter id="hero-arc-blur-mid" x="-20%" y="-20%" width="140%" height="140%">
-                            <feGaussianBlur stdDeviation="16" result="blur" />
+                        <filter id="hero-arc-blur-mid" x="-30%" y="-30%" width="160%" height="160%">
+                            <feGaussianBlur stdDeviation="20" result="blur" />
                         </filter>
-                        <linearGradient id="hero-arc-grad" x1="0%" y1="100%" x2="100%" y2="100%">
-                            <stop offset="0%" stop-color="#06B6D4" stop-opacity="0.05" />
-                            <stop offset="20%" stop-color="#00F2FE" stop-opacity="0.8" />
-                            <stop offset="50%" stop-color="#10B981" stop-opacity="0.95" />
-                            <stop offset="80%" stop-color="#00F2FE" stop-opacity="0.8" />
-                            <stop offset="100%" stop-color="#06B6D4" stop-opacity="0.05" />
+                        <linearGradient id="hero-arc-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#06B6D4" stop-opacity="0.85" />
+                            <stop offset="25%" stop-color="#00F2FE" stop-opacity="0.95" />
+                            <stop offset="50%" stop-color="#10B981" stop-opacity="1" />
+                            <stop offset="75%" stop-color="#00F2FE" stop-opacity="0.95" />
+                            <stop offset="100%" stop-color="#06B6D4" stop-opacity="0.85" />
                         </linearGradient>
-                        <linearGradient id="hero-arc-beam" x1="0%" y1="100%" x2="100%" y2="100%">
-                            <stop offset="0%" stop-color="#06B6D4" stop-opacity="0" />
-                            <stop offset="25%" stop-color="#2DD4BF" stop-opacity="0.9" />
+                        <linearGradient id="hero-arc-beam" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#00F2FE" stop-opacity="0.7" />
+                            <stop offset="25%" stop-color="#2DD4BF" stop-opacity="1" />
                             <stop offset="50%" stop-color="#A7F3D0" stop-opacity="1" />
-                            <stop offset="75%" stop-color="#2DD4BF" stop-opacity="0.9" />
-                            <stop offset="100%" stop-color="#06B6D4" stop-opacity="0" />
+                            <stop offset="75%" stop-color="#2DD4BF" stop-opacity="1" />
+                            <stop offset="100%" stop-color="#00F2FE" stop-opacity="0.7" />
                         </linearGradient>
-                        <radialGradient id="hero-ambient-glow" cx="50%" cy="35%" r="50%">
-                            <stop offset="0%" stop-color="#10B981" stop-opacity="0.25" />
-                            <stop offset="40%" stop-color="#06B6D4" stop-opacity="0.15" />
-                            <stop offset="80%" stop-color="#00F2FE" stop-opacity="0.03" />
+                        <radialGradient id="hero-ambient-glow" cx="50%" cy="30%" r="55%">
+                            <stop offset="0%" stop-color="#10B981" stop-opacity="0.22" />
+                            <stop offset="45%" stop-color="#06B6D4" stop-opacity="0.14" />
+                            <stop offset="80%" stop-color="#00F2FE" stop-opacity="0.04" />
                             <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
                         </radialGradient>
                     </defs>
-                    <ellipse cx="450" cy="240" rx="380" ry="220" fill="url(#hero-ambient-glow)" />
-                    <path d="M 70 480 C 70 90, 830 90, 830 480" stroke="url(#hero-arc-grad)" stroke-width="52" fill="none" filter="url(#hero-arc-blur-outer)" opacity="0.85" />
-                    <path d="M 70 480 C 70 90, 830 90, 830 480" stroke="url(#hero-arc-grad)" stroke-width="18" fill="none" filter="url(#hero-arc-blur-mid)" opacity="0.95" />
-                    <path d="M 70 480 C 70 90, 830 90, 830 480" stroke="url(#hero-arc-beam)" stroke-width="3" fill="none" opacity="0.9" />
+                    <!-- Soft diffuse ambient background -->
+                    <ellipse cx="450" cy="200" rx="420" ry="240" fill="url(#hero-ambient-glow)" />
+                    <!-- Outer Atmospheric Bloom Arc -->
+                    <path d="M 20 -20 C 60 500, 840 500, 880 -20" stroke="url(#hero-arc-grad)" stroke-width="56" fill="none" filter="url(#hero-arc-blur-outer)" opacity="0.9" />
+                    <!-- Mid Neon Corona Arc -->
+                    <path d="M 20 -20 C 60 500, 840 500, 880 -20" stroke="url(#hero-arc-grad)" stroke-width="22" fill="none" filter="url(#hero-arc-blur-mid)" opacity="1" />
+                    <!-- Core Piercing Luminous Light Ray -->
+                    <path d="M 20 -20 C 60 500, 840 500, 880 -20" stroke="url(#hero-arc-beam)" stroke-width="3.5" fill="none" opacity="0.95" />
                 </svg>
             </div>
             <div class="mod-scroll__intro__wrap-titles">

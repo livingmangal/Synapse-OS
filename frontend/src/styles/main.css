@@ -192,12 +192,12 @@ main .mod-scroll__intro__content {
 
 .hero-glow-arc-container {
   position: absolute;
-  top: -16%;
+  top: -10%;
   left: 50%;
   transform: translateX(-50%);
-  width: 125%;
-  max-width: 820px;
-  height: 520px;
+  width: 135%;
+  max-width: 920px;
+  height: 580px;
   pointer-events: none;
   z-index: -1;
   overflow: visible;
