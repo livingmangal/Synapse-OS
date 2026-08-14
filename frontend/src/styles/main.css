@@ -138,7 +138,7 @@ main .mod-scroll__intro__content {
   display: flex !important;
   flex-direction: column !important;
   justify-content: space-between !important;
-  align-items: flex-start !important;
+  align-items: center !important;
   height: 100% !important;
   min-height: calc(100vh - var(--wrapper-padd) * 2) !important;
   padding: 4.5rem 0 3.5rem 0 !important;
@@ -154,17 +154,20 @@ main .mod-scroll__intro__content * {
 main .mod-scroll__intro__wrap-titles {
   display: flex !important;
   flex-direction: column !important;
-  gap: 0.25rem !important;
-  align-items: flex-start !important;
+  gap: 0.35rem !important;
+  align-items: center !important;
+  text-align: center !important;
+  width: 100% !important;
   margin-bottom: auto !important;
 }
 
 main .mod-scroll__intro__title {
-  font-size: clamp(1.9rem, 3.8vw, 3.2rem) !important;
+  font-size: clamp(2rem, 3.8vw, 3.2rem) !important;
   line-height: 1.05 !important;
   letter-spacing: -0.02em !important;
   text-transform: uppercase !important;
   white-space: normal !important;
+  text-align: center !important;
 }
 
 main .mod-scroll__intro__title em {
@@ -174,17 +177,18 @@ main .mod-scroll__intro__title em {
 }
 
 main .mod-scroll__intro__text {
-  max-width: 28rem !important;
-  margin-top: auto !important;
-  margin-bottom: 0 !important;
-  margin-right: 0 !important;
+  max-width: 46rem !important;
+  width: 100% !important;
+  margin: auto auto 0 auto !important;
+  text-align: center !important;
 }
 
 main .mod-scroll__intro__text p {
-  font-size: clamp(0.92rem, 1.05vw, 1.02rem) !important;
-  line-height: 1.6 !important;
+  font-size: clamp(1rem, 1.15vw, 1.12rem) !important;
+  line-height: 1.65 !important;
   font-weight: 300 !important;
   letter-spacing: 0.01em !important;
+  text-align: center !important;
 }
 
 .mod-scroll__intro:not(.c-white) .mod-scroll__intro__text p {
@@ -250,6 +254,27 @@ main .mod-scroll__intro {
 
 .diagram-path {
   transition: all 0.5s ease;
+}
+
+.diagram-badge rect {
+  fill: #fafaf9;
+  stroke: rgba(145, 135, 126, 0.35);
+  stroke-width: 1px;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.04));
+  transition: all 0.3s ease;
+}
+
+.diagram-badge text {
+  font-family: var(--f-mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  fill: #292524;
+}
+
+.diagram-hub circle:first-child {
+  fill: #f5f3ef;
+  stroke: rgba(145, 135, 126, 0.3);
 }
 
 @keyframes diagramFloat {

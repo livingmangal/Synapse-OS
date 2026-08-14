@@ -159,7 +159,7 @@ export default function HomePage() {
         
 <div class="media mod-scroll__images__image-single noAspect noAnimate no-general-anim" data-delay=""> 
             <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2026/04/HOME_Img_principal.jpg">
+            <img class="media__source w-100" src="/wp-content/uploads/2026/04/human-anatomy.jpg" alt="Human Anatomy - Sanjeevani OS" style={{ objectFit: 'cover', height: '100%' }}>
         </div>
     </div>
 
@@ -192,7 +192,7 @@ export default function HomePage() {
     <div class="wrapper">
 
                     <div class="mod-scroll__text__section mod-scroll__section t-parrafo-l f-edit">
-                Nosotros            </div>
+                Platform            </div>
                 
         <div class="mod-scroll__text__wrap-text">
         
