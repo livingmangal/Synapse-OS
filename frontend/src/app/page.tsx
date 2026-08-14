@@ -354,41 +354,57 @@ export default function HomePage() {
 
     <!-- Left Column: Website Signature Luxury Editorial Typography -->
     <div class="agentic-terms-editorial">
-        <div class="mod-scroll__section t-parrafo-l f-edit c-cyan-dim">
-            (ARCHITECTURE)
+        <div class="agentic-section-label">
+            <span class="agentic-section-dot"></span>
+            (ARCHITECTURE) &middot; AGENTIC CLUSTER
         </div>
 
         <div class="agentic-terms-list">
             <!-- 01 CLINICAL -->
             <div class="agentic-term-row active" data-pillar="clinical">
-                <div class="agentic-term-num f-edit t-parrafo">01</div>
+                <div class="agentic-term-num f-edit">01</div>
                 <div class="agentic-term-body">
-                    <h3 class="agentic-term-title t-supertitulo-l f-edit lh-less2">CLINICAL</h3>
-                    <p class="agentic-term-text f-izmir t-parrafo">
-                        Advanced multimodal agents handle OCR of handwritten prescriptions, triage symptoms, and cross-check drug interactions dynamically.
+                    <h3 class="agentic-term-title f-edit">CLINICAL</h3>
+                    <p class="agentic-term-text f-izmir">
+                        Advanced multimodal agents handle OCR of handwritten prescriptions, voice triage, and cross-check drug interactions dynamically.
                     </p>
+                    <div class="agentic-term-tags">
+                        <span class="agentic-term-tag">Multimodal OCR</span>
+                        <span class="agentic-term-tag">Voice Triage</span>
+                        <span class="agentic-term-tag">&lt; 320ms Latency</span>
+                    </div>
                 </div>
             </div>
 
             <!-- 02 PRIVATE -->
             <div class="agentic-term-row" data-pillar="private">
-                <div class="agentic-term-num f-edit t-parrafo">02</div>
+                <div class="agentic-term-num f-edit">02</div>
                 <div class="agentic-term-body">
-                    <h3 class="agentic-term-title t-supertitulo-l f-regular lh-less2">PRIVATE</h3>
-                    <p class="agentic-term-text f-izmir t-parrafo">
-                        Medical scans and records are hashed to IPFS and the Polygon testnet, giving users verifiable, tamper-proof control over their data.
+                    <h3 class="agentic-term-title f-regular">PRIVATE</h3>
+                    <p class="agentic-term-text f-izmir">
+                        Medical scans and records are hashed to IPFS and Polygon testnet, giving users verifiable, zero-knowledge tamper-proof control over their data.
                     </p>
+                    <div class="agentic-term-tags">
+                        <span class="agentic-term-tag">Polygon zkPoS</span>
+                        <span class="agentic-term-tag">IPFS Vault</span>
+                        <span class="agentic-term-tag">Tamper-Proof</span>
+                    </div>
                 </div>
             </div>
 
             <!-- 03 PREDICTIVE -->
             <div class="agentic-term-row" data-pillar="predictive">
-                <div class="agentic-term-num f-edit t-parrafo">03</div>
+                <div class="agentic-term-num f-edit">03</div>
                 <div class="agentic-term-body">
-                    <h3 class="agentic-term-title t-supertitulo-l f-izmir lh-less2">PREDICTIVE</h3>
-                    <p class="agentic-term-text f-izmir t-parrafo">
-                        Performs time-series forecasting on public health data to generate regional heatmaps and localized outbreak risk scores.
+                    <h3 class="agentic-term-title f-izmir">PREDICTIVE</h3>
+                    <p class="agentic-term-text f-izmir">
+                        Performs time-series forecasting on public health data to generate regional heatmaps and localized outbreak risk vectors.
                     </p>
+                    <div class="agentic-term-tags">
+                        <span class="agentic-term-tag">Spatio-Temporal GNN</span>
+                        <span class="agentic-term-tag">Outbreak Heatmaps</span>
+                        <span class="agentic-term-tag">Risk Forecaster</span>
+                    </div>
                 </div>
             </div>
         </div>

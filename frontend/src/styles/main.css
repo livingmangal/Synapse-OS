@@ -579,7 +579,7 @@ html.overflow-hidden {
 main .mod-scroll__terms.bg-dark-agentic,
 main .mod-scroll__terms {
   position: relative !important;
-  background: radial-gradient(ellipse 90% 90% at 70% 50%, #0c1527 0%, #060a14 55%, #030509 100%) !important;
+  background: radial-gradient(ellipse 95% 85% at 65% 50%, #0c1527 0%, #060a14 50%, #020408 100%) !important;
   width: 100vw !important;
   min-width: 100vw !important;
   max-width: 100vw !important;
@@ -591,8 +591,6 @@ main .mod-scroll__terms {
   padding: 0 !important;
   margin: 0 !important;
   overflow: hidden !important;
-  border-left: 1px solid rgba(255, 255, 255, 0.08);
-  border-right: 1px solid rgba(255, 255, 255, 0.08);
   box-sizing: border-box !important;
   z-index: 1;
 }
@@ -610,32 +608,32 @@ main .mod-scroll__terms {
 .agentic-ambient-glow {
   position: absolute;
   top: 50%;
-  right: 10%;
+  right: 15%;
   transform: translateY(-50%);
-  width: 800px;
-  height: 800px;
-  background: radial-gradient(circle, rgba(6, 182, 212, 0.18) 0%, rgba(16, 185, 129, 0.08) 35%, rgba(0, 0, 0, 0) 70%);
+  width: 950px;
+  height: 950px;
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.22) 0%, rgba(16, 185, 129, 0.1) 35%, rgba(0, 0, 0, 0) 70%);
   pointer-events: none;
   z-index: 0;
-  filter: blur(50px);
+  filter: blur(60px);
 }
 
-/* Left Column: Website Signature Editorial Typography */
+/* Left Column: Website Signature Luxury Editorial Typography */
 .agentic-terms-editorial {
   position: relative;
   z-index: 20;
-  width: 42vw;
-  min-width: 42vw;
-  max-width: 42vw;
+  width: 44vw;
+  min-width: 44vw;
+  max-width: 44vw;
   height: 100vh;
-  padding: 5rem 2.5vw 2.5rem 3.5vw;
+  padding: 6.5rem 3.5vw 4rem 5vw;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   border-right: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(6, 10, 20, 0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: linear-gradient(135deg, rgba(6, 10, 20, 0.85) 0%, rgba(3, 6, 12, 0.92) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   box-sizing: border-box;
 }
 
@@ -645,22 +643,36 @@ main .mod-scroll__terms {
     min-width: 100% !important;
     max-width: 100% !important;
     height: auto !important;
-    padding: 6rem 1.5rem 2rem 1.5rem !important;
+    padding: 6rem 2rem 3rem 2rem !important;
     border-right: none !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
   }
 }
 
-.c-cyan-dim {
-  color: #38bdf8 !important;
-  opacity: 0.9;
-  letter-spacing: 0.08em;
+.agentic-section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--f-edit), serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #38bdf8;
+  margin-bottom: 1rem;
+}
+
+.agentic-section-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
 }
 
 .agentic-terms-list {
   display: flex;
   flex-direction: column;
-  gap: 0;
+  gap: 1rem;
   flex: 1;
   justify-content: center;
 }
@@ -668,29 +680,49 @@ main .mod-scroll__terms {
 .agentic-term-row {
   display: flex;
   align-items: flex-start;
-  gap: 1.25rem;
-  padding: 1.35rem 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  gap: 1.5rem;
+  padding: 1.25rem 1.25rem;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background: rgba(255, 255, 255, 0.015);
   cursor: pointer;
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.agentic-term-row:first-child {
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  position: relative;
 }
 
 .agentic-term-row:hover,
 .agentic-term-row.active {
-  padding-left: 0.5rem;
+  background: rgba(15, 23, 42, 0.65);
+  border-color: rgba(56, 189, 248, 0.3);
+  box-shadow: 0 10px 30px -10px rgba(6, 182, 212, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transform: translateX(6px);
+}
+
+.agentic-term-row::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 15%;
+  bottom: 15%;
+  width: 3px;
+  border-radius: 4px;
+  background: linear-gradient(to bottom, #06b6d4, #10b981);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.agentic-term-row:hover::before,
+.agentic-term-row.active::before {
+  opacity: 1;
 }
 
 .agentic-term-num {
   font-family: var(--f-edit), serif !important;
-  font-size: 1rem !important;
+  font-size: 1.15rem !important;
   font-weight: 500 !important;
-  color: #06b6d4 !important;
-  opacity: 0.85;
-  padding-top: 0.35rem;
+  color: #38bdf8 !important;
+  opacity: 0.9;
+  padding-top: 0.2rem;
   line-height: 1;
 }
 
@@ -700,14 +732,14 @@ main .mod-scroll__terms {
 
 .agentic-term-title {
   font-family: var(--f-edit), serif !important;
-  font-size: clamp(2rem, 2.8vw, 3.5rem) !important;
+  font-size: clamp(2rem, 2.6vw, 3.2rem) !important;
   font-weight: 400 !important;
   line-height: 0.95 !important;
   letter-spacing: 0.02em !important;
   text-transform: uppercase !important;
   color: #f8fafc !important;
-  margin: 0 0 0.55rem 0 !important;
-  transition: color 0.3s ease, transform 0.3s ease;
+  margin: 0 0 0.5rem 0 !important;
+  transition: color 0.3s ease;
 }
 
 .agentic-term-row:hover .agentic-term-title,
@@ -717,17 +749,33 @@ main .mod-scroll__terms {
 
 .agentic-term-text {
   font-family: var(--f-izmir), sans-serif !important;
-  font-size: 0.88rem !important;
+  font-size: 0.86rem !important;
   line-height: 1.45 !important;
   color: #94a3b8 !important;
-  margin: 0 !important;
-  max-width: 32vw;
+  margin: 0 0 0.6rem 0 !important;
 }
 
-@media (max-width: 1024px) {
-  .agentic-term-text {
-    max-width: 100% !important;
-  }
+.agentic-term-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.agentic-term-tag {
+  font-family: var(--f-mono, monospace);
+  font-size: 0.62rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #cbd5e1;
+  letter-spacing: 0.03em;
+}
+
+.agentic-term-row.active .agentic-term-tag {
+  background: rgba(6, 182, 212, 0.1);
+  border-color: rgba(6, 182, 212, 0.25);
+  color: #22d3ee;
 }
 
 .agentic-editorial-footer {
@@ -735,25 +783,26 @@ main .mod-scroll__terms {
   align-items: center;
   justify-content: space-between;
   padding-top: 1rem;
-  font-family: var(--f-izmir), sans-serif;
-  font-size: 0.8rem;
+  font-family: var(--f-mono, monospace);
+  font-size: 0.72rem;
   color: #64748b;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .agentic-editorial-footer strong {
   color: #38bdf8;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 /* Right Column: Isometric Agent Network Canvas */
 .agentic-terms-diagram {
   position: relative;
   z-index: 5;
-  width: 58vw;
-  min-width: 58vw;
-  max-width: 58vw;
+  width: 56vw;
+  min-width: 56vw;
+  max-width: 56vw;
   height: 100vh;
   display: flex;
   align-items: center;
@@ -767,15 +816,15 @@ main .mod-scroll__terms {
     width: 100% !important;
     min-width: 100% !important;
     max-width: 100% !important;
-    height: 540px !important;
+    height: 580px !important;
   }
 }
 
 .isometric-stage {
   position: absolute;
   top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) rotate(-30deg) skewX(30deg) scale(0.65);
+  left: 48%;
+  transform: translate(-50%, -50%) rotate(-30deg) skewX(30deg) scale(0.76);
   transform-origin: 50% 50%;
   width: 1580px;
   height: 1095px;
@@ -786,19 +835,21 @@ main .mod-scroll__terms {
 
 @media (min-width: 1600px) {
   .isometric-stage {
-    transform: translate(-50%, -50%) rotate(-30deg) skewX(30deg) scale(0.72);
+    transform: translate(-50%, -50%) rotate(-30deg) skewX(30deg) scale(0.85);
   }
 }
 
 @media (max-width: 1300px) {
   .isometric-stage {
-    transform: translate(-50%, -50%) rotate(-30deg) skewX(30deg) scale(0.52);
+    transform: translate(-50%, -50%) rotate(-30deg) skewX(30deg) scale(0.62);
+    left: 45%;
   }
 }
 
 @media (max-width: 768px) {
   .isometric-stage {
-    transform: translate(-50%, -50%) rotate(-30deg) skewX(30deg) scale(0.36);
+    transform: translate(-50%, -50%) rotate(-30deg) skewX(30deg) scale(0.42);
+    left: 38%;
   }
 }
 
@@ -811,7 +862,7 @@ main .mod-scroll__terms {
   height: 1095px;
   pointer-events: none;
   z-index: 1;
-  opacity: 0.85;
+  opacity: 0.95;
 }
 
 /* SVG Circuit Overlay */
