@@ -14,6 +14,28 @@ export default function HomePage() {
 
     
 <div class="mod-scroll__intro bg-white">
+    <!-- Top-to-Top Minimal Luminous Glowing Arc -->
+    <div class="hero-top-u-arc-container" aria-hidden="true">
+        <svg class="hero-top-u-arc-svg" viewBox="0 0 1400 900" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="minimal-u-beam" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#06B6D4" stop-opacity="0" />
+                    <stop offset="15%" stop-color="#06B6D4" stop-opacity="0.4" />
+                    <stop offset="50%" stop-color="#10B981" stop-opacity="0.75" />
+                    <stop offset="85%" stop-color="#06B6D4" stop-opacity="0.4" />
+                    <stop offset="100%" stop-color="#06B6D4" stop-opacity="0" />
+                </linearGradient>
+                <filter id="soft-glow-filter" x="-20%" y="-20%" width="140%" height="140%">
+                    <feGaussianBlur stdDeviation="10" result="blur" />
+                </filter>
+            </defs>
+            <!-- Gentle Soft Ambient Bloom -->
+            <path d="M 0 0 C 380 290, 1020 290, 1400 0" stroke="url(#minimal-u-beam)" stroke-width="14" fill="none" filter="url(#soft-glow-filter)" opacity="0.18" />
+            <!-- Clean Minimal Thin Beam -->
+            <path d="M 0 0 C 380 290, 1020 290, 1400 0" stroke="url(#minimal-u-beam)" stroke-width="1.25" fill="none" opacity="0.75" />
+        </svg>
+    </div>
+
     <!-- Hero Vector Diagram Animation with Continuous Moving Particles -->
     <div class="hero-diagram-container" aria-hidden="true">
         <svg viewBox="0 0 1144 358" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg" class="hero-diagram-svg">
@@ -108,10 +130,7 @@ export default function HomePage() {
                     Global Health
                 </div>
                 <div class="mod-scroll__intro__title f-izmir t-titulo-xxl line lh-less is_home">
-                    Driven by
-                </div>
-                <div class="mod-scroll__intro__title f-izmir t-titulo-xxl line lh-less is_home">
-                    AI <em>Agents</em>
+                    Driven by <em>AI Agents</em>
                 </div>
             </div>
             <div class="mod-scroll__intro__text">

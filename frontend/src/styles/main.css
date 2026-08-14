@@ -134,16 +134,34 @@ html.lenis, html.lenis body {
    Hero & Intro Typography & Layout Enhancements
    ========================================================================== */
 
+main .mod-scroll__intro__content {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  align-items: flex-start !important;
+  height: 100% !important;
+  min-height: calc(100vh - var(--wrapper-padd) * 2) !important;
+  padding: 4.5rem 0 3.5rem 0 !important;
+  position: relative !important;
+  z-index: 2 !important;
+  pointer-events: none !important;
+}
+
+main .mod-scroll__intro__content * {
+  pointer-events: auto !important;
+}
+
 main .mod-scroll__intro__wrap-titles {
   display: flex !important;
   flex-direction: column !important;
-  gap: 0.35rem !important;
+  gap: 0.25rem !important;
   align-items: flex-start !important;
+  margin-bottom: auto !important;
 }
 
 main .mod-scroll__intro__title {
-  font-size: clamp(2.4rem, 5.2vw, 4.2rem) !important;
-  line-height: 1.08 !important;
+  font-size: clamp(1.9rem, 3.8vw, 3.2rem) !important;
+  line-height: 1.05 !important;
   letter-spacing: -0.02em !important;
   text-transform: uppercase !important;
   white-space: normal !important;
@@ -156,14 +174,15 @@ main .mod-scroll__intro__title em {
 }
 
 main .mod-scroll__intro__text {
-  max-width: 32rem !important;
-  margin-top: 1.25rem !important;
+  max-width: 28rem !important;
+  margin-top: auto !important;
+  margin-bottom: 0 !important;
   margin-right: 0 !important;
 }
 
 main .mod-scroll__intro__text p {
-  font-size: clamp(1rem, 1.2vw, 1.15rem) !important;
-  line-height: 1.65 !important;
+  font-size: clamp(0.92rem, 1.05vw, 1.02rem) !important;
+  line-height: 1.6 !important;
   font-weight: 300 !important;
   letter-spacing: 0.01em !important;
 }
@@ -176,8 +195,14 @@ main .mod-scroll__intro__text p {
   color: rgba(236, 228, 218, 0.85) !important;
 }
 
+@media (max-width: 950px) {
+  main .mod-scroll__intro__content {
+    padding: 2.5rem 0 2rem 0 !important;
+  }
+}
+
 /* ==========================================================================
-   Hero Geometric Diagram Animation
+   Hero Visuals: Top Glowing Arc & Geometric Diagram Animation
    ========================================================================== */
 
 main .mod-scroll__intro {
@@ -185,18 +210,35 @@ main .mod-scroll__intro {
   overflow: hidden !important;
 }
 
+.hero-top-u-arc-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.hero-top-u-arc-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
 .hero-diagram-container {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 96%;
-  max-width: 1144px;
+  width: 90%;
+  max-width: 1080px;
   height: auto;
   aspect-ratio: 1144 / 358;
   pointer-events: none;
-  z-index: 0;
-  opacity: 0.85;
+  z-index: 1;
+  opacity: 0.9;
   animation: diagramFloat 8s ease-in-out infinite alternate;
 }
 
@@ -213,15 +255,15 @@ main .mod-scroll__intro {
 @keyframes diagramFloat {
   0% {
     transform: translate(-50%, -50%) scale(0.98);
-    opacity: 0.75;
+    opacity: 0.8;
   }
   50% {
-    transform: translate(-50%, -50%) scale(1.02);
-    opacity: 0.95;
-    filter: drop-shadow(0 0 18px rgba(6, 182, 212, 0.2));
+    transform: translate(-50%, -50%) scale(1.015);
+    opacity: 1;
+    filter: drop-shadow(0 0 16px rgba(6, 182, 212, 0.15));
   }
   100% {
     transform: translate(-50%, -50%) scale(0.98);
-    opacity: 0.75;
+    opacity: 0.8;
   }
 }
