@@ -836,20 +836,20 @@ main .mod-scroll__terms {
   100% { stroke-dashoffset: 0; }
 }
 
-/* Framework Neon Enclave */
+/* Framework Neon Enclave (LiveKit Dark Style) */
 .framework-enclave-box {
   position: absolute;
   top: 450px;
   left: calc(50% - 95px);
   width: 597px;
   height: 300px;
-  background: rgba(7, 11, 20, 0.82);
-  border: 1px solid rgba(6, 182, 212, 0.28);
+  background: rgba(12, 12, 12, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 8px;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   z-index: 5;
-  box-shadow: 0 0 35px rgba(6, 182, 212, 0.08), inset 0 0 20px rgba(6, 182, 212, 0.05);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
   padding: 1rem 1.25rem;
 }
 
@@ -865,7 +865,7 @@ main .mod-scroll__terms {
   font-size: 0.72rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: #38bdf8;
+  color: #9ca3af;
   display: flex;
   align-items: center;
   gap: 0.4rem;
@@ -874,18 +874,18 @@ main .mod-scroll__terms {
 .framework-enclave-title svg {
   width: 14px;
   height: 14px;
-  stroke: #38bdf8;
+  stroke: #9ca3af;
 }
 
-/* Sanjeevani Cloud & Telemetry Map Frame */
+/* Sanjeevani Cloud & Telemetry Map Frame (LiveKit AMOLED Style) */
 .cloud-telemetry-node {
   position: absolute;
   top: 268px;
   left: 1043px;
   width: 250px;
   height: 150px;
-  background: rgba(10, 16, 28, 0.9);
-  border: 1px dashed rgba(56, 189, 248, 0.35);
+  background: rgba(14, 14, 14, 0.95);
+  border: 1px dashed rgba(255, 255, 255, 0.2);
   border-radius: 8px;
   z-index: 20;
   display: flex;
@@ -894,7 +894,7 @@ main .mod-scroll__terms {
   justify-content: center;
   gap: 0.5rem;
   overflow: hidden;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 15px rgba(56, 189, 248, 0.1);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
 }
 
 .telemetry-map-layer {
@@ -903,7 +903,7 @@ main .mod-scroll__terms {
   background-image: url('/images/map.png');
   background-size: cover;
   background-position: center;
-  opacity: 0.45;
+  opacity: 0.35;
   mix-blend-mode: screen;
   -webkit-mask-image: linear-gradient(90deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.8) 50%, rgba(0,0,0,0.2) 100%);
   mask-image: linear-gradient(90deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.8) 50%, rgba(0,0,0,0.2) 100%);
@@ -922,12 +922,12 @@ main .mod-scroll__terms {
   align-items: center;
   gap: 0.5rem;
   padding: 0.35rem 0.85rem;
-  background: rgba(15, 23, 42, 0.85);
+  background: #181818;
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 6px;
   font-family: var(--f-mono, monospace);
   font-size: 0.72rem;
-  color: #f8fafc;
+  color: #f3f4f6;
   box-shadow: -2px 2px 0px 0px rgba(255, 255, 255, 0.08);
 }
 
@@ -939,15 +939,15 @@ main .mod-scroll__terms {
   box-shadow: 0 0 6px #00f0ff;
 }
 
-/* Interactive Floating Tiles */
+/* Interactive Floating Tiles (AMOLED Dark) */
 .iso-tile {
   position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 8px;
-  background: rgba(15, 23, 42, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #141414;
+  border: 1px solid rgba(255, 255, 255, 0.14);
   box-shadow: -3px 3px 0px 0px rgba(255, 255, 255, 0.08);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
@@ -965,20 +965,20 @@ main .mod-scroll__terms {
   top: 0;
   left: 0;
   transform: translate(-50%, -50%);
-  background: #090e17;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: #181818;
+  border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 9999px;
   padding: 0.15rem 0.5rem;
   font-family: var(--f-mono, monospace);
   font-size: 0.62rem;
   font-weight: 600;
-  color: #38bdf8;
+  color: #9ca3af;
   letter-spacing: 0.06em;
   z-index: 30;
   white-space: nowrap;
 }
 
-/* Rotating Tile Stack System */
+/* Rotating Tile Stack System (AMOLED) */
 .iso-tile-stack {
   position: absolute;
   transform-style: preserve-3d;
@@ -995,7 +995,7 @@ main .mod-scroll__terms {
   align-items: center;
   justify-content: center;
   border-radius: 8px;
-  background: rgba(15, 23, 42, 0.92);
+  background: #141414;
   border: 1px solid rgba(255, 255, 255, 0.14);
   box-shadow: -3px 3px 0px 0px rgba(255, 255, 255, 0.08);
   transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -1060,17 +1060,17 @@ main .mod-scroll__terms {
   transform: translateX(-50%);
   font-family: var(--f-mono, monospace);
   font-size: 0.62rem;
-  font-weight: 700;
+  font-weight: 600;
   text-transform: uppercase;
-  color: #38bdf8;
+  color: #e5e7eb;
   white-space: nowrap;
   opacity: 0;
   transition: opacity 0.25s ease;
   pointer-events: none;
-  background: rgba(3, 7, 18, 0.95);
+  background: rgba(15, 15, 15, 0.95);
   padding: 0.15rem 0.4rem;
   border-radius: 4px;
-  border: 1px solid rgba(56, 189, 248, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .iso-tile:hover .iso-tile-tooltip {

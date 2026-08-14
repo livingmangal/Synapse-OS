@@ -663,34 +663,35 @@
 
             const cierre = document.querySelector('.mod-scroll__cierre');
             const cierreContent = document.querySelector('.mod-scroll__cierre__content');
-            const cierreMedia = cierreContent.querySelector('.mod-scroll__cierre__content__image');
-            const percentMov = (((cierre.offsetWidth - cierreContent.offsetWidth)*100)/window.innerWidth);
+            const cierreMedia = cierreContent ? cierreContent.querySelector('.mod-scroll__cierre__content__image') : null;
+            
+            if (cierre && cierreContent && cierreMedia) {
+                const percentMov = (((cierre.offsetWidth - cierreContent.offsetWidth)*100)/window.innerWidth);
 
-            const cierre_tl = gsap.timeline({paused:true});
-            cierre_tl.fromTo(cierreContent,{x:'0%'},{x:percentMov+'%', ease:'none'},0)
+                const cierre_tl = gsap.timeline({paused:true});
+                cierre_tl.fromTo(cierreContent,{x:'0%'},{x:percentMov+'%', ease:'none'},0)
 
-            triggerCierre = ScrollTrigger.create({
-                containerAnimation: scroll_tl,
-                animation: cierre_tl,
-                trigger: cierre,
-                start: "left 0%",
-                end: "left -"+percentMov+"%",
-                scrub: 0,
-                // markers: true,
-            })
+                triggerCierre = ScrollTrigger.create({
+                    containerAnimation: scroll_tl,
+                    animation: cierre_tl,
+                    trigger: cierre,
+                    start: "left 0%",
+                    end: "left -"+percentMov+"%",
+                    scrub: 0,
+                })
 
-            const cierre_parallax_tl = gsap.timeline({paused:true});
-            cierre_parallax_tl.from(cierreMedia.querySelectorAll(':scope > *'),{x:'-100%', ease:'none'},0)
+                const cierre_parallax_tl = gsap.timeline({paused:true});
+                cierre_parallax_tl.from(cierreMedia.querySelectorAll(':scope > *'),{x:'-100%', ease:'none'},0)
 
-            triggerParallaxCierre = ScrollTrigger.create({
-                containerAnimation: scroll_tl,
-                animation: cierre_parallax_tl,
-                trigger: cierreContent,
-                start: "left 100%",
-                end: "left 0%",
-                scrub: .1,
-                // markers: true,
-            })
+                triggerParallaxCierre = ScrollTrigger.create({
+                    containerAnimation: scroll_tl,
+                    animation: cierre_parallax_tl,
+                    trigger: cierreContent,
+                    start: "left 100%",
+                    end: "left 0%",
+                    scrub: .1,
+                })
+            }
 
         }
 
