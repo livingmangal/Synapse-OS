@@ -234,6 +234,9 @@ export default function RootLayout({
 
         {/* OCR Engine Carousel Interactive Controller */}
         <Script src="/wp-content/themes/normalisboring25/js/ocr-carousel.js" strategy="afterInteractive" />
+
+        {/* LiveKit Isometric Agentic Architecture Controller */}
+        <Script src="/wp-content/themes/normalisboring25/js/agentic-diagram.js" strategy="afterInteractive" />
       </body>
     </html>
   );

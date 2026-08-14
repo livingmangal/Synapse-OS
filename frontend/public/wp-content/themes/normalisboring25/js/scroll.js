@@ -123,57 +123,57 @@
                 //fix width section
                 gsap.set(elem,{width: elem.offsetWidth})
 
-                //anima parallax terms
+                //anima parallax terms if old structure exists
                 const terms = elem.querySelectorAll('.mod-scroll__terms__term')
-                const terms_tl = gsap.timeline({paused:true})
-                terms_tl.to(terms[0],{paddingLeft:'12vw'},0)
-                terms_tl.to(terms[1],{paddingRight:'3vw'},0)
-                terms_tl.to(terms[1].querySelector('.mod-scroll__terms__term__text'),{marginRight:'3vw'},0)
-                terms_tl.to(terms[2],{paddingLeft:'20vw'},0)
+                if (terms.length >= 3) {
+                    const terms_tl = gsap.timeline({paused:true})
+                    terms_tl.to(terms[0],{paddingLeft:'12vw'},0)
+                    terms_tl.to(terms[1],{paddingRight:'3vw'},0)
+                    if (terms[1].querySelector('.mod-scroll__terms__term__text')) {
+                        terms_tl.to(terms[1].querySelector('.mod-scroll__terms__term__text'),{marginRight:'3vw'},0)
+                    }
+                    terms_tl.to(terms[2],{paddingLeft:'20vw'},0)
 
-                ScrollTrigger.create({
-                    containerAnimation: scroll_tl,
-                    animation: terms_tl,
-                    trigger: elem,
-                    start: "0% 100%",
-                    end: "100% 0%",
-                    scrub: 1,
-                    // toggleActions: 'play none none reverse',
-                    // markers: true,
-                })
-
-                ///changes images terms
-                const termImages = elem.querySelectorAll('.mod-scroll__terms .follow__mouse > img')
-                const termText = elem.querySelectorAll('.mod-scroll__terms__term__text-group .mod-scroll__terms__term__text__single')
-                
-                let termIndex, termIndexOld = 1;
-                elem.querySelectorAll('.mod-scroll__terms__term').forEach( (el,index) => {
-
-                    el.addEventListener('mouseenter',() => {
-
-                        if(termIndex != index){
-                            termIndex = index;
-                            if(document.querySelector('.mod-scroll__terms .follow__mouse > img.prev'))
-                                document.querySelector('.mod-scroll__terms .follow__mouse > img.prev').classList.remove('prev')
-                            if(document.querySelector('.mod-scroll__terms .follow__mouse > img.on')){
-                                document.querySelector('.mod-scroll__terms .follow__mouse > img.on').classList.add('prev')
-                                document.querySelector('.mod-scroll__terms .follow__mouse > img.on').classList.remove('on')
-                            }
-                                
-                            termImages[index].classList.add('on')
-                            gsap.from( termImages[index],{'--clipPath':'100% 0% 0% 0%', duration: 1.25, ease: 'power3.out'})
-                            gsap.from( termImages[index],{scale: 2, duration: 2, delay: -.75, ease: 'power2.out'})
-                            gsap.to( termText[termIndexOld],{opacity: 0, y:'-50%', duration: .33, ease: 'power2.in'})
-                            gsap.fromTo( termText[index],{opacity: 0, y:'50%'},{opacity: 1,  y:'0%', duration: .33, ease: 'power2.out'},'<+=.33')
-                            termIndexOld = termIndex;
-                        }
-                        
+                    ScrollTrigger.create({
+                        containerAnimation: scroll_tl,
+                        animation: terms_tl,
+                        trigger: elem,
+                        start: "0% 100%",
+                        end: "100% 0%",
+                        scrub: 1,
                     })
 
-                } )
+                    const termImages = elem.querySelectorAll('.mod-scroll__terms .follow__mouse > img')
+                    const termText = elem.querySelectorAll('.mod-scroll__terms__term__text-group .mod-scroll__terms__term__text__single')
+                    
+                    let termIndex, termIndexOld = 1;
+                    terms.forEach( (el,index) => {
+                        el.addEventListener('mouseenter',() => {
+                            if(termIndex != index && termImages.length && termText.length){
+                                termIndex = index;
+                                if(document.querySelector('.mod-scroll__terms .follow__mouse > img.prev'))
+                                    document.querySelector('.mod-scroll__terms .follow__mouse > img.prev').classList.remove('prev')
+                                if(document.querySelector('.mod-scroll__terms .follow__mouse > img.on')){
+                                    document.querySelector('.mod-scroll__terms .follow__mouse > img.on').classList.add('prev')
+                                    document.querySelector('.mod-scroll__terms .follow__mouse > img.on').classList.remove('on')
+                                }
+                                    
+                                if (termImages[index]) {
+                                    termImages[index].classList.add('on')
+                                    gsap.from( termImages[index],{'--clipPath':'100% 0% 0% 0%', duration: 1.25, ease: 'power3.out'})
+                                    gsap.from( termImages[index],{scale: 2, duration: 2, delay: -.75, ease: 'power2.out'})
+                                }
+                                if (termText[termIndexOld] && termText[index]) {
+                                    gsap.to( termText[termIndexOld],{opacity: 0, y:'-50%', duration: .33, ease: 'power2.in'})
+                                    gsap.fromTo( termText[index],{opacity: 0, y:'50%'},{opacity: 1,  y:'0%', duration: .33, ease: 'power2.out'},'<+=.33')
+                                }
+                                termIndexOld = termIndex;
+                            }
+                        })
+                    })
+                }
 
             })
-
         }
 
         ////anima mod-scroll__projects__text
