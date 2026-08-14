@@ -1,19 +1,19 @@
 import { SiteConfig } from '@/types';
 
 export const siteConfig: SiteConfig = {
-  name: 'Normal is Boring',
-  tagline: 'Living Spaces That Defy The Ordinary',
+  name: 'Sanjeevani OS',
+  tagline: 'AI-Powered Multi-Agent Health Platform',
   description:
-    'Exclusive architectural developments crafted to evoke emotion, elevate well-being, and connect with nature.',
-  email: 'info@normalisboring.es',
-  phone: '+34 600 000 000',
+    'A completely open-source, dual-mode health OS driven by a swarm of specialized AI agents. One backend, two doors in.',
+  email: 'hello@sanjeevani-os.com',
+  phone: '+1 800 000 000',
   address: {
-    street: 'Rúa da Rosa',
-    city: 'Santiago de Compostela',
-    province: 'A Coruña',
-    country: 'Spain',
+    street: 'Health Innovation Hub',
+    city: 'San Francisco',
+    province: 'CA',
+    country: 'USA',
   },
   socials: {
-    instagram: 'https://instagram.com/normalisboring.es',
+    instagram: 'https://github.com/Mausam5055/Sanjeevni-OS',
   },
 };

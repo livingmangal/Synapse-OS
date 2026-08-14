@@ -1,51 +1,51 @@
 export const aboutData = {
   hero: {
     subtitle: 'About Us',
-    title: 'Crafting Homes That Defy The Ordinary',
+    title: 'An Operating System for Global Health',
     intro:
-      'At Normal is Boring, we believe that true luxury lies in thoughtful design, architectural authenticity, and an uncompromising commitment to creating homes that inspire peace and emotion.',
+      'Sanjeevani OS is an open-source health platform powered by a swarm of specialized AI agents. It provides a plain dashboard for everyday tracking, and a voice-driven assistant for automated triage and tasks.',
   },
   philosophy: {
-    title: 'Our Architectural Philosophy',
+    title: 'Our AI Architecture Philosophy',
     items: [
       {
-        keyword: 'ELEGANCE',
-        title: 'Timeless Aesthetic Balance',
+        keyword: 'MULTI-AGENT',
+        title: 'Specialized Agent Swarm',
         description:
-          'We craft spaces that endure through time, choosing understated beauty, noble textures, and harmonious geometric proportions over fleeting trends.',
+          'Unlike simple chatbots, Sanjeevani OS coordinates 18 independent agents. An Orchestrator plans multi-step tasks and delegates them seamlessly to clinical and lifestyle agents.',
       },
       {
-        keyword: 'AUTHENTICITY',
-        title: 'True to the Environment & Craft',
+        keyword: 'OPEN DATA',
+        title: 'Verifiable & Trustworthy',
         description:
-          'Every project responds uniquely to its surroundings. We honor regional materials, stone traditions, and natural light to create homes with genuine character.',
+          'We leverage free, open APIs for real-time outbreak mapping, hospital locations, and FDA drug data. Every critical health record is hashed to a tamper-proof blockchain testnet.',
       },
       {
-        keyword: 'FUNCTIONALITY',
-        title: 'Designed Around Living',
+        keyword: 'DUAL MODE',
+        title: 'Voice or Visual',
         description:
-          'A beautiful home must also be effortless to live in. We design intuitive floor plans, seamless storage, smart climate control, and fluid indoor-outdoor connections.',
+          'Both our interactive dashboard and our conversational assistant share the same memory. Start a task on WhatsApp, verify it on the web, and nothing gets lost.',
       },
     ],
   },
   history: {
-    title: 'Four Decades of Building Excellence',
-    stat: '40+ Years',
+    title: 'Built For The Hackathon',
+    stat: '100% Free',
     description:
-      'With more than 40 years of experience and hundreds of residential properties delivered across Galicia, Normal is Boring represents a specialized developer committed to high-end bespoke craftsmanship, environmental consciousness, and client trust.',
+      'Sanjeevani OS was conceived to push the boundaries of AI health solutions by implementing robust multi-agent orchestration, local TTS models, and blockchain verification in an entirely open-source stack.',
   },
   values: [
     {
-      title: 'Bioclimatic Design',
-      description: 'Optimizing solar trajectory, natural ventilation, and sustainable materials to ensure class-A energy efficiency.',
+      title: 'Clinical Intelligence',
+      description: 'Advanced agents handle OCR of handwritten prescriptions, triage symptoms, and cross-check drug interactions dynamically.',
     },
     {
-      title: 'Artisanal Detailing',
-      description: 'Partnering with local master stonemasons, carpenters, and artisans to create bespoke architectural finishes.',
+      title: 'Digital Health Twin',
+      description: 'An interactive 3D body viewer updates in real-time, highlighting risk trends and providing plain-language explanations of complex conditions.',
     },
     {
-      title: 'Human-Centric Living',
-      description: 'Prioritizing light, silence, natural greenery, and generous ceiling heights to elevate everyday well-being.',
+      title: 'Privacy & Blockchain',
+      description: 'Medical scans and records are hashed to IPFS and the Polygon testnet, giving users verifiable, tamper-proof control over their data.',
     },
   ],
 };

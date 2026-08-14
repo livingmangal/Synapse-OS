@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'About Us - Normal is Boring',
+  title: 'About Us - Sanjeevani OS',
   description: 'Learn about our philosophy and 40+ years of architectural excellence.',
 };
 
@@ -19,13 +19,13 @@ export default function AboutUsPage() {
             <div class="mod-header__content__wrap-lines t-supertitulo">
 
                                                             <div class="line f-regular t-supertitulo t-title-ls t-upper col-12 align-left t-left">
-                            la huella                        </div>
+                            the footprint                        </div>
                                             <div class="line f-regular t-supertitulo t-title-ls t-upper col-12 align-left t-left">
-                            de <span></span><span class="cont"> craftsmanship</span>                        </div>
+                            of <span></span><span class="cont"> intelligence</span>                        </div>
                                             <div class="line f-regular t-supertitulo t-title-ls t-upper col-6 align-right t-right">
-                            ESENCIA                        </div>
+                            VERIFIABLE                        </div>
                                             <div class="line f-regular t-supertitulo t-title-ls t-upper col-12 align-left t-left">
-                            sin maquillaje                        </div>
+                            and private                        </div>
                                     
                 <div class="mod-header__content__img-sup flipMedia flipMedia--upDown" data-duration="1.2">
         
@@ -94,7 +94,7 @@ export default function AboutUsPage() {
         <div class="mod-content__col big_text">
                         <div class="mod-content__wrap-text">
                                  
-                    <div class="mod-content__text big_text"><p>Normal is Boring was born with the mission to transform the luxury real estate market, bringing a fresh and ambitious vision that merges avant-garde architecture with respect for nature. Inspired by values such as quality, commitment, and exclusivity, we offer much more than homes: we design spaces conceived to create unique experiences.</p>
+                    <div class="mod-content__text big_text"><p>Sanjeevani OS was built to democratize access to advanced health orchestration. By merging specialized AI agents with an immutable blockchain backend, we ensure every interaction is intelligently routed and completely verifiable.</p>
  </div>
                             </div>
                     </div>
@@ -126,11 +126,11 @@ export default function AboutUsPage() {
     <!-- lineas -->
     
                     <div class="line f-regular t-supertitulo t-title-ls t-upper col-12 align-left t-left">
-                DISEÑO CON ALMA,            </div>
+                DATA WITH TRUST,            </div>
                     <div class="line f-regular t-supertitulo t-title-ls t-upper col-12 align-left t-left">
-                CONVERTIDO            </div>
+                STORED            </div>
                     <div class="line f-regular t-supertitulo t-title-ls t-upper col-6 align-right t-left anim-line">
-                EN ARTE            </div>
+                ON CHAIN            </div>
         
     <!-- chapter -->
     
@@ -153,10 +153,10 @@ export default function AboutUsPage() {
         </div>
         <div class="mod-content__col normal_text">
              
-                <div class="mod-content__title f-regular t-upper t-titulo-l">Juan santiso.  <br>Our hallmark. </div>
+                <div class="mod-content__title f-regular t-upper t-titulo-l">Decentralized. <br>Our commitment. </div>
                         <div class="mod-content__wrap-text">
                                  
-                    <div class="mod-content__text normal_text"><p>The soul behind our projects is Juan Santiso, a benchmark in the design of exclusive residential developments who has shaped some of the most emblematic projects in Galicia for decades. His passion for architecture and his ability to integrate design and functionality are the cornerstone of our developments. Thanks to his leadership and vision, at NiB we create homes that combine striking, timeless design with high-quality materials and artisanal craftsmanship.</p>
+                    <div class="mod-content__text normal_text"><p>Our multi-agent system relies on public goods: Wikipedia, OpenFDA, and local LLMs like Llama 3. The Orchestrator plans tasks, while sub-agents handle specific clinical reasoning, parsing OCR from scans, and searching live disease data, ensuring robust and open healthcare.</p>
  </div>
                             </div>
                     </div>
@@ -197,7 +197,7 @@ export default function AboutUsPage() {
         <div class="mod-content__col normal_text">
                         <div class="mod-content__wrap-text">
                                  
-                    <div class="mod-content__text normal_text"><p>Every detail is thoughtfully considered so our clients do not just inhabit a space, but feel it as an extension of their lifestyle. Moreover, sustainability is central to our philosophy: we work with energy-efficient technology and environmentally respectful processes, ensuring our homes are both a sanctuary of comfort and a lasting legacy for the future.</p>
+                    <div class="mod-content__text normal_text"><p>We encrypt sensitive patient data and store the hashes on the Polygon testnet. This guarantees that medical history cannot be tampered with, giving users an immutable and perfectly private timeline of their interactions with the platform.</p>
  </div>
                             </div>
                     </div>
@@ -215,7 +215,7 @@ export default function AboutUsPage() {
                     <div class="mod-title__pretitle f-edit t-titulo t-center">
                 (Gallery)            </div>
                 <div class="anima__title f-regular t-supertitulo t-title-ls t-upper t-center lh-less">
-            Descubre<br>la inspiración        </div>
+            Explore<br>the architecture        </div>
 
     <!-- image -->
     
@@ -309,8 +309,8 @@ export default function AboutUsPage() {
                             <a href="" class="mod-footer__buttons-header__btn f-medium t-titulo-l link">
                     INSTAGRAM                </a>
                 <span class="f-medium t-titulo-l">|</span>
-                            <a href="contacto@normalisboring.es" class="mod-footer__buttons-header__btn f-medium t-titulo-l link">
-                    contacto@normalisboring.es                </a>
+                            <a href="hello@sanjeevani-os.com" class="mod-footer__buttons-header__btn f-medium t-titulo-l link">
+                    hello@sanjeevani-os.com                </a>
                 <span class="f-medium t-titulo-l">|</span>
                     </div>
     
@@ -380,8 +380,8 @@ export default function AboutUsPage() {
 
         <div class="mod-footer__content__project">
             <div class="mod-footer__content__project__year f-edit t-parrafo-l">(2024)</div>
-            <div class="mod-footer__content__project__wrap-image expand_mouse follow__wrap" data-text="Explore" data-url="/projects/la-solana">
-                <a href="/projects/la-solana" class="btn btn--circle follow__mouse--md f-izmir t-parrafo-l d-none d-md-flex">Explore</a>
+            <div class="mod-footer__content__project__wrap-image expand_mouse follow__wrap" data-text="Explore" data-url="/projects/orchestrator-agent">
+                <a href="/projects/orchestrator-agent" class="btn btn--circle follow__mouse--md f-izmir t-parrafo-l d-none d-md-flex">Explore</a>
                 
 <div class="media mod-footer__content__project__image noAspect" data-delay=""> 
             <div class="media__wrap-source image">
@@ -390,13 +390,13 @@ export default function AboutUsPage() {
     </div>
 
             </div>
-            <div class="mod-footer__content__project__name f-medium t-titulo-l">LA SOLANA</div>
-            <div class="mod-footer__content__project__text t-center f-edit t-parrafo-l">Privacy and exclusivity at the heart <br>of a natural paradise</div>
+            <div class="mod-footer__content__project__name f-medium t-titulo-l">SANJEEVANI ORCHESTRATOR</div>
+            <div class="mod-footer__content__project__text t-center f-edit t-parrafo-l">The central brain of our <br>health architecture</div>
         </div>
     </div>
 
     <div class="mod-footer__footer">
-        <div class="mod-footer__footer__copyright f-izmir t-parrafo">NORMAL IS BORING ©2025</div>
+        <div class="mod-footer__footer__copyright f-izmir t-parrafo">SANJEEVANI OS ©2026</div>
         <ul id="menu-legales" class="mod-footer__footer__legal f-izmir t-parrafo t-upper"><li id="menu-item-1415" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1415"><a href="/privacy-policy">Privacy Policy</a></li>
 <li id="menu-item-1414" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1414"><a href="/cookie-policy">Cookie Policy</a></li>
 <li id="menu-item-1413" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1413"><a href="/legal-notice">Legal Notice</a></li>

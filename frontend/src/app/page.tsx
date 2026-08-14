@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Home - Normal is Boring',
+  title: 'Home - Sanjeevani OS',
   description: 'Living Spaces That Defy The Ordinary',
 };
 
@@ -27,23 +27,23 @@ export default function HomePage() {
         <div class="mod-scroll__intro__content">
             <div class="mod-scroll__intro__wrap-titles">
                                     <div class="mod-scroll__intro__title f-izmir t-titulo-xxl line lh-less is_home">
-                        Living<br>Spaces                    </div>
+                        Global<br>Health                    </div>
                                     <div class="mod-scroll__intro__title f-izmir t-titulo-xxl line lh-less is_home">
-                        that defy                    </div>
+                        driven by                    </div>
                                     <div class="mod-scroll__intro__title f-izmir t-titulo-xxl line lh-less is_home">
-                        the<br><em>ordinary</em>                    </div>
+                        AI<br><em>Agents</em>                    </div>
                             </div>
             <div class="mod-scroll__intro__text">
-                <p>In a fleeting world where the ephemeral has permeated everything, we build homes to last longer and longer, preserve the environment, generate value and achieve a timeless quality unaffected by passing trends.</p>
+                <p>Sanjeevani OS is an open-source health platform powered by a swarm of specialized AI agents, bridging the gap between everyday tracking and complex medical triage with absolute privacy and blockchain verification.</p>
             </div>
         </div>
 
         <div class="mod-scroll__intro__logo logo c-black">
             <!-- <a href="/">&nbsp;</a> -->
-            <div class="logo__normal link" data-url="/">Normal</div>
+            <div class="logo__normal link" data-url="/">Sanjeevani</div>
             <div class="logo__group">
-                <div class="logo__is">is</div>
-                <div class="logo__boring">boring<div class="reg">®</div></div>
+                <div class="logo__is">O</div>
+                <div class="logo__boring">S<div class="reg">®</div></div>
             </div>
         </div>
 
@@ -98,17 +98,17 @@ export default function HomePage() {
         
             <div class="mod-scroll__text__title t-supertitulo f-regular">
                                     <div class="mod-scroll__text__title__line line t-title-ls t-upper col-12 align-left t-left">
-                        Homes that invite you                    </div>
+                        Dual modes for                    </div>
                                     <div class="mod-scroll__text__title__line line t-title-ls t-upper col-12 align-left t-left">
-                        to <span></span><span></span><span></span><span></span> stop                    </div>
+                        a <span></span><span></span><span></span><span></span> shared                    </div>
                                     <div class="mod-scroll__text__title__line line t-title-ls t-upper col-12 align-left t-left">
-                        time                    </div>
+                        memory                    </div>
                                     <div class="mod-scroll__text__title__line line t-title-ls t-upper col-12 align-left t-right">
-                        and disconnect                    </div>
+                        and continuity                    </div>
                             </div>
 
                             <div class="mod-scroll__text__text f-izmir t-parrafo">
-                    <p>Every home must be unique and special, just like the people who live in it. We are the benchmark for aspirational luxury, where design, sustainability and quality of life come together to offer something truly exceptional. We want every client to find in our projects a home that inspires and improves their day-to-day life.</p>
+                    <p>Use the standard dashboard for routine health tracking, or switch to the voice-driven Sanjeevani Assistant for interactive triage. Both interfaces are backed by the same vector database, meaning a task started on WhatsApp can be seamlessly picked up on the web. Nothing gets lost.</p>
                 </div>
             
         </div>
@@ -154,7 +154,7 @@ export default function HomePage() {
             </div>
         
         <div class="mod-scroll__images-text__text">
-            <p>At Normal is Boring we build homes that stand out for their quality and design, with contemporary, pristine volumes open to the outdoors. Spaces that improve the quality of life of their residents, offering more comfort, more sustainability, more beauty, and more emotion.</p>
+            <p>Unlike simple chatbots, Sanjeevani OS coordinates an entire Swarm of Agents. An Orchestrator plans multi-step workflows, delegating sub-tasks to specialized models like the Medical Scan Agent for OCR or the Symptom Triage Agent for emergency routing.</p>
         </div>
 
     </div>
@@ -238,9 +238,7 @@ before-bg-blue">
             
             <div class="mod-scroll__terms__term__text f-izmir t-parrafo d-none d-md-block">
                 <div class="mod-scroll__terms__term__text__single">
-                    Una arquitectura sobria y silenciosa y una sensibilidad estética que se manifiesta en 
-materiales como el roble o la piedra caliza, acompañados de una paleta de colores 
-en tonos tierra.                 </div>
+                    Advanced agents handle OCR of handwritten prescriptions, triage symptoms, and cross-check drug interactions dynamically.                 </div>
             </div>
 
             <div class="mod-scroll__terms__term__wrap-title">
@@ -248,7 +246,7 @@ en tonos tierra.                 </div>
                 <div class="mod-scroll__terms__term__title t-supertitulo-l f-edit lh-less2">
                     <span class="mod-scroll__terms__term__title__filter">
                         <span class="mod-scroll__terms__term__title__color">
-                            ELEGANCE                        </span>
+                            CLINICAL                        </span>
                     </span>
                 </div>
             </div>
@@ -258,18 +256,16 @@ en tonos tierra.                 </div>
 
                             <div class="mod-scroll__terms__term__text mod-scroll__terms__term__text-group f-izmir t-parrafo d-md-none">
                                             <div class="mod-scroll__terms__term__text__single">
-                            Una arquitectura sobria y silenciosa y una sensibilidad estética que se manifiesta en 
-materiales como el roble o la piedra caliza, acompañados de una paleta de colores 
-en tonos tierra.                         </div>
+                            Advanced agents handle OCR of handwritten prescriptions, triage symptoms, and cross-check drug interactions dynamically.                         </div>
                                             <div class="mod-scroll__terms__term__text__single">
-                            A combination of elegant, sustainable and serene architecture, creating refined, efficient and harmonious spaces that integrate with the environment and promote a quiet luxury.                        </div>
+                            Medical scans and records are hashed to IPFS and the Polygon testnet, giving users verifiable, tamper-proof control over their data.                        </div>
                                             <div class="mod-scroll__terms__term__text__single">
-                            Open, less hierarchical spaces with a more pragmatic approach. Multifunctional and flexible areas for versatile use.                        </div>
+                            Performs time-series forecasting on public health data to generate regional heatmaps and localized outbreak risk scores.                        </div>
                                     </div>
             
             <div class="mod-scroll__terms__term__text f-izmir t-parrafo d-none d-md-block">
                 <div class="mod-scroll__terms__term__text__single">
-                    A combination of elegant, sustainable and serene architecture, creating refined, efficient and harmonious spaces that integrate with the environment and promote a quiet luxury.                </div>
+                    Medical scans and records are hashed to IPFS and the Polygon testnet, giving users verifiable, tamper-proof control over their data.                </div>
             </div>
 
             <div class="mod-scroll__terms__term__wrap-title">
@@ -277,7 +273,7 @@ en tonos tierra.                         </div>
                 <div class="mod-scroll__terms__term__title t-supertitulo-l f-regular lh-less2">
                     <span class="mod-scroll__terms__term__title__filter">
                         <span class="mod-scroll__terms__term__title__color">
-                            AUTHENTICITY                        </span>
+                            PRIVATE                        </span>
                     </span>
                 </div>
             </div>
@@ -288,7 +284,7 @@ en tonos tierra.                         </div>
             
             <div class="mod-scroll__terms__term__text f-izmir t-parrafo d-none d-md-block">
                 <div class="mod-scroll__terms__term__text__single">
-                    Open, less hierarchical spaces with a more pragmatic approach. Multifunctional and flexible areas for versatile use.                </div>
+                    Performs time-series forecasting on public health data to generate regional heatmaps and localized outbreak risk scores.                </div>
             </div>
 
             <div class="mod-scroll__terms__term__wrap-title">
@@ -296,7 +292,7 @@ en tonos tierra.                         </div>
                 <div class="mod-scroll__terms__term__title t-supertitulo-l f-izmir lh-less2">
                     <span class="mod-scroll__terms__term__title__filter">
                         <span class="mod-scroll__terms__term__title__color">
-                            FUNCTIONALITY                        </span>
+                            PREDICTIVE                        </span>
                     </span>
                 </div>
             </div>
@@ -320,8 +316,7 @@ en tonos tierra.                         </div>
             <div class="mod-scroll__projects__section mod-scroll__section t-parrafo-l f-edit">
                 Projects            </div>
             <div class="mod-scroll__projects__text f-izmir t-parrafo">
-                El lujo no se grita ni se mueve por tendencias estéticas banales : es silencioso, imperceptible, divertido y estimulamte.
-En NORMAL IS BORING no queremos crear solo homes, sino un estilo de vida.            </div>
+                Our architecture relies on 18 specialized agents, from document OCR to on-chain records. Explore the core cluster that powers the Sanjeevani platform.            </div>
         </div>
 
         <!-- projects -->
@@ -346,11 +341,11 @@ En NORMAL IS BORING no queremos crear solo homes, sino un estilo de vida.       
                                 <div class="f-izmir t-parrafo data-number">01</div>
 
                                  
-                                    <span><a href="/projects/la-solana" class="btn btn--bg btn--bg-inv btn--bg-beige c-black f-edit t-parrafo-l
+                                    <span><a href="/projects/orchestrator-agent" class="btn btn--bg btn--bg-inv btn--bg-beige c-black f-edit t-parrafo-l
                                      ">
                                         The project                                    </a></span>
                                                             </div>
-                            <div class="mod-scroll__projects__item__text__title t-upper f-regular t-titulo-xxl">La Solana</div>
+                            <div class="mod-scroll__projects__item__text__title t-upper f-regular t-titulo-xxl">Sanjeevani Orchestrator</div>
                         </div>
                     </div>
 
@@ -375,11 +370,11 @@ En NORMAL IS BORING no queremos crear solo homes, sino un estilo de vida.       
                                 <div class="f-izmir t-parrafo data-number">02</div>
 
                                  
-                                    <span><a href="/projects/plaza-espana" class="btn btn--bg btn--bg-inv btn--bg-grey f-edit t-parrafo-l
+                                    <span><a href="/projects/medical-scan-agent" class="btn btn--bg btn--bg-inv btn--bg-grey f-edit t-parrafo-l
                                      ">
                                         The project                                    </a></span>
                                                             </div>
-                            <div class="mod-scroll__projects__item__text__title t-upper f-izmir t-titulo-xxl">Plaza España 9</div>
+                            <div class="mod-scroll__projects__item__text__title t-upper f-izmir t-titulo-xxl">Medical Scan Agent</div>
                         </div>
                     </div>
 
@@ -404,11 +399,11 @@ En NORMAL IS BORING no queremos crear solo homes, sino un estilo de vida.       
                                 <div class="f-izmir t-parrafo data-number">03</div>
 
                                  
-                                    <span><a href="/projects/rua-pexegueiro" class="btn btn--bg btn--bg-inv btn--bg-blue f-edit t-parrafo-l
+                                    <span><a href="/projects/symptom-triage-agent" class="btn btn--bg btn--bg-inv btn--bg-blue f-edit t-parrafo-l
                                      ">
                                         The project                                    </a></span>
                                                             </div>
-                            <div class="mod-scroll__projects__item__text__title t-upper f-edit t-titulo-xxl">Rua Pexegueiro</div>
+                            <div class="mod-scroll__projects__item__text__title t-upper f-edit t-titulo-xxl">Symptom Triage Agent</div>
                         </div>
                     </div>
 
@@ -437,7 +432,7 @@ En NORMAL IS BORING no queremos crear solo homes, sino un estilo de vida.       
                                     disabled ">
                                         Próximamente                                    </a></span>
                                                             </div>
-                            <div class="mod-scroll__projects__item__text__title t-upper f-regular t-titulo-xxl">Juno</div>
+                            <div class="mod-scroll__projects__item__text__title t-upper f-regular t-titulo-xxl">Blockchain Records</div>
                         </div>
                     </div>
 
@@ -466,7 +461,7 @@ En NORMAL IS BORING no queremos crear solo homes, sino un estilo de vida.       
                                     disabled ">
                                         Próximamente                                    </a></span>
                                                             </div>
-                            <div class="mod-scroll__projects__item__text__title t-upper f-izmir t-titulo-xxl">Pol43</div>
+                            <div class="mod-scroll__projects__item__text__title t-upper f-izmir t-titulo-xxl">Outbreak Predictive</div>
                         </div>
                     </div>
 
@@ -516,14 +511,14 @@ En NORMAL IS BORING no queremos crear solo homes, sino un estilo de vida.       
                                                                     <div class="line f-regular t-titulo-xxl t-upper lh-less col-12 align-left t-left">
                                         Who said                                    </div>
                                                                     <div class="line f-regular t-titulo-xxl t-upper lh-less col-12 align-left t-left">
-                                        That <span></span><span></span><span></span><span></span> pleasure                                    </div>
+                                        That <span></span><span></span><span></span><span></span> health                                    </div>
                                                                     <div class="line f-regular t-titulo-xxl t-upper lh-less col-12 align-left t-right">
                                         Cannot be                                    </div>
                                                                     <div class="line f-regular t-titulo-xxl t-upper lh-less col-12 align-left t-right">
-                                        Functional                                    </div>
+                                        Intelligent                                    </div>
                                                             </div>
                             <div class="last-item__content__text">
-                                <p>We create spaces that do not submit to trends, but instead choose the path of craftsmanship, local workshops, sustainability and serving the enjoyment of their occupants. Spaces of calm, but also spaces to share.</p>
+                                <p>We rely on open data and verifiable models. All patient records and scans are hashed to the Polygon blockchain via IPFS, giving you complete, tamper-proof control over your medical history.</p>
                             </div>
                         </div>
                     </div>  
@@ -578,7 +573,7 @@ En NORMAL IS BORING no queremos crear solo homes, sino un estilo de vida.       
                                                     <div class="f-edit t-titulo">(Contact)</div>
                     </div>
         <div class="anima__title f-regular t-supertitulo-xl t-title-ls t-upper t-center">
-            UNLOCK<br> YOUR DREAM        </div>
+            TRY THE PLATFORM        </div>
 
         
     <!-- pretitle -->
@@ -613,7 +608,7 @@ En NORMAL IS BORING no queremos crear solo homes, sino un estilo de vida.       
     <!-- lineas -->
     
                     <div class="line f-regular t-supertitulo t-title-ls t-upper col-12 align-left t-left">
-                Exclusivity In            </div>
+                Intelligence In            </div>
                     <div class="line f-regular t-supertitulo t-title-ls t-upper col-12 align-left t-left">
                 Its Ultimate            </div>
                     <div class="line f-regular t-supertitulo t-title-ls t-upper col-6 align-right t-left">
@@ -634,8 +629,8 @@ En NORMAL IS BORING no queremos crear solo homes, sino un estilo de vida.       
         <div class="mod-content__col big_text">
                         <div class="mod-content__wrap-text">
                                  
-                    <div class="mod-content__text big_text"><p>At Normal is Boring, our priority is to offer you a personalised and close service to help you find the perfect home. Our team is at your disposal to resolve your doubts and guide you through every step of the process. Contact us today and start your journey towards a new lifestyle.</p>
-<p><strong>contacto@normalisboring.es</strong></p>
+                    <div class="mod-content__text big_text"><p>The Sanjeevani OS is completely open-source and built for the community. Reach out to collaborate, view our documentation, or test the live deployment.</p>
+<p><strong>hello@sanjeevani-os.com</strong></p>
  </div>
                             </div>
                     </div>
@@ -665,8 +660,8 @@ En NORMAL IS BORING no queremos crear solo homes, sino un estilo de vida.       
                             <a href="" class="mod-footer__buttons-header__btn f-medium t-titulo-l link">
                     INSTAGRAM                </a>
                 <span class="f-medium t-titulo-l">|</span>
-                            <a href="contacto@normalisboring.es" class="mod-footer__buttons-header__btn f-medium t-titulo-l link">
-                    contacto@normalisboring.es                </a>
+                            <a href="hello@sanjeevani-os.com" class="mod-footer__buttons-header__btn f-medium t-titulo-l link">
+                    hello@sanjeevani-os.com                </a>
                 <span class="f-medium t-titulo-l">|</span>
                     </div>
     
@@ -736,8 +731,8 @@ En NORMAL IS BORING no queremos crear solo homes, sino un estilo de vida.       
 
         <div class="mod-footer__content__project">
             <div class="mod-footer__content__project__year f-edit t-parrafo-l">(2024)</div>
-            <div class="mod-footer__content__project__wrap-image expand_mouse follow__wrap" data-text="Explore" data-url="/projects/la-solana">
-                <a href="/projects/la-solana" class="btn btn--circle follow__mouse--md f-izmir t-parrafo-l d-none d-md-flex">Explore</a>
+            <div class="mod-footer__content__project__wrap-image expand_mouse follow__wrap" data-text="Explore" data-url="/projects/orchestrator-agent">
+                <a href="/projects/orchestrator-agent" class="btn btn--circle follow__mouse--md f-izmir t-parrafo-l d-none d-md-flex">Explore</a>
                 
 <div class="media mod-footer__content__project__image noAspect" data-delay=""> 
             <div class="media__wrap-source image">
@@ -746,13 +741,13 @@ En NORMAL IS BORING no queremos crear solo homes, sino un estilo de vida.       
     </div>
 
             </div>
-            <div class="mod-footer__content__project__name f-medium t-titulo-l">LA SOLANA</div>
-            <div class="mod-footer__content__project__text t-center f-edit t-parrafo-l">Privacy and exclusivity at the heart <br>of a natural paradise</div>
+            <div class="mod-footer__content__project__name f-medium t-titulo-l">SANJEEVANI ORCHESTRATOR</div>
+            <div class="mod-footer__content__project__text t-center f-edit t-parrafo-l">The central brain of our <br>health architecture</div>
         </div>
     </div>
 
     <div class="mod-footer__footer">
-        <div class="mod-footer__footer__copyright f-izmir t-parrafo">NORMAL IS BORING ©2025</div>
+        <div class="mod-footer__footer__copyright f-izmir t-parrafo">SANJEEVANI OS ©2026</div>
         <ul id="menu-legales" class="mod-footer__footer__legal f-izmir t-parrafo t-upper"><li id="menu-item-1415" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1415"><a href="/privacy-policy">Privacy Policy</a></li>
 <li id="menu-item-1414" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1414"><a href="/cookie-policy">Cookie Policy</a></li>
 <li id="menu-item-1413" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1413"><a href="/legal-notice">Legal Notice</a></li>

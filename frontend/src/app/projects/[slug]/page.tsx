@@ -22,12 +22,12 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
 
   if (!project) {
     return {
-      title: 'Project Not Found | Normal is Boring',
+      title: 'Agent Not Found | Sanjeevani OS',
     };
   }
 
   return {
-    title: `${project.title} - ${project.subtitle} | Normal is Boring`,
+    title: `${project.title} - ${project.subtitle} | Sanjeevani OS`,
     description: project.description,
   };
 }
@@ -49,7 +49,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
             href="/projects"
             className="text-xs uppercase tracking-widest text-black/60 hover:text-black transition-colors"
           >
-            ← Back to Projects
+            ← Back to Agents
           </Link>
           <span className="text-black/30">/</span>
           <span className="text-xs uppercase tracking-widest px-3 py-1 bg-black text-white rounded-full font-semibold">

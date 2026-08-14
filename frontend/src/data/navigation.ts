@@ -1,18 +1,18 @@
 import { NavItem } from '@/types';
 
 export const mainNavItems: NavItem[] = [
-  { label: 'Projects', href: '/projects' },
-  { label: 'About Us', href: '/about-us' },
-  { label: 'Available Homes', href: '/projects' },
+  { label: 'Agents', href: '/projects' },
+  { label: 'Platform Vision', href: '/about-us' },
+  { label: 'Core Features', href: '/projects' },
   { label: 'Contact', href: '#contact' },
 ];
 
 export const projectNavItems: NavItem[] = [
-  { label: 'La Solana', href: '/projects/la-solana', badge: 'Available' },
-  { label: 'Plaza España 9', href: '/projects/plaza-espana', badge: 'Available' },
-  { label: 'Rúa Pexegueiro', href: '/projects/rua-pexegueiro', badge: 'Upcoming' },
-  { label: 'Juno / Icaria IV', href: '/projects', badge: 'Sold Out' },
-  { label: 'Pol43 Montrove', href: '/projects', badge: 'Sold Out' },
+  { label: 'Sanjeevani Orchestrator', href: '/projects/orchestrator-agent', badge: 'Active' },
+  { label: 'Medical Scan Agent', href: '/projects/medical-scan-agent', badge: 'Active' },
+  { label: 'Symptom Triage Agent', href: '/projects/symptom-triage-agent', badge: 'Beta' },
+  { label: 'Blockchain Records', href: '/projects', badge: 'WIP' },
+  { label: 'Outbreak Predictive', href: '/projects', badge: 'WIP' },
 ];
 
 export const legalNavItems: NavItem[] = [

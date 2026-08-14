@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Projects - Normal is Boring',
-  description: 'Portfolio of luxury villas and bespoke residential developments in Galicia.',
+  title: 'Agents - Sanjeevani OS',
+  description: 'Portfolio of AI agents and orchestration workflows.',
 };
 
 export default function ProjectsPage() {
@@ -27,23 +27,23 @@ export default function ProjectsPage() {
         <div class="mod-scroll__intro__content">
             <div class="mod-scroll__intro__wrap-titles">
                                     <div class="mod-scroll__intro__title f-izmir t-titulo-xxl line lh-less ">
-                        Projects<br>que redefinen                    </div>
+                        Agents<br>que redefinen                    </div>
                                     <div class="mod-scroll__intro__title f-izmir t-titulo-xxl line lh-less ">
-                        <br><br><br>the spaces                    </div>
+                        <br><br><br>the workflow                    </div>
                                     <div class="mod-scroll__intro__title f-izmir t-titulo-xxl line lh-less ">
-                        y lo<br><em>extraordinario</em>                    </div>
+                        de la<br><em>salud</em>                    </div>
                             </div>
             <div class="mod-scroll__intro__text">
-                <p>Architecture without indoor-outdoor boundaries. Open-plan, airy layouts filled with magnificent natural light streaming through floor-to-ceiling windows, creating a warm atmosphere that moves and captivates its residents.</p>
+                <p>The Sanjeevani OS is powered by a swarm of specialized AI agents. From OCR of medical scans to emergency symptom triage, the Orchestrator manages complex workflows across different models to deliver a unified experience.</p>
             </div>
         </div>
 
         <div class="mod-scroll__intro__logo logo c-black">
             <!-- <a href="/">&nbsp;</a> -->
-            <div class="logo__normal link" data-url="/">Normal</div>
+            <div class="logo__normal link" data-url="/">Sanjeevani</div>
             <div class="logo__group">
-                <div class="logo__is">is</div>
-                <div class="logo__boring">boring<div class="reg">®</div></div>
+                <div class="logo__is">O</div>
+                <div class="logo__boring">S<div class="reg">®</div></div>
             </div>
         </div>
 
@@ -89,7 +89,7 @@ export default function ProjectsPage() {
         
         
         <div class="mod-scroll__images-text__text">
-            <p>For years at Normal is Boring, we have explored textures, finishes, and combinations to achieve striking and harmonious effects. This experience is reflected in cherished, carefully crafted homes: landscapes of natural materials and artisanal soul, where wood, understatement, and warmth evoke the retreat everyone needs to breathe and feel at peace.</p>
+            <p>We leverage open source LLMs via Groq for ultra-fast reasoning. Our multi-agent system uses LangGraph and CrewAI to orchestrate different expert models, each equipped with specific tools like Vector DBs for memory and Web Search for real-time data.</p>
         </div>
 
     </div>
@@ -100,8 +100,8 @@ export default function ProjectsPage() {
     <!-- version interior -->
     
         
-            <div class="mod-scroll__projectInt bg-beige c-black expand_mouse" data-text="Explore" data-url="/projects/la-solana">
-                <a href="/projects/la-solana" class="btn btn--circle follow__mouse--md f-izmir t-parrafo-l d-none d-md-flex">Explore</a> 
+            <div class="mod-scroll__projectInt bg-beige c-black expand_mouse" data-text="Explore" data-url="/projects/orchestrator-agent">
+                <a href="/projects/orchestrator-agent" class="btn btn--circle follow__mouse--md f-izmir t-parrafo-l d-none d-md-flex">Explore</a> 
                 
                 <div class="mod-scroll__projectInt__image flipMedia flipMedia--rightLeft">
                     
@@ -125,9 +125,9 @@ export default function ProjectsPage() {
                         (2024)                    </div>
                     <div class="mod-scroll__projectInt__number t-parrafo-l f-izmir">01</div> 
                     <div class="mod-scroll__projectInt__text t-parrafo-l f-edit">
-                        Privacidad y exclusividad a 5 minutos de Coruña                    </div>
+                        The Central Brain of the Health Platform                    </div>
                     <div class="mod-scroll__projectInt__title t-titulo-xxl t-upper f-regular">
-                        La solana                    </div>
+                        Sanjeevani Orchestrator                    </div>
 
                     <div class="mod-scroll__projectInt__image-small  flipMedia flipMedia--leftRight">
                         
@@ -149,8 +149,8 @@ export default function ProjectsPage() {
             </div>
             
         
-            <div class="mod-scroll__projectInt bg-grey expand_mouse" data-text="Explore" data-url="/projects/plaza-espana">
-                <a href="/projects/plaza-espana" class="btn btn--circle follow__mouse--md f-izmir t-parrafo-l d-none d-md-flex">Explore</a> 
+            <div class="mod-scroll__projectInt bg-grey expand_mouse" data-text="Explore" data-url="/projects/medical-scan-agent">
+                <a href="/projects/medical-scan-agent" class="btn btn--circle follow__mouse--md f-izmir t-parrafo-l d-none d-md-flex">Explore</a> 
                 
                 <div class="mod-scroll__projectInt__image flipMedia flipMedia--rightLeft">
                     
@@ -174,9 +174,9 @@ export default function ProjectsPage() {
                         (2023)                    </div>
                     <div class="mod-scroll__projectInt__number t-parrafo-l f-izmir">02</div> 
                     <div class="mod-scroll__projectInt__text t-parrafo-l f-edit">
-                        La estimulante sensación de vivir en un "pueblo" en el centro de la ciudad                    </div>
+                        Clinical Intelligence for Documents and Scans                    </div>
                     <div class="mod-scroll__projectInt__title t-titulo-xxl t-upper f-edit">
-                        Plaza España                    </div>
+                        Medical Scan Agent                    </div>
 
                     <div class="mod-scroll__projectInt__image-small  flipMedia flipMedia--leftRight">
                         
@@ -198,8 +198,8 @@ export default function ProjectsPage() {
             </div>
             
         
-            <div class="mod-scroll__projectInt bg-blue expand_mouse" data-text="Explore" data-url="/projects/rua-pexegueiro">
-                <a href="/projects/rua-pexegueiro" class="btn btn--circle follow__mouse--md f-izmir t-parrafo-l d-none d-md-flex">Explore</a> 
+            <div class="mod-scroll__projectInt bg-blue expand_mouse" data-text="Explore" data-url="/projects/symptom-triage-agent">
+                <a href="/projects/symptom-triage-agent" class="btn btn--circle follow__mouse--md f-izmir t-parrafo-l d-none d-md-flex">Explore</a> 
                 
                 <div class="mod-scroll__projectInt__image flipMedia flipMedia--rightLeft">
                     
@@ -223,9 +223,9 @@ export default function ProjectsPage() {
                         (2024)                    </div>
                     <div class="mod-scroll__projectInt__number t-parrafo-l f-izmir">03</div> 
                     <div class="mod-scroll__projectInt__text t-parrafo-l f-edit">
-                        ¡Vacaciones en casa¡ Tres villas exclusivas en Oleiros                    </div>
+                        Structured Q&A and Emergency Routing                    </div>
                     <div class="mod-scroll__projectInt__title t-titulo-xxl t-upper f-regular">
-                        Rúa Pexegueiro                    </div>
+                        Symptom Triage Agent                    </div>
 
                     <div class="mod-scroll__projectInt__image-small  flipMedia flipMedia--leftRight">
                         
@@ -272,9 +272,9 @@ export default function ProjectsPage() {
                         (2024)                    </div>
                     <div class="mod-scroll__projectInt__number t-parrafo-l f-izmir">04</div> 
                     <div class="mod-scroll__projectInt__text t-parrafo-l f-edit">
-                        Tres únicas homes aisladas que disfrutan de un emplazamiento excepcional                    </div>
+                        Tamper-proof Health Verification                    </div>
                     <div class="mod-scroll__projectInt__title t-titulo-xxl t-upper f-edit">
-                        Juno                    </div>
+                        Blockchain Records                    </div>
 
                     <div class="mod-scroll__projectInt__image-small  flipMedia flipMedia--leftRight">
                         
@@ -321,9 +321,9 @@ export default function ProjectsPage() {
                         (2024)                    </div>
                     <div class="mod-scroll__projectInt__number t-parrafo-l f-izmir">05</div> 
                     <div class="mod-scroll__projectInt__text t-parrafo-l f-edit">
-                        All you need is outdoor. <br> 12 exclusivas casas en Montrove                    </div>
+                        Public Health Forecasting <br> and Heatmaps                    </div>
                     <div class="mod-scroll__projectInt__title t-titulo-xxl t-upper f-izmir">
-                        POL 43                    </div>
+                        Outbreak Predictive                    </div>
 
                     <div class="mod-scroll__projectInt__image-small  flipMedia flipMedia--leftRight">
                         
@@ -389,7 +389,7 @@ export default function ProjectsPage() {
                                                     <div class="f-edit t-titulo">(Contact)</div>
                     </div>
         <div class="anima__title f-regular t-supertitulo-xl t-title-ls t-upper t-center">
-            UNLOCK<br> YOUR DREAM        </div>
+            TRY THE PLATFORM        </div>
 
         
     <!-- pretitle -->
@@ -424,7 +424,7 @@ export default function ProjectsPage() {
     <!-- lineas -->
     
                     <div class="line f-regular t-supertitulo t-title-ls t-upper col-12 align-left t-left">
-                Exclusivity In            </div>
+                Intelligence In            </div>
                     <div class="line f-regular t-supertitulo t-title-ls t-upper col-12 align-left t-left">
                 Its Ultimate            </div>
                     <div class="line f-regular t-supertitulo t-title-ls t-upper col-6 align-right t-left">
@@ -445,8 +445,8 @@ export default function ProjectsPage() {
         <div class="mod-content__col big_text">
                         <div class="mod-content__wrap-text">
                                  
-                    <div class="mod-content__text big_text"><p>At Normal is Boring, our priority is to offer you a personalised and close service to help you find the perfect home. Our team is at your disposal to resolve your doubts and guide you through every step of the process. Contact us today and start your journey towards a new lifestyle.</p>
-<p><strong>contacto@normalisboring.es</strong></p>
+                    <div class="mod-content__text big_text"><p>At Sanjeevani OS, our priority is to offer you a personalised and close service to help you find the perfect home. Our team is at your disposal to resolve your doubts and guide you through every step of the process. Contact us today and start your journey towards a new lifestyle.</p>
+<p><strong>hello@sanjeevani-os.com</strong></p>
  </div>
                             </div>
                     </div>
@@ -476,8 +476,8 @@ export default function ProjectsPage() {
                             <a href="" class="mod-footer__buttons-header__btn f-medium t-titulo-l link">
                     INSTAGRAM                </a>
                 <span class="f-medium t-titulo-l">|</span>
-                            <a href="contacto@normalisboring.es" class="mod-footer__buttons-header__btn f-medium t-titulo-l link">
-                    contacto@normalisboring.es                </a>
+                            <a href="hello@sanjeevani-os.com" class="mod-footer__buttons-header__btn f-medium t-titulo-l link">
+                    hello@sanjeevani-os.com                </a>
                 <span class="f-medium t-titulo-l">|</span>
                     </div>
     
@@ -547,8 +547,8 @@ export default function ProjectsPage() {
 
         <div class="mod-footer__content__project">
             <div class="mod-footer__content__project__year f-edit t-parrafo-l">(2024)</div>
-            <div class="mod-footer__content__project__wrap-image expand_mouse follow__wrap" data-text="Explore" data-url="/projects/la-solana">
-                <a href="/projects/la-solana" class="btn btn--circle follow__mouse--md f-izmir t-parrafo-l d-none d-md-flex">Explore</a>
+            <div class="mod-footer__content__project__wrap-image expand_mouse follow__wrap" data-text="Explore" data-url="/projects/orchestrator-agent">
+                <a href="/projects/orchestrator-agent" class="btn btn--circle follow__mouse--md f-izmir t-parrafo-l d-none d-md-flex">Explore</a>
                 
 <div class="media mod-footer__content__project__image noAspect" data-delay=""> 
             <div class="media__wrap-source image">
@@ -557,13 +557,13 @@ export default function ProjectsPage() {
     </div>
 
             </div>
-            <div class="mod-footer__content__project__name f-medium t-titulo-l">LA SOLANA</div>
-            <div class="mod-footer__content__project__text t-center f-edit t-parrafo-l">Privacy and exclusivity at the heart <br>of a natural paradise</div>
+            <div class="mod-footer__content__project__name f-medium t-titulo-l">SANJEEVANI ORCHESTRATOR</div>
+            <div class="mod-footer__content__project__text t-center f-edit t-parrafo-l">The central brain of our <br>health architecture</div>
         </div>
     </div>
 
     <div class="mod-footer__footer">
-        <div class="mod-footer__footer__copyright f-izmir t-parrafo">NORMAL IS BORING ©2025</div>
+        <div class="mod-footer__footer__copyright f-izmir t-parrafo">SANJEEVANI OS ©2026</div>
         <ul id="menu-legales" class="mod-footer__footer__legal f-izmir t-parrafo t-upper"><li id="menu-item-1415" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1415"><a href="/privacy-policy">Privacy Policy</a></li>
 <li id="menu-item-1414" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1414"><a href="/cookie-policy">Cookie Policy</a></li>
 <li id="menu-item-1413" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1413"><a href="/legal-notice">Legal Notice</a></li>
