@@ -1,120 +1,101 @@
 (() => {
+  function initHunterSplash() {
+    const splashSection = document.getElementById('video-splash');
+    const desktopVideo = document.getElementById('splash-video-desktop');
+    const mobileVideo = document.getElementById('splash-video-mobile');
+    const skipBtn = document.getElementById('splash-skip-btn');
 
-//first_charge
-let first_charge = true;
-(!localStorage.getItem('first_charge')) ? localStorage.setItem('first_charge', 1) : first_charge = false ;
-
-
-    ///ANIM PRECHARGE
-    ///ANIM PRECHARGE
-    ///ANIM PRECHARGE
-    let loaderAnim_end = false;
-
-    //anima logo
-    const split_normal = SplitText.create(header_logo_normal, {type: "chars,lines", charsClass: "char"})
-    const split_is = SplitText.create('.header .logo__is', {type: "chars",charsClass: "char"})
-    const split_boring = SplitText.create('.header .logo__boring', {type: "chars",charsClass: "char"})
-    header_logo.querySelectorAll('.char').forEach(elem => {
-        const content = elem.innerHTML;
-        elem.innerHTML = '<span>'+content+'</span>';
-    })
-    const logo_tl = gsap.timeline({paused:true,onComplete:()=>{
-        loaderAnim_end = true;
-        if(control) console.log('loaderAnim_end: ',loaderAnim_end);
-        if(fake_progress==100 && loaderAnim_end) loadComplete();
-    }})
-    logo_tl.from('.header .logo__normal span, .header .logo__is span, .header .logo__boring span',{x:'120%', duration: .5, stagger: 0.1, ease: 'power3.out'},0)
-    // logo_tl.from(elem.querySelectorAll('.logo__boring span'),{x:'-120%', duration: .5, stagger: 0.1, ease: 'power3.out'}
-          
-    //if isset mods change color preloader
-    if(document.querySelector('.mod-scroll__intro.bg-black') || document.querySelector('.mod-header--proyecto')){
-        smoothWrapper.classList.add('bg-black')
-    }
-    //PRECHARGE
-    //PRECHARGE
-    //PRECHARGE
-    let img = document.images, completed = 0, porcentLoad = 0, 
-        totalImg = img.length, setFakeNumber = '', fake_progress = 0;
-    // const loader = document.querySelector('.loader');
-    const progress_bar = document.querySelector('.loader__progress');
-    const progress_number = document.querySelector('.loader__percent');
-
-    //if no isset images loadComplete()
-    // if(totalImg == 0) return loadComplete();
-
-    //on image is laoded
-    const imgLoaded = () => {
-        completed += 1;
-        porcentLoad = ((100/totalImg*completed) << 0);
-        // console.log('porcentLoad',porcentLoad);
+    if (!splashSection) {
+      if (typeof init === 'function') init();
+      return;
     }
 
-    ///loading all images
-    for(var i=0; i<totalImg; i++) {
-        var tImg     = new Image();
-        tImg.onload  = imgLoaded;
-        tImg.onerror = imgLoaded;
-        tImg.src     = img[i].src;
-    }
+    // Mark splash as active and lock scroll
+    document.body.classList.add('video-splash-active');
+    document.documentElement.classList.add('overflow-hidden');
+    window.scrollTo(0, 0);
 
-    ///set fake number
-    setFakeNumber = setInterval(() => {
+    let dismissed = false;
 
-        if(first_charge){
-            ///primera carga
-            gsap.set('body',{opacity:1})
-            if(logo_tl.progress()==0) setTimeout(() => { logo_tl.timeScale(timescale).play() }, 500);
-            
-            fake_progress++
-            if(fake_progress > porcentLoad) fake_progress = porcentLoad;
-            if(fake_progress > 100) fake_progress = 100;
+    function dismissSplash() {
+      if (dismissed) return;
+      dismissed = true;
 
-            progress_bar.style = '--progress:'+fake_progress+'%'+'';
-            const progress_width = progress_bar.getBoundingClientRect().width;
-            const porcentLoadent = Math.trunc(( progress_width * 100) / window.innerWidth) + '%';
-            if(porcentLoadent!='1%') progress_number.innerHTML = porcentLoadent;
+      splashSection.classList.add('hide-splash');
+      document.body.classList.remove('video-splash-active');
 
-            ///complete
-            if(fake_progress==100 && setFakeNumber && loaderAnim_end) loadComplete(); 
-
-        }else{
-            ///cargas posteriores
-            if(porcentLoad== 100) loadComplete();
+      // Initialize GSAP, Lenis, and page animations
+      if (typeof init === 'function') {
+        try {
+          init();
+        } catch (e) {
+          console.warn('init error:', e);
         }
+      }
 
-    }, 5);
-
-    //loadComplete
-    const loadComplete = () => {
-
-        if(control) console.log('loadComplete');
-        
-
-        if(setFakeNumber!='') clearInterval(setFakeNumber) 
-        if(first_charge){
-            const porcentLoadent = '100%';
-            progress_number.innerHTML = porcentLoadent;
-            gsap.to(progress_bar,{ opacity:0, duration: .5,  ease: 'linear' })
-            gsap.to(progress_number,{opacity:0, duration: .33, ease: 'linear'},'<')
-            ///init
-            setTimeout(() => {
-                init()
-            }, 1500);
-        }else{
-            gsap.set('body',{opacity:1})
-            setTimeout(() => { logo_tl.progress(0).timeScale(timescale).play() }, 500);
-            progress_bar.style.display = 'none';
-            progress_number.style.display = 'none';
-            ///init
-            setTimeout(() => {
-                logo_tl.progress(1)
-                init()
-            }, 3000/timescale);
-        }
-        
-        
+      // Restore scrolling after smooth fade
+      setTimeout(() => {
+        document.documentElement.classList.remove('overflow-hidden');
+      }, 1200);
     }
 
-        
-    
+    // Pick active video based on screen width
+    const isMobile = window.innerWidth < 768;
+    const activeVideo = isMobile ? (mobileVideo || desktopVideo) : (desktopVideo || mobileVideo);
+    const otherVideo = isMobile ? desktopVideo : mobileVideo;
+
+    if (otherVideo) {
+      try {
+        otherVideo.pause();
+      } catch (e) {}
+    }
+
+    if (activeVideo) {
+      try {
+        activeVideo.currentTime = 0;
+        const playPromise = activeVideo.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(() => {
+            // Autoplay restricted fallback
+            setTimeout(dismissSplash, 2000);
+          });
+        }
+      } catch (err) {
+        setTimeout(dismissSplash, 2000);
+      }
+
+      activeVideo.addEventListener('ended', dismissSplash);
+      activeVideo.addEventListener('error', dismissSplash);
+    }
+
+    // Safety timeout so user is never locked out
+    const safetyTimer = setTimeout(dismissSplash, 3800);
+
+    if (skipBtn) {
+      skipBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        clearTimeout(safetyTimer);
+        dismissSplash();
+      });
+    }
+
+    splashSection.addEventListener('click', () => {
+      clearTimeout(safetyTimer);
+      dismissSplash();
+    });
+
+    // Also support keyboard dismissal (Escape / Space / Enter)
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' || e.key === ' ' || e.key === 'Enter') {
+        clearTimeout(safetyTimer);
+        dismissSplash();
+      }
+    }, { once: true });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initHunterSplash);
+  } else {
+    initHunterSplash();
+  }
 })();
