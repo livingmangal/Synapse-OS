@@ -1,13 +1,13 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'La Solana - Normal is Boring',
-  description: 'Exclusive single-family villas in Oleiros, A Coruña.',
+  title: 'Orchestrator Agent - Sanjeevani OS',
+  description: 'The central intelligence hub of Sanjeevani OS.',
 };
 
 export default function LaSolanaPage() {
   return (
-    <div suppressHydrationWarning dangerouslySetInnerHTML={{ __html: `<main data-id="680" data-name="La solana" 
+    <div suppressHydrationWarning dangerouslySetInnerHTML={{ __html: `<main data-id="680" data-name="Orchestrator" 
 	data-recipient="">
 	
 	
@@ -31,7 +31,7 @@ export default function LaSolanaPage() {
     </div>
 
             </div>
-            <div class="mod-header__content__caption f-edit t-titulo">Icaria IV - Oleiros</div>
+            <div class="mod-header__content__caption f-edit t-titulo">System - Active</div>
 
             <div class="mod-header__footer wrapper d-sm-none">
                 <div class="mod-header__footer__text f-edit t-parrafo-l ">(Scroll Down)</div>
@@ -67,11 +67,11 @@ export default function LaSolanaPage() {
     <!-- lineas -->
     
                     <div class="line f-regular t-supertitulo t-title-ls t-upper col-12 align-left t-left">
-                Siempre hay flores            </div>
+                Always ready            </div>
                     <div class="line f-regular t-supertitulo t-title-ls t-upper col-12 align-left t-left">
-                para el que            </div>
+                for your            </div>
                     <div class="line f-regular t-supertitulo t-title-ls t-upper col-6 align-right t-left anim-line">
-                desea verlas            </div>
+                health queries            </div>
         
     <!-- chapter -->
     
@@ -88,7 +88,7 @@ export default function LaSolanaPage() {
         <div class="mod-content__col big_text">
                         <div class="mod-content__wrap-text">
                                  
-                    <div class="mod-content__text big_text"><p>La Solana is an exclusive real estate development located in the prestigious Icaria residential area. Designed for those seeking privacy, comfort, and a sophisticated lifestyle, it offers residences exceeding 160 m² with private terraces or gardens, high-quality finishes, and sustainable technology. Its architecture blends seamlessly into the natural surroundings, with large windows framing spectacular views of the Ría de El Burgo. The residential community features exclusive amenities including a swimming pool, gym, sauna, and padel court, surrounded by lush gardens that invite relaxation.</p>
+                    <div class="mod-content__text big_text"><p>The Sanjeevani Orchestrator is the central brain of the platform. Designed for fast and efficient routing, it offers a conversational interface through WhatsApp, Telegram, and Voice. It seamlessly coordinates specialized sub-agents, handling user input, maintaining session memory, and returning unified clinical insights.</p>
  </div>
                             </div>
                     </div>
@@ -105,12 +105,12 @@ export default function LaSolanaPage() {
     
         <div class="mod-title__intro">
             <span class="mod-title__anchor" id="La-Urbanizacion"></span>
-                            <div class="f-edit t-titulo t-italic">Chapter One</div>
-                                        <div class="f-edit t-titulo-xl t-upper t-adj">The Residential Estate</div>
+                            <div class="f-edit t-titulo t-italic">Module One</div>
+                                        <div class="f-edit t-titulo-xl t-upper t-adj">The Platform</div>
                                         <div class="f-edit t-titulo">(1)</div>
                     </div>
         <div class="anima__title f-regular t-supertitulo-xl t-title-ls t-upper t-center">
-            Descubre <br>La urba        </div>
+            Discover <br>The Router        </div>
 
         
     <!-- pretitle -->
@@ -143,11 +143,11 @@ export default function LaSolanaPage() {
     <!-- lineas -->
     
                     <div class="line f-regular t-supertitulo t-title-ls t-upper col-12 align-left t-left">
-                UN REFUGIO TRANQUILO            </div>
+                A SECURE RELIABLE            </div>
                     <div class="line f-regular t-supertitulo t-title-ls t-upper col-12 align-left t-left">
-                CONFORTABLE            </div>
+                INTELLIGENT            </div>
                     <div class="line f-regular t-supertitulo t-title-ls t-upper col-6 align-right t-right anim-line">
-                Y LUMINOSO            </div>
+                AND FAST ROUTER            </div>
         
     <!-- chapter -->
     
@@ -163,10 +163,10 @@ export default function LaSolanaPage() {
                     </div>
         <div class="mod-content__col normal_text">
              
-                <div class="mod-content__title f-regular t-upper t-titulo-l">Instinto protector </div>
+                <div class="mod-content__title f-regular t-upper t-titulo-l">Multi-Channel Support </div>
                         <div class="mod-content__wrap-text">
                                  
-                    <div class="mod-content__text normal_text"><p>The development integrates into the landscape, blurring the indoor-outdoor boundary and connecting with nature. Open on all four sides, facades and terraces are finished in light tones to reflect natural light.</p>
+                    <div class="mod-content__text normal_text"><p>The orchestrator integrates directly into your daily life via WhatsApp, Telegram, and a dedicated Voice Agent, blurring the boundary between advanced AI and natural conversation.</p>
  </div>
                             </div>
                     </div>
@@ -182,18 +182,18 @@ export default function LaSolanaPage() {
     <!-- cols -->
     
                     <div class="mod-content__list">
-                <div class="mod-content__list__title f-medium t-titulo">Address</div>
+                <div class="mod-content__list__title f-medium t-titulo">Integration Endpoints</div>
                 <ul class="mod-content__list__ul">
-                                            <li class="t-parrafo-l">Rúa María Moliner 14</li>
-                                            <li class="t-parrafo-l">15172 - Oleiros - La Coruña</li>
+                                            <li class="t-parrafo-l">WhatsApp: +1 234 567 8900</li>
+                                            <li class="t-parrafo-l">Telegram: @SanjeevaniOSBot</li>
                                     </ul>
             </div>
                     <div class="mod-content__list">
-                <div class="mod-content__list__title f-medium t-titulo">Connections and Access</div>
+                <div class="mod-content__list__title f-medium t-titulo">Real-time Capabilities</div>
                 <ul class="mod-content__list__ul">
-                                            <li class="t-parrafo-l">Playa Santa Cristina: 15 min a pie</li>
-                                            <li class="t-parrafo-l">AVE Train Station: 5 min drive</li>
-                                            <li class="t-parrafo-l">Aeropuerto Alvedro: 10 min coche</li>
+                                            <li class="t-parrafo-l">Sub-agent routing: < 500ms</li>
+                                            <li class="t-parrafo-l">Voice-to-text latency: < 200ms</li>
+                                            <li class="t-parrafo-l">Memory retrieval: Instant</li>
                                     </ul>
             </div>
         
@@ -241,7 +241,7 @@ export default function LaSolanaPage() {
         <div class="mod-content__col normal_text">
                         <div class="mod-content__wrap-text">
                                  
-                    <div class="mod-content__text normal_text"><p>Icaria IV is located within easy reach of the city, the main metropolitan areas, and beautiful beaches, offering sailing, water sports, and fine dining. An idyllic location to enjoy peaceful tranquility or social gatherings whenever you wish.</p>
+                    <div class="mod-content__text normal_text"><p>The Orchestrator Agent is accessible anywhere, offering real-time conversational capabilities to coordinate complex health workflows instantly.</p>
  </div>
                             </div>
                     </div>
@@ -257,11 +257,11 @@ export default function LaSolanaPage() {
     <!-- lineas -->
     
                     <div class="line f-regular t-supertitulo t-title-ls t-upper col-12 align-left t-left">
-                LUJO SILENCIOSO,             </div>
+                INTELLIGENT ROUTING,             </div>
                     <div class="line f-regular t-supertitulo t-title-ls t-upper col-12 align-left t-left">
-                CÓMPLICE            </div>
+                SEAMLESS            </div>
                     <div class="line f-regular t-supertitulo t-title-ls t-upper col-6 align-right t-right anim-line">
-                DEL LUGAR            </div>
+                COORDINATION            </div>
         
     <!-- chapter -->
     
@@ -275,7 +275,7 @@ export default function LaSolanaPage() {
     
         <div class="mod-content__col">
                          
-                <div class="mod-content__text big_text"><p>The building volumes adapt naturally to the hillsides, forming an organic whole. The space is organized to embrace natural sunlight throughout the day.</p>
+                <div class="mod-content__text big_text"><p>The orchestrator routes requests to specialized agents—like the Medical Scan OCR or Symptom Triage—forming an organic, unified intelligence system.</p>
  </div>
                                 </div>
 
@@ -306,13 +306,13 @@ export default function LaSolanaPage() {
     <!-- lineas -->
     
                     <div class="line f-regular t-supertitulo t-title-ls t-upper col-12 align-left t-left">
-                DISEÑO EMOCIONAL            </div>
+                REAL-TIME VOICE            </div>
                     <div class="line f-regular t-supertitulo t-title-ls t-upper col-12 align-left t-left">
-                THAT CONECTA            </div>
+                THAT NATURALLYNECTS            </div>
                     <div class="line f-regular t-supertitulo t-title-ls t-upper col-12 align-right t-right">
-                CON             </div>
+                NATURALLY             </div>
                     <div class="line f-regular t-supertitulo t-title-ls t-upper col-12 align-right t-right">
-                LOS SENTIDOS            </div>
+                WITH USERS            </div>
         
     <!-- chapter -->
     
@@ -349,10 +349,10 @@ export default function LaSolanaPage() {
                     </div>
         <div class="mod-content__col normal_text">
              
-                <div class="mod-content__title f-regular t-upper t-titulo-l">La Solana residential estate has been designed as an exclusive retreat, combining nature, sport, and relaxation in a quiet, safe, and private setting. </div>
+                <div class="mod-content__title f-regular t-upper t-titulo-l">The Sanjeevani Orchestrator has been designed as a responsive hub, combining LLM reasoning, voice synthesis, and real-time data access in a secure setting. </div>
                         <div class="mod-content__wrap-text">
                                  
-                    <div class="mod-content__text normal_text"><p style="text-align: left;">Residences crafted for the good life: spacious, functional, and sophisticated spaces ideal for both relaxation and gatherings large or small. A warm, sunlit haven at the heart of family and friends.</p>
+                    <div class="mod-content__text normal_text"><p style="text-align: left;">Interactions crafted for ease: functional, sophisticated voice agents ideal for both urgent triage or general health questions.</p>
  </div>
                             </div>
                     </div>
@@ -368,9 +368,9 @@ export default function LaSolanaPage() {
     <!-- lineas -->
     
                     <div class="mod-title__pretitle f-edit t-titulo t-center">
-                (Destacados)            </div>
+                (Features)            </div>
                 <div class="anima__title f-regular t-supertitulo t-title-ls t-upper t-center lh-less">
-            ELEGANCE<br>SENCILLA        </div>
+            SEAMLESS<br>INTEGRATION        </div>
 
     <!-- image -->
     
@@ -388,8 +388,8 @@ export default function LaSolanaPage() {
         </div>
     </div>
 
-                <div class="mod-media__card__title f-medium t-titulo-l"> Sello Breeam </div>
-                <div class="mod-media__card__text t-parrafo-l"> Ecological living is also healthy living. The BREEAM standard certifies buildings based on benchmarks including energy, health, materials, and emissions. Homes are insulated to standards far exceeding current regulations, featuring aerothermal heat pumps and underfloor heating. </div>
+                <div class="mod-media__card__title f-medium t-titulo-l"> WhatsApp Support </div>
+                <div class="mod-media__card__text t-parrafo-l"> Message the Orchestrator on WhatsApp to instantly trigger sub-agents for symptom checking or OCR parsing. It maintains session history for a smooth conversational flow. </div>
             </div>
                     <div class="mod-media__card">
                 
@@ -399,8 +399,8 @@ export default function LaSolanaPage() {
         </div>
     </div>
 
-                <div class="mod-media__card__title f-medium t-titulo-l"> Orientación sur perfecta </div>
-                <div class="mod-media__card__text t-parrafo-l"> the homes resultan fascinantes a última hora de la tarde, cuando los rayos del sol atraviesan oblicuamente las cortinas y ventanales con su color dorado. </div>
+                <div class="mod-media__card__title f-medium t-titulo-l"> Telegram Support </div>
+                <div class="mod-media__card__text t-parrafo-l"> A fully functional Telegram bot interface that allows rich media uploads, returning structured clinical insights right in your chat. </div>
             </div>
                     <div class="mod-media__card">
                 
@@ -410,8 +410,8 @@ export default function LaSolanaPage() {
         </div>
     </div>
 
-                <div class="mod-media__card__title f-medium t-titulo-l"> Generando transparencias </div>
-                <div class="mod-media__card__text t-parrafo-l"> Orientation is optimized to create multiple gardens and terraces that seamlessly integrate with interiors through generous openings connecting each living space. </div>
+                <div class="mod-media__card__title f-medium t-titulo-l"> Voice Agentic Support </div>
+                <div class="mod-media__card__text t-parrafo-l"> Experience real-time voice interactions. Speak naturally to the agent, and it will respond with synthesized audio, making health triage accessible. </div>
             </div>
                     <div class="mod-media__card">
                 
@@ -421,8 +421,8 @@ export default function LaSolanaPage() {
         </div>
     </div>
 
-                <div class="mod-media__card__title f-medium t-titulo-l"> Un refugio tranquilo </div>
-                <div class="mod-media__card__text t-parrafo-l"> The development exudes quiet luxury, in harmony with its setting. </div>
+                <div class="mod-media__card__title f-medium t-titulo-l"> Real-time Support </div>
+                <div class="mod-media__card__text t-parrafo-l"> The system handles thousands of concurrent connections with low-latency websockets. </div>
             </div>
                     <div class="mod-media__card">
                 
@@ -432,8 +432,8 @@ export default function LaSolanaPage() {
         </div>
     </div>
 
-                <div class="mod-media__card__title f-medium t-titulo-l"> Open Spaces </div>
-                <div class="mod-media__card__text t-parrafo-l"> Multifunctional, flexible rooms designed for versatile use. </div>
+                <div class="mod-media__card__title f-medium t-titulo-l"> Multi-Agent Handoff </div>
+                <div class="mod-media__card__text t-parrafo-l"> Seamlessly hands off complex tasks to specialized agents (e.g., Medical Scan). </div>
             </div>
                     <div class="mod-media__card">
                 
@@ -443,8 +443,8 @@ export default function LaSolanaPage() {
         </div>
     </div>
 
-                <div class="mod-media__card__title f-medium t-titulo-l"> Casa a la vista </div>
-                <div class="mod-media__card__text t-parrafo-l"> Bright, open, and cheerful: rooms facing south to maximize natural light while offering expansive views of private gardens and terraces. </div>
+                <div class="mod-media__card__title f-medium t-titulo-l"> Memory & Context </div>
+                <div class="mod-media__card__text t-parrafo-l"> Retains context across different channels so you never have to repeat your symptoms. </div>
             </div>
         
     <!-- slider -->
@@ -456,9 +456,9 @@ export default function LaSolanaPage() {
     <!-- lineas -->
     
                     <div class="mod-title__pretitle f-edit t-titulo t-center">
-                (Destacados)            </div>
+                (Features)            </div>
                 <div class="anima__title f-regular t-supertitulo t-title-ls t-upper t-center lh-less">
-            Descubre<br> la inspiración        </div>
+            Explore<br> the architecture        </div>
 
     <!-- image -->
     
@@ -536,12 +536,12 @@ export default function LaSolanaPage() {
     
         <div class="mod-title__intro">
             <span class="mod-title__anchor" id="las-homes"></span>
-                            <div class="f-edit t-titulo t-italic">Chapter Two</div>
-                                        <div class="f-edit t-titulo-xl t-upper t-adj">the homes</div>
+                            <div class="f-edit t-titulo t-italic">Module Two</div>
+                                        <div class="f-edit t-titulo-xl t-upper t-adj">the agents</div>
                                         <div class="f-edit t-titulo">(2)</div>
                     </div>
         <div class="anima__title f-regular t-supertitulo-xl t-title-ls t-upper t-center">
-            Descubre<br>The homes        </div>
+            Meet<br>The Agents        </div>
 
         
     <!-- pretitle -->
@@ -574,13 +574,13 @@ export default function LaSolanaPage() {
     <!-- lineas -->
     
                     <div class="line f-regular t-supertitulo t-title-ls t-upper col-12 align-left t-left">
-                WELCOMING HOMES             </div>
+                RELIABLE SYSTEMS             </div>
                     <div class="line f-regular t-supertitulo t-title-ls t-upper col-12 align-left t-left">
-                Y CONFORTABLES            </div>
+                Y INTELLIGENTS            </div>
                     <div class="line f-regular t-supertitulo t-title-ls t-upper col-6 align-right t-left">
-                THAT RESPIRAN            </div>
+                YOUR            </div>
                     <div class="line f-regular t-supertitulo t-title-ls t-upper col-6 align-right t-left">
-                NATURALEZA            </div>
+                CONTEXT            </div>
         
     <!-- chapter -->
     
@@ -597,10 +597,10 @@ export default function LaSolanaPage() {
         <div class="mod-content__col normal_text">
                         <div class="mod-content__wrap-text">
                  
-                    <div class="mod-content__pretitle f-edit t-titulo">Sustainability and Technology </div>
+                    <div class="mod-content__pretitle f-edit t-titulo">Speed and Precision </div>
                                  
-                    <div class="mod-content__text normal_text"><p>Open, less hierarchical spaces with a pragmatic approach, featuring multifunctional and flexible areas for multiple uses. New living concepts evolve, but the ideal of a welcoming, comfortable home remains timeless. Residences over 160 m² combining luxury and functionality, with premium materials such as wide-plank natural oak flooring and full-height oak doors.</p>
-<p>Equipped for the latest smart home automation and sustainable systems, the homes reflect a commitment to responsible, modern design.</p>
+                    <div class="mod-content__text normal_text"><p>Built on LangGraph, the orchestrator evaluates user intent using ultra-fast Groq LLMs. It determines which sub-agent is best suited for the query and routes it seamlessly. It supports stateful interactions across WhatsApp, Telegram, and Voice endpoints.</p>
+<p>Equipped for the latest smart home automation and sustainable systems, the agents reflect a commitment to responsible, modern design.</p>
  </div>
                             </div>
                     </div>
@@ -637,13 +637,13 @@ export default function LaSolanaPage() {
     <!-- lineas -->
     
                     <div class="line f-regular t-supertitulo t-title-ls t-upper col-12 align-left t-left">
-                HACEMOS LO THAT             </div>
+                WE COORDINATE             </div>
                     <div class="line f-regular t-supertitulo t-title-ls t-upper col-12 align-left t-left">
-                NOS GUSTA            </div>
+                COMPLEXITY            </div>
                     <div class="line f-regular t-supertitulo t-title-ls t-upper col-12 align-right t-right">
-                ESA ES             </div>
+                THAT IS             </div>
                     <div class="line f-regular t-supertitulo t-title-ls t-upper col-12 align-right t-right">
-                LA DIFERENCIA            </div>
+                THE DIFFERENCE            </div>
         
     <!-- chapter -->
     
@@ -657,7 +657,7 @@ export default function LaSolanaPage() {
     
         <div class="mod-content__col">
                          
-                <div class="mod-content__text big_text"><p>12 duplexes of 140 m² with 60 m² rooftop terrace, 8 homes up to 145 m² with terraces between 60 m² and 120 m², and 5 ground-floor homes with 150 m² private gardens.</p>
+                <div class="mod-content__text big_text"><p>Connecting multiple distinct models, from Vision LLMs to RAG-based symptom checkers, into one unified interface.</p>
  </div>
                                 </div>
 
@@ -689,7 +689,7 @@ export default function LaSolanaPage() {
     
         <div class="mod-content__col">
                          
-                <div class="mod-content__text normal_text"><p>A constant drive to avoid well-worn paths and always go one step beyond. The natural surroundings inspire architecture that invites mindful, calm living—spaces expand and furnishings integrate gracefully.</p>
+                <div class="mod-content__text normal_text"><p>A constant drive to simplify healthcare access. The orchestrator abstracts away the complexity of multiple models into one simple chat.</p>
  </div>
                                 </div>
 
@@ -705,7 +705,7 @@ export default function LaSolanaPage() {
     
         <div class="mod-title--image__content">
             <div class="mod-title--image__title t-supertitulo-l f-medium t-upper t-center">
-                Detalles            </div>
+                Details            </div>
             
 <div class="media mod-title--image__image" data-delay=""> 
             <div class="media__wrap-source image">
@@ -727,7 +727,7 @@ export default function LaSolanaPage() {
     
         <div class="mod-content__col">
                          
-                <div class="mod-content__text big_text"><p>All homes at La Solana include two spacious garage parking spaces for everyday convenience and a private storage room, providing practical and versatile extra space.</p>
+                <div class="mod-content__text big_text"><p>All interactions are secured, retaining no PII in logs, ensuring absolute privacy for your medical data.</p>
  </div>
                                 </div>
 
@@ -742,44 +742,44 @@ export default function LaSolanaPage() {
     <!-- cols -->
     
                     <div class="mod-content__list">
-                <div class="mod-content__list__title f-medium t-titulo">Bajos exclusivos</div>
+                <div class="mod-content__list__title f-medium t-titulo">WhatsApp Integration</div>
                 <ul class="mod-content__list__ul">
-                                            <li class="t-parrafo-l">10 m facade for living-dining-kitchen area</li>
-                                            <li class="t-parrafo-l">Pared de cristal escamoteable con triple guía</li>
-                                            <li class="t-parrafo-l">Terreno/Garden privado de 125 m²</li>
-                                            <li class="t-parrafo-l">Option for heated private swimming pool</li>
-                                            <li class="t-parrafo-l">la totalidad de estancias con frente al jardín</li>
-                                            <li class="t-parrafo-l">Orientación sur</li>
+                                            <li class="t-parrafo-l">Twilio webhook integration</li>
+                                            <li class="t-parrafo-l">End-to-end encryption</li>
+                                            <li class="t-parrafo-l">Supports image uploads</li>
+                                            <li class="t-parrafo-l">Rich text formatting</li>
+                                            <li class="t-parrafo-l">Persistent chat history</li>
+                                            <li class="t-parrafo-l">High availability</li>
                                     </ul>
             </div>
                     <div class="mod-content__list">
-                <div class="mod-content__list__title f-medium t-titulo">Apartamentos en planta con azotea</div>
+                <div class="mod-content__list__title f-medium t-titulo">Telegram Integration</div>
                 <ul class="mod-content__list__ul">
-                                            <li class="t-parrafo-l">10 m facade for living-dining-kitchen area</li>
-                                            <li class="t-parrafo-l">Retractable triple-track glass wall across living, dining, and kitchen</li>
-                                            <li class="t-parrafo-l">30 m² terrace plus 112 m² private rooftop solarium</li>
-                                            <li class="t-parrafo-l">Terraces amplias de 60 y 80 m²</li>
-                                            <li class="t-parrafo-l">Fully exterior-facing layout</li>
-                                            <li class="t-parrafo-l">Orientación sur</li>
+                                            <li class="t-parrafo-l">Twilio webhook integration</li>
+                                            <li class="t-parrafo-l">Native bot API integration</li>
+                                            <li class="t-parrafo-l">Fast media processing</li>
+                                            <li class="t-parrafo-l">Inline query support</li>
+                                            <li class="t-parrafo-l">Custom slash commands</li>
+                                            <li class="t-parrafo-l">High availability</li>
                                     </ul>
             </div>
                     <div class="mod-content__list">
-                <div class="mod-content__list__title f-medium t-titulo">Apartamentos  en planta</div>
+                <div class="mod-content__list__title f-medium t-titulo">Voice Integration</div>
                 <ul class="mod-content__list__ul">
-                                            <li class="t-parrafo-l">10 m facade for living-dining-kitchen area</li>
-                                            <li class="t-parrafo-l">Retractable triple-track glass wall across living, dining, and kitchen</li>
-                                            <li class="t-parrafo-l">Terraces amplias de 60 y 80 m²</li>
-                                            <li class="t-parrafo-l">Fully exterior-facing layout</li>
-                                            <li class="t-parrafo-l">Orientación sur</li>
+                                            <li class="t-parrafo-l">Twilio webhook integration</li>
+                                            <li class="t-parrafo-l">Native bot API integration</li>
+                                            <li class="t-parrafo-l">Inline query support</li>
+                                            <li class="t-parrafo-l">Custom slash commands</li>
+                                            <li class="t-parrafo-l">High availability</li>
                                     </ul>
             </div>
                     <div class="mod-content__list">
-                <div class="mod-content__list__title f-medium t-titulo">Dúplex con azotea</div>
+                <div class="mod-content__list__title f-medium t-titulo">Real-time Coordination</div>
                 <ul class="mod-content__list__ul">
-                                            <li class="t-parrafo-l">Distribución innovadora con una planta independiente para la zona de noche y dormitorio en planta de día</li>
-                                            <li class="t-parrafo-l">Azotea/solarium privado de 54 m²</li>
-                                            <li class="t-parrafo-l">Private elevator connecting garage to rooftop</li>
-                                            <li class="t-parrafo-l">Orientación sur</li>
+                                            <li class="t-parrafo-l">LangGraph state management for complex query routing</li>
+                                            <li class="t-parrafo-l">Parallel sub-agent execution</li>
+                                            <li class="t-parrafo-l">Dynamic tool calling</li>
+                                            <li class="t-parrafo-l">High availability</li>
                                     </ul>
             </div>
         
@@ -794,9 +794,9 @@ export default function LaSolanaPage() {
     <!-- lineas -->
     
                     <div class="mod-title__pretitle f-edit t-titulo t-center">
-                (Destacados)            </div>
+                (Features)            </div>
                 <div class="anima__title f-regular t-supertitulo t-title-ls t-upper t-center lh-less">
-            LIVING<br>THAT INSPIRAN        </div>
+            SYSTEMS<br>THAT INSPIRE        </div>
 
     <!-- image -->
     
@@ -814,8 +814,8 @@ export default function LaSolanaPage() {
         </div>
     </div>
 
-                <div class="mod-media__card__title f-medium t-titulo-l"> Déjate mimar </div>
-                <div class="mod-media__card__text t-parrafo-l"> En los baños, como en el resto de estancias, se reproduce la triada de materiales del resto de la vivienda: madera de roble, piedras naturales, y acabados de tonalidades claras. El uso restringido de materiales transmite la sensación de lujo sosegada. </div>
+                <div class="mod-media__card__title f-medium t-titulo-l"> State Management </div>
+                <div class="mod-media__card__text t-parrafo-l"> Maintains a conversational state across platforms. If you switch from WhatsApp to Telegram, your context moves with you. </div>
             </div>
                     <div class="mod-media__card">
                 
@@ -825,8 +825,8 @@ export default function LaSolanaPage() {
         </div>
     </div>
 
-                <div class="mod-media__card__title f-medium t-titulo-l"> Confort elegante </div>
-                <div class="mod-media__card__text t-parrafo-l"> Light is essential in every home. A minimalist palette sets the stage for daily life, complemented by timeless, premium materials like natural wood and stone. </div>
+                <div class="mod-media__card__title f-medium t-titulo-l"> Fast LLMs </div>
+                <div class="mod-media__card__text t-parrafo-l"> Powered by Llama-3-70B via Groq for ultra-low latency inference, crucial for voice applications. </div>
             </div>
                     <div class="mod-media__card">
                 
@@ -836,8 +836,8 @@ export default function LaSolanaPage() {
         </div>
     </div>
 
-                <div class="mod-media__card__title f-medium t-titulo-l"> Sentido y sensibilidad </div>
-                <div class="mod-media__card__text t-parrafo-l"> Homes reflecting a pursuit of innovation, artisanal craftsmanship, pristine design, exceptional quality, and emotional appeal—all marked by refined taste and timeless design. </div>
+                <div class="mod-media__card__title f-medium t-titulo-l"> Modular Design </div>
+                <div class="mod-media__card__text t-parrafo-l"> Easily add new specialized sub-agents to the Orchestrator without modifying the core routing logic. </div>
             </div>
                     <div class="mod-media__card">
                 
@@ -847,8 +847,8 @@ export default function LaSolanaPage() {
         </div>
     </div>
 
-                <div class="mod-media__card__title f-medium t-titulo-l"> Experiencia sensorial </div>
-                <div class="mod-media__card__text t-parrafo-l"> Oak wood, natural granite, and stainless steel define the kitchen, fitted by Italian manufacturer Arrital. The central island combines cooking and washing areas, allowing you to prepare meals while overlooking the garden through floor-to-ceiling glass. </div>
+                <div class="mod-media__card__title f-medium t-titulo-l"> Fallback Protocols </div>
+                <div class="mod-media__card__text t-parrafo-l"> Automatically falls back to general LLM reasoning if a specialized sub-agent is unavailable. </div>
             </div>
                     <div class="mod-media__card">
                 
@@ -858,9 +858,9 @@ export default function LaSolanaPage() {
         </div>
     </div>
 
-                <div class="mod-media__card__title f-medium t-titulo-l"> Meterse en un jardín </div>
+                <div class="mod-media__card__title f-medium t-titulo-l"> Open Source </div>
                 <div class="mod-media__card__text t-parrafo-l"> A lo largo del eje de la vivienda se alinean la cocina, el comedor, salón, dos bedrooms, un área de trabajo y la suite principal, con enormes ventanales que expanden el interior hacia la luz.
-Los ventanales elevables de la serie 4600 de Cortizo en estar-comedor-cocina dan la máxima transparencia a las estancias. Este cerramiento está ideado para espacios acristalados de dimensiones fuera de lo habitual como los que se encuentran en estas homes. Multifunctional, flexible rooms designed for versatile use. </div>
+Los ventanales elevables de la serie 4600 de Cortizo en estar-comedor-cocina dan la máxima transparencia a las estancias. Este cerramiento está ideado para espacios acristalados de dimensiones fuera de lo habitual como los que se encuentran en estas homes. Seamlessly hands off complex tasks to specialized agents (e.g., Medical Scan). </div>
             </div>
         
     <!-- slider -->
@@ -889,7 +889,7 @@ Los ventanales elevables de la serie 4600 de Cortizo en estar-comedor-cocina dan
     
         <div class="mod-content__col">
                          
-                <div class="mod-content__text normal_text"><p>Seamless integration: storage is visually concealed to achieve an ideal balance of functionality, technology, and design. Cooktops, flush ceiling extractors, and sinks blend into a unified aesthetic where everything harmonizes.</p>
+                <div class="mod-content__text normal_text"><p>Seamless integration: The orchestrator connects with electronic health records (EHR) APIs to provide deeply personalized assistance.</p>
  </div>
                                 </div>
 
@@ -906,7 +906,7 @@ Los ventanales elevables de la serie 4600 de Cortizo en estar-comedor-cocina dan
                     <div class="mod-title__pretitle f-edit t-titulo t-center">
                 (Gallery)            </div>
                 <div class="anima__title f-regular t-supertitulo t-title-ls t-upper t-center lh-less">
-            Espacios <br> that inspire        </div>
+            Workflows <br> that inspire        </div>
 
     <!-- image -->
     
@@ -1010,13 +1010,13 @@ Los ventanales elevables de la serie 4600 de Cortizo en estar-comedor-cocina dan
     <!-- lineas -->
     
         <div class="mod-title__intro">
-            <span class="mod-title__anchor" id="Comodidades"></span>
-                            <div class="f-edit t-titulo t-italic">Chapter Three</div>
-                                        <div class="f-edit t-titulo-xl t-upper t-adj">Comodidades</div>
+            <span class="mod-title__anchor" id="Features"></span>
+                            <div class="f-edit t-titulo t-italic">Module Three</div>
+                                        <div class="f-edit t-titulo-xl t-upper t-adj">Features</div>
                                         <div class="f-edit t-titulo">(3)</div>
                     </div>
         <div class="anima__title f-regular t-supertitulo-xl t-title-ls t-upper t-center">
-            Descubre las comodidades        </div>
+            Discover the Features        </div>
 
         
     <!-- pretitle -->
@@ -1049,13 +1049,13 @@ Los ventanales elevables de la serie 4600 de Cortizo en estar-comedor-cocina dan
     <!-- lineas -->
     
                     <div class="line f-regular t-supertitulo t-title-ls t-upper col-12 align-left t-left">
-                UN OASIS            </div>
+                A PRIVATE            </div>
                     <div class="line f-regular t-supertitulo t-title-ls t-upper col-12 align-left t-left">
-                PRIVADO DE             </div>
+                AND SECURE             </div>
                     <div class="line f-regular t-supertitulo t-title-ls t-upper col-6 align-right t-left">
-                CONFORT            </div>
+                NATURALLYFORT            </div>
                     <div class="line f-regular t-supertitulo t-title-ls t-upper col-6 align-right t-left">
-                Y BIENESTAR            </div>
+                NETWORK            </div>
         
     <!-- chapter -->
     
@@ -1071,16 +1071,16 @@ Los ventanales elevables de la serie 4600 de Cortizo en estar-comedor-cocina dan
                     </div>
         <div class="mod-content__col normal_text">
              
-                <div class="mod-content__title f-regular t-upper t-titulo-l">Spaces That Speak for Themselves </div>
+                <div class="mod-content__title f-regular t-upper t-titulo-l">Agents That Reason For You </div>
                         <div class="mod-content__wrap-text">
                  
-                    <div class="mod-content__pretitle f-edit t-titulo">Áreas comunes </div>
+                    <div class="mod-content__pretitle f-edit t-titulo">Core Modules </div>
                                  
-                    <div class="mod-content__text normal_text"><p>At La Solana, enjoy a generous swimming pool surrounded by lush gardens inviting relaxation. Maintain your routine in a fully equipped gym with prime views of the pool and nature. Complete your active, healthy lifestyle with a sauna and padel court in an exclusive atmosphere.</p>
+                    <div class="mod-content__text normal_text"><p>Enjoy a fully open-source environment. Maintain your personal health records in a private enclave on the blockchain while utilizing powerful inference nodes for daily medical triage.</p>
  </div>
                             </div>
              
-                <a href="disponibilidad" class="mod-content__btn btn btn--bg btn--bg-xl f-edit t-titulo mt-xs">Disponibilidad </a>
+                <a href="disponibilidad" class="mod-content__btn btn btn--bg btn--bg-xl f-edit t-titulo mt-xs">View Code </a>
                     </div>
 
     <!-- center -->
@@ -1115,9 +1115,9 @@ Los ventanales elevables de la serie 4600 de Cortizo en estar-comedor-cocina dan
     <!-- lineas -->
     
                     <div class="mod-title__pretitle f-edit t-titulo t-center">
-                (Destacados)            </div>
+                (Features)            </div>
                 <div class="anima__title f-regular t-supertitulo t-title-ls t-upper t-center lh-less">
-            Un lugar<br>tranquilo        </div>
+            A secure<br>network        </div>
 
     <!-- image -->
     
@@ -1135,7 +1135,7 @@ Los ventanales elevables de la serie 4600 de Cortizo en estar-comedor-cocina dan
         </div>
     </div>
 
-                <div class="mod-media__card__title f-medium t-titulo-l"> Wild garden landscaping connecting with nature </div>
+                <div class="mod-media__card__title f-medium t-titulo-l"> Direct integration with hospital databases </div>
                 <div class="mod-media__card__text t-parrafo-l">  </div>
             </div>
                     <div class="mod-media__card">
@@ -1146,7 +1146,7 @@ Los ventanales elevables de la serie 4600 de Cortizo en estar-comedor-cocina dan
         </div>
     </div>
 
-                <div class="mod-media__card__title f-medium t-titulo-l"> Spacious, fully landscaped communal outdoor areas </div>
+                <div class="mod-media__card__title f-medium t-titulo-l"> Fully documented REST and WebSocket APIs </div>
                 <div class="mod-media__card__text t-parrafo-l">  </div>
             </div>
                     <div class="mod-media__card">
@@ -1157,7 +1157,7 @@ Los ventanales elevables de la serie 4600 de Cortizo en estar-comedor-cocina dan
         </div>
     </div>
 
-                <div class="mod-media__card__title f-medium t-titulo-l"> Momentos de placer, relajación y felices frente a aguas turquesas, verdes y azules </div>
+                <div class="mod-media__card__title f-medium t-titulo-l"> Real-time streaming responses for voice synthesis </div>
                 <div class="mod-media__card__text t-parrafo-l">  </div>
             </div>
                     <div class="mod-media__card">
@@ -1168,7 +1168,7 @@ Los ventanales elevables de la serie 4600 de Cortizo en estar-comedor-cocina dan
         </div>
     </div>
 
-                <div class="mod-media__card__title f-medium t-titulo-l"> Gimnasio completo, equipado para todas las necesidades </div>
+                <div class="mod-media__card__title f-medium t-titulo-l"> Containerized deployment using Docker and Kubernetes </div>
                 <div class="mod-media__card__text t-parrafo-l">  </div>
             </div>
                     <div class="mod-media__card">
@@ -1179,7 +1179,7 @@ Los ventanales elevables de la serie 4600 de Cortizo en estar-comedor-cocina dan
         </div>
     </div>
 
-                <div class="mod-media__card__title f-medium t-titulo-l"> Sauna exterior, para momentos de relax </div>
+                <div class="mod-media__card__title f-medium t-titulo-l"> Built-in rate limiting and DDOS protection </div>
                 <div class="mod-media__card__text t-parrafo-l">  </div>
             </div>
                     <div class="mod-media__card">
@@ -1190,7 +1190,7 @@ Los ventanales elevables de la serie 4600 de Cortizo en estar-comedor-cocina dan
         </div>
     </div>
 
-                <div class="mod-media__card__title f-medium t-titulo-l"> Pista de pádel para el disfrute deportivo.  </div>
+                <div class="mod-media__card__title f-medium t-titulo-l"> OAuth2 authentication and role-based access control.  </div>
                 <div class="mod-media__card__text t-parrafo-l">  </div>
             </div>
         
@@ -1203,13 +1203,13 @@ Los ventanales elevables de la serie 4600 de Cortizo en estar-comedor-cocina dan
     <!-- lineas -->
     
         <div class="mod-title__intro">
-            <span class="mod-title__anchor" id="Contacto"></span>
-                            <div class="f-edit t-titulo t-italic">Chapter Four</div>
-                                        <div class="f-edit t-titulo-xl t-upper t-adj">Contact</div>
+            <span class="mod-title__anchor" id="Connecto"></span>
+                            <div class="f-edit t-titulo t-italic">Module Four</div>
+                                        <div class="f-edit t-titulo-xl t-upper t-adj">Connect</div>
                                         <div class="f-edit t-titulo">(4)</div>
                     </div>
         <div class="anima__title f-regular t-supertitulo-xl t-title-ls t-upper t-center">
-            Unlock your dream        </div>
+            Test the Platform        </div>
 
         
     <!-- pretitle -->
@@ -1247,15 +1247,15 @@ Los ventanales elevables de la serie 4600 de Cortizo en estar-comedor-cocina dan
                     </div>
         <div class="mod-content__col big_text">
              
-                <div class="mod-content__title f-regular t-upper t-titulo-l">Consulta disponibilidad. </div>
+                <div class="mod-content__title f-regular t-upper t-titulo-l">Try it out. </div>
                         <div class="mod-content__wrap-text">
                                  
-                    <div class="mod-content__text big_text"><p>A space created to live differently.</p>
+                    <div class="mod-content__text big_text"><p>A platform created to triage differently.</p>
 <h3 data-section-id="1oaxh50" data-start="360" data-end="384"></h3>
  </div>
                             </div>
              
-                <a href="disponibilidad" class="mod-content__btn btn btn--bg btn--bg-xl f-edit t-titulo mt-xs">Disponiblidad </a>
+                <a href="disponibilidad" class="mod-content__btn btn btn--bg btn--bg-xl f-edit t-titulo mt-xs">View Docs </a>
                     </div>
 
     <!-- center -->
@@ -1290,10 +1290,10 @@ Los ventanales elevables de la serie 4600 de Cortizo en estar-comedor-cocina dan
     
         <div class="mod-content__col">
                          
-                <div class="mod-content__text normal_text"><p>Our team, in collaboration with Coldwell Banker, is at your disposal to answer your questions and guide you through every step of the process.</p>
+                <div class="mod-content__text normal_text"><p>Our open-source community is at your disposal to answer your questions and guide you through deploying your own agents.</p>
 <p><strong>Ramón Rábade Doce</strong><br />
 Director<br />
-Address: Calle Federico Tapia Nº41<br />
+Integration Endpoints: Calle Federico Tapia Nº41<br />
 15005 La Coruña<br />
 <a class="link" href="tel:650 835 702"><strong>650 835 702</strong></a><br />
 <a class="link" href="tel:881 047 847"><strong>881 047 847</strong></a><br />
