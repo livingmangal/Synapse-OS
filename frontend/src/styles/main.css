@@ -634,18 +634,16 @@ main .mod-scroll__terms {
   width: 100%;
   padding: 2.5rem 2.25rem 2.25rem 2.25rem;
   border-radius: 28px;
-  background: #181b22;
-  border: 1px solid #2d333f;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75),
-              inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  background: #ECE4DA;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85);
   box-sizing: border-box;
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .livekit-aqua-container:hover {
-  border-color: #3e4758;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85),
-              inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  border-color: rgba(0, 0, 0, 0.16);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.9);
 }
 
 .livekit-kicker {
@@ -657,7 +655,7 @@ main .mod-scroll__terms {
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: #94a3b8;
+  color: #6b6357;
   margin-bottom: 1rem;
 }
 
@@ -665,8 +663,8 @@ main .mod-scroll__terms {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #38bdf8;
-  box-shadow: 0 0 8px #38bdf8;
+  background: #0284c7;
+  box-shadow: 0 0 8px rgba(2, 132, 199, 0.6);
 }
 
 .livekit-title {
@@ -675,12 +673,13 @@ main .mod-scroll__terms {
   font-weight: 400;
   line-height: 1.1;
   letter-spacing: -0.025em;
-  color: #ffffff;
+  color: #111827;
   margin: 0 0 1.75rem 0;
 }
 
 .livekit-title span.accent-cyan {
-  color: #38bdf8;
+  color: #0284c7;
+  font-weight: 600;
 }
 
 /* Feature List (Simple, minimal, crisp icons + one-line text) */
@@ -695,7 +694,7 @@ main .mod-scroll__terms {
   display: flex;
   align-items: flex-start;
   gap: 0.85rem;
-  color: #cbd5e1;
+  color: #374151;
   font-family: var(--f-izmir), sans-serif;
   font-size: 0.88rem;
   line-height: 1.38;
@@ -709,16 +708,16 @@ main .mod-scroll__terms {
 
 .livekit-feature-item:hover,
 .livekit-feature-item.active {
-  color: #ffffff;
-  background: #222732;
-  border-color: #333a4a;
+  color: #111827;
+  background: rgba(0, 0, 0, 0.06);
+  border-color: rgba(0, 0, 0, 0.1);
   transform: translateX(3px);
 }
 
 .livekit-feature-icon {
   width: 18px;
   height: 18px;
-  color: #94a3b8;
+  color: #6b7280;
   flex-shrink: 0;
   margin-top: 1px;
   display: flex;
@@ -729,7 +728,7 @@ main .mod-scroll__terms {
 
 .livekit-feature-item:hover .livekit-feature-icon,
 .livekit-feature-item.active .livekit-feature-icon {
-  color: #38bdf8;
+  color: #0284c7;
 }
 
 .livekit-cta-btn {
@@ -739,8 +738,8 @@ main .mod-scroll__terms {
   width: fit-content;
   padding: 0.75rem 1.4rem;
   border-radius: 10px;
-  background: #222732;
-  border: 1px solid #333a4a;
+  background: #111827;
+  border: 1px solid #1f2937;
   color: #ffffff;
   font-family: var(--f-izmir), sans-serif;
   font-size: 0.88rem;
@@ -748,15 +747,15 @@ main .mod-scroll__terms {
   text-decoration: none;
   cursor: pointer;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
 }
 
 .livekit-cta-btn:hover {
-  background: #2b3240;
-  border-color: #4b5568;
-  color: #38bdf8;
+  background: #0284c7;
+  border-color: #0284c7;
+  color: #ffffff;
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 6px 20px rgba(2, 132, 199, 0.4);
 }
 
 .livekit-cta-arrow {
