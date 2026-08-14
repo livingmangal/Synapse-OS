@@ -1,0 +1,131 @@
+@font-face {
+  font-family: "Juana-Medium";
+  src: url("/fonts/juana-medium.woff2") format("woff2"), url("/fonts/juana-medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Juana-Regular";
+  src: url("/fonts/juana-regular.woff2") format("woff2"), url("/fonts/juana-regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Juana-Light";
+  src: url("/fonts/juana-light.woff2") format("woff2"), url("/fonts/juana-light.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Editorialnew-Ultralight";
+  src: url("/fonts/editorialnew-ultralight.woff2") format("woff2"), url("/fonts/editorialnew-ultralight.woff") format("woff");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Editorialnew-Regular";
+  src: url("/fonts/editorialnew-regular.woff2") format("woff2"), url("/fonts/editorialnew-regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Editorialnew-UltralightItalic";
+  src: url("/fonts/editorialnew-ultralightitalic.woff2") format("woff2"), url("/fonts/editorialnew-ultralightitalic.woff") format("woff");
+  font-weight: 200;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Izmir-Regular";
+  src: url("/fonts/izmir-regular.woff2") format("woff2"), url("/fonts/izmir-regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --f-regular: "Juana-Regular", serif;
+  --f-medium: "Juana-Medium", serif;
+  --f-light: "Juana-Light", serif;
+  --f-edit: "Editorialnew-Ultralight", serif;
+  --f-edit-regular: "Editorialnew-Regular", serif;
+  --f-edit-italic: "Editorialnew-UltralightItalic", serif;
+  --f-izmir: "Izmir-Regular", sans-serif;
+  
+  --black: #121212;
+  --beige: #ECE4DA;
+  --beige-dark: #D3C7B9;
+  --red: #DB5C59;
+  --blue: #C7D7E9;
+  --grey: #707070;
+  --green: #ADAA8A;
+}
+
+/* Custom font utilities */
+.font-serif {
+  font-family: var(--f-light), Georgia, serif;
+}
+
+.font-serif-medium {
+  font-family: var(--f-medium), Georgia, serif;
+}
+
+.font-editorial {
+  font-family: var(--f-edit), Georgia, serif;
+}
+
+.font-editorial-italic {
+  font-family: var(--f-edit-italic), Georgia, serif;
+}
+
+.font-sans {
+  font-family: var(--f-izmir), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Lenis smooth scrolling rules */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* Transitions & Luxury Accents */
+::selection {
+  background: var(--black);
+  color: var(--beige);
+}
+
+/* Smooth fade in */
+@keyframes fadeInKeyframes {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeInKeyframes 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}

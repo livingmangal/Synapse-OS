@@ -1,0 +1,9 @@
+/* Reset */
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: #ECE4DA;
+  color: #000000;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
