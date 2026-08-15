@@ -28,7 +28,7 @@ export default function RootLayout({
       </head>
       <body suppressHydrationWarning>
         {/* Hunter Healthcare Page Loader Overlay */}
-        <div id="page-loader" aria-hidden="true">
+        <div id="page-loader" aria-hidden="true" suppressHydrationWarning>
           <svg id="pre-loader-svg" width="710" height="2870" viewBox="0 0 710 2870" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path id="long" fillRule="evenodd" clipRule="evenodd" d="M476.34 1477.98C383.028 1477.98 309.347 1404.53 309.347 1311.5V0H399.716V1387.89H596.166V1477.98H476.34ZM90.3684 1169.5H0V1696.37H90.3684V1169.5ZM709.116 1169.5H618.747V1696.37H709.116V1169.5ZM399.716 1554.37C399.716 1461.35 326.035 1387.89 232.721 1387.89H112.949V1477.98H309.347V2870H399.716V1554.37Z" fill="black"/>
             <path id="short" fillRule="evenodd" clipRule="evenodd" d="M476.34 1480.06C383.028 1480.06 309.347 1406.47 309.347 1313.27V1171L399.716 1171V1389.8H596.166V1480.06H476.34ZM90.3684 1171H0V1698.86H90.3684V1171ZM709.116 1171H618.747V1698.86H709.116V1171ZM399.716 1556.6C399.716 1463.39 326.035 1389.8 232.721 1389.8H112.949V1480.06H309.347V1698.86H399.716V1556.6Z" fill="black"/>
@@ -36,7 +36,7 @@ export default function RootLayout({
         </div>
 
         {/* Hunter Healthcare Video Splash (Homepage Welcome Loader) */}
-        <section className="animated-splash-page" id="video-splash">
+        <section className="animated-splash-page" id="video-splash" suppressHydrationWarning>
           <video
             id="splash-video-desktop"
             className="splash-video-desktop animated-splash-page__video"
@@ -109,7 +109,7 @@ export default function RootLayout({
 				<div class="header__menu__bg"></div>
 				<ul id="menu-principal" class="header__menu__nav-site f-izmir t-titulo-l t-upper"><li id="menu-item-1411" class="link menu-item menu-item-type-post_type menu-item-object-page menu-item-1411"><a href="/about-us">About Us</a></li>
 <li id="menu-item-1412" class="no-show link menu-item menu-item-type-post_type menu-item-object-page menu-item-1412"><a href="/projects">Agents</a></li>
-<li id="menu-item-3d-model" class="link menu-item"><a href="/vibrant" style="color: #6366f1;">3D Model</a></li>
+<li id="menu-item-3d-model" class="link menu-item"><a href="/vibrant" data-no-swup="true" style="color: #6366f1;">3D Model</a></li>
 <li id="menu-item-1088" class="link menu-item menu-item-type-custom menu-item-object-custom menu-item-1088"><a href="#contacto">Contact</a></li>
 <li id="menu-item-1089" class="no-show-scroll link menu-item menu-item-type-custom menu-item-object-custom menu-item-1089"><a href="#disponibilidad">Availability</a></li>
 </ul>
@@ -160,12 +160,12 @@ export default function RootLayout({
 									</a>
 								</div>
 																								<div class="header__menu__nav-single__proyectos__item ">
-									<a href="/vibrant">
+									<a href="/vibrant" data-no-swup="true">
 										<div class="num-title t-titulo-l t-upper">
 											<span class="num f-edit t-parrafo-xl t-normal">(4)</span> 
 											<span class="title">3D Body Explorer</span>
 										</div>
-										<div class="place f-edit t-parrafo-xl t-italic" style={{ color: '#818cf8', fontWeight: 600 }}>3D Live</div>
+										<div class="place f-edit t-parrafo-xl t-italic" style="color: #818cf8; font-weight: 600;">3D Live</div>
 									</a>
 								</div>
 																							<div class="header__menu__nav-single__proyectos__item disabled">

@@ -118,7 +118,7 @@ export default function HomePage() {
 
         <ul id="menu-principal-1" class="mod-scroll__intro__menu f-izmir t-parrafo t-upper"><li class="link menu-item menu-item-type-post_type menu-item-object-page menu-item-1411"><a href="/about-us">About Us</a></li>
 <li class="no-show link menu-item menu-item-type-post_type menu-item-object-page menu-item-1412"><a href="/projects">Agents</a></li>
-<li class="link menu-item"><a href="/vibrant" style="color: #6366f1; font-weight: 600;">3D Model</a></li>
+<li class="link menu-item"><a href="/vibrant" data-no-swup="true" style="color: #6366f1; font-weight: 600;">3D Model</a></li>
 <li class="link menu-item menu-item-type-custom menu-item-object-custom menu-item-1088"><a href="#contacto">Contact</a></li>
 <li class="no-show-scroll link menu-item menu-item-type-custom menu-item-object-custom menu-item-1089"><a href="#disponibilidad">Availability</a></li>
 </ul>
@@ -777,7 +777,7 @@ export default function HomePage() {
                                 <div class="f-izmir t-parrafo data-number" style="color: #818cf8;">04</div>
 
                                  
-                                    <span><a href="/vibrant" class="btn btn--bg btn--bg-inv btn--bg-grey f-edit t-parrafo-l" style="border-color: #6366f1; color: #fff; background-color: rgba(99,102,241,0.25);">
+                                    <span><a href="/vibrant" data-no-swup="true" class="btn btn--bg btn--bg-inv btn--bg-grey f-edit t-parrafo-l" style="border-color: #6366f1; color: #fff; background-color: rgba(99,102,241,0.25);">
                                         Launch 3D Explorer                                    </a></span>
                                                             </div>
                             <div class="mod-scroll__projects__item__text__title t-upper f-izmir t-titulo-xxl" style="color: #ffffff;">Interactive 3D Body</div>

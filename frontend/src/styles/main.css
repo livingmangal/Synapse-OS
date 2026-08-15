@@ -506,6 +506,20 @@ main .mod-scroll__intro {
   pointer-events: none;
 }
 
+/* Complete suppression of all splash screens, loaders, centered logos, and transitions on 3D Model Explorer */
+body:has(#sanjeevani-3d-frame) #video-splash,
+body:has(#sanjeevani-3d-frame) #page-loader,
+body:has(#sanjeevani-3d-frame) .animated-splash-page,
+body:has(#sanjeevani-3d-frame) .header.wrapper,
+body:has(#sanjeevani-3d-frame) .header__logo,
+body:has(#sanjeevani-3d-frame) .transition,
+body:has(#sanjeevani-3d-frame) #mouse {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
 .animated-splash-page__video {
   width: 100vw;
   height: 100vh;

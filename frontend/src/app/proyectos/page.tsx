@@ -18,7 +18,7 @@ export default function ProjectsPage() {
 
         <ul id="menu-principal-1" class="mod-scroll__intro__menu f-izmir t-parrafo t-upper"><li class="link menu-item menu-item-type-post_type menu-item-object-page menu-item-1411"><a href="/about-us">About Us</a></li>
 <li class="no-show link menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-1062 current_page_item menu-item-1412"><a href="/projects" aria-current="page">Agents</a></li>
-<li class="link menu-item"><a href="/vibrant" style="color: #6366f1;">3D Model</a></li>
+<li class="link menu-item"><a href="/vibrant" data-no-swup="true" style="color: #6366f1;">3D Model</a></li>
 <li class="link menu-item menu-item-type-custom menu-item-object-custom menu-item-1088"><a href="#contacto">Contact</a></li>
 <li class="no-show-scroll link menu-item menu-item-type-custom menu-item-object-custom menu-item-1089"><a href="#disponibilidad">Availability</a></li>
 </ul>
@@ -249,7 +249,7 @@ export default function ProjectsPage() {
             
         
             <div class="mod-scroll__projectInt bg-grey expand_mouse" data-text="Explore 3D" data-url="/vibrant" style="background-color: #0b0f19;">
-                <a href="/vibrant" class="btn btn--circle follow__mouse--md f-izmir t-parrafo-l d-none d-md-flex" style="background-color: #6366f1; color: #fff;">Explore 3D</a> 
+                <a href="/vibrant" data-no-swup="true" class="btn btn--circle follow__mouse--md f-izmir t-parrafo-l d-none d-md-flex" style="background-color: #6366f1; color: #fff;">Explore 3D</a> 
                 
                 <div class="mod-scroll__projectInt__image flipMedia flipMedia--rightLeft">
                     

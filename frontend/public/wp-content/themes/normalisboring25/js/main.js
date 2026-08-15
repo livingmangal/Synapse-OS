@@ -555,13 +555,18 @@
     
         swup = new Swup({
             containers: ['#smooth-wrapper','#wrap-modals'],
-            linkSelector: 'a[href]:not([href="contacto"]):not([href="disponibilidad"]):not([target="_blank"])',
+            linkSelector: 'a[href]:not([href="contacto"]):not([href="disponibilidad"]):not([target="_blank"]):not([href*="vibrant"]):not([data-no-swup])',
             animateHistoryBrowsing: true,
             cache: false
         });
 
-        swup.hooks.replace('animation:out:await', async () => {
+        swup.hooks.replace('animation:out:await', async (visit) => {
             if(control) console.log('animation:out'); 
+
+            // Bypass logo animation and transition if navigating to the 3D Model Explorer
+            if (visit?.to?.url?.includes('vibrant') || window.location.pathname.includes('vibrant')) {
+                return;
+            }
 
             if(document.querySelector('.modal--alert')) alert_tl.timeScale(2).reverse()
 
@@ -584,8 +589,12 @@
                     
                     cleanLogo();
                     gsap.set(header_logo,{opacity:0})
-                    header_btn_tl.progress(0).reverse()
-                    header_anchors_tl.progress(0).reverse()
+                    if (typeof header_btn_tl !== 'undefined' && header_btn_tl && typeof header_btn_tl.progress === 'function') {
+                        header_btn_tl.progress(0).reverse();
+                    }
+                    if (typeof header_anchors_tl !== 'undefined' && header_anchors_tl && typeof header_anchors_tl.progress === 'function') {
+                        header_anchors_tl.progress(0).reverse();
+                    }
 
                     ///fix positions
                     gsap.set(transition,{ zIndex:5 })
@@ -594,7 +603,9 @@
                     gsap.set(smoothWrapper, {y:'0%'});
 
                     //close menu
-                    menu_tl.progress(.000001).reverse()
+                    if (typeof menu_tl !== 'undefined' && menu_tl && typeof menu_tl.progress === 'function') {
+                        menu_tl.progress(.000001).reverse();
+                    }
                     openMenu = false;
 
                     if(control) console.log('-- complete transition out');

@@ -203,7 +203,7 @@ export default function PlazaEspaa9Page() {
         <div class="mod-content__col normal_text">
                         <div class="mod-content__wrap-text">
                                  
-                    <div class="mod-content__text normal_text"><p>Built in the 19th century, Plaza España 9 is a unique landmark building that honors its classical heritage while delivering contemporary living. This vibrant neighborhood offers the very best of downtown A Coruña.</p>
+                    <div class="mod-content__text normal_text"><p>Equipped with cutting-edge deep learning vision models, Medical Scan Agent transforms raw radiological images into real-time diagnostics, triage flags, and volumetric segmentation with clinical-grade accuracy.</p>
  </div>
                             </div>
                     </div>

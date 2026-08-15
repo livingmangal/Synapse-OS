@@ -1,5 +1,19 @@
 (() => {
   function initHunterSplash() {
+    // If on 3D Model Explorer page, do not activate video splash or loader
+    if (window.location.pathname.includes('/vibrant') || document.getElementById('sanjeevani-3d-frame')) {
+      const splash = document.getElementById('video-splash');
+      if (splash) {
+        splash.style.display = 'none';
+        splash.classList.add('hide-splash');
+      }
+      const pageLoader = document.getElementById('page-loader');
+      if (pageLoader) {
+        pageLoader.style.display = 'none';
+      }
+      return;
+    }
+
     const splashSection = document.getElementById('video-splash');
     const desktopVideo = document.getElementById('splash-video-desktop');
     const mobileVideo = document.getElementById('splash-video-mobile');
