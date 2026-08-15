@@ -262,25 +262,17 @@ const yl = ri("/images/svg/nLogoB.svg"),
       return (i, s) => (
         I(),
         z(
-          "a",
+          "div",
           {
-            href: "https://noomoagency.com",
-            target: "_blank",
             class: G([
-              "fixed lg:block xs:hidden n-logo bottom-17 right-34 z-100 opacity-0 transition-all duration-300 delay-1800 ease-in-out",
+              "fixed lg:block xs:hidden n-logo bottom-17 right-34 z-100 opacity-0 transition-all duration-300 delay-1800 ease-in-out select-none",
               { "opacity-100": L(t).isSceneLoaded },
             ]),
           },
           s[0] ||
             (s[0] = [
               Oi(
-                '<div class="flex cursor-pointer items-center" data-v-259c1204><p class="text-bold-700-13 text-white uppercase" data-v-259c1204>created by</p><div class="ml-9" data-v-259c1204><img class="logo-1" alt="noomo agency" src="' +
-                  yl +
-                  '" data-v-259c1204><img class="absolute top-6 logo-2" alt="noomo agency" src="' +
-                  Al +
-                  '" data-v-259c1204></div><img alt="noomo agency" class="w-39" src="' +
-                  El +
-                  '" data-v-259c1204></div>',
+                '<div class="flex items-center" data-v-259c1204><p class="text-bold-700-13 text-white uppercase" data-v-259c1204 style="font-size: 13px; font-weight: 700; color: #ffffff; letter-spacing: 0.08em; display: flex; align-items: center; gap: 6px;"><span>CREATED BY</span><span style="background: linear-gradient(135deg, #a78bfa, #38bdf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; letter-spacing: 0.1em;">TEAM AC-DC</span></p></div>',
                 1,
               ),
             ]),
