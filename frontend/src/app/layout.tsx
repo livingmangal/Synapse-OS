@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Script from 'next/script';
 import '@/styles/main.css';
+import SanjeevaniAssistant from '@/components/ui/SanjeevaniAssistant';
 
 export const metadata: Metadata = {
   title: 'Sanjeevani OS | Multi-Agent Health Platform',
@@ -247,6 +248,7 @@ export default function RootLayout({
 
         {/* LiveKit Isometric Agentic Architecture Controller */}
         <Script src="/wp-content/themes/normalisboring25/js/agentic-diagram.js" strategy="afterInteractive" />
+        <SanjeevaniAssistant />
       </body>
     </html>
   );
