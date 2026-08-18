@@ -39,7 +39,16 @@ export default function VibrantPage() {
     document.body.classList.remove('video-splash-active');
     document.documentElement.classList.remove('overflow-hidden');
 
-    return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
+    const handlePopState = () => {
+      // Force a full reload when navigating away via browser back button
+      window.location.reload();
+    };
+    window.addEventListener('popstate', handlePopState);
+
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+      window.removeEventListener('popstate', handlePopState);
+    };
   }, []);
 
   return (
@@ -84,7 +93,7 @@ export default function VibrantPage() {
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px', pointerEvents: 'auto', height: '44px' }}>
-          <Link
+          <a
             href="/"
             data-no-swup="true"
             id="vibrant-back-button"
@@ -130,11 +139,11 @@ export default function VibrantPage() {
               <polyline points="12 19 5 12 12 5" />
             </svg>
             <span>Back to Sanjeevani OS</span>
-          </Link>
+          </a>
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px', pointerEvents: 'auto', height: '44px' }}>
-          <Link
+          <a
             href="/projects"
             data-no-swup="true"
             style={{
@@ -175,7 +184,7 @@ export default function VibrantPage() {
             }}
           >
             All Agents
-          </Link>
+          </a>
 
           <button
             onClick={toggleFullscreen}
