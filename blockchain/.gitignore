@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+
+# Build artifacts
+contracts/artifacts/
+contracts/cache/
+
+# Environment files (contain private keys and API tokens!)
+.env
+.env.local
+.env*.local
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Gemini
+.agents/
