@@ -666,9 +666,7 @@ export default function HomePage() {
                 Projects            </div>
             <div class="mod-scroll__projects__text f-izmir t-parrafo">
                 Our architecture relies on 18 specialized agents, from document OCR to on-chain records. Explore the core cluster that powers the Sanjeevani platform.            </div>
-        </div>
-
-        <!-- projects -->
+            <!-- projects -->
         
             
                             <div class="mod-scroll__projects__item  bg-beige c-black">
@@ -685,14 +683,14 @@ export default function HomePage() {
                         <div class="mod-scroll__projects__item__text">
                             <div class="mod-scroll__projects__item__text__data">
 
-                                <div class="f-edit t-parrafo-l"><span>2024</span></div>
-                                <div class="f-izmir t-parrafo-l"><span>OLEIROS</span></div>
+                                <div class="f-edit t-parrafo-l"><span>2026</span></div>
+                                <div class="f-izmir t-parrafo-l"><span>SWARM AI</span></div>
                                 <div class="f-izmir t-parrafo data-number">01</div>
 
                                  
-                                    <span><a href="/projects/orchestrator-agent" class="btn btn--bg btn--bg-inv btn--bg-beige c-black f-edit t-parrafo-l
+                                    <span><a href="/orchestrator-agent" data-no-swup="true" class="btn btn--bg btn--bg-inv btn--bg-beige c-black f-edit t-parrafo-l
                                      ">
-                                        The project                                    </a></span>
+                                        Launch Agent Swarm                                    </a></span>
                                                             </div>
                             <div class="mod-scroll__projects__item__text__title t-upper f-regular t-titulo-xxl">Sanjeevani Orchestrator</div>
                         </div>
@@ -714,14 +712,14 @@ export default function HomePage() {
                         <div class="mod-scroll__projects__item__text">
                             <div class="mod-scroll__projects__item__text__data">
 
-                                <div class="f-edit t-parrafo-l"><span>2024</span></div>
-                                <div class="f-izmir t-parrafo-l"><span>OLEIROS</span></div>
+                                <div class="f-edit t-parrafo-l"><span>2026</span></div>
+                                <div class="f-izmir t-parrafo-l"><span>VISION AI</span></div>
                                 <div class="f-izmir t-parrafo data-number">02</div>
 
                                  
-                                    <span><a href="/projects/medical-scan-agent" class="btn btn--bg btn--bg-inv btn--bg-grey f-edit t-parrafo-l
+                                    <span><a href="/medical-scan-agent" data-no-swup="true" class="btn btn--bg btn--bg-inv btn--bg-grey f-edit t-parrafo-l
                                      ">
-                                        The project                                    </a></span>
+                                        Launch Scan Analyzer                                    </a></span>
                                                             </div>
                             <div class="mod-scroll__projects__item__text__title t-upper f-izmir t-titulo-xxl">Medical Scan Agent</div>
                         </div>
@@ -743,14 +741,14 @@ export default function HomePage() {
                         <div class="mod-scroll__projects__item__text">
                             <div class="mod-scroll__projects__item__text__data">
 
-                                <div class="f-edit t-parrafo-l"><span>2023</span></div>
-                                <div class="f-izmir t-parrafo-l"><span>CLINICAL</span></div>
+                                <div class="f-edit t-parrafo-l"><span>2026</span></div>
+                                <div class="f-izmir t-parrafo-l"><span>CLINICAL ML</span></div>
                                 <div class="f-izmir t-parrafo data-number">03</div>
 
                                  
-                                    <span><a href="/projects/symptom-triage-agent" class="btn btn--bg btn--bg-inv btn--bg-blue f-edit t-parrafo-l
+                                    <span><a href="/symptom-triage-agent" data-no-swup="true" class="btn btn--bg btn--bg-inv btn--bg-blue f-edit t-parrafo-l
                                      ">
-                                        The project                                    </a></span>
+                                        Launch Symptom Triage                                    </a></span>
                                                             </div>
                             <div class="mod-scroll__projects__item__text__title t-upper f-edit t-titulo-xxl">Symptom Triage Agent</div>
                         </div>
@@ -800,20 +798,19 @@ export default function HomePage() {
                         <div class="mod-scroll__projects__item__text">
                             <div class="mod-scroll__projects__item__text__data">
 
-                                <div class="f-edit t-parrafo-l"><span>2024</span></div>
-                                <div class="f-izmir t-parrafo-l"><span>ICARIA IV</span></div>
-                                <div class="f-izmir t-parrafo data-number">04</div>
+                                <div class="f-edit t-parrafo-l"><span>2026</span></div>
+                                <div class="f-izmir t-parrafo-l"><span>ABDM / BLOCKCHAIN</span></div>
+                                <div class="f-izmir t-parrafo data-number">05</div>
 
                                  
-                                    <span><a href="" class="btn btn--bg btn--bg-inv btn--bg-beige c-black f-edit t-parrafo-l
-                                    disabled ">
-                                        Próximamente                                    </a></span>
+                                    <span><a href="/records" data-no-swup="true" class="btn btn--bg btn--bg-inv btn--bg-beige c-black f-edit t-parrafo-l">
+                                        ABHA Health Passport                                    </a></span>
                                                             </div>
-                            <div class="mod-scroll__projects__item__text__title t-upper f-regular t-titulo-xxl">Blockchain Records</div>
+                            <div class="mod-scroll__projects__item__text__title t-upper f-regular t-titulo-xxl">Blockchain Records & ABHA</div>
                         </div>
                     </div>
 
-                                    </div>
+                                    </div>       </div>
                 
                             <div class="mod-scroll__projects__item last-item bg-grey">
                     
@@ -1107,9 +1104,9 @@ export default function HomePage() {
 
 
         <div class="mod-footer__content__project">
-            <div class="mod-footer__content__project__year f-edit t-parrafo-l">(2024)</div>
-            <div class="mod-footer__content__project__wrap-image expand_mouse follow__wrap" data-text="Explore" data-url="/projects/orchestrator-agent">
-                <a href="/projects/orchestrator-agent" class="btn btn--circle follow__mouse--md f-izmir t-parrafo-l d-none d-md-flex">Explore</a>
+            <div class="mod-footer__content__project__year f-edit t-parrafo-l">(2026)</div>
+            <div class="mod-footer__content__project__wrap-image expand_mouse follow__wrap" data-text="Explore" data-url="/orchestrator-agent" data-no-swup="true">
+                <a href="/orchestrator-agent" data-no-swup="true" class="btn btn--circle follow__mouse--md f-izmir t-parrafo-l d-none d-md-flex">Explore</a>
                 
 <div class="media mod-footer__content__project__image noAspect" data-delay=""> 
             <div class="media__wrap-source image">

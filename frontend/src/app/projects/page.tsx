@@ -104,8 +104,8 @@ export default function ProjectsPage() {
     <!-- version interior -->
     
         
-            <div class="mod-scroll__projectInt bg-beige c-black expand_mouse" data-text="Explore" data-url="/projects/orchestrator-agent">
-                <a href="/projects/orchestrator-agent" class="btn btn--circle follow__mouse--md f-izmir t-parrafo-l d-none d-md-flex">Explore</a> 
+            <div class="mod-scroll__projectInt bg-beige c-black expand_mouse" data-text="Explore" data-url="/orchestrator-agent" data-no-swup="true">
+                <a href="/orchestrator-agent" data-no-swup="true" class="btn btn--circle follow__mouse--md f-izmir t-parrafo-l d-none d-md-flex">Explore</a> 
                 
                 <div class="mod-scroll__projectInt__image flipMedia flipMedia--rightLeft">
                     
@@ -126,7 +126,7 @@ export default function ProjectsPage() {
 
                 <div class="mod-scroll__projectInt__content">
                     <div class="mod-scroll__projectInt__section mod-scroll__section t-parrafo-l f-edit">
-                        (2024)                    </div>
+                        (2026)                    </div>
                     <div class="mod-scroll__projectInt__number t-parrafo-l f-izmir">01</div> 
                     <div class="mod-scroll__projectInt__text t-parrafo-l f-edit">
                         The Central Brain of the Health Platform                    </div>
@@ -153,8 +153,8 @@ export default function ProjectsPage() {
             </div>
             
         
-            <div class="mod-scroll__projectInt bg-grey expand_mouse" data-text="Explore" data-url="/projects/medical-scan-agent">
-                <a href="/projects/medical-scan-agent" class="btn btn--circle follow__mouse--md f-izmir t-parrafo-l d-none d-md-flex">Explore</a> 
+            <div class="mod-scroll__projectInt bg-grey expand_mouse" data-text="Explore" data-url="/medical-scan-agent" data-no-swup="true">
+                <a href="/medical-scan-agent" data-no-swup="true" class="btn btn--circle follow__mouse--md f-izmir t-parrafo-l d-none d-md-flex">Explore</a> 
                 
                 <div class="mod-scroll__projectInt__image flipMedia flipMedia--rightLeft">
                     
@@ -175,7 +175,7 @@ export default function ProjectsPage() {
 
                 <div class="mod-scroll__projectInt__content">
                     <div class="mod-scroll__projectInt__section mod-scroll__section t-parrafo-l f-edit">
-                        (2023)                    </div>
+                        (2026)                    </div>
                     <div class="mod-scroll__projectInt__number t-parrafo-l f-izmir">02</div> 
                     <div class="mod-scroll__projectInt__text t-parrafo-l f-edit">
                         Clinical Intelligence for Documents and Scans                    </div>
@@ -202,8 +202,8 @@ export default function ProjectsPage() {
             </div>
             
         
-            <div class="mod-scroll__projectInt bg-blue expand_mouse" data-text="Explore" data-url="/projects/symptom-triage-agent">
-                <a href="/projects/symptom-triage-agent" class="btn btn--circle follow__mouse--md f-izmir t-parrafo-l d-none d-md-flex">Explore</a> 
+            <div class="mod-scroll__projectInt bg-blue expand_mouse" data-text="Explore" data-url="/symptom-triage-agent" data-no-swup="true">
+                <a href="/symptom-triage-agent" data-no-swup="true" class="btn btn--circle follow__mouse--md f-izmir t-parrafo-l d-none d-md-flex">Explore</a> 
                 
                 <div class="mod-scroll__projectInt__image flipMedia flipMedia--rightLeft">
                     
@@ -224,7 +224,7 @@ export default function ProjectsPage() {
 
                 <div class="mod-scroll__projectInt__content">
                     <div class="mod-scroll__projectInt__section mod-scroll__section t-parrafo-l f-edit">
-                        (2024)                    </div>
+                        (2026)                    </div>
                     <div class="mod-scroll__projectInt__number t-parrafo-l f-izmir">03</div> 
                     <div class="mod-scroll__projectInt__text t-parrafo-l f-edit">
                         Structured Q&A and Emergency Routing                    </div>
@@ -251,7 +251,7 @@ export default function ProjectsPage() {
             </div>
             
         
-            <div class="mod-scroll__projectInt bg-grey expand_mouse" data-text="Explore 3D" data-url="/vibrant" style="background-color: #0b0f19;">
+            <div class="mod-scroll__projectInt bg-grey expand_mouse" data-text="Explore 3D" data-url="/vibrant" data-no-swup="true" style="background-color: #0b0f19;">
                 <a href="/vibrant" data-no-swup="true" class="btn btn--circle follow__mouse--md f-izmir t-parrafo-l d-none d-md-flex" style="background-color: #6366f1; color: #fff;">Explore 3D</a> 
                 
                 <div class="mod-scroll__projectInt__image flipMedia flipMedia--rightLeft">
@@ -300,8 +300,8 @@ export default function ProjectsPage() {
             </div>
             
         
-            <div class="mod-scroll__projectInt bg-grey expand_mouse" data-text="Próximamente" data-url="/">
-                <a href="" class="btn btn--circle follow__mouse--md f-izmir t-parrafo-l d-none d-md-flex">Coming Soon</a> 
+            <div class="mod-scroll__projectInt bg-grey expand_mouse" data-text="Explore" data-url="/records" data-no-swup="true">
+                <a href="/records" data-no-swup="true" class="btn btn--circle follow__mouse--md f-izmir t-parrafo-l d-none d-md-flex">Explore</a> 
                 
                 <div class="mod-scroll__projectInt__image flipMedia flipMedia--rightLeft">
                     
@@ -322,12 +322,12 @@ export default function ProjectsPage() {
 
                 <div class="mod-scroll__projectInt__content">
                     <div class="mod-scroll__projectInt__section mod-scroll__section t-parrafo-l f-edit">
-                        (2024)                    </div>
-                    <div class="mod-scroll__projectInt__number t-parrafo-l f-izmir">04</div> 
+                        (2026)                    </div>
+                    <div class="mod-scroll__projectInt__number t-parrafo-l f-izmir">05</div> 
                     <div class="mod-scroll__projectInt__text t-parrafo-l f-edit">
-                        Tamper-proof Health Verification                    </div>
+                        Tamper-proof Health Verification & ABHA Passports                    </div>
                     <div class="mod-scroll__projectInt__title t-titulo-xxl t-upper f-edit">
-                        Blockchain Records                    </div>
+                        Blockchain Records & ABHA                    </div>
 
                     <div class="mod-scroll__projectInt__image-small  flipMedia flipMedia--leftRight">
                         
@@ -599,9 +599,9 @@ export default function ProjectsPage() {
 
 
         <div class="mod-footer__content__project">
-            <div class="mod-footer__content__project__year f-edit t-parrafo-l">(2024)</div>
-            <div class="mod-footer__content__project__wrap-image expand_mouse follow__wrap" data-text="Explore" data-url="/projects/orchestrator-agent">
-                <a href="/projects/orchestrator-agent" class="btn btn--circle follow__mouse--md f-izmir t-parrafo-l d-none d-md-flex">Explore</a>
+            <div class="mod-footer__content__project__year f-edit t-parrafo-l">(2026)</div>
+            <div class="mod-footer__content__project__wrap-image expand_mouse follow__wrap" data-text="Explore" data-url="/orchestrator-agent" data-no-swup="true">
+                <a href="/orchestrator-agent" data-no-swup="true" class="btn btn--circle follow__mouse--md f-izmir t-parrafo-l d-none d-md-flex">Explore</a>
                 
 <div class="media mod-footer__content__project__image noAspect" data-delay=""> 
             <div class="media__wrap-source image">

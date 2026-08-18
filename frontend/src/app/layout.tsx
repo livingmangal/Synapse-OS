@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
-import Script from 'next/script';
 import '@/styles/main.css';
+import SanjeevaniAssistantModal from '@/components/SanjeevaniAssistantModal';
+import ScriptsLoader from '@/components/ScriptsLoader';
 
 export const metadata: Metadata = {
   title: 'Sanjeevani OS | Multi-Agent Health Platform',
@@ -18,13 +19,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <link rel="preload" href="/wp-content/themes/normalisboring25/css/fonts/editorialnew-regular.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-        <link rel="preload" href="/wp-content/themes/normalisboring25/css/fonts/editorialnew-regular.woff" as="font" type="font/woff" crossOrigin="anonymous" />
-        <link rel="stylesheet" href="/wp-includes/css/dist/block-library/common.min.css" />
-        <link rel="stylesheet" href="/wp-content/plugins/contact-form-7/includes/css/styles.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.5/swiper-bundle.min.css" />
-        <link rel="stylesheet" href="/wp-content/themes/normalisboring25/css/main.css" />
+      <head suppressHydrationWarning>
+        <link rel="preload" href="/wp-content/themes/normalisboring25/css/fonts/editorialnew-regular.woff2" as="font" type="font/woff2" crossOrigin="anonymous" suppressHydrationWarning />
+        <link rel="preload" href="/wp-content/themes/normalisboring25/css/fonts/editorialnew-regular.woff" as="font" type="font/woff" crossOrigin="anonymous" suppressHydrationWarning />
+        <link rel="stylesheet" href="/wp-content/plugins/contact-form-7/includes/css/styles.css" suppressHydrationWarning />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.5/swiper-bundle.min.css" suppressHydrationWarning />
+        <link rel="stylesheet" href="/wp-content/themes/normalisboring25/css/main.css" suppressHydrationWarning />
       </head>
       <body suppressHydrationWarning>
         {/* Hunter Healthcare Page Loader Overlay */}
@@ -107,15 +107,17 @@ export default function RootLayout({
 		<!-- MENU -->
 			<div class="header__menu c-black d-none">
 				<div class="header__menu__bg"></div>
-				<ul id="menu-principal" class="header__menu__nav-site f-izmir t-titulo-l t-upper"><li id="menu-item-1411" class="link menu-item menu-item-type-post_type menu-item-object-page menu-item-1411"><a href="/about-us">About Us</a></li>
-<li id="menu-item-1412" class="no-show link menu-item menu-item-type-post_type menu-item-object-page menu-item-1412"><a href="/projects">Agents</a></li>
-<li id="menu-item-3d-model" class="link menu-item"><a href="/vibrant" data-no-swup="true" style="color: #6366f1;">3D Model</a></li>
-<li id="menu-item-1088" class="link menu-item menu-item-type-custom menu-item-object-custom menu-item-1088"><a href="#contacto">Contact</a></li>
-<li id="menu-item-1089" class="no-show-scroll link menu-item menu-item-type-custom menu-item-object-custom menu-item-1089"><a href="#disponibilidad">Availability</a></li>
-</ul>
+				<ul id="menu-principal" class="header__menu__nav-site f-izmir t-titulo-l t-upper">
+					<li class="link menu-item"><a href="/" data-no-swup="true">Home</a></li>
+					<li class="link menu-item"><a href="/orchestrator-agent" data-no-swup="true">Orchestrator Swarm</a></li>
+					<li class="link menu-item"><a href="/symptom-triage-agent" data-no-swup="true">Clinical Triage & ML</a></li>
+					<li class="link menu-item"><a href="/medical-scan-agent" data-no-swup="true">Medical Scan AI</a></li>
+					<li class="link menu-item"><a href="/vibrant" data-no-swup="true" style="color: #38bdf8;">3D Health Twin</a></li>
+					<li class="link menu-item"><a href="/records" data-no-swup="true" style="color: #10b981;">ABHA & Records</a></li>
+				</ul>
 				<div class="header__menu__content">
 					<div class="header__menu__media expand_mouse follow__wrap" data-text="Explore" data-url="/orchestrator-agent">
-						<a href="/orchestrator-agent" class="btn btn--circle follow__mouse--md f-izmir t-parrafo-l d-none d-md-flex"></a>
+						<a href="/orchestrator-agent" data-no-swup="true" class="btn btn--circle follow__mouse--md f-izmir t-parrafo-l d-none d-md-flex"></a>
 						<div class="header__menu__media__title f-medium t-titulo-xl t-upper">ORCHESTRATOR AGENT</div>
 						
 <div class="media header__menu__media__image noAnimate no-general-anim noAspect" data-delay=""> 
@@ -127,66 +129,57 @@ export default function RootLayout({
 					</div>
 					<nav class="header__menu__nav-single">
 						
-						<h5 class="header__menu__nav-single__title f-izmir t-titulo t-upper">Agents</h5>
+						<h5 class="header__menu__nav-single__title f-izmir t-titulo t-upper">Agents & Infrastructure</h5>
 
-						<a href="/projects" class="header__menu__nav-single__link f-edit t-parrafo-l"><span class="link under">View All</span></a>
+						<a href="/projects" data-no-swup="true" class="header__menu__nav-single__link f-edit t-parrafo-l"><span class="link under">View All Agents</span></a>
 						
 						<div class="header__menu__nav-single__proyectos">
-																														<div class="header__menu__nav-single__proyectos__item ">
-									<a href="/orchestrator-agent">
-										<div class="num-title t-titulo-l t-upper">
-											<span class="num f-edit t-parrafo-xl t-normal">(1)</span> 
-											<span class="title">Orchestrator Agent</span>
-										</div>
-										<div class="place f-edit t-parrafo-xl t-italic">Active</div>
-									</a>
-								</div>
-																							<div class="header__menu__nav-single__proyectos__item ">
-									<a href="/medical-scan-agent">
-										<div class="num-title t-titulo-l t-upper">
-											<span class="num f-edit t-parrafo-xl t-normal">(2)</span> 
-											<span class="title">Medical Scan Agent</span>
-										</div>
-										<div class="place f-edit t-parrafo-xl t-italic">Active</div>
-									</a>
-								</div>
-																								<div class="header__menu__nav-single__proyectos__item ">
-									<a href="/symptom-triage-agent">
-										<div class="num-title t-titulo-l t-upper">
-											<span class="num f-edit t-parrafo-xl t-normal">(3)</span> 
-											<span class="title">Symptom Triage Agent</span>
-										</div>
-										<div class="place f-edit t-parrafo-xl t-italic">Active</div>
-									</a>
-								</div>
-																								<div class="header__menu__nav-single__proyectos__item ">
-									<a href="/vibrant" data-no-swup="true">
-										<div class="num-title t-titulo-l t-upper">
-											<span class="num f-edit t-parrafo-xl t-normal">(4)</span> 
-											<span class="title">3D Body Explorer</span>
-										</div>
-										<div class="place f-edit t-parrafo-xl t-italic" style="color: #818cf8; font-weight: 600;">3D Live</div>
-									</a>
-								</div>
-																							<div class="header__menu__nav-single__proyectos__item disabled">
-									<a href="/projects">
-										<div class="num-title t-titulo-l t-upper">
-											<span class="num f-edit t-parrafo-xl t-normal">(5)</span> 
-											<span class="title">Blockchain Records</span>
-										</div>
-										<div class="place f-edit t-parrafo-xl t-italic">Coming Soon</div>
-									</a>
-								</div>
-																							<div class="header__menu__nav-single__proyectos__item disabled">
-									<a href="/projects">
-										<div class="num-title t-titulo-l t-upper">
-											<span class="num f-edit t-parrafo-xl t-normal">(6)</span> 
-											<span class="title">Outbreak Predictive</span>
-										</div>
-										<div class="place f-edit t-parrafo-xl t-italic">Coming Soon</div>
-									</a>
-								</div>
-													</div>
+							<div class="header__menu__nav-single__proyectos__item ">
+								<a href="/orchestrator-agent" data-no-swup="true">
+									<div class="num-title t-titulo-l t-upper">
+										<span class="num f-edit t-parrafo-xl t-normal">(1)</span> 
+										<span class="title">Orchestrator Agent</span>
+									</div>
+									<div class="place f-edit t-parrafo-xl t-italic">Active</div>
+								</a>
+							</div>
+							<div class="header__menu__nav-single__proyectos__item ">
+								<a href="/medical-scan-agent" data-no-swup="true">
+									<div class="num-title t-titulo-l t-upper">
+										<span class="num f-edit t-parrafo-xl t-normal">(2)</span> 
+										<span class="title">Medical Scan Agent</span>
+									</div>
+									<div class="place f-edit t-parrafo-xl t-italic">Active</div>
+								</a>
+							</div>
+							<div class="header__menu__nav-single__proyectos__item ">
+								<a href="/symptom-triage-agent" data-no-swup="true">
+									<div class="num-title t-titulo-l t-upper">
+										<span class="num f-edit t-parrafo-xl t-normal">(3)</span> 
+										<span class="title">Symptom Triage Agent</span>
+									</div>
+									<div class="place f-edit t-parrafo-xl t-italic">Active</div>
+								</a>
+							</div>
+							<div class="header__menu__nav-single__proyectos__item ">
+								<a href="/vibrant" data-no-swup="true">
+									<div class="num-title t-titulo-l t-upper">
+										<span class="num f-edit t-parrafo-xl t-normal">(4)</span> 
+										<span class="title">3D Body Explorer</span>
+									</div>
+									<div class="place f-edit t-parrafo-xl t-italic" style="color: #38bdf8; font-weight: 600;">3D Live</div>
+								</a>
+							</div>
+							<div class="header__menu__nav-single__proyectos__item ">
+								<a href="/records" data-no-swup="true">
+									<div class="num-title t-titulo-l t-upper">
+										<span class="num f-edit t-parrafo-xl t-normal">(5)</span> 
+										<span class="title">ABHA & Health Passport</span>
+									</div>
+									<div class="place f-edit t-parrafo-xl t-italic" style="color: #10b981; font-weight: 600;">On-Chain Verified</div>
+								</a>
+							</div>
+						</div>
 					</nav>
 				</div>
 				
@@ -203,6 +196,9 @@ export default function RootLayout({
             {children}
           </div>
         </div>
+
+        {/* Global Sanjeevani Assistant Mode */}
+        <SanjeevaniAssistantModal />
 
         {/* Modals required by scripts */}
         <div id="wrap-modals">
@@ -224,29 +220,8 @@ export default function RootLayout({
           </div>
         </div>
 
-        {/* Sequential Execution Scripts */}
-        <Script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.5/swiper-bundle.min.js" strategy="beforeInteractive" />
-        <Script src="https://www.youtube.com/player_api" strategy="beforeInteractive" />
-        <Script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js" strategy="beforeInteractive" />
-        <Script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js" strategy="beforeInteractive" />
-        <Script src="https://unpkg.com/swup@4" strategy="beforeInteractive" />
-        <Script src="/wp-content/themes/normalisboring25/js/gsap/ScrollSmoother.min.js" strategy="beforeInteractive" />
-        <Script src="/wp-content/themes/normalisboring25/js/gsap/SplitText.min.js" strategy="beforeInteractive" />
-        <Script src="/wp-content/themes/normalisboring25/js/gsap/MorphSVGPlugin.min.js" strategy="beforeInteractive" />
-        <Script src="https://unpkg.com/lenis@1.3.1/dist/lenis.min.js" strategy="beforeInteractive" />
-        <Script src="/wp-content/themes/normalisboring25/js/root.js" strategy="beforeInteractive" />
-        <Script src="/wp-content/themes/normalisboring25/js/preloader.js" strategy="beforeInteractive" />
-        <Script src="/wp-content/themes/normalisboring25/js/rollovers.js" strategy="beforeInteractive" />
-        <Script src="/wp-content/themes/normalisboring25/js/animations.js" strategy="beforeInteractive" />
-        <Script src="/wp-content/themes/normalisboring25/js/clicks.js" strategy="beforeInteractive" />
-        <Script src="/wp-content/themes/normalisboring25/js/scroll.js" strategy="beforeInteractive" />
-        <Script src="/wp-content/themes/normalisboring25/js/main.js" strategy="beforeInteractive" />
-
-        {/* OCR Engine Carousel Interactive Controller */}
-        <Script src="/wp-content/themes/normalisboring25/js/ocr-carousel.js" strategy="afterInteractive" />
-
-        {/* LiveKit Isometric Agentic Architecture Controller */}
-        <Script src="/wp-content/themes/normalisboring25/js/agentic-diagram.js" strategy="afterInteractive" />
+        {/* Client-Side Sequenced Script Loader (Zero Hydration Mismatches) */}
+        <ScriptsLoader />
       </body>
     </html>
   );

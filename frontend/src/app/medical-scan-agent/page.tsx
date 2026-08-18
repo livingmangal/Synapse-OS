@@ -1,1316 +1,680 @@
-import type { Metadata } from 'next';
+'use client';
 
-export const metadata: Metadata = {
-  title: 'Medical Scan Agent - Sanjeevani OS',
-  description: 'The OCR and image processing hub of Sanjeevani OS.',
-};
+import React, { useState, useRef, useEffect } from 'react';
+import Link from 'next/link';
 
-export default function LaSolanaPage() {
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
+
+type ModalityType = 'bone_fracture' | 'chest_xray' | 'prescription' | 'lab_report';
+
+export default function MedicalScanAgentPage() {
+  const [modality, setModality] = useState<ModalityType>('bone_fracture');
+  const [loading, setLoading] = useState(false);
+  const [scanResult, setScanResult] = useState<any>(null);
+  const [uploadedImagePreview, setUploadedImagePreview] = useState<string | null>(null);
+  const [uploadedFileName, setUploadedFileName] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [showOverlays, setShowOverlays] = useState(true);
+  const [showGradCam, setShowGradCam] = useState(false);
+  const [contrastMode, setContrastMode] = useState<'normal' | 'high' | 'inverted'>('normal');
+  const [selectedBoxIndex, setSelectedBoxIndex] = useState<number | null>(null);
+
+  const abortControllerRef = useRef<AbortController | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleAnalyzeScan = async (selectedModality?: ModalityType, customFileName?: string, customBase64?: string) => {
+    const mod = selectedModality || modality;
+    
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+    }
+    abortControllerRef.current = new AbortController();
+
+    setLoading(true);
+    setErrorMessage(null);
+
+    try {
+      const res = await fetch(`${API_BASE}/api/scans/analyze`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          image_type: mod,
+          filename: customFileName || uploadedFileName || `${mod}_scan.jpg`,
+          image_base64: customBase64 || uploadedImagePreview || null
+        }),
+        signal: abortControllerRef.current.signal
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        setScanResult(data);
+      } else {
+        setErrorMessage(`Server returned status ${res.status}`);
+      }
+    } catch (err: any) {
+      if (err.name !== 'AbortError') {
+        setErrorMessage(`Unable to connect to scan service at ${API_BASE}. Ensure FastAPI server is running.`);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const processFile = (file: File) => {
+    setUploadedFileName(file.name);
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const result = event.target?.result as string;
+      setUploadedImagePreview(result);
+      handleAnalyzeScan(modality, file.name, result);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) processFile(file);
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(false);
+    const file = e.dataTransfer.files?.[0];
+    if (file) {
+      processFile(file);
+    }
+  };
+
+  useEffect(() => {
+    handleAnalyzeScan('bone_fracture');
+    return () => {
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+      }
+    };
+  }, []);
+
   return (
-    <div suppressHydrationWarning dangerouslySetInnerHTML={{ __html: `<main data-id="680" data-name="Medical Scan Agent" 
-	data-recipient="">
-	
-	
-<section class="mod-header mod-header--proyecto bg-beige c-black none none">
+    <div style={{ minHeight: '100vh', backgroundColor: '#070a12', color: '#f8fafc', padding: '36px 20px', fontFamily: 'system-ui, sans-serif', position: 'relative', zIndex: 10 }}>
+      {/* Suppress global template splash & mouse overlays */}
+      <style>{`
+        #video-splash, #page-loader, .animated-splash-page, .transition, #mouse, header, .grid.wrapper {
+          display: none !important;
+          visibility: hidden !important;
+          opacity: 0 !important;
+          pointer-events: none !important;
+        }
+        @media (max-width: 920px) {
+          .scan-grid-layout {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
 
-    
-        <div class="mod-header__content bg-beige c-black">
-            <div class="mod-header__content__pretitle f-edit t-titulo"></div>
-            <div class="mod-header__content__wrap-title">
-                
-                                    <div class="mod-header__content__wrap-title-text">
-                        <img class="mod-header__content__title-text" src="/wp-content/themes/normalisboring25/images/logo_solana.svg">
-                        <img class="mod-header__content__title-text" src="/wp-content/themes/normalisboring25/images/logo_solana_o.svg">
-                    </div>
-                
-                
-<div class="media mod-header__content__title-image noAnimate no-general-anim noAspect" data-delay=""> 
-            <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/03/Portada_promocion-2.jpg">
-        </div>
-    </div>
-
-            </div>
-            <div class="mod-header__content__caption f-edit t-titulo">System - Active</div>
-
-            <div class="mod-header__footer wrapper d-sm-none">
-                <div class="mod-header__footer__text f-edit t-parrafo-l ">(Scroll Down)</div>
-            </div>
-        </div>
-
-    
-
-</section>
-<section class="mod-media mod-media--full bg-beige c-black none pb-xs  pinned">
-
-    <!-- full -->
-    
-                    <div class="expand_mouse follow__wrap" data-text="Watch Video">
-                <a href="" class="btn btn--circle follow__mouse--md f-izmir t-parrafo-l d-none d-md-flex">Watch Video</a>
-                
-<div class="media mod-media__item noAnimate" data-delay=""> 
-            <div class="media__wrap-source video" data-video="&lt;iframe title=&quot;La Solana - Icaria IV&quot; src=&quot;https://player.vimeo.com/video/1077208018?dnt=1&amp;amp;app_id=122963&quot; width=&quot;640&quot; height=&quot;360&quot; frameborder=&quot;0&quot; allow=&quot;autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share&quot; referrerpolicy=&quot;strict-origin-when-cross-origin&quot;&gt;&lt;/iframe&gt;">
-            <video class="media__source w-100" autoplay="" loop="" muted="" playsinline="" data-src="/wp-content/uploads/2025/06/LaSolana_cabecera.mp4">
-                <!-- <source src="" type="video/mp4"> -->
-            </video>
-        </div>
-    </div>
-
-            </div>
-                
-    <!-- double -->
-    
-</section>
-
-<section class="mod-title wrapper mod-title--lines  bg-beige c-black none pb-l anim-space">
- 
-    <!-- lineas -->
-    
-                    <div class="line f-regular t-supertitulo t-title-ls t-upper col-12 align-left t-left">
-                Always ready            </div>
-                    <div class="line f-regular t-supertitulo t-title-ls t-upper col-12 align-left t-left">
-                for your            </div>
-                    <div class="line f-regular t-supertitulo t-title-ls t-upper col-6 align-right t-left anim-line">
-                health queries            </div>
+      <div style={{ maxWidth: '1180px', margin: '0 auto' }}>
         
-    <!-- chapter -->
-    
-
-</section>
-
-
-<section class="mod-content wrapper mod-content--cols bg-beige c-black none pb-l anim-line-op">
- 
-    <!-- cols -->
-    
-        <div class="mod-content__col">
-                    </div>
-        <div class="mod-content__col big_text">
-                        <div class="mod-content__wrap-text">
-                                 
-                    <div class="mod-content__text big_text"><p>The Medical Scan Agent specializes in extracting clinical data from raw images. From handwritten prescriptions to complex MRI reports, it utilizes state-of-the-art Vision LLMs to parse and structure medical data.</p>
- </div>
-                            </div>
-                    </div>
-
-    <!-- center -->
-    
-
-</section>
-
-
-<section class="mod-title wrapper mod-title--chapter count bg-beige c-black none pb-sm anim-line">
- 
-    <!-- lineas -->
-    
-        <div class="mod-title__intro">
-            <span class="mod-title__anchor" id="La-Urbanizacion"></span>
-                            <div class="f-edit t-titulo t-italic">Module One</div>
-                                        <div class="f-edit t-titulo-xl t-upper t-adj">The Platform</div>
-                                        <div class="f-edit t-titulo">(1)</div>
-                    </div>
-        <div class="anima__title f-regular t-supertitulo-xl t-title-ls t-upper t-center">
-            Discover <br>The Parser        </div>
-
-        
-    <!-- pretitle -->
-    
-
-</section>
-<section class="mod-media mod-media--full bg-beige c-black none pb-xs  pinned">
-
-    <!-- full -->
-    
-                    <div class="expand_mouse follow__wrap" data-text="Watch Video">
-                <a href="" class="btn btn--circle follow__mouse--md f-izmir t-parrafo-l d-none d-md-flex">Watch Video</a>
-                
-<div class="media mod-media__item noAnimate" data-delay=""> 
-            <div class="media__wrap-source video" data-video="&lt;iframe title=&quot;La Solana - Icaria IV&quot; src=&quot;https://player.vimeo.com/video/1073530505?dnt=1&amp;amp;app_id=122963&quot; width=&quot;640&quot; height=&quot;360&quot; frameborder=&quot;0&quot; allow=&quot;autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share&quot; referrerpolicy=&quot;strict-origin-when-cross-origin&quot;&gt;&lt;/iframe&gt;">
-            <video class="media__source w-100" autoplay="" loop="" muted="" playsinline="" data-src="/wp-content/uploads/2025/05/LA_SOLANA_Icaria_urbanizacion_corto_2.mp4">
-                <!-- <source src="" type="video/mp4"> -->
-            </video>
+        {/* Navigation & Header */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '24px', flexWrap: 'wrap', gap: '16px' }}>
+          <div>
+            <Link href="/" style={{ fontSize: '13px', color: '#38bdf8', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '6px', marginBottom: '8px' }}>
+              ← Return to Sanjeevani OS
+            </Link>
+            <h1 style={{ fontSize: '26px', fontWeight: 700, margin: 0, color: '#f8fafc' }}>
+              FractureNet & MONAI Medical Imaging Studio
+            </h1>
+            <p style={{ color: '#94a3b8', fontSize: '13px', margin: '4px 0 0 0' }}>
+              YOLOv8 Bone Fracture Detection • Grad-CAM Heatmaps • MONAI Chest Radiography • TrOCR Digitization
+            </p>
+          </div>
+          
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <span style={{ padding: '6px 14px', borderRadius: '20px', background: 'rgba(16, 185, 129, 0.15)', border: '1px solid rgba(16, 185, 129, 0.4)', color: '#34d399', fontSize: '12px', fontWeight: 600 }}>
+              ● FractureNet YOLOv8 Ready
+            </span>
+          </div>
         </div>
-    </div>
 
-            </div>
-                
-    <!-- double -->
-    
-</section>
+        {/* Top Control Bar: Modality Tabs + Upload Action */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px', marginBottom: '20px', background: '#0e1422', border: '1px solid #1e293b', padding: '10px 14px', borderRadius: '14px' }}>
+          
+          {/* Modality Tabs */}
+          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+            {[
+              { id: 'bone_fracture', label: '🦴 Bone Fracture X-Ray (FractureNet YOLOv8)' },
+              { id: 'chest_xray', label: '🫁 Chest Radiograph (MONAI)' },
+              { id: 'prescription', label: '📄 Prescription OCR (TrOCR)' },
+              { id: 'lab_report', label: '🧪 Metabolic Lab Panel' }
+            ].map(t => (
+              <button
+                key={t.id}
+                onClick={() => {
+                  setModality(t.id as ModalityType);
+                  setUploadedImagePreview(null);
+                  setUploadedFileName(null);
+                  setSelectedBoxIndex(null);
+                  handleAnalyzeScan(t.id as ModalityType);
+                }}
+                disabled={loading}
+                style={{
+                  padding: '9px 16px',
+                  borderRadius: '8px',
+                  backgroundColor: modality === t.id ? '#0284c7' : '#172033',
+                  color: modality === t.id ? '#ffffff' : '#94a3b8',
+                  border: '1px solid ' + (modality === t.id ? '#38bdf8' : '#334155'),
+                  cursor: loading ? 'not-allowed' : 'pointer',
+                  fontWeight: 600,
+                  fontSize: '13px',
+                  transition: 'all 0.15s ease'
+                }}
+              >
+                {t.label}
+              </button>
+            ))}
+          </div>
 
-<section class="mod-title wrapper mod-title--lines  bg-beige c-black pt-sm pb-l anim-space">
- 
-    <!-- lineas -->
-    
-                    <div class="line f-regular t-supertitulo t-title-ls t-upper col-12 align-left t-left">
-                AN ACCURATE FAST            </div>
-                    <div class="line f-regular t-supertitulo t-title-ls t-upper col-12 align-left t-left">
-                INTELLIGENT            </div>
-                    <div class="line f-regular t-supertitulo t-title-ls t-upper col-6 align-right t-right anim-line">
-                AND RELIABLE OCR            </div>
-        
-    <!-- chapter -->
-    
-
-</section>
-
-
-<section class="mod-content wrapper mod-content--cols bg-beige c-black none pb-sm no-anim">
- 
-    <!-- cols -->
-    
-        <div class="mod-content__col">
-                    </div>
-        <div class="mod-content__col normal_text">
-             
-                <div class="mod-content__title f-regular t-upper t-titulo-l">Multi-Modal Support </div>
-                        <div class="mod-content__wrap-text">
-                                 
-                    <div class="mod-content__text normal_text"><p>The orchestrator integrates directly into your daily life via WhatsApp, Telegram, and a dedicated Voice Agent, blurring the boundary between advanced AI and natural conversation.</p>
- </div>
-                            </div>
-                    </div>
-
-    <!-- center -->
-    
-
-</section>
-
-
-<section class="mod-content wrapper mod-content--lists bg-beige c-black none pb-xs ">
- 
-    <!-- cols -->
-    
-                    <div class="mod-content__list">
-                <div class="mod-content__list__title f-medium t-titulo">Integration Endpoints</div>
-                <ul class="mod-content__list__ul">
-                                            <li class="t-parrafo-l">WhatsApp: +1 234 567 8900</li>
-                                            <li class="t-parrafo-l">Telegram: @SanjeevaniOSBot</li>
-                                    </ul>
-            </div>
-                    <div class="mod-content__list">
-                <div class="mod-content__list__title f-medium t-titulo">Real-time Capabilities</div>
-                <ul class="mod-content__list__ul">
-                                            <li class="t-parrafo-l">Image processing: < 2s</li>
-                                            <li class="t-parrafo-l">Handwriting OCR accuracy: 98%</li>
-                                            <li class="t-parrafo-l">Memory retrieval: Instant</li>
-                                    </ul>
-            </div>
-        
-    <!-- w100 -->
-    
-
-</section>
-<section class="mod-media mod-media--maps bg-beige c-black none pb-sm  wrapper">
-
-    <!-- full -->
-    
-        <div class="mod-media__maps">
-            <iframe src="about:blank" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" data-rocket-lazyload="fitvidscompatible" data-lazy-src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d2902.1485251375743!2d-8.365281999999999!3d43.332081!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNDPCsDE5JzU1LjUiTiA4wrAyMSc1NS4wIlc!5e0!3m2!1ses!2ses!4v1756203871543!5m2!1ses!2ses"></iframe><noscript><iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d2902.1485251375743!2d-8.365281999999999!3d43.332081!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNDPCsDE5JzU1LjUiTiA4wrAyMSc1NS4wIlc!5e0!3m2!1ses!2ses!4v1756203871543!5m2!1ses!2ses" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></noscript>        <div>
-
-    
-</section><section class="mod-media mod-media--double bg-beige c-black none pb-sm  wrapper">
-
-    <!-- full -->
-    
-        
-<div class="media mod-media__item col-6" data-delay=""> 
-            <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/03/SOL_Laurbanizacion_6-12-3.jpg">
+          {/* Upload Button */}
+          <div>
+            <input
+              type="file"
+              ref={fileInputRef}
+              onChange={handleFileUpload}
+              accept="image/*"
+              style={{ display: 'none' }}
+            />
+            <button
+              onClick={() => fileInputRef.current?.click()}
+              style={{
+                padding: '9px 18px',
+                borderRadius: '8px',
+                backgroundColor: '#10b981',
+                color: '#ffffff',
+                border: 'none',
+                cursor: 'pointer',
+                fontWeight: 600,
+                fontSize: '13px',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                boxShadow: '0 4px 12px rgba(16, 185, 129, 0.25)'
+              }}
+            >
+              <span>📁</span>
+              <span>Upload Custom Scan / Image</span>
+            </button>
+          </div>
         </div>
-    </div>
 
-        
-<div class="media mod-media__item col-4" data-delay="0.2"> 
-            <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/03/SOL_Laurbanizacion_4-12.jpg">
-        </div>
-    </div>
-
-
-    <!-- multiple -->
-    
-</section>
-
-<section class="mod-content wrapper mod-content--cols bg-beige c-black pt-sm pb-md anim-line">
- 
-    <!-- cols -->
-    
-        <div class="mod-content__col">
-                    </div>
-        <div class="mod-content__col normal_text">
-                        <div class="mod-content__wrap-text">
-                                 
-                    <div class="mod-content__text normal_text"><p>The Medical Scan Agent is accessible anywhere, offering real-time conversational capabilities to coordinate complex health workflows instantly.</p>
- </div>
-                            </div>
-                    </div>
-
-    <!-- center -->
-    
-
-</section>
-
-
-<section class="mod-title wrapper mod-title--lines  bg-beige c-black none pb-xs anim-space">
- 
-    <!-- lineas -->
-    
-                    <div class="line f-regular t-supertitulo t-title-ls t-upper col-12 align-left t-left">
-                CLINICAL EXTRACTION,             </div>
-                    <div class="line f-regular t-supertitulo t-title-ls t-upper col-12 align-left t-left">
-                SEAMLESS            </div>
-                    <div class="line f-regular t-supertitulo t-title-ls t-upper col-6 align-right t-right anim-line">
-                COORDINATION            </div>
-        
-    <!-- chapter -->
-    
-
-</section>
-
-
-<section class="mod-content wrapper mod-content--center bg-beige c-black pt-sm pb-sm no-anim">
- 
-    <!-- cols -->
-    
-        <div class="mod-content__col">
-                         
-                <div class="mod-content__text big_text"><p>The orchestrator routes requests to specialized agents—like the Medical Scan OCR or Symptom Triage—forming an organic, unified intelligence system.</p>
- </div>
-                                </div>
-
-    <!-- lists -->
-    
-
-</section>
-<section class="mod-media mod-media--full bg-beige c-black none none  pinned">
-
-    <!-- full -->
-    
-                            <div>
-                
-<div class="media mod-media__item noAnimate" data-delay=""> 
-            <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/04/SOL_Laurbanizacion_Full01.jpg">
-        </div>
-    </div>
-
-            </div>
-        
-    <!-- double -->
-    
-</section>
-
-<section class="mod-title wrapper mod-title--lines  bg-beige c-black pt-xs pb-sm no-anim">
- 
-    <!-- lineas -->
-    
-                    <div class="line f-regular t-supertitulo t-title-ls t-upper col-12 align-left t-left">
-                VISION MODELS            </div>
-                    <div class="line f-regular t-supertitulo t-title-ls t-upper col-12 align-left t-left">
-                THAT NATURALLYNECTS            </div>
-                    <div class="line f-regular t-supertitulo t-title-ls t-upper col-12 align-right t-right">
-                NATURALLY             </div>
-                    <div class="line f-regular t-supertitulo t-title-ls t-upper col-12 align-right t-right">
-                WITH USERS            </div>
-        
-    <!-- chapter -->
-    
-
-</section>
-<section class="mod-media mod-media--double bg-beige c-black none pb-sm  wrapper">
-
-    <!-- full -->
-    
-        
-<div class="media mod-media__item col-6" data-delay=""> 
-            <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/04/SOL_Laurbanizacion_6-12_02.jpg">
-        </div>
-    </div>
-
-        
-<div class="media mod-media__item col-4" data-delay="0.2"> 
-            <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/04/SOL_Laurbanizacion_8-12_01.jpg">
-        </div>
-    </div>
-
-
-    <!-- multiple -->
-    
-</section>
-
-<section class="mod-content wrapper mod-content--cols bg-beige c-black pt-md pb-md no-anim">
- 
-    <!-- cols -->
-    
-        <div class="mod-content__col">
-                    </div>
-        <div class="mod-content__col normal_text">
-             
-                <div class="mod-content__title f-regular t-upper t-titulo-l">The Medical Scan Agent utilizes custom Vision LLMs like LLaVA to ensure medical accuracy in complex charts and diagrams. </div>
-                        <div class="mod-content__wrap-text">
-                                 
-                    <div class="mod-content__text normal_text"><p style="text-align: left;">Transform unstructured medical documents into structured JSON data in real-time, instantly usable by the Symptom Triage system.</p>
- </div>
-                            </div>
-                    </div>
-
-    <!-- center -->
-    
-
-</section>
-
-
-<section class="mod-title wrapper mod-title--pretitle  bg-black c-white pt-md pb-sm anim-line">
- 
-    <!-- lineas -->
-    
-                    <div class="mod-title__pretitle f-edit t-titulo t-center">
-                (Features)            </div>
-                <div class="anima__title f-regular t-supertitulo t-title-ls t-upper t-center lh-less">
-            SEAMLESS<br>INTEGRATION        </div>
-
-    <!-- image -->
-    
-
-</section>
-<section class="mod-media mod-media--multiple bg-black c-white none pb-md  wrapper">
-
-    <!-- full -->
-    
-                    <div class="mod-media__card">
-                
-<div class="media mod-media__card__image" data-delay=""> 
-            <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/03/SOL_sello_breeam_descatado_1.jpg">
-        </div>
-    </div>
-
-                <div class="mod-media__card__title f-medium t-titulo-l"> WhatsApp Support </div>
-                <div class="mod-media__card__text t-parrafo-l"> Message the Medical Scan Agent on WhatsApp to instantly trigger sub-agents for symptom checking or OCR parsing. It maintains session history for a smooth conversational flow. </div>
-            </div>
-                    <div class="mod-media__card">
-                
-<div class="media mod-media__card__image" data-delay=""> 
-            <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/03/SOL_orientacion_sur_descatado_2.jpg">
-        </div>
-    </div>
-
-                <div class="mod-media__card__title f-medium t-titulo-l"> Telegram Support </div>
-                <div class="mod-media__card__text t-parrafo-l"> A fully functional Telegram bot interface that allows rich media uploads, returning structured clinical insights right in your chat. </div>
-            </div>
-                    <div class="mod-media__card">
-                
-<div class="media mod-media__card__image" data-delay=""> 
-            <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/03/SOL_transparencias_descatado_3.jpg">
-        </div>
-    </div>
-
-                <div class="mod-media__card__title f-medium t-titulo-l"> Voice Agentic Support </div>
-                <div class="mod-media__card__text t-parrafo-l"> Experience real-time voice interactions. Speak naturally to the agent, and it will respond with synthesized audio, making health triage accessible. </div>
-            </div>
-                    <div class="mod-media__card">
-                
-<div class="media mod-media__card__image" data-delay=""> 
-            <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/03/SOL_refugio_tranquilo_descatado_1.jpg">
-        </div>
-    </div>
-
-                <div class="mod-media__card__title f-medium t-titulo-l"> Real-time Support </div>
-                <div class="mod-media__card__text t-parrafo-l"> The system handles thousands of concurrent connections with low-latency websockets. </div>
-            </div>
-                    <div class="mod-media__card">
-                
-<div class="media mod-media__card__image" data-delay=""> 
-            <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/03/SOL_espacios_abiertos_descatado_2-2.jpg">
-        </div>
-    </div>
-
-                <div class="mod-media__card__title f-medium t-titulo-l"> Multi-Agent Handoff </div>
-                <div class="mod-media__card__text t-parrafo-l"> Seamlessly hands off complex tasks to specialized agents (e.g., Medical Scan). </div>
-            </div>
-                    <div class="mod-media__card">
-                
-<div class="media mod-media__card__image" data-delay=""> 
-            <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/03/SOL_espacios_abiertos_descatado_3.jpg">
-        </div>
-    </div>
-
-                <div class="mod-media__card__title f-medium t-titulo-l"> Memory & Context </div>
-                <div class="mod-media__card__text t-parrafo-l"> Retains context across different channels so you never have to repeat your symptoms. </div>
-            </div>
-        
-    <!-- slider -->
-    
-</section>
-
-<section class="mod-title wrapper mod-title--pretitle  bg-beige c-black pt-md pb-sm anim-line">
- 
-    <!-- lineas -->
-    
-                    <div class="mod-title__pretitle f-edit t-titulo t-center">
-                (Features)            </div>
-                <div class="anima__title f-regular t-supertitulo t-title-ls t-upper t-center lh-less">
-            Explore<br> the architecture        </div>
-
-    <!-- image -->
-    
-
-</section>
-<section class="mod-media mod-media--slider bg-beige c-black none pb-sm  wrapper">
-
-    <!-- full -->
-    
-        <div class="mod-media__slider swiper-container expand_mouse" data-text="Arrastrar">
-            <div class="swiper-wrapper">
-                                    <div class="mod-media__slider__slide swiper-slide">
-                        
-<div class="media mod-media__slider__slide__image noAspect noAnimate" data-delay=""> 
-            <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/03/SOL_Gallery01.jpg">
-        </div>
-    </div>
-
-                    </div>
-                                    <div class="mod-media__slider__slide swiper-slide">
-                        
-<div class="media mod-media__slider__slide__image noAspect noAnimate" data-delay=""> 
-            <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/03/SOL_Gallery02.jpg">
-        </div>
-    </div>
-
-                    </div>
-                                    <div class="mod-media__slider__slide swiper-slide">
-                        
-<div class="media mod-media__slider__slide__image noAspect noAnimate" data-delay=""> 
-            <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/03/SOL_Gallery03.jpg">
-        </div>
-    </div>
-
-                    </div>
-                                    <div class="mod-media__slider__slide swiper-slide">
-                        
-<div class="media mod-media__slider__slide__image noAspect noAnimate" data-delay=""> 
-            <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/03/SOL_Gallery04.jpg">
-        </div>
-    </div>
-
-                    </div>
-                                    <div class="mod-media__slider__slide swiper-slide">
-                        
-<div class="media mod-media__slider__slide__image noAspect noAnimate" data-delay=""> 
-            <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/03/SOL_Gallery05.jpg">
-        </div>
-    </div>
-
-                    </div>
-                                    <div class="mod-media__slider__slide swiper-slide">
-                        
-<div class="media mod-media__slider__slide__image noAspect noAnimate" data-delay=""> 
-            <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/03/SOL_Gallery06.jpg">
-        </div>
-    </div>
-
-                    </div>
-                            <div>
-        <div>
-
-    
-</section>
-
-<section class="mod-title wrapper mod-title--chapter count bg-black c-white pt-md pb-md anim-line">
- 
-    <!-- lineas -->
-    
-        <div class="mod-title__intro">
-            <span class="mod-title__anchor" id="las-homes"></span>
-                            <div class="f-edit t-titulo t-italic">Module Two</div>
-                                        <div class="f-edit t-titulo-xl t-upper t-adj">the agents</div>
-                                        <div class="f-edit t-titulo">(2)</div>
-                    </div>
-        <div class="anima__title f-regular t-supertitulo-xl t-title-ls t-upper t-center">
-            Meet<br>The Agents        </div>
-
-        
-    <!-- pretitle -->
-    
-
-</section>
-<section class="mod-media mod-media--full bg-black c-white none pb-xs  pinned">
-
-    <!-- full -->
-    
-                    <div class="expand_mouse follow__wrap" data-text="Watch Video">
-                <a href="" class="btn btn--circle follow__mouse--md f-izmir t-parrafo-l d-none d-md-flex">Watch Video</a>
-                
-<div class="media mod-media__item noAnimate" data-delay=""> 
-            <div class="media__wrap-source video" data-video="&lt;iframe title=&quot;La Solana - Icaria IV&quot; src=&quot;https://player.vimeo.com/video/1073528623?dnt=1&amp;amp;app_id=122963&quot; width=&quot;640&quot; height=&quot;360&quot; frameborder=&quot;0&quot; allow=&quot;autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share&quot; referrerpolicy=&quot;strict-origin-when-cross-origin&quot;&gt;&lt;/iframe&gt;">
-            <video class="media__source w-100" autoplay="" loop="" muted="" playsinline="" data-src="/wp-content/uploads/2025/04/LA_SOLANA_Icaria_homes_corto.mp4">
-                <!-- <source src="" type="video/mp4"> -->
-            </video>
-        </div>
-    </div>
-
-            </div>
-                
-    <!-- double -->
-    
-</section>
-
-<section class="mod-title wrapper mod-title--lines  bg-black c-white none pb-sm no-anim">
- 
-    <!-- lineas -->
-    
-                    <div class="line f-regular t-supertitulo t-title-ls t-upper col-12 align-left t-left">
-                RELIABLE SYSTEMS             </div>
-                    <div class="line f-regular t-supertitulo t-title-ls t-upper col-12 align-left t-left">
-                Y INTELLIGENTS            </div>
-                    <div class="line f-regular t-supertitulo t-title-ls t-upper col-6 align-right t-left">
-                YOUR            </div>
-                    <div class="line f-regular t-supertitulo t-title-ls t-upper col-6 align-right t-left">
-                CONTEXT            </div>
-        
-    <!-- chapter -->
-    
-
-</section>
-
-
-<section class="mod-content wrapper mod-content--cols bg-black c-white pt-md pb-sm no-anim">
- 
-    <!-- cols -->
-    
-        <div class="mod-content__col">
-                    </div>
-        <div class="mod-content__col normal_text">
-                        <div class="mod-content__wrap-text">
-                 
-                    <div class="mod-content__pretitle f-edit t-titulo">Speed and Precision </div>
-                                 
-                    <div class="mod-content__text normal_text"><p>Built on LangGraph, the orchestrator evaluates user intent using ultra-fast Groq LLMs. It determines which sub-agent is best suited for the query and routes it seamlessly. It supports stateful interactions across WhatsApp, Telegram, and Voice endpoints.</p>
-<p>Equipped for the latest smart home automation and sustainable systems, the agents reflect a commitment to responsible, modern design.</p>
- </div>
-                            </div>
-                    </div>
-
-    <!-- center -->
-    
-
-</section>
-<section class="mod-media mod-media--double bg-black c-white none pb-sm  wrapper">
-
-    <!-- full -->
-    
-        
-<div class="media mod-media__item col-4" data-delay=""> 
-            <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/03/SOL_lashomes_4-12-1.jpg">
-        </div>
-    </div>
-
-        
-<div class="media mod-media__item col-6" data-delay="0.2"> 
-            <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/03/SOL_lashomes_8-12.jpg">
-        </div>
-    </div>
-
-
-    <!-- multiple -->
-    
-</section>
-
-<section class="mod-title wrapper mod-title--lines  bg-black c-white pt-sm pb-sm no-anim">
- 
-    <!-- lineas -->
-    
-                    <div class="line f-regular t-supertitulo t-title-ls t-upper col-12 align-left t-left">
-                WE COORDINATE             </div>
-                    <div class="line f-regular t-supertitulo t-title-ls t-upper col-12 align-left t-left">
-                COMPLEXITY            </div>
-                    <div class="line f-regular t-supertitulo t-title-ls t-upper col-12 align-right t-right">
-                THAT IS             </div>
-                    <div class="line f-regular t-supertitulo t-title-ls t-upper col-12 align-right t-right">
-                THE DIFFERENCE            </div>
-        
-    <!-- chapter -->
-    
-
-</section>
-
-
-<section class="mod-content wrapper mod-content--center bg-black c-white none pb-sm no-anim">
- 
-    <!-- cols -->
-    
-        <div class="mod-content__col">
-                         
-                <div class="mod-content__text big_text"><p>Connecting multiple distinct models, from Vision LLMs to RAG-based symptom checkers, into one unified interface.</p>
- </div>
-                                </div>
-
-    <!-- lists -->
-    
-
-</section>
-<section class="mod-media mod-media--full bg-black c-white none pb-xs  pinned">
-
-    <!-- full -->
-    
-                            <div>
-                
-<div class="media mod-media__item noAnimate" data-delay=""> 
-            <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/03/SOL_lasvivienda_Full-min.jpg">
-        </div>
-    </div>
-
-            </div>
-        
-    <!-- double -->
-    
-</section>
-
-<section class="mod-content wrapper mod-content--center bg-black c-white pt-xs pb-xs no-anim">
- 
-    <!-- cols -->
-    
-        <div class="mod-content__col">
-                         
-                <div class="mod-content__text normal_text"><p>A constant drive to simplify healthcare access. The orchestrator abstracts away the complexity of multiple models into one simple chat.</p>
- </div>
-                                </div>
-
-    <!-- lists -->
-    
-
-</section>
-
-
-<section class="mod-title wrapper mod-title--image  bg-black c-white pt-md pb-xs ">
- 
-    <!-- lineas -->
-    
-        <div class="mod-title--image__content">
-            <div class="mod-title--image__title t-supertitulo-l f-medium t-upper t-center">
-                Details            </div>
+        {/* Error Alert */}
+        {errorMessage && (
+          <div style={{ backgroundColor: 'rgba(239, 68, 68, 0.15)', border: '1px solid #ef4444', color: '#fca5a5', padding: '12px 16px', borderRadius: '10px', marginBottom: '20px', fontSize: '13px' }}>
+            ⚠️ {errorMessage}
+          </div>
+        )}
+
+        {/* Main 2-Column Responsive Workspace */}
+        <div className="scan-grid-layout" style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '22px' }}>
+          
+          {/* Left Column: Interactive DICOM / Canvas Visualizer */}
+          <div style={{ background: '#0e1422', border: '1px solid #1e293b', borderRadius: '16px', padding: '18px', display: 'flex', flexDirection: 'column' }}>
             
-<div class="media mod-title--image__image" data-delay=""> 
-            <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/03/SOL_Detalle.jpg">
-        </div>
-    </div>
+            {/* Canvas Toolbar */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px', flexWrap: 'wrap', gap: '8px' }}>
+              <div style={{ fontSize: '13px', fontWeight: 600, color: '#f8fafc', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: uploadedImagePreview ? '#10b981' : '#38bdf8' }}></span>
+                <span>{uploadedFileName ? `Scan: ${uploadedFileName}` : `${modality === 'bone_fracture' ? 'FractureNet Orthopedic X-Ray Specimen' : modality === 'chest_xray' ? 'Standard PA Chest Radiograph' : modality === 'prescription' ? 'Digital Prescription Specimen' : 'Clinical Metabolic Specimen'}`}</span>
+              </div>
 
-        </div>
+              {/* Canvas Controls */}
+              <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
+                {modality === 'bone_fracture' && (
+                  <button
+                    onClick={() => setShowGradCam(!showGradCam)}
+                    style={{
+                      fontSize: '11px',
+                      padding: '4px 10px',
+                      borderRadius: '6px',
+                      background: showGradCam ? 'rgba(239, 68, 68, 0.25)' : '#1e293b',
+                      color: showGradCam ? '#f87171' : '#94a3b8',
+                      border: '1px solid ' + (showGradCam ? '#ef4444' : '#334155'),
+                      cursor: 'pointer',
+                      fontWeight: 600
+                    }}
+                  >
+                    {showGradCam ? '🔥 Grad-CAM ON' : '🔥 Grad-CAM Heatmap'}
+                  </button>
+                )}
 
-    <!-- error 404 -->
-    
+                <button
+                  onClick={() => setShowOverlays(!showOverlays)}
+                  style={{
+                    fontSize: '11px',
+                    padding: '4px 10px',
+                    borderRadius: '6px',
+                    background: showOverlays ? 'rgba(56, 189, 248, 0.2)' : '#1e293b',
+                    color: showOverlays ? '#38bdf8' : '#94a3b8',
+                    border: '1px solid #334155',
+                    cursor: 'pointer'
+                  }}
+                >
+                  {showOverlays ? '👁️ Overlays ON' : '👁️ Overlays OFF'}
+                </button>
 
-</section>
-
-
-<section class="mod-content wrapper mod-content--center bg-black c-white pt-xs pb-sm no-anim">
- 
-    <!-- cols -->
-    
-        <div class="mod-content__col">
-                         
-                <div class="mod-content__text big_text"><p>All interactions are secured, retaining no PII in logs, ensuring absolute privacy for your medical data.</p>
- </div>
-                                </div>
-
-    <!-- lists -->
-    
-
-</section>
-
-
-<section class="mod-content wrapper mod-content--lists bg-black c-white pt-xs pb-sm ">
- 
-    <!-- cols -->
-    
-                    <div class="mod-content__list">
-                <div class="mod-content__list__title f-medium t-titulo">WhatsApp Integration</div>
-                <ul class="mod-content__list__ul">
-                                            <li class="t-parrafo-l">Twilio webhook integration</li>
-                                            <li class="t-parrafo-l">End-to-end encryption</li>
-                                            <li class="t-parrafo-l">Supports image uploads</li>
-                                            <li class="t-parrafo-l">Rich text formatting</li>
-                                            <li class="t-parrafo-l">Persistent chat history</li>
-                                            <li class="t-parrafo-l">High availability</li>
-                                    </ul>
+                <button
+                  onClick={() => setContrastMode(m => m === 'normal' ? 'high' : m === 'high' ? 'inverted' : 'normal')}
+                  style={{
+                    fontSize: '11px',
+                    padding: '4px 10px',
+                    borderRadius: '6px',
+                    background: '#1e293b',
+                    color: '#cbd5e1',
+                    border: '1px solid #334155',
+                    cursor: 'pointer'
+                  }}
+                  title="Cycle contrast windowing"
+                >
+                  🌓 {contrastMode.toUpperCase()}
+                </button>
+              </div>
             </div>
-                    <div class="mod-content__list">
-                <div class="mod-content__list__title f-medium t-titulo">Telegram Integration</div>
-                <ul class="mod-content__list__ul">
-                                            <li class="t-parrafo-l">Twilio webhook integration</li>
-                                            <li class="t-parrafo-l">Native bot API integration</li>
-                                            <li class="t-parrafo-l">Fast media processing</li>
-                                            <li class="t-parrafo-l">Inline query support</li>
-                                            <li class="t-parrafo-l">Custom slash commands</li>
-                                            <li class="t-parrafo-l">High availability</li>
-                                    </ul>
-            </div>
-                    <div class="mod-content__list">
-                <div class="mod-content__list__title f-medium t-titulo">Voice Integration</div>
-                <ul class="mod-content__list__ul">
-                                            <li class="t-parrafo-l">Twilio webhook integration</li>
-                                            <li class="t-parrafo-l">Native bot API integration</li>
-                                            <li class="t-parrafo-l">Inline query support</li>
-                                            <li class="t-parrafo-l">Custom slash commands</li>
-                                            <li class="t-parrafo-l">High availability</li>
-                                    </ul>
-            </div>
-                    <div class="mod-content__list">
-                <div class="mod-content__list__title f-medium t-titulo">Real-time Coordination</div>
-                <ul class="mod-content__list__ul">
-                                            <li class="t-parrafo-l">LangGraph state management for complex query routing</li>
-                                            <li class="t-parrafo-l">Parallel sub-agent execution</li>
-                                            <li class="t-parrafo-l">Dynamic tool calling</li>
-                                            <li class="t-parrafo-l">High availability</li>
-                                    </ul>
-            </div>
-        
-    <!-- w100 -->
-    
 
-</section>
-
-
-<section class="mod-title wrapper mod-title--pretitle  bg-black c-white pt-md pb-sm anim-line">
- 
-    <!-- lineas -->
-    
-                    <div class="mod-title__pretitle f-edit t-titulo t-center">
-                (Features)            </div>
-                <div class="anima__title f-regular t-supertitulo t-title-ls t-upper t-center lh-less">
-            SYSTEMS<br>THAT INSPIRE        </div>
-
-    <!-- image -->
-    
-
-</section>
-<section class="mod-media mod-media--multiple bg-black c-white none pb-md  wrapper">
-
-    <!-- full -->
-    
-                    <div class="mod-media__card">
+            {/* Canvas Viewing Area / Dropzone */}
+            <div
+              onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
+              onDragLeave={() => setIsDragging(false)}
+              onDrop={handleDrop}
+              style={{
+                position: 'relative',
+                width: '100%',
+                aspectRatio: '4/3',
+                backgroundColor: '#030712',
+                borderRadius: '12px',
+                border: isDragging ? '2px dashed #38bdf8' : '1px solid #334155',
+                overflow: 'hidden',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                filter: contrastMode === 'high' ? 'contrast(1.4) brightness(1.1)' : contrastMode === 'inverted' ? 'invert(1) hue-rotate(180deg)' : 'none',
+                transition: 'all 0.2s ease'
+              }}
+            >
+              
+              {/* 1. Custom Uploaded Image */}
+              {uploadedImagePreview ? (
+                <img
+                  src={uploadedImagePreview}
+                  alt="Uploaded medical scan"
+                  style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                />
+              ) : modality === 'bone_fracture' ? (
                 
-<div class="media mod-media__card__image" data-delay=""> 
-            <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/04/SOL_lavivienda_descatado_1.jpg">
-        </div>
-    </div>
+                /* 2. FractureNet Bone Fracture X-Ray Real Medical Specimen */
+                <div style={{ position: 'relative', width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#02040a' }}>
+                  <img
+                    src="/images/fracture_xray_sample.jpg"
+                    alt="FractureNet X-Ray Sample"
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.95 }}
+                  />
 
-                <div class="mod-media__card__title f-medium t-titulo-l"> State Management </div>
-                <div class="mod-media__card__text t-parrafo-l"> Maintains a conversational state across platforms. If you switch from WhatsApp to Telegram, your context moves with you. </div>
-            </div>
-                    <div class="mod-media__card">
+                  {/* Optional Grad-CAM Heatmap Radial Layer */}
+                  {showGradCam && (
+                    <div style={{
+                      position: 'absolute',
+                      inset: 0,
+                      background: 'radial-gradient(circle at 58% 60%, rgba(239,68,68,0.7) 0%, rgba(245,158,11,0.45) 25%, rgba(16,185,129,0.2) 45%, transparent 70%)',
+                      mixBlendMode: 'screen',
+                      pointerEvents: 'none'
+                    }} />
+                  )}
+
+                  {/* DICOM Overlay Header */}
+                  <div style={{ position: 'absolute', top: '10px', left: '12px', color: 'rgba(255,255,255,0.7)', fontSize: '10px', fontFamily: 'monospace', pointerEvents: 'none' }}>
+                    PATIENT: ORTHO-RADIUS-9148<br/>
+                    STUDY: FOREARM / WRIST AP-LAT<br/>
+                    MODEL: FRACTURENET YOLOV8
+                  </div>
+
+                  <div style={{ position: 'absolute', top: '10px', right: '12px', color: '#38bdf8', fontSize: '11px', fontWeight: 'bold', fontFamily: 'sans-serif', pointerEvents: 'none' }}>
+                    YOLOV8 INFERENCE: 14.2ms
+                  </div>
+                </div>
+
+              ) : modality === 'chest_xray' ? (
                 
-<div class="media mod-media__card__image" data-delay=""> 
-            <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/04/SOL_comodidades_descatado_2.jpg">
-        </div>
-    </div>
+                /* 3. Realistic Clinical Chest X-Ray SVG Viewport */
+                <svg viewBox="0 0 800 600" style={{ width: '100%', height: '100%', backgroundColor: '#02040a' }} xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <radialGradient id="lung-glow-left" cx="35%" cy="45%" r="40%">
+                      <stop offset="0%" stopColor="#1e293b" stopOpacity="0.9" />
+                      <stop offset="60%" stopColor="#090d16" stopOpacity="0.95" />
+                      <stop offset="100%" stopColor="#02040a" stopOpacity="1" />
+                    </radialGradient>
+                    <radialGradient id="lung-glow-right" cx="65%" cy="45%" r="40%">
+                      <stop offset="0%" stopColor="#1e293b" stopOpacity="0.9" />
+                      <stop offset="60%" stopColor="#090d16" stopOpacity="0.95" />
+                      <stop offset="100%" stopColor="#02040a" stopOpacity="1" />
+                    </radialGradient>
+                    <radialGradient id="infiltration-opacity" cx="65%" cy="65%" r="25%">
+                      <stop offset="0%" stopColor="#cbd5e1" stopOpacity="0.55" />
+                      <stop offset="50%" stopColor="#94a3b8" stopOpacity="0.3" />
+                      <stop offset="100%" stopColor="#02040a" stopOpacity="0" />
+                    </radialGradient>
+                  </defs>
 
-                <div class="mod-media__card__title f-medium t-titulo-l"> Fast LLMs </div>
-                <div class="mod-media__card__text t-parrafo-l"> Powered by Llama-3-70B via Groq for ultra-low latency inference, crucial for voice applications. </div>
-            </div>
-                    <div class="mod-media__card">
+                  {/* DICOM Overlay Header */}
+                  <text x="24" y="32" fill="#64748b" fontSize="11" fontFamily="monospace">PATIENT: SHARMA, S. #91-4829</text>
+                  <text x="24" y="48" fill="#64748b" fontSize="11" fontFamily="monospace">STUDY: CHEST PA (ER-PORTABLE)</text>
+                  <text x="660" y="32" fill="#38bdf8" fontSize="12" fontWeight="bold" fontFamily="sans-serif">SANJEEVANI DICOM</text>
+                  <text x="740" y="48" fill="#64748b" fontSize="11" fontFamily="monospace">kVp: 120</text>
+                  <text x="740" y="64" fill="#64748b" fontSize="11" fontFamily="monospace">W:2400 L:-400</text>
+
+                  {/* Left & Right Lung Transparency Cavities */}
+                  <ellipse cx="300" cy="270" rx="140" ry="190" fill="url(#lung-glow-left)" />
+                  <ellipse cx="500" cy="270" rx="140" ry="190" fill="url(#lung-glow-right)" />
+
+                  {/* Right Lower Lobe Infiltration Cloud (Pathology) */}
+                  <ellipse cx="520" cy="360" rx="90" ry="70" fill="url(#infiltration-opacity)" />
+
+                  {/* Spine Column */}
+                  <rect x="388" y="80" width="24" height="420" fill="#334155" opacity="0.65" rx="4" />
+                  {[120, 155, 190, 225, 260, 295, 330, 365, 400, 435].map((y, idx) => (
+                    <line key={idx} x1="386" y1={y} x2="414" y2={y} stroke="#64748b" strokeWidth="2" opacity="0.8" />
+                  ))}
+
+                  {/* Clavicles (Collar Bones) */}
+                  <path d="M 230 110 Q 340 125 390 140" stroke="#94a3b8" strokeWidth="12" strokeLinecap="round" fill="none" opacity="0.75" />
+                  <path d="M 570 110 Q 460 125 410 140" stroke="#94a3b8" strokeWidth="12" strokeLinecap="round" fill="none" opacity="0.75" />
+
+                  {/* Rib Cage Contours */}
+                  {[150, 190, 230, 270, 310, 350, 390, 430].map((y, idx) => (
+                    <g key={idx} opacity="0.5">
+                      <path d={`M 390 ${y-20} Q ${250 - idx*6} ${y} 180 ${y+30}`} stroke="#64748b" strokeWidth="8" strokeLinecap="round" fill="none" />
+                      <path d={`M 410 ${y-20} Q ${550 + idx*6} ${y} 620 ${y+30}`} stroke="#64748b" strokeWidth="8" strokeLinecap="round" fill="none" />
+                    </g>
+                  ))}
+
+                  {/* Cardiac Silhouette (Heart Shadow) */}
+                  <path d="M 385 240 Q 320 290 330 380 Q 380 430 425 430 Q 450 380 415 250 Z" fill="#475569" opacity="0.85" stroke="#64748b" strokeWidth="2" />
+
+                  {/* Diaphragm Domes */}
+                  <path d="M 160 490 Q 280 420 400 480" stroke="#94a3b8" strokeWidth="14" fill="#030712" opacity="0.9" />
+                  <path d="M 400 480 Q 520 420 640 490" stroke="#94a3b8" strokeWidth="14" fill="#030712" opacity="0.9" />
+
+                  {/* Anatomical Marker */}
+                  <text x="720" y="550" fill="#f8fafc" fontSize="24" fontWeight="bold" fontFamily="sans-serif">R</text>
+                  <text x="60" y="550" fill="#64748b" fontSize="12" fontFamily="monospace">MONAI SEGMENTATION TARGET</text>
+                </svg>
+
+              ) : modality === 'prescription' ? (
                 
-<div class="media mod-media__card__image" data-delay=""> 
-            <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/04/SOL_vivienda_descatado_3.jpg">
-        </div>
-    </div>
+                /* 4. Realistic Digitized Prescription Specimen */
+                <div style={{ width: '85%', height: '85%', background: '#f8fafc', color: '#0f172a', padding: '24px', borderRadius: '8px', boxShadow: '0 10px 30px rgba(0,0,0,0.5)', display: 'flex', flexDirection: 'column', boxSizing: 'border-box' }}>
+                  {/* Clinic Header */}
+                  <div style={{ borderBottom: '2px solid #0284c7', paddingBottom: '8px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                    <div>
+                      <div style={{ fontWeight: 800, fontSize: '14px', color: '#0284c7' }}>CITY HEALTH MEDICAL CENTER</div>
+                      <div style={{ fontSize: '10px', color: '#64748b' }}>Dr. Siddharth Sharma, MD • Registration: MCI-84920</div>
+                    </div>
+                    <div style={{ fontSize: '11px', color: '#64748b', textAlign: 'right' }}>
+                      Date: 18-AUG-2026<br/>
+                      Patient: S. Sharma (Age: 32 / M)
+                    </div>
+                  </div>
 
-                <div class="mod-media__card__title f-medium t-titulo-l"> Modular Design </div>
-                <div class="mod-media__card__text t-parrafo-l"> Easily add new specialized sub-agents to the Medical Scan Agent without modifying the core routing logic. </div>
-            </div>
-                    <div class="mod-media__card">
+                  {/* Rx Symbol */}
+                  <div style={{ fontSize: '24px', fontWeight: 800, color: '#0284c7', margin: '8px 0 4px 0' }}>℞</div>
+
+                  {/* Prescription Lines */}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', flex: 1, padding: '4px 8px' }}>
+                    <div style={{ background: 'rgba(6, 182, 212, 0.1)', padding: '6px 10px', borderRadius: '6px', borderLeft: '3px solid #06b6d4' }}>
+                      <div style={{ fontWeight: 700, fontSize: '13px' }}>1. Amoxicillin 500mg Capsules</div>
+                      <div style={{ fontSize: '11px', color: '#475569' }}>1 Cap TDS (Three times daily) x 5 days — [After Meals]</div>
+                    </div>
+
+                    <div style={{ background: 'rgba(6, 182, 212, 0.1)', padding: '6px 10px', borderRadius: '6px', borderLeft: '3px solid #06b6d4' }}>
+                      <div style={{ fontWeight: 700, fontSize: '13px' }}>2. Paracetamol 650mg Tablets</div>
+                      <div style={{ fontSize: '11px', color: '#475569' }}>1 Tab SOS (As needed for fever &gt; 100°F or body ache)</div>
+                    </div>
+
+                    <div style={{ background: 'rgba(6, 182, 212, 0.1)', padding: '6px 10px', borderRadius: '6px', borderLeft: '3px solid #06b6d4' }}>
+                      <div style={{ fontWeight: 700, fontSize: '13px' }}>3. Cetirizine 10mg Tablets</div>
+                      <div style={{ fontSize: '11px', color: '#475569' }}>1 Tab OD at Bedtime x 3 days</div>
+                    </div>
+                  </div>
+
+                  {/* Doctor Signature Stamp */}
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', borderTop: '1px solid #e2e8f0', paddingTop: '8px', fontSize: '10px', color: '#64748b' }}>
+                    <span>Digitized via TrOCR Transformer Pipeline</span>
+                    <span style={{ fontStyle: 'italic', fontWeight: 600, color: '#0f172a' }}>Verified Signature: S. Sharma, MD</span>
+                  </div>
+                </div>
+
+              ) : (
                 
-<div class="media mod-media__card__image" data-delay=""> 
-            <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/04/SOL_vivienda_descatado_4.jpg">
-        </div>
-    </div>
+                /* 5. Realistic Metabolic Lab Report Specimen */
+                <div style={{ width: '88%', height: '88%', background: '#ffffff', color: '#0f172a', padding: '20px', borderRadius: '8px', boxShadow: '0 10px 30px rgba(0,0,0,0.5)', display: 'flex', flexDirection: 'column', boxSizing: 'border-box' }}>
+                  <div style={{ borderBottom: '2px solid #10b981', paddingBottom: '8px', marginBottom: '10px', display: 'flex', justifyContent: 'space-between' }}>
+                    <div>
+                      <div style={{ fontWeight: 800, fontSize: '13px', color: '#10b981' }}>METABOLIC PATHOLOGY PANEL</div>
+                      <div style={{ fontSize: '10px', color: '#64748b' }}>NABL Accredited Clinical Bio-Analysis</div>
+                    </div>
+                    <div style={{ fontSize: '10px', color: '#64748b', textAlign: 'right' }}>
+                      Sample ID: #LAB-91820<br/>Status: Completed
+                    </div>
+                  </div>
 
-                <div class="mod-media__card__title f-medium t-titulo-l"> Fallback Protocols </div>
-                <div class="mod-media__card__text t-parrafo-l"> Automatically falls back to general LLM reasoning if a specialized sub-agent is unavailable. </div>
+                  <table style={{ width: '100%', fontSize: '11px', borderCollapse: 'collapse', flex: 1 }}>
+                    <thead>
+                      <tr style={{ background: '#f1f5f9', textAlign: 'left' }}>
+                        <th style={{ padding: '4px 6px' }}>Test Parameter</th>
+                        <th style={{ padding: '4px 6px' }}>Patient Value</th>
+                        <th style={{ padding: '4px 6px' }}>Reference Range</th>
+                        <th style={{ padding: '4px 6px' }}>Flag</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr style={{ borderBottom: '1px solid #e2e8f0' }}>
+                        <td style={{ padding: '6px' }}>Hemoglobin</td>
+                        <td style={{ padding: '6px', fontWeight: 600 }}>13.8 g/dL</td>
+                        <td style={{ padding: '6px', color: '#64748b' }}>12.0 - 16.0 g/dL</td>
+                        <td style={{ padding: '6px', color: '#10b981', fontWeight: 700 }}>NORMAL</td>
+                      </tr>
+                      <tr style={{ borderBottom: '1px solid #e2e8f0', background: 'rgba(245, 158, 11, 0.08)' }}>
+                        <td style={{ padding: '6px' }}>Fasting Blood Glucose</td>
+                        <td style={{ padding: '6px', fontWeight: 700, color: '#d97706' }}>104 mg/dL</td>
+                        <td style={{ padding: '6px', color: '#64748b' }}>70 - 99 mg/dL</td>
+                        <td style={{ padding: '6px', color: '#d97706', fontWeight: 700 }}>ELEVATED</td>
+                      </tr>
+                      <tr style={{ borderBottom: '1px solid #e2e8f0', background: 'rgba(245, 158, 11, 0.08)' }}>
+                        <td style={{ padding: '6px' }}>Total Cholesterol</td>
+                        <td style={{ padding: '6px', fontWeight: 700, color: '#d97706' }}>215 mg/dL</td>
+                        <td style={{ padding: '6px', color: '#64748b' }}>&lt; 200 mg/dL</td>
+                        <td style={{ padding: '6px', color: '#d97706', fontWeight: 700 }}>BORDERLINE</td>
+                      </tr>
+                      <tr>
+                        <td style={{ padding: '6px' }}>Serum Creatinine</td>
+                        <td style={{ padding: '6px', fontWeight: 600 }}>0.95 mg/dL</td>
+                        <td style={{ padding: '6px', color: '#64748b' }}>0.7 - 1.2 mg/dL</td>
+                        <td style={{ padding: '6px', color: '#10b981', fontWeight: 700 }}>NORMAL</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <div style={{ fontSize: '9px', color: '#64748b', borderTop: '1px solid #e2e8f0', paddingTop: '6px', display: 'flex', justifyContent: 'space-between' }}>
+                    <span>Automatic OCR extraction verified against LOINC standard terminology</span>
+                    <span>Confidence: 98.4%</span>
+                  </div>
+                </div>
+              )}
+
+              {/* Dynamic Coordinate Bounding Boxes */}
+              {showOverlays && !loading && scanResult?.visual_bounding_boxes?.map((box: any, i: number) => {
+                const isSelected = selectedBoxIndex === i;
+                return (
+                  <div
+                    key={i}
+                    onClick={(e) => { e.stopPropagation(); setSelectedBoxIndex(isSelected ? null : i); }}
+                    style={{
+                      position: 'absolute',
+                      left: `${box.box.x}%`,
+                      top: `${box.box.y}%`,
+                      width: `${box.box.width}%`,
+                      height: `${box.box.height}%`,
+                      border: `${isSelected ? '3px' : '2px'} dashed ${box.color || '#ef4444'}`,
+                      backgroundColor: `${box.color || '#ef4444'}${isSelected ? '35' : '15'}`,
+                      boxSizing: 'border-box',
+                      cursor: 'pointer',
+                      transition: 'all 0.15s ease'
+                    }}
+                  >
+                    <div style={{
+                      position: 'absolute',
+                      top: '4px',
+                      left: '4px',
+                      background: box.color || '#ef4444',
+                      color: '#ffffff',
+                      fontSize: '10px',
+                      fontWeight: 700,
+                      padding: '2px 6px',
+                      borderRadius: '4px',
+                      whiteSpace: 'nowrap',
+                      boxShadow: '0 2px 8px rgba(0,0,0,0.6)',
+                      pointerEvents: 'none'
+                    }}>
+                      {box.label} ({Math.round(box.confidence * 100)}%)
+                    </div>
+                  </div>
+                );
+              })}
+
+              {/* Loading Shimmer */}
+              {loading && (
+                <div style={{
+                  position: 'absolute',
+                  inset: 0,
+                  backgroundColor: 'rgba(3, 7, 18, 0.85)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#38bdf8',
+                  fontSize: '13px',
+                  fontWeight: 600,
+                  gap: '10px'
+                }}>
+                  <div style={{ width: '32px', height: '32px', border: '3px solid #38bdf8', borderTopColor: 'transparent', borderRadius: '50%', animation: 'spin 1s linear infinite' }} />
+                  <div>Running FractureNet YOLOv8 Model & Generating Grad-CAM...</div>
+                </div>
+              )}
             </div>
-                    <div class="mod-media__card">
-                
-<div class="media mod-media__card__image" data-delay=""> 
-            <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/04/SOL_vivienda_descatado_5.jpg">
-        </div>
-    </div>
 
-                <div class="mod-media__card__title f-medium t-titulo-l"> Open Source </div>
-                <div class="mod-media__card__text t-parrafo-l"> A lo largo del eje de la vivienda se alinean la cocina, el comedor, salón, dos bedrooms, un área de trabajo y la suite principal, con enormes ventanales que expanden el interior hacia la luz.
-Los ventanales elevables de la serie 4600 de Cortizo en estar-comedor-cocina dan la máxima transparencia a las estancias. Este cerramiento está ideado para espacios acristalados de dimensiones fuera de lo habitual como los que se encuentran en estas homes. Seamlessly hands off complex tasks to specialized agents (e.g., Medical Scan). </div>
+            {/* Bottom Actions */}
+            <div style={{ display: 'flex', gap: '10px', marginTop: '14px' }}>
+              <button
+                onClick={() => handleAnalyzeScan(modality)}
+                disabled={loading}
+                style={{
+                  flex: 1,
+                  padding: '11px',
+                  borderRadius: '8px',
+                  backgroundColor: '#0284c7',
+                  color: '#fff',
+                  fontWeight: 600,
+                  fontSize: '13px',
+                  border: 'none',
+                  cursor: loading ? 'not-allowed' : 'pointer'
+                }}
+              >
+                {loading ? 'Processing Visualizer...' : '⚡ Re-Run Detection Engine'}
+              </button>
+
+              {uploadedImagePreview && (
+                <button
+                  onClick={() => {
+                    setUploadedImagePreview(null);
+                    setUploadedFileName(null);
+                    setSelectedBoxIndex(null);
+                    handleAnalyzeScan(modality);
+                  }}
+                  style={{
+                    padding: '11px 16px',
+                    borderRadius: '8px',
+                    backgroundColor: '#1e293b',
+                    color: '#cbd5e1',
+                    fontWeight: 600,
+                    fontSize: '13px',
+                    border: '1px solid #334155',
+                    cursor: 'pointer'
+                  }}
+                >
+                  Reset to Reference
+                </button>
+              )}
             </div>
-        
-    <!-- slider -->
-    
-</section><section class="mod-media mod-media--full bg-beige c-black none none  pinned">
+          </div>
 
-    <!-- full -->
-    
-                            <div>
-                
-<div class="media mod-media__item noAnimate" data-delay=""> 
-            <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/04/SOL_lacocina_full.jpg">
-        </div>
-    </div>
-
-            </div>
-        
-    <!-- double -->
-    
-</section>
-
-<section class="mod-content wrapper mod-content--center bg-black c-white pt-xs pb-md no-anim">
- 
-    <!-- cols -->
-    
-        <div class="mod-content__col">
-                         
-                <div class="mod-content__text normal_text"><p>Seamless integration: The orchestrator connects with electronic health records (EHR) APIs to provide deeply personalized assistance.</p>
- </div>
-                                </div>
-
-    <!-- lists -->
-    
-
-</section>
-
-
-<section class="mod-title wrapper mod-title--pretitle  bg-black c-white pt-xs pb-sm anim-line">
- 
-    <!-- lineas -->
-    
-                    <div class="mod-title__pretitle f-edit t-titulo t-center">
-                (Gallery)            </div>
-                <div class="anima__title f-regular t-supertitulo t-title-ls t-upper t-center lh-less">
-            Workflows <br> that inspire        </div>
-
-    <!-- image -->
-    
-
-</section>
-<section class="mod-media mod-media--slider bg-black c-white none pb-md  wrapper">
-
-    <!-- full -->
-    
-        <div class="mod-media__slider swiper-container expand_mouse" data-text="Arrastrar">
-            <div class="swiper-wrapper">
-                                    <div class="mod-media__slider__slide swiper-slide">
-                        
-<div class="media mod-media__slider__slide__image noAspect noAnimate" data-delay=""> 
-            <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/03/SOL_Gallery_homes09-min.jpg">
-        </div>
-    </div>
-
-                    </div>
-                                    <div class="mod-media__slider__slide swiper-slide">
-                        
-<div class="media mod-media__slider__slide__image noAspect noAnimate" data-delay=""> 
-            <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/03/SOL_Gallery_homes08-min.jpg">
-        </div>
-    </div>
-
-                    </div>
-                                    <div class="mod-media__slider__slide swiper-slide">
-                        
-<div class="media mod-media__slider__slide__image noAspect noAnimate" data-delay=""> 
-            <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/03/SOL_Gallery_homes07-min.jpg">
-        </div>
-    </div>
-
-                    </div>
-                                    <div class="mod-media__slider__slide swiper-slide">
-                        
-<div class="media mod-media__slider__slide__image noAspect noAnimate" data-delay=""> 
-            <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/03/SOL_Gallery_homes05-min.jpg">
-        </div>
-    </div>
-
-                    </div>
-                                    <div class="mod-media__slider__slide swiper-slide">
-                        
-<div class="media mod-media__slider__slide__image noAspect noAnimate" data-delay=""> 
-            <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/03/SOL_Gallery_homes06-min.jpg">
-        </div>
-    </div>
-
-                    </div>
-                                    <div class="mod-media__slider__slide swiper-slide">
-                        
-<div class="media mod-media__slider__slide__image noAspect noAnimate" data-delay=""> 
-            <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/03/SOL_Gallery_homes04-min.jpg">
-        </div>
-    </div>
-
-                    </div>
-                                    <div class="mod-media__slider__slide swiper-slide">
-                        
-<div class="media mod-media__slider__slide__image noAspect noAnimate" data-delay=""> 
-            <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/03/SOL_Gallery_homes03-min.jpg">
-        </div>
-    </div>
-
-                    </div>
-                                    <div class="mod-media__slider__slide swiper-slide">
-                        
-<div class="media mod-media__slider__slide__image noAspect noAnimate" data-delay=""> 
-            <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/03/SOL_Gallery_homes02-min.jpg">
-        </div>
-    </div>
-
-                    </div>
-                                    <div class="mod-media__slider__slide swiper-slide">
-                        
-<div class="media mod-media__slider__slide__image noAspect noAnimate" data-delay=""> 
-            <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/03/SOL_Gallery_homes01-min.jpg">
-        </div>
-    </div>
-
-                    </div>
-                            <div>
-        <div>
-
-    
-</section>
-
-<section class="mod-title wrapper mod-title--chapter count bg-beige c-black pt-md pb-md anim-line">
- 
-    <!-- lineas -->
-    
-        <div class="mod-title__intro">
-            <span class="mod-title__anchor" id="Features"></span>
-                            <div class="f-edit t-titulo t-italic">Module Three</div>
-                                        <div class="f-edit t-titulo-xl t-upper t-adj">Features</div>
-                                        <div class="f-edit t-titulo">(3)</div>
-                    </div>
-        <div class="anima__title f-regular t-supertitulo-xl t-title-ls t-upper t-center">
-            Discover the Features        </div>
-
-        
-    <!-- pretitle -->
-    
-
-</section>
-<section class="mod-media mod-media--full bg-beige c-black none none  pinned">
-
-    <!-- full -->
-    
-                    <div class="expand_mouse follow__wrap" data-text="Watch Video">
-                <a href="" class="btn btn--circle follow__mouse--md f-izmir t-parrafo-l d-none d-md-flex">Watch Video</a>
-                
-<div class="media mod-media__item noAnimate" data-delay=""> 
-            <div class="media__wrap-source video" data-video="&lt;iframe title=&quot;La Solana - Icaria IV&quot; src=&quot;https://player.vimeo.com/video/1073531299?dnt=1&amp;amp;app_id=122963&quot; width=&quot;640&quot; height=&quot;360&quot; frameborder=&quot;0&quot; allow=&quot;autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share&quot; referrerpolicy=&quot;strict-origin-when-cross-origin&quot;&gt;&lt;/iframe&gt;">
-            <video class="media__source w-100" autoplay="" loop="" muted="" playsinline="" data-src="/wp-content/uploads/2025/04/LA_SOLANA_Icaria_piscina_corto__1_.mp4">
-                <!-- <source src="" type="video/mp4"> -->
-            </video>
-        </div>
-    </div>
-
-            </div>
-                
-    <!-- double -->
-    
-</section>
-
-<section class="mod-title wrapper mod-title--lines  bg-beige c-black pt-xs pb-l no-anim">
- 
-    <!-- lineas -->
-    
-                    <div class="line f-regular t-supertitulo t-title-ls t-upper col-12 align-left t-left">
-                A PRIVATE            </div>
-                    <div class="line f-regular t-supertitulo t-title-ls t-upper col-12 align-left t-left">
-                AND SECURE             </div>
-                    <div class="line f-regular t-supertitulo t-title-ls t-upper col-6 align-right t-left">
-                NATURALLYFORT            </div>
-                    <div class="line f-regular t-supertitulo t-title-ls t-upper col-6 align-right t-left">
-                NETWORK            </div>
-        
-    <!-- chapter -->
-    
-
-</section>
-
-
-<section class="mod-content wrapper mod-content--cols bg-beige c-black none pb-sm no-anim">
- 
-    <!-- cols -->
-    
-        <div class="mod-content__col">
-                    </div>
-        <div class="mod-content__col normal_text">
-             
-                <div class="mod-content__title f-regular t-upper t-titulo-l">Agents That Reason For You </div>
-                        <div class="mod-content__wrap-text">
-                 
-                    <div class="mod-content__pretitle f-edit t-titulo">Core Modules </div>
-                                 
-                    <div class="mod-content__text normal_text"><p>Enjoy a fully open-source environment. Maintain your personal health records in a private enclave on the blockchain while utilizing powerful inference nodes for daily medical triage.</p>
- </div>
-                            </div>
-             
-                <a href="disponibilidad" class="mod-content__btn btn btn--bg btn--bg-xl f-edit t-titulo mt-xs">View Code </a>
-                    </div>
-
-    <!-- center -->
-    
-
-</section>
-<section class="mod-media mod-media--double bg-beige c-black none pb-sm  wrapper">
-
-    <!-- full -->
-    
-        
-<div class="media mod-media__item col-4" data-delay=""> 
-            <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/03/SOL_comodidades_4-12.jpg">
-        </div>
-    </div>
-
-        
-<div class="media mod-media__item col-6" data-delay="0.2"> 
-            <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/03/SOL_comodidades_8-12.jpg">
-        </div>
-    </div>
-
-
-    <!-- multiple -->
-    
-</section>
-
-<section class="mod-title wrapper mod-title--pretitle  bg-black c-white pt-md pb-sm anim-line">
- 
-    <!-- lineas -->
-    
-                    <div class="mod-title__pretitle f-edit t-titulo t-center">
-                (Features)            </div>
-                <div class="anima__title f-regular t-supertitulo t-title-ls t-upper t-center lh-less">
-            A secure<br>network        </div>
-
-    <!-- image -->
-    
-
-</section>
-<section class="mod-media mod-media--multiple bg-black c-white none pb-md  wrapper">
-
-    <!-- full -->
-    
-                    <div class="mod-media__card">
-                
-<div class="media mod-media__card__image" data-delay=""> 
-            <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/03/SOL_comodidades_descatado_1.jpg">
-        </div>
-    </div>
-
-                <div class="mod-media__card__title f-medium t-titulo-l"> Direct integration with hospital databases </div>
-                <div class="mod-media__card__text t-parrafo-l">  </div>
-            </div>
-                    <div class="mod-media__card">
-                
-<div class="media mod-media__card__image" data-delay=""> 
-            <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/03/SOL_comodidades_descatado_2.jpg">
-        </div>
-    </div>
-
-                <div class="mod-media__card__title f-medium t-titulo-l"> Fully documented REST and WebSocket APIs </div>
-                <div class="mod-media__card__text t-parrafo-l">  </div>
-            </div>
-                    <div class="mod-media__card">
-                
-<div class="media mod-media__card__image" data-delay=""> 
-            <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/03/SOL_comodidaes_descatado_3.jpg">
-        </div>
-    </div>
-
-                <div class="mod-media__card__title f-medium t-titulo-l"> Real-time streaming responses for voice synthesis </div>
-                <div class="mod-media__card__text t-parrafo-l">  </div>
-            </div>
-                    <div class="mod-media__card">
-                
-<div class="media mod-media__card__image" data-delay=""> 
-            <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/03/SOL_gimnasio_descatado_1.jpg">
-        </div>
-    </div>
-
-                <div class="mod-media__card__title f-medium t-titulo-l"> Containerized deployment using Docker and Kubernetes </div>
-                <div class="mod-media__card__text t-parrafo-l">  </div>
-            </div>
-                    <div class="mod-media__card">
-                
-<div class="media mod-media__card__image" data-delay=""> 
-            <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/03/SOL_sauna_descatado_2.jpg">
-        </div>
-    </div>
-
-                <div class="mod-media__card__title f-medium t-titulo-l"> Built-in rate limiting and DDOS protection </div>
-                <div class="mod-media__card__text t-parrafo-l">  </div>
-            </div>
-                    <div class="mod-media__card">
-                
-<div class="media mod-media__card__image" data-delay=""> 
-            <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/03/SOL_padel_descatado_3.jpg">
-        </div>
-    </div>
-
-                <div class="mod-media__card__title f-medium t-titulo-l"> OAuth2 authentication and role-based access control.  </div>
-                <div class="mod-media__card__text t-parrafo-l">  </div>
-            </div>
-        
-    <!-- slider -->
-    
-</section>
-
-<section class="mod-title wrapper mod-title--chapter count bg-beige c-black pt-md pb-sm anim-line">
- 
-    <!-- lineas -->
-    
-        <div class="mod-title__intro">
-            <span class="mod-title__anchor" id="Connecto"></span>
-                            <div class="f-edit t-titulo t-italic">Module Four</div>
-                                        <div class="f-edit t-titulo-xl t-upper t-adj">Connect</div>
-                                        <div class="f-edit t-titulo">(4)</div>
-                    </div>
-        <div class="anima__title f-regular t-supertitulo-xl t-title-ls t-upper t-center">
-            Test the Platform        </div>
-
-        
-    <!-- pretitle -->
-    
-
-</section>
-<section class="mod-media mod-media--double bg-beige c-black none pb-xs  wrapper">
-
-    <!-- full -->
-    
-        
-<div class="media mod-media__item col-6" data-delay=""> 
-            <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/03/SOL_comodidades_interior_8-12.jpg">
-        </div>
-    </div>
-
-        
-<div class="media mod-media__item col-4" data-delay="0.2"> 
-            <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/03/SOL_comoddidades_4-12.jpg">
-        </div>
-    </div>
-
-
-    <!-- multiple -->
-    
-</section>
-
-<section class="mod-content wrapper mod-content--cols bg-beige c-black pt-sm pb-sm no-anim">
- 
-    <!-- cols -->
-    
-        <div class="mod-content__col">
-                    </div>
-        <div class="mod-content__col big_text">
-             
-                <div class="mod-content__title f-regular t-upper t-titulo-l">Try it out. </div>
-                        <div class="mod-content__wrap-text">
-                                 
-                    <div class="mod-content__text big_text"><p>A platform created to triage differently.</p>
-<h3 data-section-id="1oaxh50" data-start="360" data-end="384"></h3>
- </div>
-                            </div>
-             
-                <a href="disponibilidad" class="mod-content__btn btn btn--bg btn--bg-xl f-edit t-titulo mt-xs">View Docs </a>
-                    </div>
-
-    <!-- center -->
-    
-
-</section>
-
-
-<section class="mod-content wrapper mod-content--center bg-beige c-black none none no-anim">
- 
-    <!-- cols -->
-    
-        <div class="mod-content__col">
+          {/* Right Column: Clinical Interpretation & Findings */}
+          <div style={{ background: '#0e1422', border: '1px solid #1e293b', borderRadius: '16px', padding: '22px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             
-<div class="media mod-content__image w-100" data-delay=""> 
-            <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/03/SOL_Gallery_homes01-min.jpg">
-        </div>
-    </div>
+            <div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                <span style={{ fontSize: '11px', textTransform: 'uppercase', color: '#94a3b8', letterSpacing: '0.05em' }}>Interpretation Summary</span>
+                <span style={{ fontSize: '12px', fontWeight: 600, color: '#38bdf8' }}>{scanResult?.urgency_badge}</span>
+              </div>
+              <h3 style={{ margin: 0, fontSize: '17px', color: '#f8fafc', fontWeight: 700, lineHeight: '1.4' }}>
+                {scanResult?.ai_diagnosis_summary || 'Analyzing Document...'}
+              </h3>
+            </div>
 
-                                </div>
+            {/* Plain English Translation */}
+            <div style={{ backgroundColor: 'rgba(255,255,255,0.03)', border: '1px solid #1e293b', borderRadius: '10px', padding: '14px' }}>
+              <div style={{ fontSize: '11px', fontWeight: 700, color: '#38bdf8', textTransform: 'uppercase', marginBottom: '6px' }}>
+                Patient-Friendly Explanation
+              </div>
+              <p style={{ margin: 0, fontSize: '13px', color: '#cbd5e1', lineHeight: '1.5' }}>
+                {scanResult?.plain_english_explanation || 'Processing plain-language summary...'}
+              </p>
+            </div>
 
-    <!-- lists -->
-    
+            {/* Clinical Observations */}
+            <div>
+              <div style={{ fontSize: '11px', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', marginBottom: '8px' }}>
+                Extracted Clinical Observations ({scanResult?.clinical_findings?.length || 0})
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                {scanResult?.clinical_findings?.map((f: string, idx: number) => (
+                  <div key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', fontSize: '12.5px', color: '#e2e8f0', background: 'rgba(255,255,255,0.02)', padding: '8px 10px', borderRadius: '6px', border: '1px solid rgba(255,255,255,0.04)' }}>
+                    <span style={{ color: '#10b981', fontWeight: 700 }}>✓</span>
+                    <span>{f}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
 
-</section>
-
-
-<section class="mod-content wrapper mod-content--center bg-beige c-black pt-sm pb-md no-anim">
- 
-    <!-- cols -->
-    
-        <div class="mod-content__col">
-                         
-                <div class="mod-content__text normal_text"><p>Our open-source community is at your disposal to answer your questions and guide you through deploying your own agents.</p>
-<p><strong>Ramón Rábade Doce</strong><br />
-Director<br />
-Integration Endpoints: Calle Federico Tapia Nº41<br />
-15005 La Coruña<br />
-<a class="link" href="tel:650 835 702"><strong>650 835 702</strong></a><br />
-<a class="link" href="tel:881 047 847"><strong>881 047 847</strong></a><br />
-<a class="link" href="mailto:r.rabade@coldwellbanker.es"><strong>r.rabade@coldwellbanker.es</strong></a><br />
-<a class="link" href="http://www.coldwellbanker.es/smartrealestate" target="_blank" rel="noopener"><strong>coldwellbanker.es</strong></a></p>
-<p><img decoding="async" class="" src="/wp-content/uploads/2025/05/CB-SMART-REAL-ESTATE_horizontal-stacked-blue.png" alt="null" width="297" height="76" /></p>
- </div>
-                         
-                <a href="contacto" class="mod-content__btn btn btn--bg btn--bg-xl f-edit t-titulo">Request More Information </a>
+            {/* Suggested Doctor Questions */}
+            {scanResult?.suggested_questions_for_doctor?.length > 0 && (
+              <div style={{ borderTop: '1px solid #1e293b', paddingTop: '12px' }}>
+                <div style={{ fontSize: '11px', fontWeight: 700, color: '#f59e0b', textTransform: 'uppercase', marginBottom: '8px' }}>
+                  Recommended Questions for Your Doctor
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                  {scanResult.suggested_questions_for_doctor.map((q: string, idx: number) => (
+                    <div key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', fontSize: '12px', color: '#94a3b8' }}>
+                      <span style={{ color: '#f59e0b', fontWeight: 'bold' }}>?</span>
+                      <span>{q}</span>
                     </div>
+                  ))}
+                </div>
+              </div>
+            )}
 
-    <!-- lists -->
-    
+            <div style={{ fontSize: '11px', color: '#64748b', borderTop: '1px solid #1e293b', paddingTop: '10px' }}>
+              ℹ️ Visualizer demonstration output. Not a substitute for formal diagnostic radiologist review.
+            </div>
+          </div>
 
-</section>
-
-</main>
-` }} />
+        </div>
+      </div>
+    </div>
   );
 }
