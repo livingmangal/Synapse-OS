@@ -25,13 +25,14 @@ export default function SanjeevaniAssistant() {
     {
       id: 'init-1',
       sender: 'assistant',
-      text: 'Hello! I am Sanjeevani, your AI health autopilot. You can talk to me via voice or type a command. How can I help you today?',
+      text: 'Hello! I am Sanjeevani, your AI health assistant. You can speak to me or type any health/fitness query. (Tip: Configure your Gemini Key in settings to enable full reasoning!)',
       timestamp: new Date(),
     },
   ]);
   const [textInput, setTextInput] = useState('');
   const [vapiPublicKey, setVapiPublicKey] = useState('');
   const [vapiAssistantId, setVapiAssistantId] = useState('');
+  const [geminiApiKey, setGeminiApiKey] = useState('');
   const [showSettings, setShowSettings] = useState(false);
   const [voiceVolume, setVoiceVolume] = useState(0);
 
@@ -49,11 +50,13 @@ export default function SanjeevaniAssistant() {
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
-    // Load Vapi public keys from localStorage if saved previously
+    // Load credentials from localStorage
     const savedKey = localStorage.getItem('sanjeevani_vapi_key') || '';
     const savedId = localStorage.getItem('sanjeevani_vapi_id') || '';
+    const savedGeminiKey = localStorage.getItem('sanjeevani_gemini_key') || '';
     setVapiPublicKey(savedKey);
     setVapiAssistantId(savedId);
+    setGeminiApiKey(savedGeminiKey);
 
     if (window.Vapi) {
       return;
@@ -77,13 +80,14 @@ export default function SanjeevaniAssistant() {
     };
   }, []);
 
-  // Sync Vapi credentials to localStorage
+  // Sync credentials to localStorage
   const saveCredentials = () => {
     localStorage.setItem('sanjeevani_vapi_key', vapiPublicKey);
     localStorage.setItem('sanjeevani_vapi_id', vapiAssistantId);
+    localStorage.setItem('sanjeevani_gemini_key', geminiApiKey);
     setShowSettings(false);
     
-    // Re-initialize Vapi instance with new key if active
+    // Re-initialize Vapi instance
     if (vapi) {
       try {
         vapi.stop();
@@ -92,7 +96,7 @@ export default function SanjeevaniAssistant() {
       setCallActive(false);
     }
     
-    addSystemMessage('Vapi.ai credentials updated successfully.');
+    addSystemMessage('Settings synced successfully.');
   };
 
   const addSystemMessage = (text: string) => {
@@ -110,7 +114,6 @@ export default function SanjeevaniAssistant() {
   // Toggle Voice Call Connection
   const toggleVoiceCall = async () => {
     if (callActive) {
-      // Disconnect
       if (vapi) {
         vapi.stop();
       }
@@ -121,32 +124,28 @@ export default function SanjeevaniAssistant() {
       return;
     }
 
-    // Connect
     if (!vapiPublicKey || !vapiAssistantId) {
-      // Credentials not set - trigger simulator mode
       startSimulatorMode();
       return;
     }
 
     if (!window.Vapi) {
-      addSystemMessage('Voice SDK still loading. Please try again in a few seconds.');
+      addSystemMessage('Voice SDK still loading. Please try again.');
       return;
     }
 
     try {
       setConnecting(true);
-      addSystemMessage('Initializing voice connection...');
+      addSystemMessage('Connecting to Vapi voice server...');
       
       const vapiInstance = new window.Vapi(vapiPublicKey);
       setVapi(vapiInstance);
 
-      // Event handlers
       vapiInstance.on('call-start', () => {
         setConnecting(false);
         setCallActive(true);
-        addSystemMessage('Voice connection active. Speak now.');
+        addSystemMessage('Voice active. Start speaking.');
         
-        // Simulate minor audio wave adjustments for visualizer
         volumeInterval.current = setInterval(() => {
           setVoiceVolume(Math.random() * 0.7 + 0.3);
         }, 100);
@@ -156,11 +155,10 @@ export default function SanjeevaniAssistant() {
         setCallActive(false);
         setVoiceVolume(0);
         if (volumeInterval.current) clearInterval(volumeInterval.current);
-        addSystemMessage('Voice connection terminated.');
+        addSystemMessage('Voice disconnected.');
       });
 
       vapiInstance.on('message', (message: any) => {
-        // Log transcript messages into the overlay chat
         if (message.type === 'transcript' && message.transcriptType === 'final') {
           const sender = message.role === 'user' ? 'user' : 'assistant';
           setMessages((prev) => [
@@ -194,29 +192,26 @@ export default function SanjeevaniAssistant() {
     }
   };
 
-  // Simulate AI Voice/Text Responses when credentials are empty
   const startSimulatorMode = () => {
     setConnecting(true);
-    addSystemMessage('Initializing Simulator Mode (No Vapi keys)...');
+    addSystemMessage('Starting offline sandbox emulator...');
     
     setTimeout(() => {
       setConnecting(false);
       setCallActive(true);
-      addSystemMessage('Simulated voice active. Ask: "recommend workout" or "log lunch"');
+      addSystemMessage('Simulated voice active. Speak/type commands below.');
       
-      // Simulate audio feedback waves
       volumeInterval.current = setInterval(() => {
         setVoiceVolume(Math.random() * 0.8);
       }, 150);
 
-      // Trigger simulator speech greeting
       setTimeout(() => {
         setMessages((prev) => [
           ...prev,
           {
             id: `sim-${Date.now()}`,
             sender: 'assistant',
-            text: '[Simulated Voice]: Welcome to Sanjeevani Developer Sandbox. I can process your commands via chat below.',
+            text: '[Simulated Voice]: Welcome to Sanjeevani local sandbox. Since no Vapi keys are set, I am running locally. Ask me about recipes, workouts, or symptoms.',
             timestamp: new Date(),
           },
         ]);
@@ -242,20 +237,62 @@ export default function SanjeevaniAssistant() {
     setTextInput('');
 
     // Generate responsive agent behavior based on command
-    setTimeout(() => {
+    setTimeout(async () => {
       let reply = '';
       const textLower = userText.toLowerCase();
 
-      if (textLower.includes('scan') || textLower.includes('prescription')) {
-        reply = 'Orchestrator: Routing to Medical Scan Agent. Launching Vision OCR... Extracted medication details: 500mg Metformin (twice daily). Hash generated & written to Polygon Amoy Testnet successfully.';
-      } else if (textLower.includes('triage') || textLower.includes('sick') || textLower.includes('pain')) {
-        reply = 'Orchestrator: Symptom Triage Agent active. "Council Mode" verification triggered (Cautious & Guideline-based). Recommendation: Moderate urgency. Avoid heavy exertion, monitor pulse, and schedule a general practitioner visit within 24 hours.';
-      } else if (textLower.includes('workout') || textLower.includes('exercise') || textLower.includes('fitness') || textLower.includes('nutrition') || textLower.includes('meal')) {
-        reply = 'Orchestrator: Routing to Nutrition & Fitness Assistant. Recommended Diet Plan: Balanced low-carb, high-protein intake (2100 kcal). Suggested Workout: HIIT full-body endurance routine (25 mins) + spatial muscle synchronization. View detail pages for full list of videos.';
-      } else if (textLower.includes('blockchain') || textLower.includes('records')) {
-        reply = 'Orchestrator: Blockchain Records Agent checking ledger. Retrieved 3 verified clinical records. Integrity check: 100% Valid (0x3a4f...7b9c).';
-      } else {
-        reply = `Orchestrator: Received "${userText}". Multi-agent swarm executing tasks: 1. Intent analyzed. 2. Fetching records. 3. Task completed successfully. How else can I assist?`;
+      if (geminiApiKey) {
+        // Real Live Gemini API integration
+        try {
+          const response = await fetch(
+            `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiApiKey}`,
+            {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                contents: [
+                  {
+                    role: 'user',
+                    parts: [{ text: userText }],
+                  },
+                ],
+                systemInstruction: {
+                  parts: [{ text: "You are Sanjeevani, a helpful, professional, and empathetic AI health assistant inside the Sanjeevani OS. You understand clinical workflows and guide patients on wellness, nutrition, fitness, triage, and records with clear, concise answers. Always add a short disclaimer that you are an AI assistant, not a licensed medical professional." }]
+                }
+              }),
+            }
+          );
+          const data = await response.json();
+          if (data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
+            reply = data.candidates[0].content.parts[0].text;
+          } else {
+            throw new Error('Invalid Gemini API response');
+          }
+        } catch (err: any) {
+          console.error('Gemini API Error:', err);
+          reply = `[Gemini Connect Error]: ${err.message || 'Key verification failed'}. Falling back to local health database...`;
+        }
+      }
+
+      // Offline smart QA fallback
+      if (!reply || reply.includes('Gemini Connect Error')) {
+        const prefix = reply.includes('Gemini Connect Error') ? reply + '\n\n' : '';
+        
+        if (textLower.includes('hello') || textLower.includes('hi') || textLower.includes('hey')) {
+          reply = prefix + "Hello! I am Sanjeevani, your AI clinical assistant. I can automate health queries, triage symptoms, explain prescriptions, and track daily macros. What would you like to explore today?";
+        } else if (textLower.includes('triage') || textLower.includes('sick') || textLower.includes('pain') || textLower.includes('headache') || textLower.includes('fever') || textLower.includes('cough')) {
+          reply = prefix + "I am activating the Symptom Triage Agent. It looks like you are asking about symptoms. I recommend monitoring your temperature and staying hydrated. If you are experiencing acute pain or shortness of breath, please contact local emergency services immediately. You can view our Symptom Triage page for structured assessment logs.";
+        } else if (textLower.includes('workout') || textLower.includes('exercise') || textLower.includes('fitness') || textLower.includes('gym')) {
+          reply = prefix + "I can recommend customized exercises! Based on your parameters, I suggest a 25-minute HIIT or core conditioning mobility workout. You can play high-definition instruction videos directly on our Nutrition & Fitness page under the Agents menu.";
+        } else if (textLower.includes('diet') || textLower.includes('nutrition') || textLower.includes('meal') || textLower.includes('eat') || textLower.includes('food')) {
+          reply = prefix + "For nutrition, you can log meals (e.g. '2 eggs, avocado, brown toast') in our macro tracker dashboard to see your target progress rings update. I can also help generate personalized meal plans (Keto, Vegan, Balanced) dynamically on the Nutrition & Fitness page.";
+        } else if (textLower.includes('blockchain') || textLower.includes('record') || textLower.includes('prescription') || textLower.includes('scan')) {
+          reply = prefix + "All clinical documentation, lab reports, and doctor intake logs are compiled into tamper-proof records. The Blockchain Records Agent writes their hashes to the Polygon Amoy testnet, ensuring complete security and verification.";
+        } else if (textLower.includes('who are you') || textLower.includes('what is sanjeevani') || textLower.includes('what can you do')) {
+          reply = prefix + "I am Sanjeevani, the conversational autopilot of Sanjeevani OS. I orchestrate a swarm of sub-agents to automate patient intake, check medical records, and log lifestyle stats. Enter your Gemini API key in settings to unlock my live, unbounded reasoning brain!";
+        } else {
+          reply = prefix + `I analyzed your command: "${userText}". Sanjeevani OS is coordinating with your medical profile. To get an advanced, personalized diagnosis using live generative AI, please add your Gemini API Key in the Settings cog above!`;
+        }
       }
 
       setMessages((prev) => [
@@ -272,13 +309,13 @@ export default function SanjeevaniAssistant() {
 
   return (
     <>
-      {/* Floating Microphone Activation Button */}
+      {/* Floating Microphone Activation Button - Blue and Static */}
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 z-[9999] w-14 h-14 rounded-full bg-[#ea580c] text-white flex items-center justify-center shadow-[0_10px_30px_rgba(234,88,12,0.4)] hover:shadow-[0_12px_40px_rgba(234,88,12,0.6)] border border-white/20 transition-all duration-300 hover:scale-105 active:scale-95 group cursor-pointer"
+        className="fixed bottom-6 right-6 z-[9999] w-14 h-14 rounded-full bg-[#2563eb] text-white flex items-center justify-center shadow-[0_10px_30px_rgba(37,99,235,0.4)] hover:shadow-[0_12px_40px_rgba(37,99,235,0.6)] border border-white/20 transition-all duration-300 hover:scale-105 active:scale-95 group cursor-pointer"
         aria-label="Ask Sanjeevani AI Assistant"
       >
-        <span className="absolute inset-0 rounded-full bg-[#ea580c] animate-ping opacity-25 group-hover:opacity-40"></span>
+        <span className="absolute inset-0 rounded-full bg-[#2563eb] opacity-0 group-hover:opacity-20 transition-opacity duration-300"></span>
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="relative z-10">
           <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" />
           <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
@@ -302,8 +339,8 @@ export default function SanjeevaniAssistant() {
           <div className="flex items-center justify-between px-5 py-4 border-b border-white/10 bg-black/40">
             <div className="flex items-center gap-2.5">
               <div className="relative flex h-2 w-2">
-                <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${callActive ? 'bg-green-400' : 'bg-orange-500'}`}></span>
-                <span className={`relative inline-flex rounded-full h-2 w-2 ${callActive ? 'bg-green-500' : 'bg-orange-500'}`}></span>
+                <span className={`absolute inline-flex h-full w-full rounded-full opacity-35 ${callActive ? 'bg-green-400' : 'bg-blue-500'}`}></span>
+                <span className={`relative inline-flex rounded-full h-2 w-2 ${callActive ? 'bg-green-500' : 'bg-blue-500'}`}></span>
               </div>
               <span className="text-xs uppercase tracking-widest font-semibold font-sans">
                 {callActive ? 'Sanjeevani Live' : connecting ? 'Connecting...' : 'Sanjeevani AI'}
@@ -313,7 +350,7 @@ export default function SanjeevaniAssistant() {
               <button 
                 onClick={() => setShowSettings(!showSettings)}
                 className="text-[#ECE4DA]/60 hover:text-white transition-colors cursor-pointer"
-                title="Vapi.ai Connection Settings"
+                title="Sanjeevani Settings"
               >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1-1 1.73l-.43-.25a2 2 0 0 1-2 0l-.15.08a2 2 0 0 0-2.73-.73l-.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.1a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
@@ -335,8 +372,8 @@ export default function SanjeevaniAssistant() {
 
           {/* Settings Sub-Panel */}
           {showSettings ? (
-            <div className="flex-1 flex flex-col p-5 bg-[#1a1a1a]">
-              <h3 className="text-sm font-semibold tracking-wider uppercase mb-4 text-[#ea580c]">Vapi.ai Credentials</h3>
+            <div className="flex-1 flex flex-col p-5 bg-[#1a1a1a] overflow-y-auto">
+              <h3 className="text-sm font-semibold tracking-wider uppercase mb-4 text-[#2563eb]">Sanjeevani Settings</h3>
               <div className="space-y-4 flex-1">
                 <div>
                   <label className="block text-[10px] uppercase tracking-widest text-[#ECE4DA]/60 mb-1">Vapi Public Key</label>
@@ -345,7 +382,7 @@ export default function SanjeevaniAssistant() {
                     value={vapiPublicKey}
                     onChange={(e) => setVapiPublicKey(e.target.value)}
                     placeholder="e.g. 1a2b3c4d-5e6f..."
-                    className="w-full px-3 py-2 bg-black/60 border border-white/10 rounded-lg text-xs text-[#ECE4DA] placeholder-[#ECE4DA]/30 focus:outline-none focus:border-[#ea580c]"
+                    className="w-full px-3 py-2 bg-black/60 border border-white/10 rounded-lg text-xs text-[#ECE4DA] placeholder-[#ECE4DA]/30 focus:outline-none focus:border-[#2563eb]"
                   />
                 </div>
                 <div>
@@ -355,11 +392,21 @@ export default function SanjeevaniAssistant() {
                     value={vapiAssistantId}
                     onChange={(e) => setVapiAssistantId(e.target.value)}
                     placeholder="e.g. a1b2c3d4-e5f6..."
-                    className="w-full px-3 py-2 bg-black/60 border border-white/10 rounded-lg text-xs text-[#ECE4DA] placeholder-[#ECE4DA]/30 focus:outline-none focus:border-[#ea580c]"
+                    className="w-full px-3 py-2 bg-black/60 border border-white/10 rounded-lg text-xs text-[#ECE4DA] placeholder-[#ECE4DA]/30 focus:outline-none focus:border-[#2563eb]"
                   />
                 </div>
-                <p className="text-[10px] text-[#ECE4DA]/40 leading-relaxed pt-2">
-                  Find your credentials in the Vapi Dashboard. If left blank, clicking voice will trigger the offline simulation mode.
+                <div>
+                  <label className="block text-[10px] uppercase tracking-widest text-[#ECE4DA]/60 mb-1">Gemini API Key</label>
+                  <input
+                    type="password"
+                    value={geminiApiKey}
+                    onChange={(e) => setGeminiApiKey(e.target.value)}
+                    placeholder="AIzaSy..."
+                    className="w-full px-3 py-2 bg-black/60 border border-white/10 rounded-lg text-xs text-[#ECE4DA] placeholder-[#ECE4DA]/30 focus:outline-none focus:border-[#2563eb]"
+                  />
+                </div>
+                <p className="text-[10px] text-[#ECE4DA]/40 leading-relaxed">
+                  Keys are saved locally in your browser. Leave Vapi credentials blank to run the voice session in developer sandbox mode.
                 </p>
               </div>
               <div className="flex gap-2 mt-4">
@@ -371,9 +418,9 @@ export default function SanjeevaniAssistant() {
                 </button>
                 <button
                   onClick={saveCredentials}
-                  className="flex-1 py-2 text-xs bg-[#ea580c] hover:bg-[#d94e0b] text-white rounded-lg transition-colors uppercase tracking-wider font-semibold cursor-pointer"
+                  className="flex-1 py-2 text-xs bg-[#2563eb] hover:bg-[#1d4ed8] text-white rounded-lg transition-colors uppercase tracking-wider font-semibold cursor-pointer"
                 >
-                  Save Keys
+                  Save Settings
                 </button>
               </div>
             </div>
@@ -400,7 +447,7 @@ export default function SanjeevaniAssistant() {
                       <div
                         className={`max-w-[80%] rounded-2xl px-4 py-2.5 text-xs leading-relaxed ${
                           msg.sender === 'user'
-                            ? 'bg-[#ea580c] text-white rounded-br-none shadow-[0_4px_15px_rgba(234,88,12,0.2)]'
+                            ? 'bg-[#2563eb] text-white rounded-br-none shadow-[0_4px_15px_rgba(37,99,235,0.2)]'
                             : 'bg-white/10 text-[#ECE4DA] rounded-bl-none border border-white/5'
                         }`}
                       >
@@ -415,12 +462,12 @@ export default function SanjeevaniAssistant() {
               {/* Voice Visualizer Waves Area */}
               {callActive && (
                 <div className="h-14 bg-black/30 border-t border-white/5 flex items-center justify-center gap-1 px-4">
-                  <div className="text-[10px] tracking-wider uppercase text-green-400 mr-2 animate-pulse font-semibold">Voice Streaming</div>
+                  <div className="text-[10px] tracking-wider uppercase text-green-400 mr-2 font-semibold">Voice Streaming</div>
                   <div className="flex items-center gap-1 h-6">
                     {[...Array(8)].map((_, i) => (
                       <div
                         key={i}
-                        className="w-1 bg-[#ea580c] rounded-full transition-all duration-150"
+                        className="w-1 bg-[#2563eb] rounded-full transition-all duration-150"
                         style={{
                           height: callActive ? `${Math.max(6, voiceVolume * (30 - i * 2) * Math.random())}px` : '4px',
                         }}
@@ -442,7 +489,7 @@ export default function SanjeevaniAssistant() {
                         ? 'bg-red-600 hover:bg-red-700 text-white border-red-500'
                         : connecting
                         ? 'bg-white/10 text-white/50 border-white/10 cursor-not-allowed'
-                        : 'bg-[#ea580c] hover:bg-[#d94e0b] text-white border-[#ea580c]'
+                        : 'bg-[#2563eb] hover:bg-[#1d4ed8] text-white border-[#2563eb]'
                     }`}
                   >
                     {connecting ? (
@@ -476,7 +523,7 @@ export default function SanjeevaniAssistant() {
                     value={textInput}
                     onChange={(e) => setTextInput(e.target.value)}
                     placeholder="Type command (e.g. 'triage chest pain')"
-                    className="flex-1 h-10 px-3.5 bg-white/5 border border-white/10 rounded-xl text-xs text-[#ECE4DA] placeholder-[#ECE4DA]/40 focus:outline-none focus:border-[#ea580c] transition-colors"
+                    className="flex-1 h-10 px-3.5 bg-white/5 border border-white/10 rounded-xl text-xs text-[#ECE4DA] placeholder-[#ECE4DA]/40 focus:outline-none focus:border-[#2563eb] transition-colors"
                   />
                   <button
                     type="submit"
