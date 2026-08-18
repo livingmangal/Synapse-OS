@@ -1,0 +1,335 @@
+# Copyright (c) MONAI Consortium
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#     http://www.apache.org/licenses/LICENSE-2.0
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+from __future__ import annotations
+
+import contextlib
+import os
+import pickle
+import tempfile
+import unittest
+from pathlib import Path
+from unittest.mock import patch
+
+import nibabel as nib
+import numpy as np
+import torch
+from parameterized import parameterized
+
+from monai.data import MetaTensor, PersistentDataset, json_hashing
+from monai.transforms import Compose, Flip, Identity, LoadImaged, SimulateDelayd, Transform
+
+TEST_CASE_1 = [
+    Compose(
+        [
+            LoadImaged(keys=["image", "label", "extra"]),
+            SimulateDelayd(keys=["image", "label", "extra"], delay_time=[1e-7, 1e-6, 1e-5]),
+        ]
+    ),
+    (128, 128, 128),
+]
+
+TEST_CASE_2 = [
+    [
+        LoadImaged(keys=["image", "label", "extra"]),
+        SimulateDelayd(keys=["image", "label", "extra"], delay_time=[1e-7, 1e-6, 1e-5]),
+    ],
+    (128, 128, 128),
+]
+
+TEST_CASE_3 = [None, (128, 128, 128)]
+
+TEST_CASE_4 = [True, False, False, MetaTensor]
+
+TEST_CASE_5 = [True, True, False, MetaTensor]
+
+TEST_CASE_6 = [False, False, False, torch.Tensor]
+
+TEST_CASE_7 = [False, True, False, torch.Tensor]
+
+
+class _InplaceXform(Transform):
+    def __call__(self, data):
+        if data:
+            data[0] = data[0] + np.pi
+        else:
+            data.append(1)
+        return data
+
+
+class TestDataset(unittest.TestCase):
+    def test_cache(self):
+        """testing no inplace change to the hashed item"""
+        items = [[list(range(i))] for i in range(5)]
+
+        with tempfile.TemporaryDirectory() as tempdir:
+            ds = PersistentDataset(
+                data=items,
+                transform=_InplaceXform(),
+                cache_dir=tempdir,
+                pickle_module="pickle",
+                # TODO: was pickle.HIGHEST_PROTOCOL but this wasn't compatible with torch.load, need to improve compatibility
+                pickle_protocol=torch.serialization.DEFAULT_PROTOCOL,
+            )
+            self.assertEqual(items, [[[]], [[0]], [[0, 1]], [[0, 1, 2]], [[0, 1, 2, 3]]])
+            ds1 = PersistentDataset(items, transform=_InplaceXform(), cache_dir=tempdir)
+            self.assertEqual(list(ds1), list(ds))
+            self.assertEqual(items, [[[]], [[0]], [[0, 1]], [[0, 1, 2]], [[0, 1, 2, 3]]])
+
+            ds = PersistentDataset(items, transform=_InplaceXform(), cache_dir=tempdir, hash_func=json_hashing)
+            self.assertEqual(items, [[[]], [[0]], [[0, 1]], [[0, 1, 2]], [[0, 1, 2, 3]]])
+            ds1 = PersistentDataset(items, transform=_InplaceXform(), cache_dir=tempdir, hash_func=json_hashing)
+            self.assertEqual(list(ds1), list(ds))
+            self.assertEqual(items, [[[]], [[0]], [[0, 1]], [[0, 1, 2]], [[0, 1, 2, 3]]])
+
+    @parameterized.expand([TEST_CASE_1, TEST_CASE_2, TEST_CASE_3])
+    def test_shape(self, transform, expected_shape):
+        test_image = nib.Nifti1Image(np.random.randint(0, 2, size=[128, 128, 128]).astype(float), np.eye(4))
+        with tempfile.TemporaryDirectory() as tempdir:
+            nib.save(test_image, os.path.join(tempdir, "test_image1.nii.gz"))
+            nib.save(test_image, os.path.join(tempdir, "test_label1.nii.gz"))
+            nib.save(test_image, os.path.join(tempdir, "test_extra1.nii.gz"))
+            nib.save(test_image, os.path.join(tempdir, "test_image2.nii.gz"))
+            nib.save(test_image, os.path.join(tempdir, "test_label2.nii.gz"))
+            nib.save(test_image, os.path.join(tempdir, "test_extra2.nii.gz"))
+            test_data = [
+                {
+                    "image": os.path.join(tempdir, "test_image1.nii.gz"),
+                    "label": os.path.join(tempdir, "test_label1.nii.gz"),
+                    "extra": os.path.join(tempdir, "test_extra1.nii.gz"),
+                },
+                {
+                    "image": os.path.join(tempdir, "test_image2.nii.gz"),
+                    "label": os.path.join(tempdir, "test_label2.nii.gz"),
+                    "extra": os.path.join(tempdir, "test_extra2.nii.gz"),
+                },
+            ]
+
+            cache_dir = os.path.join(os.path.join(tempdir, "cache"), "data")
+            dataset_precached = PersistentDataset(data=test_data, transform=transform, cache_dir=cache_dir)
+            data1_precached = dataset_precached[0]
+            data2_precached = dataset_precached[1]
+
+            dataset_postcached = PersistentDataset(data=test_data, transform=transform, cache_dir=cache_dir)
+            data1_postcached = dataset_postcached[0]
+            data2_postcached = dataset_postcached[1]
+            data3_postcached = dataset_postcached[0:2]
+
+            if transform is None:
+                self.assertEqual(data1_precached["image"], os.path.join(tempdir, "test_image1.nii.gz"))
+                self.assertEqual(data2_precached["label"], os.path.join(tempdir, "test_label2.nii.gz"))
+                self.assertEqual(data1_postcached["image"], os.path.join(tempdir, "test_image1.nii.gz"))
+                self.assertEqual(data2_postcached["extra"], os.path.join(tempdir, "test_extra2.nii.gz"))
+            else:
+                self.assertTupleEqual(data1_precached["image"].shape, expected_shape)
+                self.assertTupleEqual(data1_precached["label"].shape, expected_shape)
+                self.assertTupleEqual(data1_precached["extra"].shape, expected_shape)
+                self.assertTupleEqual(data2_precached["image"].shape, expected_shape)
+                self.assertTupleEqual(data2_precached["label"].shape, expected_shape)
+                self.assertTupleEqual(data2_precached["extra"].shape, expected_shape)
+
+                self.assertTupleEqual(data1_postcached["image"].shape, expected_shape)
+                self.assertTupleEqual(data1_postcached["label"].shape, expected_shape)
+                self.assertTupleEqual(data1_postcached["extra"].shape, expected_shape)
+                self.assertTupleEqual(data2_postcached["image"].shape, expected_shape)
+                self.assertTupleEqual(data2_postcached["label"].shape, expected_shape)
+                self.assertTupleEqual(data2_postcached["extra"].shape, expected_shape)
+                for d in data3_postcached:
+                    self.assertTupleEqual(d["image"].shape, expected_shape)
+
+            # update the data to cache
+            test_data_new = [
+                {
+                    "image": os.path.join(tempdir, "test_image1_new.nii.gz"),
+                    "label": os.path.join(tempdir, "test_label1_new.nii.gz"),
+                    "extra": os.path.join(tempdir, "test_extra1_new.nii.gz"),
+                },
+                {
+                    "image": os.path.join(tempdir, "test_image2_new.nii.gz"),
+                    "label": os.path.join(tempdir, "test_label2_new.nii.gz"),
+                    "extra": os.path.join(tempdir, "test_extra2_new.nii.gz"),
+                },
+            ]
+            dataset_postcached.set_data(data=test_data_new)
+            # test new exchanged cache content
+            if transform is None:
+                self.assertEqual(dataset_postcached[0]["image"], os.path.join(tempdir, "test_image1_new.nii.gz"))
+                self.assertEqual(dataset_postcached[0]["label"], os.path.join(tempdir, "test_label1_new.nii.gz"))
+                self.assertEqual(dataset_postcached[1]["extra"], os.path.join(tempdir, "test_extra2_new.nii.gz"))
+
+    def test_different_transforms(self):
+        """
+        Different instances of `PersistentDataset` with the same cache_dir,
+        same input data, but different transforms should give different results.
+        """
+        shape = (1, 10, 9, 8)
+        im = np.arange(0, np.prod(shape)).reshape(shape)
+        with tempfile.TemporaryDirectory() as path:
+            im1 = PersistentDataset([im], Identity(), cache_dir=path, hash_transform=json_hashing)[0]
+            im2 = PersistentDataset([im], Flip(1), cache_dir=path, hash_transform=json_hashing)[0]
+            l2 = ((im1 - im2) ** 2).sum() ** 0.5
+            self.assertGreater(l2, 1)
+
+    @parameterized.expand([TEST_CASE_4, TEST_CASE_5, TEST_CASE_6, TEST_CASE_7])
+    def test_track_meta_and_weights_only(self, track_meta, weights_only, expected_error, expected_type):
+        """
+        Ensure expected behavior for all combinations of `track_meta` and `weights_only`.
+        """
+        test_image = nib.Nifti1Image(np.random.randint(0, 2, size=[128, 128, 128]).astype(float), np.eye(4))
+        with tempfile.TemporaryDirectory() as tempdir:
+            nib.save(test_image, os.path.join(tempdir, "test_image.nii.gz"))
+            test_data = [{"image": os.path.join(tempdir, "test_image.nii.gz")}]
+            transform = Compose([LoadImaged(keys=["image"])])
+            cache_dir = os.path.join(os.path.join(tempdir, "cache"), "data")
+
+            cm = self.assertRaises(ValueError) if expected_error else contextlib.nullcontext()
+            with cm:
+                test_dataset = PersistentDataset(
+                    data=test_data,
+                    transform=transform,
+                    cache_dir=cache_dir,
+                    track_meta=track_meta,
+                    weights_only=weights_only,
+                )
+
+                im = test_dataset[0]["image"]
+                self.assertIsInstance(im, expected_type)
+
+    def test_metatensor_loading(self):
+        """
+        Thorough test of metadata loading correctly with MetaTensor. This will store a MetaTensor with safe object types
+        in its metadata dictionary, test the cache file exists and can be safely loaded with weights only, and that the
+        loaded object is another MetaTensor with the correct information
+        """
+        meta = {"test_meta": 123, "foo": "bar", "test_tuple": (1, 2, 3)}
+        imt = MetaTensor(torch.rand(1, 128, 128, 128), meta=dict(meta), affine=torch.rand(4, 4))
+
+        with tempfile.TemporaryDirectory() as tempdir:
+            cache_dir = Path(tempdir, "cache", "data")
+
+            test_data = [{"image": imt}]
+
+            test_dataset = PersistentDataset(
+                data=test_data,
+                transform=Compose([Identity()]),
+                cache_dir=str(cache_dir),
+                track_meta=True,
+                weights_only=True,
+            )
+
+            im = test_dataset[0]["image"]
+            self.assertIsInstance(im, MetaTensor, "MetaTensor not stored in dataset.")
+
+            for k, v in meta.items():
+                self.assertIn(k, im.meta, f"Metadata key {k} missing from loaded object.")
+                self.assertEqual(im.meta[k], v, f"Metadata key {k} not equal ({im.meta[k]}!={v}).")
+
+            torch.testing.assert_close(imt.affine, im.affine)
+
+            cache_files = list(cache_dir.glob("*"))
+            self.assertEqual(len(cache_files), 1, "Cached file not present.")
+
+            cache_im = torch.load(cache_files[0], weights_only=True)["image"]
+
+            self.assertIsInstance(cache_im, MetaTensor, "MetaTensor not stored in dataset.")
+
+            for k, v in meta.items():
+                self.assertIn(k, cache_im.meta, f"Metadata key {k} missing from loaded object.")
+                self.assertEqual(cache_im.meta[k], v, f"Metadata key {k} not equal ({cache_im.meta[k]}!={v}).")
+
+            # create a new dataset to be sure
+            test_dataset2 = PersistentDataset(
+                data=test_data,
+                transform=Compose([Identity()]),
+                cache_dir=str(cache_dir),
+                track_meta=True,
+                weights_only=True,
+            )
+
+            # Replace torch.load with a function returning the same thing wrapped in a tuple, this is used to indicate
+            # the dataset loaded the cached data rather than recomputed.
+            old_load = torch.load
+
+            def _mock_load(f, weights_only):
+                self.assertTrue(weights_only, f"torch.load called with {weights_only=}.")
+                return (old_load(f, weights_only=weights_only),)
+
+            # check the returned object is a tuple containing the expected dict, if not then _mock_load wasn't called
+            with patch("torch.load", _mock_load):
+                im2_t = test_dataset2[0]
+                self.assertIsInstance(im2_t, tuple, "Special tuple not returned, so mock not used.")
+                self.assertIsInstance(im2_t[0]["image"], MetaTensor, "MetaTensor not stored in dataset.")
+
+    def test_metatensor_badcache(self):
+        """
+        Test attempting to save then load a MetaTensor with an unsafe metadata item raises an exception. This creates
+        a MetaTensor with an object in its metadata using unsafe code in __reduce__ which gets stored in the pickle.
+        When attempting to load this through torch.load, pickle.UnpicklingError should be raised to force a recompute
+        of the cached data rather than attempting to load something unsafe.
+        """
+        with tempfile.TemporaryDirectory() as tempdir:
+            cache_dir = Path(tempdir) / "cache" / "data"
+
+            class _BadType:
+                def __reduce__(self):
+                    # something more insecure than this could be done with os.system
+                    return (os.system, (f'echo "Code injected!" > {Path(tempdir)/"out.txt"!s}',))
+
+            meta = {"test_meta": 123, "foo": "bar", "bad_item": _BadType()}
+            imt = MetaTensor(torch.rand(1, 128, 128, 128), meta=dict(meta), affine=torch.rand(4, 4))
+            test_data = [{"image": imt}]
+
+            test_dataset = PersistentDataset(
+                data=test_data,
+                transform=Compose([Identity()]),
+                cache_dir=str(cache_dir),
+                track_meta=True,
+                weights_only=True,
+            )
+
+            # This will trigger the _BadType class code injection because deepcopy will use __reduce__, but will still
+            # write the cache file as needed for the test. The alternative was to write the cache file directly with a
+            # computed hash value, but computing that hash without using pickle_hashing isn't trivial.
+            im = test_dataset[0]["image"]
+
+            self.assertIsInstance(im, MetaTensor, "MetaTensor not stored in dataset.")
+
+            cache_files = list(cache_dir.glob("*"))
+            self.assertEqual(len(cache_files), 1, "Cached file not present.")
+
+            # loading the cache file directly will raise the pickle exception as expected
+            with self.assertRaises(pickle.UnpicklingError):
+                torch.load(cache_files[0], weights_only=True)
+
+            # create a new dataset object just to be sure. When loading, a cache hit will occur but this will raise
+            # the pickle exception again and force a recompute of the cached data as well as a warning, this indicates
+            # the unsafe data was correctly rejected.
+            test_dataset2 = PersistentDataset(
+                data=test_data,
+                transform=Compose([Identity()]),
+                cache_dir=str(cache_dir),
+                track_meta=True,
+                weights_only=True,
+            )
+
+            # warning raised about recomputing the corrupted cache file which raised UnpicklingError
+            with self.assertWarns(UserWarning):
+                im = test_dataset2[0]["image"]
+
+            self.assertIsInstance(im, MetaTensor, "MetaTensor not stored in dataset.")
+
+            cache_files2 = list(cache_dir.glob("*"))
+
+            self.assertEqual(cache_files[0], cache_files2[0], "Hashes for cached data differ.")
+
+
+if __name__ == "__main__":
+    unittest.main()
