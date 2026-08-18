@@ -52,7 +52,7 @@ export default function VibrantPage() {
   }, []);
 
   return (
-    <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, width: '100%', height: '100%', backgroundColor: '#eef2f8', overflow: 'hidden', zIndex: 999999, boxSizing: 'border-box' }}>
+    <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, width: '100%', height: '100%', backgroundColor: '#fbf9f1', overflow: 'hidden', zIndex: 999999, boxSizing: 'border-box' }}>
       {/* Suppress all global site splash screens, loaders, transitions, and mouse followers on 3D Model page */}
       <style>{`
         #video-splash,
@@ -235,7 +235,7 @@ export default function VibrantPage() {
       {/* Embedded High-Performance 3D Experience */}
       <iframe
         id="sanjeevani-3d-frame"
-        src="/vibrant/index.html"
+        src="/vibrant/index.html?v=4"
         title="Sanjeevani 3D Interactive Body Explorer"
         style={{
           width: '100%',
