@@ -493,9 +493,11 @@
 
         //show link disponibilidad
         if(document.querySelector('.mod-header--proyecto')){
-            document.querySelector('#menu-principal .no-show-scroll').classList.remove('disabled')
+            const _noShowScroll1 = document.querySelector('#menu-principal .no-show-scroll');
+            if(_noShowScroll1) _noShowScroll1.classList.remove('disabled');
         }else{
-            document.querySelector('#menu-principal .no-show-scroll').classList.add('disabled')
+            const _noShowScroll2 = document.querySelector('#menu-principal .no-show-scroll');
+            if(_noShowScroll2) _noShowScroll2.classList.add('disabled');
         }
 
         //reinit mouseChanges
