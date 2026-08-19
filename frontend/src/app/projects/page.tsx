@@ -153,8 +153,8 @@ export default function ProjectsPage() {
             </div>
             
         
-            <div class="mod-scroll__projectInt bg-grey expand_mouse" data-text="Explore" data-url="/medical-scan-agent" data-no-swup="true">
-                <a href="/medical-scan-agent" data-no-swup="true" class="btn btn--circle follow__mouse--md f-izmir t-parrafo-l d-none d-md-flex">Explore</a> 
+            <div class="mod-scroll__projectInt bg-grey expand_mouse" data-text="Explore" data-url="/orchestrator-agent?tab=scan" data-no-swup="true">
+                <a href="/orchestrator-agent?tab=scan" data-no-swup="true" class="btn btn--circle follow__mouse--md f-izmir t-parrafo-l d-none d-md-flex">Explore</a> 
                 
                 <div class="mod-scroll__projectInt__image flipMedia flipMedia--rightLeft">
                     
@@ -202,8 +202,8 @@ export default function ProjectsPage() {
             </div>
             
         
-            <div class="mod-scroll__projectInt bg-blue expand_mouse" data-text="Explore" data-url="/symptom-triage-agent" data-no-swup="true">
-                <a href="/symptom-triage-agent" data-no-swup="true" class="btn btn--circle follow__mouse--md f-izmir t-parrafo-l d-none d-md-flex">Explore</a> 
+            <div class="mod-scroll__projectInt bg-blue expand_mouse" data-text="Explore" data-url="/orchestrator-agent?tab=swarm" data-no-swup="true">
+                <a href="/orchestrator-agent?tab=swarm" data-no-swup="true" class="btn btn--circle follow__mouse--md f-izmir t-parrafo-l d-none d-md-flex">Explore</a> 
                 
                 <div class="mod-scroll__projectInt__image flipMedia flipMedia--rightLeft">
                     
@@ -300,8 +300,8 @@ export default function ProjectsPage() {
             </div>
             
         
-            <div class="mod-scroll__projectInt bg-grey expand_mouse" data-text="Explore" data-url="/records" data-no-swup="true">
-                <a href="/records" data-no-swup="true" class="btn btn--circle follow__mouse--md f-izmir t-parrafo-l d-none d-md-flex">Explore</a> 
+            <div class="mod-scroll__projectInt bg-grey expand_mouse" data-text="Explore" data-url="/orchestrator-agent?tab=records" data-no-swup="true">
+                <a href="/orchestrator-agent?tab=records" data-no-swup="true" class="btn btn--circle follow__mouse--md f-izmir t-parrafo-l d-none d-md-flex">Explore</a> 
                 
                 <div class="mod-scroll__projectInt__image flipMedia flipMedia--rightLeft">
                     

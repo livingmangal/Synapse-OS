@@ -150,8 +150,8 @@ export default function ProjectsPage() {
             </div>
             
         
-            <div class="mod-scroll__projectInt bg-grey expand_mouse" data-text="Explore" data-url="/projects/medical-scan-agent">
-                <a href="/projects/medical-scan-agent" class="btn btn--circle follow__mouse--md f-izmir t-parrafo-l d-none d-md-flex">Explore</a> 
+            <div class="mod-scroll__projectInt bg-grey expand_mouse" data-text="Explore" data-url="/orchestrator-agent?tab=scan">
+                <a href="/orchestrator-agent?tab=scan" class="btn btn--circle follow__mouse--md f-izmir t-parrafo-l d-none d-md-flex">Explore</a> 
                 
                 <div class="mod-scroll__projectInt__image flipMedia flipMedia--rightLeft">
                     
@@ -199,8 +199,8 @@ export default function ProjectsPage() {
             </div>
             
         
-            <div class="mod-scroll__projectInt bg-blue expand_mouse" data-text="Explore" data-url="/projects/symptom-triage-agent">
-                <a href="/projects/symptom-triage-agent" class="btn btn--circle follow__mouse--md f-izmir t-parrafo-l d-none d-md-flex">Explore</a> 
+            <div class="mod-scroll__projectInt bg-blue expand_mouse" data-text="Explore" data-url="/orchestrator-agent?tab=swarm">
+                <a href="/orchestrator-agent?tab=swarm" class="btn btn--circle follow__mouse--md f-izmir t-parrafo-l d-none d-md-flex">Explore</a> 
                 
                 <div class="mod-scroll__projectInt__image flipMedia flipMedia--rightLeft">
                     
@@ -297,8 +297,8 @@ export default function ProjectsPage() {
             </div>
             
         
-            <div class="mod-scroll__projectInt bg-grey expand_mouse" data-text="Próximamente" data-url="/">
-                <a href="" class="btn btn--circle follow__mouse--md f-izmir t-parrafo-l d-none d-md-flex">Coming Soon</a> 
+            <div class="mod-scroll__projectInt bg-grey expand_mouse" data-text="Explore" data-url="/orchestrator-agent?tab=records">
+                <a href="/orchestrator-agent?tab=records" class="btn btn--circle follow__mouse--md f-izmir t-parrafo-l d-none d-md-flex">Explore</a> 
                 
                 <div class="mod-scroll__projectInt__image flipMedia flipMedia--rightLeft">
                     

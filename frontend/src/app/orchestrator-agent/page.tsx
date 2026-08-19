@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './orchestrator.css';
 
 import OrchestratorSidebar from '@/components/orchestrator/OrchestratorSidebar';
@@ -21,6 +21,16 @@ export default function OrchestratorAgentPage() {
   const [activeTab, setActiveTab] = useState<'overview' | 'swarm' | 'analytics' | 'hospital' | 'scan' | 'records'>('overview');
   const [isExportModalOpen, setIsExportModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const tab = params.get('tab');
+      if (tab && ['overview', 'swarm', 'analytics', 'hospital', 'scan', 'records'].includes(tab)) {
+        setActiveTab(tab as any);
+      }
+    }
+  }, []);
 
   // Patient profile (Matching Healix Reference)
   const [patient] = useState<PatientInfo>({
