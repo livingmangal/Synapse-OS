@@ -1,5 +1,9 @@
 import type { Metadata } from 'next';
 import '@/styles/main.css';
+import type { Metadata } from 'next';
+import Script from 'next/script';
+import '@/styles/main.css';
+import SanjeevniAssistant from '@/components/ui/SanjeevniAssistant';
 import SanjeevaniAssistantModal from '@/components/SanjeevaniAssistantModal';
 import ScriptsLoader from '@/components/ScriptsLoader';
 
@@ -220,8 +224,12 @@ export default function RootLayout({
           </div>
         </div>
 
-        {/* Client-Side Sequenced Script Loader (Zero Hydration Mismatches) */}
+        {/* LiveKit Isometric Agentic Architecture Controller */}
+        <Script src="/wp-content/themes/normalisboring25/js/agentic-diagram.js" strategy="afterInteractive" />
+        <SanjeevniAssistant />
+        <SanjeevaniAssistantModal />
         <ScriptsLoader />
+      </body>
       </body>
     </html>
   );

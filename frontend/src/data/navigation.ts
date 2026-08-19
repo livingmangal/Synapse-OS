@@ -10,6 +10,8 @@ export const mainNavItems: NavItem[] = [
 
 export const projectNavItems: NavItem[] = [
   { label: 'Sanjeevani Orchestrator', href: '/projects/orchestrator-agent', badge: 'Active' },
+  { label: 'Sanjeevani AI Assistant', href: '/projects/sanjeevani-assistant', badge: 'Active' },
+  { label: 'Nutrition & Fitness', href: '/projects/nutrition-fitness-assistant', badge: 'Active' },
   { label: 'Medical Scan Agent', href: '/projects/medical-scan-agent', badge: 'Active' },
   { label: 'Symptom Triage Agent', href: '/projects/symptom-triage-agent', badge: 'Beta' },
   { label: '3D Body Explorer', href: '/vibrant', badge: '3D Live' },
