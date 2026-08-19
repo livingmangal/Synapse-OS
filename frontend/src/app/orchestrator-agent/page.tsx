@@ -149,6 +149,7 @@ export default function OrchestratorAgentPage() {
                   conditions={conditions}
                   selectedCondition={selectedCondition}
                   onSelectCondition={setSelectedCondition}
+                  onNavigateToSwarmTab={() => setActiveTab('swarm')}
                 />
 
                 {/* Right Column: Conditions, Diagnostic X-Rays & Telemetry */}
@@ -157,7 +158,6 @@ export default function OrchestratorAgentPage() {
                   selectedCondition={selectedCondition}
                   onSelectCondition={setSelectedCondition}
                   onOpenExportModal={() => setIsExportModalOpen(true)}
-                  onNavigateToSwarmTab={() => setActiveTab('swarm')}
                 />
               </div>
             )}
