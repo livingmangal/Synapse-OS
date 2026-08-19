@@ -90,10 +90,10 @@ export default function LegacyThemeShell({ children }: { children: React.ReactNo
 			<ul id="menu-principal" class="header__menu__nav-site f-izmir t-titulo-l t-upper">
 				<li class="link menu-item"><a href="/" data-no-swup="true">Home</a></li>
 				<li class="link menu-item"><a href="/orchestrator-agent" data-no-swup="true">Orchestrator Swarm</a></li>
-				<li class="link menu-item"><a href="/orchestrator-agent" data-no-swup="true">Clinical Triage & ML</a></li>
-				<li class="link menu-item"><a href="/orchestrator-agent" data-no-swup="true">Medical Scan AI</a></li>
-				<li class="link menu-item"><a href="/orchestrator-agent" data-no-swup="true">Global Surveillance</a></li>
-				<li class="link menu-item"><a href="/orchestrator-agent" data-no-swup="true" style="color: #10b981;">ABHA & Records</a></li>
+				<li class="link menu-item" style="margin-left: 2rem; font-size: 0.8em;"><a href="/orchestrator-agent?tab=swarm" data-no-swup="true" style="opacity: 0.8;">- Clinical Triage & ML</a></li>
+				<li class="link menu-item" style="margin-left: 2rem; font-size: 0.8em;"><a href="/orchestrator-agent?tab=scan" data-no-swup="true" style="opacity: 0.8;">- Medical Scan AI</a></li>
+				<li class="link menu-item" style="margin-left: 2rem; font-size: 0.8em;"><a href="/orchestrator-agent?tab=hospital" data-no-swup="true" style="opacity: 0.8;">- Global Surveillance</a></li>
+				<li class="link menu-item" style="margin-left: 2rem; font-size: 0.8em;"><a href="/orchestrator-agent?tab=records" data-no-swup="true" style="color: #10b981; opacity: 0.9;">- ABHA & Records</a></li>
 			</ul>
 			<div class="header__menu__content">
 				<div class="header__menu__media expand_mouse follow__wrap" data-text="Explore" data-url="/orchestrator-agent">
@@ -130,13 +130,13 @@ export default function LegacyThemeShell({ children }: { children: React.ReactNo
 						<div class="header__menu__nav-single__proyectos__item">
 							<a href="/vibrant" data-no-swup="true">
 								<div class="num-title t-titulo-l t-upper"><span class="num f-edit t-parrafo-xl t-normal">(4)</span><span class="title">3D Body Explorer</span></div>
-								<div class="place f-edit t-parrafo-xl t-italic" style={{ color: '#38bdf8', fontWeight: 600 }}>3D Live</div>
+								<div class="place f-edit t-parrafo-xl t-italic" style="color: #38bdf8; font-weight: 600;">3D Live</div>
 							</a>
 						</div>
 						<div class="header__menu__nav-single__proyectos__item">
 							<a href="/orchestrator-agent?tab=records" data-no-swup="true">
 								<div class="num-title t-titulo-l t-upper"><span class="num f-edit t-parrafo-xl t-normal">(5)</span><span class="title">ABHA & Health Passport</span></div>
-								<div class="place f-edit t-parrafo-xl t-italic" style={{ color: '#10b981', fontWeight: 600 }}>On-Chain Verified</div>
+								<div class="place f-edit t-parrafo-xl t-italic" style="color: #10b981; font-weight: 600; white-space: nowrap;">On-Chain</div>
 							</a>
 						</div>
 					</div>
