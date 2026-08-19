@@ -12,17 +12,12 @@ import {
   Clock, 
   Folder, 
   Calendar as CalendarIcon, 
-  Send,
   MoreVertical,
   Droplets,
   Pill,
   ChevronRight,
   TrendingUp,
-  Activity,
-  X,
-  Mic,
-  MessageSquare,
-  Stethoscope
+  Activity
 } from 'lucide-react';
 import { PatientInfo, VitalsData } from './types';
 
