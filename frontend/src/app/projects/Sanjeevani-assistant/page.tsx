@@ -2,228 +2,183 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-
-// Extend window interface for Vapi SDK loaded via CDN
-declare global {
-  interface Window {
-    Vapi?: any;
-  }
-}
+import Vapi from '@vapi-ai/web';
 
 interface Message {
   id: string;
   sender: 'user' | 'assistant' | 'system';
   text: string;
   timestamp: string;
+  trace?: Array<{ agent_name: string; action: string; duration_ms: number }>;
 }
 
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
+
 export default function SanjeevaniAssistantPage() {
-  const [vapi, setVapi] = useState<any>(null);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [textInput, setTextInput] = useState('');
   const [callActive, setCallActive] = useState(false);
   const [connecting, setConnecting] = useState(false);
-  const [textInput, setTextInput] = useState('');
+  const [isListening, setIsListening] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
+  
+  // Credentials
   const [vapiPublicKey, setVapiPublicKey] = useState('');
   const [vapiAssistantId, setVapiAssistantId] = useState('');
   const [geminiApiKey, setGeminiApiKey] = useState('');
-  const [voiceVolume, setVoiceVolume] = useState(0);
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: 'init-1',
-      sender: 'assistant',
-      text: 'Voice intake console initialized. Connect to Vapi or submit a text command to test. (Note: Set your Gemini Key in the side settings card to enable live reasoning!)',
-      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-    },
-  ]);
 
+  // 3D Orb tilt state
+  const [orbOffset, setOrbOffset] = useState({ x: 0, y: 0 });
+
+  const [vapi, setVapi] = useState<any>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const volumeInterval = useRef<any>(null);
+  const orbContainerRef = useRef<HTMLDivElement>(null);
 
-  // Auto-scroll log console
+  // Auto-scroll messages
   useEffect(() => {
-    if (messagesEndRef.current) {
+    if (messagesEndRef.current && messages.length > 0) {
       messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
-  }, [messages]);
+  }, [messages, loading]);
 
-  // Load Vapi.ai Web SDK dynamically from CDN & retrieve credentials
+  // Load saved credentials
   useEffect(() => {
     if (typeof window === 'undefined') return;
-
     const savedKey = localStorage.getItem('sanjeevani_vapi_key') || '';
     const savedId = localStorage.getItem('sanjeevani_vapi_id') || '';
     const savedGeminiKey = localStorage.getItem('sanjeevani_gemini_key') || '';
     setVapiPublicKey(savedKey);
     setVapiAssistantId(savedId);
     setGeminiApiKey(savedGeminiKey);
-
-    // Suppress general site preloader
-    const splash = document.getElementById('video-splash');
-    if (splash) {
-      splash.style.display = 'none';
-      splash.classList.add('hide-splash');
-    }
-    const loader = document.getElementById('page-loader');
-    if (loader) {
-      loader.style.display = 'none';
-    }
-
-    if (window.Vapi) return;
-
-    const script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/npm/@vapi-ai/web@1.0.1/dist/index.umd.min.js';
-    script.async = true;
-    document.body.appendChild(script);
-
-    return () => {
-      if (script.parentNode) {
-        script.parentNode.removeChild(script);
-      }
-    };
   }, []);
+
+  const handleOrbMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!orbContainerRef.current) return;
+    const rect = orbContainerRef.current.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    const deltaX = (e.clientX - centerX) / (rect.width / 2);
+    const deltaY = (e.clientY - centerY) / (rect.height / 2);
+    setOrbOffset({
+      x: Math.max(-20, Math.min(20, deltaX * 20)),
+      y: Math.max(-20, Math.min(20, deltaY * 20))
+    });
+  };
+
+  const handleOrbMouseLeave = () => {
+    setOrbOffset({ x: 0, y: 0 });
+  };
 
   const saveCredentials = (e: React.FormEvent) => {
     e.preventDefault();
     localStorage.setItem('sanjeevani_vapi_key', vapiPublicKey);
     localStorage.setItem('sanjeevani_vapi_id', vapiAssistantId);
     localStorage.setItem('sanjeevani_gemini_key', geminiApiKey);
+    setShowSettings(false);
     
-    // Reset Vapi instance
     if (vapi) {
-      try {
-        vapi.stop();
-      } catch (err) {}
+      try { vapi.stop(); } catch (err) {}
       setVapi(null);
       setCallActive(false);
     }
-    
-    addSystemLog('System Config: API credentials synchronized.');
   };
 
-  const addSystemLog = (text: string) => {
-    setMessages((prev) => [
-      ...prev,
-      {
-        id: `sys-${Date.now()}`,
-        sender: 'system',
-        text,
-        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-      },
-    ]);
-  };
-
-  // Toggle Voice call
-  const toggleVoiceSession = async () => {
+  // Toggle Voice Assistant
+  const toggleVoiceCall = async () => {
     if (callActive) {
-      if (vapi) vapi.stop();
+      if (vapi) {
+        try { vapi.stop(); } catch (e) {}
+      }
       setCallActive(false);
-      setVoiceVolume(0);
       if (volumeInterval.current) clearInterval(volumeInterval.current);
-      addSystemLog('Session terminated by client.');
       return;
     }
 
-    if (!vapiPublicKey || !vapiAssistantId) {
-      startSpeechSimulation();
-      return;
-    }
+    if (vapiPublicKey && vapiAssistantId) {
+      try {
+        setConnecting(true);
+        const vapiInstance = new Vapi(vapiPublicKey);
+        setVapi(vapiInstance);
 
-    if (!window.Vapi) {
-      addSystemLog('WebRTC SDK is still loading. Try again.');
-      return;
-    }
+        vapiInstance.on('call-start', () => {
+          setConnecting(false);
+          setCallActive(true);
+        });
 
-    try {
-      setConnecting(true);
-      addSystemLog('Initiating WebRTC handshake with Vapi.ai server...');
-      
-      const vapiInstance = new window.Vapi(vapiPublicKey);
-      setVapi(vapiInstance);
+        vapiInstance.on('call-end', () => {
+          setCallActive(false);
+          if (volumeInterval.current) clearInterval(volumeInterval.current);
+        });
 
-      vapiInstance.on('call-start', () => {
-        setConnecting(false);
-        setCallActive(true);
-        addSystemLog('Call connected. Audio stream synchronized.');
-        
-        volumeInterval.current = setInterval(() => {
-          setVoiceVolume(Math.random() * 0.7 + 0.3);
-        }, 100);
-      });
+        vapiInstance.on('message', (message: any) => {
+          if (message.type === 'transcript' && message.transcriptType === 'final') {
+            const sender = message.role === 'user' ? 'user' : 'assistant';
+            setMessages(prev => [
+              ...prev,
+              {
+                id: `vapi-${Date.now()}-${Math.random()}`,
+                sender,
+                text: message.transcript,
+                timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+              }
+            ]);
+          }
+        });
 
-      vapiInstance.on('call-end', () => {
-        setCallActive(false);
-        setVoiceVolume(0);
-        if (volumeInterval.current) clearInterval(volumeInterval.current);
-        addSystemLog('Voice session ended.');
-      });
+        vapiInstance.on('error', (err: any) => {
+          console.error('Vapi Error:', err);
+          setConnecting(false);
+          setCallActive(false);
+          if (volumeInterval.current) clearInterval(volumeInterval.current);
+        });
 
-      vapiInstance.on('message', (message: any) => {
-        if (message.type === 'transcript' && message.transcriptType === 'final') {
-          const sender = message.role === 'user' ? 'user' : 'assistant';
-          setMessages((prev) => [
-            ...prev,
-            {
-              id: `vapi-msg-${Date.now()}`,
-              sender,
-              text: message.transcript,
-              timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-            },
-          ]);
-        }
-      });
-
-      vapiInstance.on('error', (error: any) => {
-        console.error('Vapi Error:', error);
+        await vapiInstance.start(vapiAssistantId);
+      } catch (err) {
+        console.error('Vapi Dial Error:', err);
         setConnecting(false);
         setCallActive(false);
-        setVoiceVolume(0);
-        if (volumeInterval.current) clearInterval(volumeInterval.current);
-        addSystemLog(`Call Error: ${error.message || 'Verification failed'}`);
-      });
-
-      await vapiInstance.start(vapiAssistantId);
-
-    } catch (err: any) {
-      console.error(err);
-      setConnecting(false);
-      setCallActive(false);
-      addSystemLog(`Failed to dial: ${err.message}`);
+      }
+    } else {
+      // Browser Speech Recognition
+      toggleBrowserMic();
     }
   };
 
-  const startSpeechSimulation = () => {
-    setConnecting(true);
-    addSystemLog('Offline Sandbox: Starting speech emulator...');
-    
-    setTimeout(() => {
-      setConnecting(false);
-      setCallActive(true);
-      addSystemLog('Speech emulator connected. Volume: ACTIVE.');
-      
-      volumeInterval.current = setInterval(() => {
-        setVoiceVolume(Math.random() * 0.9);
-      }, 150);
+  const toggleBrowserMic = () => {
+    if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+      alert('Speech recognition is not supported in this browser. Please use Chrome/Edge or type your query.');
+      return;
+    }
 
-      setTimeout(() => {
-        setMessages((prev) => [
-          ...prev,
-          {
-            id: `sim-${Date.now()}`,
-            sender: 'assistant',
-            text: '[Simulated voice output]: Welcome. Speak your health request or use the text terminal console below to test.',
-            timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-          },
-        ]);
-      }, 1000);
-    }, 1200);
+    const SpeechRec = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    const recognition = new SpeechRec();
+    recognition.lang = 'en-IN';
+    recognition.continuous = false;
+    recognition.interimResults = false;
+
+    if (!isListening) {
+      setIsListening(true);
+      recognition.start();
+      recognition.onresult = (event: any) => {
+        const transcript = event.results[0][0].transcript;
+        setTextInput(transcript);
+        setIsListening(false);
+        handleSendCommand(transcript);
+      };
+      recognition.onerror = () => setIsListening(false);
+      recognition.onend = () => setIsListening(false);
+    } else {
+      setIsListening(false);
+    }
   };
 
-  // Submit text commands
-  const handleSendCommand = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!textInput.trim()) return;
+  const handleSendCommand = async (textOverride?: string) => {
+    const userText = (textOverride || textInput).trim();
+    if (!userText || loading) return;
 
-    const userText = textInput.trim();
-    setMessages((prev) => [
+    setMessages(prev => [
       ...prev,
       {
         id: `user-${Date.now()}`,
@@ -233,287 +188,430 @@ export default function SanjeevaniAssistantPage() {
       },
     ]);
     setTextInput('');
+    setLoading(true);
 
-    // Generate responsive agent behavior based on command
-    setTimeout(async () => {
-      let reply = '';
-      const textLower = userText.toLowerCase();
+    let reply = '';
+    let trace: any[] = [];
 
-      if (geminiApiKey) {
-        // Real Live Gemini API integration
-        try {
-          const response = await fetch(
-            `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiApiKey}`,
-            {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                contents: [
-                  {
-                    role: 'user',
-                    parts: [{ text: userText }],
-                  },
-                ],
-                systemInstruction: {
-                  parts: [{ text: "You are Sanjeevani, a helpful, professional, and empathetic AI health assistant inside the Sanjeevani OS. You understand clinical workflows and guide patients on wellness, nutrition, fitness, triage, and records with clear, concise answers. Always add a short disclaimer that you are an AI assistant, not a licensed medical professional." }]
-                }
-              }),
-            }
-          );
-          const data = await response.json();
-          if (data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
-            reply = data.candidates[0].content.parts[0].text;
-          } else {
-            throw new Error('Invalid Gemini API response');
+    // 1. Try FastAPI Multi-Agent backend first
+    try {
+      const res = await fetch(`${API_BASE}/api/orchestrate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: userText, channel: 'web_assistant' })
+      });
+      if (res.ok) {
+        const data = await res.json();
+        reply = data.final_response;
+        trace = data.trace || [];
+      }
+    } catch (e) {}
+
+    // 2. Try Gemini Live API
+    if (!reply && geminiApiKey) {
+      try {
+        const response = await fetch(
+          `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiApiKey}`,
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              contents: [{ role: 'user', parts: [{ text: userText }] }],
+              systemInstruction: {
+                parts: [{ text: "You are Sanjeevani AI, a professional, empathetic, and clinical-grade AI health assistant. Guide users on wellness, symptoms, fitness, nutrition, triage, and records with clear, concise answers." }]
+              }
+            })
           }
-        } catch (err: any) {
-          console.error('Gemini API Error:', err);
-          reply = `[Gemini Connect Error]: ${err.message || 'Key verification failed'}. Falling back to local health database...`;
+        );
+        const data = await response.json();
+        if (data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
+          reply = data.candidates[0].content.parts[0].text;
         }
+      } catch (err) {
+        console.error('Gemini API Error:', err);
       }
+    }
 
-      // Offline smart QA fallback
-      if (!reply || reply.includes('Gemini Connect Error')) {
-        const prefix = reply.includes('Gemini Connect Error') ? reply + '\n\n' : '';
-        
-        if (textLower.includes('hello') || textLower.includes('hi') || textLower.includes('hey')) {
-          reply = prefix + "Hello! I am Sanjeevani, your AI clinical assistant. I can automate health queries, triage symptoms, explain prescriptions, and track daily macros. What would you like to explore today?";
-        } else if (textLower.includes('triage') || textLower.includes('sick') || textLower.includes('pain') || textLower.includes('headache') || textLower.includes('fever') || textLower.includes('cough')) {
-          reply = prefix + "I am activating the Symptom Triage Agent. It looks like you are asking about symptoms. I recommend monitoring your temperature and staying hydrated. If you are experiencing acute pain or shortness of breath, please contact local emergency services immediately. You can view our Symptom Triage page for structured assessment logs.";
-        } else if (textLower.includes('workout') || textLower.includes('exercise') || textLower.includes('fitness') || textLower.includes('gym')) {
-          reply = prefix + "I can recommend customized exercises! Based on your parameters, I suggest a 25-minute HIIT or core conditioning mobility workout. You can play high-definition instruction videos directly on our Nutrition & Fitness page under the Agents menu.";
-        } else if (textLower.includes('diet') || textLower.includes('nutrition') || textLower.includes('meal') || textLower.includes('eat') || textLower.includes('food')) {
-          reply = prefix + "For nutrition, you can log meals (e.g. '2 eggs, avocado, brown toast') in our macro tracker dashboard to see your target progress rings update. I can also help generate personalized meal plans (Keto, Vegan, Balanced) dynamically on the Nutrition & Fitness page.";
-        } else if (textLower.includes('blockchain') || textLower.includes('record') || textLower.includes('prescription') || textLower.includes('scan')) {
-          reply = prefix + "All clinical documentation, lab reports, and doctor intake logs are compiled into tamper-proof records. The Blockchain Records Agent writes their hashes to the Polygon Amoy testnet, ensuring complete security and verification.";
-        } else if (textLower.includes('who are you') || textLower.includes('what is sanjeevani') || textLower.includes('what can you do')) {
-          reply = prefix + "I am Sanjeevani, the conversational autopilot of Sanjeevani OS. I orchestrate a swarm of sub-agents to automate patient intake, check medical records, and log lifestyle stats. Enter your Gemini API key in settings to unlock my live, unbounded reasoning brain!";
-        } else {
-          reply = prefix + `I analyzed your command: "${userText}". Sanjeevani OS is coordinating with your medical profile. To get an advanced, personalized diagnosis using live generative AI, please add your Gemini API Key in the Settings cog above!`;
-        }
+    // 3. Smart Clinical Fallback
+    if (!reply) {
+      const textLower = userText.toLowerCase();
+      if (textLower.includes('triage') || textLower.includes('sick') || textLower.includes('pain') || textLower.includes('headache') || textLower.includes('fever') || textLower.includes('cough')) {
+        reply = "I am activating the Symptom Triage Protocol. For acute symptoms, please monitor temperature and maintain hydration. If you experience chest tightness, breathing difficulties, or severe sudden pain, please consult emergency services immediately.";
+      } else if (textLower.includes('workout') || textLower.includes('exercise') || textLower.includes('fitness') || textLower.includes('gym')) {
+        reply = "Based on your clinical parameters, I suggest a 25-minute HIIT or core conditioning mobility workout with progressive heart-rate recovery.";
+      } else if (textLower.includes('diet') || textLower.includes('nutrition') || textLower.includes('meal') || textLower.includes('eat') || textLower.includes('food')) {
+        reply = "For optimal metabolic performance, track your macros (40% carbs, 30% protein, 30% healthy fats) along with 2.5–3L daily hydration.";
+      } else if (textLower.includes('blockchain') || textLower.includes('record') || textLower.includes('prescription') || textLower.includes('scan')) {
+        reply = "All clinical documentation and lab reports are compiled into tamper-proof records and anchored on Polygon Amoy smart contracts.";
+      } else if (textLower.includes('who are you') || textLower.includes('what is sanjeevani') || textLower.includes('what can you do')) {
+        reply = "I am Sanjeevani AI — the multi-agent conversational copilot of Sanjeevani OS. Enter your Gemini API key in settings to unlock my live, unbounded reasoning brain!";
+      } else {
+        reply = `I analyzed your command: "${userText}". Sanjeevani OS is coordinating with your medical profile. To enable live generative AI reasoning, please configure your Gemini Key in the settings panel above!`;
       }
+    }
 
-      setMessages((prev) => [
-        ...prev,
-        {
-          id: `assistant-reply-${Date.now()}`,
-          sender: 'assistant',
-          text: reply,
-          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-        },
-      ]);
-    }, 1000);
+    setMessages(prev => [
+      ...prev,
+      {
+        id: `assistant-${Date.now()}`,
+        sender: 'assistant',
+        text: reply,
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        trace
+      }
+    ]);
+    setLoading(false);
   };
 
+  const quickChips = [
+    { label: '💡 Brainstorm ideas', query: 'Brainstorm healthcare features in Sanjeevani OS' },
+    { label: '<> Clinical Analysis', query: 'Explain how the clinical analysis agent works' },
+    { label: '📊 Analyze Records', query: 'How are medical records stored securely?' },
+    { label: '🥗 Nutrition Plan', query: 'Give me a balanced daily nutrition and macro plan' },
+    { label: '💬 Ask me anything', query: 'What can Sanjeevani AI do for patients?' },
+  ];
+
   return (
-    <div style={{ backgroundColor: '#121212', color: '#ECE4DA', minHeight: '100vh', paddingBottom: '80px', fontFamily: 'var(--f-izmir), sans-serif' }}>
-      
-      {/* Page Header */}
-      <header className="pt-28 pb-10 px-6 md:px-12 max-w-7xl mx-auto border-b border-white/10 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
-        <div>
-          <div className="flex items-center gap-3 mb-4">
-            <Link href="/projects" className="text-xs uppercase tracking-widest text-[#ECE4DA]/60 hover:text-white transition-colors">
-              ← Back to Agents
-            </Link>
-            <span className="text-white/20">/</span>
-            <span className="text-[10px] uppercase tracking-widest px-2.5 py-0.5 rounded-full border border-[#2563eb]/50 text-[#2563eb] bg-[#2563eb]/5 font-semibold">
-              Voice Interface
-            </span>
-          </div>
-          <h1 className="text-3xl sm:text-5xl md:text-6xl font-serif uppercase tracking-tight text-white mb-2 leading-none">
-            Sanjeevani AI Assistant
-          </h1>
-          <p className="text-sm md:text-base text-[#ECE4DA]/60 max-w-2xl font-light">
-            Interactive clinical voice pilot. Bridges everyday physical speech intake with automated multi-agent clinical task execution.
-          </p>
-        </div>
-      </header>
+    <div 
+      className="min-h-screen pt-24 pb-16 px-4 sm:px-6 flex flex-col items-center justify-center relative overflow-hidden"
+      style={{
+        background: 'radial-gradient(circle at 50% 20%, rgba(209, 250, 229, 0.6) 0%, rgba(240, 253, 244, 0.4) 45%, #F8FAF9 100%)',
+        fontFamily: 'var(--f-izmir), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+      }}
+    >
+      <style>{`
+        @keyframes orbFloat {
+          0% { transform: translateY(0px) scale(1); }
+          50% { transform: translateY(-10px) scale(1.03); }
+          100% { transform: translateY(0px) scale(1); }
+        }
+        @keyframes orbBreathe {
+          0%, 100% {
+            box-shadow: 
+              0 0 50px rgba(52, 211, 153, 0.5),
+              0 0 100px rgba(16, 185, 129, 0.3),
+              inset 0 -18px 36px rgba(6, 78, 59, 0.65),
+              inset 0 12px 28px rgba(255, 255, 255, 0.9);
+          }
+          50% {
+            box-shadow: 
+              0 0 75px rgba(52, 211, 153, 0.75),
+              0 0 140px rgba(16, 185, 129, 0.45),
+              inset 0 -18px 36px rgba(6, 78, 59, 0.65),
+              inset 0 14px 34px rgba(255, 255, 255, 1);
+          }
+        }
+        @keyframes orbPulseRing {
+          0% { transform: scale(0.95); opacity: 0.7; }
+          50% { transform: scale(1.2); opacity: 0.25; }
+          100% { transform: scale(0.95); opacity: 0.7; }
+        }
+      `}</style>
 
-      <main className="max-w-7xl mx-auto px-6 md:px-12 py-12 grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+      {/* Main Glassmorphism Mobile Mockup Card Container */}
+      <div className="w-full max-w-[430px] h-[720px] max-h-[88vh] rounded-[36px] border border-emerald-100/90 shadow-[0_30px_90px_rgba(16,185,129,0.2),0_10px_35px_rgba(0,0,0,0.06)] bg-white/70 backdrop-blur-2xl flex flex-col overflow-hidden relative">
         
-        {/* LEFT COLUMN: ACTIVE VOX CONSOLE */}
-        <div className="lg:col-span-8 rounded-2xl bg-white/5 border border-white/10 p-6 md:p-8 flex flex-col justify-between h-[600px]">
-          <div>
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-lg uppercase tracking-wider text-white font-semibold">Vox Intake Terminal</h2>
-              <div className="flex items-center gap-2">
-                <span className={`w-2.5 h-2.5 rounded-full ${callActive ? 'bg-green-500' : 'bg-blue-500'}`} />
-                <span className="text-[10px] uppercase tracking-widest text-[#ECE4DA]/50">
-                  {callActive ? 'Streaming Synchronized' : 'Offline'}
-                </span>
+        {/* Top Header Bar */}
+        <div className="flex items-center justify-between px-6 pt-5 pb-3 border-b border-emerald-100/60 bg-white/50 backdrop-blur-md shrink-0">
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-full bg-slate-900 flex items-center justify-center p-1 relative shadow-sm">
+              <div className="w-full h-full rounded-full border-2 border-emerald-400 border-t-transparent animate-spin" style={{ animationDuration: '6s' }}></div>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
               </div>
             </div>
-
-            {/* Log / Transcript Feed */}
-            <div className="h-[380px] overflow-y-auto bg-black/40 rounded-xl p-4 border border-white/5 space-y-4 font-mono text-xs text-[#ECE4DA]/80">
-              {messages.map((msg) => (
-                <div key={msg.id} className="space-y-1">
-                  <div className="flex justify-between text-[9px] text-[#ECE4DA]/30">
-                    <span>{msg.sender.toUpperCase()}</span>
-                    <span>{msg.timestamp}</span>
-                  </div>
-                  <p className={`p-2.5 rounded-lg ${
-                    msg.sender === 'user'
-                      ? 'bg-[#2563eb]/20 text-[#2563eb] border border-[#2563eb]/10'
-                      : msg.sender === 'system'
-                      ? 'bg-white/5 text-[#ECE4DA]/40 border border-white/5'
-                      : 'bg-white/10 text-white border border-white/5'
-                  }`}>
-                    {msg.text}
-                  </p>
-                </div>
-              ))}
-              <div ref={messagesEndRef} />
+            <div className="flex flex-col">
+              <span className="text-[15px] font-semibold text-slate-900 tracking-tight leading-none">
+                Sanjeevani AI
+              </span>
+              <span className="text-[10px] text-emerald-700/80 font-medium tracking-wide mt-0.5">
+                {callActive ? 'Voice Synchronized' : connecting ? 'Connecting Handshake...' : 'Clinical Copilot'}
+              </span>
             </div>
           </div>
 
-          {/* Voice active Visualizer */}
-          {callActive && (
-            <div className="h-10 bg-black/60 rounded-lg flex items-center justify-center gap-1 border border-white/5 px-4 mb-2">
-              <span className="text-[9px] uppercase tracking-widest text-[#ECE4DA]/40 mr-3">Autopilot Listening</span>
-              <div className="flex items-center gap-1.5 h-4">
-                {[...Array(12)].map((_, i) => (
-                  <div
-                    key={i}
-                    className="w-1 bg-[#2563eb] rounded-full transition-all duration-150"
-                    style={{
-                      height: `${Math.max(4, voiceVolume * (24 - i * 1.5) * Math.random())}px`,
-                    }}
-                  />
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Console trigger buttons & text form */}
-          <div className="space-y-3 pt-4 border-t border-white/5">
-            <div className="flex gap-4">
-              <button
-                onClick={toggleVoiceSession}
-                disabled={connecting}
-                className={`flex-1 h-11 rounded-xl flex items-center justify-center gap-2 font-semibold text-xs tracking-widest uppercase border transition-all cursor-pointer ${
-                  callActive
-                    ? 'bg-red-600 border-red-500 text-white hover:bg-red-700'
-                    : connecting
-                    ? 'bg-white/5 border-white/10 text-white/40 cursor-not-allowed'
-                    : 'bg-[#2563eb] border-[#2563eb] text-white hover:bg-[#1d4ed8] shadow-[0_4px_15px_rgba(37,99,235,0.2)]'
-                }`}
-              >
-                {connecting ? (
-                  <>
-                    <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
-                    <span>Synchronizing...</span>
-                  </>
-                ) : callActive ? (
-                  <span>Terminate Voice Call</span>
-                ) : (
-                  <>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                      <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" />
-                      <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
-                    </svg>
-                    <span>Activate Voice Call</span>
-                  </>
-                )}
-              </button>
-            </div>
-
-            <form onSubmit={handleSendCommand} className="flex gap-2">
-              <input
-                type="text"
-                value={textInput}
-                onChange={(e) => setTextInput(e.target.value)}
-                placeholder="Submit text command (e.g. 'check my last scan')"
-                className="flex-1 h-11 px-4 bg-black/40 border border-white/10 rounded-xl text-xs text-[#ECE4DA] placeholder-[#ECE4DA]/30 focus:outline-none focus:border-[#2563eb] transition-colors"
-              />
-              <button
-                type="submit"
-                className="w-11 h-11 bg-white/10 hover:bg-white/20 border border-white/10 rounded-xl flex items-center justify-center text-white transition-colors cursor-pointer"
-              >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                  <line x1="22" y1="2" x2="11" y2="13" />
-                  <polygon points="22 2 15 22 11 13 2 9 22 2" />
-                </svg>
-              </button>
-            </form>
-          </div>
-        </div>
-
-        {/* RIGHT COLUMN: VAPI CONFIG & ARCHITECTURE SCHEMAS */}
-        <div className="lg:col-span-4 flex flex-col gap-8">
-          
-          {/* Credentials manager panel */}
-          <div className="rounded-2xl bg-white/5 border border-white/10 p-6 md:p-8 space-y-4">
-            <h3 className="text-sm font-semibold tracking-wider uppercase text-[#2563eb]">API Gateway Settings</h3>
-            <p className="text-xs text-[#ECE4DA]/50 leading-relaxed font-light">
-              Connect the console directly to your custom Vapi and Gemini agents by inserting your public keys.
-            </p>
+          <div className="flex items-center gap-2.5">
+            <button 
+              onClick={() => setShowSettings(!showSettings)}
+              className="px-3.5 py-1.5 rounded-full bg-emerald-50 hover:bg-emerald-100 text-emerald-800 font-medium text-xs border border-emerald-200/80 transition-all cursor-pointer shadow-sm active:scale-95"
+            >
+              {showSettings ? 'Back' : 'Get Pro'}
+            </button>
             
-            <form onSubmit={saveCredentials} className="space-y-4 pt-2">
-              <div>
-                <label className="block text-[9px] uppercase tracking-widest text-[#ECE4DA]/40 mb-1">Vapi Public Key</label>
-                <input
-                  type="text"
-                  value={vapiPublicKey}
-                  onChange={(e) => setVapiPublicKey(e.target.value)}
-                  placeholder="e.g. 2b8f36c8-9d41..."
-                  className="w-full px-3 py-2 bg-black/60 border border-white/10 rounded-lg text-xs text-[#ECE4DA] placeholder-[#ECE4DA]/30 focus:outline-none focus:border-[#2563eb]"
-                />
-              </div>
-              
-              <div>
-                <label className="block text-[9px] uppercase tracking-widest text-[#ECE4DA]/40 mb-1">Vapi Assistant ID</label>
-                <input
-                  type="text"
-                  value={vapiAssistantId}
-                  onChange={(e) => setVapiAssistantId(e.target.value)}
-                  placeholder="e.g. c72a6b83-e189..."
-                  className="w-full px-3 py-2 bg-black/60 border border-white/10 rounded-lg text-xs text-[#ECE4DA] placeholder-[#ECE4DA]/30 focus:outline-none focus:border-[#2563eb]"
-                />
-              </div>
-
-              <div>
-                <label className="block text-[9px] uppercase tracking-widest text-[#ECE4DA]/40 mb-1">Gemini API Key</label>
-                <input
-                  type="password"
-                  value={geminiApiKey}
-                  onChange={(e) => setGeminiApiKey(e.target.value)}
-                  placeholder="AIzaSy..."
-                  className="w-full px-3 py-2 bg-black/60 border border-white/10 rounded-lg text-xs text-[#ECE4DA] placeholder-[#ECE4DA]/30 focus:outline-none focus:border-[#2563eb]"
-                />
-              </div>
-
-              <button
-                type="submit"
-                className="w-full h-10 bg-white text-black font-semibold text-xs uppercase tracking-widest rounded-lg hover:bg-[#ECE4DA] transition-colors cursor-pointer"
-              >
-                Sync Settings
-              </button>
-            </form>
-          </div>
-
-          {/* Architecture info */}
-          <div className="rounded-2xl bg-white/5 border border-white/10 p-6 md:p-8 space-y-4 flex-1">
-            <h3 className="text-sm font-semibold tracking-wider uppercase text-white">System Architecture</h3>
-            <div className="space-y-4 text-xs font-light text-[#ECE4DA]/60 leading-relaxed">
-              <div className="border-l-2 border-[#2563eb] pl-3 space-y-1">
-                <span className="font-semibold text-white block text-[10px] uppercase tracking-wider">1. Audio Packet Routing</span>
-                <p>Voice inputs capture locally, package as WebRTC packets, and stream to Vapi.ai in real time (&lt;100ms latency).</p>
-              </div>
-              <div className="border-l-2 border-green-500 pl-3 space-y-1">
-                <span className="font-semibold text-white block text-[10px] uppercase tracking-wider">2. Orchestration Planner</span>
-                <p>Speech transcribes to text, intent is parsed by the central brain, delegating tasks to sub-agents (Scan OCR, Triage, Nutrition).</p>
-              </div>
-              <div className="border-l-2 border-blue-500 pl-3 space-y-1">
-                <span className="font-semibold text-white block text-[10px] uppercase tracking-wider">3. Audio Synthesis (TTS)</span>
-                <p>Execution results compile and synthesize through ElevenLabs/Vapi TTS models, streaming back to standard speakers instantly.</p>
-              </div>
-            </div>
+            <button
+              onClick={() => setShowSettings(!showSettings)}
+              className="w-8 h-8 rounded-full bg-white/80 hover:bg-white text-slate-700 hover:text-slate-900 border border-slate-200/60 flex items-center justify-center transition-all cursor-pointer shadow-sm"
+              title="Settings & API Keys"
+            >
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+              </svg>
+            </button>
           </div>
         </div>
 
-      </main>
+        {/* Settings View */}
+        {showSettings ? (
+          <div className="flex-1 p-6 overflow-y-auto bg-white/90 flex flex-col justify-between">
+            <div>
+              <div className="flex items-center gap-2 mb-4">
+                <span className="text-emerald-600 text-lg">⚙️</span>
+                <h3 className="text-base font-semibold text-slate-900">Configure AI Copilot</h3>
+              </div>
+              <p className="text-xs text-slate-600 mb-5 leading-relaxed">
+                Connect your Google Gemini API key or Vapi voice credentials for direct live speech and unbounded reasoning intelligence.
+              </p>
 
+              <form onSubmit={saveCredentials} className="space-y-4">
+                <div>
+                  <label className="block text-xs font-semibold text-slate-700 mb-1">
+                    Gemini API Key
+                  </label>
+                  <input
+                    type="password"
+                    placeholder="AIzaSy..."
+                    value={geminiApiKey}
+                    onChange={(e) => setGeminiApiKey(e.target.value)}
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 outline-none transition-all"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-slate-700 mb-1">
+                    Vapi Public Key (Voice)
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="vapi_pub_..."
+                    value={vapiPublicKey}
+                    onChange={(e) => setVapiPublicKey(e.target.value)}
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 outline-none transition-all"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-slate-700 mb-1">
+                    Vapi Assistant ID
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="asst_..."
+                    value={vapiAssistantId}
+                    onChange={(e) => setVapiAssistantId(e.target.value)}
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 outline-none transition-all"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  className="w-full mt-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-xs shadow-md transition-all cursor-pointer"
+                >
+                  Save & Activate Keys
+                </button>
+              </form>
+            </div>
+
+            <div className="pt-4 border-t border-slate-200 text-center">
+              <button
+                onClick={() => {
+                  setMessages([]);
+                  setShowSettings(false);
+                }}
+                className="text-xs text-rose-500 hover:underline cursor-pointer"
+              >
+                Clear Conversation History
+              </button>
+            </div>
+          </div>
+        ) : (
+          <>
+            {/* Body View */}
+            <div 
+              className="flex-1 overflow-y-auto p-5 flex flex-col justify-between"
+              onMouseMove={handleOrbMouseMove}
+              onMouseLeave={handleOrbMouseLeave}
+            >
+              {messages.length === 0 ? (
+                // Welcome Orb View
+                <div className="flex-1 flex flex-col items-center justify-center text-center my-auto">
+                  {/* Movable Glowing Green Orb */}
+                  <div 
+                    ref={orbContainerRef}
+                    className="relative my-6 flex items-center justify-center cursor-grab active:cursor-grabbing"
+                    style={{
+                      transform: `translate3d(${orbOffset.x}px, ${orbOffset.y}px, 0px)`,
+                      transition: 'transform 0.15s ease-out'
+                    }}
+                    onClick={toggleVoiceCall}
+                    title="Click to activate voice stream"
+                  >
+                    <div 
+                      className="absolute w-[210px] h-[210px] rounded-full pointer-events-none"
+                      style={{
+                        background: 'radial-gradient(circle, rgba(167, 243, 208, 0.6) 0%, rgba(52, 211, 153, 0.22) 50%, transparent 70%)',
+                        filter: 'blur(20px)',
+                        animation: 'orbPulseRing 4s ease-in-out infinite'
+                      }}
+                    />
+
+                    <div 
+                      className="relative w-[150px] h-[150px] rounded-full"
+                      style={{
+                        background: 'radial-gradient(circle at 35% 30%, #ecfdf5 0%, #a7f3d0 25%, #34d399 55%, #059669 85%, #064e3b 100%)',
+                        animation: 'orbFloat 5s ease-in-out infinite alternate, orbBreathe 4s ease-in-out infinite',
+                        boxShadow: '0 0 50px rgba(52, 211, 153, 0.5), inset 0 -15px 30px rgba(6, 78, 59, 0.6), inset 0 10px 25px rgba(255, 255, 255, 0.85)'
+                      }}
+                    >
+                      <div 
+                        className="absolute top-[18%] left-[22%] w-[48px] h-[30px] rounded-full pointer-events-none"
+                        style={{
+                          background: 'radial-gradient(ellipse at center, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0) 80%)',
+                          transform: 'rotate(-32deg)',
+                          filter: 'blur(1px)'
+                        }}
+                      />
+                    </div>
+                  </div>
+
+                  <h2 className="text-[28px] font-semibold text-slate-900 tracking-tight mt-2 mb-6 leading-snug">
+                    What can I help you <br />with today ?
+                  </h2>
+
+                  <div className="flex flex-wrap justify-center gap-2 max-w-[340px] mx-auto">
+                    {quickChips.map((chip, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => handleSendCommand(chip.query)}
+                        className="px-3.5 py-2 rounded-full bg-white/80 hover:bg-white text-slate-700 hover:text-slate-900 text-xs font-medium border border-slate-200/80 shadow-[0_2px_8px_rgba(0,0,0,0.03)] hover:shadow-[0_4px_12px_rgba(16,185,129,0.12)] hover:border-emerald-200 transition-all cursor-pointer active:scale-95"
+                      >
+                        {chip.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                // Chat Conversation View
+                <div className="space-y-4 flex flex-col">
+                  {messages.map((m) => (
+                    <div
+                      key={m.id}
+                      className={`flex gap-2.5 ${m.sender === 'user' ? 'justify-end' : 'justify-start'}`}
+                    >
+                      {m.sender === 'assistant' && (
+                        <div className="w-7 h-7 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 text-white text-[11px] font-bold flex items-center justify-center shrink-0 mt-1 shadow-sm">
+                          Ai
+                        </div>
+                      )}
+
+                      <div
+                        className={`px-4 py-3 rounded-2xl text-[13.5px] leading-relaxed shadow-sm ${
+                          m.sender === 'user'
+                            ? 'bg-emerald-50/90 border border-emerald-200/80 text-slate-900 rounded-tr-sm max-w-[82%]'
+                            : 'bg-white/95 border border-slate-100 text-slate-800 rounded-tl-sm max-w-[85%]'
+                        }`}
+                      >
+                        <div className="whitespace-pre-wrap">{m.text}</div>
+
+                        {m.trace && m.trace.length > 0 && (
+                          <div className="mt-2.5 pt-2 border-t border-slate-100">
+                            <div className="text-[10px] uppercase font-semibold text-emerald-800 mb-1 tracking-wider">
+                              ⚡ Swarm Neural Trace:
+                            </div>
+                            <div className="space-y-1">
+                              {m.trace.map((t, i) => (
+                                <div key={i} className="text-[11px] text-emerald-700 bg-emerald-50/60 px-2 py-1 rounded-md">
+                                  <b>{t.agent_name}:</b> {t.action} ({t.duration_ms}ms)
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+
+                      {m.sender === 'user' && (
+                        <div className="w-7 h-7 rounded-full bg-slate-200 text-slate-700 text-xs font-semibold flex items-center justify-center shrink-0 mt-1">
+                          👤
+                        </div>
+                      )}
+                    </div>
+                  ))}
+
+                  {loading && (
+                    <div className="flex items-center gap-2.5 justify-start">
+                      <div className="w-7 h-7 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 text-white text-[11px] font-bold flex items-center justify-center shrink-0 shadow-sm animate-pulse">
+                        Ai
+                      </div>
+                      <div className="bg-white/95 border border-slate-100 text-slate-600 text-xs px-4 py-2.5 rounded-2xl rounded-tl-sm shadow-sm flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+                        Thinking & analyzing clinical records...
+                      </div>
+                    </div>
+                  )}
+                  <div ref={messagesEndRef} />
+                </div>
+              )}
+            </div>
+
+            {/* Bottom Input Capsule */}
+            <div className="p-4 pt-2 bg-gradient-to-t from-white via-white/90 to-transparent shrink-0">
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  handleSendCommand();
+                }}
+                className="flex items-center gap-2 bg-white rounded-full border border-slate-200/90 shadow-[0_4px_20px_rgba(0,0,0,0.06)] px-4 py-1.5 focus-within:border-emerald-400 focus-within:ring-2 focus-within:ring-emerald-100 transition-all"
+              >
+                <input
+                  type="text"
+                  placeholder="Ask me anything"
+                  value={textInput}
+                  onChange={(e) => setTextInput(e.target.value)}
+                  className="flex-1 bg-transparent text-[13.5px] text-slate-800 placeholder:text-slate-400 outline-none py-1.5"
+                />
+
+                {textInput.trim() && (
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    className="w-8 h-8 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white flex items-center justify-center transition-all cursor-pointer shadow-sm active:scale-95 shrink-0"
+                  >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <line x1="22" y1="2" x2="11" y2="13"></line>
+                      <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    </svg>
+                  </button>
+                )}
+
+                <button
+                  type="button"
+                  onClick={toggleVoiceCall}
+                  className={`w-9 h-9 rounded-full flex items-center justify-center transition-all cursor-pointer shadow-sm active:scale-95 shrink-0 ${
+                    callActive || isListening
+                      ? 'bg-emerald-500 text-white animate-bounce ring-4 ring-emerald-200'
+                      : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700'
+                  }`}
+                  title={callActive || isListening ? "Stop voice listening" : "Start Voice Assistant"}
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path>
+                    <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                    <line x1="12" y1="19" x2="12" y2="22"></line>
+                  </svg>
+                </button>
+              </form>
+            </div>
+          </>
+        )}
+      </div>
+
+      {/* Back button link */}
+      <div className="mt-6 text-center">
+        <Link href="/" className="text-xs uppercase tracking-widest text-slate-500 hover:text-emerald-700 transition-colors">
+          ← Back to Homepage
+        </Link>
+      </div>
     </div>
   );
 }

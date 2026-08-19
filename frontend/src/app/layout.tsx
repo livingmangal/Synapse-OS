@@ -1,9 +1,6 @@
 import type { Metadata } from 'next';
-import '@/styles/main.css';
-import type { Metadata } from 'next';
 import Script from 'next/script';
 import '@/styles/main.css';
-import SanjeevniAssistant from '@/components/ui/SanjeevniAssistant';
 import SanjeevaniAssistantModal from '@/components/SanjeevaniAssistantModal';
 import ScriptsLoader from '@/components/ScriptsLoader';
 
@@ -201,9 +198,6 @@ export default function RootLayout({
           </div>
         </div>
 
-        {/* Global Sanjeevani Assistant Mode */}
-        <SanjeevaniAssistantModal />
-
         {/* Modals required by scripts */}
         <div id="wrap-modals">
           <div className="modal modal--contact d-none" data-lenis-prevent="true">
@@ -226,10 +220,8 @@ export default function RootLayout({
 
         {/* LiveKit Isometric Agentic Architecture Controller */}
         <Script src="/wp-content/themes/normalisboring25/js/agentic-diagram.js" strategy="afterInteractive" />
-        <SanjeevniAssistant />
         <SanjeevaniAssistantModal />
         <ScriptsLoader />
-      </body>
       </body>
     </html>
   );
