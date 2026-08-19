@@ -80,9 +80,9 @@ export default function VisualAnalyticsPanel({
         {/* 1. Chat with SYNAPSE Hero Card (7 cols) */}
         <div style={{
           gridColumn: 'span 7',
-          background: 'linear-gradient(135deg, #f0fdfa 0%, #e0f2fe 50%, #eff6ff 100%)',
+          background: 'linear-gradient(135deg, #f0fdfa 0%, #fce7f3 50%, #fdf2f8 100%)',
           borderRadius: '28px',
-          border: '1px solid #bfdbfe',
+          border: '1px solid #fbcfe8',
           padding: '28px',
           position: 'relative',
           overflow: 'hidden',
@@ -90,7 +90,7 @@ export default function VisualAnalyticsPanel({
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
-          boxShadow: '0 10px 30px rgba(37,99,235,0.06)'
+          boxShadow: '0 10px 30px rgba(219, 39, 119,0.06)'
         }}>
           {/* 3D DNA Helix Background Graphic */}
           <div style={{
@@ -156,7 +156,7 @@ export default function VisualAnalyticsPanel({
                   boxShadow: '0 2px 6px rgba(0,0,0,0.03)',
                   transition: 'all 0.15s ease'
                 }}
-                onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#93c5fd'; e.currentTarget.style.color = '#2563eb'; }}
+                onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#f9a8d4'; e.currentTarget.style.color = '#db2777'; }}
                 onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#cbd5e1'; e.currentTarget.style.color = '#1e293b'; }}
               >
                 💬 How can I improve my sleep?
@@ -176,7 +176,7 @@ export default function VisualAnalyticsPanel({
                   boxShadow: '0 2px 6px rgba(0,0,0,0.03)',
                   transition: 'all 0.15s ease'
                 }}
-                onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#93c5fd'; e.currentTarget.style.color = '#2563eb'; }}
+                onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#f9a8d4'; e.currentTarget.style.color = '#db2777'; }}
                 onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#cbd5e1'; e.currentTarget.style.color = '#1e293b'; }}
               >
                 ⚡ Analyze my latest ECG telemetry
@@ -291,7 +291,7 @@ export default function VisualAnalyticsPanel({
                           width: '18px',
                           height: '18px',
                           borderRadius: '5px',
-                          background: val > 0.7 ? '#818cf8' : val > 0.4 ? '#c7d2fe' : val > 0.2 ? '#fecaca' : '#fee2e2',
+                          background: val > 0.7 ? '#818cf8' : val > 0.4 ? '#fbcfe8' : val > 0.2 ? '#fecaca' : '#fee2e2',
                           opacity: 0.9
                         }}
                       />
@@ -352,11 +352,11 @@ export default function VisualAnalyticsPanel({
                 marginTop: '20px',
                 height: '70px',
                 borderRadius: '16px',
-                background: 'linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%)',
+                background: 'linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                color: '#2563eb'
+                color: '#db2777'
               }}>
                 <Folder size={32} />
               </div>
@@ -389,7 +389,7 @@ export default function VisualAnalyticsPanel({
                 marginTop: '20px',
                 height: '70px',
                 borderRadius: '16px',
-                background: 'linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%)',
+                background: 'linear-gradient(135deg, #e0e7ff 0%, #fbcfe8 100%)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -508,7 +508,7 @@ export default function VisualAnalyticsPanel({
                     flex: 1,
                     height: `${h}%`,
                     borderRadius: '6px',
-                    background: i % 2 === 0 ? '#c7d2fe' : '#fbcfe8'
+                    background: i % 2 === 0 ? '#fbcfe8' : '#fbcfe8'
                   }}
                 />
               ))}
@@ -723,15 +723,15 @@ export default function VisualAnalyticsPanel({
 
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: '#f8fafc', padding: '10px 14px', borderRadius: '14px', border: '1px solid #f1f5f9' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <div style={{ width: '32px', height: '32px', borderRadius: '10px', background: '#e0f2fe', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <Droplets size={16} color="#0284c7" />
+                <div style={{ width: '32px', height: '32px', borderRadius: '10px', background: '#fce7f3', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <Droplets size={16} color="#db2777" />
                 </div>
                 <div>
                   <div style={{ fontSize: '12px', fontWeight: 800, color: '#0f172a' }}>Hydration</div>
                   <div style={{ fontSize: '10px', color: '#64748b' }}>1.8 / 2.5L completed</div>
                 </div>
               </div>
-              <div style={{ width: '18px', height: '18px', borderRadius: '50%', border: '2px solid #38bdf8' }} />
+              <div style={{ width: '18px', height: '18px', borderRadius: '50%', border: '2px solid #f472b6' }} />
             </div>
           </div>
         </div>

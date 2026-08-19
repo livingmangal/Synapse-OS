@@ -78,9 +78,9 @@ export default function OrchestratorTopNav({
               fontWeight: 800,
               padding: '2px 8px',
               borderRadius: '9999px',
-              background: '#eff6ff',
-              color: '#2563eb',
-              border: '1px solid #bfdbfe'
+              background: '#fdf2f8',
+              color: '#db2777',
+              border: '1px solid #fbcfe8'
             }}>
               Sanjeevani OS
             </span>
@@ -146,10 +146,10 @@ export default function OrchestratorTopNav({
                 border: 'none',
                 fontSize: '12px',
                 fontWeight: isActive ? 800 : 600,
-                background: isActive ? '#2563eb' : 'transparent',
+                background: isActive ? '#db2777' : 'transparent',
                 color: isActive ? '#ffffff' : '#64748b',
                 cursor: 'pointer',
-                boxShadow: isActive ? '0 2px 8px rgba(37,99,235,0.3)' : 'none'
+                boxShadow: isActive ? '0 2px 8px rgba(219, 39, 119,0.3)' : 'none'
               }}
             >
               <Icon size={13} />
@@ -181,7 +181,7 @@ export default function OrchestratorTopNav({
             transition: 'all 0.15s ease'
           }}
         >
-          <Download size={13} color="#2563eb" />
+          <Download size={13} color="#db2777" />
           <span>Export Hub</span>
         </button>
 
@@ -227,7 +227,7 @@ export default function OrchestratorTopNav({
               height: '36px',
               borderRadius: '50%',
               objectFit: 'cover',
-              border: '2px solid #bfdbfe'
+              border: '2px solid #fbcfe8'
             }}
           />
           <div>
@@ -235,7 +235,7 @@ export default function OrchestratorTopNav({
               {patient.name}
             </div>
             <div style={{ fontSize: '10px', color: '#64748b' }}>
-              ABHA: <span style={{ fontWeight: 700, color: '#2563eb' }}>{patient.abhaId}</span>
+              ABHA: <span style={{ fontWeight: 700, color: '#db2777' }}>{patient.abhaId}</span>
             </div>
           </div>
         </div>

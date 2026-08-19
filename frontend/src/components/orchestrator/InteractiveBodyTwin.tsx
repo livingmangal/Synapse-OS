@@ -49,7 +49,7 @@ export default function InteractiveBodyTwin({
       label: 'Composite Twin',
       badge: 'Full Anatomical Overview',
       filter: 'none',
-      bgGlow: 'radial-gradient(circle at 50% 45%, #eff6ff 0%, #ffffff 70%)'
+      bgGlow: 'radial-gradient(circle at 50% 45%, #fdf2f8 0%, #ffffff 70%)'
     },
     muscular: {
       label: 'Muscular System',
@@ -60,7 +60,7 @@ export default function InteractiveBodyTwin({
     skeletal: {
       label: 'Skeletal Framework',
       badge: 'Osteo-Radiological Density Model (T-Score -1.2)',
-      filter: 'invert(0.88) contrast(1.6) brightness(1.1) grayscale(0.85) drop-shadow(0 0 18px rgba(56, 189, 248, 0.3))',
+      filter: 'invert(0.88) contrast(1.6) brightness(1.1) grayscale(0.85) drop-shadow(0 0 18px rgba(244, 114, 182, 0.3))',
       bgGlow: 'radial-gradient(circle at 50% 45%, #f0fdf4 0%, #ffffff 70%)'
     },
     vascular: {
@@ -134,11 +134,11 @@ export default function InteractiveBodyTwin({
                   fontSize: '11px',
                   fontWeight: 700,
                   textTransform: 'capitalize',
-                  background: activeLayer === layer ? '#2563eb' : 'transparent',
+                  background: activeLayer === layer ? '#db2777' : 'transparent',
                   color: activeLayer === layer ? '#ffffff' : '#64748b',
                   cursor: 'pointer',
                   transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
-                  boxShadow: activeLayer === layer ? '0 2px 8px rgba(37,99,235,0.35)' : 'none'
+                  boxShadow: activeLayer === layer ? '0 2px 8px rgba(219, 39, 119,0.35)' : 'none'
                 }}
               >
                 {layer}
@@ -153,14 +153,14 @@ export default function InteractiveBodyTwin({
             gap: '6px',
             padding: '7px 16px',
             borderRadius: '9999px',
-            background: 'rgba(239, 246, 255, 0.95)',
-            border: '1px solid #bfdbfe',
-            color: '#2563eb',
+            background: 'rgba(253, 242, 248, 0.95)',
+            border: '1px solid #fbcfe8',
+            color: '#db2777',
             fontSize: '11px',
             fontWeight: 800,
             pointerEvents: 'auto',
             backdropFilter: 'blur(10px)',
-            boxShadow: '0 2px 8px rgba(37,99,235,0.08)'
+            boxShadow: '0 2px 8px rgba(219, 39, 119,0.08)'
           }}>
             <Sparkles size={13} />
             <span>{currentLayer.badge}</span>
@@ -224,12 +224,12 @@ export default function InteractiveBodyTwin({
               <path
                 d="M 285 205 C 330 205, 370 170, 420 155"
                 fill="none"
-                stroke="#2563eb"
+                stroke="#db2777"
                 strokeWidth="2"
                 strokeDasharray="4 3"
                 opacity="0.8"
               />
-              <circle cx="420" cy="155" r="3.5" fill="#2563eb" />
+              <circle cx="420" cy="155" r="3.5" fill="#db2777" />
             </svg>
 
             {/* Hotspot 1: Lungs (Pulmonary Function Test) */}
@@ -252,7 +252,7 @@ export default function InteractiveBodyTwin({
                   width: '34px',
                   height: '34px',
                   borderRadius: '50%',
-                  background: selectedCondition?.organ === 'lungs' ? '#1d4ed8' : '#2563eb',
+                  background: selectedCondition?.organ === 'lungs' ? '#be185d' : '#db2777',
                   color: '#ffffff',
                   display: 'flex',
                   alignItems: 'center',
@@ -260,7 +260,7 @@ export default function InteractiveBodyTwin({
                   fontSize: '14px',
                   fontWeight: 800,
                   border: '2.5px solid #ffffff',
-                  boxShadow: '0 4px 14px rgba(37,99,235,0.45)',
+                  boxShadow: '0 4px 14px rgba(219, 39, 119,0.45)',
                   transition: 'transform 0.2s ease'
                 }}
               >
@@ -275,8 +275,8 @@ export default function InteractiveBodyTwin({
                 background: '#ffffff',
                 borderRadius: '14px',
                 padding: '12px 16px',
-                border: selectedCondition?.organ === 'lungs' ? '2px solid #2563eb' : '1.5px solid #bfdbfe',
-                boxShadow: '0 8px 24px rgba(37,99,235,0.14)',
+                border: selectedCondition?.organ === 'lungs' ? '2px solid #db2777' : '1.5px solid #fbcfe8',
+                boxShadow: '0 8px 24px rgba(219, 39, 119,0.14)',
                 width: '210px',
                 pointerEvents: 'auto',
                 cursor: 'pointer',
@@ -293,7 +293,7 @@ export default function InteractiveBodyTwin({
                 <div style={{ fontSize: '11px', color: '#64748b', marginTop: '2px' }}>
                   FEVI: <strong>4.8 L</strong> • Heart: <strong>72 BPM</strong>
                 </div>
-                <div style={{ fontSize: '10px', color: '#2563eb', fontWeight: 700, marginTop: '4px', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                <div style={{ fontSize: '10px', color: '#db2777', fontWeight: 700, marginTop: '4px', display: 'flex', alignItems: 'center', gap: '4px' }}>
                   <span>Dr. Steven Fandel</span>
                   <ChevronRight size={10} />
                 </div>
@@ -479,14 +479,14 @@ export default function InteractiveBodyTwin({
               width: '38px',
               height: '38px',
               borderRadius: '50%',
-              background: '#eff6ff',
-              border: '1px solid #bfdbfe',
-              color: '#2563eb',
+              background: '#fdf2f8',
+              border: '1px solid #fbcfe8',
+              color: '#db2777',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               cursor: 'pointer',
-              boxShadow: '0 2px 8px rgba(37,99,235,0.15)',
+              boxShadow: '0 2px 8px rgba(219, 39, 119,0.15)',
               textDecoration: 'none',
               transition: 'all 0.15s ease'
             }}
@@ -502,25 +502,25 @@ export default function InteractiveBodyTwin({
           onClick={onNavigateToSwarmTab}
           style={{
             width: '100%',
-            background: 'linear-gradient(135deg, #eff6ff 0%, #dbeafe 50%, #e0e7ff 100%)',
+            background: 'linear-gradient(135deg, #fdf2f8 0%, #fce7f3 50%, #e0e7ff 100%)',
             borderRadius: '20px',
             padding: '16px 22px',
-            border: '1.5px solid #bfdbfe',
-            color: '#1e40af',
+            border: '1.5px solid #fbcfe8',
+            color: '#9d174d',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
             cursor: 'pointer',
-            boxShadow: '0 4px 16px rgba(37,99,235,0.08)',
+            boxShadow: '0 4px 16px rgba(219, 39, 119,0.08)',
             transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)'
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.transform = 'translateY(-2px)';
-            e.currentTarget.style.boxShadow = '0 8px 24px rgba(37,99,235,0.16)';
+            e.currentTarget.style.boxShadow = '0 8px 24px rgba(219, 39, 119,0.16)';
           }}
           onMouseLeave={(e) => {
             e.currentTarget.style.transform = 'translateY(0)';
-            e.currentTarget.style.boxShadow = '0 4px 16px rgba(37,99,235,0.08)';
+            e.currentTarget.style.boxShadow = '0 4px 16px rgba(219, 39, 119,0.08)';
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
@@ -532,15 +532,15 @@ export default function InteractiveBodyTwin({
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              boxShadow: '0 3px 10px rgba(37,99,235,0.18)'
+              boxShadow: '0 3px 10px rgba(219, 39, 119,0.18)'
             }}>
-              <Zap size={22} color="#2563eb" />
+              <Zap size={22} color="#db2777" />
             </div>
             <div style={{ textAlign: 'left' }}>
-              <div style={{ fontSize: '14px', fontWeight: 800, color: '#1e3a8a', letterSpacing: '-0.01em' }}>
+              <div style={{ fontSize: '14px', fontWeight: 800, color: '#831843', letterSpacing: '-0.01em' }}>
                 Run Agent Swarm DAG
               </div>
-              <div style={{ fontSize: '11px', color: '#3b82f6', fontWeight: 600, marginTop: '2px' }}>
+              <div style={{ fontSize: '11px', color: '#ec4899', fontWeight: 600, marginTop: '2px' }}>
                 Execute cross-agent diagnostic & clinical consensus protocol
               </div>
             </div>
@@ -550,13 +550,13 @@ export default function InteractiveBodyTwin({
             display: 'flex',
             alignItems: 'center',
             gap: '6px',
-            background: '#2563eb',
+            background: '#db2777',
             color: '#ffffff',
             padding: '8px 16px',
             borderRadius: '10px',
             fontSize: '12px',
             fontWeight: 800,
-            boxShadow: '0 2px 8px rgba(37,99,235,0.3)'
+            boxShadow: '0 2px 8px rgba(219, 39, 119,0.3)'
           }}>
             <span>Launch Swarm</span>
             <ChevronRight size={15} />

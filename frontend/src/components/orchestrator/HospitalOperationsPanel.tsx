@@ -47,7 +47,7 @@ export default function HospitalOperationsPanel() {
         { label: 'Arrived', count: 35, color: '#6366f1' },
         { label: 'Open', count: 502, color: '#facc15' },
         { label: 'Admitted', count: 859, color: '#f87171' },
-        { label: 'Hold', count: 11, color: '#38bdf8' },
+        { label: 'Hold', count: 11, color: '#f472b6' },
         { label: 'Wait', count: 38, color: '#a3e635' },
         { label: 'Registered', count: 224, color: '#fb923c' }
       ]
@@ -91,7 +91,7 @@ export default function HospitalOperationsPanel() {
             Total Admitted Patients
           </div>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginTop: '6px' }}>
-            <span style={{ fontSize: '28px', fontWeight: 900, color: '#2563eb' }}>{metrics.totalAdmitted}</span>
+            <span style={{ fontSize: '28px', fontWeight: 900, color: '#db2777' }}>{metrics.totalAdmitted}</span>
             <span style={{ fontSize: '12px', fontWeight: 800, color: '#059669' }}>+2%</span>
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: '#64748b', marginTop: '12px', borderTop: '1px solid #f1f5f9', paddingTop: '8px' }}>
@@ -193,7 +193,7 @@ export default function HospitalOperationsPanel() {
             <span style={{ fontSize: '11px', color: '#ef4444', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '4px' }}>
               ● Critical Flag
             </span>
-            <span style={{ fontSize: '12px', color: '#2563eb', fontWeight: 700, cursor: 'pointer' }}>Details →</span>
+            <span style={{ fontSize: '12px', color: '#db2777', fontWeight: 700, cursor: 'pointer' }}>Details →</span>
           </div>
         </div>
 
@@ -216,7 +216,7 @@ export default function HospitalOperationsPanel() {
                   <td style={{ padding: '12px', fontWeight: 700, color: '#0f172a' }}>{p.name}</td>
                   <td style={{ padding: '12px', color: '#64748b' }}>{p.id}</td>
                   <td style={{ padding: '12px', color: '#334155', fontWeight: 600 }}>{p.room}</td>
-                  <td style={{ padding: '12px', color: '#2563eb', fontWeight: 600 }}>{p.doctor}</td>
+                  <td style={{ padding: '12px', color: '#db2777', fontWeight: 600 }}>{p.doctor}</td>
                   <td style={{ padding: '12px', color: '#64748b' }}>{p.nurse}</td>
                   <td style={{ padding: '12px' }}>
                     <span style={{
@@ -255,7 +255,7 @@ export default function HospitalOperationsPanel() {
             <h3 style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a', margin: 0 }}>
               Bed Occupancy ({metrics.bedOccupancy.occupied}/{metrics.bedOccupancy.total})
             </h3>
-            <span style={{ fontSize: '12px', color: '#2563eb', fontWeight: 700 }}>Details →</span>
+            <span style={{ fontSize: '12px', color: '#db2777', fontWeight: 700 }}>Details →</span>
           </div>
 
           <div style={{ height: '140px', position: 'relative' }}>
@@ -336,7 +336,7 @@ export default function HospitalOperationsPanel() {
 
           <div style={{ borderTop: '1px solid #f1f5f9', paddingTop: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '11px' }}>
             <span>Ventilators in Use: <strong>{metrics.criticalPatients.ventilatorsInUse}/{metrics.criticalPatients.ventilatorsTotal}</strong></span>
-            <span style={{ color: '#2563eb', fontWeight: 700 }}>Usage Rate →</span>
+            <span style={{ color: '#db2777', fontWeight: 700 }}>Usage Rate →</span>
           </div>
         </div>
 

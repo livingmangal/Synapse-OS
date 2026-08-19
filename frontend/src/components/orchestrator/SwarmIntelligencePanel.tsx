@@ -105,7 +105,7 @@ function ClinicalDirectiveDocument({ content }: { content: string }) {
           const itemText = trimmed.replace(/^[•*-]\s*/, '');
           return (
             <div key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', paddingLeft: '6px' }}>
-              <span style={{ color: '#2563eb', fontWeight: 900, fontSize: '15px', lineHeight: '1.2' }}>•</span>
+              <span style={{ color: '#db2777', fontWeight: 900, fontSize: '15px', lineHeight: '1.2' }}>•</span>
               <div style={{ flex: 1 }}>{renderMarkdownText(itemText)}</div>
             </div>
           );
@@ -117,7 +117,7 @@ function ClinicalDirectiveDocument({ content }: { content: string }) {
           const itemText = trimmed.replace(/^\d+\.\s*/, '');
           return (
             <div key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', paddingLeft: '6px' }}>
-              <span style={{ color: '#2563eb', fontWeight: 800, fontSize: '13px' }}>{num}.</span>
+              <span style={{ color: '#db2777', fontWeight: 800, fontSize: '13px' }}>{num}.</span>
               <div style={{ flex: 1 }}>{renderMarkdownText(itemText)}</div>
             </div>
           );
@@ -244,7 +244,7 @@ export default function SwarmIntelligencePanel({
     }}>
       {/* 1. Top Hero Console Banner */}
       <div style={{
-        background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 50%, #eff6ff 100%)',
+        background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 50%, #fdf2f8 100%)',
         borderRadius: '24px',
         padding: '22px 28px',
         color: '#0f172a',
@@ -262,14 +262,14 @@ export default function SwarmIntelligencePanel({
               width: '36px',
               height: '36px',
               borderRadius: '12px',
-              background: 'linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%)',
-              border: '1.5px solid #bfdbfe',
+              background: 'linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%)',
+              border: '1.5px solid #fbcfe8',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              boxShadow: '0 2px 8px rgba(37,99,235,0.15)'
+              boxShadow: '0 2px 8px rgba(219, 39, 119,0.15)'
             }}>
-              <Zap size={18} color="#2563eb" />
+              <Zap size={18} color="#db2777" />
             </div>
             <div>
               <h2 style={{ fontSize: '18px', fontWeight: 900, margin: 0, color: '#0f172a', letterSpacing: '-0.02em' }}>
@@ -311,7 +311,7 @@ export default function SwarmIntelligencePanel({
       }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <GitBranch size={16} color="#2563eb" />
+            <GitBranch size={16} color="#db2777" />
             <h3 style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a', margin: 0 }}>
               Orchestrator DAG Execution Pipeline
             </h3>
@@ -338,9 +338,9 @@ export default function SwarmIntelligencePanel({
               <div
                 key={node.id}
                 style={{
-                  background: isCompleted ? '#f0fdf4' : isRunning ? '#eff6ff' : isWarning ? '#fffbeb' : '#f8fafc',
+                  background: isCompleted ? '#f0fdf4' : isRunning ? '#fdf2f8' : isWarning ? '#fffbeb' : '#f8fafc',
                   border: '1.5px solid',
-                  borderColor: isCompleted ? '#86efac' : isRunning ? '#93c5fd' : isWarning ? '#fde68a' : '#e2e8f0',
+                  borderColor: isCompleted ? '#86efac' : isRunning ? '#f9a8d4' : isWarning ? '#fde68a' : '#e2e8f0',
                   borderRadius: '16px',
                   padding: '14px',
                   display: 'flex',
@@ -348,7 +348,7 @@ export default function SwarmIntelligencePanel({
                   gap: '8px',
                   position: 'relative',
                   transition: 'all 0.2s ease',
-                  boxShadow: isRunning ? '0 0 16px rgba(37,99,235,0.15)' : 'none'
+                  boxShadow: isRunning ? '0 0 16px rgba(219, 39, 119,0.15)' : 'none'
                 }}
               >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -356,7 +356,7 @@ export default function SwarmIntelligencePanel({
                     width: '32px',
                     height: '32px',
                     borderRadius: '10px',
-                    background: isCompleted ? '#22c55e' : isRunning ? '#2563eb' : isWarning ? '#f59e0b' : '#cbd5e1',
+                    background: isCompleted ? '#22c55e' : isRunning ? '#db2777' : isWarning ? '#f59e0b' : '#cbd5e1',
                     color: '#ffffff',
                     display: 'flex',
                     alignItems: 'center',
@@ -369,8 +369,8 @@ export default function SwarmIntelligencePanel({
                     fontWeight: 800,
                     padding: '2px 6px',
                     borderRadius: '4px',
-                    background: isCompleted ? '#dcfce7' : isRunning ? '#dbeafe' : isWarning ? '#fef3c7' : '#e2e8f0',
-                    color: isCompleted ? '#15803d' : isRunning ? '#1d4ed8' : isWarning ? '#b45309' : '#64748b'
+                    background: isCompleted ? '#dcfce7' : isRunning ? '#fce7f3' : isWarning ? '#fef3c7' : '#e2e8f0',
+                    color: isCompleted ? '#15803d' : isRunning ? '#be185d' : isWarning ? '#b45309' : '#64748b'
                   }}>
                     {isCompleted ? '✓ 200 OK' : isRunning ? '⚡ Running' : isWarning ? '⚠ Alert' : 'Standby'}
                   </span>
@@ -433,10 +433,10 @@ export default function SwarmIntelligencePanel({
                 gap: '6px',
                 transition: 'all 0.15s ease'
               }}
-              onMouseEnter={(e) => { e.currentTarget.style.background = '#eff6ff'; e.currentTarget.style.borderColor = '#bfdbfe'; e.currentTarget.style.color = '#2563eb'; }}
+              onMouseEnter={(e) => { e.currentTarget.style.background = '#fdf2f8'; e.currentTarget.style.borderColor = '#fbcfe8'; e.currentTarget.style.color = '#db2777'; }}
               onMouseLeave={(e) => { e.currentTarget.style.background = '#f8fafc'; e.currentTarget.style.borderColor = '#e2e8f0'; e.currentTarget.style.color = '#334155'; }}
             >
-              <Sparkles size={12} color="#2563eb" />
+              <Sparkles size={12} color="#db2777" />
               <span>{p.title}</span>
             </button>
           ))}
@@ -470,7 +470,7 @@ export default function SwarmIntelligencePanel({
               padding: '14px 28px',
               borderRadius: '14px',
               border: 'none',
-              background: 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)',
+              background: 'linear-gradient(135deg, #db2777 0%, #be185d 100%)',
               color: '#ffffff',
               fontSize: '13px',
               fontWeight: 800,
@@ -478,7 +478,7 @@ export default function SwarmIntelligencePanel({
               display: 'flex',
               alignItems: 'center',
               gap: '8px',
-              boxShadow: '0 4px 14px rgba(37,99,235,0.3)',
+              boxShadow: '0 4px 14px rgba(219, 39, 119,0.3)',
               transition: 'all 0.15s ease'
             }}
           >
@@ -526,7 +526,7 @@ export default function SwarmIntelligencePanel({
             </div>
             <div style={{ background: '#ffffff', padding: '18px 20px', borderRadius: '18px', border: '1px solid #e2e8f0', boxShadow: '0 2px 10px rgba(0,0,0,0.02)' }}>
               <div style={{ fontSize: '11px', color: '#64748b', fontWeight: 800, textTransform: 'uppercase' }}>Routed Intent</div>
-              <div style={{ fontSize: '16px', fontWeight: 900, color: '#2563eb', marginTop: '2px' }}>{result.detected_intent || 'PHARMACOLOGY'}</div>
+              <div style={{ fontSize: '16px', fontWeight: 900, color: '#db2777', marginTop: '2px' }}>{result.detected_intent || 'PHARMACOLOGY'}</div>
             </div>
             <div style={{ background: '#ffffff', padding: '18px 20px', borderRadius: '18px', border: '1px solid #e2e8f0', boxShadow: '0 2px 10px rgba(0,0,0,0.02)' }}>
               <div style={{ fontSize: '11px', color: '#64748b', fontWeight: 800, textTransform: 'uppercase' }}>Deterministic Safety Gate</div>
@@ -571,7 +571,7 @@ export default function SwarmIntelligencePanel({
                     fontSize: '12px',
                     fontWeight: isActive ? 800 : 600,
                     background: isActive ? '#ffffff' : 'transparent',
-                    color: isActive ? '#2563eb' : '#64748b',
+                    color: isActive ? '#db2777' : '#64748b',
                     boxShadow: isActive ? '0 2px 8px rgba(0,0,0,0.06)' : 'none',
                     cursor: 'pointer',
                     display: 'flex',
@@ -604,7 +604,7 @@ export default function SwarmIntelligencePanel({
               }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #f1f5f9', paddingBottom: '16px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                    <div style={{ width: '34px', height: '34px', borderRadius: '10px', background: '#eff6ff', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#2563eb' }}>
+                    <div style={{ width: '34px', height: '34px', borderRadius: '10px', background: '#fdf2f8', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#db2777' }}>
                       <ShieldCheck size={18} />
                     </div>
                     <div>
@@ -725,7 +725,7 @@ export default function SwarmIntelligencePanel({
                           border: '1px solid #f1f5f9'
                         }}
                       >
-                        <div style={{ width: '22px', height: '22px', borderRadius: '6px', background: '#eff6ff', color: '#2563eb', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', fontWeight: 800 }}>
+                        <div style={{ width: '22px', height: '22px', borderRadius: '6px', background: '#fdf2f8', color: '#db2777', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', fontWeight: 800 }}>
                           {i + 1}
                         </div>
                         <span style={{ fontSize: '12px', fontWeight: 700, color: '#1e293b' }}>{act}</span>
@@ -789,7 +789,7 @@ export default function SwarmIntelligencePanel({
                 </thead>
                 <tbody>
                   <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
-                    <td style={{ padding: '14px 16px', fontWeight: 800, color: '#2563eb' }}>Pharmacology</td>
+                    <td style={{ padding: '14px 16px', fontWeight: 800, color: '#db2777' }}>Pharmacology</td>
                     <td style={{ padding: '14px 16px', color: '#1e293b' }}>Concurrent Warfarin + Aspirin Dual Antithrombotic</td>
                     <td style={{ padding: '14px 16px' }}>
                       <span style={{ fontSize: '11px', fontWeight: 800, color: '#ef4444', background: '#fef2f2', padding: '3px 8px', borderRadius: '6px' }}>
@@ -814,7 +814,7 @@ export default function SwarmIntelligencePanel({
                     <td style={{ padding: '14px 16px', fontWeight: 800, color: '#7c3aed' }}>Diagnostic Monitoring</td>
                     <td style={{ padding: '14px 16px', color: '#1e293b' }}>PT/INR Out-of-Range Risk (Target 2.0 - 3.0)</td>
                     <td style={{ padding: '14px 16px' }}>
-                      <span style={{ fontSize: '11px', fontWeight: 800, color: '#2563eb', background: '#eff6ff', padding: '3px 8px', borderRadius: '6px' }}>
+                      <span style={{ fontSize: '11px', fontWeight: 800, color: '#db2777', background: '#fdf2f8', padding: '3px 8px', borderRadius: '6px' }}>
                         Action Required
                       </span>
                     </td>
@@ -844,7 +844,7 @@ export default function SwarmIntelligencePanel({
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
                   <div>
                     <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#0f172a', margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <Pill size={18} color="#2563eb" />
+                      <Pill size={18} color="#db2777" />
                       <span>RxNav Multi-Agent Pharmacology & Safety Matrix</span>
                     </h3>
                     <span style={{ fontSize: '11px', color: '#64748b' }}>
@@ -940,7 +940,7 @@ export default function SwarmIntelligencePanel({
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '12px' }}>
                   <div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <Activity size={18} color="#2563eb" />
+                      <Activity size={18} color="#db2777" />
                       <h4 style={{ fontSize: '15px', fontWeight: 800, color: '#0f172a', margin: 0 }}>
                         Pharmacokinetic & Metabolic Clearance Curve (PK/PD Model)
                       </h4>
@@ -954,7 +954,7 @@ export default function SwarmIntelligencePanel({
                     <span style={{ fontSize: '11px', fontWeight: 800, color: '#059669', background: '#ecfdf5', border: '1px solid #a7f3d0', padding: '4px 10px', borderRadius: '8px' }}>
                       ● eGFR: 98 mL/min (Normal)
                     </span>
-                    <span style={{ fontSize: '11px', fontWeight: 800, color: '#2563eb', background: '#eff6ff', border: '1px solid #bfdbfe', padding: '4px 10px', borderRadius: '8px' }}>
+                    <span style={{ fontSize: '11px', fontWeight: 800, color: '#db2777', background: '#fdf2f8', border: '1px solid #fbcfe8', padding: '4px 10px', borderRadius: '8px' }}>
                       ● CYP2C9: Extensive Metabolizer
                     </span>
                   </div>
@@ -968,7 +968,7 @@ export default function SwarmIntelligencePanel({
                   </div>
                   <div style={{ background: '#f8fafc', padding: '12px 16px', borderRadius: '14px', border: '1px solid #f1f5f9' }}>
                     <div style={{ fontSize: '10px', fontWeight: 800, color: '#64748b', textTransform: 'uppercase' }}>Elimination Half-Life (T½)</div>
-                    <div style={{ fontSize: '16px', fontWeight: 900, color: '#2563eb', marginTop: '2px' }}>36.2 Hours <span style={{ fontSize: '10px', color: '#64748b', fontWeight: 600 }}>Hepatic CYP450</span></div>
+                    <div style={{ fontSize: '16px', fontWeight: 900, color: '#db2777', marginTop: '2px' }}>36.2 Hours <span style={{ fontSize: '10px', color: '#64748b', fontWeight: 600 }}>Hepatic CYP450</span></div>
                   </div>
                   <div style={{ background: '#f8fafc', padding: '12px 16px', borderRadius: '14px', border: '1px solid #f1f5f9' }}>
                     <div style={{ fontSize: '10px', fontWeight: 800, color: '#64748b', textTransform: 'uppercase' }}>Total Body Clearance (AUC)</div>
@@ -993,8 +993,8 @@ export default function SwarmIntelligencePanel({
                       <svg viewBox="0 0 650 160" style={{ width: '100%', height: '100%', overflow: 'visible' }}>
                         <defs>
                           <linearGradient id="parentDrugGrad" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stopColor="#2563eb" stopOpacity="0.22" />
-                            <stop offset="100%" stopColor="#2563eb" stopOpacity="0.0" />
+                            <stop offset="0%" stopColor="#db2777" stopOpacity="0.22" />
+                            <stop offset="100%" stopColor="#db2777" stopOpacity="0.0" />
                           </linearGradient>
                           <linearGradient id="therapeuticGrad" x1="0" y1="0" x2="0" y2="1">
                             <stop offset="0%" stopColor="#ecfdf5" stopOpacity="0.8" />
@@ -1030,7 +1030,7 @@ export default function SwarmIntelligencePanel({
                         <path
                           d="M 10 15 Q 110 30 210 65 T 370 108 T 510 135 T 640 148"
                           fill="none"
-                          stroke="#2563eb"
+                          stroke="#db2777"
                           strokeWidth="3"
                           strokeLinecap="round"
                         />
@@ -1045,7 +1045,7 @@ export default function SwarmIntelligencePanel({
                           { x: 630, y: 147, label: '4%', time: '48h', name: 'Cleared' }
                         ].map((pt, i) => (
                           <g key={i}>
-                            <circle cx={pt.x} cy={pt.y} r="5" fill="#2563eb" stroke="#ffffff" strokeWidth="2.5" />
+                            <circle cx={pt.x} cy={pt.y} r="5" fill="#db2777" stroke="#ffffff" strokeWidth="2.5" />
                             <rect x={pt.x - 18} y={pt.y - 24} width="36" height="17" rx="5" fill="#ffffff" stroke="#cbd5e1" strokeWidth="1" />
                             <text x={pt.x} y={pt.y - 12} fill="#0f172a" fontSize="9.5" fontWeight="800" textAnchor="middle">{pt.label}</text>
                           </g>
@@ -1070,7 +1070,7 @@ export default function SwarmIntelligencePanel({
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid #f1f5f9', paddingTop: '12px', fontSize: '11px', color: '#64748b' }}>
                   <div style={{ display: 'flex', gap: '16px' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                      <div style={{ width: '12px', height: '3px', background: '#2563eb', borderRadius: '2px' }} />
+                      <div style={{ width: '12px', height: '3px', background: '#db2777', borderRadius: '2px' }} />
                       <span style={{ fontWeight: 700, color: '#1e293b' }}>Parent Compound (Unbound Active)</span>
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
@@ -1096,7 +1096,7 @@ export default function SwarmIntelligencePanel({
               boxShadow: '0 4px 16px rgba(0,0,0,0.02)'
             }}>
               <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#0f172a', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <Activity size={18} color="#2563eb" />
+                <Activity size={18} color="#db2777" />
                 <span>Real-Time StateGraph Execution Trace ({result.trace?.length || 0} Steps)</span>
               </h3>
 
@@ -1116,7 +1116,7 @@ export default function SwarmIntelligencePanel({
                     }}
                   >
                     <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                      <div style={{ width: '28px', height: '28px', borderRadius: '8px', background: '#eff6ff', color: '#2563eb', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', fontWeight: 800 }}>
+                      <div style={{ width: '28px', height: '28px', borderRadius: '8px', background: '#fdf2f8', color: '#db2777', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', fontWeight: 800 }}>
                         {idx + 1}
                       </div>
                       <div>

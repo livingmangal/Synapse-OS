@@ -57,9 +57,9 @@ export default function ClinicalConditionsPanel({
         style={{
           background: '#ffffff',
           borderRadius: '20px',
-          border: selectedCondition?.organ === 'lungs' ? '1.5px solid #2563eb' : '1px solid #e2e8f0',
+          border: selectedCondition?.organ === 'lungs' ? '1.5px solid #db2777' : '1px solid #e2e8f0',
           padding: '20px',
-          boxShadow: selectedCondition?.organ === 'lungs' ? '0 6px 20px rgba(37,99,235,0.08)' : '0 4px 14px rgba(0,0,0,0.03)',
+          boxShadow: selectedCondition?.organ === 'lungs' ? '0 6px 20px rgba(219, 39, 119,0.08)' : '0 4px 14px rgba(0,0,0,0.03)',
           transition: 'all 0.2s ease',
           display: 'flex',
           flexDirection: 'column'
@@ -92,7 +92,7 @@ export default function ClinicalConditionsPanel({
           marginTop: '6px'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', fontWeight: 800, color: '#0f172a' }}>
-            <FileText size={14} color="#2563eb" />
+            <FileText size={14} color="#db2777" />
             <span>Pulmonary function test</span>
           </div>
           <p style={{ fontSize: '11px', color: '#64748b', margin: '6px 0 12px 0', lineHeight: 1.45 }}>
@@ -203,7 +203,7 @@ export default function ClinicalConditionsPanel({
             </div>
             <div style={{ fontSize: '11px', textAlign: 'right' }}>
               <div><span style={{ color: '#059669', fontWeight: 800 }}>● This month:</span> <strong style={{ color: '#0f172a' }}>97.4%</strong></div>
-              <div><span style={{ color: '#2563eb', fontWeight: 800 }}>● Previous:</span> <strong style={{ color: '#64748b' }}>92.2%</strong></div>
+              <div><span style={{ color: '#db2777', fontWeight: 800 }}>● Previous:</span> <strong style={{ color: '#64748b' }}>92.2%</strong></div>
             </div>
           </div>
 
@@ -227,7 +227,7 @@ export default function ClinicalConditionsPanel({
               <path
                 d="M 10 42 Q 70 32 125 40 T 225 48 T 270 45"
                 fill="none"
-                stroke="#93c5fd"
+                stroke="#f9a8d4"
                 strokeWidth="2"
                 strokeDasharray="4 3"
               />
@@ -243,7 +243,7 @@ export default function ClinicalConditionsPanel({
 
               {/* Peak indicator dot & label */}
               <circle cx="225" cy="10" r="4.5" fill="#059669" stroke="#ffffff" strokeWidth="2" />
-              <rect x="205" y="-3" width="40" height="15" rx="5" fill="#2563eb" />
+              <rect x="205" y="-3" width="40" height="15" rx="5" fill="#db2777" />
               <text x="225" y="8" fill="#ffffff" fontSize="9.5" fontWeight="bold" textAnchor="middle">97.4%</text>
             </svg>
           </div>
@@ -276,7 +276,7 @@ export default function ClinicalConditionsPanel({
               padding: '10px 14px',
               borderRadius: '12px',
               border: 'none',
-              background: '#2563eb',
+              background: '#db2777',
               color: '#ffffff',
               fontSize: '12px',
               fontWeight: 800,
@@ -285,7 +285,7 @@ export default function ClinicalConditionsPanel({
               alignItems: 'center',
               justifyContent: 'center',
               gap: '6px',
-              boxShadow: '0 2px 8px rgba(37,99,235,0.3)',
+              boxShadow: '0 2px 8px rgba(219, 39, 119,0.3)',
               transition: 'all 0.15s ease'
             }}
           >
@@ -345,7 +345,7 @@ export default function ClinicalConditionsPanel({
                 flex: 1,
                 height: '20px',
                 borderRadius: '4px',
-                background: i < 14 ? 'linear-gradient(180deg, #60a5fa 0%, #2563eb 100%)' : '#f1f5f9'
+                background: i < 14 ? 'linear-gradient(180deg, #f472b6 0%, #db2777 100%)' : '#f1f5f9'
               }}
             />
           ))}

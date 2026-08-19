@@ -153,9 +153,9 @@ export default function PatientVitalsPanel({
             fontWeight: 800,
             padding: '4px 10px',
             borderRadius: '8px',
-            background: '#eff6ff',
-            color: '#2563eb',
-            border: '1px solid #bfdbfe'
+            background: '#fdf2f8',
+            color: '#db2777',
+            border: '1px solid #fbcfe8'
           }}>
             ● {patient.planType}
           </span>
@@ -186,10 +186,10 @@ export default function PatientVitalsPanel({
               onClick={() => setShowMoreMenu(!showMoreMenu)}
               title="More Options"
               style={{
-                background: showMoreMenu ? '#eff6ff' : '#f8fafc',
+                background: showMoreMenu ? '#fdf2f8' : '#f8fafc',
                 border: '1px solid',
-                borderColor: showMoreMenu ? '#bfdbfe' : '#e2e8f0',
-                color: showMoreMenu ? '#2563eb' : '#64748b',
+                borderColor: showMoreMenu ? '#fbcfe8' : '#e2e8f0',
+                color: showMoreMenu ? '#db2777' : '#64748b',
                 width: '28px',
                 height: '28px',
                 borderRadius: '8px',
@@ -239,7 +239,7 @@ export default function PatientVitalsPanel({
                   onMouseEnter={(e) => e.currentTarget.style.background = '#f8fafc'}
                   onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
                 >
-                  <Printer size={13} color="#2563eb" />
+                  <Printer size={13} color="#db2777" />
                   <span>Print EHR Record</span>
                 </button>
                 <button
@@ -261,7 +261,7 @@ export default function PatientVitalsPanel({
                   onMouseEnter={(e) => e.currentTarget.style.background = '#f8fafc'}
                   onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
                 >
-                  <Copy size={13} color="#2563eb" />
+                  <Copy size={13} color="#db2777" />
                   <span>Copy FHIR URL</span>
                 </button>
               </div>
@@ -333,7 +333,7 @@ export default function PatientVitalsPanel({
             border: '1px solid #e2e8f0',
             flexShrink: 0
           }}>
-            <QrCode size={30} color="#2563eb" />
+            <QrCode size={30} color="#db2777" />
           </div>
           <div style={{ flex: 1, minWidth: 0 }}>
             <div style={{ fontSize: '10px', color: '#64748b', fontWeight: 700, textTransform: 'uppercase' }}>
@@ -409,7 +409,7 @@ export default function PatientVitalsPanel({
               <path
                 d="M 0 34 L 20 34 L 28 20 L 36 50 L 44 26 L 52 38 L 60 34 L 90 34 L 98 10 L 106 58 L 114 20 L 122 42 L 130 34 L 160 34 L 168 20 L 176 50 L 184 26 L 192 38 L 200 34"
                 fill="none"
-                stroke="#2563eb"
+                stroke="#db2777"
                 strokeWidth="2.2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -450,7 +450,7 @@ export default function PatientVitalsPanel({
           <h3 style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a', margin: 0 }}>
             Schedule with Doctor
           </h3>
-          <span style={{ fontSize: '11px', color: '#2563eb', fontWeight: 700, background: '#eff6ff', padding: '2px 8px', borderRadius: '6px' }}>
+          <span style={{ fontSize: '11px', color: '#db2777', fontWeight: 700, background: '#fdf2f8', padding: '2px 8px', borderRadius: '6px' }}>
             Jan, 2026
           </span>
         </div>
@@ -488,11 +488,11 @@ export default function PatientVitalsPanel({
                   alignItems: 'center',
                   padding: '7px 8px',
                   borderRadius: '12px',
-                  background: isSelected ? '#2563eb' : 'transparent',
+                  background: isSelected ? '#db2777' : 'transparent',
                   color: isSelected ? '#ffffff' : '#64748b',
                   cursor: 'pointer',
                   transition: 'all 0.15s ease',
-                  boxShadow: isSelected ? '0 4px 12px rgba(37,99,235,0.3)' : 'none'
+                  boxShadow: isSelected ? '0 4px 12px rgba(219, 39, 119,0.3)' : 'none'
                 }}
               >
                 <span style={{ fontSize: '9px', fontWeight: 600 }}>{d.day}</span>
@@ -534,12 +534,12 @@ export default function PatientVitalsPanel({
                     padding: '5px 12px',
                     borderRadius: '8px',
                     border: 'none',
-                    background: '#2563eb',
+                    background: '#db2777',
                     color: '#ffffff',
                     fontSize: '11px',
                     fontWeight: 700,
                     cursor: 'pointer',
-                    boxShadow: '0 2px 6px rgba(37,99,235,0.25)',
+                    boxShadow: '0 2px 6px rgba(219, 39, 119,0.25)',
                     transition: 'all 0.15s ease'
                   }}
                 >

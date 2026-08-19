@@ -76,12 +76,12 @@ export default function OrchestratorSidebar({
             width: '46px',
             height: '46px',
             borderRadius: '16px',
-            background: 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)',
+            background: 'linear-gradient(135deg, #db2777 0%, #be185d 100%)',
             color: '#ffffff',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            boxShadow: '0 6px 18px rgba(37, 99, 235, 0.35)',
+            boxShadow: '0 6px 18px rgba(219, 39, 119, 0.35)',
             cursor: 'pointer',
             transition: 'transform 0.2s ease'
           }}>
@@ -111,12 +111,12 @@ export default function OrchestratorSidebar({
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    background: isActive ? '#eff6ff' : 'transparent',
-                    color: isActive ? '#2563eb' : '#64748b',
+                    background: isActive ? '#fdf2f8' : 'transparent',
+                    color: isActive ? '#db2777' : '#64748b',
                     cursor: 'pointer',
                     position: 'relative',
                     transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
-                    boxShadow: isActive ? 'inset 0 0 0 1.5px #bfdbfe' : 'none'
+                    boxShadow: isActive ? 'inset 0 0 0 1.5px #fbcfe8' : 'none'
                   }}
                 >
                   <Icon size={20} strokeWidth={isActive ? 2.5 : 1.8} />
@@ -126,7 +126,7 @@ export default function OrchestratorSidebar({
                       left: '0px',
                       width: '4px',
                       height: '22px',
-                      background: '#2563eb',
+                      background: '#db2777',
                       borderRadius: '0 4px 4px 0'
                     }} />
                   )}
@@ -147,12 +147,12 @@ export default function OrchestratorSidebar({
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  background: isActive ? '#eff6ff' : 'transparent',
-                  color: isActive ? '#2563eb' : '#64748b',
+                  background: isActive ? '#fdf2f8' : 'transparent',
+                  color: isActive ? '#db2777' : '#64748b',
                   textDecoration: 'none',
                   position: 'relative',
                   transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
-                  boxShadow: isActive ? 'inset 0 0 0 1.5px #bfdbfe' : 'none'
+                  boxShadow: isActive ? 'inset 0 0 0 1.5px #fbcfe8' : 'none'
                 }}
               >
                 <Icon size={20} strokeWidth={isActive ? 2.5 : 1.8} />

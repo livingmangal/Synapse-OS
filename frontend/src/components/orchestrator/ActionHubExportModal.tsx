@@ -149,7 +149,7 @@ export default function ActionHubExportModal({
         </button>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '18px' }}>
-          <div style={{ width: '38px', height: '38px', borderRadius: '12px', background: '#eff6ff', color: '#2563eb', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div style={{ width: '38px', height: '38px', borderRadius: '12px', background: '#fdf2f8', color: '#db2777', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <ShieldCheck size={22} />
           </div>
           <div>
@@ -222,7 +222,7 @@ export default function ActionHubExportModal({
           }}>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-                <FileDown size={18} color="#2563eb" />
+                <FileDown size={18} color="#db2777" />
                 <span style={{ fontSize: '13px', fontWeight: 800, color: '#0f172a' }}>Clinical PDF</span>
               </div>
               <p style={{ fontSize: '11px', color: '#64748b', margin: '0 0 14px 0', lineHeight: 1.4 }}>
@@ -237,7 +237,7 @@ export default function ActionHubExportModal({
                 padding: '9px',
                 borderRadius: '8px',
                 border: 'none',
-                background: '#2563eb',
+                background: '#db2777',
                 color: '#ffffff',
                 fontSize: '11px',
                 fontWeight: 800,
@@ -294,7 +294,7 @@ export default function ActionHubExportModal({
         {fhirData && (
           <div style={{
             background: '#0f172a',
-            color: '#38bdf8',
+            color: '#f472b6',
             borderRadius: '12px',
             padding: '14px',
             fontSize: '11px',
