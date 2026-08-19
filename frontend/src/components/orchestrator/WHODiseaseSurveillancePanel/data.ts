@@ -22,9 +22,24 @@ export   // Top 5 WHO Monitored Priority Diseases with interactive trajectories
         'Complete cessation of tobacco use and avoidance of secondary smoke',
         'At least 150 minutes of moderate-intensity aerobic exercise per week'
       ],
-      diagnostics: '12-Lead ECG, High-Sensitivity Cardiac Troponin-I/T, 2D-Echocardiography, Coronary CT Angiography',
-      firstLineTherapy: 'Dual Antiplatelet Therapy (Aspirin + Clopidogrel/Ticagrelor), High-Intensity Statins (Atorvastatin 80mg), ACE Inhibitors / Beta-Blockers',
-      vaccineStatus: 'Annual Influenza & Pneumococcal vaccines recommended to reduce acute coronary events',
+      diagnostics: [
+        '12-Lead Electrocardiography (ECG) for ischemia detection',
+        'High-Sensitivity Cardiac Troponin-I/T assays',
+        '2D-Echocardiography for ventricular function assessment',
+        'Coronary CT Angiography (CCTA) and stress testing'
+      ],
+      firstLineTherapy: [
+        'Dual Antiplatelet Therapy (Aspirin + Clopidogrel/Ticagrelor)',
+        'High-Intensity Statins (Atorvastatin 80mg or Rosuvastatin 40mg)',
+        'ACE Inhibitors and Beta-Blockers for cardiac remodeling',
+        'Nitrates for acute symptomatic angina relief'
+      ],
+      vaccineStatus: [
+        'Annual Quadrivalent Influenza vaccination',
+        'Pneumococcal vaccines (PCV15/PCV20) recommended',
+        'Routine immunization to reduce acute coronary events',
+        'COVID-19 boosters per regional health guidelines'
+      ],
       globalHubs: [
         {
           id: 'g_india',
@@ -269,9 +284,24 @@ export   // Top 5 WHO Monitored Priority Diseases with interactive trajectories
         'Use of insecticide-treated bed nets (ITNs) in endemic transmission clusters',
         'Community bio-larviciding using Bacillus thuringiensis israelensis (BTI)'
       ],
-      diagnostics: 'Dengue NS1 Antigen ELISA, Malaria RDT (HRP-2 / pLDH), RT-PCR, Serial Platelet and Hematocrit counts',
-      firstLineTherapy: 'Artemisinin-Based Combination Therapy (ACT: Artemether-Lumefantrine for Malaria); Isotonic IV Fluid titration (Dengue)',
-      vaccineStatus: 'R21/Matrix-M & RTS,S Malaria Vaccines Approved; Qdenga Dengue Vaccine in Endemic Zones',
+      diagnostics: [
+        'Dengue NS1 Antigen ELISA & IgM/IgG Capture ELISA',
+        'Malaria Rapid Diagnostic Tests (HRP-2 / pLDH)',
+        'Multiplex RT-PCR for Flavivirus differentiation',
+        'Serial Platelet and Hematocrit counts monitoring'
+      ],
+      firstLineTherapy: [
+        'Artemisinin-Based Combination Therapy (ACT) for Malaria',
+        'Isotonic IV Fluid titration for Dengue Hemorrhagic Fever',
+        'Acetaminophen for antipyresis (avoiding NSAIDs)',
+        'Strict hemodynamic monitoring and supportive care'
+      ],
+      vaccineStatus: [
+        'R21/Matrix-M & RTS,S Malaria Vaccines Approved',
+        'Qdenga (TAK-003) Dengue Vaccine in Endemic Zones',
+        'Dengvaxia (CYD-TDV) for seropositive individuals',
+        'Ongoing development for universal Chikungunya vaccines'
+      ],
       globalHubs: [
         {
           id: 'g_india',
@@ -450,9 +480,24 @@ export   // Top 5 WHO Monitored Priority Diseases with interactive trajectories
         'Prompt airborne isolation of active smear-positive pulmonary cases',
         'Strict adherence to cough etiquette and respiratory hygiene'
       ],
-      diagnostics: 'GeneXpert MTB/RIF Ultra, Sputum AFB Microscopy, Chest Radiography, Multiplex Viral RT-PCR',
-      firstLineTherapy: 'Directly Observed Therapy (DOTS: 2HRZE / 4HR regimen); Inhaled Long-Acting Bronchodilators (LABA/LAMA for COPD)',
-      vaccineStatus: 'BCG Immunization at birth; Annual Quadrivalent Inactivated Influenza & Pneumococcal conjugate',
+      diagnostics: [
+        'GeneXpert MTB/RIF Ultra for rapid resistance profiling',
+        'Sputum AFB Smear Microscopy (Ziehl-Neelsen stain)',
+        'Digital Chest Radiography (CXR) and CT Chest',
+        'Multiplex Viral RT-PCR for Influenza and RSV'
+      ],
+      firstLineTherapy: [
+        'Directly Observed Therapy (DOTS: 2HRZE / 4HR regimen) for TB',
+        'Inhaled Long-Acting Bronchodilators (LABA/LAMA for COPD)',
+        'Inhaled Corticosteroids (ICS) for severe exacerbations',
+        'Neuraminidase inhibitors (Oseltamivir) for Influenza'
+      ],
+      vaccineStatus: [
+        'BCG Immunization at birth for TB meningitis prevention',
+        'Annual Quadrivalent Inactivated Influenza vaccine',
+        'Pneumococcal conjugate (PCV) and polysaccharide vaccines',
+        'RSV vaccines for adults >60 years in high-risk zones'
+      ],
       globalHubs: [
         {
           id: 'g_india',
@@ -587,9 +632,24 @@ export   // Top 5 WHO Monitored Priority Diseases with interactive trajectories
         'Rigorous contact tracing within a 21-day incubation monitoring cycle',
         'Avoidance of unprotected contact with sick/dead domestic poultry or wild mammals'
       ],
-      diagnostics: 'Real-Time Clade-Specific PCR (Mpox Clade Ib/IIb), Avian H5 Multiplex RT-PCR, Viral Sequencing',
-      firstLineTherapy: 'Tecovirimat (TPOXX 600mg BID) for severe disease; Early Oseltamivir (75mg BID) for Avian Influenza',
-      vaccineStatus: 'MVA-BN (JYNNEOS) 2-dose subcutaneous vaccine pre/post-exposure prophylaxis approved by WHO',
+      diagnostics: [
+        'Real-Time Clade-Specific PCR (Mpox Clade Ib/IIb)',
+        'Avian H5 Multiplex RT-PCR for viral subtyping',
+        'Next-Generation Viral Genomic Sequencing (NGS)',
+        'Serological assays for epidemiological surveillance'
+      ],
+      firstLineTherapy: [
+        'Tecovirimat (TPOXX 600mg BID) for severe Mpox disease',
+        'Early Oseltamivir (75mg BID) for Avian Influenza H5N1',
+        'Broad-spectrum antivirals (Brincidofovir) under EIND',
+        'Aggressive supportive care and secondary infection control'
+      ],
+      vaccineStatus: [
+        'MVA-BN (JYNNEOS) 2-dose subcutaneous vaccine (Mpox)',
+        'Pre/post-exposure prophylaxis approved by WHO',
+        'Stockpiled pandemic H5N1 vaccines (zoonotic prep)',
+        'Ongoing Phase I/II trials for Nipah virus vaccines'
+      ],
       globalHubs: [
         {
           id: 'g_africa',
@@ -680,9 +740,24 @@ export   // Top 5 WHO Monitored Priority Diseases with interactive trajectories
         'Enhanced environmental terminal disinfection using vaporized hydrogen peroxide or sporicidals',
         'Early de-escalation of empiric therapy within 48-72h based on microbiological sensitivity'
       ],
-      diagnostics: 'Automated MicroScan/VITEK Antimicrobial Susceptibility Testing, MALDI-TOF Mass Spectrometry, Carbapenemase PCR (blaNDM, blaKPC, blaOXA-48)',
-      firstLineTherapy: 'Targeted sensitivity-directed combinations (Ceftazidime-Avibactam, Meropenem-Vaborbactam, Cefiderocol, Colistin)',
-      vaccineStatus: 'Investigational bacterial vaccines in global clinical development',
+      diagnostics: [
+        'Automated MicroScan/VITEK Antimicrobial Susceptibility Testing',
+        'MALDI-TOF Mass Spectrometry for rapid species identification',
+        'Carbapenemase PCR assays (blaNDM, blaKPC, blaOXA-48)',
+        'Broth microdilution (Gold Standard for Colistin MIC)'
+      ],
+      firstLineTherapy: [
+        'Targeted combinations (Ceftazidime-Avibactam, Cefiderocol)',
+        'Meropenem-Vaborbactam for KPC-producing Enterobacteriaceae',
+        'Polymyxins (Colistin) as salvage therapy for pan-resistant strains',
+        'Infectious Disease consult for optimal dosing and de-escalation'
+      ],
+      vaccineStatus: [
+        'Investigational bacterial vaccines in global clinical development',
+        'Phase III trials for nosocomial Staphylococcus aureus vaccines',
+        'Klebsiella pneumoniae glycoconjugate vaccine candidates',
+        'Focus on strict infection prevention over immunization currently'
+      ],
       globalHubs: [
         {
           id: 'g_india',

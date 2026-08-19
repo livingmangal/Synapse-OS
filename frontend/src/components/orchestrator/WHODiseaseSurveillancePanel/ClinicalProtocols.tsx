@@ -51,7 +51,7 @@ export default function ClinicalProtocols({ activeDisease }: ClinicalProtocolsPr
             <ShieldCheck size={15} />
             <span>1. Primary Precautions</span>
           </div>
-          <ul style={{ margin: 0, paddingLeft: '16px', fontSize: '12px', color: '#334155', lineHeight: 1.6 }}>
+          <ul style={{ margin: 0, paddingLeft: '16px', fontSize: '12px', color: '#334155', lineHeight: 1.6, fontFamily: '"Times New Roman", Times, serif' }}>
             {activeDisease.precautions.map((p, idx) => (
               <li key={idx} style={{ marginBottom: '6px' }}>{p}</li>
             ))}
@@ -73,9 +73,11 @@ export default function ClinicalProtocols({ activeDisease }: ClinicalProtocolsPr
             <Stethoscope size={15} />
             <span>2. Diagnostics & Labs</span>
           </div>
-          <p style={{ fontSize: '12px', color: '#334155', margin: 0, lineHeight: 1.6 }}>
-            {activeDisease.diagnostics}
-          </p>
+          <ul style={{ margin: 0, paddingLeft: '16px', fontSize: '12px', color: '#334155', lineHeight: 1.6, fontFamily: '"Times New Roman", Times, serif' }}>
+            {activeDisease.diagnostics.map((d, idx) => (
+              <li key={idx} style={{ marginBottom: '6px' }}>{d}</li>
+            ))}
+          </ul>
           <div style={{ marginTop: 'auto', fontSize: '10.5px', fontWeight: 700, color: '#7c3aed', background: '#f5f3ff', padding: '6px 10px', borderRadius: '8px', border: '1px solid #ddd6fe' }}>
             ✓ Gold Standard Sensitivity &gt; 96%
           </div>
@@ -96,9 +98,11 @@ export default function ClinicalProtocols({ activeDisease }: ClinicalProtocolsPr
             <Pill size={15} />
             <span>3. First-Line Therapeutics</span>
           </div>
-          <p style={{ fontSize: '12px', color: '#334155', margin: 0, lineHeight: 1.6 }}>
-            {activeDisease.firstLineTherapy}
-          </p>
+          <ul style={{ margin: 0, paddingLeft: '16px', fontSize: '12px', color: '#334155', lineHeight: 1.6, fontFamily: '"Times New Roman", Times, serif' }}>
+            {activeDisease.firstLineTherapy.map((t, idx) => (
+              <li key={idx} style={{ marginBottom: '6px' }}>{t}</li>
+            ))}
+          </ul>
           <div style={{ marginTop: 'auto', fontSize: '10.5px', fontWeight: 700, color: '#059669', background: '#ecfdf5', padding: '6px 10px', borderRadius: '8px', border: '1px solid #a7f3d0' }}>
             ✓ WHO Essential Medicines 2026
           </div>
@@ -119,9 +123,11 @@ export default function ClinicalProtocols({ activeDisease }: ClinicalProtocolsPr
             <Syringe size={15} />
             <span>4. Vaccine & Prophylaxis</span>
           </div>
-          <p style={{ fontSize: '12px', color: '#334155', margin: 0, lineHeight: 1.6 }}>
-            {activeDisease.vaccineStatus}
-          </p>
+          <ul style={{ margin: 0, paddingLeft: '16px', fontSize: '12px', color: '#334155', lineHeight: 1.6, fontFamily: '"Times New Roman", Times, serif' }}>
+            {activeDisease.vaccineStatus.map((v, idx) => (
+              <li key={idx} style={{ marginBottom: '6px' }}>{v}</li>
+            ))}
+          </ul>
           <div style={{ marginTop: 'auto', fontSize: '10.5px', fontWeight: 700, color: '#ea580c', background: '#fff7ed', padding: '6px 10px', borderRadius: '8px', border: '1px solid #ffedd5' }}>
             ✓ Strategic Global Advisory
           </div>

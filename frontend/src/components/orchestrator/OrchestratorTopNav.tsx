@@ -32,12 +32,16 @@ export default function OrchestratorTopNav({
   searchQuery = '',
   onSearchChange
 }: TopNavProps) {
+  const WhoIcon = ({ size }: { size?: number | string }) => (
+    <img src="/who.svg" alt="WHO Logo" style={{ width: size || 13, height: size || 13, objectFit: 'contain' }} />
+  );
+
   const tabs = [
     { id: 'overview', label: 'My Condition', icon: Layers },
     { id: 'swarm', label: 'Swarm Intelligence', icon: Sparkles },
     { id: 'analytics', label: 'Visual Analytics', icon: BarChart3 },
-    { id: 'hospital', label: 'WHO Global Surveillance', icon: Globe }
-  ] as const;
+    { id: 'hospital', label: 'WHO Global Surveillance', icon: WhoIcon }
+  ];
 
   return (
     <header style={{
@@ -91,34 +95,6 @@ export default function OrchestratorTopNav({
         </div>
       </div>
 
-      {/* Center Search Bar */}
-      <div style={{
-        flex: '1',
-        maxWidth: '320px',
-        position: 'relative',
-        display: 'flex',
-        alignItems: 'center'
-      }}>
-        <Search size={15} color="#94a3b8" style={{ position: 'absolute', left: '12px', pointerEvents: 'none' }} />
-        <input
-          type="text"
-          placeholder="Search conditions, vitals, doctors..."
-          value={searchQuery}
-          onChange={(e) => onSearchChange?.(e.target.value)}
-          style={{
-            width: '100%',
-            padding: '8px 12px 8px 34px',
-            borderRadius: '9999px',
-            border: '1px solid #e2e8f0',
-            background: '#f8fafc',
-            fontSize: '12px',
-            color: '#0f172a',
-            outline: 'none',
-            transition: 'all 0.2s ease'
-          }}
-        />
-      </div>
-
       {/* Center Navigation Pills */}
       <div style={{
         display: 'flex',
@@ -127,7 +103,8 @@ export default function OrchestratorTopNav({
         padding: '3px',
         borderRadius: '9999px',
         border: '1px solid #e2e8f0',
-        gap: '3px'
+        gap: '3px',
+        margin: '0 auto' // Centers the pills since search is gone
       }}>
         {tabs.map((tab) => {
           const Icon = tab.icon;
@@ -145,6 +122,7 @@ export default function OrchestratorTopNav({
                 borderRadius: '9999px',
                 border: 'none',
                 fontSize: '12px',
+                whiteSpace: 'nowrap', // Keeps text in a single line
                 fontWeight: isActive ? 800 : 600,
                 background: isActive ? '#db2777' : 'transparent',
                 color: isActive ? '#ffffff' : '#64748b',

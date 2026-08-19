@@ -20,9 +20,9 @@ export interface DiseaseProfile {
   whoThreatLevel: 'Low' | 'Moderate' | 'High' | 'Critical';
   transmission: string;
   precautions: string[];
-  diagnostics: string;
-  firstLineTherapy: string;
-  vaccineStatus: string;
+  diagnostics: string[];
+  firstLineTherapy: string[];
+  vaccineStatus: string[];
   globalHubs: RegionalHub[];
   indiaHubs: RegionalHub[];
 }
