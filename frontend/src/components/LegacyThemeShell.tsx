@@ -111,7 +111,7 @@ export default function LegacyThemeShell({ children }: { children: React.ReactNo
 					<div class="header__menu__media__title f-medium t-titulo-xl t-upper" style="opacity: 0; position: absolute; pointer-events: none;">ORCHESTRATOR AGENT</div>
           <div class="media header__menu__media__image noAnimate no-general-anim noAspect" data-delay="" style="transform: scale(1.3); transform-origin: left center;"> 
             <div class="media__wrap-source image" style="border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
-              <img class="media__source w-100" src="/architecture_diagram_dark.png" alt="Architecture Diagram" style="display: block; border-radius: 16px;">
+              <img class="media__source w-100" src="/architecture_diagram_light.png" alt="Architecture Diagram" style="display: block; border-radius: 16px;">
             </div>
           </div>
 				</div>
