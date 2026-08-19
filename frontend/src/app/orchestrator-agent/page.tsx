@@ -82,34 +82,6 @@ export default function OrchestratorAgentPage() {
 
   return (
     <>
-      {/* Suppress conflicting legacy video loader and background overlays */}
-      <style>{`
-        #video-splash, 
-        #page-loader, 
-        .animated-splash-page, 
-        .transition, 
-        #mouse, 
-        header.header, 
-        .header__menu, 
-        #wrap-modals, 
-        .modal {
-          display: none !important;
-          visibility: hidden !important;
-          opacity: 0 !important;
-          pointer-events: none !important;
-        }
-        body {
-          overflow: hidden !important;
-          background-color: #f8fafc !important;
-        }
-        #smooth-wrapper, #smooth-content {
-          pointer-events: auto !important;
-          transform: none !important;
-          opacity: 1 !important;
-          visibility: visible !important;
-          display: block !important;
-        }
-      `}</style>
 
       {/* Main Orchestrator Workspace Root */}
       <div className="orch-root">
@@ -129,6 +101,8 @@ export default function OrchestratorAgentPage() {
             display: 'flex',
             flexDirection: 'column',
             height: '100vh',
+            width: 'calc(100vw - 76px)',
+            background: '#f8fafc',
             overflow: 'hidden'
           }}
         >
@@ -143,7 +117,8 @@ export default function OrchestratorAgentPage() {
           />
 
           {/* Dynamic Main Workspace Area */}
-          <main 
+          <div 
+            className="orch-main-workspace"
             style={{
               flex: 1,
               overflowY: 'auto',
@@ -208,7 +183,7 @@ export default function OrchestratorAgentPage() {
             {activeTab === 'hospital' && (
               <HospitalOperationsPanel />
             )}
-          </main>
+          </div>
         </div>
 
         {/* 3. Action Hub & Export Modal (PDF + FHIR + SOS) */}

@@ -18,6 +18,8 @@
       if (pageLoader) {
         pageLoader.style.display = 'none';
       }
+      document.body.classList.remove('video-splash-active');
+      document.documentElement.classList.remove('overflow-hidden');
       return;
     }
 

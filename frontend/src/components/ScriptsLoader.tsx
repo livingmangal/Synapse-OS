@@ -1,13 +1,13 @@
 'use client';
 
 import { useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 
 const SCRIPT_URLS = [
   'https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.5/swiper-bundle.min.js',
   'https://www.youtube.com/player_api',
   'https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js',
   'https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js',
-  'https://unpkg.com/swup@4',
   '/wp-content/themes/normalisboring25/js/gsap/ScrollSmoother.min.js',
   '/wp-content/themes/normalisboring25/js/gsap/SplitText.min.js',
   '/wp-content/themes/normalisboring25/js/gsap/MorphSVGPlugin.min.js',
@@ -24,7 +24,21 @@ const SCRIPT_URLS = [
 ];
 
 export default function ScriptsLoader() {
+  const pathname = usePathname();
+
   useEffect(() => {
+    // Only load legacy heavy theme scripts on the homepage/projects
+    if (
+      pathname?.includes('/orchestrator-agent') ||
+      pathname?.includes('/symptom-triage-agent') ||
+      pathname?.includes('/medical-scan-agent') ||
+      pathname?.includes('/records') ||
+      pathname?.includes('/vibrant') ||
+      pathname?.includes('/interactive-body')
+    ) {
+      return;
+    }
+
     // Sequentially load scripts in DOM on client side only
     const loadScript = (index: number) => {
       if (index >= SCRIPT_URLS.length) return;
@@ -45,7 +59,7 @@ export default function ScriptsLoader() {
     };
 
     loadScript(0);
-  }, []);
+  }, [pathname]);
 
   return null;
 }
