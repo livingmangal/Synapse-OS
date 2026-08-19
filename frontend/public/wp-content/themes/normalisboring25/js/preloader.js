@@ -1,7 +1,7 @@
 (() => {
   function initHunterSplash() {
-    // If on Agent pages or 3D Explorer, do not activate video splash or loader
-    if (window.location.pathname !== '/' || document.getElementById('sanjeevani-3d-frame')) {
+    // If on 3D Model Explorer page, do not activate video splash or loader
+    if (window.location.pathname.includes('/vibrant') || document.getElementById('sanjeevani-3d-frame')) {
       const splash = document.getElementById('video-splash');
       if (splash) {
         splash.style.display = 'none';
@@ -10,11 +10,6 @@
       const pageLoader = document.getElementById('page-loader');
       if (pageLoader) {
         pageLoader.style.display = 'none';
-      }
-      document.body.classList.remove('video-splash-active');
-      document.documentElement.classList.remove('overflow-hidden');
-      if (typeof init === 'function') {
-        try { init(); } catch (e) {}
       }
       return;
     }

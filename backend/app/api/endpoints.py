@@ -11,15 +11,20 @@ from backend.app.agents.orchestrator import orchestrate_health_request
 from backend.app.agents.triage_agent import analyze_symptoms
 from backend.app.agents.drug_agent import evaluate_drug_safety
 from backend.app.agents.scan_agent import analyze_medical_image
+from backend.app.agents.mental_health_agent import evaluate_mental_wellbeing
 from backend.app.ml.digital_twin import DigitalTwinInput, simulate_10_year_trajectory, compute_baseline_organ_scores
 from backend.app.ml.diagnostics import DiagnosticRiskRequest, calculate_clinical_risks
 from backend.app.services.abdm_service import generate_abha_id, check_ayushman_bharat_schemes
 from backend.app.services.pdf_service import generate_health_summary_pdf
-from backend.app.services.whatsapp_service import process_whatsapp_inbound_webhook, trigger_emergency_sos_whatsapp
-from backend.app.services.fhir_service import build_fhir_r4_bundle
-from backend.app.agents.retrieval_agent import hybrid_retrieve_clinical_context
-from backend.app.agents.appointment_agent import find_doctors_by_specialty, book_appointment_slot
-from backend.app.services.i18n_service import translate_clinical_message
+from backend.app.services.appointment_service import (
+    get_available_doctors, book_appointment, AppointmentBookingRequest
+)
+from backend.app.services.emergency_service import (
+    dispatch_emergency_sos, SOSDispatchRequest
+)
+from backend.app.services.fhir_service import (
+    generate_fhir_r4_bundle, FHIRExportRequest
+)
 
 router = APIRouter()
 
@@ -40,30 +45,30 @@ class DrugCheckRequest(BaseModel):
 
 
 class ScanAnalysisRequest(BaseModel):
-    image_type: str = Field(default="chest_xray")
-    filename: Optional[str] = "chest_xray_scan.jpg"
+    image_type: str = Field(default="bone_fracture")
+    filename: Optional[str] = "fracture_scan.jpg"
     image_base64: Optional[str] = None
 
 
 class PDFReportRequest(BaseModel):
     patient_name: str = Field(default="Siddharth Sharma")
-    abha_id: str = Field(default="91-5829-3910-4821")
+    abha_id: str = Field(default="91-8472-9102-4821")
     triage_summary: str = Field(default="Routine seasonal checkup; vitals normal.")
     vital_signs: Optional[Dict[str, str]] = None
     medications: Optional[List[Dict[str, str]]] = None
 
 
-class EmergencySOSRequest(BaseModel):
-    emergency_contact: str = Field(default="+919876543210")
-    patient_name: str = Field(default="Siddharth Sharma")
-    location_coords: str = Field(default="28.6139,77.2090")
-    blood_group: str = Field(default="O+")
-    critical_symptoms: str = Field(default="Severe chest pain and dizziness")
+class MentalHealthChatRequest(BaseModel):
+    message: str = Field(default="I have been feeling very anxious, exhausted, and having trouble sleeping.")
 
+
+# ============================================================================
+# 1. CORE AGENT SWARM & CLINICAL REASONING
+# ============================================================================
 
 @router.post("/orchestrate", tags=["Agent Swarm"])
 async def orchestrate_endpoint(req: OrchestrateRequest):
-    """Executes the complete multi-agent DAG workflow with live trace badges."""
+    """Executes the complete multi-agent DAG workflow with live LLM synthesis."""
     return await orchestrate_health_request(
         message=req.message,
         channel=req.channel,
@@ -74,7 +79,7 @@ async def orchestrate_endpoint(req: OrchestrateRequest):
 
 @router.post("/triage", tags=["Clinical Intelligence"])
 async def triage_endpoint(req: TriageRequest):
-    """Clinical symptom triage categorization into Emergency, Doctor Consult, or Home Care."""
+    """Clinical symptom triage categorization into Emergency, Doctor Consult, or Home Care via Groq/OpenRouter."""
     return await analyze_symptoms(req.symptoms)
 
 
@@ -86,9 +91,77 @@ async def drug_check_endpoint(req: DrugCheckRequest):
 
 @router.post("/scans/analyze", tags=["Vision AI"])
 async def scan_analysis_endpoint(req: ScanAnalysisRequest):
-    """MONAI lesion heatmap localization & plain-language scan/prescription explanation."""
+    """FractureNet YOLOv8 bone fracture detector & MONAI/TrOCR imaging pipeline."""
     return analyze_medical_image(image_type=req.image_type, filename=req.filename, image_base64=req.image_base64)
 
+
+# ============================================================================
+# 2. FEATURE 1: VOICE-TO-VOICE DOCTOR & APPOINTMENT SCHEDULING (MedAgent)
+# ============================================================================
+
+@router.get("/appointments/doctors", tags=["Appointments & Voice Doctor"])
+async def get_doctors_endpoint(specialty: Optional[str] = "all"):
+    """Returns list of specialists with real-time available slots."""
+    return get_available_doctors(specialty=specialty)
+
+
+@router.post("/appointments/book", tags=["Appointments & Voice Doctor"])
+async def book_appointment_endpoint(req: AppointmentBookingRequest):
+    """Confirms appointment booking, locks slot, generates token and .ics calendar sync."""
+    return book_appointment(req)
+
+
+# ============================================================================
+# 3. FEATURE 2: 1-CLICK EMERGENCY SOS DISPATCH & GPS (OpenWA + AI-Healthcare)
+# ============================================================================
+
+@router.post("/emergency/sos-dispatch", tags=["Emergency SOS"])
+async def emergency_sos_dispatch_endpoint(req: SOSDispatchRequest):
+    """
+    1-Click Emergency SOS Trigger: Acquires live GPS, calculates closest Level-1 trauma center,
+    generates OpenWA WhatsApp webhook payload and direct 1-tap dispatch links.
+    """
+    return dispatch_emergency_sos(req)
+
+
+# ============================================================================
+# 4. FEATURE 3: WHO TELE-MANAS EMOTIONAL SANCTUARY (Mental-Health-Chatbot)
+# ============================================================================
+
+@router.post("/mental-health/chat", tags=["Emotional Sanctuary & Tele-MANAS"])
+async def mental_health_chat_endpoint(req: MentalHealthChatRequest):
+    """Supportive emotional counseling grounded in WHO mhGAP protocols and Tele-MANAS guidelines."""
+    return await evaluate_mental_wellbeing(req.message)
+
+
+@router.get("/mental-health/resources", tags=["Emotional Sanctuary & Tele-MANAS"])
+async def mental_health_resources_endpoint():
+    """Returns official National Mental Health Helplines (Tele-MANAS 14416) & grounding techniques."""
+    return {
+        "tele_manas_helpline": "14416 / 1800-891-4416 (24/7 Toll-Free, 20+ Languages)",
+        "kiran_mental_health": "1800-599-0019",
+        "women_distress": "1091",
+        "emergency": "112",
+        "guided_breathing_cycles": [
+            {"name": "4-7-8 Bio-Feedback Regulation", "inhale_s": 4, "hold_s": 7, "exhale_s": 8, "cycles": 4},
+            {"name": "Box Breathing (Navy SEALs)", "inhale_s": 4, "hold_s": 4, "exhale_s": 4, "cycles": 4}
+        ]
+    }
+
+
+# ============================================================================
+# 5. FEATURE 4: HL7 FHIR R4 STANDARDIZED CLINICAL BUNDLE EXPORTER (AI-Healthcare)
+# ============================================================================
+
+@router.post("/fhir/export-bundle", tags=["EHR & FHIR R4"])
+async def fhir_export_bundle_endpoint(req: FHIRExportRequest):
+    """Generates official HL7 FHIR R4 Document Bundle compliant with ABDM and hospital EHRs."""
+    return generate_fhir_r4_bundle(req)
+
+
+# ============================================================================
+# 6. DIGITAL TWIN, DIAGNOSTICS & ABDM HEALTH PASSPORT
+# ============================================================================
 
 @router.post("/digital-twin/simulate", tags=["Digital Health Twin"])
 async def digital_twin_endpoint(req: DigitalTwinInput):
@@ -135,71 +208,3 @@ async def generate_pdf_endpoint(req: PDFReportRequest):
         media_type="application/pdf",
         headers={"Content-Disposition": f"attachment; filename=Sanjeevani_Health_Summary_{req.patient_name.replace(' ', '_')}.pdf"}
     )
-
-
-@router.post("/sos/dispatch", tags=["Emergency SOS"])
-async def emergency_sos_endpoint(req: EmergencySOSRequest):
-    """Dispatches instant 1-click Emergency SOS alert packet via WhatsApp."""
-    dispatch_res = await trigger_emergency_sos_whatsapp(
-        emergency_contact=req.emergency_contact,
-        patient_name=req.patient_name,
-        location_coords=req.location_coords,
-        blood_group=req.blood_group,
-        critical_symptoms=req.critical_symptoms
-    )
-    return {
-        "status": "SOS_DISPATCHED" if dispatch_res.get("emergency_alert_dispatched") else "SOS_QUEUED",
-        "emergency_services_reference": ["112 (National Emergency)", "108 (Ambulance)"],
-        "dispatch_details": dispatch_res,
-        "location": req.location_coords
-    }
-
-
-@router.post("/whatsapp/webhook", tags=["Omnichannel"])
-async def whatsapp_webhook_endpoint(payload: Dict[str, Any]):
-    """OpenWA Inbound WhatsApp Webhook Handler."""
-    return await process_whatsapp_inbound_webhook(payload)
-
-
-@router.get("/fhir/bundle", tags=["EHR & FHIR R4"])
-async def fhir_bundle_endpoint(patient_id: str = "PAT-91-4829", name: str = "Siddharth Sharma"):
-    """Generates official HL7 FHIR R4 Bundle for Patient, Observations, and Conditions."""
-    return build_fhir_r4_bundle(
-        patient_id=patient_id,
-        name=name,
-        vitals={"systolic_bp": 120, "fasting_glucose": 95},
-        conditions=["Essential Hypertension (Controlled)", "Seasonal Bronchitis"]
-    )
-
-
-@router.get("/retrieval/search", tags=["Hybrid Clinical RAG"])
-async def retrieval_search_endpoint(query: str = "hypertension treatment"):
-    """Searches WHO/ICMR 23-guideline corpus and Wikipedia medical REST API."""
-    return await hybrid_retrieve_clinical_context(query)
-
-
-@router.get("/appointments/doctors", tags=["Logistics & Appointments"])
-async def list_doctors_endpoint(specialty: str = "General Physician"):
-    """Lists available PM-JAY empanelled doctors by specialty."""
-    return find_doctors_by_specialty(specialty)
-
-
-@router.post("/appointments/schedule", tags=["Logistics & Appointments"])
-async def schedule_appointment_endpoint(
-    patient_name: str = "Siddharth Sharma",
-    doctor_id: str = "DOC-AIIMS-101",
-    slot_time: str = "Tomorrow at 10:30 AM"
-):
-    """Books doctor consultation slot and generates digital calendar ticket."""
-    return book_appointment_slot(patient_name=patient_name, doctor_id=doctor_id, slot_time=slot_time)
-
-
-@router.get("/i18n/translate", tags=["Multilingual Access"])
-async def i18n_translate_endpoint(key: str = "emergency_alert", lang: str = "hi"):
-    """Translates key clinical warnings into Hindi, Bengali, Tamil, Telugu, or Spanish."""
-    return {
-        "key": key,
-        "language": lang,
-        "translated_text": translate_clinical_message(key, lang)
-    }
-

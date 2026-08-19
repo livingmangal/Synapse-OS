@@ -492,13 +492,10 @@
         // }
 
         //show link disponibilidad
-        const noShowScroll = document.querySelector('#menu-principal .no-show-scroll');
-        if (noShowScroll) {
-            if (document.querySelector('.mod-header--proyecto')) {
-                noShowScroll.classList.remove('disabled');
-            } else {
-                noShowScroll.classList.add('disabled');
-            }
+        if(document.querySelector('.mod-header--proyecto')){
+            document.querySelector('#menu-principal .no-show-scroll').classList.remove('disabled')
+        }else{
+            document.querySelector('#menu-principal .no-show-scroll').classList.add('disabled')
         }
 
         //reinit mouseChanges

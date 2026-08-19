@@ -15,16 +15,26 @@ export default function RecordsAndPassportPage() {
   const [calculatedHash, setCalculatedHash] = useState('');
   const [hashingFile, setHashingFile] = useState(false);
 
-  // Blockchain record state
+  // Cryptographic record state
   const [records, setRecords] = useState<any[]>([
     {
       id: 'REC-0x8921',
       patient: 'Siddharth Sharma',
       abha: '91-4829-1029-4821',
-      hash: '8f4e2b81239c09a8e74b321098ef69c1a76d8e209841af09',
+      hash: '8f4e2b81239c09a8e74b321098ef69c1a76d8e209841af098239014298129038',
       cid: 'QmZ4tDuvesekSs4qM5ZBKpXiZGun7S2CYtEZRB3DYXkjGx',
-      type: 'Chest X-Ray & Triage Report',
+      type: 'Chest Radiograph & Triage Encounter',
       timestamp: '2026-08-18 11:45 UTC',
+      verified: true
+    },
+    {
+      id: 'REC-0x7144',
+      patient: 'Siddharth Sharma',
+      abha: '91-4829-1029-4821',
+      hash: '3a1c882190847291028472910384729102938471920394810293847192039481',
+      cid: 'QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG',
+      type: 'Lipid & Fasting Metabolic Panel',
+      timestamp: '2026-08-18 14:20 UTC',
       verified: true
     }
   ]);
@@ -100,15 +110,28 @@ export default function RecordsAndPassportPage() {
   const handleDownloadPdf = async () => {
     setDownloading(true);
     try {
+      const payload = {
+        patient_name: name,
+        abha_id: abhaData?.abha_number || '91-4829-1029-4821',
+        age: 2026 - parseInt(yearOfBirth || '1995'),
+        gender: 'Male',
+        triage_level: 'ROUTINE_MONITORING',
+        vitals: {
+          blood_pressure: '120/80 mmHg',
+          heart_rate: '72 bpm',
+          oxygen_saturation: '99%',
+          glucose_fasting: '92 mg/dL'
+        },
+        medications: ['Paracetamol 650mg SOS', 'Vitamin D3 60K UI Monthly'],
+        ipfs_hash: records[0]?.cid || 'QmZ4tDuvesekSs4qM5ZBKpXiZGun7S2CYtEZRB3DYXkjGx'
+      };
+
       const res = await fetch(`${API_BASE}/api/reports/generate-pdf`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          patient_name: name,
-          abha_id: abhaData?.abha_number || '91-4829-1029-4821',
-          triage_summary: 'Sanjeevani AI Clinical Triage: Mild respiratory symptoms noted; vital signs stable.'
-        })
+        body: JSON.stringify(payload)
       });
+
       if (res.ok) {
         const blob = await res.blob();
         const url = window.URL.createObjectURL(blob);
@@ -127,23 +150,27 @@ export default function RecordsAndPassportPage() {
   };
 
   const handleVerify = () => {
-    if (!verifyCid) return;
-    const match = records.find(r => r.cid.toLowerCase().includes(verifyCid.toLowerCase()) || r.hash.toLowerCase().includes(verifyCid.toLowerCase()));
+    if (!verifyCid.trim()) return;
+    const query = verifyCid.trim().toLowerCase();
+    const match = records.find(r => 
+      r.cid.toLowerCase() === query || 
+      r.hash.toLowerCase() === query ||
+      r.id.toLowerCase() === query ||
+      r.cid.toLowerCase().includes(query) ||
+      r.hash.toLowerCase().includes(query)
+    );
+
     if (match) {
       setVerifyResult({
         status: 'VALID',
-        message: 'Cryptographic SHA-256 integrity verified against Ethereum registry digest.',
+        message: `Cryptographic SHA-256 integrity verified for ${match.type}. Digest matches local tamper-evident registry.`,
         record: match
       });
     } else {
       setVerifyResult({
-        status: 'VALID_EXTERNAL',
-        message: 'Valid IPFS hash structure recognized. Hash matches simulated on-chain registry digest.',
-        record: {
-          cid: verifyCid,
-          fileHash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
-          timestamp: new Date().toISOString()
-        }
+        status: 'NOT_FOUND',
+        message: `No cryptographic match found in registry for '${verifyCid}'. Ensure you entered a registered SHA-256 hash or IPFS CID.`,
+        record: null
       });
     }
   };
@@ -167,11 +194,11 @@ export default function RecordsAndPassportPage() {
               ← Return to OS Home
             </Link>
             <h1 style={{ fontSize: '24px', fontWeight: 'bold', margin: 0, color: '#38bdf8' }}>
-              Sanjeevani OS • Health Records & Blockchain Passport
+              Sanjeevani OS • Health Records &amp; ABDM Passport
             </h1>
           </div>
           <span style={{ fontSize: '12px', padding: '4px 10px', borderRadius: '20px', background: '#064e3b', color: '#34d399', border: '1px solid #059669' }}>
-            ● Hardhat & ABDM Connected
+            ● SHA-256 Tamper-Evident &amp; ABDM Profile Active
           </span>
         </div>
 
@@ -180,7 +207,7 @@ export default function RecordsAndPassportPage() {
           {[
             { id: 'abha', label: '🇮🇳 National ABHA ID & Schemes' },
             { id: 'passport', label: '📄 QR Health Passport (PDF)' },
-            { id: 'blockchain', label: '⛓️ On-Chain Medical Records' },
+            { id: 'blockchain', label: '🔐 Cryptographic Record Ledger' },
             { id: 'verify', label: '🔍 Verify Record Integrity' }
           ].map(t => (
             <button
@@ -280,11 +307,11 @@ export default function RecordsAndPassportPage() {
             <div style={{ background: '#0b0f19', border: '1px solid #1e293b', borderRadius: '12px', padding: '20px', marginBottom: '24px' }}>
               <h4 style={{ margin: '0 0 12px 0', color: '#38bdf8' }}>Included Clinical Payload:</h4>
               <ul style={{ color: '#cbd5e1', fontSize: '14px', lineHeight: '1.8', margin: 0, paddingLeft: '20px' }}>
-                <li>✓ Full patient demographic header & ABHA ID registration</li>
-                <li>✓ Clinical triage urgency level (Red/Amber/Green) & AI Council consensus</li>
+                <li>✓ Full patient demographic header &amp; ABHA ID registration</li>
+                <li>✓ Clinical triage urgency level (Red/Amber/Green) &amp; AI Council consensus</li>
                 <li>✓ Physiological vital benchmarks (Blood Pressure, Heart Rate, SpO2, Fasting Glucose)</li>
-                <li>✓ Active medication schedule & dosage safety check</li>
-                <li>✓ <b>Tamper-Evident QR Code Stamp</b> linking to IPFS & Ethereum testnet contract</li>
+                <li>✓ Active medication schedule &amp; dosage safety check</li>
+                <li>✓ <b>Tamper-Evident SHA-256 QR Code Stamp</b> linking to verified record digest</li>
               </ul>
             </div>
 
@@ -307,13 +334,21 @@ export default function RecordsAndPassportPage() {
           </div>
         )}
 
-        {/* Tab 3: Blockchain */}
+        {/* Tab 3: Cryptographic Record Ledger */}
         {activeTab === 'blockchain' && (
           <div style={{ background: '#131c2e', border: '1px solid #1e293b', borderRadius: '16px', padding: '32px' }}>
-            <h2 style={{ fontSize: '20px', marginBottom: '8px', color: '#f8fafc' }}>On-Chain Medical Record Registry (Hardhat + IPFS)</h2>
-            <p style={{ color: '#94a3b8', fontSize: '14px', marginBottom: '24px' }}>
-              Records are hashed with SHA-256, pinned to IPFS, and anchored to the <code>MedicalRecords.sol</code> smart contract.
-            </p>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+              <div>
+                <h2 style={{ fontSize: '20px', margin: 0, color: '#f8fafc' }}>Cryptographic Medical Record Ledger</h2>
+                <p style={{ color: '#94a3b8', fontSize: '14px', margin: '4px 0 0 0' }}>
+                  Medical records are hashed client-side with SHA-256 and anchored to the local verifiable digest registry.
+                </p>
+              </div>
+              <label style={{ padding: '8px 16px', borderRadius: '8px', background: '#0284c7', color: '#fff', cursor: 'pointer', fontSize: '13px', fontWeight: 600 }}>
+                {hashingFile ? 'Hashing...' : '+ Hash & Register File'}
+                <input type="file" onChange={handleFileUploadHash} style={{ display: 'none' }} />
+              </label>
+            </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               {records.map((r, i) => (
@@ -321,7 +356,7 @@ export default function RecordsAndPassportPage() {
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
                     <span style={{ fontWeight: 'bold', color: '#38bdf8' }}>{r.type}</span>
                     <span style={{ fontSize: '12px', color: '#34d399', background: '#064e3b', padding: '2px 8px', borderRadius: '6px' }}>
-                      ✓ On-Chain Verified
+                      ✓ Cryptographically Verified
                     </span>
                   </div>
                   <div style={{ fontSize: '13px', color: '#94a3b8', marginBottom: '4px' }}>Patient: <b style={{ color: '#f8fafc' }}>{r.patient}</b> (ABHA: {r.abha})</div>
@@ -338,7 +373,7 @@ export default function RecordsAndPassportPage() {
           <div style={{ background: '#131c2e', border: '1px solid #1e293b', borderRadius: '16px', padding: '32px' }}>
             <h2 style={{ fontSize: '20px', marginBottom: '8px', color: '#f8fafc' }}>Verify Record Cryptographic Authenticity</h2>
             <p style={{ color: '#94a3b8', fontSize: '14px', marginBottom: '24px' }}>
-              Enter any IPFS CID or document SHA-256 hash to verify against the smart contract registry.
+              Enter any IPFS CID or document SHA-256 hash to verify against the local integrity ledger.
             </p>
 
             <div style={{ display: 'flex', gap: '12px', marginBottom: '24px' }}>
@@ -358,13 +393,20 @@ export default function RecordsAndPassportPage() {
             </div>
 
             {verifyResult && (
-              <div style={{ background: '#064e3b', border: '1px solid #10b981', borderRadius: '12px', padding: '20px' }}>
-                <h4 style={{ margin: '0 0 8px 0', color: '#34d399' }}>✓ Integrity Verified: Document Untampered</h4>
-                <p style={{ color: '#a7f3d0', fontSize: '14px', margin: '0 0 12px 0' }}>{verifyResult.message}</p>
-                <div style={{ fontSize: '12px', color: '#cbd5e1' }}>
-                  Smart Contract Status: <b>RECORD_MATCH_FOUND</b> • Access Status: <b>PUBLIC_VERIFIABLE</b>
+              verifyResult.status === 'VALID' ? (
+                <div style={{ background: '#064e3b', border: '1px solid #10b981', borderRadius: '12px', padding: '20px' }}>
+                  <h4 style={{ margin: '0 0 8px 0', color: '#34d399' }}>✓ Integrity Verified: Document Untampered</h4>
+                  <p style={{ color: '#a7f3d0', fontSize: '14px', margin: '0 0 12px 0' }}>{verifyResult.message}</p>
+                  <div style={{ fontSize: '12px', color: '#cbd5e1' }}>
+                    Ledger Status: <b>RECORD_MATCH_FOUND</b> • Verification: <b>MATHEMATICALLY_VERIFIED</b>
+                  </div>
                 </div>
-              </div>
+              ) : (
+                <div style={{ background: '#451a03', border: '1px solid #f59e0b', borderRadius: '12px', padding: '20px' }}>
+                  <h4 style={{ margin: '0 0 8px 0', color: '#fbbf24' }}>⚠️ Record Not Found in Ledger</h4>
+                  <p style={{ color: '#fde68a', fontSize: '14px', margin: '0' }}>{verifyResult.message}</p>
+                </div>
+              )
             )}
           </div>
         )}

@@ -15,17 +15,21 @@ build/
 dist/
 coverage/
 
-# Python
+# Python & ML
 __pycache__/
 *.py[cod]
 *$py.class
-*.so
-.Python
-env/
-venv/
-ENV/
-.venv/
 .pytest_cache/
+.coverage
+venv/
+env/
+.venv/
+
+# Large Archives
+*.zip
+*.rar
+*.tar.gz
+*.7z
 
 # Hardhat / Blockchain artifacts & cache
 contracts/artifacts/
@@ -47,14 +51,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
-*.log
-
-# Large Archives & Temporary dumps
-*.zip
-*.rar
-*.tar.gz
-*.7z
-.kilocode/
 
 # IDE & OS
 .vscode/
@@ -65,3 +61,4 @@ Thumbs.db
 
 # AI & Agent artifacts
 .agents/
+.kilocode/
