@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { usePathname } from 'next/navigation';
 import './assistant/assistant.css';
 import {
   useAssistantLogic,
@@ -17,6 +18,8 @@ import {
 } from './assistant';
 
 export default function SanjeevaniAssistantModal() {
+  const pathname = usePathname();
+
   const {
     isOpen,
     setIsOpen,
@@ -81,6 +84,11 @@ export default function SanjeevaniAssistantModal() {
     toggleVoiceCall,
     handleSend
   } = useAssistantLogic();
+
+  // Hide assistant trigger on 3D Model / Vibrant page so it does not interfere
+  if (pathname === '/vibrant' || pathname?.startsWith('/vibrant')) {
+    return null;
+  }
 
   return (
     <>
