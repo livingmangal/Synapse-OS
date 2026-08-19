@@ -25,7 +25,7 @@ import {
 interface OrchestratorSidebarProps {
   onOpenSOS?: () => void;
   activeTab?: string;
-  onTabChange?: (tab: 'overview' | 'swarm' | 'analytics' | 'hospital') => void;
+  onTabChange?: (tab: 'overview' | 'swarm' | 'analytics' | 'hospital' | 'scan') => void;
 }
 
 export default function OrchestratorSidebar({ 
@@ -40,7 +40,7 @@ export default function OrchestratorSidebar({
     { label: 'Digital Twin & Condition', tab: 'overview', icon: Layers, isTab: true },
     { label: 'Clinical Analytics Hub', tab: 'analytics', icon: Activity, isTab: true },
     { label: 'WHO Global Surveillance', tab: 'hospital', icon: Globe, isTab: true },
-    { label: 'Medical Scan AI (YOLOv8)', href: '/medical-scan-agent', icon: Scan },
+    { label: 'Medical Scan AI (YOLOv8)', tab: 'scan', icon: Scan, isTab: true },
     { label: 'ABHA & On-Chain Records', href: '/records', icon: FileText },
     { label: 'Sanjeevani OS Home', href: '/', icon: Home }
   ];

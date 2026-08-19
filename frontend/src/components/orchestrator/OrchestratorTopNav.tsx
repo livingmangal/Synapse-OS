@@ -16,8 +16,8 @@ import {
 import { PatientInfo } from './types';
 
 interface TopNavProps {
-  activeTab: 'overview' | 'swarm' | 'analytics' | 'hospital';
-  onTabChange: (tab: 'overview' | 'swarm' | 'analytics' | 'hospital') => void;
+  activeTab: 'overview' | 'swarm' | 'analytics' | 'hospital' | 'scan';
+  onTabChange: (tab: 'overview' | 'swarm' | 'analytics' | 'hospital' | 'scan') => void;
   patient: PatientInfo;
   onOpenExportModal: () => void;
   searchQuery?: string;
@@ -40,7 +40,8 @@ export default function OrchestratorTopNav({
     { id: 'swarm', label: 'Swarm Intelligence', icon: Sparkles },
     { id: 'overview', label: 'My Condition', icon: Layers },
     { id: 'analytics', label: 'Visual Analytics', icon: BarChart3 },
-    { id: 'hospital', label: 'WHO Global Surveillance', icon: WhoIcon }
+    { id: 'hospital', label: 'WHO Global Surveillance', icon: WhoIcon },
+    { id: 'scan', label: 'Medical Scan AI', icon: Search }
   ];
 
   return (

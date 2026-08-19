@@ -11,12 +11,13 @@ import ClinicalConditionsPanel from '@/components/orchestrator/ClinicalCondition
 import SwarmIntelligencePanel from '@/components/orchestrator/SwarmIntelligencePanel';
 import VisualAnalyticsPanel from '@/components/orchestrator/VisualAnalyticsPanel';
 import WHODiseaseSurveillancePanel from '@/components/orchestrator/WHODiseaseSurveillancePanel';
+import MedicalScanPanel from '@/components/orchestrator/MedicalScanPanel';
 import ActionHubExportModal from '@/components/orchestrator/ActionHubExportModal';
 
 import { PatientInfo, VitalsData, DetectedCondition } from '@/components/orchestrator/types';
 
 export default function OrchestratorAgentPage() {
-  const [activeTab, setActiveTab] = useState<'overview' | 'swarm' | 'analytics' | 'hospital'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'swarm' | 'analytics' | 'hospital' | 'scan'>('overview');
   const [isExportModalOpen, setIsExportModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -182,6 +183,11 @@ export default function OrchestratorAgentPage() {
             {/* TAB 4: WHO Global Disease & Pathogen Surveillance Dashboard */}
             {activeTab === 'hospital' && (
               <WHODiseaseSurveillancePanel />
+            )}
+
+            {/* TAB 5: Medical Scan AI (YOLOv8) */}
+            {activeTab === 'scan' && (
+              <MedicalScanPanel />
             )}
           </div>
         </div>

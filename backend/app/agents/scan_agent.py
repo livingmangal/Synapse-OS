@@ -299,13 +299,13 @@ def analyze_medical_image(
                 {
                     "label": "Rx Line 1: Amoxicillin 500mg",
                     "confidence": 0.94,
-                    "box": {"x": 12, "y": 28, "width": 76, "height": 14},
+                    "box": {"x": 8, "y": 25, "width": 84, "height": 11},
                     "color": "#06B6D4"
                 },
                 {
                     "label": "Rx Line 2: Paracetamol 650mg",
                     "confidence": 0.92,
-                    "box": {"x": 12, "y": 46, "width": 76, "height": 14},
+                    "box": {"x": 8, "y": 38, "width": 84, "height": 11},
                     "color": "#06B6D4"
                 }
             ],
