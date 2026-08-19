@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 export default function AboutUsPage() {
   return (
     <>
-      <div suppressHydrationWarning dangerouslySetInnerHTML={{ __html: `<main style="opacity: 1 !important" data-id="1035" data-name="About Us" 
+      <div suppressHydrationWarning dangerouslySetInnerHTML={{ __html: `<main data-id="1035" data-name="About Us" 
 	data-recipient="">
 	
 	
@@ -199,6 +199,12 @@ export default function AboutUsPage() {
         <div class="mod-content__col normal_text">
                         <div class="mod-content__wrap-text">
                                  
+                    <ul id="menu-principal-1" class="mod-scroll__intro__menu f-izmir t-parrafo t-upper"><li class="no-show link menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-1060 current_page_item menu-item-1411"><a href="/about-us" aria-current="page">About Us</a></li>
+<li class="link menu-item menu-item-type-post_type menu-item-object-page menu-item-1412"><a href="/projects">Agents</a></li>
+<li class="link menu-item"><a href="/vibrant" data-no-swup="true" style="color: #6366f1;">3D Model</a></li>
+<li class="link menu-item menu-item-type-custom menu-item-object-custom menu-item-1088"><a href="#contacto">Contact</a></li>
+</ul>
+    
                     <div class="mod-content__text normal_text"><p>We encrypt sensitive patient data and store the hashes on the Polygon testnet. This guarantees that medical history cannot be tampered with, giving users an immutable and perfectly private timeline of their interactions with the platform.</p>
  </div>
                             </div>

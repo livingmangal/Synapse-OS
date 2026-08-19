@@ -133,56 +133,6 @@ export function UniversalFooter() {
               one beautiful, live ecosystem beside your original clinical workflow.
             </p>
 
-            <div style={{ marginBottom: '2rem' }}>
-              <a
-                href="/projects"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.65rem',
-                  backgroundColor: '#000',
-                  color: '#fff',
-                  padding: '0.85rem 1.5rem',
-                  borderRadius: '16px',
-                  fontSize: '0.875rem',
-                  fontWeight: 600,
-                  textDecoration: 'none',
-                  boxShadow: '0 4px 14px rgba(0,0,0,0.15)',
-                  transition: 'transform 0.15s ease',
-                }}
-              >
-                <svg width="16" height="16" viewBox="0 0 170 170" fill="currentColor">
-                  <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.7-3.04-7.7-7.79-12.01-14.24-5.64-8.47-10.1-18.43-13.38-29.87-3.28-11.44-4.92-22.38-4.92-32.81 0-14.97 3.82-27.32 11.46-37.04 7.64-9.73 17.15-14.73 28.53-15.01 4.8 0 10.15 1.25 16.06 3.76 5.91 2.51 9.77 3.84 11.58 3.99 1.45-.15 5.48-1.52 12.09-4.11 6.61-2.59 12.05-3.74 16.32-3.46 12.78.69 22.82 5.15 30.12 13.39-11.05 6.72-16.44 15.93-16.18 27.63.26 9.38 3.91 17.27 10.95 23.66 4.3 3.92 9.36 6.77 15.18 8.55-2.28 6.66-4.93 13.07-7.96 19.23zM119.22 33.39c0-6.72 2.45-13.05 7.35-18 4.9-4.95 10.87-7.78 17.91-8.49.12 1.01.18 1.93.18 2.76 0 6.64-2.58 13.06-7.74 18.25-5.16 5.19-11.3 8.09-18.42 8.7-.24-.9-.38-1.72-.38-2.45z" />
-                </svg>
-                <span>Download for macOS</span>
-              </a>
-            </div>
-
-            <div style={{ fontSize: '0.8rem', color: '#6e6760' }}>
-              <p style={{ margin: '0 0 0.35rem 0' }}>© 2026 Sanjeevani OS - All rights reserved</p>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
-                <span>Built with 💙 by</span>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', fontWeight: 600, color: '#111' }}>
-                  <span
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      width: '18px',
-                      height: '18px',
-                      borderRadius: '50%',
-                      background: '#000',
-                      color: '#fff',
-                      fontSize: '9px',
-                      fontWeight: 700,
-                    }}
-                  >
-                    S
-                  </span>
-                  <span>Sanjeevani Team</span>
-                </div>
-              </div>
-            </div>
           </div>
 
           {/* Column 2: Menu */}
@@ -196,24 +146,10 @@ export function UniversalFooter() {
                   Home
                 </a>
               </li>
-              <li>
-                <a href="/projects" style={{ color: '#4a443d', textDecoration: 'none', fontWeight: 500 }}>
-                  Features
-                </a>
-              </li>
+
               <li>
                 <a href="/about-us" style={{ color: '#4a443d', textDecoration: 'none', fontWeight: 500 }}>
                   About Us
-                </a>
-              </li>
-              <li>
-                <a href="/projects" style={{ color: '#4a443d', textDecoration: 'none', fontWeight: 500 }}>
-                  Pricing
-                </a>
-              </li>
-              <li>
-                <a href="/projects" style={{ color: '#4a443d', textDecoration: 'none', fontWeight: 500 }}>
-                  Updates
                 </a>
               </li>
             </ul>
@@ -231,11 +167,6 @@ export function UniversalFooter() {
                 </a>
               </li>
               <li>
-                <a href="/projects" style={{ color: '#4a443d', textDecoration: 'none', fontWeight: 500 }}>
-                  Roadmap
-                </a>
-              </li>
-              <li>
                 <a href="/privacy-policy" style={{ color: '#4a443d', textDecoration: 'none', fontWeight: 500 }}>
                   Privacy policy
                 </a>
@@ -248,11 +179,6 @@ export function UniversalFooter() {
               <li>
                 <a href="/cookie-policy" style={{ color: '#4a443d', textDecoration: 'none', fontWeight: 500 }}>
                   Cookie policy
-                </a>
-              </li>
-              <li>
-                <a href="/orchestrator-agent" style={{ color: '#4a443d', textDecoration: 'none', fontWeight: 500 }}>
-                  Customer portal
                 </a>
               </li>
             </ul>
@@ -282,16 +208,6 @@ export function UniversalFooter() {
               <li>
                 <a href="/vibrant" style={{ color: '#4a443d', textDecoration: 'none', fontWeight: 500 }}>
                   3D Body Explorer
-                </a>
-              </li>
-              <li>
-                <a href="/projects" style={{ color: '#4a443d', textDecoration: 'none', fontWeight: 500 }}>
-                  LiveKit Voice Hub
-                </a>
-              </li>
-              <li>
-                <a href="/projects" style={{ color: '#4a443d', textDecoration: 'none', fontWeight: 500 }}>
-                  FHIR Health Vault
                 </a>
               </li>
             </ul>

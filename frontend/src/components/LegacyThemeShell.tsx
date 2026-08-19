@@ -16,8 +16,6 @@ export default function LegacyThemeShell({ children }: { children: React.ReactNo
     pathname?.includes('/interactive-body');
 
   const isNoLoaderPage = 
-    pathname?.includes('/about-us') ||
-    pathname?.includes('/projects') ||
     pathname?.includes('/legal-notice') ||
     pathname?.includes('/privacy-policy') ||
     pathname?.includes('/cookie-policy');
@@ -122,7 +120,6 @@ export default function LegacyThemeShell({ children }: { children: React.ReactNo
 				</div>
 				<nav class="header__menu__nav-single">
 					<h5 class="header__menu__nav-single__title f-izmir t-titulo t-upper">Agents & Infrastructure</h5>
-					<a href="/projects" data-no-swup="true" class="header__menu__nav-single__link f-edit t-parrafo-l"><span class="link under">View All Agents</span></a>
 					<div class="header__menu__nav-single__proyectos">
 						<div class="header__menu__nav-single__proyectos__item">
 							<a href="/orchestrator-agent" data-no-swup="true">

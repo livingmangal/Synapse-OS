@@ -287,9 +287,7 @@ export function HeroIntroSection() {
           <li className="link menu-item menu-item-type-post_type menu-item-object-page menu-item-1411">
             <a href="/about-us">About Us</a>
           </li>
-          <li className="no-show link menu-item menu-item-type-post_type menu-item-object-page menu-item-1412">
-            <a href="/projects">Agents</a>
-          </li>
+
           <li className="link menu-item">
             <a href="/vibrant" data-no-swup="true" style={{ color: '#6366f1', fontWeight: 600 }}>
               3D Model
