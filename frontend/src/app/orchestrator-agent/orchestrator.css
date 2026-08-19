@@ -1,0 +1,197 @@
+/* Sanjeevani OS — Orchestrator Light & Modern Clinical CSS */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+  --orch-bg: #f8fafc;
+  --orch-surface: #ffffff;
+  --orch-surface-subtle: #f1f5f9;
+  --orch-border: #e2e8f0;
+  --orch-border-subtle: #f1f5f9;
+  --orch-text-primary: #0f172a;
+  --orch-text-secondary: #475569;
+  --orch-text-muted: #94a3b8;
+  --orch-primary: #2563eb;
+  --orch-primary-light: #eff6ff;
+  --orch-primary-border: #bfdbfe;
+  --orch-success: #059669;
+  --orch-success-light: #ecfdf5;
+  --orch-warning: #f59e0b;
+  --orch-warning-light: #fffbeb;
+  --orch-danger: #ef4444;
+  --orch-danger-light: #fef2f2;
+  --orch-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
+  --orch-shadow-md: 0 4px 14px rgba(0, 0, 0, 0.05);
+  --orch-shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.07);
+  --orch-radius-sm: 8px;
+  --orch-radius-md: 14px;
+  --orch-radius-lg: 20px;
+  --orch-radius-xl: 24px;
+}
+
+.orch-root {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+  color: var(--orch-text-primary) !important;
+  background-color: var(--orch-bg) !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  width: 100vw;
+  min-height: 100vh;
+  height: 100vh;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.orch-root * {
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+/* Custom Scrollbars */
+.orch-root ::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.orch-root ::-webkit-scrollbar-track {
+  background: var(--orch-surface-subtle);
+  border-radius: 4px;
+}
+
+.orch-root ::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+.orch-root ::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Hotspot pulse animations */
+@keyframes pulse-hotspot {
+  0% {
+    box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 14px rgba(37, 99, 235, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(37, 99, 235, 0);
+  }
+}
+
+@keyframes pulse-danger {
+  0% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 16px rgba(239, 68, 68, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+  }
+}
+
+@keyframes pulse-warning {
+  0% {
+    box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgba(245, 158, 11, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(245, 158, 11, 0);
+  }
+}
+
+@keyframes ecg-flow {
+  0% {
+    stroke-dashoffset: 600;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.hotspot-pulse-primary {
+  animation: pulse-hotspot 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+.hotspot-pulse-danger {
+  animation: pulse-danger 1.8s infinite cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+.hotspot-pulse-warning {
+  animation: pulse-warning 2.2s infinite cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+.ecg-anim-line {
+  stroke-dasharray: 600;
+  animation: ecg-flow 3s linear infinite;
+}
+
+/* Card hover transitions */
+.orch-card-interactive {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.orch-card-interactive:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.08);
+  border-color: var(--orch-primary-border);
+}
+
+/* Tab Pills */
+.orch-nav-pill {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.orch-nav-pill:hover:not(.active) {
+  background-color: #f1f5f9;
+  color: var(--orch-text-primary);
+}
+
+/* Responsive Grid layouts */
+@media (max-width: 1400px) {
+  .orch-main-grid {
+    flex-wrap: wrap !important;
+    overflow-y: auto !important;
+  }
+  .orch-col-side {
+    width: 320px !important;
+    min-width: 300px !important;
+  }
+  .orch-col-center {
+    min-width: 380px !important;
+    height: 600px !important;
+  }
+}
+
+@media (max-width: 1024px) {
+  .orch-root {
+    flex-direction: column !important;
+    height: auto !important;
+    overflow-y: auto !important;
+  }
+  .orch-sidebar-fixed {
+    width: 100% !important;
+    height: 60px !important;
+    flex-direction: row !important;
+    padding: 0 16px !important;
+    position: relative !important;
+  }
+  .orch-viewport {
+    margin-left: 0 !important;
+    height: auto !important;
+  }
+  .orch-main-grid {
+    flex-direction: column !important;
+    padding: 16px !important;
+  }
+  .orch-col-side,
+  .orch-col-center {
+    width: 100% !important;
+    min-width: 100% !important;
+  }
+}

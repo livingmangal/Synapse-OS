@@ -1,173 +1,223 @@
 'use client';
 
 import React, { useState } from 'react';
-import Link from 'next/link';
+import './orchestrator.css';
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
+import OrchestratorSidebar from '@/components/orchestrator/OrchestratorSidebar';
+import OrchestratorTopNav from '@/components/orchestrator/OrchestratorTopNav';
+import PatientVitalsPanel from '@/components/orchestrator/PatientVitalsPanel';
+import InteractiveBodyTwin from '@/components/orchestrator/InteractiveBodyTwin';
+import ClinicalConditionsPanel from '@/components/orchestrator/ClinicalConditionsPanel';
+import SwarmIntelligencePanel from '@/components/orchestrator/SwarmIntelligencePanel';
+import VisualAnalyticsPanel from '@/components/orchestrator/VisualAnalyticsPanel';
+import HospitalOperationsPanel from '@/components/orchestrator/HospitalOperationsPanel';
+import ActionHubExportModal from '@/components/orchestrator/ActionHubExportModal';
+
+import { PatientInfo, VitalsData, DetectedCondition } from '@/components/orchestrator/types';
 
 export default function OrchestratorAgentPage() {
-  const [query, setQuery] = useState('I have a mild headache and fever, can I take ibuprofen with warfarin?');
-  const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<any>(null);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState<'overview' | 'swarm' | 'analytics' | 'hospital'>('overview');
+  const [isExportModalOpen, setIsExportModalOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const presets = [
-    'I have a mild headache and fever, can I take ibuprofen with warfarin?',
-    'Analyze my chest x-ray scan for pneumonia signs',
-    'Feeling severe stress, insomnia, and panic attacks lately',
-    'What generic alternatives exist for Augmentin and Dolo under PM-JAY?'
-  ];
+  // Patient profile (Matching Healix Reference)
+  const [patient] = useState<PatientInfo>({
+    name: 'Curtis Valk',
+    abhaId: '91-5829-3910-4821',
+    dob: 'March 28, 1997',
+    gender: 'Male',
+    bloodType: 'O+',
+    policyNumber: 'XY-2025-3487',
+    planType: 'PrimeCare Plus (ABDM)',
+    residence: 'San Francisco, CA / New Delhi',
+    avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80'
+  });
 
-  const handleRunOrchestration = async (customQuery?: string) => {
-    const q = customQuery || query;
-    if (!q.trim()) return;
-    setLoading(true);
-    setErrorMessage(null);
+  // Real-time Vitals state
+  const [vitals] = useState<VitalsData>({
+    heartRate: 72,
+    maxHeartRate: 132,
+    avgHeartRate: 115,
+    systolicBp: 120,
+    diastolicBp: 75,
+    oxygenSaturation: 97.2,
+    respirationRate: 16
+  });
 
-    try {
-      const res = await fetch(`${API_BASE}/api/orchestrate`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: q, channel: 'orchestrator_console' })
-      });
-      if (res.ok) {
-        const data = await res.json();
-        setResult(data);
-      } else {
-        setErrorMessage(`Server responded with status: ${res.status}`);
-      }
-    } catch (err) {
-      setErrorMessage(`Unable to connect to backend at ${API_BASE}. Ensure FastAPI server is running.`);
-    } finally {
-      setLoading(false);
+  // Clinical Conditions list
+  const [conditions] = useState<DetectedCondition[]>([
+    {
+      id: 'cond-lungs',
+      title: 'Pulmonary Function & Respiration',
+      doctor: 'Dr. Steven Fandel',
+      specialty: 'Pulmonology',
+      organ: 'lungs',
+      status: 'Stable',
+      notes: 'O2 Saturation: 97.2%, FEVI: 4.8L, Heart Rate: 72 BPM.'
+    },
+    {
+      id: 'cond-shoulder',
+      title: 'Left Shoulder Joint Mobility',
+      doctor: 'Dr. Steven Fandel',
+      specialty: 'Orthopedics',
+      organ: 'shoulder',
+      painLevel: 14,
+      status: 'Monitoring',
+      notes: 'Subacute rotator cuff strain with moderate discomfort.'
+    },
+    {
+      id: 'cond-knee',
+      title: 'Osteoarthritis (Left Knee)',
+      doctor: 'Dr. Vetrick Wilsen',
+      specialty: 'Rheumatology & Orthopedics',
+      organ: 'knee',
+      angleCurrent: 75,
+      angleNormal: 120,
+      status: 'Critical',
+      notes: 'Joint space narrowing. Physiotherapy regimen assigned.'
     }
-  };
+  ]);
+
+  const [selectedCondition, setSelectedCondition] = useState<DetectedCondition | null>(conditions[0]);
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#090d16', color: '#f8fafc', padding: '40px 24px', fontFamily: 'system-ui, sans-serif', position: 'relative', zIndex: 10 }}>
+    <>
+      {/* Suppress conflicting legacy video loader and background overlays */}
       <style>{`
-        #video-splash, #page-loader, .animated-splash-page, .transition, #mouse, header, .grid.wrapper {
+        #video-splash, 
+        #page-loader, 
+        .animated-splash-page, 
+        .transition, 
+        #mouse, 
+        header.header, 
+        .header__menu, 
+        #wrap-modals, 
+        .modal {
           display: none !important;
           visibility: hidden !important;
           opacity: 0 !important;
           pointer-events: none !important;
         }
-        @media (max-width: 850px) {
-          .orchestrator-grid {
-            grid-template-columns: 1fr !important;
-          }
+        body {
+          overflow: hidden !important;
+          background-color: #f8fafc !important;
+        }
+        #smooth-wrapper, #smooth-content {
+          pointer-events: auto !important;
+          transform: none !important;
+          opacity: 1 !important;
+          visibility: visible !important;
+          display: block !important;
         }
       `}</style>
-      
-      <div style={{ maxWidth: '1120px', margin: '0 auto' }}>
-        
-        {/* Header */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '32px', flexWrap: 'wrap', gap: '16px' }}>
-          <div>
-            <Link href="/" style={{ fontSize: '13px', color: '#38bdf8', textDecoration: 'none', display: 'inline-block', marginBottom: '8px' }}>
-              ← Return to Sanjeevani OS
-            </Link>
-            <h1 style={{ fontSize: '28px', fontWeight: 'bold', margin: 0, color: '#f8fafc' }}>
-              Sanjeevani Multi-Agent Swarm Orchestrator
-            </h1>
-            <p style={{ color: '#94a3b8', fontSize: '14px', margin: '4px 0 0 0' }}>
-              LangGraph StateGraph Engine • Deterministic Safety Gate • AI Council Consensus Verification
-            </p>
-          </div>
-          <span style={{ padding: '6px 14px', borderRadius: '20px', background: 'rgba(5, 150, 105, 0.2)', border: '1px solid #059669', color: '#34d399', fontSize: '12px', fontWeight: 'bold' }}>
-            ● Orchestrator Online
-          </span>
+
+      {/* Main Orchestrator Workspace Root */}
+      <div className="orch-root">
+        {/* 1. Left Navigation Sidebar */}
+        <OrchestratorSidebar 
+          onOpenSOS={() => setIsExportModalOpen(true)}
+          activeTab={activeTab}
+          onTabChange={setActiveTab}
+        />
+
+        {/* 2. Main Viewport Container */}
+        <div 
+          className="orch-viewport"
+          style={{
+            flex: 1,
+            marginLeft: '76px',
+            display: 'flex',
+            flexDirection: 'column',
+            height: '100vh',
+            overflow: 'hidden'
+          }}
+        >
+          {/* Top Navigation Bar */}
+          <OrchestratorTopNav
+            activeTab={activeTab}
+            onTabChange={setActiveTab}
+            patient={patient}
+            onOpenExportModal={() => setIsExportModalOpen(true)}
+            searchQuery={searchQuery}
+            onSearchChange={setSearchQuery}
+          />
+
+          {/* Dynamic Main Workspace Area */}
+          <main 
+            style={{
+              flex: 1,
+              overflowY: 'auto',
+              padding: '24px 28px',
+              display: 'flex',
+              flexDirection: 'column'
+            }}
+          >
+            {/* TAB 1: My Condition / 3D Digital Health Twin */}
+            {activeTab === 'overview' && (
+              <div 
+                className="orch-main-grid"
+                style={{
+                  display: 'flex',
+                  gap: '20px',
+                  alignItems: 'flex-start',
+                  width: '100%'
+                }}
+              >
+                {/* Left Column: Patient Profile, Live Vitals & Doctor Booking */}
+                <PatientVitalsPanel
+                  patient={patient}
+                  vitals={vitals}
+                />
+
+                {/* Center Column: 3D Body Digital Health Twin Canvas */}
+                <InteractiveBodyTwin
+                  conditions={conditions}
+                  selectedCondition={selectedCondition}
+                  onSelectCondition={setSelectedCondition}
+                />
+
+                {/* Right Column: Conditions, Diagnostic X-Rays & Telemetry */}
+                <ClinicalConditionsPanel
+                  conditions={conditions}
+                  selectedCondition={selectedCondition}
+                  onSelectCondition={setSelectedCondition}
+                  onOpenExportModal={() => setIsExportModalOpen(true)}
+                  onNavigateToSwarmTab={() => setActiveTab('swarm')}
+                />
+              </div>
+            )}
+
+            {/* TAB 2: Multi-Agent Swarm Intelligence & DAG Execution Console */}
+            {activeTab === 'swarm' && (
+              <SwarmIntelligencePanel
+                patient={patient}
+                onOpenExportModal={() => setIsExportModalOpen(true)}
+              />
+            )}
+
+            {/* TAB 3: Visual Clinical Analytics & Report Generation Hub */}
+            {activeTab === 'analytics' && (
+              <VisualAnalyticsPanel
+                patient={patient}
+                vitals={vitals}
+                onOpenExportModal={() => setIsExportModalOpen(true)}
+              />
+            )}
+
+            {/* TAB 4: Hospital & Swarm Operations Spotlight */}
+            {activeTab === 'hospital' && (
+              <HospitalOperationsPanel />
+            )}
+          </main>
         </div>
 
-        {/* Preset Query Chips */}
-        <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '16px' }}>
-          {presets.map((p, idx) => (
-            <button
-              key={idx}
-              onClick={() => { setQuery(p); handleRunOrchestration(p); }}
-              style={{
-                fontSize: '12px',
-                padding: '6px 12px',
-                borderRadius: '8px',
-                background: '#1f2937',
-                color: '#cbd5e1',
-                border: '1px solid #374151',
-                cursor: 'pointer'
-              }}
-            >
-              💡 {p.length > 50 ? p.slice(0, 50) + '...' : p}
-            </button>
-          ))}
-        </div>
-
-        {/* Input & Execution Bar */}
-        <div style={{ background: '#111827', border: '1px solid #1f2937', borderRadius: '16px', padding: '24px', marginBottom: '24px' }}>
-          <label style={{ display: 'block', fontSize: '13px', color: '#94a3b8', marginBottom: '8px', fontWeight: 'bold' }}>
-            Dispatch Multi-Agent Clinical Query:
-          </label>
-          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-            <input
-              type="text"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && handleRunOrchestration()}
-              style={{ flex: 1, minWidth: '280px', padding: '12px 16px', borderRadius: '8px', background: '#0b0f19', border: '1px solid #374151', color: '#fff', fontSize: '14px' }}
-            />
-            <button
-              onClick={() => handleRunOrchestration()}
-              disabled={loading}
-              style={{ padding: '12px 24px', borderRadius: '8px', background: '#0284c7', color: '#fff', border: 'none', fontWeight: 'bold', cursor: loading ? 'not-allowed' : 'pointer' }}
-            >
-              {loading ? 'Coordinating Swarm...' : '⚡ Execute Swarm'}
-            </button>
-          </div>
-        </div>
-
-        {/* Error Message */}
-        {errorMessage && (
-          <div style={{ backgroundColor: 'rgba(239, 68, 68, 0.15)', border: '1px solid #ef4444', color: '#fca5a5', padding: '12px 16px', borderRadius: '10px', marginBottom: '20px', fontSize: '13px' }}>
-            ⚠️ {errorMessage}
-          </div>
-        )}
-
-        {/* Results & Live Agent Trace */}
-        {result && (
-          <div className="orchestrator-grid" style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '24px' }}>
-            
-            {/* Left Column: Final Response */}
-            <div style={{ background: '#111827', border: '1px solid #1f2937', borderRadius: '16px', padding: '24px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
-                <h3 style={{ margin: 0, fontSize: '16px', color: '#38bdf8' }}>Consolidated Clinical Output</h3>
-                <span style={{ fontSize: '11px', color: '#94a3b8' }}>Session: {result.session_id}</span>
-              </div>
-              <div style={{ background: '#0b0f19', border: '1px solid #1e293b', borderRadius: '12px', padding: '18px', fontSize: '14px', lineHeight: '1.7', whiteSpace: 'pre-wrap', color: '#cbd5e1' }}>
-                {result.final_response}
-              </div>
-            </div>
-
-            {/* Right Column: Agent Execution Trace */}
-            <div style={{ background: '#111827', border: '1px solid #1f2937', borderRadius: '16px', padding: '24px' }}>
-              <h3 style={{ margin: '0 0 16px 0', fontSize: '16px', color: '#10b981' }}>Live Agent DAG Execution Trace</h3>
-              
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                {result.trace?.map((step: any, i: number) => (
-                  <div key={i} style={{ background: '#1e293b', border: '1px solid #334155', borderRadius: '10px', padding: '14px' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
-                      <span style={{ fontWeight: 'bold', color: '#38bdf8', fontSize: '13px' }}>{step.agent_name}</span>
-                      <span style={{ fontSize: '11px', color: '#94a3b8', background: '#0f172a', padding: '2px 8px', borderRadius: '6px' }}>
-                        {step.duration_ms}ms
-                      </span>
-                    </div>
-                    <div style={{ fontSize: '13px', color: '#cbd5e1' }}>{step.action}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-          </div>
-        )}
-
+        {/* 3. Action Hub & Export Modal (PDF + FHIR + SOS) */}
+        <ActionHubExportModal
+          isOpen={isExportModalOpen}
+          onClose={() => setIsExportModalOpen(false)}
+          patient={patient}
+        />
       </div>
-    </div>
+    </>
   );
 }
