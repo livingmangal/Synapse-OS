@@ -1,11 +1,22 @@
 import React from 'react';
-import { ModelChoice, Persona } from '../types';
+import { ModelChoice, Persona, SupportedLanguage, LanguageOption } from '../types';
+
+export const SUPPORTED_LANGUAGES: LanguageOption[] = [
+  { code: 'en', name: 'English', native: 'English', speechCode: 'en-US', flag: '🇬🇧' },
+  { code: 'hi', name: 'Hindi', native: 'हिन्दी', speechCode: 'hi-IN', flag: '🇮🇳' },
+  { code: 'bn', name: 'Bengali', native: 'বাংলা', speechCode: 'bn-IN', flag: '🇮🇳' },
+  { code: 'ta', name: 'Tamil', native: 'தமிழ்', speechCode: 'ta-IN', flag: '🇮🇳' },
+  { code: 'te', name: 'Telugu', native: 'తెలుగు', speechCode: 'te-IN', flag: '🇮🇳' },
+  { code: 'mr', name: 'Marathi', native: 'मराठी', speechCode: 'mr-IN', flag: '🇮🇳' }
+];
 
 interface SettingsDrawerProps {
   assistantPersona: Persona;
   onPersonaChange: (p: Persona) => void;
   selectedModel: ModelChoice;
   setSelectedModel: (m: ModelChoice) => void;
+  selectedLanguage: SupportedLanguage;
+  onLanguageChange: (lang: SupportedLanguage) => void;
   geminiApiKey: string;
   setGeminiApiKey: (key: string) => void;
   showKeyText: boolean;
@@ -25,6 +36,8 @@ export default function SettingsDrawer({
   onPersonaChange,
   selectedModel,
   setSelectedModel,
+  selectedLanguage,
+  onLanguageChange,
   geminiApiKey,
   setGeminiApiKey,
   showKeyText,
@@ -56,7 +69,7 @@ export default function SettingsDrawer({
           </span>
         </div>
         <p style={{ fontSize: '12px', color: '#64748b', lineHeight: 1.5 }}>
-          Configure your Google Gemini API key or Vapi WebRTC credentials below.
+          Configure multilingual language, Google Gemini API, and voice models below.
         </p>
       </div>
 
@@ -69,9 +82,9 @@ export default function SettingsDrawer({
           </label>
           <div style={{ display: 'flex', gap: '6px' }}>
             {[
-              { id: 'copilot', label: '🏥 General Copilot' },
-              { id: 'triage', label: '🩺 Clinical Triage' },
-              { id: 'nutrition', label: '🥗 Nutritionist' }
+              { id: 'copilot', label: '🏥 Copilot' },
+              { id: 'triage', label: '🩺 Triage' },
+              { id: 'nutrition', label: '🥗 Nutrition' }
             ].map(p => (
               <button
                 key={p.id}
@@ -95,10 +108,55 @@ export default function SettingsDrawer({
           </div>
         </div>
 
-        {/* 2. REASONING ENGINE MODEL */}
+        {/* 2. MULTILINGUAL MODEL & LANGUAGE SELECTION */}
+        <div style={{ padding: '12px', borderRadius: '14px', background: '#f8fafc', border: '1px solid #e2e8f0' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+            <label style={{ fontSize: '11px', fontWeight: 700, color: '#334155', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+              2. Multilingual Output & Voice
+            </label>
+            <span style={{ fontSize: '10px', color: '#059669', fontWeight: 700 }}>
+              {SUPPORTED_LANGUAGES.find(l => l.code === selectedLanguage)?.native || 'English'}
+            </span>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6px' }}>
+            {SUPPORTED_LANGUAGES.map(lang => (
+              <button
+                key={lang.code}
+                type="button"
+                onClick={() => onLanguageChange(lang.code)}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  padding: '8px 10px',
+                  borderRadius: '10px',
+                  border: selectedLanguage === lang.code ? '1.5px solid #10b981' : '1px solid #e2e8f0',
+                  background: selectedLanguage === lang.code ? '#ffffff' : 'transparent',
+                  color: selectedLanguage === lang.code ? '#065f46' : '#334155',
+                  cursor: 'pointer',
+                  boxShadow: selectedLanguage === lang.code ? '0 2px 6px rgba(16, 185, 129, 0.15)' : 'none',
+                  transition: 'all 0.15s'
+                }}
+              >
+                <span style={{ fontSize: '14px' }}>{lang.flag}</span>
+                <div style={{ textAlign: 'left' }}>
+                  <div style={{ fontSize: '11.5px', fontWeight: selectedLanguage === lang.code ? 700 : 600, lineHeight: 1.2 }}>
+                    {lang.native}
+                  </div>
+                  <div style={{ fontSize: '9.5px', color: '#64748b' }}>
+                    {lang.name}
+                  </div>
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* 3. REASONING ENGINE MODEL */}
         <div style={{ padding: '12px', borderRadius: '14px', background: '#f8fafc', border: '1px solid #e2e8f0' }}>
           <label style={{ display: 'block', fontSize: '11px', fontWeight: 700, color: '#334155', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' }}>
-            2. Gemini Reasoning Model
+            3. Gemini Reasoning Model
           </label>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
             {[
@@ -135,11 +193,11 @@ export default function SettingsDrawer({
           </div>
         </div>
 
-        {/* 3. GOOGLE GEMINI API KEY SETUP */}
+        {/* 4. GOOGLE GEMINI API KEY SETUP */}
         <div style={{ padding: '12px', borderRadius: '14px', background: '#f8fafc', border: '1px solid #e2e8f0' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
             <label style={{ fontSize: '11px', fontWeight: 700, color: '#334155', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-              3. Google Gemini API Key
+              4. Google Gemini API Key
             </label>
             <span style={{ fontSize: '10.5px', color: geminiApiKey ? '#15803d' : '#d97706', fontWeight: 600 }}>
               {geminiApiKey ? '● Configured' : '○ Not Configured'}
@@ -187,11 +245,11 @@ export default function SettingsDrawer({
           </div>
         </div>
 
-        {/* 4. VAPI VOICE WEBRTC SETUP */}
+        {/* 5. VAPI VOICE WEBRTC SETUP */}
         <div style={{ padding: '12px', borderRadius: '14px', background: '#f8fafc', border: '1px solid #e2e8f0' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
             <label style={{ fontSize: '11px', fontWeight: 700, color: '#334155', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-              4. Vapi Voice Credentials
+              5. Vapi Voice Credentials
             </label>
             <span style={{ fontSize: '10.5px', color: vapiPublicKey && vapiAssistantId ? '#15803d' : '#64748b', fontWeight: 600 }}>
               {vapiPublicKey && vapiAssistantId ? '● Live' : '○ Web Speech'}
@@ -234,10 +292,10 @@ export default function SettingsDrawer({
           </div>
         </div>
 
-        {/* 5. BACKEND URL */}
+        {/* 6. BACKEND URL */}
         <div style={{ padding: '12px', borderRadius: '14px', background: '#f8fafc', border: '1px solid #e2e8f0' }}>
           <label style={{ display: 'block', fontSize: '11px', fontWeight: 700, color: '#334155', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '4px' }}>
-            5. FastAPI Swarm URL
+            6. FastAPI Swarm URL
           </label>
           <input
             type="text"

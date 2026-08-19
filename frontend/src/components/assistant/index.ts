@@ -6,6 +6,7 @@ export { default as PersonaSwitcher } from './components/PersonaSwitcher';
 export { default as OrbWelcome } from './components/OrbWelcome';
 export { default as ChatStream } from './components/ChatStream';
 export { default as ChatInputBar } from './components/ChatInputBar';
+export { default as VoiceModeOverlay } from './components/VoiceModeOverlay';
 export { default as WhatsAppBridgeModal } from './components/WhatsAppBridgeModal';
 export { default as ChatHistoryDrawer } from './components/ChatHistoryDrawer';
 export { default as SettingsDrawer } from './components/SettingsDrawer';

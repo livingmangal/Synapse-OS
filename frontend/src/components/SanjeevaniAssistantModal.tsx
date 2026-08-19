@@ -10,6 +10,7 @@ import {
   OrbWelcome,
   ChatStream,
   ChatInputBar,
+  VoiceModeOverlay,
   WhatsAppBridgeModal,
   ChatHistoryDrawer,
   SettingsDrawer
@@ -25,6 +26,8 @@ export default function SanjeevaniAssistantModal() {
     handlePersonaChange,
     selectedModel,
     setSelectedModel,
+    selectedLanguage,
+    handleLanguageChange,
     geminiApiKey,
     setGeminiApiKey,
     showKeyText,
@@ -65,6 +68,16 @@ export default function SanjeevaniAssistantModal() {
     messagesEndRef,
     inputRef,
     handleCopy,
+    
+    // Voice Mode State & Handlers
+    isVoiceMode,
+    voiceState,
+    liveTranscript,
+    aiSpeechText,
+    isMuted,
+    startVoiceMode,
+    exitVoiceMode,
+    toggleMute,
     toggleVoiceCall,
     handleSend
   } = useAssistantLogic();
@@ -97,8 +110,19 @@ export default function SanjeevaniAssistantModal() {
             onPersonaChange={handlePersonaChange}
           />
 
-          {/* View Tab 1: WhatsApp Multi-Channel Bridge */}
-          {activeTab === 'whatsapp' ? (
+          {/* Live AI Voice Mode Overlay (ChatGPT style central orb & voice dialogue) */}
+          {isVoiceMode ? (
+            <VoiceModeOverlay
+              persona={assistantPersona}
+              voiceState={voiceState}
+              transcript={liveTranscript}
+              aiResponseText={aiSpeechText}
+              isMuted={isMuted}
+              onToggleMute={toggleMute}
+              onExitVoice={exitVoiceMode}
+            />
+          ) : activeTab === 'whatsapp' ? (
+            /* View Tab 1: WhatsApp Multi-Channel Bridge */
             <WhatsAppBridgeModal
               waPhoneNumber={waPhoneNumber}
               setWaPhoneNumber={setWaPhoneNumber}
@@ -131,6 +155,8 @@ export default function SanjeevaniAssistantModal() {
               onPersonaChange={handlePersonaChange}
               selectedModel={selectedModel}
               setSelectedModel={setSelectedModel}
+              selectedLanguage={selectedLanguage}
+              onLanguageChange={handleLanguageChange}
               geminiApiKey={geminiApiKey}
               setGeminiApiKey={setGeminiApiKey}
               showKeyText={showKeyText}
@@ -160,7 +186,7 @@ export default function SanjeevaniAssistantModal() {
                   <OrbWelcome
                     assistantPersona={assistantPersona}
                     onSendChip={handleSend}
-                    onToggleVoice={toggleVoiceCall}
+                    onToggleVoice={startVoiceMode}
                   />
                 ) : (
                   <ChatStream
@@ -184,7 +210,7 @@ export default function SanjeevaniAssistantModal() {
                 assistantPersona={assistantPersona}
                 inputRef={inputRef}
                 onSend={handleSend}
-                onToggleVoice={toggleVoiceCall}
+                onToggleVoice={startVoiceMode}
               />
             </>
           )}
