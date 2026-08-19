@@ -240,79 +240,82 @@ export default function SwarmIntelligencePanel({
       gap: '20px',
       width: '100%',
       maxWidth: '1600px',
-      margin: '0 auto'
+      margin: '0 auto',
+      fontFamily: '"Times New Roman", Times, serif'
     }}>
-      {/* 1. Top Hero Console Banner */}
+      {/* 1 & 2. Merged Top Hero & DAG StateGraph Pipeline View with Background */}
       <div style={{
-        background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 50%, #fdf2f8 100%)',
+        backgroundImage: 'url(/assets/images/who_panel_bg.jpg)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
         borderRadius: '24px',
-        padding: '22px 28px',
-        color: '#0f172a',
+        padding: '24px 28px',
         border: '1px solid #e2e8f0',
         boxShadow: '0 4px 20px rgba(0,0,0,0.03)',
         display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        flexWrap: 'wrap',
-        gap: '16px'
+        flexDirection: 'column',
+        gap: '24px'
       }}>
-        <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '4px' }}>
+        
+        {/* Header Part */}
+        <div style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: '16px'
+        }}>
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '4px' }}>
+              <div style={{
+                width: '36px',
+                height: '36px',
+                borderRadius: '12px',
+                background: 'linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%)',
+                border: '1.5px solid #fbcfe8',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                boxShadow: '0 2px 8px rgba(219, 39, 119,0.15)'
+              }}>
+                <Zap size={18} color="#db2777" />
+              </div>
+              <div>
+                <h2 style={{ fontSize: '18px', fontWeight: 900, margin: 0, color: '#0f172a', letterSpacing: '-0.02em', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+                  Multi-Agent Swarm Intelligence & DAG Consensus Engine
+                </h2>
+              </div>
+            </div>
+            <p style={{ color: '#64748b', fontSize: '12px', margin: 0, fontWeight: 500 }}>
+              Deterministic Safety Gate → Intent Routing → Clinical Triage → RxNav Drug Safety Check → AI Council Consensus
+            </p>
+          </div>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <div style={{
-              width: '36px',
-              height: '36px',
-              borderRadius: '12px',
-              background: 'linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%)',
-              border: '1.5px solid #fbcfe8',
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'center',
-              boxShadow: '0 2px 8px rgba(219, 39, 119,0.15)'
+              gap: '6px',
+              padding: '6px 14px',
+              borderRadius: '9999px',
+              background: '#ecfdf5',
+              border: '1px solid #a7f3d0',
+              color: '#059669',
+              fontSize: '11px',
+              fontWeight: 800,
+              fontFamily: 'system-ui, -apple-system, sans-serif'
             }}>
-              <Zap size={18} color="#db2777" />
-            </div>
-            <div>
-              <h2 style={{ fontSize: '18px', fontWeight: 900, margin: 0, color: '#0f172a', letterSpacing: '-0.02em' }}>
-                Multi-Agent Swarm Intelligence & DAG Consensus Engine
-              </h2>
+              <span style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#059669', display: 'inline-block' }} />
+              <span>Swarm StateGraph Online (5 Sub-Agents)</span>
             </div>
           </div>
-          <p style={{ color: '#64748b', fontSize: '12px', margin: 0, fontWeight: 500 }}>
-            Deterministic Safety Gate → Intent Routing → Clinical Triage → RxNav Drug Safety Check → AI Council Consensus
-          </p>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '6px',
-            padding: '6px 14px',
-            borderRadius: '9999px',
-            background: '#ecfdf5',
-            border: '1px solid #a7f3d0',
-            color: '#059669',
-            fontSize: '11px',
-            fontWeight: 800
-          }}>
-            <span style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#059669', display: 'inline-block' }} />
-            <span>Swarm StateGraph Online (5 Sub-Agents)</span>
-          </div>
-        </div>
-      </div>
-
-      {/* 2. Visual DAG StateGraph Pipeline View */}
-      <div style={{
-        background: '#ffffff',
-        borderRadius: '24px',
-        border: '1px solid #e2e8f0',
-        padding: '20px 24px',
-        boxShadow: '0 4px 16px rgba(0,0,0,0.02)'
-      }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+        {/* Pipeline Title */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '4px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <GitBranch size={16} color="#db2777" />
-            <h3 style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a', margin: 0 }}>
+            <h3 style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a', margin: 0, fontFamily: 'system-ui, -apple-system, sans-serif' }}>
               Orchestrator DAG Execution Pipeline
             </h3>
           </div>
@@ -338,7 +341,8 @@ export default function SwarmIntelligencePanel({
               <div
                 key={node.id}
                 style={{
-                  background: isCompleted ? '#f0fdf4' : isRunning ? '#fdf2f8' : isWarning ? '#fffbeb' : '#f8fafc',
+                  background: isCompleted ? 'rgba(240, 253, 244, 0.85)' : isRunning ? 'rgba(253, 242, 248, 0.85)' : isWarning ? 'rgba(255, 251, 235, 0.85)' : 'rgba(248, 250, 252, 0.85)',
+                  backdropFilter: 'blur(8px)',
                   border: '1.5px solid',
                   borderColor: isCompleted ? '#86efac' : isRunning ? '#f9a8d4' : isWarning ? '#fde68a' : '#e2e8f0',
                   borderRadius: '16px',
@@ -370,14 +374,15 @@ export default function SwarmIntelligencePanel({
                     padding: '2px 6px',
                     borderRadius: '4px',
                     background: isCompleted ? '#dcfce7' : isRunning ? '#fce7f3' : isWarning ? '#fef3c7' : '#e2e8f0',
-                    color: isCompleted ? '#15803d' : isRunning ? '#be185d' : isWarning ? '#b45309' : '#64748b'
+                    color: isCompleted ? '#15803d' : isRunning ? '#be185d' : isWarning ? '#b45309' : '#64748b',
+                    fontFamily: 'system-ui, -apple-system, sans-serif'
                   }}>
                     {isCompleted ? '✓ 200 OK' : isRunning ? '⚡ Running' : isWarning ? '⚠ Alert' : 'Standby'}
                   </span>
                 </div>
 
                 <div>
-                  <div style={{ fontSize: '13px', fontWeight: 800, color: '#0f172a' }}>{node.name}</div>
+                  <div style={{ fontSize: '13px', fontWeight: 800, color: '#0f172a', fontFamily: 'system-ui, -apple-system, sans-serif' }}>{node.name}</div>
                   <div style={{ fontSize: '10px', color: '#64748b', marginTop: '2px' }}>{node.role}</div>
                 </div>
 
@@ -388,7 +393,8 @@ export default function SwarmIntelligencePanel({
                   borderTop: '1px solid rgba(0,0,0,0.06)',
                   paddingTop: '6px',
                   display: 'flex',
-                  justifyContent: 'space-between'
+                  justifyContent: 'space-between',
+                  fontFamily: 'system-ui, -apple-system, sans-serif'
                 }}>
                   <span>Latency:</span>
                   <span>{isCompleted ? `${node.latencyMs} ms` : '--'}</span>

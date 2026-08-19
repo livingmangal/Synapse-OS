@@ -48,7 +48,8 @@ export default function ClinicalConditionsPanel({
         flexDirection: 'column',
         gap: '20px',
         width: '380px',
-        flexShrink: 0
+        flexShrink: 0,
+        fontFamily: '"Times New Roman", Times, serif'
       }}
     >
       {/* 1. Lungs & Pulmonary Function Card */}

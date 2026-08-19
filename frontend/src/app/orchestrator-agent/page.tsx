@@ -84,7 +84,7 @@ export default function OrchestratorAgentPage() {
     <>
 
       {/* Main Orchestrator Workspace Root */}
-      <div className="orch-root">
+      <div className="orch-root" style={{ fontFamily: '"Times New Roman", Times, serif' }}>
         {/* 1. Left Navigation Sidebar */}
         <OrchestratorSidebar 
           onOpenSOS={() => setIsExportModalOpen(true)}

@@ -132,7 +132,8 @@ export default function PatientVitalsPanel({
         flexDirection: 'column',
         gap: '20px',
         width: '340px',
-        flexShrink: 0
+        flexShrink: 0,
+        fontFamily: '"Times New Roman", Times, serif'
       }}
     >
       {/* 1. Patient Profile Card */}

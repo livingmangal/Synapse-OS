@@ -78,10 +78,11 @@ export default function InteractiveBodyTwin({
       className="orch-col-center"
       style={{
         flex: 1,
-        minWidth: '440px',
         display: 'flex',
         flexDirection: 'column',
-        gap: '16px'
+        gap: '20px',
+        height: 'calc(100vh - 130px)',
+        fontFamily: '"Times New Roman", Times, serif'
       }}
     >
       {/* 1. Main 3D Anatomy Digital Twin Canvas Card */}
