@@ -11,7 +11,7 @@ import {
   TrendingUp,
   AlertCircle
 } from 'lucide-react';
-import { HospitalMetrics } from './types';
+import { HospitalMetrics } from '../types';
 
 export default function HospitalOperationsPanel() {
   const metrics: HospitalMetrics = {
@@ -211,7 +211,7 @@ export default function HospitalOperationsPanel() {
               </tr>
             </thead>
             <tbody>
-              {metrics.admittedList.map((p, idx) => (
+              {metrics.admittedList.map((p: any, idx: number) => (
                 <tr key={idx} style={{ borderBottom: '1px solid #f8fafc' }}>
                   <td style={{ padding: '12px', fontWeight: 700, color: '#0f172a' }}>{p.name}</td>
                   <td style={{ padding: '12px', color: '#64748b' }}>{p.id}</td>
@@ -260,7 +260,7 @@ export default function HospitalOperationsPanel() {
 
           <div style={{ height: '140px', position: 'relative' }}>
             <svg viewBox="0 0 320 140" style={{ width: '100%', height: '100%' }}>
-              {metrics.bedOccupancy.categories.map((c, i) => {
+              {metrics.bedOccupancy.categories.map((c: any, i: number) => {
                 const height = (c.count / 859) * 90;
                 const x = 20 + i * 42;
                 const y = 110 - height;

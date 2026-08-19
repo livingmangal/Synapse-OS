@@ -17,7 +17,7 @@ import {
   Activity,
   Zap
 } from 'lucide-react';
-import { DetectedCondition } from './types';
+import { DetectedCondition } from '../types';
 
 interface ClinicalConditionsPanelProps {
   conditions: DetectedCondition[];

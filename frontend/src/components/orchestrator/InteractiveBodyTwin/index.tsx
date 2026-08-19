@@ -15,7 +15,7 @@ import {
   Zap,
   ArrowRight
 } from 'lucide-react';
-import { DetectedCondition } from './types';
+import { DetectedCondition } from '../types';
 
 interface InteractiveBodyTwinProps {
   conditions: DetectedCondition[];

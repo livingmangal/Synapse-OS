@@ -90,7 +90,6 @@ export default function SurveillanceMap({
               fontWeight: mapScope === 'global' ? 800 : 600,
               background: mapScope === 'global' ? '#ec4899' : 'transparent',
               color: mapScope === 'global' ? '#ffffff' : '#64748b',
-              cursor: 'pointer',
               transition: 'all 0.15s ease'
             }}
           >
@@ -106,7 +105,7 @@ export default function SurveillanceMap({
               fontWeight: mapScope === 'india' ? 800 : 600,
               background: mapScope === 'india' ? '#ec4899' : 'transparent',
               color: mapScope === 'india' ? '#ffffff' : '#64748b',
-              cursor: 'pointer',
+
               transition: 'all 0.15s ease'
             }}
           >
@@ -141,21 +140,21 @@ export default function SurveillanceMap({
           <button
             onClick={handleZoomIn}
             title="Zoom In"
-            style={{ width: '32px', height: '32px', borderRadius: '8px', background: '#ffffff', border: '1px solid #cbd5e1', color: '#1e293b', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', boxShadow: '0 2px 6px rgba(0,0,0,0.06)' }}
+            style={{ width: '32px', height: '32px', borderRadius: '8px', background: '#ffffff', border: '1px solid #cbd5e1', color: '#1e293b', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 6px rgba(0,0,0,0.06)' }}
           >
             <Plus size={16} />
           </button>
           <button
             onClick={handleZoomOut}
             title="Zoom Out"
-            style={{ width: '32px', height: '32px', borderRadius: '8px', background: '#ffffff', border: '1px solid #cbd5e1', color: '#1e293b', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', boxShadow: '0 2px 6px rgba(0,0,0,0.06)' }}
+            style={{ width: '32px', height: '32px', borderRadius: '8px', background: '#ffffff', border: '1px solid #cbd5e1', color: '#1e293b', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 6px rgba(0,0,0,0.06)' }}
           >
             <Minus size={16} />
           </button>
           <button
             onClick={handleResetZoom}
             title="Reset Map Orientation"
-            style={{ width: '32px', height: '32px', borderRadius: '8px', background: '#ffffff', border: '1px solid #cbd5e1', color: '#ec4899', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', boxShadow: '0 2px 6px rgba(0,0,0,0.06)' }}
+            style={{ width: '32px', height: '32px', borderRadius: '8px', background: '#ffffff', border: '1px solid #cbd5e1', color: '#ec4899', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 6px rgba(0,0,0,0.06)' }}
           >
             <RotateCcw size={14} />
           </button>
@@ -214,7 +213,7 @@ export default function SurveillanceMap({
                     strokeWidth={0.8}
                     style={{
                       default: { fill: '#e2e8f0', outline: 'none' },
-                      hover: { fill: '#cbd5e1', outline: 'none', cursor: 'pointer' },
+                      hover: { fill: '#cbd5e1', outline: 'none',  },
                       pressed: { fill: '#94a3b8', outline: 'none' }
                     }}
                   />
@@ -235,7 +234,7 @@ export default function SurveillanceMap({
                   onClick={() => onSelectHub(hub.id)}
                   onMouseEnter={() => setHoveredHub(hub)}
                   onMouseLeave={() => setHoveredHub(null)}
-                  style={{ cursor: 'pointer' }}
+                  style={{  }}
                 >
                   {/* Animated Ripple Halo */}
                   <circle
@@ -325,7 +324,7 @@ export default function SurveillanceMap({
             display: 'flex',
             alignItems: 'center',
             gap: '4px',
-            cursor: 'pointer'
+            
           }}
         >
           <Download size={14} />

@@ -203,7 +203,7 @@ export function UniversalFooter() {
               </li>
               <li>
                 <a href="/about-us" style={{ color: '#4a443d', textDecoration: 'none', fontWeight: 500 }}>
-                  FAQ
+                  About Us
                 </a>
               </li>
               <li>
@@ -242,7 +242,12 @@ export function UniversalFooter() {
               </li>
               <li>
                 <a href="/legal-notice" style={{ color: '#4a443d', textDecoration: 'none', fontWeight: 500 }}>
-                  Terms of service
+                  Legal notice
+                </a>
+              </li>
+              <li>
+                <a href="/cookie-policy" style={{ color: '#4a443d', textDecoration: 'none', fontWeight: 500 }}>
+                  Cookie policy
                 </a>
               </li>
               <li>

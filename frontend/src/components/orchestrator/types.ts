@@ -66,7 +66,7 @@ export interface SanjeevaniState {
     council_verdict?: string;
     clinical_rationale?: string;
     safety_audit_passed?: boolean;
-    evidence_grounding?: string[];
+    evidence_grounding?: string[]; agent_votes?: Array<{ agent: string; score: number; status: string }>;
   };
   digital_twin?: {
     overall_health_score: number;

@@ -19,7 +19,7 @@ import {
   TrendingUp,
   Activity
 } from 'lucide-react';
-import { PatientInfo, VitalsData } from './types';
+import { PatientInfo, VitalsData } from '../types';
 
 interface VisualAnalyticsPanelProps {
   patient: PatientInfo;

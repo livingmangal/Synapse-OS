@@ -19,7 +19,7 @@ import {
   FileCode,
   Check
 } from 'lucide-react';
-import { PatientInfo, VitalsData, DoctorSlot } from './types';
+import { PatientInfo, VitalsData, DoctorSlot } from '../types';
 
 interface PatientVitalsPanelProps {
   patient: PatientInfo;
