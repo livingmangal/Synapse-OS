@@ -42,3 +42,8 @@ class SanjeevaniState(BaseModel):
     final_response: str = ""
     suggested_actions: List[str] = Field(default_factory=list)
     timestamp: datetime = Field(default_factory=datetime.utcnow)
+
+    @property
+    def user_message(self) -> str:
+        return self.input_text
+

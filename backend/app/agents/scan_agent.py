@@ -342,7 +342,7 @@ async def scan_agent_node(state: SanjeevaniState) -> SanjeevaniState:
     """LangGraph node execution for Medical Scan, Bone Fracture & Prescription Analysis."""
     start = time.time()
     
-    msg = state.user_message.lower()
+    msg = (state.input_text or "").lower()
     inferred_type = "bone_fracture"
     if "chest" in msg or "lung" in msg or "cough" in msg:
         inferred_type = "chest_xray"
