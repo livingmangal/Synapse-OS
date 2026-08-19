@@ -557,7 +557,7 @@
     
         swup = new Swup({
             containers: ['#smooth-wrapper','#wrap-modals'],
-            linkSelector: 'a[href]:not([href="contacto"]):not([href="disponibilidad"]):not([target="_blank"]):not([href*="vibrant"]):not([data-no-swup])',
+            linkSelector: 'a[href]:not([href="contacto"]):not([href="disponibilidad"]):not([target="_blank"]):not([href*="vibrant"]):not([href*="orchestrator"]):not([href*="symptom-triage"]):not([href*="medical-scan"]):not([href*="records"]):not([data-no-swup])',
             animateHistoryBrowsing: true,
             cache: false
         });
@@ -565,8 +565,19 @@
         swup.hooks.replace('animation:out:await', async (visit) => {
             if(control) console.log('animation:out'); 
 
-            // Bypass logo animation and transition if navigating to the 3D Model Explorer
-            if (visit?.to?.url?.includes('vibrant') || window.location.pathname.includes('vibrant')) {
+            // Bypass logo animation and transition if navigating to agent tools
+            if (
+                visit?.to?.url?.includes('vibrant') || 
+                visit?.to?.url?.includes('orchestrator') ||
+                visit?.to?.url?.includes('symptom-triage') ||
+                visit?.to?.url?.includes('medical-scan') ||
+                visit?.to?.url?.includes('records') ||
+                window.location.pathname.includes('vibrant') ||
+                window.location.pathname.includes('orchestrator') ||
+                window.location.pathname.includes('symptom-triage') ||
+                window.location.pathname.includes('medical-scan') ||
+                window.location.pathname.includes('records')
+            ) {
                 return;
             }
 

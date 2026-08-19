@@ -1,6 +1,38 @@
 /* Sanjeevani OS — Orchestrator Light & Modern Clinical CSS */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
+/* Immediate suppression of legacy splash / transition on orchestrator */
+#video-splash,
+#page-loader,
+.animated-splash-page,
+.transition,
+#mouse,
+header,
+.header,
+.header__menu,
+.logo,
+.logo__normal,
+.logo__group,
+.logo__boring,
+#wrap-modals,
+.modal,
+.grid.wrapper {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  z-index: -99999 !important;
+}
+
+#smooth-wrapper, #smooth-content {
+  position: static !important;
+  transform: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+  pointer-events: auto !important;
+}
+
 :root {
   --orch-bg: #f8fafc;
   --orch-surface: #ffffff;

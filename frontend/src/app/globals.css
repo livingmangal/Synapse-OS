@@ -2,19 +2,46 @@
 html, body {
   margin: 0;
   padding: 0;
-  background-color: #090d16;
-  color: #f8fafc;
+  background-color: #f8fafc;
+  color: #0f172a;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
-/* Prevent template mouse / loader elements from blocking interactions on non-home pages */
-#mouse {
+/* Prevent template mouse / loader elements from blocking interactions */
+#mouse,
+.transition,
+#page-loader,
+#video-splash,
+.animated-splash-page {
   pointer-events: none !important;
 }
 
-/* Ensure global header logo stays at top bar and never covers content */
-header .header__logo {
-  pointer-events: auto;
+/* Hide legacy animation overlays on internal clinical agent applications */
+body:has(.orch-root) #video-splash,
+body:has(.orch-root) #page-loader,
+body:has(.orch-root) .animated-splash-page,
+body:has(.orch-root) .transition,
+body:has(.orch-root) #mouse,
+body:has(.orch-root) header,
+body:has(.orch-root) .header__menu,
+body:has(.orch-root) #wrap-modals,
+body:has(.orch-root) .modal,
+body:has(.orch-root) .grid.wrapper {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  z-index: -99999 !important;
+}
+
+body:has(.orch-root) #smooth-wrapper,
+body:has(.orch-root) #smooth-content {
+  position: static !important;
+  transform: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+  pointer-events: auto !important;
 }

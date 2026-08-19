@@ -1,7 +1,14 @@
 (() => {
   function initHunterSplash() {
-    // If on 3D Model Explorer page, do not activate video splash or loader
-    if (window.location.pathname.includes('/vibrant') || document.getElementById('sanjeevani-3d-frame')) {
+    // If on agent tools or 3D Explorer page, do not activate video splash or loader
+    if (
+      window.location.pathname.includes('/vibrant') || 
+      window.location.pathname.includes('/orchestrator') ||
+      window.location.pathname.includes('/symptom-triage') ||
+      window.location.pathname.includes('/medical-scan') ||
+      window.location.pathname.includes('/records') ||
+      document.getElementById('sanjeevani-3d-frame')
+    ) {
       const splash = document.getElementById('video-splash');
       if (splash) {
         splash.style.display = 'none';
