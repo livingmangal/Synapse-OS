@@ -17,7 +17,6 @@ import {
   Pill, 
   Syringe, 
   History,
-  ShieldCheck,
   Zap,
   Globe
 } from 'lucide-react';
@@ -76,16 +75,21 @@ export default function OrchestratorSidebar({
             width: '46px',
             height: '46px',
             borderRadius: '16px',
-            background: 'linear-gradient(135deg, #db2777 0%, #be185d 100%)',
-            color: '#ffffff',
+            background: '#ffffff',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            boxShadow: '0 6px 18px rgba(219, 39, 119, 0.35)',
+            boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
             cursor: 'pointer',
-            transition: 'transform 0.2s ease'
+            transition: 'transform 0.2s ease',
+            overflow: 'hidden',
+            padding: '4px'
           }}>
-            <ShieldCheck size={26} />
+            <img 
+              src="/AIIMS_New_Delhi.png" 
+              alt="AIIMS New Delhi" 
+              style={{ width: '100%', height: '100%', objectFit: 'contain' }} 
+            />
           </div>
         </Link>
 
