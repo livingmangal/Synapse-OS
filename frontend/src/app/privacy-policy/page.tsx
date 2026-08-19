@@ -14,7 +14,7 @@ export default function PrivacyPolicyPage() {
 	
 	
 
-<section class="mod-content wrapper mod-content--w100 bg-beige c-black pt-l pb-md ">
+<section class="mod-content wrapper mod-content--w100 bg-beige c-black pt-xs pb-md ">
  
     <!-- cols -->
     
