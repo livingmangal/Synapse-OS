@@ -16,8 +16,8 @@ import {
 import { PatientInfo } from './types';
 
 interface TopNavProps {
-  activeTab: 'overview' | 'swarm' | 'analytics' | 'hospital' | 'scan';
-  onTabChange: (tab: 'overview' | 'swarm' | 'analytics' | 'hospital' | 'scan') => void;
+  activeTab: 'overview' | 'swarm' | 'analytics' | 'hospital' | 'scan' | 'records';
+  onTabChange: (tab: 'overview' | 'swarm' | 'analytics' | 'hospital' | 'scan' | 'records') => void;
   patient: PatientInfo;
   onOpenExportModal: () => void;
   searchQuery?: string;
@@ -41,7 +41,8 @@ export default function OrchestratorTopNav({
     { id: 'overview', label: 'My Condition', icon: Layers },
     { id: 'analytics', label: 'Visual Analytics', icon: BarChart3 },
     { id: 'hospital', label: 'WHO Global Surveillance', icon: WhoIcon },
-    { id: 'scan', label: 'Medical Scan AI', icon: Search }
+    { id: 'scan', label: 'Medical Scan AI', icon: Search },
+    { id: 'records', label: 'ABHA & Records', icon: Building2 }
   ];
 
   return (
@@ -58,43 +59,6 @@ export default function OrchestratorTopNav({
       boxShadow: '0 1px 4px rgba(0,0,0,0.02)',
       gap: '20px'
     }}>
-      {/* Brand & Subtitle */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', minWidth: '220px' }}>
-        <div style={{
-          width: '38px',
-          height: '38px',
-          borderRadius: '12px',
-          background: 'linear-gradient(135deg, #fee2e2 0%, #fecaca 100%)',
-          color: '#ef4444',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          boxShadow: '0 2px 8px rgba(239, 68, 68, 0.2)'
-        }}>
-          <HeartPulse size={22} />
-        </div>
-        <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <h1 style={{ fontSize: '17px', fontWeight: 800, color: '#0f172a', margin: 0, letterSpacing: '-0.02em' }}>
-              Health and care
-            </h1>
-            <span style={{
-              fontSize: '10px',
-              fontWeight: 800,
-              padding: '2px 8px',
-              borderRadius: '9999px',
-              background: '#fdf2f8',
-              color: '#db2777',
-              border: '1px solid #fbcfe8'
-            }}>
-              Sanjeevani OS
-            </span>
-          </div>
-          <p style={{ fontSize: '11px', color: '#64748b', margin: 0 }}>
-            Unified Multi-Agent Clinical Diagnostics & 3D Twin
-          </p>
-        </div>
-      </div>
 
       {/* Center Navigation Pills */}
       <div style={{

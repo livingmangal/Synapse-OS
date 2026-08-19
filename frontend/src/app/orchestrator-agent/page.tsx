@@ -12,12 +12,13 @@ import SwarmIntelligencePanel from '@/components/orchestrator/SwarmIntelligenceP
 import VisualAnalyticsPanel from '@/components/orchestrator/VisualAnalyticsPanel';
 import WHODiseaseSurveillancePanel from '@/components/orchestrator/WHODiseaseSurveillancePanel';
 import MedicalScanPanel from '@/components/orchestrator/MedicalScanPanel';
+import BlockchainRecordsPanel from '@/components/orchestrator/BlockchainRecordsPanel';
 import ActionHubExportModal from '@/components/orchestrator/ActionHubExportModal';
 
 import { PatientInfo, VitalsData, DetectedCondition } from '@/components/orchestrator/types';
 
 export default function OrchestratorAgentPage() {
-  const [activeTab, setActiveTab] = useState<'overview' | 'swarm' | 'analytics' | 'hospital' | 'scan'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'swarm' | 'analytics' | 'hospital' | 'scan' | 'records'>('overview');
   const [isExportModalOpen, setIsExportModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -188,6 +189,11 @@ export default function OrchestratorAgentPage() {
             {/* TAB 5: Medical Scan AI (YOLOv8) */}
             {activeTab === 'scan' && (
               <MedicalScanPanel />
+            )}
+
+            {/* TAB 6: Blockchain Health Records */}
+            {activeTab === 'records' && (
+              <BlockchainRecordsPanel />
             )}
           </div>
         </div>
