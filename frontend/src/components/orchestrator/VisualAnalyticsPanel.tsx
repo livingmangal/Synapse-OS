@@ -18,7 +18,11 @@ import {
   Pill,
   ChevronRight,
   TrendingUp,
-  Activity
+  Activity,
+  X,
+  Mic,
+  MessageSquare,
+  Stethoscope
 } from 'lucide-react';
 import { PatientInfo, VitalsData } from './types';
 
@@ -34,13 +38,25 @@ export default function VisualAnalyticsPanel({
   onOpenExportModal
 }: VisualAnalyticsPanelProps) {
   const [chatMessage, setChatMessage] = useState('');
-  const [chatHistory, setChatHistory] = useState<string[]>([]);
 
-  const handleSendMessage = (text?: string) => {
-    const msg = text || chatMessage;
-    if (!msg.trim()) return;
-    setChatHistory(prev => [...prev, msg]);
+  const handleOpenSanjeevaniAI = (promptText?: string) => {
+    const text = promptText || chatMessage || '';
     setChatMessage('');
+    if (typeof window !== 'undefined') {
+      // 1. Dispatch custom open event
+      window.dispatchEvent(new CustomEvent('open-sanjeevani-assistant', {
+        detail: { prompt: text }
+      }));
+      // 2. Direct global handler invocation if registered
+      if (typeof (window as any).openSanjeevaniAssistant === 'function') {
+        (window as any).openSanjeevaniAssistant();
+      }
+      // 3. Trigger DOM button click fallback
+      const triggerBtn = document.querySelector('.sanjeevani-trigger-pill, .sanjeevani-trigger-btn') as HTMLElement;
+      if (triggerBtn) {
+        triggerBtn.click();
+      }
+    }
   };
 
   // 4 rows x 7 cols of wellness heatmap
@@ -131,71 +147,91 @@ export default function VisualAnalyticsPanel({
             {/* Quick Suggestion Chips */}
             <div style={{ display: 'flex', gap: '8px', marginBottom: '12px', flexWrap: 'wrap' }}>
               <button 
-                onClick={() => handleSendMessage('How can I improve my sleep?')}
+                onClick={() => handleOpenSanjeevaniAI('How can I improve my sleep?')}
                 style={{
-                  background: 'rgba(255,255,255,0.9)',
+                  background: 'rgba(255,255,255,0.95)',
                   backdropFilter: 'blur(8px)',
                   border: '1px solid #cbd5e1',
                   borderRadius: '12px',
-                  padding: '6px 12px',
-                  fontSize: '11px',
-                  fontWeight: 600,
+                  padding: '6px 14px',
+                  fontSize: '11.5px',
+                  fontWeight: 700,
                   color: '#1e293b',
                   cursor: 'pointer',
-                  boxShadow: '0 2px 6px rgba(0,0,0,0.02)'
+                  boxShadow: '0 2px 6px rgba(0,0,0,0.03)',
+                  transition: 'all 0.15s ease'
                 }}
+                onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#93c5fd'; e.currentTarget.style.color = '#2563eb'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#cbd5e1'; e.currentTarget.style.color = '#1e293b'; }}
               >
-                How can I improve my sleep?
+                💬 How can I improve my sleep?
               </button>
               <button 
-                onClick={() => handleSendMessage('Analyze my latest ECG telemetry')}
+                onClick={() => handleOpenSanjeevaniAI('Analyze my latest ECG telemetry')}
                 style={{
-                  background: 'rgba(255,255,255,0.9)',
+                  background: 'rgba(255,255,255,0.95)',
                   backdropFilter: 'blur(8px)',
                   border: '1px solid #cbd5e1',
                   borderRadius: '12px',
-                  padding: '6px 12px',
-                  fontSize: '11px',
-                  fontWeight: 600,
+                  padding: '6px 14px',
+                  fontSize: '11.5px',
+                  fontWeight: 700,
                   color: '#1e293b',
                   cursor: 'pointer',
-                  boxShadow: '0 2px 6px rgba(0,0,0,0.02)'
+                  boxShadow: '0 2px 6px rgba(0,0,0,0.03)',
+                  transition: 'all 0.15s ease'
                 }}
+                onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#93c5fd'; e.currentTarget.style.color = '#2563eb'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#cbd5e1'; e.currentTarget.style.color = '#1e293b'; }}
               >
-                Analyze my latest ECG telemetry
+                ⚡ Analyze my latest ECG telemetry
               </button>
             </div>
 
             {/* Input Bar */}
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              background: '#ffffff',
-              borderRadius: '9999px',
-              padding: '6px 8px 6px 16px',
-              border: '1px solid #cbd5e1',
-              boxShadow: '0 4px 14px rgba(0,0,0,0.06)'
-            }}>
+            <div 
+              onClick={() => handleOpenSanjeevaniAI(chatMessage)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                background: '#ffffff',
+                borderRadius: '9999px',
+                padding: '6px 8px 6px 16px',
+                border: '1.5px solid #cbd5e1',
+                boxShadow: '0 4px 16px rgba(0,0,0,0.06)',
+                cursor: 'pointer'
+              }}
+            >
               <input
                 type="text"
                 placeholder="Ask your health coach..."
                 value={chatMessage}
                 onChange={(e) => setChatMessage(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    handleOpenSanjeevaniAI(chatMessage);
+                  }
+                }}
                 style={{
                   flex: 1,
                   border: 'none',
                   outline: 'none',
                   fontSize: '13px',
                   color: '#0f172a',
-                  background: 'transparent'
+                  background: 'transparent',
+                  cursor: 'text'
                 }}
               />
               <button
-                onClick={() => handleSendMessage()}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleOpenSanjeevaniAI(chatMessage);
+                }}
+                title="Open Sanjeevani AI Assistant"
                 style={{
-                  width: '34px',
-                  height: '34px',
+                  width: '36px',
+                  height: '36px',
                   borderRadius: '50%',
                   background: 'linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%)',
                   border: 'none',
@@ -204,8 +240,11 @@ export default function VisualAnalyticsPanel({
                   alignItems: 'center',
                   justifyContent: 'center',
                   cursor: 'pointer',
-                  boxShadow: '0 2px 8px rgba(99,102,241,0.4)'
+                  boxShadow: '0 2px 8px rgba(99,102,241,0.4)',
+                  transition: 'transform 0.15s ease'
                 }}
+                onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+                onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
               >
                 <Sparkles size={16} />
               </button>
