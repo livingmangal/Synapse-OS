@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 export default function LegalNoticePage() {
   return (
     <>
-      <div suppressHydrationWarning dangerouslySetInnerHTML={{ __html: `<main style="opacity: 1 !important" data-id="1384" data-name="Legal Notice" 
+      <div suppressHydrationWarning dangerouslySetInnerHTML={{ __html: `<main style="opacity: 1 !important;" data-id="1384" data-name="Legal Notice" 
 	data-recipient="">
 	
 	

@@ -28,9 +28,6 @@ export default function LegacyThemeShell({ children }: { children: React.ReactNo
     );
   }
 
-  if (isNoLoaderPage) {
-    return <>{children}</>;
-  }
 
   return (
     <>
@@ -84,7 +81,7 @@ export default function LegacyThemeShell({ children }: { children: React.ReactNo
       {/* Global Luxury Header */}
       <div suppressHydrationWarning dangerouslySetInnerHTML={{ __html: `<header>
 		<div class="header wrapper">
-			<div class="header__logo logo c-white" data-url="/">
+			<div class="header__logo logo c-white" style="${isNoLoaderPage ? 'display: none !important;' : ''}" data-url="/">
 				<div class="logo__normal link disabled">Sanjeevani</div>
 				<div class="logo__group">
 					<div class="logo__is">O</div>

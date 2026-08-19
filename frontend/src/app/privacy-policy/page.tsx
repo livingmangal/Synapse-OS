@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 export default function PrivacyPolicyPage() {
   return (
     <>
-      <div suppressHydrationWarning dangerouslySetInnerHTML={{ __html: `<main style="opacity: 1 !important" data-id="1032" data-name="Privacy Policy" 
+      <div suppressHydrationWarning dangerouslySetInnerHTML={{ __html: `<main style="opacity: 1 !important;" data-id="1032" data-name="Privacy Policy" 
 	data-recipient="">
 	
 	

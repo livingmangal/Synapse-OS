@@ -6,7 +6,6 @@ export function UniversalFooter() {
       className="sanjeevani-universal-footer relative w-full overflow-hidden"
       style={{
         backgroundColor: '#EDE7DF',
-        minHeight: '780px',
         fontFamily:
           "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
         position: 'relative',
@@ -69,7 +68,7 @@ export function UniversalFooter() {
           position: 'relative',
           maxWidth: '1320px',
           margin: '0 auto',
-          padding: '4.5rem 2rem 14rem 2rem',
+          padding: '4.5rem 2rem clamp(6rem, 14vw, 15rem) 2rem',
           zIndex: 10,
         }}
       >

@@ -34,10 +34,7 @@ export default function ScriptsLoader() {
       pathname?.includes('/medical-scan-agent') ||
       pathname?.includes('/records') ||
       pathname?.includes('/vibrant') ||
-      pathname?.includes('/interactive-body') ||
-      pathname?.includes('/legal-notice') ||
-      pathname?.includes('/privacy-policy') ||
-      pathname?.includes('/cookie-policy')
+      pathname?.includes('/interactive-body')
     ) {
       return;
     }
