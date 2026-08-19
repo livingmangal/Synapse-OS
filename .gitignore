@@ -15,22 +15,6 @@ build/
 dist/
 coverage/
 
-# Python & ML
-__pycache__/
-*.py[cod]
-*$py.class
-.pytest_cache/
-.coverage
-venv/
-env/
-.venv/
-
-# Large Archives
-*.zip
-*.rar
-*.tar.gz
-*.7z
-
 # Hardhat / Blockchain artifacts & cache
 contracts/artifacts/
 contracts/cache/
@@ -61,4 +45,3 @@ Thumbs.db
 
 # AI & Agent artifacts
 .agents/
-.kilocode/

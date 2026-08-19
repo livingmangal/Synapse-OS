@@ -1,25 +1,20 @@
 import { NavItem } from '@/types';
 
 export const mainNavItems: NavItem[] = [
-  { label: 'Voice Doctor', href: '/voice-doctor' },
-  { label: 'Emergency SOS', href: '/emergency-sos' },
-  { label: 'Sanctuary (Mental)', href: '/sanctuary' },
-  { label: 'Medical Scans', href: '/medical-scan-agent' },
-  { label: 'Symptom Triage', href: '/symptom-triage-agent' },
-  { label: 'FHIR R4 EHR', href: '/fhir-export' },
-  { label: '3D Digital Twin', href: '/vibrant' },
-  { label: 'Health Passport', href: '/records' }
+  { label: 'Agents', href: '/projects' },
+  { label: '3D Model', href: '/vibrant' },
+  { label: 'Platform Vision', href: '/about-us' },
+  { label: 'Core Features', href: '/projects' },
+  { label: 'Contact', href: '#contact' },
 ];
 
 export const projectNavItems: NavItem[] = [
-  { label: 'Voice-to-Voice AI Doctor', href: '/voice-doctor', badge: 'Live' },
-  { label: '1-Click Emergency SOS', href: '/emergency-sos', badge: 'Critical' },
-  { label: 'WHO Tele-MANAS Sanctuary', href: '/sanctuary', badge: 'Live' },
-  { label: 'FractureNet YOLOv8 Vision', href: '/medical-scan-agent', badge: 'Live' },
-  { label: 'Clinical Symptom Triage', href: '/symptom-triage-agent', badge: 'Live' },
-  { label: 'HL7 FHIR R4 EHR Exporter', href: '/fhir-export', badge: 'Standards' },
-  { label: '3D Digital Health Twin', href: '/vibrant', badge: '3D Live' },
-  { label: 'Verifiable ABDM Passport', href: '/records', badge: 'ABHA' },
+  { label: 'Sanjeevani Orchestrator', href: '/projects/orchestrator-agent', badge: 'Active' },
+  { label: 'Medical Scan Agent', href: '/projects/medical-scan-agent', badge: 'Active' },
+  { label: 'Symptom Triage Agent', href: '/projects/symptom-triage-agent', badge: 'Beta' },
+  { label: '3D Body Explorer', href: '/vibrant', badge: '3D Live' },
+  { label: 'Blockchain Records', href: '/projects', badge: 'WIP' },
+  { label: 'Outbreak Predictive', href: '/projects', badge: 'WIP' },
 ];
 
 export const legalNavItems: NavItem[] = [

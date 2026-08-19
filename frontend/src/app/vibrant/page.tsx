@@ -16,8 +16,6 @@ export default function VibrantPage() {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showTelemetry, setShowTelemetry] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [is3DLoading, setIs3DLoading] = useState(true);
-  const [loadingProgress, setLoadingProgress] = useState(25);
 
   // Biometric sliders
   const [age, setAge] = useState(45);
@@ -92,25 +90,8 @@ export default function VibrantPage() {
     document.body.classList.remove('video-splash-active');
     document.documentElement.classList.remove('overflow-hidden');
 
-    // 3D loading progress animation
-    const progressInterval = setInterval(() => {
-      setLoadingProgress(prev => {
-        if (prev >= 90) {
-          clearInterval(progressInterval);
-          return 95;
-        }
-        return prev + 25;
-      });
-    }, 300);
-
-    const loadTimer = setTimeout(() => {
-      setIs3DLoading(false);
-    }, 1800);
-
     return () => {
       document.removeEventListener('fullscreenchange', handleFullscreenChange);
-      clearInterval(progressInterval);
-      clearTimeout(loadTimer);
     };
   }, []);
 
@@ -131,33 +112,6 @@ export default function VibrantPage() {
           opacity: 0 !important;
         }
       `}</style>
-
-      {/* Sleek 3D Loading Overlay */}
-      {is3DLoading && (
-        <div style={{
-          position: 'absolute',
-          inset: 0,
-          backgroundColor: '#090d16',
-          zIndex: 200,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          color: '#ffffff',
-          fontFamily: 'system-ui, sans-serif'
-        }}>
-          <div style={{ fontSize: '36px', marginBottom: '16px', animation: 'bounce 1.5s infinite' }}>🫀</div>
-          <h3 style={{ fontSize: '18px', fontWeight: 700, margin: '0 0 8px 0', color: '#38bdf8' }}>
-            Initializing WebGL 3D Anatomy Engine
-          </h3>
-          <p style={{ fontSize: '13px', color: '#94a3b8', margin: '0 0 24px 0' }}>
-            Decompressing Draco .glb Organ Shaders &amp; Biological Geometry...
-          </p>
-          <div style={{ width: '280px', height: '6px', backgroundColor: '#1e293b', borderRadius: '4px', overflow: 'hidden' }}>
-            <div style={{ width: `${loadingProgress}%`, height: '100%', backgroundColor: '#06b6d4', transition: 'width 0.3s ease' }} />
-          </div>
-        </div>
-      )}
 
       {/* Floating Top Navigation */}
       <nav style={{
@@ -266,7 +220,6 @@ export default function VibrantPage() {
         id="sanjeevani-3d-frame"
         src="/vibrant/index.html?v=4"
         title="Sanjeevani 3D Digital Health Twin"
-        onLoad={() => setIs3DLoading(false)}
         style={{
           width: '100%',
           height: '100%',
