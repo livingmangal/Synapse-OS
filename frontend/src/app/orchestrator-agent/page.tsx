@@ -10,7 +10,7 @@ import InteractiveBodyTwin from '@/components/orchestrator/InteractiveBodyTwin';
 import ClinicalConditionsPanel from '@/components/orchestrator/ClinicalConditionsPanel';
 import SwarmIntelligencePanel from '@/components/orchestrator/SwarmIntelligencePanel';
 import VisualAnalyticsPanel from '@/components/orchestrator/VisualAnalyticsPanel';
-import HospitalOperationsPanel from '@/components/orchestrator/HospitalOperationsPanel';
+import WHODiseaseSurveillancePanel from '@/components/orchestrator/WHODiseaseSurveillancePanel';
 import ActionHubExportModal from '@/components/orchestrator/ActionHubExportModal';
 
 import { PatientInfo, VitalsData, DetectedCondition } from '@/components/orchestrator/types';
@@ -179,9 +179,9 @@ export default function OrchestratorAgentPage() {
               />
             )}
 
-            {/* TAB 4: Hospital & Swarm Operations Spotlight */}
+            {/* TAB 4: WHO Global Disease & Pathogen Surveillance Dashboard */}
             {activeTab === 'hospital' && (
-              <HospitalOperationsPanel />
+              <WHODiseaseSurveillancePanel />
             )}
           </div>
         </div>

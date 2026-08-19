@@ -18,7 +18,8 @@ import {
   Syringe, 
   History,
   ShieldCheck,
-  Zap
+  Zap,
+  Globe
 } from 'lucide-react';
 
 interface OrchestratorSidebarProps {
@@ -39,7 +40,7 @@ export default function OrchestratorSidebar({
     { label: 'Digital Twin & Condition', tab: 'overview', icon: Layers, isTab: true },
     { label: 'Agent Swarm DAG', tab: 'swarm', icon: Zap, isTab: true },
     { label: 'Clinical Analytics Hub', tab: 'analytics', icon: Activity, isTab: true },
-    { label: 'Hospital Swarm Ops', tab: 'hospital', icon: Stethoscope, isTab: true },
+    { label: 'WHO Global Surveillance', tab: 'hospital', icon: Globe, isTab: true },
     { label: 'Medical Scan AI (YOLOv8)', href: '/medical-scan-agent', icon: Scan },
     { label: 'ABHA & On-Chain Records', href: '/records', icon: FileText }
   ];

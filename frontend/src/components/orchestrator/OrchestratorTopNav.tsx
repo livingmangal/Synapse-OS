@@ -10,7 +10,8 @@ import {
   BarChart3, 
   Activity, 
   Building2,
-  Layers
+  Layers,
+  Globe
 } from 'lucide-react';
 import { PatientInfo } from './types';
 
@@ -35,7 +36,7 @@ export default function OrchestratorTopNav({
     { id: 'overview', label: 'My Condition', icon: Layers },
     { id: 'swarm', label: 'Swarm Intelligence', icon: Sparkles },
     { id: 'analytics', label: 'Visual Analytics', icon: BarChart3 },
-    { id: 'hospital', label: 'Hospital Ops', icon: Building2 }
+    { id: 'hospital', label: 'WHO Global Surveillance', icon: Globe }
   ] as const;
 
   return (
