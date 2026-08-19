@@ -37,8 +37,8 @@ export default function OrchestratorTopNav({
   );
 
   const tabs = [
-    { id: 'overview', label: 'My Condition', icon: Layers },
     { id: 'swarm', label: 'Swarm Intelligence', icon: Sparkles },
+    { id: 'overview', label: 'My Condition', icon: Layers },
     { id: 'analytics', label: 'Visual Analytics', icon: BarChart3 },
     { id: 'hospital', label: 'WHO Global Surveillance', icon: WhoIcon }
   ];
