@@ -122,13 +122,13 @@ export default function WHODiseaseSurveillancePanel() {
           riskLevel: 'Moderate',
           trend: '-1.4%',
           trajectory: [
-            { day: 'Mon', date: 'Aug 14', active: 33.1, recovered: 26.2, icu: 65 },
-            { day: 'Tue', date: 'Aug 15', active: 32.9, recovered: 26.3, icu: 64 },
-            { day: 'Wed', date: 'Aug 16', active: 32.8, recovered: 26.5, icu: 63 },
-            { day: 'Thu', date: 'Aug 17', active: 32.6, recovered: 26.6, icu: 63 },
-            { day: 'Fri', date: 'Aug 18', active: 32.5, recovered: 26.8, icu: 62 },
-            { day: 'Sat', date: 'Aug 19', active: 32.4, recovered: 27.0, icu: 62 },
-            { day: 'Sun', date: 'Aug 20', active: 32.3, recovered: 27.1, icu: 61 }
+            { day: 'Mon', date: 'Aug 14', active: 38.4, recovered: 24.1, icu: 52 },
+            { day: 'Tue', date: 'Aug 15', active: 42.6, recovered: 25.4, icu: 58 },
+            { day: 'Wed', date: 'Aug 16', active: 46.8, recovered: 26.8, icu: 66 },
+            { day: 'Thu', date: 'Aug 17', active: 41.2, recovered: 28.5, icu: 64 },
+            { day: 'Fri', date: 'Aug 18', active: 36.5, recovered: 29.8, icu: 62 },
+            { day: 'Sat', date: 'Aug 19', active: 32.4, recovered: 31.2, icu: 62 },
+            { day: 'Sun', date: 'Aug 20', active: 29.1, recovered: 32.6, icu: 59 }
           ]
         },
         {
@@ -256,13 +256,13 @@ export default function WHODiseaseSurveillancePanel() {
           riskLevel: 'Low',
           trend: '-1.8%',
           trajectory: [
-            { day: 'Mon', date: 'Aug 14', active: 5.9, recovered: 4.8, icu: 60 },
-            { day: 'Tue', date: 'Aug 15', active: 5.9, recovered: 4.8, icu: 59 },
-            { day: 'Wed', date: 'Aug 16', active: 5.8, recovered: 4.9, icu: 59 },
-            { day: 'Thu', date: 'Aug 17', active: 5.8, recovered: 4.9, icu: 58 },
-            { day: 'Fri', date: 'Aug 18', active: 5.8, recovered: 5.0, icu: 58 },
+            { day: 'Mon', date: 'Aug 14', active: 7.2, recovered: 3.8, icu: 50 },
+            { day: 'Tue', date: 'Aug 15', active: 8.5, recovered: 4.1, icu: 56 },
+            { day: 'Wed', date: 'Aug 16', active: 9.1, recovered: 4.4, icu: 64 },
+            { day: 'Thu', date: 'Aug 17', active: 7.4, recovered: 4.7, icu: 61 },
+            { day: 'Fri', date: 'Aug 18', active: 6.3, recovered: 4.9, icu: 58 },
             { day: 'Sat', date: 'Aug 19', active: 5.8, recovered: 5.0, icu: 58 },
-            { day: 'Sun', date: 'Aug 20', active: 5.7, recovered: 5.1, icu: 57 }
+            { day: 'Sun', date: 'Aug 20', active: 5.1, recovered: 5.2, icu: 55 }
           ]
         },
         {
@@ -278,13 +278,13 @@ export default function WHODiseaseSurveillancePanel() {
           riskLevel: 'Moderate',
           trend: '+0.2%',
           trajectory: [
-            { day: 'Mon', date: 'Aug 14', active: 8.3, recovered: 6.5, icu: 65 },
-            { day: 'Tue', date: 'Aug 15', active: 8.3, recovered: 6.6, icu: 65 },
-            { day: 'Wed', date: 'Aug 16', active: 8.4, recovered: 6.6, icu: 66 },
-            { day: 'Thu', date: 'Aug 17', active: 8.4, recovered: 6.7, icu: 66 },
-            { day: 'Fri', date: 'Aug 18', active: 8.4, recovered: 6.7, icu: 66 },
+            { day: 'Mon', date: 'Aug 14', active: 6.8, recovered: 5.5, icu: 59 },
+            { day: 'Tue', date: 'Aug 15', active: 7.6, recovered: 5.8, icu: 63 },
+            { day: 'Wed', date: 'Aug 16', active: 9.4, recovered: 6.2, icu: 68 },
+            { day: 'Thu', date: 'Aug 17', active: 9.8, recovered: 6.4, icu: 71 },
+            { day: 'Fri', date: 'Aug 18', active: 8.9, recovered: 6.6, icu: 68 },
             { day: 'Sat', date: 'Aug 19', active: 8.4, recovered: 6.8, icu: 66 },
-            { day: 'Sun', date: 'Aug 20', active: 8.5, recovered: 6.8, icu: 67 }
+            { day: 'Sun', date: 'Aug 20', active: 7.9, recovered: 7.1, icu: 63 }
           ]
         },
         {
@@ -300,13 +300,13 @@ export default function WHODiseaseSurveillancePanel() {
           riskLevel: 'Low',
           trend: '-2.4%',
           trajectory: [
-            { day: 'Mon', date: 'Aug 14', active: 8.1, recovered: 6.7, icu: 54 },
-            { day: 'Tue', date: 'Aug 15', active: 8.0, recovered: 6.8, icu: 53 },
-            { day: 'Wed', date: 'Aug 16', active: 8.0, recovered: 6.8, icu: 53 },
+            { day: 'Mon', date: 'Aug 14', active: 9.6, recovered: 5.8, icu: 62 },
+            { day: 'Tue', date: 'Aug 15', active: 8.9, recovered: 6.2, icu: 59 },
+            { day: 'Wed', date: 'Aug 16', active: 8.4, recovered: 6.5, icu: 56 },
             { day: 'Thu', date: 'Aug 17', active: 7.9, recovered: 6.9, icu: 52 },
-            { day: 'Fri', date: 'Aug 18', active: 7.9, recovered: 6.9, icu: 52 },
-            { day: 'Sat', date: 'Aug 19', active: 7.9, recovered: 7.0, icu: 52 },
-            { day: 'Sun', date: 'Aug 20', active: 7.8, recovered: 7.0, icu: 51 }
+            { day: 'Fri', date: 'Aug 18', active: 7.1, recovered: 7.2, icu: 48 },
+            { day: 'Sat', date: 'Aug 19', active: 6.6, recovered: 7.5, icu: 45 },
+            { day: 'Sun', date: 'Aug 20', active: 6.1, recovered: 7.8, icu: 42 }
           ]
         },
         {
@@ -322,13 +322,13 @@ export default function WHODiseaseSurveillancePanel() {
           riskLevel: 'Moderate',
           trend: '+0.8%',
           trajectory: [
-            { day: 'Mon', date: 'Aug 14', active: 4.5, recovered: 3.4, icu: 67 },
-            { day: 'Tue', date: 'Aug 15', active: 4.5, recovered: 3.5, icu: 68 },
-            { day: 'Wed', date: 'Aug 16', active: 4.6, recovered: 3.5, icu: 68 },
-            { day: 'Thu', date: 'Aug 17', active: 4.6, recovered: 3.6, icu: 69 },
-            { day: 'Fri', date: 'Aug 18', active: 4.6, recovered: 3.6, icu: 69 },
+            { day: 'Mon', date: 'Aug 14', active: 3.6, recovered: 2.8, icu: 58 },
+            { day: 'Tue', date: 'Aug 15', active: 4.1, recovered: 3.1, icu: 63 },
+            { day: 'Wed', date: 'Aug 16', active: 5.2, recovered: 3.3, icu: 72 },
+            { day: 'Thu', date: 'Aug 17', active: 5.6, recovered: 3.5, icu: 75 },
+            { day: 'Fri', date: 'Aug 18', active: 4.9, recovered: 3.6, icu: 71 },
             { day: 'Sat', date: 'Aug 19', active: 4.6, recovered: 3.7, icu: 69 },
-            { day: 'Sun', date: 'Aug 20', active: 4.7, recovered: 3.7, icu: 70 }
+            { day: 'Sun', date: 'Aug 20', active: 4.2, recovered: 3.9, icu: 65 }
           ]
         }
       ]
@@ -922,27 +922,34 @@ export default function WHODiseaseSurveillancePanel() {
     { day: 'Sun', date: 'Aug 20', active: 28, recovered: 28, icu: 57 }
   ];
 
-  // Dynamic SVG Curve Generation
-  const svgWidth = 360;
-  const svgHeight = 140;
-  const paddingX = 30;
-  const paddingY = 20;
+  // Dynamic Full-Width SVG Curve Generation
+  const svgWidth = 600;
+  const svgHeight = 190;
+  const paddingLeft = 24;
+  const paddingRight = 24;
+  const paddingTop = 18;
+  const paddingBottom = 28;
 
   // Calculate points for the selected metric
   const graphValues = trajectory.map(p => 
     activeGraphTab === 'active' ? p.active : activeGraphTab === 'recovery' ? p.recovered : p.icu
   );
-  const minVal = Math.min(...graphValues) * 0.95;
-  const maxVal = Math.max(...graphValues) * 1.05 || 1;
+  const minVal = Math.min(...graphValues);
+  const maxVal = Math.max(...graphValues);
+  const range = (maxVal - minVal) || 1;
+  // Use 15% margin so waves have bold, beautiful crests & troughs
+  const plotMin = minVal - range * 0.15;
+  const plotMax = maxVal + range * 0.15;
+  const plotRange = (plotMax - plotMin) || 1;
 
   const points = trajectory.map((p, idx) => {
     const val = activeGraphTab === 'active' ? p.active : activeGraphTab === 'recovery' ? p.recovered : p.icu;
-    const x = paddingX + (idx / (trajectory.length - 1)) * (svgWidth - 2 * paddingX);
-    const y = svgHeight - paddingY - ((val - minVal) / (maxVal - minVal || 1)) * (svgHeight - 2 * paddingY);
+    const x = paddingLeft + (idx / (trajectory.length - 1)) * (svgWidth - paddingLeft - paddingRight);
+    const y = svgHeight - paddingBottom - ((val - plotMin) / plotRange) * (svgHeight - paddingTop - paddingBottom);
     return { x, y, point: p, val };
   });
 
-  // Construct smooth cubic SVG path
+  // Construct smooth cubic SVG path covering entire left to right
   const pathD = points.reduce((acc, p, idx) => {
     if (idx === 0) return `M ${p.x} ${p.y}`;
     const prev = points[idx - 1];
@@ -953,7 +960,7 @@ export default function WHODiseaseSurveillancePanel() {
     return `${acc} C ${cpX1} ${cpY1}, ${cpX2} ${cpY2}, ${p.x} ${p.y}`;
   }, '');
 
-  const areaD = `${pathD} L ${points[points.length - 1].x} ${svgHeight - paddingY} L ${points[0].x} ${svgHeight - paddingY} Z`;
+  const areaD = `${pathD} L ${points[points.length - 1].x} ${svgHeight - paddingBottom} L ${points[0].x} ${svgHeight - paddingBottom} Z`;
 
   const hoveredPoint = hoveredGraphIndex !== null ? points[hoveredGraphIndex] : points[points.length - 1];
 
@@ -969,7 +976,7 @@ export default function WHODiseaseSurveillancePanel() {
       margin: '0 auto',
       fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
     }}>
-      {/* Unified WHO Header & Disease Selection Container */}
+      {/* 1. Unified WHO Header & Disease Selection Container */}
       <div style={{
         background: '#ffffff',
         borderRadius: '20px',
@@ -1122,12 +1129,12 @@ export default function WHODiseaseSurveillancePanel() {
         </div>
       </div>
 
-      {/* 3. Step 2: Global Disease Intelligence & Interactive Map Viewport */}
+      {/* 2. Step 2: Global Disease Intelligence & Interactive Map Viewport (Matching Height Grid) */}
       <div style={{
         display: 'grid',
         gridTemplateColumns: '1.55fr 1.05fr',
         gap: '24px',
-        alignItems: 'start'
+        alignItems: 'stretch'
       }}>
         {/* Left Side: Interactive TopoJSON Vector Map */}
         <div style={{
@@ -1138,7 +1145,9 @@ export default function WHODiseaseSurveillancePanel() {
           boxShadow: '0 2px 8px rgba(0,0,0,0.02)',
           display: 'flex',
           flexDirection: 'column',
-          gap: '14px'
+          justifyContent: 'space-between',
+          gap: '14px',
+          height: '100%'
         }}>
           {/* Map Scope Selector & Title */}
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
@@ -1194,7 +1203,8 @@ export default function WHODiseaseSurveillancePanel() {
             borderRadius: '16px',
             border: '1px solid #e2e8f0',
             position: 'relative',
-            height: '430px',
+            flex: 1,
+            minHeight: '430px',
             overflow: 'hidden',
             display: 'flex',
             alignItems: 'center',
@@ -1401,241 +1411,286 @@ export default function WHODiseaseSurveillancePanel() {
           </div>
         </div>
 
-        {/* Right Side: Interactive Regional Telemetry & Interactive Graph Canvas */}
+        {/* Right Side: Interactive Regional Telemetry & Edge-to-Edge Graph Canvas */}
         <div style={{
+          background: '#ffffff',
+          borderRadius: '20px',
+          border: '1px solid #e2e8f0',
+          padding: '24px',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.02)',
           display: 'flex',
           flexDirection: 'column',
-          gap: '16px'
+          justifyContent: 'space-between',
+          gap: '16px',
+          height: '100%'
         }}>
-          {/* Selected Regional Hub Inspector Card */}
-          <div style={{
-            background: '#ffffff',
-            borderRadius: '20px',
-            border: '1px solid #e2e8f0',
-            padding: '20px 24px',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.02)'
-          }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
-              <div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                  <MapPin size={14} color="#008dc9" />
-                  <span style={{ fontSize: '10px', fontWeight: 800, color: '#008dc9', textTransform: 'uppercase' }}>
-                    Active Hub Telemetry
-                  </span>
-                </div>
-                <h3 style={{ fontSize: '16px', fontWeight: 900, color: '#0f172a', margin: '4px 0 0 0' }}>
-                  {activeHub?.name || 'Regional Hub'}
-                </h3>
+          {/* Header & Risk Badge */}
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                <MapPin size={14} color="#008dc9" />
+                <span style={{ fontSize: '10px', fontWeight: 800, color: '#008dc9', textTransform: 'uppercase' }}>
+                  Active Hub Telemetry
+                </span>
               </div>
+              <h3 style={{ fontSize: '17px', fontWeight: 900, color: '#0f172a', margin: '4px 0 0 0' }}>
+                {activeHub?.name || 'Regional Hub'}
+              </h3>
+            </div>
 
-              <span style={{
-                fontSize: '10px',
-                fontWeight: 800,
-                padding: '3px 8px',
-                borderRadius: '6px',
-                background: activeHub?.riskLevel === 'High' ? '#fef2f2' : activeHub?.riskLevel === 'Moderate' ? '#fffbeb' : '#ecfdf5',
-                color: activeHub?.riskLevel === 'High' ? '#ef4444' : activeHub?.riskLevel === 'Moderate' ? '#d97706' : '#059669',
-                border: `1px solid ${activeHub?.riskLevel === 'High' ? '#fecaca' : activeHub?.riskLevel === 'Moderate' ? '#fde68a' : '#a7f3d0'}`
-              }}>
-                ● {activeHub?.riskLevel} Risk
+            <span style={{
+              fontSize: '10px',
+              fontWeight: 800,
+              padding: '3px 8px',
+              borderRadius: '6px',
+              background: activeHub?.riskLevel === 'High' ? '#fef2f2' : activeHub?.riskLevel === 'Moderate' ? '#fffbeb' : '#ecfdf5',
+              color: activeHub?.riskLevel === 'High' ? '#ef4444' : activeHub?.riskLevel === 'Moderate' ? '#d97706' : '#059669',
+              border: `1px solid ${activeHub?.riskLevel === 'High' ? '#fecaca' : activeHub?.riskLevel === 'Moderate' ? '#fde68a' : '#a7f3d0'}`
+            }}>
+              ● {activeHub?.riskLevel} Risk
+            </span>
+          </div>
+
+          {/* 4 Metric Badges */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+            <div style={{ background: '#f8fafc', padding: '10px 12px', borderRadius: '10px', border: '1px solid #f1f5f9' }}>
+              <div style={{ fontSize: '10px', fontWeight: 800, color: '#64748b', textTransform: 'uppercase' }}>Active Cases</div>
+              <div style={{ fontSize: '15px', fontWeight: 900, color: '#0f172a', marginTop: '2px' }}>{activeHub?.activeCases}</div>
+              <span style={{ fontSize: '10px', color: '#008dc9', fontWeight: 700 }}>Trend: {activeHub?.trend}</span>
+            </div>
+            <div style={{ background: '#f8fafc', padding: '10px 12px', borderRadius: '10px', border: '1px solid #f1f5f9' }}>
+              <div style={{ fontSize: '10px', fontWeight: 800, color: '#64748b', textTransform: 'uppercase' }}>Recovery Rate</div>
+              <div style={{ fontSize: '15px', fontWeight: 900, color: '#16a34a', marginTop: '2px' }}>{activeHub?.recoveryRate}%</div>
+              <span style={{ fontSize: '10px', color: '#16a34a', fontWeight: 700 }}>Optimal</span>
+            </div>
+            <div style={{ background: '#f8fafc', padding: '10px 12px', borderRadius: '10px', border: '1px solid #f1f5f9' }}>
+              <div style={{ fontSize: '10px', fontWeight: 800, color: '#64748b', textTransform: 'uppercase' }}>Test Positivity</div>
+              <div style={{ fontSize: '15px', fontWeight: 900, color: '#d97706', marginTop: '2px' }}>{activeHub?.testPositivity}%</div>
+              <span style={{ fontSize: '10px', color: '#64748b' }}>Benchmark &lt; 5%</span>
+            </div>
+            <div style={{ background: '#f8fafc', padding: '10px 12px', borderRadius: '10px', border: '1px solid #f1f5f9' }}>
+              <div style={{ fontSize: '10px', fontWeight: 800, color: '#64748b', textTransform: 'uppercase' }}>ICU Bed Reserve</div>
+              <div style={{ fontSize: '15px', fontWeight: 900, color: '#2563eb', marginTop: '2px' }}>{100 - (activeHub?.icuOccupancy || 50)}% Avail</div>
+              <span style={{ fontSize: '10px', color: '#64748b' }}>{activeHub?.icuOccupancy}% in use</span>
+            </div>
+          </div>
+
+          {/* Interactive Graph Controls & Edge-to-Edge SVG Spline */}
+          <div style={{ borderTop: '1px solid #f1f5f9', paddingTop: '14px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+              <span style={{ fontSize: '11px', fontWeight: 800, color: '#0f172a' }}>
+                7-Day Interactive Epidemic Trajectory
+              </span>
+              
+              {/* Metric Switcher Tabs for Graph */}
+              <div style={{ display: 'flex', gap: '4px', background: '#f1f5f9', padding: '2px', borderRadius: '6px' }}>
+                <button
+                  onClick={() => setActiveGraphTab('active')}
+                  style={{
+                    padding: '3px 8px',
+                    borderRadius: '5px',
+                    border: 'none',
+                    fontSize: '10px',
+                    fontWeight: activeGraphTab === 'active' ? 800 : 600,
+                    background: activeGraphTab === 'active' ? '#008dc9' : 'transparent',
+                    color: activeGraphTab === 'active' ? '#ffffff' : '#64748b',
+                    cursor: 'pointer'
+                  }}
+                >
+                  Active
+                </button>
+                <button
+                  onClick={() => setActiveGraphTab('recovery')}
+                  style={{
+                    padding: '3px 8px',
+                    borderRadius: '5px',
+                    border: 'none',
+                    fontSize: '10px',
+                    fontWeight: activeGraphTab === 'recovery' ? 800 : 600,
+                    background: activeGraphTab === 'recovery' ? '#16a34a' : 'transparent',
+                    color: activeGraphTab === 'recovery' ? '#ffffff' : '#64748b',
+                    cursor: 'pointer'
+                  }}
+                >
+                  Recovered
+                </button>
+                <button
+                  onClick={() => setActiveGraphTab('icu')}
+                  style={{
+                    padding: '3px 8px',
+                    borderRadius: '5px',
+                    border: 'none',
+                    fontSize: '10px',
+                    fontWeight: activeGraphTab === 'icu' ? 800 : 600,
+                    background: activeGraphTab === 'icu' ? '#ea580c' : 'transparent',
+                    color: activeGraphTab === 'icu' ? '#ffffff' : '#64748b',
+                    cursor: 'pointer'
+                  }}
+                >
+                  ICU %
+                </button>
+              </div>
+            </div>
+
+            {/* Hover Live Data Readout */}
+            <div style={{
+              background: '#f8fafc',
+              padding: '6px 12px',
+              borderRadius: '8px',
+              border: '1px solid #e2e8f0',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginBottom: '8px',
+              fontSize: '11px'
+            }}>
+              <span style={{ color: '#64748b', fontWeight: 600 }}>
+                📅 {hoveredPoint.point.date} ({hoveredPoint.point.day})
+              </span>
+              <span style={{ fontWeight: 800, color: graphColor }}>
+                {activeGraphTab === 'active' ? `${hoveredPoint.point.active}M Active` : activeGraphTab === 'recovery' ? `${hoveredPoint.point.recovered}M Recovered` : `${hoveredPoint.point.icu}% ICU Load`}
               </span>
             </div>
 
-            {/* 4 Metric Badges */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: '14px' }}>
-              <div style={{ background: '#f8fafc', padding: '10px 12px', borderRadius: '10px', border: '1px solid #f1f5f9' }}>
-                <div style={{ fontSize: '10px', fontWeight: 800, color: '#64748b', textTransform: 'uppercase' }}>Active Cases</div>
-                <div style={{ fontSize: '15px', fontWeight: 900, color: '#0f172a', marginTop: '2px' }}>{activeHub?.activeCases}</div>
-                <span style={{ fontSize: '10px', color: '#008dc9', fontWeight: 700 }}>Trend: {activeHub?.trend}</span>
-              </div>
-              <div style={{ background: '#f8fafc', padding: '10px 12px', borderRadius: '10px', border: '1px solid #f1f5f9' }}>
-                <div style={{ fontSize: '10px', fontWeight: 800, color: '#64748b', textTransform: 'uppercase' }}>Recovery Rate</div>
-                <div style={{ fontSize: '15px', fontWeight: 900, color: '#16a34a', marginTop: '2px' }}>{activeHub?.recoveryRate}%</div>
-                <span style={{ fontSize: '10px', color: '#16a34a', fontWeight: 700 }}>Optimal</span>
-              </div>
-              <div style={{ background: '#f8fafc', padding: '10px 12px', borderRadius: '10px', border: '1px solid #f1f5f9' }}>
-                <div style={{ fontSize: '10px', fontWeight: 800, color: '#64748b', textTransform: 'uppercase' }}>Test Positivity</div>
-                <div style={{ fontSize: '15px', fontWeight: 900, color: '#d97706', marginTop: '2px' }}>{activeHub?.testPositivity}%</div>
-                <span style={{ fontSize: '10px', color: '#64748b' }}>Benchmark &lt; 5%</span>
-              </div>
-              <div style={{ background: '#f8fafc', padding: '10px 12px', borderRadius: '10px', border: '1px solid #f1f5f9' }}>
-                <div style={{ fontSize: '10px', fontWeight: 800, color: '#64748b', textTransform: 'uppercase' }}>ICU Bed Reserve</div>
-                <div style={{ fontSize: '15px', fontWeight: 900, color: '#2563eb', marginTop: '2px' }}>{100 - (activeHub?.icuOccupancy || 50)}% Avail</div>
-                <span style={{ fontSize: '10px', color: '#64748b' }}>{activeHub?.icuOccupancy}% in use</span>
-              </div>
-            </div>
+            {/* Full-Width Enhanced Interactive Clinical Spline Canvas */}
+            <div style={{
+              width: '100%',
+              height: '210px',
+              background: '#ffffff',
+              borderRadius: '12px',
+              border: '1px solid #e2e8f0',
+              position: 'relative',
+              overflow: 'hidden',
+              padding: '8px 0'
+            }}>
+              <svg
+                viewBox={`0 0 ${svgWidth} ${svgHeight}`}
+                preserveAspectRatio="none"
+                style={{ width: '100%', height: '100%', display: 'block' }}
+              >
+                <defs>
+                  <linearGradient id="curveGradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor={graphColor} stopOpacity="0.32" />
+                    <stop offset="60%" stopColor={graphColor} stopOpacity="0.08" />
+                    <stop offset="100%" stopColor={graphColor} stopOpacity="0.0" />
+                  </linearGradient>
+                  <linearGradient id="lineGlow" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stopColor={graphColor} stopOpacity="0.8" />
+                    <stop offset="50%" stopColor={graphColor} stopOpacity="1" />
+                    <stop offset="100%" stopColor={graphColor} stopOpacity="0.85" />
+                  </linearGradient>
+                </defs>
 
-            {/* Interactive Graph Controls & SVG Spline */}
-            <div style={{ borderTop: '1px solid #f1f5f9', paddingTop: '14px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                <span style={{ fontSize: '11px', fontWeight: 800, color: '#0f172a' }}>
-                  7-Day Interactive Epidemic Trajectory
-                </span>
-                
-                {/* Metric Switcher Tabs for Graph */}
-                <div style={{ display: 'flex', gap: '4px', background: '#f1f5f9', padding: '2px', borderRadius: '6px' }}>
-                  <button
-                    onClick={() => setActiveGraphTab('active')}
-                    style={{
-                      padding: '3px 8px',
-                      borderRadius: '5px',
-                      border: 'none',
-                      fontSize: '10px',
-                      fontWeight: activeGraphTab === 'active' ? 800 : 600,
-                      background: activeGraphTab === 'active' ? '#008dc9' : 'transparent',
-                      color: activeGraphTab === 'active' ? '#ffffff' : '#64748b',
-                      cursor: 'pointer'
-                    }}
-                  >
-                    Active
-                  </button>
-                  <button
-                    onClick={() => setActiveGraphTab('recovery')}
-                    style={{
-                      padding: '3px 8px',
-                      borderRadius: '5px',
-                      border: 'none',
-                      fontSize: '10px',
-                      fontWeight: activeGraphTab === 'recovery' ? 800 : 600,
-                      background: activeGraphTab === 'recovery' ? '#16a34a' : 'transparent',
-                      color: activeGraphTab === 'recovery' ? '#ffffff' : '#64748b',
-                      cursor: 'pointer'
-                    }}
-                  >
-                    Recovered
-                  </button>
-                  <button
-                    onClick={() => setActiveGraphTab('icu')}
-                    style={{
-                      padding: '3px 8px',
-                      borderRadius: '5px',
-                      border: 'none',
-                      fontSize: '10px',
-                      fontWeight: activeGraphTab === 'icu' ? 800 : 600,
-                      background: activeGraphTab === 'icu' ? '#ea580c' : 'transparent',
-                      color: activeGraphTab === 'icu' ? '#ffffff' : '#64748b',
-                      cursor: 'pointer'
-                    }}
-                  >
-                    ICU %
-                  </button>
-                </div>
-              </div>
-
-              {/* Hover Live Data Readout */}
-              <div style={{
-                background: '#f8fafc',
-                padding: '6px 12px',
-                borderRadius: '8px',
-                border: '1px solid #e2e8f0',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                marginBottom: '8px',
-                fontSize: '11px'
-              }}>
-                <span style={{ color: '#64748b', fontWeight: 600 }}>
-                  📅 {hoveredPoint.point.date} ({hoveredPoint.point.day})
-                </span>
-                <span style={{ fontWeight: 800, color: graphColor }}>
-                  {activeGraphTab === 'active' ? `${hoveredPoint.point.active}M Active` : activeGraphTab === 'recovery' ? `${hoveredPoint.point.recovered}M Recovered` : `${hoveredPoint.point.icu}% ICU Load`}
-                </span>
-              </div>
-
-              {/* Interactive SVG Spline Canvas */}
-              <div style={{
-                width: '100%',
-                height: `${svgHeight}px`,
-                background: '#ffffff',
-                borderRadius: '10px',
-                border: '1px solid #f1f5f9',
-                position: 'relative'
-              }}>
-                <svg
-                  viewBox={`0 0 ${svgWidth} ${svgHeight}`}
-                  style={{ width: '100%', height: '100%', overflow: 'visible' }}
-                >
-                  <defs>
-                    <linearGradient id="curveGradient" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor={graphColor} stopOpacity="0.25" />
-                      <stop offset="100%" stopColor={graphColor} stopOpacity="0.0" />
-                    </linearGradient>
-                  </defs>
-
-                  {/* Area fill */}
-                  <path d={areaD} fill="url(#curveGradient)" />
-
-                  {/* Spline Path */}
-                  <path
-                    d={pathD}
-                    fill="none"
-                    stroke={graphColor}
-                    strokeWidth="3"
-                    strokeLinecap="round"
-                  />
-
-                  {/* Vertical Guide Line on Hover */}
-                  {hoveredGraphIndex !== null && (
+                {/* Subtle Background Gridlines */}
+                {[0.25, 0.5, 0.75].map((ratio, gIdx) => {
+                  const yPos = paddingTop + ratio * (svgHeight - paddingTop - paddingBottom);
+                  return (
                     <line
-                      x1={hoveredPoint.x}
-                      y1={paddingY}
-                      x2={hoveredPoint.x}
-                      y2={svgHeight - paddingY}
-                      stroke="#94a3b8"
-                      strokeWidth="1.5"
-                      strokeDasharray="3 3"
+                      key={gIdx}
+                      x1={paddingLeft}
+                      y1={yPos}
+                      x2={svgWidth - paddingRight}
+                      y2={yPos}
+                      stroke="#f1f5f9"
+                      strokeWidth="1.2"
+                      strokeDasharray="4 4"
                     />
-                  )}
+                  );
+                })}
 
-                  {/* Interactive Day Points */}
-                  {points.map((p, idx) => {
-                    const isPointHovered = idx === hoveredGraphIndex;
-                    return (
-                      <g
-                        key={idx}
-                        onMouseEnter={() => setHoveredGraphIndex(idx)}
-                        style={{ cursor: 'pointer' }}
+                {/* Area fill spanning full width */}
+                <path d={areaD} fill="url(#curveGradient)" />
+
+                {/* Secondary Baseline Comparison Spline (Dashed Green/Slate) */}
+                <path
+                  d={points.reduce((acc, p, idx) => {
+                    const baselineY = svgHeight - paddingBottom - ((p.point.recovered - (minVal * 0.8)) / ((maxVal * 1.1) - (minVal * 0.8) || 1)) * (svgHeight - paddingTop - paddingBottom);
+                    if (idx === 0) return `M ${p.x} ${baselineY}`;
+                    const prev = points[idx - 1];
+                    const prevBaseY = svgHeight - paddingBottom - ((prev.point.recovered - (minVal * 0.8)) / ((maxVal * 1.1) - (minVal * 0.8) || 1)) * (svgHeight - paddingTop - paddingBottom);
+                    const cpX1 = prev.x + (p.x - prev.x) / 2;
+                    const cpX2 = prev.x + (p.x - prev.x) / 2;
+                    return `${acc} C ${cpX1} ${prevBaseY}, ${cpX2} ${baselineY}, ${p.x} ${baselineY}`;
+                  }, '')}
+                  fill="none"
+                  stroke="#94a3b8"
+                  strokeWidth="1.5"
+                  strokeDasharray="4 4"
+                  opacity="0.6"
+                />
+
+                {/* Primary Spline Path with dynamic curvature */}
+                <path
+                  d={pathD}
+                  fill="none"
+                  stroke="url(#lineGlow)"
+                  strokeWidth="4"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+
+                {/* Vertical Guide Line on Hover */}
+                {hoveredGraphIndex !== null && (
+                  <line
+                    x1={hoveredPoint.x}
+                    y1={paddingTop}
+                    x2={hoveredPoint.x}
+                    y2={svgHeight - paddingBottom}
+                    stroke={graphColor}
+                    strokeWidth="1.5"
+                    strokeDasharray="3 3"
+                    opacity="0.75"
+                  />
+                )}
+
+                {/* Interactive Day Points */}
+                {points.map((p, idx) => {
+                  const isPointHovered = idx === hoveredGraphIndex;
+                  return (
+                    <g
+                      key={idx}
+                      onMouseEnter={() => setHoveredGraphIndex(idx)}
+                      style={{ cursor: 'pointer' }}
+                    >
+                      {/* Invisible larger hit area for easy hover */}
+                      <circle cx={p.x} cy={p.y} r="22" fill="transparent" />
+
+                      {/* Point Outer Pulsing Halo */}
+                      {isPointHovered && (
+                        <circle cx={p.x} cy={p.y} r="14" fill={graphColor} opacity="0.25" />
+                      )}
+
+                      {/* Point Core */}
+                      <circle
+                        cx={p.x}
+                        cy={p.y}
+                        r={isPointHovered ? 7 : 5}
+                        fill={isPointHovered ? '#ffffff' : graphColor}
+                        stroke={graphColor}
+                        strokeWidth={isPointHovered ? 3.5 : 2}
+                      />
+
+                      {/* Day Label */}
+                      <text
+                        x={p.x}
+                        y={svgHeight - 6}
+                        textAnchor="middle"
+                        fontSize="11"
+                        fontWeight={isPointHovered ? "900" : "700"}
+                        fill={isPointHovered ? graphColor : "#64748b"}
                       >
-                        {/* Invisible larger hit area for easy hover */}
-                        <circle cx={p.x} cy={p.y} r="14" fill="transparent" />
-
-                        {/* Point Glow */}
-                        {isPointHovered && (
-                          <circle cx={p.x} cy={p.y} r="8" fill={graphColor} opacity="0.3" />
-                        )}
-
-                        {/* Point Core */}
-                        <circle
-                          cx={p.x}
-                          cy={p.y}
-                          r={isPointHovered ? 5 : 3.5}
-                          fill={isPointHovered ? '#ffffff' : graphColor}
-                          stroke={graphColor}
-                          strokeWidth={isPointHovered ? 2.5 : 1.5}
-                        />
-
-                        {/* Day Label */}
-                        <text
-                          x={p.x}
-                          y={svgHeight - 4}
-                          textAnchor="middle"
-                          fontSize="9"
-                          fontWeight={isPointHovered ? "800" : "600"}
-                          fill={isPointHovered ? graphColor : "#94a3b8"}
-                        >
-                          {p.point.day}
-                        </text>
-                      </g>
-                    );
-                  })}
-                </svg>
-              </div>
+                        {p.point.day}
+                      </text>
+                    </g>
+                  );
+                })}
+              </svg>
             </div>
           </div>
         </div>
       </div>
 
-      {/* 4. Step 3: WHO Official Precautions & Evidence-Based Guidelines Matrix */}
+      {/* 3. Step 3: WHO Official Precautions & Evidence-Based Guidelines Matrix */}
       <div style={{
         background: '#ffffff',
         borderRadius: '20px',
