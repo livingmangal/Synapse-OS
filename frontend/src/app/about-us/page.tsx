@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 export default function AboutUsPage() {
   return (
     <>
-      <div suppressHydrationWarning dangerouslySetInnerHTML={{ __html: `<main data-id="1035" data-name="About Us" 
+      <div suppressHydrationWarning dangerouslySetInnerHTML={{ __html: `<main style="opacity: 1 !important" data-id="1035" data-name="About Us" 
 	data-recipient="">
 	
 	

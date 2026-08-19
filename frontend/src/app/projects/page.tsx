@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 export default function ProjectsPage() {
   return (
     <>
-      <div suppressHydrationWarning dangerouslySetInnerHTML={{ __html: `<main data-id="1062" data-name="Projects" 
+      <div suppressHydrationWarning dangerouslySetInnerHTML={{ __html: `<main style="opacity: 1 !important" data-id="1062" data-name="Projects" 
 	data-recipient="">
 	
 	<section class="mod-scroll">
