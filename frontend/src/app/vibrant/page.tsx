@@ -1,11 +1,38 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
+
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
+
+interface OrganScores {
+  heart: { score: number; status: string; color: string };
+  kidneys: { score: number; status: string; color: string };
+  liver: { score: number; status: string; color: string };
+  pancreas: { score: number; status: string; color: string };
+  lungs: { score: number; status: string; color: string };
+}
 
 export default function VibrantPage() {
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const [showNav, setShowNav] = useState(true);
+  const [showTelemetry, setShowTelemetry] = useState(true);
+  const [loading, setLoading] = useState(false);
+
+  // Biometric sliders
+  const [age, setAge] = useState(45);
+  const [systolicBp, setSystolicBp] = useState(135);
+  const [fastingGlucose, setFastingGlucose] = useState(110);
+  const [hba1c, setHba1c] = useState(6.2);
+  const [smoker, setSmoker] = useState(false);
+
+  // Organ scores
+  const [organScores, setOrganScores] = useState<OrganScores>({
+    heart: { score: 82, status: "Good", color: "#38bdf8" },
+    kidneys: { score: 88, status: "Good", color: "#38bdf8" },
+    liver: { score: 90, status: "Optimal", color: "#10b981" },
+    pancreas: { score: 84, status: "Good", color: "#38bdf8" },
+    lungs: { score: 92, status: "Optimal", color: "#10b981" }
+  });
+  const [simulationData, setSimulationData] = useState<any>(null);
 
   const toggleFullscreen = () => {
     if (!document.fullscreenElement) {
@@ -15,13 +42,42 @@ export default function VibrantPage() {
     }
   };
 
+  const runSimulation = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch(`${API_BASE}/api/digital-twin/simulate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          age,
+          gender: 'male',
+          systolic_bp: systolicBp,
+          fasting_glucose: fastingGlucose,
+          hba1c,
+          smoker
+        })
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setSimulationData(data);
+        if (data.organ_scores) {
+          setOrganScores(data.organ_scores);
+        }
+      }
+    } catch (e) {
+      console.warn('Simulation error:', e);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     const handleFullscreenChange = () => {
       setIsFullscreen(!!document.fullscreenElement);
     };
     document.addEventListener('fullscreenchange', handleFullscreenChange);
 
-    // Immediately dismiss any global loaders/splashes
+    // Suppress global site loaders
     const splash = document.getElementById('video-splash');
     if (splash) {
       splash.style.display = 'none';
@@ -31,213 +87,275 @@ export default function VibrantPage() {
     if (loader) {
       loader.style.display = 'none';
     }
-    const trans = document.querySelector('.transition');
-    if (trans instanceof HTMLElement) {
-      trans.style.display = 'none';
-      trans.style.opacity = '0';
-    }
     document.body.classList.remove('video-splash-active');
     document.documentElement.classList.remove('overflow-hidden');
 
-    return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+    };
   }, []);
 
+  // Debounced auto-recalculation whenever sliders move
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      runSimulation();
+    }, 350);
+    return () => clearTimeout(timer);
+  }, [age, systolicBp, fastingGlucose, hba1c, smoker]);
+
   return (
-    <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, width: '100%', height: '100%', backgroundColor: '#eef2f8', overflow: 'hidden', zIndex: 999999, boxSizing: 'border-box' }}>
-      {/* Suppress all global site splash screens, loaders, transitions, and mouse followers on 3D Model page */}
+    <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, width: '100%', height: '100%', backgroundColor: '#090d16', overflow: 'hidden', zIndex: 999999, boxSizing: 'border-box' }}>
       <style>{`
-        #video-splash,
-        #page-loader,
-        .animated-splash-page,
-        body > div > header,
-        body > header,
-        .header.wrapper,
-        .header__logo,
-        .transition,
-        #mouse {
+        #video-splash, #page-loader, .animated-splash-page, .transition, #mouse {
           display: none !important;
           visibility: hidden !important;
           opacity: 0 !important;
-          pointer-events: none !important;
-        }
-        body, html {
-          cursor: auto !important;
-          overflow: hidden !important;
         }
       `}</style>
 
-      {/* Top Floating Glass Navigation Bar */}
-      <nav
-        id="vibrant-top-nav"
-        style={{
-          position: 'fixed',
-          top: '24px',
-          left: '92px',
-          right: '28px',
-          height: '44px',
-          zIndex: 2147483647,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          pointerEvents: 'none',
-          boxSizing: 'border-box',
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', pointerEvents: 'auto', height: '44px' }}>
-          <Link
+      {/* Floating Top Navigation */}
+      <nav style={{
+        position: 'absolute',
+        top: '20px',
+        left: '24px',
+        right: '24px',
+        zIndex: 100,
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        pointerEvents: 'none'
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', pointerEvents: 'auto' }}>
+          <a
             href="/"
             data-no-swup="true"
-            id="vibrant-back-button"
             style={{
               display: 'inline-flex',
               alignItems: 'center',
-              justifyContent: 'center',
               gap: '8px',
-              height: '44px',
-              padding: '0 20px',
+              height: '42px',
+              padding: '0 18px',
               borderRadius: '9999px',
-              backgroundColor: 'rgba(255, 255, 255, 0.88)',
-              backdropFilter: 'blur(20px)',
-              WebkitBackdropFilter: 'blur(20px)',
-              color: '#0f172a',
-              fontSize: '12px',
-              fontWeight: 700,
-              letterSpacing: '0.04em',
-              textTransform: 'uppercase',
+              backgroundColor: 'rgba(15, 23, 42, 0.85)',
+              backdropFilter: 'blur(16px)',
+              color: '#f8fafc',
+              fontSize: '13px',
+              fontWeight: 600,
               textDecoration: 'none',
-              border: '1.5px solid rgba(255, 255, 255, 0.95)',
-              boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.05)',
-              transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
-              cursor: 'pointer',
-              whiteSpace: 'nowrap',
-              boxSizing: 'border-box',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = '#ffffff';
-              e.currentTarget.style.borderColor = '#ffffff';
-              e.currentTarget.style.transform = 'translateY(-2px) scale(1.02)';
-              e.currentTarget.style.boxShadow = '0 14px 40px rgba(0, 0, 0, 0.16)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.88)';
-              e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.95)';
-              e.currentTarget.style.transform = 'translateY(0) scale(1)';
-              e.currentTarget.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.05)';
+              border: '1px solid rgba(255, 255, 255, 0.15)',
+              boxShadow: '0 8px 30px rgba(0,0,0,0.3)'
             }}
           >
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <line x1="19" y1="12" x2="5" y2="12" />
-              <polyline points="12 19 5 12 12 5" />
-            </svg>
-            <span>Back to Sanjeevani OS</span>
-          </Link>
+            ← Back to Home
+          </a>
+
+          <button
+            onClick={() => setShowTelemetry(!showTelemetry)}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              height: '42px',
+              padding: '0 18px',
+              borderRadius: '9999px',
+              backgroundColor: showTelemetry ? 'rgba(14, 165, 233, 0.25)' : 'rgba(15, 23, 42, 0.85)',
+              backdropFilter: 'blur(16px)',
+              color: showTelemetry ? '#38bdf8' : '#f8fafc',
+              fontSize: '13px',
+              fontWeight: 600,
+              border: '1px solid rgba(56, 189, 248, 0.3)',
+              cursor: 'pointer',
+              boxShadow: '0 8px 30px rgba(0,0,0,0.3)'
+            }}
+          >
+            📊 {showTelemetry ? 'Hide Telemetry' : 'Show Telemetry & Sliders'}
+          </button>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', pointerEvents: 'auto', height: '44px' }}>
-          <Link
-            href="/projects"
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', pointerEvents: 'auto' }}>
+          <a
+            href="/records"
             data-no-swup="true"
             style={{
               display: 'inline-flex',
               alignItems: 'center',
-              justifyContent: 'center',
-              gap: '6px',
-              height: '44px',
-              padding: '0 20px',
+              height: '42px',
+              padding: '0 18px',
               borderRadius: '9999px',
-              backgroundColor: 'rgba(255, 255, 255, 0.88)',
-              backdropFilter: 'blur(20px)',
-              WebkitBackdropFilter: 'blur(20px)',
-              color: '#0f172a',
-              fontSize: '12px',
-              fontWeight: 700,
-              letterSpacing: '0.04em',
-              textTransform: 'uppercase',
+              backgroundColor: 'rgba(15, 23, 42, 0.85)',
+              backdropFilter: 'blur(16px)',
+              color: '#10b981',
+              fontSize: '13px',
+              fontWeight: 600,
               textDecoration: 'none',
-              border: '1.5px solid rgba(255, 255, 255, 0.95)',
-              boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.05)',
-              transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
-              cursor: 'pointer',
-              whiteSpace: 'nowrap',
-              boxSizing: 'border-box',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = '#ffffff';
-              e.currentTarget.style.borderColor = '#ffffff';
-              e.currentTarget.style.transform = 'translateY(-2px) scale(1.02)';
-              e.currentTarget.style.boxShadow = '0 14px 40px rgba(0, 0, 0, 0.16)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.88)';
-              e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.95)';
-              e.currentTarget.style.transform = 'translateY(0) scale(1)';
-              e.currentTarget.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.05)';
+              border: '1px solid rgba(16, 185, 129, 0.3)'
             }}
           >
-            All Agents
-          </Link>
+            ABHA Records →
+          </a>
 
           <button
             onClick={toggleFullscreen}
-            aria-label="Toggle Fullscreen"
             style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: '44px',
-              height: '44px',
+              width: '42px',
+              height: '42px',
               borderRadius: '50%',
-              backgroundColor: 'rgba(255, 255, 255, 0.88)',
-              backdropFilter: 'blur(20px)',
-              WebkitBackdropFilter: 'blur(20px)',
-              color: '#0f172a',
-              border: '1.5px solid rgba(255, 255, 255, 0.95)',
-              boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.05)',
+              backgroundColor: 'rgba(15, 23, 42, 0.85)',
+              backdropFilter: 'blur(16px)',
+              color: '#f8fafc',
+              border: '1px solid rgba(255, 255, 255, 0.15)',
               cursor: 'pointer',
-              transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
-              boxSizing: 'border-box',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = '#ffffff';
-              e.currentTarget.style.borderColor = '#ffffff';
-              e.currentTarget.style.transform = 'translateY(-2px) scale(1.04)';
-              e.currentTarget.style.boxShadow = '0 14px 40px rgba(0, 0, 0, 0.16)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.88)';
-              e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.95)';
-              e.currentTarget.style.transform = 'translateY(0) scale(1)';
-              e.currentTarget.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.05)';
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
             }}
           >
-            {isFullscreen ? (
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3" />
-              </svg>
-            ) : (
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" />
-              </svg>
-            )}
+            {isFullscreen ? '⛶' : '⤢'}
           </button>
         </div>
       </nav>
 
-      {/* Embedded High-Performance 3D Experience */}
+      {/* Interactive 3D Anatomy Canvas */}
       <iframe
         id="sanjeevani-3d-frame"
-        src="/vibrant/index.html"
-        title="Sanjeevani 3D Interactive Body Explorer"
+        src="/vibrant/index.html?v=4"
+        title="Sanjeevani 3D Digital Health Twin"
         style={{
           width: '100%',
           height: '100%',
           border: 'none',
           outline: 'none',
-          display: 'block',
-          backgroundColor: 'transparent',
+          display: 'block'
         }}
         allow="accelerometer; autoplay; camera; encrypted-media; gyroscope; microphone"
       />
+
+      {/* Live Digital Twin Telemetry & Biometric Simulation Panel */}
+      {showTelemetry && (
+        <div style={{
+          position: 'absolute',
+          bottom: '24px',
+          left: '24px',
+          width: '380px',
+          maxHeight: 'calc(100vh - 120px)',
+          overflowY: 'auto',
+          backgroundColor: 'rgba(11, 15, 25, 0.92)',
+          backdropFilter: 'blur(20px)',
+          border: '1px solid rgba(255, 255, 255, 0.12)',
+          borderRadius: '16px',
+          padding: '20px',
+          color: '#f8fafc',
+          boxShadow: '0 20px 50px rgba(0,0,0,0.5)',
+          zIndex: 110
+        }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+            <div>
+              <div style={{ fontSize: '15px', fontWeight: 700, color: '#38bdf8' }}>Digital Twin Telemetry</div>
+              <div style={{ fontSize: '11px', color: '#94a3b8' }}>Live Physiological Simulation</div>
+            </div>
+            <span style={{ fontSize: '11px', background: 'rgba(56, 189, 248, 0.15)', color: '#38bdf8', padding: '3px 8px', borderRadius: '6px', fontWeight: 600 }}>
+              Live
+            </span>
+          </div>
+
+          {/* Organ Vitality Cards */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '6px', marginBottom: '16px' }}>
+            {Object.entries(organScores).map(([organ, data]) => (
+              <div key={organ} style={{
+                background: 'rgba(255,255,255,0.04)',
+                border: `1px solid ${data.color}40`,
+                borderRadius: '8px',
+                padding: '8px 4px',
+                textAlign: 'center'
+              }}>
+                <div style={{ fontSize: '10px', textTransform: 'capitalize', color: '#94a3b8' }}>{organ}</div>
+                <div style={{ fontSize: '14px', fontWeight: 700, color: data.color }}>{data.score}%</div>
+              </div>
+            ))}
+          </div>
+
+          {/* Biometric Sliders */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '16px' }}>
+            <div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', marginBottom: '4px' }}>
+                <span style={{ color: '#94a3b8' }}>Systolic BP</span>
+                <span style={{ color: '#f8fafc', fontWeight: 600 }}>{systolicBp} mmHg</span>
+              </div>
+              <input
+                type="range"
+                min="90"
+                max="190"
+                value={systolicBp}
+                onChange={(e) => setSystolicBp(Number(e.target.value))}
+                style={{ width: '100%', accentColor: '#38bdf8' }}
+              />
+            </div>
+
+            <div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', marginBottom: '4px' }}>
+                <span style={{ color: '#94a3b8' }}>Fasting Glucose</span>
+                <span style={{ color: '#f8fafc', fontWeight: 600 }}>{fastingGlucose} mg/dL</span>
+              </div>
+              <input
+                type="range"
+                min="70"
+                max="220"
+                value={fastingGlucose}
+                onChange={(e) => setFastingGlucose(Number(e.target.value))}
+                style={{ width: '100%', accentColor: '#38bdf8' }}
+              />
+            </div>
+
+            <div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', marginBottom: '4px' }}>
+                <span style={{ color: '#94a3b8' }}>HbA1c</span>
+                <span style={{ color: '#f8fafc', fontWeight: 600 }}>{hba1c}%</span>
+              </div>
+              <input
+                type="range"
+                min="4.5"
+                max="11.0"
+                step="0.1"
+                value={hba1c}
+                onChange={(e) => setHba1c(Number(e.target.value))}
+                style={{ width: '100%', accentColor: '#38bdf8' }}
+              />
+            </div>
+
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '4px' }}>
+              <span style={{ fontSize: '12px', color: '#94a3b8' }}>Tobacco / Smoking</span>
+              <label style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '12px', cursor: 'pointer' }}>
+                <input
+                  type="checkbox"
+                  checked={smoker}
+                  onChange={(e) => setSmoker(e.target.checked)}
+                  style={{ accentColor: '#ef4444' }}
+                />
+                <span style={{ color: smoker ? '#ef4444' : '#94a3b8' }}>{smoker ? 'Active Smoker' : 'Non-Smoker'}</span>
+              </label>
+            </div>
+          </div>
+
+          <button
+            onClick={runSimulation}
+            disabled={loading}
+            style={{
+              width: '100%',
+              padding: '10px',
+              borderRadius: '8px',
+              backgroundColor: '#0284c7',
+              color: '#ffffff',
+              fontSize: '13px',
+              fontWeight: 600,
+              border: 'none',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease'
+            }}
+          >
+            {loading ? 'Re-calculating Trajectory...' : 'Recalculate Organ Vitality'}
+          </button>
+        </div>
+      )}
     </div>
   );
 }

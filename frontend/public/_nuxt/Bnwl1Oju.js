@@ -272,7 +272,7 @@ const yl = ri("/images/svg/nLogoB.svg"),
           s[0] ||
             (s[0] = [
               Oi(
-                '<div class="flex items-center" data-v-259c1204><p class="text-bold-700-13 text-white uppercase" data-v-259c1204 style="font-size: 13px; font-weight: 700; color: #ffffff; letter-spacing: 0.08em; display: flex; align-items: center; gap: 6px;"><span>CREATED BY</span><span style="background: linear-gradient(135deg, #a78bfa, #38bdf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; letter-spacing: 0.1em;">TEAM AC-DC</span></p></div>',
+                '<div class="flex items-center" data-v-259c1204><p class="text-bold-700-13 text-white uppercase" data-v-259c1204 style="font-size: 13px; font-weight: 700; color: #ffffff; letter-spacing: 0.08em; display: flex; align-items: center; gap: 6px;"><span>CREATED BY</span><span style="background: linear-gradient(135deg, #a78bfa, #ffca28); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; letter-spacing: 0.1em;">TEAM AC-DC</span></p></div>',
                 1,
               ),
             ]),
@@ -399,8 +399,8 @@ const yl = ri("/images/svg/nLogoB.svg"),
   Nl = { class: "overflow-hidden mb-8" },
   Ul = { class: "overflow-hidden mb-8" },
   Vl = { class: "overflow-hidden" },
-  Vr = "Personalized",
-  jr = "Wellness",
+  Vr = "3d Model",
+  jr = "overview",
   jl = ve({
     __name: "ChooseBody",
     setup(e) {
@@ -1332,7 +1332,7 @@ var id = `.lil-gui {
   --widget-color: #424242;
   --hover-color: #4f4f4f;
   --focus-color: #595959;
-  --number-color: #2cc9ff;
+  --number-color: #ffd54f;
   --string-color: #a2db3c;
   --font-size: 11px;
   --input-font-size: 11px;
@@ -3785,8 +3785,8 @@ const Gt = (e, t, i = "name") => {
   ae = {
     colorA: "#dbfff6",
     colorMid: "#fbebff",
-    colorB: "#9ec3ff",
-    highlightColor: "#deccff",
+    colorB: "#ffeaa7",
+    highlightColor: "#ffecb3",
     speed: 0.7,
     flowSpeed: 0.35,
     pulseSpeed: 0.8,
@@ -4740,7 +4740,7 @@ const Gt = (e, t, i = "name") => {
       gs(e, { x: 0.9, y: 2.9, z: -0.57 }, i, "Cell", {
         intensity: 0.05,
         distance: 1,
-        color: "#5cceff",
+        color: "#ffca28",
         enableLight: !0,
       }),
       Gt(f, i, "Cell"));
@@ -4974,9 +4974,9 @@ const Gt = (e, t, i = "name") => {
         "/texture/mats/mat17.png",
         "/texture/mats/mat18.png",
         "/texture/mats/mat19.png",
-        "/texture/mats/mat20.png",
+        "/texture/mats/mat21.png",
       ],
-      o = await r.loadAsync("/texture/mats/mat20.png");
+      o = await r.loadAsync("/texture/mats/mat21.png");
     await r.loadAsync("/texture/mats/invert.jpg");
     const l = new Zo({ matcap: o, transparent: !0, opacity: 0.3 });
     (e.add(n),
@@ -4993,7 +4993,7 @@ const Gt = (e, t, i = "name") => {
             ease: "none",
           }));
       }));
-    const d = { matcap: "/texture/mats/mat20.png" },
+    const d = { matcap: "/texture/mats/mat21.png" },
       u = i.addFolder("Background sphere");
     (u.close,
       u
@@ -14032,7 +14032,7 @@ const Qp = {
                     "path",
                     {
                       d: "M-3 -12L13 12L-3 36",
-                      stroke: "#010835",
+                      stroke: "#332a00",
                       "stroke-width": "4",
                     },
                     null,
@@ -14420,7 +14420,7 @@ function mf(e, t) {
       t[0] ||
         (t[0] = [
           Oi(
-            '<path d="M31.9371 56.7738C31.9371 54.0201 30.8434 51.379 28.8965 49.4315C26.9496 47.484 24.3089 46.3895 21.5552 46.3887C21.3859 46.3887 21.2357 46.4302 21.0664 46.4398" stroke="#010835" stroke-width="3" stroke-linecap="round"></path><path d="M30.8607 15.6841C31.9752 15.3083 32.9644 14.6321 33.7193 13.73C34.4741 12.8279 34.9652 11.7349 35.1385 10.5716C35.3118 9.40817 35.1606 8.21951 34.7016 7.13657C34.2425 6.05363 33.4934 5.11843 32.5368 4.43404C31.5801 3.74966 30.4531 3.34264 29.28 3.25784C28.1068 3.17304 26.933 3.41375 25.8879 3.95345C24.8428 4.49315 23.967 5.31089 23.3569 6.31656C22.7469 7.32222 22.4263 8.47678 22.4305 9.653C22.4393 10.2307 22.5263 10.8045 22.6893 11.3588C22.3347 11.3301 21.9929 11.2502 21.6319 11.2502C19.3951 11.2388 17.2002 11.857 15.298 13.034C13.3959 14.2111 11.8633 15.8995 10.8753 17.9064C9.8874 19.9132 9.484 22.1576 9.71124 24.3829C9.93848 26.6081 10.7872 28.7246 12.1604 30.4904C9.74558 30.65 7.48181 31.7218 5.82796 33.4886C4.1741 35.2554 3.25391 37.5849 3.25391 40.005C3.25391 42.4251 4.1741 44.7546 5.82796 46.5214C7.48181 48.2882 9.74558 49.36 12.1604 49.5197C10.7887 51.2852 9.94132 53.4009 9.71494 55.6251C9.48856 57.8493 9.89234 60.0923 10.8802 62.098C11.868 64.1036 13.4 65.791 15.3013 66.9673C17.2025 68.1436 19.3962 68.7614 21.6319 68.7502C21.9929 68.7502 22.3347 68.6768 22.6893 68.6448C22.349 69.8485 22.3696 71.1256 22.7484 72.3178C23.1273 73.5099 23.8478 74.5646 24.8205 75.351C25.7933 76.1375 26.9755 76.621 28.2205 76.7418C29.4656 76.8625 30.7187 76.6151 31.8244 76.0303C32.9301 75.4454 33.8399 74.5488 34.4407 73.4517C35.0416 72.3546 35.3072 71.1053 35.2046 69.8586C35.102 68.6119 34.6357 67.4228 33.8635 66.4387C33.0913 65.4546 32.0472 64.7189 30.8607 64.3227" stroke="#010835" stroke-width="3" stroke-linecap="round"></path><path d="M21.0664 33.566C21.2325 33.566 21.3859 33.6139 21.5552 33.6139C24.3084 33.613 26.9486 32.519 28.8954 30.5721C30.8422 28.6253 31.9363 25.9851 31.9371 23.2319" stroke="#010835" stroke-width="3" stroke-linecap="round"></path><path d="M48.0586 56.7738C48.0586 54.0201 49.1523 51.379 51.0992 49.4315C53.0461 47.484 55.6868 46.3895 58.4405 46.3887C58.6098 46.3887 58.76 46.4302 58.9293 46.4398" stroke="#010835" stroke-width="3" stroke-linecap="round"></path><path d="M49.1389 15.6841C48.0243 15.3083 47.0351 14.6321 46.2803 13.73C45.5255 12.8279 45.0344 11.7349 44.8611 10.5716C44.6877 9.40817 44.8389 8.21951 45.298 7.13657C45.7571 6.05363 46.5062 5.11843 47.4628 4.43404C48.4194 3.74966 49.5464 3.34264 50.7196 3.25784C51.8928 3.17304 53.0666 3.41375 54.1117 3.95345C55.1568 4.49315 56.0326 5.31089 56.6426 6.31656C57.2527 7.32222 57.5733 8.47678 57.5691 9.653C57.5603 10.2307 57.4733 10.8045 57.3103 11.3588C57.6649 11.3269 58.0067 11.2502 58.3677 11.2502C60.6039 11.2393 62.7982 11.8576 64.6998 13.0345C66.6014 14.2114 68.1336 15.8994 69.1214 17.9057C70.1092 19.912 70.5128 22.1557 70.2861 24.3805C70.0594 26.6052 69.2114 28.7214 67.8392 30.4872C70.254 30.6468 72.5178 31.7186 74.1716 33.4854C75.8255 35.2522 76.7457 37.5817 76.7457 40.0018C76.7457 42.4219 75.8255 44.7514 74.1716 46.5182C72.5178 48.285 70.254 49.3569 67.8392 49.5165C69.2118 51.2819 70.06 53.398 70.2869 55.6227C70.5138 57.8474 70.1102 60.0911 69.1222 62.0973C68.1343 64.1035 66.6019 65.7913 64.7001 66.9677C62.7983 68.1442 60.6039 68.7619 58.3677 68.7502C58.0067 68.7502 57.6649 68.6768 57.3103 68.6448C57.6506 69.8485 57.63 71.1256 57.2511 72.3178C56.8723 73.5099 56.1518 74.5646 55.179 75.351C54.2063 76.1375 53.0241 76.621 51.7791 76.7418C50.534 76.8625 49.2809 76.6151 48.1752 76.0303C47.0694 75.4454 46.1597 74.5488 45.5588 73.4517C44.958 72.3546 44.6924 71.1053 44.795 69.8586C44.8976 68.6119 45.3639 67.4228 46.1361 66.4387C46.9083 65.4546 47.9524 64.7189 49.1389 64.3227" stroke="#010835" stroke-width="3" stroke-linecap="round"></path><path d="M58.9293 33.566C58.7632 33.566 58.6098 33.6139 58.4405 33.6139C55.6873 33.613 53.0471 32.519 51.1003 30.5721C49.1535 28.6253 48.0594 25.9851 48.0586 23.2319" stroke="#010835" stroke-width="3" stroke-linecap="round"></path><path d="M35.2031 9.33373C36.66 8.49261 38.3126 8.0498 39.9948 8.0498C41.677 8.0498 43.3296 8.49261 44.7865 9.33373" stroke="#010835" stroke-width="3" stroke-linecap="round"></path><path d="M34.9141 72.2637C36.476 73.1066 38.2231 73.548 39.998 73.548C41.7729 73.548 43.52 73.1066 45.082 72.2637" stroke="#010835" stroke-width="3" stroke-linecap="round"></path><path d="M40 24.0308V57.5724" stroke="#010835" stroke-width="3" stroke-linecap="round"></path>',
+            '<path d="M31.9371 56.7738C31.9371 54.0201 30.8434 51.379 28.8965 49.4315C26.9496 47.484 24.3089 46.3895 21.5552 46.3887C21.3859 46.3887 21.2357 46.4302 21.0664 46.4398" stroke="#332a00" stroke-width="3" stroke-linecap="round"></path><path d="M30.8607 15.6841C31.9752 15.3083 32.9644 14.6321 33.7193 13.73C34.4741 12.8279 34.9652 11.7349 35.1385 10.5716C35.3118 9.40817 35.1606 8.21951 34.7016 7.13657C34.2425 6.05363 33.4934 5.11843 32.5368 4.43404C31.5801 3.74966 30.4531 3.34264 29.28 3.25784C28.1068 3.17304 26.933 3.41375 25.8879 3.95345C24.8428 4.49315 23.967 5.31089 23.3569 6.31656C22.7469 7.32222 22.4263 8.47678 22.4305 9.653C22.4393 10.2307 22.5263 10.8045 22.6893 11.3588C22.3347 11.3301 21.9929 11.2502 21.6319 11.2502C19.3951 11.2388 17.2002 11.857 15.298 13.034C13.3959 14.2111 11.8633 15.8995 10.8753 17.9064C9.8874 19.9132 9.484 22.1576 9.71124 24.3829C9.93848 26.6081 10.7872 28.7246 12.1604 30.4904C9.74558 30.65 7.48181 31.7218 5.82796 33.4886C4.1741 35.2554 3.25391 37.5849 3.25391 40.005C3.25391 42.4251 4.1741 44.7546 5.82796 46.5214C7.48181 48.2882 9.74558 49.36 12.1604 49.5197C10.7887 51.2852 9.94132 53.4009 9.71494 55.6251C9.48856 57.8493 9.89234 60.0923 10.8802 62.098C11.868 64.1036 13.4 65.791 15.3013 66.9673C17.2025 68.1436 19.3962 68.7614 21.6319 68.7502C21.9929 68.7502 22.3347 68.6768 22.6893 68.6448C22.349 69.8485 22.3696 71.1256 22.7484 72.3178C23.1273 73.5099 23.8478 74.5646 24.8205 75.351C25.7933 76.1375 26.9755 76.621 28.2205 76.7418C29.4656 76.8625 30.7187 76.6151 31.8244 76.0303C32.9301 75.4454 33.8399 74.5488 34.4407 73.4517C35.0416 72.3546 35.3072 71.1053 35.2046 69.8586C35.102 68.6119 34.6357 67.4228 33.8635 66.4387C33.0913 65.4546 32.0472 64.7189 30.8607 64.3227" stroke="#332a00" stroke-width="3" stroke-linecap="round"></path><path d="M21.0664 33.566C21.2325 33.566 21.3859 33.6139 21.5552 33.6139C24.3084 33.613 26.9486 32.519 28.8954 30.5721C30.8422 28.6253 31.9363 25.9851 31.9371 23.2319" stroke="#332a00" stroke-width="3" stroke-linecap="round"></path><path d="M48.0586 56.7738C48.0586 54.0201 49.1523 51.379 51.0992 49.4315C53.0461 47.484 55.6868 46.3895 58.4405 46.3887C58.6098 46.3887 58.76 46.4302 58.9293 46.4398" stroke="#332a00" stroke-width="3" stroke-linecap="round"></path><path d="M49.1389 15.6841C48.0243 15.3083 47.0351 14.6321 46.2803 13.73C45.5255 12.8279 45.0344 11.7349 44.8611 10.5716C44.6877 9.40817 44.8389 8.21951 45.298 7.13657C45.7571 6.05363 46.5062 5.11843 47.4628 4.43404C48.4194 3.74966 49.5464 3.34264 50.7196 3.25784C51.8928 3.17304 53.0666 3.41375 54.1117 3.95345C55.1568 4.49315 56.0326 5.31089 56.6426 6.31656C57.2527 7.32222 57.5733 8.47678 57.5691 9.653C57.5603 10.2307 57.4733 10.8045 57.3103 11.3588C57.6649 11.3269 58.0067 11.2502 58.3677 11.2502C60.6039 11.2393 62.7982 11.8576 64.6998 13.0345C66.6014 14.2114 68.1336 15.8994 69.1214 17.9057C70.1092 19.912 70.5128 22.1557 70.2861 24.3805C70.0594 26.6052 69.2114 28.7214 67.8392 30.4872C70.254 30.6468 72.5178 31.7186 74.1716 33.4854C75.8255 35.2522 76.7457 37.5817 76.7457 40.0018C76.7457 42.4219 75.8255 44.7514 74.1716 46.5182C72.5178 48.285 70.254 49.3569 67.8392 49.5165C69.2118 51.2819 70.06 53.398 70.2869 55.6227C70.5138 57.8474 70.1102 60.0911 69.1222 62.0973C68.1343 64.1035 66.6019 65.7913 64.7001 66.9677C62.7983 68.1442 60.6039 68.7619 58.3677 68.7502C58.0067 68.7502 57.6649 68.6768 57.3103 68.6448C57.6506 69.8485 57.63 71.1256 57.2511 72.3178C56.8723 73.5099 56.1518 74.5646 55.179 75.351C54.2063 76.1375 53.0241 76.621 51.7791 76.7418C50.534 76.8625 49.2809 76.6151 48.1752 76.0303C47.0694 75.4454 46.1597 74.5488 45.5588 73.4517C44.958 72.3546 44.6924 71.1053 44.795 69.8586C44.8976 68.6119 45.3639 67.4228 46.1361 66.4387C46.9083 65.4546 47.9524 64.7189 49.1389 64.3227" stroke="#332a00" stroke-width="3" stroke-linecap="round"></path><path d="M58.9293 33.566C58.7632 33.566 58.6098 33.6139 58.4405 33.6139C55.6873 33.613 53.0471 32.519 51.1003 30.5721C49.1535 28.6253 48.0594 25.9851 48.0586 23.2319" stroke="#332a00" stroke-width="3" stroke-linecap="round"></path><path d="M35.2031 9.33373C36.66 8.49261 38.3126 8.0498 39.9948 8.0498C41.677 8.0498 43.3296 8.49261 44.7865 9.33373" stroke="#332a00" stroke-width="3" stroke-linecap="round"></path><path d="M34.9141 72.2637C36.476 73.1066 38.2231 73.548 39.998 73.548C41.7729 73.548 43.52 73.1066 45.082 72.2637" stroke="#332a00" stroke-width="3" stroke-linecap="round"></path><path d="M40 24.0308V57.5724" stroke="#332a00" stroke-width="3" stroke-linecap="round"></path>',
             9,
           ),
         ]),
@@ -14451,7 +14451,7 @@ function Ff(e, t) {
             "path",
             {
               d: "M9.08807 0.3129C6.76605 0.3129 4.43265 1.19956 2.65709 2.975C-0.876258 6.50847 -0.889535 12.2154 2.60944 15.7701V15.7799L14.5457 27.7068C14.7973 27.9542 15.2007 27.9542 15.4522 27.7068L27.3886 15.7799C27.3886 15.7767 27.3886 15.7735 27.3886 15.7701C30.8876 12.2154 30.8743 6.50847 27.3409 2.975C25.5867 1.22089 23.2896 0.33317 20.9958 0.3129C18.8339 0.293934 16.7364 0.948022 15.0038 2.46861C13.2928 0.963313 11.2262 0.3129 9.08807 0.3129ZM9.08807 1.60104C11.0598 1.60104 13.0214 2.35233 14.5459 3.85289C14.7974 4.10027 15.2008 4.10027 15.4523 3.85289C16.9947 2.33466 18.9906 1.5835 20.9863 1.60104C22.9539 1.6187 24.9132 2.37923 26.425 3.89105C29.4702 6.93615 29.4783 11.8005 26.4632 14.8637L15.0038 26.3326L3.53497 14.8637C0.519868 11.8005 0.52793 6.93615 3.57314 3.89105C5.1031 2.36098 7.09618 1.60104 9.08807 1.60104Z",
-              fill: "#010835",
+              fill: "#332a00",
             },
             null,
             -1,
@@ -14509,7 +14509,7 @@ function Sf(e, t) {
       t[0] ||
         (t[0] = [
           Oi(
-            '<mask id="mask0_2752_30028" style="mask-type:luminance;" maskUnits="userSpaceOnUse" x="1" y="0" width="29" height="29"><path d="M29.0625 0.75H1.5V28.3125H29.0625V0.75Z" fill="white"></path></mask><g mask="url(#mask0_2752_30028)"><path d="M10.0586 15.6763C10.4221 16.2584 11.0685 16.6457 11.8054 16.6457H12.546C12.546 17.6402 13.2515 18.4699 14.1891 18.6617" stroke="#010835" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path><path d="M27.204 21.2713C27.148 20.7101 26.9285 20.1809 26.582 19.7471C27.72 19.3555 28.538 18.2765 28.538 17.0055C28.538 16.3009 28.2864 15.6552 27.8685 15.1527C28.2864 14.6503 28.538 14.0045 28.538 13.2999C28.538 12.5883 28.2812 11.937 27.8558 11.4325C28.2923 10.9148 28.5513 10.2424 28.5374 9.5091C28.5201 8.59024 28.0659 7.76754 27.3734 7.24634" stroke="#010835" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path><path d="M20.3064 10.3519C20.3334 10.9412 20.5367 11.4843 20.8642 11.9306C20.5304 12.4031 20.3336 12.9792 20.3336 13.6016C20.3336 14.2373 20.5388 14.8248 20.8857 15.3028C20.5388 15.7808 20.3336 16.3682 20.3336 17.004C20.3336 17.4457 20.4327 17.864 20.6094 18.2387C19.7054 17.905 18.6553 18.0284 17.8351 18.6593C17.819 18.6716 17.8037 18.6849 17.7878 18.6975C17.2693 18.2882 16.6082 18.0516 15.8907 18.0764C14.3598 18.1294 13.1205 19.3919 13.0943 20.9235C13.083 21.5871 13.295 22.2007 13.6597 22.6945C13.5248 23.0048 13.4496 23.3472 13.4496 23.7072C13.4496 24.3946 13.7223 25.0181 14.1654 25.4758C14.5466 25.8697 14.7723 26.388 14.7723 26.9361V27.7725H17.2145V26.9647C17.2145 26.4123 17.4268 25.8796 17.8127 25.4845C18.0581 25.2334 18.2518 24.9317 18.3769 24.5965C19.383 25.691 21.0761 25.8541 22.2767 24.9305C22.5703 24.7047 22.8079 24.4333 22.9889 24.1345C23.1659 24.2254 23.3547 24.2997 23.5544 24.354C23.7559 24.4089 23.9584 24.4412 24.159 24.4523" stroke="#010835" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path><path d="M4.07859 8.3125C3.18186 8.8056 2.57437 9.75923 2.57427 10.8548C2.57427 11.4222 2.73788 11.9509 3.01945 12.3979C2.42522 12.9289 2.05078 13.7008 2.05078 14.5603C2.05078 15.42 2.42522 16.1919 3.01945 16.7229C2.73788 17.1698 2.57427 17.6986 2.57427 18.2659C2.57427 19.8672 3.87245 21.1654 5.47371 21.1654C5.56598 21.1654 5.65685 21.1597 5.74692 21.1512C5.92118 22.0674 6.32451 22.9301 6.9335 23.6652C7.14164 23.9165 7.44214 24.0464 7.74484 24.0464C7.98497 24.0464 8.22668 23.9646 8.42486 23.7967C8.86506 23.4239 8.91009 22.7549 8.54423 22.3089C8.18563 21.8719 7.94332 21.3633 7.82933 20.8229C9.20432 20.596 10.2533 19.4022 10.2533 17.9629C10.2533 17.3271 10.048 16.7395 9.70101 16.2616C10.048 15.7837 10.2533 15.1961 10.2533 14.5603C10.2533 13.9245 10.048 13.337 9.70101 12.859C10.048 12.3811 10.2533 11.7935 10.2533 11.1577C10.2533 10.864 10.2096 10.5804 10.1284 10.3132" stroke="#010835" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path><path d="M27.4266 4.94227C27.2645 4.51762 27.0139 4.15275 26.704 3.86051C26.6839 3.59976 26.6271 3.33742 26.529 3.08065C25.9802 1.64289 24.3697 0.922213 22.9319 1.47111C22.1925 1.75339 21.6435 2.31683 21.3585 2.99277C20.7277 2.41647 19.8413 2.13629 18.9386 2.31414C18.202 2.45921 17.5914 2.88267 17.1932 3.45319C16.6944 2.98241 16.0223 2.69336 15.2823 2.69336C14.5422 2.69336 13.8702 2.98241 13.3714 3.45319C12.9732 2.88257 12.3626 2.45921 11.626 2.31414C10.7232 2.13629 9.83688 2.41637 9.20608 2.99277C8.92121 2.31683 8.37212 1.75339 7.63271 1.47111C6.19495 0.922213 4.58451 1.64289 4.03561 3.08065C3.93757 3.33742 3.88068 3.59976 3.86055 3.86051C3.55058 4.15275 3.30009 4.51762 3.13808 4.94227C2.56308 6.44828 3.31793 8.13534 4.82404 8.71024C5.79929 9.08259 6.85006 8.89667 7.62603 8.3108C7.99758 9.28136 8.8445 10.0452 9.93931 10.2608C10.9941 10.4685 12.0292 10.1186 12.74 9.41588C13.3651 10.1129 14.2723 10.5518 15.2823 10.5518C16.2923 10.5518 17.1995 10.1129 17.8246 9.41588C18.5354 10.1187 19.5706 10.4686 20.6253 10.2608C21.7201 10.0452 22.567 9.28136 22.9386 8.3108C23.7144 8.89667 24.7653 9.08259 25.7405 8.71024C27.2467 8.13534 28.0015 6.44828 27.4266 4.94227Z" stroke="#010835" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path><path d="M24.3144 8.90381C24.3144 12.2536 24.0833 15.5495 23.6364 18.7762C23.4321 20.2502 22.1778 21.3508 20.6898 21.3508H16.7383" stroke="#010835" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path><path d="M6.12146 18.2686C6.04125 17.5235 6 16.7667 6 16.0004C6 13.3657 6.48673 10.8447 7.37519 8.52246" stroke="#010835" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path><path d="M6.83984 5.05029C9.45203 6.0929 12.3022 6.66661 15.2866 6.66661C18.2708 6.66661 21.121 6.0929 23.7333 5.05029" stroke="#010835" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path><path d="M12.543 16.6437C12.543 15.5978 13.3908 14.75 14.4367 14.75" stroke="#010835" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path><path d="M14.4453 14.7546H17.0714C17.6284 14.7546 18.0799 14.3031 18.0799 13.7461" stroke="#010835" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path><path d="M10.3906 12.8274H12.3657" stroke="#010835" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path></g>',
+            '<mask id="mask0_2752_30028" style="mask-type:luminance;" maskUnits="userSpaceOnUse" x="1" y="0" width="29" height="29"><path d="M29.0625 0.75H1.5V28.3125H29.0625V0.75Z" fill="white"></path></mask><g mask="url(#mask0_2752_30028)"><path d="M10.0586 15.6763C10.4221 16.2584 11.0685 16.6457 11.8054 16.6457H12.546C12.546 17.6402 13.2515 18.4699 14.1891 18.6617" stroke="#332a00" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path><path d="M27.204 21.2713C27.148 20.7101 26.9285 20.1809 26.582 19.7471C27.72 19.3555 28.538 18.2765 28.538 17.0055C28.538 16.3009 28.2864 15.6552 27.8685 15.1527C28.2864 14.6503 28.538 14.0045 28.538 13.2999C28.538 12.5883 28.2812 11.937 27.8558 11.4325C28.2923 10.9148 28.5513 10.2424 28.5374 9.5091C28.5201 8.59024 28.0659 7.76754 27.3734 7.24634" stroke="#332a00" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path><path d="M20.3064 10.3519C20.3334 10.9412 20.5367 11.4843 20.8642 11.9306C20.5304 12.4031 20.3336 12.9792 20.3336 13.6016C20.3336 14.2373 20.5388 14.8248 20.8857 15.3028C20.5388 15.7808 20.3336 16.3682 20.3336 17.004C20.3336 17.4457 20.4327 17.864 20.6094 18.2387C19.7054 17.905 18.6553 18.0284 17.8351 18.6593C17.819 18.6716 17.8037 18.6849 17.7878 18.6975C17.2693 18.2882 16.6082 18.0516 15.8907 18.0764C14.3598 18.1294 13.1205 19.3919 13.0943 20.9235C13.083 21.5871 13.295 22.2007 13.6597 22.6945C13.5248 23.0048 13.4496 23.3472 13.4496 23.7072C13.4496 24.3946 13.7223 25.0181 14.1654 25.4758C14.5466 25.8697 14.7723 26.388 14.7723 26.9361V27.7725H17.2145V26.9647C17.2145 26.4123 17.4268 25.8796 17.8127 25.4845C18.0581 25.2334 18.2518 24.9317 18.3769 24.5965C19.383 25.691 21.0761 25.8541 22.2767 24.9305C22.5703 24.7047 22.8079 24.4333 22.9889 24.1345C23.1659 24.2254 23.3547 24.2997 23.5544 24.354C23.7559 24.4089 23.9584 24.4412 24.159 24.4523" stroke="#332a00" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path><path d="M4.07859 8.3125C3.18186 8.8056 2.57437 9.75923 2.57427 10.8548C2.57427 11.4222 2.73788 11.9509 3.01945 12.3979C2.42522 12.9289 2.05078 13.7008 2.05078 14.5603C2.05078 15.42 2.42522 16.1919 3.01945 16.7229C2.73788 17.1698 2.57427 17.6986 2.57427 18.2659C2.57427 19.8672 3.87245 21.1654 5.47371 21.1654C5.56598 21.1654 5.65685 21.1597 5.74692 21.1512C5.92118 22.0674 6.32451 22.9301 6.9335 23.6652C7.14164 23.9165 7.44214 24.0464 7.74484 24.0464C7.98497 24.0464 8.22668 23.9646 8.42486 23.7967C8.86506 23.4239 8.91009 22.7549 8.54423 22.3089C8.18563 21.8719 7.94332 21.3633 7.82933 20.8229C9.20432 20.596 10.2533 19.4022 10.2533 17.9629C10.2533 17.3271 10.048 16.7395 9.70101 16.2616C10.048 15.7837 10.2533 15.1961 10.2533 14.5603C10.2533 13.9245 10.048 13.337 9.70101 12.859C10.048 12.3811 10.2533 11.7935 10.2533 11.1577C10.2533 10.864 10.2096 10.5804 10.1284 10.3132" stroke="#332a00" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path><path d="M27.4266 4.94227C27.2645 4.51762 27.0139 4.15275 26.704 3.86051C26.6839 3.59976 26.6271 3.33742 26.529 3.08065C25.9802 1.64289 24.3697 0.922213 22.9319 1.47111C22.1925 1.75339 21.6435 2.31683 21.3585 2.99277C20.7277 2.41647 19.8413 2.13629 18.9386 2.31414C18.202 2.45921 17.5914 2.88267 17.1932 3.45319C16.6944 2.98241 16.0223 2.69336 15.2823 2.69336C14.5422 2.69336 13.8702 2.98241 13.3714 3.45319C12.9732 2.88257 12.3626 2.45921 11.626 2.31414C10.7232 2.13629 9.83688 2.41637 9.20608 2.99277C8.92121 2.31683 8.37212 1.75339 7.63271 1.47111C6.19495 0.922213 4.58451 1.64289 4.03561 3.08065C3.93757 3.33742 3.88068 3.59976 3.86055 3.86051C3.55058 4.15275 3.30009 4.51762 3.13808 4.94227C2.56308 6.44828 3.31793 8.13534 4.82404 8.71024C5.79929 9.08259 6.85006 8.89667 7.62603 8.3108C7.99758 9.28136 8.8445 10.0452 9.93931 10.2608C10.9941 10.4685 12.0292 10.1186 12.74 9.41588C13.3651 10.1129 14.2723 10.5518 15.2823 10.5518C16.2923 10.5518 17.1995 10.1129 17.8246 9.41588C18.5354 10.1187 19.5706 10.4686 20.6253 10.2608C21.7201 10.0452 22.567 9.28136 22.9386 8.3108C23.7144 8.89667 24.7653 9.08259 25.7405 8.71024C27.2467 8.13534 28.0015 6.44828 27.4266 4.94227Z" stroke="#332a00" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path><path d="M24.3144 8.90381C24.3144 12.2536 24.0833 15.5495 23.6364 18.7762C23.4321 20.2502 22.1778 21.3508 20.6898 21.3508H16.7383" stroke="#332a00" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path><path d="M6.12146 18.2686C6.04125 17.5235 6 16.7667 6 16.0004C6 13.3657 6.48673 10.8447 7.37519 8.52246" stroke="#332a00" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path><path d="M6.83984 5.05029C9.45203 6.0929 12.3022 6.66661 15.2866 6.66661C18.2708 6.66661 21.121 6.0929 23.7333 5.05029" stroke="#332a00" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path><path d="M12.543 16.6437C12.543 15.5978 13.3908 14.75 14.4367 14.75" stroke="#332a00" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path><path d="M14.4453 14.7546H17.0714C17.6284 14.7546 18.0799 14.3031 18.0799 13.7461" stroke="#332a00" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path><path d="M10.3906 12.8274H12.3657" stroke="#332a00" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path></g>',
             2,
           ),
         ]),
@@ -18457,7 +18457,7 @@ const Dh = { class: "container h-screen lg:pr-0 lg:pl-0 xs:px-0" },
               "div",
               {
                 class:
-                  "hr mt-32 h-2 bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]",
+                  "hr mt-32 h-2 bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]",
               },
               null,
               -1,
@@ -18521,7 +18521,7 @@ const Dh = { class: "container h-screen lg:pr-0 lg:pl-0 xs:px-0" },
               "div",
               {
                 class:
-                  "hr mt-32 h-2 bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]",
+                  "hr mt-32 h-2 bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]",
               },
               null,
               -1,
@@ -18579,7 +18579,7 @@ const Dh = { class: "container h-screen lg:pr-0 lg:pl-0 xs:px-0" },
               "div",
               {
                 class:
-                  "hr mt-32 h-2 bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]",
+                  "hr mt-32 h-2 bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]",
               },
               null,
               -1,
@@ -18686,7 +18686,7 @@ const Dh = { class: "container h-screen lg:pr-0 lg:pl-0 xs:px-0" },
                       [
                         E("path", {
                           d: "M-2.25 -9L9.75 9L-2.25 27",
-                          stroke: "#010835",
+                          stroke: "#332a00",
                           "stroke-width": "3",
                         }),
                       ],
@@ -18942,7 +18942,7 @@ const sg = { class: "pb-64" },
                           <p class="text-mono-regular-400-13 uppercase">Demyelination and oligodendrocyte stress</p>
                         </div>
                         <div class="biomarker-tag tag-orange with-arrow arrow-top">17.8</div>
-                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]"></div>
+                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]"></div>
 `,
                 },
                 {
@@ -18952,7 +18952,7 @@ const sg = { class: "pb-64" },
                           <p class="text-mono-regular-400-13 uppercase">Impaired inhibitory neurotransmission</p>
                         </div>
                         <div class="biomarker-tag tag-green with-arrow">5.9</div>
-                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]"></div>`,
+                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]"></div>`,
                 },
                 {
                   test: `<div class="flex pl-20 pr-10 pt-20 pb-16 bg-white justify-between items-center gap-10">
@@ -18961,7 +18961,7 @@ const sg = { class: "pb-64" },
                           <p class="text-mono-regular-400-13 uppercase">Impaired neuromuscular signalling</p>
                         </div>
                         <div class="biomarker-tag tag-green with-arrow">8.3</div>
-                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]"></div>`,
+                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]"></div>`,
                 },
                 {
                   test: `<div class="flex pl-20 pr-10 pt-20 pb-16 bg-white justify-between items-center gap-10">
@@ -18970,7 +18970,7 @@ const sg = { class: "pb-64" },
                           <p class="text-mono-regular-400-13 uppercase">Impaired excitatory neurotransmission</p>
                         </div>
                         <div class="biomarker-tag tag-green with-arrow">6.5</div>
-                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]"></div>`,
+                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]"></div>`,
                 },
                 {
                   test: `<div class="flex pl-20 pr-10 pt-20 pb-16 rounded-b-2sm bg-white justify-between items-center gap-10">
@@ -19002,7 +19002,7 @@ const sg = { class: "pb-64" },
               biomarkers: [
                 {
                   test: `<div class="bg-white p-10 rounded-2sm mb-15">
-                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]">
+                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]">
                             <p class="text-semi-600-16 text-brand-green">Glutamine</p><p class="text-semi-600-16 text-brand-green">500 mg/day</p>
                         </div>
                         <div class="px-30 mb-20">
@@ -19014,7 +19014,7 @@ const sg = { class: "pb-64" },
                 },
                 {
                   test: `<div class="bg-white p-10 rounded-2sm mb-15">
-                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]">
+                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]">
                             <p class="text-semi-600-16 text-brand-green">Coenzyme Q10</p><p class="text-semi-600-16 text-brand-green">100 mg/day</p>
                         </div>
                         <div class="px-30 mb-20">
@@ -19024,7 +19024,7 @@ const sg = { class: "pb-64" },
                 },
                 {
                   test: `<div class="bg-white p-10 rounded-2sm mb-15">
-                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]">
+                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]">
                             <p class="text-semi-600-16 text-brand-green">PUFAs</p><p class="text-semi-600-16 text-brand-green">950 mg/day</p>
                         </div>
                         <div class="px-30 mb-20">
@@ -19034,7 +19034,7 @@ const sg = { class: "pb-64" },
                 },
                 {
                   test: `<div class="bg-white p-10 rounded-2sm mb-15">
-                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]">
+                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]">
                             <p class="text-semi-600-16 text-brand-green">Vitamin D</p><p class="text-semi-600-16 text-brand-green">600 IU/day</p>
                         </div>
                         <div class="px-30 mb-20">
@@ -19045,7 +19045,7 @@ const sg = { class: "pb-64" },
                 },
                 {
                   test: `<div class="bg-white p-10 rounded-2sm">
-                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]">
+                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]">
                             <p class="text-semi-600-16 text-brand-green">Magnesium</p><p class="text-semi-600-16 text-brand-green">400 mg/day</p>
                         </div>
                         <div class="px-30 mb-20">
@@ -19190,7 +19190,7 @@ const sg = { class: "pb-64" },
                           <p class="text-mono-regular-400-13 uppercase">Degrading commensal</p>
                         </div>
                         <div class="biomarker-tag tag-red with-arrow">46.5</div>
-                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]"></div>
+                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]"></div>
 `,
                 },
                 {
@@ -19200,7 +19200,7 @@ const sg = { class: "pb-64" },
                           <p class="text-mono-regular-400-13 uppercase">Elevated intestinal permeability marker</p>
                         </div>
                         <div class="biomarker-tag tag-red with-arrow arrow-top only-arrow"></div>
-                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]"></div>`,
+                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]"></div>`,
                 },
                 {
                   test: `<div class="flex pl-20 pr-10 pt-20 pb-16 bg-white justify-between items-center gap-10">
@@ -19209,7 +19209,7 @@ const sg = { class: "pb-64" },
                           <p class="text-mono-regular-400-13 uppercase">Intestinal inflammation</p>
                         </div>
                         <div class="biomarker-tag tag-red with-arrow">119.2</div>
-                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]"></div>`,
+                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]"></div>`,
                 },
                 {
                   test: `<div class="flex pl-20 pr-10 pt-20 pb-16 rounded-b-2sm bg-white justify-between items-center gap-10">
@@ -19242,7 +19242,7 @@ const sg = { class: "pb-64" },
               biomarkers: [
                 {
                   test: `<div class="bg-white p-10 rounded-2sm mb-15">
-                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]">
+                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]">
                             <p class="text-semi-600-16 text-brand-green">L-Tryptophan</p><p class="text-semi-600-16 text-brand-green">500 mg/day</p>
                         </div>
                         <div class="px-30 mb-20">
@@ -19254,7 +19254,7 @@ const sg = { class: "pb-64" },
                 },
                 {
                   test: `<div class="bg-white p-10 rounded-2sm mb-15">
-                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]">
+                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]">
                             <p class="text-semi-600-16 text-brand-green">GABA</p><p class="text-semi-600-16 text-brand-green">10 billion CFU/day</p>
                         </div>
                         <div class="px-30 mb-20">
@@ -19265,7 +19265,7 @@ const sg = { class: "pb-64" },
                 },
                 {
                   test: `<div class="bg-white p-10 rounded-2sm mb-15">
-                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]">
+                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]">
                             <p class="text-semi-600-16 text-brand-green">Tyrosine</p><p class="text-semi-600-16 text-brand-green">500 mg/day</p>
                         </div>
                         <div class="px-30 mb-20">
@@ -19277,7 +19277,7 @@ const sg = { class: "pb-64" },
                 },
                 {
                   test: `<div class="bg-white p-10 rounded-2sm mb-15">
-                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]">
+                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]">
                             <p class="text-semi-600-16 text-brand-green">Phosphatidylserine</p><p class="text-semi-600-16 text-brand-green">100 mg/day</p>
                         </div>
                         <div class="px-30 mb-20">
@@ -19287,7 +19287,7 @@ const sg = { class: "pb-64" },
                 },
                 {
                   test: `<div class="bg-white p-10 rounded-2sm">
-                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]">
+                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]">
                             <p class="text-semi-600-16 text-brand-green">400 mg/day</p><p class="text-semi-600-16 text-brand-green">500 mg/day</p>
                         </div>
                         <div class="px-30 mb-20">
@@ -19432,7 +19432,7 @@ const sg = { class: "pb-64" },
                           <p class="text-mono-regular-400-13 uppercase">ADMA</p>
                         </div>
                         <div class="biomarker-tag tag-red with-arrow arrow-top">120.8</div>
-                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]"></div>
+                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]"></div>
 `,
                 },
                 {
@@ -19442,7 +19442,7 @@ const sg = { class: "pb-64" },
                           <p class="text-mono-regular-400-13 uppercase">SDMA</p>
                         </div>
                         <div class="biomarker-tag tag-orange with-arrow arrow-top">211</div>
-                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]"></div>`,
+                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]"></div>`,
                 },
                 {
                   test: `<div class="flex pl-20 pr-10 pt-20 pb-16 bg-white justify-between items-center gap-10">
@@ -19451,7 +19451,7 @@ const sg = { class: "pb-64" },
                           <p class="text-mono-regular-400-13 uppercase">L-Arginine</p>
                         </div>
                         <div class="biomarker-tag tag-red with-arrow">56.9</div>
-                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]"></div>`,
+                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]"></div>`,
                 },
                 {
                   test: `<div class="flex pl-20 pr-10 pt-20 pb-16 bg-white justify-between items-center gap-10">
@@ -19460,7 +19460,7 @@ const sg = { class: "pb-64" },
                           <p class="text-mono-regular-400-13 uppercase">Homoarginine</p>
                         </div>
                         <div class="biomarker-tag tag-red with-arrow">34</div>
-                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]"></div>`,
+                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]"></div>`,
                 },
                 {
                   test: `<div class="flex pl-20 pr-10 pt-20 pb-16 rounded-b-2sm bg-white justify-between items-center gap-10">
@@ -19493,7 +19493,7 @@ const sg = { class: "pb-64" },
               biomarkers: [
                 {
                   test: `<div class="bg-white p-10 rounded-2sm mb-15">
-                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]">
+                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]">
                             <p class="text-semi-600-16 text-brand-green">L-Arginine</p><p class="text-semi-600-16 text-brand-green">2000 mg/day</p>
                         </div>
                         <div class="px-30 mb-20">
@@ -19505,7 +19505,7 @@ const sg = { class: "pb-64" },
                 },
                 {
                   test: `<div class="bg-white p-10 rounded-2sm mb-15">
-                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]">
+                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]">
                             <p class="text-semi-600-16 text-brand-green">L-Citrulline</p><p class="text-semi-600-16 text-brand-green">1000 mg/day</p>
                         </div>
                         <div class="px-30 mb-20">
@@ -19516,7 +19516,7 @@ const sg = { class: "pb-64" },
                 },
                 {
                   test: `<div class="bg-white p-10 rounded-2sm mb-15">
-                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]">
+                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]">
                             <p class="text-semi-600-16 text-brand-green">Folic Acid</p><p class="text-semi-600-16 text-brand-green">400 mcg/day</p>
                         </div>
                         <div class="px-30 mb-20">
@@ -19527,7 +19527,7 @@ const sg = { class: "pb-64" },
                 },
                 {
                   test: `<div class="bg-white p-10 rounded-2sm mb-15">
-                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]">
+                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]">
                             <p class="text-semi-600-16 text-brand-green">Omega-3 Fatty acids (EPA/DHA)</p><p class="text-semi-600-16 text-brand-green">1500 mg/day</p>
                         </div>
                         <div class="px-30 mb-20">
@@ -19538,7 +19538,7 @@ const sg = { class: "pb-64" },
                 },
                 {
                   test: `<div class="bg-white p-10 rounded-2sm">
-                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]">
+                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]">
                             <p class="text-semi-600-16 text-brand-green">Coenzyme Q10</p><p class="text-semi-600-16 text-brand-green">100 mg/day</p>
                         </div>
                         <div class="px-30 mb-20">
@@ -19606,7 +19606,7 @@ const sg = { class: "pb-64" },
                           <p class="text-mono-regular-400-13 uppercase">Excess fat storage</p>
                         </div>
                         <div class="biomarker-tag tag-orange with-arrow arrow-top">176</div>
-                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]"></div>
+                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]"></div>
 `,
                 },
                 {
@@ -19616,7 +19616,7 @@ const sg = { class: "pb-64" },
                           <p class="text-mono-regular-400-13 uppercase">Impaired reverse cholesterol transport</p>
                         </div>
                         <div class="biomarker-tag tag-red with-arrow">57</div>
-                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]"></div>`,
+                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]"></div>`,
                 },
                 {
                   test: `<div class="flex pl-20 pr-10 pt-20 pb-16 bg-white justify-between items-center gap-10">
@@ -19625,7 +19625,7 @@ const sg = { class: "pb-64" },
                           <p class="text-mono-regular-400-13 uppercase">Poor cholesterol processing</p>
                         </div>
                         <div class="biomarker-tag tag-red with-arrow arrow-top">119</div>
-                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]"></div>`,
+                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]"></div>`,
                 },
                 {
                   test: `<div class="flex pl-20 pr-10 pt-20 pb-16 bg-white justify-between items-center gap-10">
@@ -19634,7 +19634,7 @@ const sg = { class: "pb-64" },
                           <p class="text-mono-regular-400-13 uppercase">Highly atherogenic particle</p>
                         </div>
                         <div class="biomarker-tag tag-red with-arrow arrow-top">65</div>
-                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]"></div>`,
+                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]"></div>`,
                 },
                 {
                   test: `<div class="flex pl-20 pr-10 pt-20 pb-16 bg-white justify-between items-center gap-10">
@@ -19643,7 +19643,7 @@ const sg = { class: "pb-64" },
                           <p class="text-mono-regular-400-13 uppercase">Proinflammatory and prothrombotic particle</p>
                         </div>
                         <div class="biomarker-tag tag-red with-arrow arrow-top">34</div>
-                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]"></div>`,
+                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]"></div>`,
                 },
                 {
                   test: `<div class="flex pl-20 pr-10 pt-20 pb-16 bg-white justify-between items-center gap-10">
@@ -19652,7 +19652,7 @@ const sg = { class: "pb-64" },
                           <p class="text-mono-regular-400-13 uppercase">Highly atherogenic particle</p>
                         </div>
                         <div class="biomarker-tag tag-red with-arrow arrow-top">108.3</div>
-                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]"></div>`,
+                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]"></div>`,
                 },
                 {
                   test: `<div class="flex pl-20 pr-10 pt-20 pb-16 rounded-b-2sm bg-white justify-between items-center gap-10">
@@ -19685,7 +19685,7 @@ const sg = { class: "pb-64" },
               biomarkers: [
                 {
                   test: `<div class="bg-white p-10 rounded-2sm mb-15">
-                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]">
+                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]">
                             <p class="text-semi-600-16 text-brand-green">Berberine HCl</p><p class="text-semi-600-16 text-brand-green">1500 mg/day</p>
                         </div>
                         <div class="px-30 mb-20">
@@ -19695,7 +19695,7 @@ const sg = { class: "pb-64" },
                 },
                 {
                   test: `<div class="bg-white p-10 rounded-2sm mb-15">
-                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]">
+                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]">
                             <p class="text-semi-600-16 text-brand-green">Red Yeast Rice (Monacolin K)</p><p class="text-semi-600-16 text-brand-green">200 mg/day</p>
                         </div>
                         <div class="px-30 mb-20">
@@ -19705,7 +19705,7 @@ const sg = { class: "pb-64" },
                 },
                 {
                   test: `<div class="bg-white p-10 rounded-2sm mb-15">
-                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]">
+                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]">
                             <p class="text-semi-600-16 text-brand-green">Vitamin B3 (Niacin)</p><p class="text-semi-600-16 text-brand-green">16 mg/day</p>
                         </div>
                         <div class="px-30 mb-20">
@@ -19716,7 +19716,7 @@ const sg = { class: "pb-64" },
                 },
                 {
                   test: `<div class="bg-white p-10 rounded-2sm mb-15">
-                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]">
+                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]">
                             <p class="text-semi-600-16 text-brand-green">Omega-3 EPA/DHA</p><p class="text-semi-600-16 text-brand-green">1 g/day</p>
                         </div>
                         <div class="px-30 mb-20">
@@ -19727,7 +19727,7 @@ const sg = { class: "pb-64" },
                 },
                 {
                   test: `<div class="bg-white p-10 rounded-2sm">
-                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]">
+                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]">
                             <p class="text-semi-600-16 text-brand-green">DHA</p><p class="text-semi-600-16 text-brand-green">1 g/day</p>
                         </div>
                         <div class="px-30 mb-20">
@@ -19864,7 +19864,7 @@ const sg = { class: "pb-64" },
                           <p class="text-mono-regular-400-13 uppercase">Neurotoxin and oxidative stressor</p>
                         </div>
                         <div class="biomarker-tag tag-orange with-arrow arrow-top">1.14</div>
-                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]"></div>
+                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]"></div>
 `,
                 },
                 {
@@ -19874,7 +19874,7 @@ const sg = { class: "pb-64" },
                           <p class="text-mono-regular-400-13 uppercase">Nervous system disruptor</p>
                         </div>
                         <div class="biomarker-tag tag-orange with-arrow arrow-top">1.27</div>
-                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]"></div>`,
+                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]"></div>`,
                 },
                 {
                   test: `<div class="flex pl-20 pr-10 pt-20 pb-16 bg-white justify-between items-center gap-10">
@@ -19883,7 +19883,7 @@ const sg = { class: "pb-64" },
                           <p class="text-mono-regular-400-13 uppercase">Liver toxin impairing detoxification and increasing oxidative stress</p>
                         </div>
                         <div class="biomarker-tag tag-orange with-arrow arrow-top">5.98</div>
-                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]"></div>`,
+                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]"></div>`,
                 },
                 {
                   test: `<div class="flex pl-20 pr-10 pt-20 pb-16 bg-white justify-between items-center gap-10">
@@ -19892,7 +19892,7 @@ const sg = { class: "pb-64" },
                           <p class="text-mono-regular-400-13 uppercase">Endocrine disruptor</p>
                         </div>
                         <div class="biomarker-tag tag-orange with-arrow arrow-top">5.66</div>
-                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]"></div>`,
+                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]"></div>`,
                 },
                 {
                   test: `<div class="flex pl-20 pr-10 pt-20 pb-16 bg-white justify-between items-center gap-10">
@@ -19901,7 +19901,7 @@ const sg = { class: "pb-64" },
                           <p class="text-mono-regular-400-13 uppercase">Kidney toxin impairing detoxification and immune function</p>
                         </div>
                         <div class="biomarker-tag tag-orange with-arrow arrow-top">6.9</div>
-                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]"></div>`,
+                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]"></div>`,
                 },
                 {
                   test: `<div class="flex pl-20 pr-10 pt-20 pb-16 bg-white justify-between items-center gap-10">
@@ -19910,7 +19910,7 @@ const sg = { class: "pb-64" },
                           <p class="text-mono-regular-400-13 uppercase">Detoxification inhibitor and metabolic disruptor</p>
                         </div>
                         <div class="biomarker-tag tag-orange with-arrow arrow-top">8.87</div>
-                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]"></div>`,
+                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]"></div>`,
                 },
                 {
                   test: `<div class="flex pl-20 pr-10 pt-20 pb-16 rounded-b-2sm bg-white justify-between items-center gap-10">
@@ -19942,7 +19942,7 @@ const sg = { class: "pb-64" },
               biomarkers: [
                 {
                   test: `<div class="bg-white p-10 rounded-2sm mb-15">
-                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]">
+                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]">
                             <p class="text-semi-600-16 text-brand-green">N-Acetyl Cysteine (NAC)</p><p class="text-semi-600-16 text-brand-green">600 mg/day</p>
                         </div>
                         <div class="px-30 mb-20">
@@ -19953,7 +19953,7 @@ const sg = { class: "pb-64" },
                 },
                 {
                   test: `<div class="bg-white p-10 rounded-2sm mb-15">
-                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]">
+                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]">
                             <p class="text-semi-600-16 text-brand-green">Milk Thistle (Silymarin)</p><p class="text-semi-600-16 text-brand-green">150 mg twice daily</p>
                         </div>
                         <div class="px-30 mb-20">
@@ -19964,7 +19964,7 @@ const sg = { class: "pb-64" },
                 },
                 {
                   test: `<div class="bg-white p-10 rounded-2sm mb-15">
-                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]">
+                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]">
                             <p class="text-semi-600-16 text-brand-green">Chlorella</p><p class="text-semi-600-16 text-brand-green">1g/day</p>
                         </div>
                         <div class="px-30 mb-20">
@@ -19975,7 +19975,7 @@ const sg = { class: "pb-64" },
                 },
                 {
                   test: `<div class="bg-white p-10 rounded-2sm mb-15">
-                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]">
+                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]">
                             <p class="text-semi-600-16 text-brand-green">Activated Charcoal</p><p class="text-semi-600-16 text-brand-green">500 mg/day</p>
                         </div>
                         <div class="px-30 mb-20">
@@ -19986,7 +19986,7 @@ const sg = { class: "pb-64" },
                 },
                 {
                   test: `<div class="bg-white p-10 rounded-2sm">
-                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]">
+                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]">
                             <p class="text-semi-600-16 text-brand-green">Vitamin C</p><p class="text-semi-600-16 text-brand-green">1g/day</p>
                         </div>
                         <div class="px-30 mb-20">
@@ -20129,7 +20129,7 @@ const sg = { class: "pb-64" },
                           <p class="text-mono-regular-400-13 uppercase">Degrading commensal</p>
                         </div>
                         <div class="biomarker-tag tag-red with-arrow">critical mucus</div>
-                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]"></div>
+                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]"></div>
 `,
                 },
                 {
@@ -20139,7 +20139,7 @@ const sg = { class: "pb-64" },
                           <p class="text-mono-regular-400-13 uppercase">Elevated intestinal permeability marker</p>
                         </div>
                         <div class="biomarker-tag tag-red with-arrow arrow-top">245 ng/m</div>
-                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]"></div>`,
+                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]"></div>`,
                 },
                 {
                   test: `<div class="flex pl-20 pr-10 pt-20 pb-16 bg-white justify-between items-center gap-10">
@@ -20148,7 +20148,7 @@ const sg = { class: "pb-64" },
                           <p class="text-mono-regular-400-13 uppercase">Intestinal inflammation</p>
                         </div>
                         <div class="biomarker-tag tag-red with-arrow arrow-top">185 mcg/g</div>
-                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]"></div>`,
+                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]"></div>`,
                 },
                 {
                   test: `<div class="flex pl-20 pr-10 pt-20 pb-16 bg-white justify-between items-center gap-10">
@@ -20157,7 +20157,7 @@ const sg = { class: "pb-64" },
                           <p class="text-mono-regular-400-13 uppercase">Antimicrobial peptide indicating epithelial stress</p>
                         </div>
                         <div class="biomarker-tag tag-orange with-arrow arrow-top">elevated</div>
-                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]"></div>`,
+                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]"></div>`,
                 },
                 {
                   test: `<div class="flex pl-20 pr-10 pt-20 pb-16 bg-white justify-between items-center gap-10">
@@ -20166,7 +20166,7 @@ const sg = { class: "pb-64" },
                           <p class="text-mono-regular-400-13 uppercase">Low anti-inflammatory SCFA</p>
                         </div>
                         <div class="biomarker-tag tag-red with-arrow">8%</div>
-                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]"></div>`,
+                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]"></div>`,
                 },
                 {
                   test: `<div class="flex pl-20 pr-10 pt-20 pb-16 rounded-b-2sm bg-white justify-between items-center gap-10">
@@ -20198,7 +20198,7 @@ const sg = { class: "pb-64" },
               biomarkers: [
                 {
                   test: `<div class="bg-white p-10 rounded-2sm mb-15">
-                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]">
+                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]">
                             <p class="text-semi-600-16 text-brand-green">Lactobacillus rhamnosus GG</p><p class="text-semi-600-16 text-brand-green">10 billion CFU/day</p>
                         </div>
                         <div class="px-30 mb-20">
@@ -20208,7 +20208,7 @@ const sg = { class: "pb-64" },
                 },
                 {
                   test: `<div class="bg-white p-10 rounded-2sm mb-15">
-                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]">
+                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]">
                             <p class="text-semi-600-16 text-brand-green">E. coli Nissle 1917</p><p class="text-semi-600-16 text-brand-green">10 billion CFU/day</p>
                         </div>
                         <div class="px-30 mb-20">
@@ -20218,7 +20218,7 @@ const sg = { class: "pb-64" },
                 },
                 {
                   test: `<div class="bg-white p-10 rounded-2sm mb-15">
-                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]">
+                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]">
                             <p class="text-semi-600-16 text-brand-green">Inulin</p><p class="text-semi-600-16 text-brand-green">10g/day</p>
                         </div>
                         <div class="px-30 mb-20">
@@ -20228,7 +20228,7 @@ const sg = { class: "pb-64" },
                 },
                 {
                   test: `<div class="bg-white p-10 rounded-2sm mb-15">
-                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]">
+                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]">
                             <p class="text-semi-600-16 text-brand-green">L-Glutamine</p><p class="text-semi-600-16 text-brand-green">5g twice daily</p>
                         </div>
                         <div class="px-30 mb-20">
@@ -20238,7 +20238,7 @@ const sg = { class: "pb-64" },
                 },
                 {
                   test: `<div class="bg-white p-10 rounded-2sm">
-                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]">
+                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]">
                             <p class="text-semi-600-16 text-brand-green">Quercetin</p><p class="text-semi-600-16 text-brand-green">500mg twice daily</p>
                         </div>
                         <div class="px-30 mb-20">
@@ -20299,7 +20299,7 @@ const sg = { class: "pb-64" },
                           <p class="text-mono-regular-400-13 uppercase">Estrogen reactivation</p>
                         </div>
                         <div class="biomarker-tag tag-red with-arrow arrow-top">2784.0</div>
-                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]"></div>
+                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]"></div>
 `,
                 },
                 {
@@ -20309,7 +20309,7 @@ const sg = { class: "pb-64" },
                           <p class="text-mono-regular-400-13 uppercase">Gut inflammation</p>
                         </div>
                         <div class="biomarker-tag tag-red with-arrow arrow-top">76.8</div>
-                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]"></div>`,
+                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]"></div>`,
                 },
                 {
                   test: `<div class="flex pl-20 pr-10 pt-20 pb-16 bg-white justify-between items-center gap-10">
@@ -20318,7 +20318,7 @@ const sg = { class: "pb-64" },
                           <p class="text-mono-regular-400-13 uppercase">Impaired bile acid metabolism</p>
                         </div>
                         <div class="biomarker-tag tag-red with-arrow">11.7</div>
-                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]"></div>`,
+                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]"></div>`,
                 },
                 {
                   test: `<div class="flex pl-20 pr-10 pt-20 pb-16 bg-white justify-between items-center gap-10">
@@ -20327,7 +20327,7 @@ const sg = { class: "pb-64" },
                           <p class="text-mono-regular-400-13 uppercase">Reduced SCFA production / Impaired gut barrier</p>
                         </div>
                         <div class="biomarker-tag tag-red with-arrow only-arrow"></div>
-                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]"></div>`,
+                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]"></div>`,
                 },
                 {
                   test: `<div class="flex pl-20 pr-10 pt-20 pb-16 bg-white justify-between items-center gap-10">
@@ -20336,7 +20336,7 @@ const sg = { class: "pb-64" },
                           <p class="text-mono-regular-400-13 uppercase">Intestinal permeability</p>
                         </div>
                         <div class="biomarker-tag tag-red with-arrow arrow-top">23.2</div>
-                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]"></div>`,
+                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]"></div>`,
                 },
                 {
                   test: `<div class="flex pl-20 pr-10 pt-20 pb-16 rounded-b-2sm bg-white justify-between items-center gap-10">
@@ -20368,7 +20368,7 @@ const sg = { class: "pb-64" },
               biomarkers: [
                 {
                   test: `<div class="bg-white p-10 rounded-2sm mb-15">
-                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]">
+                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]">
                             <p class="text-semi-600-16 text-brand-green">Calcium-D-Glucarate</p><p class="text-semi-600-16 text-brand-green">200 mg/day</p>
                         </div>
                         <div class="px-30 mb-20">
@@ -20379,7 +20379,7 @@ const sg = { class: "pb-64" },
                 },
                 {
                   test: `<div class="bg-white p-10 rounded-2sm mb-15">
-                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]">
+                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]">
                             <p class="text-semi-600-16 text-brand-green">Lactobacillus rhamnosus GG</p><p class="text-semi-600-16 text-brand-green">10 billion CFU/day</p>
                         </div>
                         <div class="px-30 mb-20">
@@ -20390,7 +20390,7 @@ const sg = { class: "pb-64" },
                 },
                 {
                   test: `<div class="bg-white p-10 rounded-2sm mb-15">
-                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]">
+                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]">
                             <p class="text-semi-600-16 text-brand-green">Butyrate (Tributyrin)</p><p class="text-semi-600-16 text-brand-green">300 mg/day</p>
                         </div>
                         <div class="px-30 mb-20">
@@ -20400,7 +20400,7 @@ const sg = { class: "pb-64" },
                 },
                 {
                   test: `<div class="bg-white p-10 rounded-2sm mb-15">
-                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]">
+                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]">
                             <p class="text-semi-600-16 text-brand-green">Vitamin D</p><p class="text-semi-600-16 text-brand-green">600 IU/day</p>
                         </div>
                         <div class="px-30 mb-20">
@@ -20410,7 +20410,7 @@ const sg = { class: "pb-64" },
                 },
                 {
                   test: `<div class="bg-white p-10 rounded-2sm">
-                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]">
+                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]">
                             <p class="text-semi-600-16 text-brand-green">Inulin</p><p class="text-semi-600-16 text-brand-green">10 g/day</p>
                         </div>
                         <div class="px-30 mb-20">
@@ -20626,7 +20626,7 @@ const sg = { class: "pb-64" },
                           <p class="text-mono-regular-400-13 uppercase">Excessive collagen breakdown</p>
                         </div>
                         <div class="biomarker-tag tag-red with-arrow arrow-top">12.60</div>
-                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]"></div>
+                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]"></div>
 `,
                 },
                 {
@@ -20636,7 +20636,7 @@ const sg = { class: "pb-64" },
                           <p class="text-mono-regular-400-13 uppercase">Excessive collagen breakdown</p>
                         </div>
                         <div class="biomarker-tag tag-red with-arrow arrow-top">67</div>
-                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]"></div>`,
+                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]"></div>`,
                 },
                 {
                   test: `<div class="flex pl-20 pr-10 pt-20 pb-16 bg-white justify-between items-center gap-10">
@@ -20645,7 +20645,7 @@ const sg = { class: "pb-64" },
                           <p class="text-mono-regular-400-13 uppercase">Reduced osteoblast activity and increased bone resorption</p>
                         </div>
                         <div class="biomarker-tag tag-red with-arrow">0.13</div>
-                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]"></div>`,
+                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]"></div>`,
                 },
                 {
                   test: `<div class="flex pl-20 pr-10 pt-20 pb-16 bg-white justify-between items-center gap-10">
@@ -20654,7 +20654,7 @@ const sg = { class: "pb-64" },
                           <p class="text-mono-regular-400-13 uppercase">Decreased bone density</p>
                         </div>
                         <div class="biomarker-tag tag-red with-arrow">0.57</div>
-                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]"></div>`,
+                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]"></div>`,
                 },
                 {
                   test: `<div class="flex pl-20 pr-10 pt-20 pb-16 bg-white justify-between items-center gap-10">
@@ -20663,7 +20663,7 @@ const sg = { class: "pb-64" },
                           <p class="text-mono-regular-400-13 uppercase">Impaired osteoblast function and calcium absorption</p>
                         </div>
                         <div class="biomarker-tag tag-red with-arrow arrow-top">10.2</div>
-                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]"></div>`,
+                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]"></div>`,
                 },
                 {
                   test: `<div class="flex pl-20 pr-10 pt-20 pb-16 rounded-b-2sm bg-white justify-between items-center gap-10">
@@ -20695,7 +20695,7 @@ const sg = { class: "pb-64" },
               biomarkers: [
                 {
                   test: `<div class="bg-white p-10 rounded-2sm mb-15">
-                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]">
+                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]">
                             <p class="text-semi-600-16 text-brand-green">Calcium</p><p class="text-semi-600-16 text-brand-green">1500 mg/day</p>
                         </div>
                         <div class="px-30 mb-20">
@@ -20707,7 +20707,7 @@ const sg = { class: "pb-64" },
                 },
                 {
                   test: `<div class="bg-white p-10 rounded-2sm mb-15">
-                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]">
+                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]">
                             <p class="text-semi-600-16 text-brand-green">Phytoestrogens</p><p class="text-semi-600-16 text-brand-green">50 mg/day</p>
                         </div>
                         <div class="px-30 mb-20">
@@ -20718,7 +20718,7 @@ const sg = { class: "pb-64" },
                 },
                 {
                   test: `<div class="bg-white p-10 rounded-2sm mb-15">
-                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]">
+                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]">
                             <p class="text-semi-600-16 text-brand-green">Absorbable 3,3'-Diindolylmethane (DIM)</p><p class="text-semi-600-16 text-brand-green">108 mg/day</p>
                         </div>
                         <div class="px-30 mb-20">
@@ -20729,7 +20729,7 @@ const sg = { class: "pb-64" },
                 },
                 {
                   test: `<div class="bg-white p-10 rounded-2sm mb-15">
-                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]">
+                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]">
                             <p class="text-semi-600-16 text-brand-green">Vitamin D</p><p class="text-semi-600-16 text-brand-green">600 IU/day</p>
                         </div>
                         <div class="px-30 mb-20">
@@ -20740,7 +20740,7 @@ const sg = { class: "pb-64" },
                 },
                 {
                   test: `<div class="bg-white p-10 rounded-2sm">
-                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]">
+                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]">
                             <p class="text-semi-600-16 text-brand-green">DHEA</p><p class="text-semi-600-16 text-brand-green"></p>
                         </div>
                         <div class="px-30 mb-20">
@@ -20951,7 +20951,7 @@ const sg = { class: "pb-64" },
                           <p class="text-mono-regular-400-13 uppercase">Oxidative Injury</p>
                         </div>
                         <div class="biomarker-tag tag-red with-arrow arrow-top">5.44</div>
-                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]"></div>
+                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]"></div>
 `,
                 },
                 {
@@ -20961,7 +20961,7 @@ const sg = { class: "pb-64" },
                           <p class="text-mono-regular-400-13 uppercase">Increased protein cross-linking</p>
                         </div>
                         <div class="biomarker-tag tag-red with-arrow arrow-top">5.45</div>
-                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]"></div>`,
+                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]"></div>`,
                 },
                 {
                   test: `<div class="flex pl-20 pr-10 pt-20 pb-16 bg-white justify-between items-center gap-10">
@@ -20970,7 +20970,7 @@ const sg = { class: "pb-64" },
                           <p class="text-mono-regular-400-13 uppercase">Membrane damage indicators</p>
                         </div>
                         <div class="biomarker-tag tag-orange with-arrow arrow-top">146.71</div>
-                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]"></div>`,
+                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]"></div>`,
                 },
                 {
                   test: `<div class="flex pl-20 pr-10 pt-20 pb-16 bg-white justify-between items-center gap-10">
@@ -20979,7 +20979,7 @@ const sg = { class: "pb-64" },
                           <p class="text-mono-regular-400-13 uppercase">Protein nitration</p>
                         </div>
                         <div class="biomarker-tag tag-red with-arrow arrow-top">318.62</div>
-                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]"></div>`,
+                      </div><div class="hr h-2 bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]"></div>`,
                 },
                 {
                   test: `<div class="flex pl-20 pr-10 pt-20 pb-16 rounded-b-2sm bg-white justify-between items-center gap-10">
@@ -21012,7 +21012,7 @@ const sg = { class: "pb-64" },
               biomarkers: [
                 {
                   test: `<div class="bg-white p-10 rounded-2sm mb-15">
-                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]">
+                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]">
                             <p class="text-semi-600-16 text-brand-green">Creatine</p><p class="text-semi-600-16 text-brand-green">3 g/day</p>
                         </div>
                         <div class="px-30 mb-20">
@@ -21022,7 +21022,7 @@ const sg = { class: "pb-64" },
                 },
                 {
                   test: `<div class="bg-white p-10 rounded-2sm mb-15">
-                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]">
+                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]">
                             <p class="text-semi-600-16 text-brand-green">N-acetyl cysteine (NAC)</p><p class="text-semi-600-16 text-brand-green">250 mg/day</p>
                         </div>
                         <div class="px-30 mb-20">
@@ -21033,7 +21033,7 @@ const sg = { class: "pb-64" },
                 },
                 {
                   test: `<div class="bg-white p-10 rounded-2sm mb-15">
-                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]">
+                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]">
                             <p class="text-semi-600-16 text-brand-green">Resveratrol</p><p class="text-semi-600-16 text-brand-green">500 mg/day</p>
                         </div>
                         <div class="px-30 mb-20">
@@ -21043,7 +21043,7 @@ const sg = { class: "pb-64" },
                 },
                 {
                   test: `<div class="bg-white p-10 rounded-2sm mb-15">
-                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]">
+                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]">
                             <p class="text-semi-600-16 text-brand-green">Curcumin</p><p class="text-semi-600-16 text-brand-green">250 mg/daY</p>
                         </div>
                         <div class="px-30 mb-20">
@@ -21053,7 +21053,7 @@ const sg = { class: "pb-64" },
                 },
                 {
                   test: `<div class="bg-white p-10 rounded-2sm">
-                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#E8EFFF_-13.01%,_#C1E8FF_1.33%,_#FFF6FE_26.42%,_#E6DFFF_49.72%,_#FFFFFF_70.33%,_#D5E8FF_98.11%,_#FFFFFF_122.3%,_#F6EAFF_133.06%,_#E8EFFF_152.77%)]">
+                        <div class="flex px-16 mb-16 h-50 rounded-sm justify-between items-center bg-[linear-gradient(270deg,_#fff8e6_-13.01%,_#ffeebb_1.33%,_#fffcfa_26.42%,_#fff2e6_49.72%,_#FFFFFF_70.33%,_#ffeaa7_98.11%,_#FFFFFF_122.3%,_#fffbf2_133.06%,_#fff8e6_152.77%)]">
                             <p class="text-semi-600-16 text-brand-green">Selenium</p><p class="text-semi-600-16 text-brand-green">55 mcg/day</p>
                         </div>
                         <div class="px-30 mb-20">
