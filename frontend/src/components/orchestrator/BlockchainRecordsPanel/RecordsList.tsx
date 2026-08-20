@@ -1,7 +1,100 @@
-import React from 'react';
-import { ShieldCheck, CheckCircle2 } from 'lucide-react';
+import React, { useState, useRef } from 'react';
+import { ShieldCheck, CheckCircle2, UploadCloud, AlertTriangle } from 'lucide-react';
+import { hashFile, hashBuffer, generateRecordId } from '@/lib/blockchain/crypto';
+import { uploadFile, fetchFile } from '@/lib/blockchain/ipfs';
+import { registerRecord, getRecord, getSigner } from '@/lib/blockchain/contract';
 
 export default function RecordsList({ state }: { state: any }) {
+  // Upload State
+  const [file, setFile] = useState<File | null>(null);
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
+  const [uploadStep, setUploadStep] = useState<string>('');
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setFile(e.target.files[0]);
+    }
+  };
+
+  const handleUpload = async () => {
+    if (!file) return;
+    setUploading(true);
+    setUploadError(null);
+    try {
+      setUploadStep('Hashing file...');
+      const fileHash = await hashFile(file);
+
+      setUploadStep('Uploading to IPFS...');
+      const { cid, simulated } = await uploadFile(file);
+
+      setUploadStep('Registering on-chain...');
+      const signer = await getSigner(state.walletMode || 'burner');
+      const address = state.walletAddress || (await signer.getAddress());
+      const recordId = await generateRecordId(file.name, address);
+      
+      await registerRecord(recordId, fileHash, cid, signer);
+      
+      // Add to records list
+      const newRecord = {
+        id: recordId,
+        patient: state.name || 'Unknown',
+        abha: state.abhaData?.abha_number || 'N/A',
+        hash: fileHash,
+        cid: cid,
+        type: file.name,
+        timestamp: new Date().toISOString(),
+        verified: true
+      };
+      
+      state.setRecords([newRecord, ...state.records]);
+      setFile(null);
+      if(fileInputRef.current) fileInputRef.current.value = '';
+    } catch (err: any) {
+      setUploadError(err.message || 'Upload failed');
+    } finally {
+      setUploading(false);
+      setUploadStep('');
+    }
+  };
+
+  // Verify State
+  const [verifyId, setVerifyId] = useState('');
+  const [verifying, setVerifying] = useState(false);
+  const [verifyResult, setVerifyResult] = useState<any>(null);
+  const [verifyError, setVerifyError] = useState<string | null>(null);
+
+  const handleVerify = async () => {
+    if (!verifyId.trim()) return;
+    setVerifying(true);
+    setVerifyResult(null);
+    setVerifyError(null);
+    try {
+      const record = await getRecord(verifyId.trim());
+      if (!record || record.owner === '0x0000000000000000000000000000000000000000' || !record.cid) {
+        throw new Error('Record not found on-chain for this ID.');
+      }
+      
+      const fileBuffer = await fetchFile(record.cid);
+      const recomputedHash = await hashBuffer(fileBuffer);
+      const match = recomputedHash.toLowerCase() === record.fileHash.toLowerCase();
+
+      setVerifyResult({
+        match,
+        record,
+        recomputedHash,
+        message: match 
+          ? 'Cryptographic SHA-256 integrity verified against Ethereum registry digest.' 
+          : 'WARNING: The re-computed hash does NOT match the on-chain hash. The file may have been altered.'
+      });
+    } catch (err: any) {
+      setVerifyError(err.message || 'Verification failed');
+    } finally {
+      setVerifying(false);
+    }
+  };
+
   return (
     <>
       {/* Tab 3: Blockchain */}
@@ -11,6 +104,43 @@ export default function RecordsList({ state }: { state: any }) {
           <p style={{ color: '#64748b', fontSize: '14px', marginBottom: '28px', lineHeight: 1.5 }}>
             Records are hashed with SHA-256, pinned to IPFS, and anchored to the <code>MedicalRecords.sol</code> smart contract.
           </p>
+
+          {/* Upload UI matching Sanjeevani Style */}
+          <div style={{ background: '#f8fafc', border: '1px dashed #cbd5e1', borderRadius: '14px', padding: '24px', marginBottom: '32px', display: 'flex', flexDirection: 'column', gap: '16px', alignItems: 'flex-start' }}>
+            <h3 style={{ fontSize: '16px', margin: 0, color: '#0f172a', fontWeight: 700, fontFamily: 'system-ui, -apple-system, sans-serif' }}>Register New Record</h3>
+            
+            <div style={{ display: 'flex', gap: '12px', width: '100%', alignItems: 'center', flexWrap: 'wrap' }}>
+              <input type="file" ref={fileInputRef} onChange={handleFileChange} style={{ flex: 1, padding: '10px', background: '#fff', border: '1px solid #e2e8f0', borderRadius: '8px', fontSize: '14px' }} />
+              <button 
+                onClick={handleUpload} 
+                disabled={!file || uploading || !state.walletAddress}
+                style={{
+                  padding: '12px 24px',
+                  borderRadius: '10px',
+                  background: (!file || uploading || !state.walletAddress) ? '#94a3b8' : '#db2777',
+                  color: '#fff',
+                  border: 'none',
+                  cursor: (!file || uploading || !state.walletAddress) ? 'not-allowed' : 'pointer',
+                  fontWeight: 800,
+                  fontSize: '14px',
+                  fontFamily: 'system-ui, -apple-system, sans-serif',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px'
+                }}
+              >
+                <UploadCloud size={16} />
+                {uploading ? uploadStep : 'Hash & Register'}
+              </button>
+            </div>
+            
+            {!state.walletAddress && (
+              <span style={{ fontSize: '12px', color: '#ef4444' }}>Please connect wallet (Burner or MetaMask) in the header to register records.</span>
+            )}
+            {uploadError && (
+              <span style={{ fontSize: '13px', color: '#ef4444', background: '#fef2f2', padding: '8px 12px', borderRadius: '6px', border: '1px solid #fecaca' }}>{uploadError}</span>
+            )}
+          </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             {state.records.map((r: any, i: number) => (
@@ -22,6 +152,7 @@ export default function RecordsList({ state }: { state: any }) {
                   </span>
                 </div>
                 <div style={{ fontSize: '14px', color: '#475569', marginBottom: '8px' }}>Patient: <b style={{ color: '#0f172a' }}>{r.patient}</b> (ABHA: {r.abha})</div>
+                <div style={{ fontSize: '12px', color: '#64748b', wordBreak: 'break-all', marginBottom: '4px', fontFamily: 'monospace' }}>Record ID: <span style={{ color: '#db2777' }}>{r.id || 'N/A'}</span></div>
                 <div style={{ fontSize: '12px', color: '#64748b', wordBreak: 'break-all', marginBottom: '4px', fontFamily: 'monospace' }}>IPFS CID: <span style={{ color: '#3b82f6' }}>{r.cid}</span></div>
                 <div style={{ fontSize: '12px', color: '#64748b', wordBreak: 'break-all', fontFamily: 'monospace' }}>SHA-256 Digest: {r.hash}</div>
               </div>
@@ -35,26 +166,27 @@ export default function RecordsList({ state }: { state: any }) {
         <div>
           <h2 style={{ fontSize: '20px', marginBottom: '8px', color: '#0f172a', fontWeight: 800, fontFamily: 'system-ui, -apple-system, sans-serif' }}>Verify Record Cryptographic Authenticity</h2>
           <p style={{ color: '#64748b', fontSize: '14px', marginBottom: '24px', lineHeight: 1.5 }}>
-            Enter any IPFS CID or document SHA-256 hash to verify against the smart contract registry.
+            Enter a Record ID to fetch from IPFS, re-hash, and verify against the smart contract registry.
           </p>
 
           <div style={{ display: 'flex', gap: '12px', marginBottom: '32px', flexWrap: 'wrap' }}>
             <input
               type="text"
-              placeholder="e.g. QmZ4tDuvesekSs4qM5ZBKpXiZGun7S2CYtEZRB3DYXkjGx"
-              value={state.verifyCid}
-              onChange={(e) => state.setVerifyCid(e.target.value)}
-              style={{ flex: 1, minWidth: '300px', padding: '14px 16px', borderRadius: '10px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '14px', outline: 'none' }}
+              placeholder="e.g. 0x123abc..."
+              value={verifyId}
+              onChange={(e) => setVerifyId(e.target.value)}
+              style={{ flex: 1, minWidth: '300px', padding: '14px 16px', borderRadius: '10px', background: '#f8fafc', border: '1px solid #cbd5e1', color: '#0f172a', fontSize: '14px', outline: 'none', fontFamily: 'monospace' }}
             />
             <button
-              onClick={state.handleVerify}
+              onClick={handleVerify}
+              disabled={verifying || !verifyId.trim()}
               style={{ 
                 padding: '14px 28px', 
                 borderRadius: '10px', 
-                background: '#10b981', 
+                background: (verifying || !verifyId.trim()) ? '#94a3b8' : '#10b981', 
                 color: '#fff', 
                 border: 'none', 
-                cursor: 'pointer', 
+                cursor: (verifying || !verifyId.trim()) ? 'not-allowed' : 'pointer', 
                 fontWeight: 800,
                 fontSize: '14px',
                 fontFamily: 'system-ui, -apple-system, sans-serif',
@@ -65,19 +197,33 @@ export default function RecordsList({ state }: { state: any }) {
               }}
             >
               <ShieldCheck size={16} />
-              Verify Hash
+              {verifying ? 'Verifying...' : 'Verify Hash'}
             </button>
           </div>
 
-          {state.verifyResult && (
-            <div style={{ background: '#ecfdf5', border: '1px solid #34d399', borderRadius: '14px', padding: '24px' }}>
-              <h4 style={{ margin: '0 0 12px 0', color: '#059669', fontSize: '16px', fontWeight: 800, fontFamily: 'system-ui, -apple-system, sans-serif', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <CheckCircle2 size={18} />
-                Integrity Verified: Document Untampered
+          {verifyError && (
+             <div style={{ background: '#fef2f2', border: '1px solid #fecaca', borderRadius: '14px', padding: '24px', marginBottom: '24px' }}>
+                <h4 style={{ margin: '0 0 12px 0', color: '#ef4444', fontSize: '16px', fontWeight: 800, fontFamily: 'system-ui, -apple-system, sans-serif', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <AlertTriangle size={18} />
+                  Verification Error
+                </h4>
+                <p style={{ color: '#991b1b', fontSize: '14.5px', margin: 0, lineHeight: 1.5 }}>{verifyError}</p>
+             </div>
+          )}
+
+          {verifyResult && (
+            <div style={{ background: verifyResult.match ? '#ecfdf5' : '#fef2f2', border: `1px solid ${verifyResult.match ? '#34d399' : '#fecaca'}`, borderRadius: '14px', padding: '24px' }}>
+              <h4 style={{ margin: '0 0 12px 0', color: verifyResult.match ? '#059669' : '#ef4444', fontSize: '16px', fontWeight: 800, fontFamily: 'system-ui, -apple-system, sans-serif', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                {verifyResult.match ? <CheckCircle2 size={18} /> : <AlertTriangle size={18} />}
+                {verifyResult.match ? 'Integrity Verified: Document Untampered' : 'Integrity Check Failed'}
               </h4>
-              <p style={{ color: '#047857', fontSize: '14.5px', margin: '0 0 16px 0', lineHeight: 1.5 }}>{state.verifyResult.message}</p>
-              <div style={{ fontSize: '12px', color: '#065f46', background: '#d1fae5', padding: '10px 14px', borderRadius: '8px', display: 'inline-block', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
-                Smart Contract Status: <b style={{ color: '#064e3b' }}>RECORD_MATCH_FOUND</b> • Access Status: <b style={{ color: '#064e3b' }}>PUBLIC_VERIFIABLE</b>
+              <p style={{ color: verifyResult.match ? '#047857' : '#991b1b', fontSize: '14.5px', margin: '0 0 16px 0', lineHeight: 1.5 }}>{verifyResult.message}</p>
+              
+              <div style={{ fontSize: '12px', color: '#475569', background: '#f8fafc', padding: '16px', borderRadius: '8px', border: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column', gap: '8px', fontFamily: 'monospace' }}>
+                <div><b style={{ color: '#0f172a' }}>Owner:</b> {verifyResult.record.owner}</div>
+                <div><b style={{ color: '#0f172a' }}>On-Chain Hash:</b> {verifyResult.record.fileHash}</div>
+                <div><b style={{ color: '#0f172a' }}>Recomputed Hash:</b> {verifyResult.recomputedHash}</div>
+                <div><b style={{ color: '#0f172a' }}>CID:</b> {verifyResult.record.cid}</div>
               </div>
             </div>
           )}
