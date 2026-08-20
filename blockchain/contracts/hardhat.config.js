@@ -22,7 +22,7 @@ export default defineConfig({
     },
     sepolia: {
       type: "http",
-      url: process.env.SEPOLIA_RPC_URL || "",
+      url: process.env.SEPOLIA_RPC_URL || "https://sepolia.infura.io/v3/dummy",
       accounts: process.env.DEPLOYER_PRIVATE_KEY
         ? [process.env.DEPLOYER_PRIVATE_KEY]
         : [],
