@@ -8,9 +8,9 @@ import { ethers } from "ethers";
 
 // Public RPC endpoints for Sepolia testnet fallback
 const SEPOLIA_RPC_URLS = [
+  "https://eth-sepolia.g.alchemy.com/v2/alch_VGvYx5M5Cq1o5DF6SYfEz",
   "https://ethereum-sepolia-rpc.publicnode.com",
-  "https://rpc.sepolia.org",
-  "https://rpc2.sepolia.org",
+  "https://rpc.sepolia.org"
 ];
 
 const HARDHAT_RPC = "http://127.0.0.1:8545";

@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { getSigner, isContractReady, getDeployedNetwork } from '@/lib/blockchain/contract';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
 
@@ -9,6 +10,89 @@ export function useBlockchainRecords() {
   const [yearOfBirth, setYearOfBirth] = useState('1995');
   const [loading, setLoading] = useState(false);
   const [downloading, setDownloading] = useState(false);
+
+  // Wallet state
+  const [walletAddress, setWalletAddress] = useState<string | null>(null);
+  const [walletMode, setWalletMode] = useState<'burner' | 'metamask'>('burner');
+  const [contractOk, setContractOk] = useState(false);
+  const [networkName, setNetworkName] = useState('localhost');
+  const [connecting, setConnecting] = useState(false);
+  const [walletError, setWalletError] = useState<string | null>(null);
+
+  useEffect(() => {
+    isContractReady().then(setContractOk).catch(() => setContractOk(false));
+    getDeployedNetwork().then(setNetworkName).catch(() => setNetworkName('localhost'));
+    connectBurner();
+  }, []);
+
+  async function connectBurner() {
+    setConnecting(true);
+    setWalletError(null);
+    try {
+      const net = await getDeployedNetwork();
+      setNetworkName(net);
+      const signer = await getSigner('burner');
+      const addr = await signer.getAddress();
+      setWalletAddress(addr);
+      setWalletMode('burner');
+    } catch (err: any) {
+      if (networkName !== 'sepolia') {
+        setWalletError('Cannot connect to local Hardhat node. Is it running?');
+      } else {
+        setWalletError('Cannot connect to Sepolia RPC. Check your connection.');
+      }
+    } finally {
+      setConnecting(false);
+    }
+  }
+
+  async function connectMetaMask() {
+    setConnecting(true);
+    setWalletError(null);
+    try {
+      if (!(window as any).ethereum) {
+        throw new Error('MetaMask extension not found. Please install the MetaMask browser extension.');
+      }
+      
+      if (networkName === 'sepolia') {
+        const chainId = await (window as any).ethereum.request({ method: 'eth_chainId' });
+        if (chainId !== '0xaa36a7') {
+          try {
+            await (window as any).ethereum.request({
+              method: 'wallet_switchEthereumChain',
+              params: [{ chainId: '0xaa36a7' }],
+            });
+          } catch (switchErr: any) {
+            if (switchErr.code === 4902) {
+              await (window as any).ethereum.request({
+                method: 'wallet_addEthereumChain',
+                params: [{
+                  chainId: '0xaa36a7',
+                  chainName: 'Sepolia Test Network',
+                  nativeCurrency: { name: 'Sepolia ETH', symbol: 'ETH', decimals: 18 },
+                  rpcUrls: ['https://ethereum-sepolia-rpc.publicnode.com'],
+                  blockExplorerUrls: ['https://sepolia.etherscan.io'],
+                }],
+              });
+            } else {
+              throw new Error('Please switch MetaMask to Sepolia network.');
+            }
+          }
+        }
+      }
+
+      const signer = await getSigner('metamask');
+      const addr = await signer.getAddress();
+      setWalletAddress(addr);
+      setWalletMode('metamask');
+    } catch (err: any) {
+      const msg = err.message || 'MetaMask connection failed';
+      setWalletError(msg);
+      alert('MetaMask Error: ' + msg);
+    } finally {
+      setConnecting(false);
+    }
+  }
 
   // Blockchain record state
   const [records, setRecords] = useState<any[]>([
@@ -125,6 +209,8 @@ export function useBlockchainRecords() {
     verifyResult, setVerifyResult,
     handleGenerateAbha,
     handleDownloadPdf,
-    handleVerify
+    handleVerify,
+    walletAddress, walletMode, contractOk, networkName, connecting, walletError,
+    connectBurner, connectMetaMask
   };
 }

@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Fingerprint, FileCheck2, Link as LinkIcon, ShieldCheck, Download, CheckCircle2 } from 'lucide-react';
+import { Fingerprint, FileCheck2, Link as LinkIcon, ShieldCheck, Download, CheckCircle2, Wallet, AlertCircle } from 'lucide-react';
 import { useBlockchainRecords } from './useBlockchainRecords';
 import AbhaGenerator from './AbhaGenerator';
 import RecordsList from './RecordsList';
@@ -31,12 +31,59 @@ export default function BlockchainRecordsPanel() {
           </p>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          {state.walletError && (
+            <span style={{ fontSize: '11px', color: '#e11d48', fontWeight: 600 }}>{state.walletError}</span>
+          )}
+          
+          <button
+            onClick={state.connectBurner}
+            disabled={state.connecting}
+            style={{
+              padding: '6px 14px',
+              borderRadius: '9999px',
+              background: state.walletMode === 'burner' && state.walletAddress ? '#f1f5f9' : '#ffffff',
+              border: '1px solid #cbd5e1',
+              color: '#334155',
+              fontSize: '11px',
+              fontWeight: 700,
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              fontFamily: 'system-ui, -apple-system, sans-serif',
+            }}
+          >
+            <Wallet size={12} />
+            Burner
+          </button>
+          
+          <button
+            onClick={state.connectMetaMask}
+            disabled={state.connecting}
+            style={{
+              padding: '6px 14px',
+              borderRadius: '9999px',
+              background: state.walletMode === 'metamask' && state.walletAddress ? '#f1f5f9' : '#ffffff',
+              border: '1px solid #cbd5e1',
+              color: '#f5841f',
+              fontSize: '11px',
+              fontWeight: 700,
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              fontFamily: 'system-ui, -apple-system, sans-serif',
+            }}
+          >
+            🦊 MetaMask
+          </button>
+
           <span style={{ 
             padding: '6px 14px', 
             borderRadius: '9999px', 
-            background: '#ecfdf5', 
-            border: '1px solid #a7f3d0', 
-            color: '#059669', 
+            background: state.contractOk ? '#ecfdf5' : '#fef2f2', 
+            border: `1px solid ${state.contractOk ? '#a7f3d0' : '#fecaca'}`, 
+            color: state.contractOk ? '#059669' : '#ef4444', 
             fontSize: '11px', 
             fontWeight: 800,
             fontFamily: 'system-ui, -apple-system, sans-serif',
@@ -44,9 +91,15 @@ export default function BlockchainRecordsPanel() {
             alignItems: 'center',
             gap: '6px'
           }}>
-            <CheckCircle2 size={12} />
-            Hardhat & ABDM Connected
+            {state.contractOk ? <CheckCircle2 size={12} /> : <AlertCircle size={12} />}
+            {state.contractOk ? 'Hardhat Ready' : 'Node Offline'}
           </span>
+          
+          {state.walletAddress && (
+            <span style={{ fontSize: '11px', color: '#64748b', fontWeight: 600, fontFamily: 'monospace' }}>
+              {state.walletAddress.slice(0, 6)}...{state.walletAddress.slice(-4)}
+            </span>
+          )}
         </div>
       </div>
 

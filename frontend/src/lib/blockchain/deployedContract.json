@@ -1,5 +1,5 @@
 {
-  "address": "0x681713e8ffa4BECfE457e7B1353F5C4149031CA3",
+  "address": "0xd622b43313A060ae601387D072dc5e65F7D6a544",
   "network": "sepolia",
   "abi": [
     {
@@ -213,5 +213,5 @@
       "type": "function"
     }
   ],
-  "deployedAt": "2026-08-16T12:09:56.479Z"
+  "deployedAt": "2026-08-21T14:00:12.089Z"
 }
