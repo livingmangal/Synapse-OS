@@ -8,7 +8,7 @@ import ClinicalProtocols from './ClinicalProtocols';
 import { diseases } from './data';
 
 export default function WHODiseaseSurveillancePanel() {
-  const [selectedDiseaseId, setSelectedDiseaseId] = useState<string>('ihd');
+  const [selectedDiseaseId, setSelectedDiseaseId] = useState<string>('covid19');
   const [mapScope, setMapScope] = useState<'global' | 'india'>('global');
   const [selectedHubId, setSelectedHubId] = useState<string>('g_india');
 
@@ -43,21 +43,15 @@ export default function WHODiseaseSurveillancePanel() {
       margin: '0 auto',
       fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
     }}>
-      {/* 1. Unified WHO Header & Disease Selection Container */}
+      {/* 1. Unified WHO Header & Pathogen Outbreak Selector */}
       <DiseaseSelector
         diseases={diseases}
         selectedDiseaseId={selectedDiseaseId}
         onSelectDisease={handleSelectDisease}
       />
 
-      {/* 2. Step 2: Global Disease Intelligence & Interactive Map Viewport */}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: '1.55fr 1.05fr',
-        gap: '24px',
-        alignItems: 'stretch'
-      }}>
-        {/* Left Side: Interactive TopoJSON Vector Map */}
+      {/* 2. Massive Full-Width GIS Surveillance Map Hero Viewport */}
+      <div style={{ width: '100%' }}>
         <SurveillanceMap
           activeDisease={activeDisease}
           activeHubList={activeHubList}
@@ -65,15 +59,19 @@ export default function WHODiseaseSurveillancePanel() {
           selectedHubId={selectedHubId}
           onSwitchScope={handleSwitchScope}
           onSelectHub={setSelectedHubId}
+          diseases={diseases}
+          onSelectDisease={handleSelectDisease}
         />
+      </div>
 
-        {/* Right Side: Interactive Regional Telemetry & Edge-to-Edge Graph Canvas */}
+      {/* 3. Deep-Dive Telemetry Analytics Canvas & Epidemic Wave Trajectory */}
+      <div style={{ width: '100%' }}>
         <TelemetryGraph
           activeHub={activeHub}
         />
       </div>
 
-      {/* 3. Step 3: WHO Official Precautions & Evidence-Based Guidelines Matrix */}
+      {/* 4. WHO Clinical Protocols & Precautions Matrix */}
       <ClinicalProtocols
         activeDisease={activeDisease}
       />

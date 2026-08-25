@@ -24,14 +24,22 @@ def get_fracture_model():
         try:
             from ultralytics import YOLO
             candidates = [
+                os.path.abspath("backend/Final.pt"),
+                os.path.abspath("backend/final.pt"),
+                os.path.join(os.path.dirname(__file__), "../Final.pt"),
+                os.path.join(os.path.dirname(__file__), "../final.pt"),
+                os.path.join(os.path.dirname(__file__), "../../Final.pt"),
+                os.path.join(os.path.dirname(__file__), "../../final.pt"),
+                os.path.abspath("Final.pt"),
+                os.path.abspath("final.pt"),
                 os.path.abspath("Repos/FractureNet-main/backend/Final.pt"),
-                os.path.abspath("Repos/FractureNet-main/backend/final.pt"),
-                os.path.join(os.path.dirname(__file__), "../../../Repos/FractureNet-main/backend/Final.pt")
+                os.path.abspath("Repos/FractureNet-main/backend/final.pt")
             ]
             for p in candidates:
                 if os.path.exists(p):
                     logger.info(f"Loading FractureNet YOLOv8 weights from {p}")
                     _fracture_model = YOLO(p)
+                    logger.info(f"FractureNet YOLO model loaded successfully with classes: {_fracture_model.names}")
                     break
         except Exception as e:
             logger.warning(f"FractureNet YOLO model initialization notice: {e}")

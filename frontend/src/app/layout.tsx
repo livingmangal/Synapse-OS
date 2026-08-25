@@ -14,6 +14,8 @@ export const metadata: Metadata = {
   },
 };
 
+import { LanguageProvider } from '@/context/LanguageContext';
+
 export default function RootLayout({
   children,
 }: {
@@ -29,14 +31,16 @@ export default function RootLayout({
         <link rel="stylesheet" href="/wp-content/themes/normalisboring25/css/main.css" suppressHydrationWarning />
       </head>
       <body suppressHydrationWarning>
-        <LegacyThemeShell>
-          {children}
-        </LegacyThemeShell>
+        <LanguageProvider>
+          <LegacyThemeShell>
+            {children}
+          </LegacyThemeShell>
 
-        {/* LiveKit Isometric Agentic Architecture Controller */}
-        <Script src="/wp-content/themes/normalisboring25/js/agentic-diagram.js" strategy="afterInteractive" />
-        <SanjeevaniAssistantModal />
-        <ScriptsLoader />
+          {/* LiveKit Isometric Agentic Architecture Controller */}
+          <Script src="/wp-content/themes/normalisboring25/js/agentic-diagram.js" strategy="afterInteractive" />
+          <SanjeevaniAssistantModal />
+          <ScriptsLoader />
+        </LanguageProvider>
       </body>
     </html>
   );

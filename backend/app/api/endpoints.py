@@ -16,7 +16,7 @@ from backend.app.ml.diagnostics import DiagnosticRiskRequest, calculate_clinical
 from backend.app.services.abdm_service import generate_abha_id, check_ayushman_bharat_schemes
 from backend.app.services.pdf_service import generate_health_summary_pdf
 from backend.app.services.whatsapp_service import process_whatsapp_inbound_webhook, trigger_emergency_sos_whatsapp
-from backend.app.services.fhir_service import build_fhir_r4_bundle
+from backend.app.services.fhir_service import build_fhir_r4_bundle, build_wearable_fhir_bundle
 from backend.app.agents.retrieval_agent import hybrid_retrieve_clinical_context
 from backend.app.agents.appointment_agent import find_doctors_by_specialty, book_appointment_slot
 from backend.app.services.i18n_service import translate_clinical_message
@@ -194,12 +194,243 @@ async def schedule_appointment_endpoint(
     return book_appointment_slot(patient_name=patient_name, doctor_id=doctor_id, slot_time=slot_time)
 
 
+from backend.app.services.i18n_service import translate_clinical_message, get_supported_languages
+
+
 @router.get("/i18n/translate", tags=["Multilingual Access"])
 async def i18n_translate_endpoint(key: str = "emergency_alert", lang: str = "hi"):
-    """Translates key clinical warnings into Hindi, Bengali, Tamil, Telugu, or Spanish."""
+    """Translates key clinical warnings into 11 Indian regional languages."""
     return {
         "key": key,
         "language": lang,
         "translated_text": translate_clinical_message(key, lang)
     }
+
+
+@router.get("/i18n/languages", tags=["Multilingual Access"])
+async def i18n_languages_endpoint():
+    """Lists all supported Indian regional & international languages."""
+    return {
+        "count": len(get_supported_languages()),
+        "languages": get_supported_languages()
+    }
+
+
+class WearableTelemetryPayload(BaseModel):
+    source: str = Field(default="apple_health", example="apple_health / google_health_connect / ios_shortcut / auto_export")
+    device_name: str = Field(default="Apple Watch Ultra 2", example="Apple Watch Series 10 / Pixel Watch 3")
+    patient_id: Optional[str] = Field(default="PAT-91-4829", example="PAT-91-4829")
+    patient_name: Optional[str] = Field(default="Siddharth Sharma", example="Siddharth Sharma")
+    heart_rate_bpm: Optional[int] = 74
+    resting_heart_rate: Optional[int] = 62
+    spo2_percent: Optional[float] = 98.5
+    hrv_ms: Optional[int] = 58
+    respiratory_rate: Optional[int] = 15
+    steps: Optional[int] = 8420
+    ecg_classification: Optional[str] = "Sinus Rhythm"
+    sleep_duration_hrs: Optional[float] = 7.4
+
+
+@router.post("/wearables/sync", tags=["Wearables & HealthKit"])
+async def sync_wearables_endpoint(payload: WearableTelemetryPayload):
+    """
+    Ingests and validates wearable telemetry from Apple HealthKit (via iOS Shortcut/Bridge),
+    Android Health Connect, or simulated streams.
+    Transforms vital telemetry into HL7 FHIR R4 Observation resources with LOINC codes.
+    """
+    from datetime import datetime
+    anomalies = []
+    clinical_flags = []
+
+    # 1. Pulse Oximetry (SpO2) Validation
+    if payload.spo2_percent is not None:
+        if payload.spo2_percent < 90.0:
+            anomalies.append(f"Critical Hypoxemia: SpO2 dropped to {payload.spo2_percent}% (Critical threshold < 90%)")
+            clinical_flags.append("CRITICAL_O2_DESATURATION")
+        elif payload.spo2_percent < 93.0:
+            anomalies.append(f"Mild Hypoxemia: SpO2 dipped to {payload.spo2_percent}% (threshold < 93%)")
+            clinical_flags.append("HYPOXEMIA")
+
+    # 2. Heart Rate & Rhythm Validation
+    if payload.resting_heart_rate is not None:
+        if payload.resting_heart_rate > 100:
+            anomalies.append(f"Resting Tachycardia: Sustained resting heart rate {payload.resting_heart_rate} BPM (> 100 BPM)")
+            clinical_flags.append("TACHYCARDIA")
+        elif payload.resting_heart_rate < 45:
+            anomalies.append(f"Resting Bradycardia: Sustained resting heart rate {payload.resting_heart_rate} BPM (< 45 BPM)")
+            clinical_flags.append("BRADYCARDIA")
+
+    # 3. ECG Classification Validation
+    if payload.ecg_classification:
+        ecg_lower = payload.ecg_classification.lower()
+        if "fibrillation" in ecg_lower or "afib" in ecg_lower:
+            anomalies.append("Atrial Fibrillation Pattern detected by Watch ECG algorithm")
+            clinical_flags.append("AFIB_DETECTED")
+        elif "inconclusive" in ecg_lower or "poor" in ecg_lower:
+            clinical_flags.append("ECG_INCONCLUSIVE")
+
+    # 4. Heart Rate Variability (HRV Autonomic Recovery)
+    if payload.hrv_ms is not None and payload.hrv_ms < 20:
+        anomalies.append(f"Severe Autonomic Fatigue / Physiological Stress (HRV: {payload.hrv_ms} ms)")
+        clinical_flags.append("LOW_HRV_STRESS")
+
+    # 5. Respiratory Rate Validation
+    if payload.respiratory_rate is not None:
+        if payload.respiratory_rate > 24:
+            anomalies.append(f"Tachypnea Alert: Elevated respiratory rate ({payload.respiratory_rate} breaths/min)")
+            clinical_flags.append("TACHYPNEA")
+        elif payload.respiratory_rate < 8:
+            anomalies.append(f"Bradypnea Alert: Depressed respiratory rate ({payload.respiratory_rate} breaths/min)")
+            clinical_flags.append("BRADYPNEA")
+
+    # Generate standard HL7 FHIR R4 Bundle
+    fhir_bundle = build_wearable_fhir_bundle(
+        payload=payload.dict(),
+        patient_id=payload.patient_id or "PAT-91-4829",
+        patient_name=payload.patient_name or "Siddharth Sharma"
+    )
+
+    risk_level = "High" if len(anomalies) > 0 else "Normal"
+    if "CRITICAL_O2_DESATURATION" in clinical_flags or "AFIB_DETECTED" in clinical_flags:
+        risk_level = "Emergency"
+
+    return {
+        "status": "SYNCED",
+        "source": payload.source,
+        "device": payload.device_name,
+        "patient_id": payload.patient_id,
+        "anomalies_detected": anomalies,
+        "clinical_flags": clinical_flags,
+        "risk_level": risk_level,
+        "sync_timestamp": datetime.utcnow().isoformat() + "Z",
+        "fhir_observation_count": fhir_bundle.get("total", 0),
+        "fhir_bundle": fhir_bundle,
+        "abha_linked": True,
+        "abha_id": "91-5829-3910-4821"
+    }
+
+
+@router.get("/wearables/bridge-spec", tags=["Wearables & HealthKit"])
+async def get_wearables_bridge_spec():
+    """
+    Returns iOS Shortcuts recipe, Health Auto Export webhook configuration,
+    and Android Health Connect integration specifications for real device syncing.
+    """
+    return {
+        "bridge_name": "Sanjeevani OS Live Wearables Bridge",
+        "supported_sources": ["apple_health", "google_health_connect", "ios_shortcut", "health_auto_export", "garmin"],
+        "sync_endpoint": "/api/wearables/sync",
+        "http_method": "POST",
+        "headers_required": {
+            "Content-Type": "application/json",
+            "X-Device-Platform": "iOS / Android"
+        },
+        "payload_schema": {
+            "source": "apple_health | google_health_connect | ios_shortcut",
+            "device_name": "Apple Watch Ultra 2 | Pixel Watch 3",
+            "heart_rate_bpm": "Integer (optional)",
+            "resting_heart_rate": "Integer (optional)",
+            "spo2_percent": "Float (optional)",
+            "hrv_ms": "Integer (optional)",
+            "respiratory_rate": "Integer (optional)",
+            "steps": "Integer (optional)",
+            "ecg_classification": "String (optional)",
+            "sleep_duration_hrs": "Float (optional)"
+        },
+        "ios_shortcut_setup": {
+            "name": "Sanjeevani HealthKit Sync",
+            "trigger": "Automations -> Time of Day (e.g. Every hour or on Wake Up)",
+            "actions": [
+                "1. Find Health Samples (Heart Rate, Resting Heart Rate, Oxygen Saturation, Step Count)",
+                "2. Set Dictionary with keys matching payload schema",
+                "3. Get Contents of URL https://<SANJEEVANI_HOST>/api/wearables/sync via POST with JSON body"
+            ]
+        },
+        "health_auto_export_setup": {
+            "app": "Health Auto Export (iOS App Store)",
+            "sync_type": "REST API Webhook / Background Sync",
+            "url": "https://<SANJEEVANI_HOST>/api/wearables/sync",
+            "cadence": "Every 15 minutes or upon background fetch"
+        }
+    }
+
+
+@router.get("/surveillance/live", tags=["Epidemiological Surveillance"])
+async def get_live_surveillance_data():
+    """
+    Fetches real-time live epidemiological data from disease.sh & WHO Open Health data.
+    Provides live global cases, deaths, recovery rates, and country breakdown (India, USA, Europe, Brazil).
+    """
+    import urllib.request
+    import json
+
+    try:
+        req = urllib.request.Request(
+            "https://disease.sh/v3/covid-19/all",
+            headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) SanjeevaniOS/2.0"}
+        )
+        with urllib.request.urlopen(req, timeout=4) as response:
+            global_data = json.loads(response.read().decode())
+
+        req_countries = urllib.request.Request(
+            "https://disease.sh/v3/covid-19/countries?sort=cases",
+            headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) SanjeevaniOS/2.0"}
+        )
+        with urllib.request.urlopen(req_countries, timeout=4) as response:
+            countries_data = json.loads(response.read().decode())
+
+        # Extract top hubs (India, USA, Brazil, etc.)
+        country_map = {c["country"].lower(): c for c in countries_data}
+        india = country_map.get("india", {})
+        usa = country_map.get("usa", {})
+        brazil = country_map.get("brazil", {})
+
+        return {
+            "source": "disease.sh & Johns Hopkins CSSE (Live Open API)",
+            "status": "ONLINE",
+            "global": {
+                "total_cases": global_data.get("cases", 775600000),
+                "total_deaths": global_data.get("deaths", 7050000),
+                "total_recovered": global_data.get("recovered", 740000000),
+                "active_cases": global_data.get("active", 21000000),
+                "updated_timestamp": global_data.get("updated")
+            },
+            "india": {
+                "cases": india.get("cases", 45035393),
+                "deaths": india.get("deaths", 533570),
+                "active": india.get("active", 1240000),
+                "recovered": india.get("recovered", 44501823),
+                "critical": india.get("critical", 420),
+                "cases_per_million": india.get("casesPerOneMillion", 32000)
+            },
+            "usa": {
+                "cases": usa.get("cases", 103440000),
+                "deaths": usa.get("deaths", 1192000),
+                "active": usa.get("active", 840000)
+            },
+            "brazil": {
+                "cases": brazil.get("cases", 38100000),
+                "deaths": brazil.get("deaths", 702400),
+                "active": brazil.get("active", 410000)
+            }
+        }
+    except Exception as e:
+        # Resilient fallback with curated WHO dataset
+        return {
+            "source": "Sanjeevani Local WHO/ICMR Matrix (Offline Resilience)",
+            "status": "CACHED_FALLBACK",
+            "global": {
+                "total_cases": 775600000,
+                "total_deaths": 7050000,
+                "active_cases": 21000000
+            },
+            "india": {
+                "cases": 45035393,
+                "deaths": 533570,
+                "active": 1240000
+            },
+            "error_detail": str(e)
+        }
+
+
 

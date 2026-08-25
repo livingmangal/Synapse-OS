@@ -208,25 +208,25 @@ export default function ActionHubExportModal({
         )}
 
         {/* Actions Grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px', marginBottom: '16px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '12px', marginBottom: '16px' }}>
           
           {/* Action 1: Download Clinical PDF */}
           <div style={{
             border: '1px solid #e2e8f0',
             borderRadius: '16px',
-            padding: '16px',
+            padding: '14px',
             background: '#f8fafc',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between'
           }}>
             <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-                <FileDown size={18} color="#db2777" />
-                <span style={{ fontSize: '13px', fontWeight: 800, color: '#0f172a' }}>Clinical PDF</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
+                <FileDown size={17} color="#db2777" />
+                <span style={{ fontSize: '12.5px', fontWeight: 800, color: '#0f172a' }}>Clinical PDF</span>
               </div>
-              <p style={{ fontSize: '11px', color: '#64748b', margin: '0 0 14px 0', lineHeight: 1.4 }}>
-                Official summary with verifiable blockchain hash & QR code.
+              <p style={{ fontSize: '10.5px', color: '#64748b', margin: '0 0 10px 0', lineHeight: 1.35 }}>
+                Official summary with blockchain hash & QR code.
               </p>
             </div>
             <button
@@ -234,7 +234,7 @@ export default function ActionHubExportModal({
               disabled={downloadingPdf}
               style={{
                 width: '100%',
-                padding: '9px',
+                padding: '8px',
                 borderRadius: '8px',
                 border: 'none',
                 background: '#db2777',
@@ -245,7 +245,7 @@ export default function ActionHubExportModal({
                 transition: 'all 0.15s ease'
               }}
             >
-              {downloadingPdf ? 'Generating PDF...' : 'Download PDF'}
+              {downloadingPdf ? 'Generating...' : 'Download PDF'}
             </button>
           </div>
 
@@ -253,19 +253,19 @@ export default function ActionHubExportModal({
           <div style={{
             border: '1px solid #e2e8f0',
             borderRadius: '16px',
-            padding: '16px',
+            padding: '14px',
             background: '#f8fafc',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between'
           }}>
             <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-                <FileCode size={18} color="#059669" />
-                <span style={{ fontSize: '13px', fontWeight: 800, color: '#0f172a' }}>HL7 FHIR R4</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
+                <FileCode size={17} color="#059669" />
+                <span style={{ fontSize: '12.5px', fontWeight: 800, color: '#0f172a' }}>HL7 FHIR R4</span>
               </div>
-              <p style={{ fontSize: '11px', color: '#64748b', margin: '0 0 14px 0', lineHeight: 1.4 }}>
-                Standards-compliant JSON bundle for hospital EHR integration.
+              <p style={{ fontSize: '10.5px', color: '#64748b', margin: '0 0 10px 0', lineHeight: 1.35 }}>
+                JSON bundle for hospital EHR & ABHA locker.
               </p>
             </div>
             <button
@@ -273,7 +273,7 @@ export default function ActionHubExportModal({
               disabled={exportingFhir}
               style={{
                 width: '100%',
-                padding: '9px',
+                padding: '8px',
                 borderRadius: '8px',
                 border: 'none',
                 background: '#059669',
@@ -284,7 +284,45 @@ export default function ActionHubExportModal({
                 transition: 'all 0.15s ease'
               }}
             >
-              {exportingFhir ? 'Fetching Bundle...' : 'Generate Bundle'}
+              {exportingFhir ? 'Fetching...' : 'Generate Bundle'}
+            </button>
+          </div>
+
+          {/* Action 3: Wearables Telemetry Dossier */}
+          <div style={{
+            border: '1px solid #fbcfe8',
+            borderRadius: '16px',
+            padding: '14px',
+            background: '#fdf2f8',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between'
+          }}>
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
+                <Activity size={17} color="#db2777" />
+                <span style={{ fontSize: '12.5px', fontWeight: 800, color: '#831843' }}>Wearables Dossier</span>
+              </div>
+              <p style={{ fontSize: '10.5px', color: '#9d174d', margin: '0 0 10px 0', lineHeight: 1.35 }}>
+                Apple Watch & Pixel Watch 30-day vitals archive.
+              </p>
+            </div>
+            <button
+              onClick={() => alert(`Transmitting 30-Day Apple Watch & Google Health Telemetry Dossier for ${patient.name} to ABHA Locker...`)}
+              style={{
+                width: '100%',
+                padding: '8px',
+                borderRadius: '8px',
+                border: 'none',
+                background: '#9d174d',
+                color: '#ffffff',
+                fontSize: '11px',
+                fontWeight: 800,
+                cursor: 'pointer',
+                transition: 'all 0.15s ease'
+              }}
+            >
+              Export Dossier
             </button>
           </div>
 

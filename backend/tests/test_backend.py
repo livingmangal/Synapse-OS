@@ -42,10 +42,29 @@ async def test_drug_interaction_detection():
     assert res["safe_to_combine"] is False
 
 
-def test_clinical_symptom_triage():
-    res = analyze_symptoms("I have a persistent fever over 102 and abdominal pain")
+@pytest.mark.asyncio
+async def test_clinical_symptom_triage():
+    res = await analyze_symptoms("I have a persistent fever over 102 and abdominal pain")
     assert res["triage_level"] == "DOCTOR_CONSULT"
     assert "Doctor Consultation" in res["urgency_badge"]
+
+
+def test_i18n_indian_languages():
+    from backend.app.services.i18n_service import translate_clinical_message, get_supported_languages
+    langs = get_supported_languages()
+    assert len(langs) >= 11
+    
+    # Test Hindi
+    hi_msg = translate_clinical_message("emergency_alert", "hi")
+    assert "112" in hi_msg
+    
+    # Test Tamil
+    ta_msg = translate_clinical_message("emergency_alert", "ta")
+    assert "112" in ta_msg
+
+    # Test Bengali
+    bn_msg = translate_clinical_message("emergency_alert", "bn")
+    assert "১১২" in bn_msg or "112" in bn_msg
 
 
 def test_digital_twin_scores():

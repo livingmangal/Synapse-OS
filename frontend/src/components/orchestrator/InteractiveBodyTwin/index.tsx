@@ -147,24 +147,44 @@ export default function InteractiveBodyTwin({
             ))}
           </div>
 
-          {/* 3D Health Twin Live Badge */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '6px',
-            padding: '7px 16px',
-            borderRadius: '9999px',
-            background: 'rgba(253, 242, 248, 0.95)',
-            border: '1px solid #fbcfe8',
-            color: '#db2777',
-            fontSize: '11px',
-            fontWeight: 800,
-            pointerEvents: 'auto',
-            backdropFilter: 'blur(10px)',
-            boxShadow: '0 2px 8px rgba(219, 39, 119,0.08)'
-          }}>
-            <Sparkles size={13} />
-            <span>{currentLayer.badge}</span>
+          {/* 3D Health Twin Live Badge + Wearable Sync Pill */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              padding: '6px 12px',
+              borderRadius: '9999px',
+              background: '#ecfdf5',
+              border: '1px solid #a7f3d0',
+              color: '#065f46',
+              fontSize: '10.5px',
+              fontWeight: 800,
+              pointerEvents: 'auto',
+              boxShadow: '0 2px 6px rgba(16, 185, 129, 0.1)'
+            }}>
+              <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#10b981' }} />
+              <span>Watch Calibrated (HRV 58ms • VO2 Max 44.5)</span>
+            </div>
+
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              padding: '7px 16px',
+              borderRadius: '9999px',
+              background: 'rgba(253, 242, 248, 0.95)',
+              border: '1px solid #fbcfe8',
+              color: '#db2777',
+              fontSize: '11px',
+              fontWeight: 800,
+              pointerEvents: 'auto',
+              backdropFilter: 'blur(10px)',
+              boxShadow: '0 2px 8px rgba(219, 39, 119,0.08)'
+            }}>
+              <Sparkles size={13} />
+              <span>{currentLayer.badge}</span>
+            </div>
           </div>
         </div>
 

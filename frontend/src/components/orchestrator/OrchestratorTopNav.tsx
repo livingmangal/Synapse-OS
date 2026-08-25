@@ -11,13 +11,16 @@ import {
   Activity, 
   Building2,
   Layers,
-  Globe
+  Globe,
+  Watch
 } from 'lucide-react';
 import { PatientInfo } from './types';
+import LanguageSelector from '@/components/ui/LanguageSelector';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface TopNavProps {
-  activeTab: 'overview' | 'swarm' | 'analytics' | 'hospital' | 'scan' | 'records';
-  onTabChange: (tab: 'overview' | 'swarm' | 'analytics' | 'hospital' | 'scan' | 'records') => void;
+  activeTab: 'overview' | 'swarm' | 'analytics' | 'hospital' | 'scan' | 'records' | 'sync';
+  onTabChange: (tab: 'overview' | 'swarm' | 'analytics' | 'hospital' | 'scan' | 'records' | 'sync') => void;
   patient: PatientInfo;
   onOpenExportModal: () => void;
   searchQuery?: string;
@@ -32,17 +35,19 @@ export default function OrchestratorTopNav({
   searchQuery = '',
   onSearchChange
 }: TopNavProps) {
+  const { t } = useLanguage();
   const WhoIcon = ({ size }: { size?: number | string }) => (
     <img src="/who.svg" alt="WHO Logo" style={{ width: size || 13, height: size || 13, objectFit: 'contain' }} />
   );
 
   const tabs = [
-    { id: 'swarm', label: 'Swarm Intelligence', icon: Sparkles },
-    { id: 'overview', label: 'My Condition', icon: Layers },
-    { id: 'analytics', label: 'Visual Analytics', icon: BarChart3 },
-    { id: 'hospital', label: 'WHO Global Surveillance', icon: WhoIcon },
-    { id: 'scan', label: 'Medical Scan AI', icon: Search },
-    { id: 'records', label: 'ABHA & Records', icon: Building2 }
+    { id: 'swarm', label: t('tab_swarm', 'Swarm Intelligence'), icon: Sparkles },
+    { id: 'overview', label: t('tab_overview', 'My Condition'), icon: Layers },
+    { id: 'analytics', label: t('tab_analytics', 'Visual Analytics'), icon: BarChart3 },
+    { id: 'hospital', label: t('tab_hospital', 'WHO Global Surveillance'), icon: WhoIcon },
+    { id: 'scan', label: t('tab_scan', 'Medical Scan AI'), icon: Search },
+    { id: 'records', label: t('tab_records', 'ABHA & Records'), icon: Building2 },
+    { id: 'sync', label: t('tab_health_sync', 'Google & Apple Health'), icon: Watch }
   ];
 
   return (
@@ -103,7 +108,10 @@ export default function OrchestratorTopNav({
       </div>
 
       {/* Right Controls & Patient Avatar */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        {/* Language Selector */}
+        <LanguageSelector variant="nav" />
+
         {/* Quick Export Hub Trigger */}
         <button
           onClick={onOpenExportModal}
@@ -125,7 +133,7 @@ export default function OrchestratorTopNav({
           }}
         >
           <Download size={13} color="#db2777" />
-          <span>Export Hub</span>
+          <span>{t('btn_export_hub', 'Export Hub')}</span>
         </button>
 
         {/* Notification Bell */}

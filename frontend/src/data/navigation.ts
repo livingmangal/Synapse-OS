@@ -9,14 +9,14 @@ export const mainNavItems: NavItem[] = [
 ];
 
 export const projectNavItems: NavItem[] = [
-  { label: 'Sanjeevani Orchestrator', href: '/projects/orchestrator-agent', badge: 'Active' },
-  { label: 'Sanjeevani AI Assistant', href: '/projects/sanjeevani-assistant', badge: 'Active' },
-  { label: 'Nutrition & Fitness', href: '/projects/nutrition-fitness-assistant', badge: 'Active' },
-  { label: 'Medical Scan Agent', href: '/orchestrator-agent?tab=scan', badge: 'Active' },
-  { label: 'Symptom Triage & Analysis', href: '/orchestrator-agent?tab=swarm', badge: 'Beta' },
-  { label: '3D Body Explorer', href: '/vibrant', badge: '3D Live' },
-  { label: 'Blockchain Records', href: '/projects', badge: 'WIP' },
-  { label: 'Outbreak Predictive', href: '/projects', badge: 'WIP' },
+  { label: '🗺️ WHO Outbreak & Surveillance Map', href: '/orchestrator-agent?tab=hospital', badge: 'Live GIS Map' },
+  { label: '⌚ Google & Apple Health Sync', href: '/orchestrator-agent?tab=sync', badge: 'New' },
+  { label: '⚡ Sanjeevani Orchestrator', href: '/orchestrator-agent', badge: 'Active' },
+  { label: '🩺 Symptom Triage & Analysis', href: '/orchestrator-agent?tab=swarm', badge: 'Active' },
+  { label: '🔬 Medical Scan Agent (YOLOv8)', href: '/orchestrator-agent?tab=scan', badge: 'Active' },
+  { label: '🫀 3D Body Digital Twin', href: '/vibrant', badge: '3D Live' },
+  { label: '🥗 Nutrition & Fitness AI', href: '/projects/nutrition-fitness-assistant', badge: 'Active' },
+  { label: '🔐 ABHA & Blockchain Records', href: '/orchestrator-agent?tab=records', badge: 'Active' },
 ];
 
 export const legalNavItems: NavItem[] = [

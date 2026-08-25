@@ -27,6 +27,12 @@ export interface DiseaseProfile {
   indiaHubs: RegionalHub[];
 }
 
+export interface ContagionVector {
+  targetHubId: string;
+  targetCoords: [number, number];
+  volume: string;
+}
+
 export interface RegionalHub {
   id: string;
   name: string;
@@ -37,7 +43,16 @@ export interface RegionalHub {
   recoveryRate: number;
   testPositivity: number;
   icuOccupancy: number;
-  riskLevel: 'Low' | 'Moderate' | 'High';
+  riskLevel: 'Low' | 'Moderate' | 'High' | 'Critical';
   trend: string;
   trajectory: TrajectoryPoint[];
+  cumulativeCases?: string;
+  deathsCount?: string;
+  hospitalBedsAvailable?: number;
+  hospitalBedsTotal?: number;
+  r0Index?: number;
+  genomicStrain?: string;
+  aqiIndex?: number;
+  contagionVectors?: ContagionVector[];
+  nearestICMRLab?: string;
 }

@@ -13,12 +13,13 @@ import VisualAnalyticsPanel from '@/components/orchestrator/VisualAnalyticsPanel
 import WHODiseaseSurveillancePanel from '@/components/orchestrator/WHODiseaseSurveillancePanel';
 import MedicalScanPanel from '@/components/orchestrator/MedicalScanPanel';
 import BlockchainRecordsPanel from '@/components/orchestrator/BlockchainRecordsPanel';
+import HealthSyncPanel from '@/components/orchestrator/HealthSyncPanel';
 import ActionHubExportModal from '@/components/orchestrator/ActionHubExportModal';
 
 import { PatientInfo, VitalsData, DetectedCondition } from '@/components/orchestrator/types';
 
 export default function OrchestratorAgentPage() {
-  const [activeTab, setActiveTab] = useState<'overview' | 'swarm' | 'analytics' | 'hospital' | 'scan' | 'records'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'swarm' | 'analytics' | 'hospital' | 'scan' | 'records' | 'sync'>('overview');
   const [isExportModalOpen, setIsExportModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -26,7 +27,7 @@ export default function OrchestratorAgentPage() {
     if (typeof window !== 'undefined') {
       const params = new URLSearchParams(window.location.search);
       const tab = params.get('tab');
-      if (tab && ['overview', 'swarm', 'analytics', 'hospital', 'scan', 'records'].includes(tab)) {
+      if (tab && ['overview', 'swarm', 'analytics', 'hospital', 'scan', 'records', 'sync'].includes(tab)) {
         setActiveTab(tab as any);
       }
     }
@@ -204,6 +205,11 @@ export default function OrchestratorAgentPage() {
             {/* TAB 6: Blockchain Health Records */}
             {activeTab === 'records' && (
               <BlockchainRecordsPanel />
+            )}
+
+            {/* TAB 7: Google Health Connect & Apple Health Wearables Sync */}
+            {activeTab === 'sync' && (
+              <HealthSyncPanel />
             )}
           </div>
         </div>

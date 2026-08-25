@@ -43,14 +43,15 @@ export default function OrbWelcome({ assistantPersona, onSendChip, onToggleVoice
         { label: '🥗 Custom Macro Split', query: 'Calculate my daily macronutrient distribution' },
         { label: '💧 Hydration Target', query: 'What is my optimal daily water intake calculation?' },
         { label: '🥑 Mediterranean Diet', query: 'Outline a healthy Mediterranean nutrition meal blueprint' },
+        { label: '⌚ Sleep & Wearables', query: 'Analyze my continuous Apple Watch sleep stages and nocturnal SpO2' },
         { label: '⚡ Metabolic Energy', query: 'What foods help maintain consistent energy levels?' },
         { label: '📋 Daily Calorie Target', query: 'How to set a clean calorie deficit or maintenance target' }
       ];
     }
     return [
-      { label: '💡 Brainstorm ideas', query: 'Brainstorm healthcare features in Sanjeevani OS' },
-      { label: '<> Clinical Analysis', query: 'Explain how the clinical analysis agent works' },
-      { label: '📊 Analyze Records', query: 'How are medical records stored securely?' },
+      { label: '⌚ Wearables & ECG', query: 'Analyze my Apple Watch ECG rhythm strip and heart rate variability' },
+      { label: '💡 Swarm Diagnostics', query: 'Explain how the multi-agent clinical consensus works' },
+      { label: '📊 Analyze Records', query: 'How are medical records stored securely in ABHA?' },
       { label: '📱 WhatsApp Bridge', query: 'How does the WhatsApp prescription upload bridge work?' },
       { label: '💬 Ask me anything', query: 'What can Sanjeevani AI do for patients?' }
     ];

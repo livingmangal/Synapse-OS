@@ -366,7 +366,7 @@ export default function PatientVitalsPanel({
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
               <Heart size={16} color="#ef4444" fill="#ef4444" />
               <h3 style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a', margin: 0 }}>
-                Hearth Check
+                Heart Check
               </h3>
             </div>
             <div style={{ fontSize: '11px', color: '#64748b', marginTop: '2px' }}>
@@ -375,6 +375,26 @@ export default function PatientVitalsPanel({
           </div>
           <span style={{ fontSize: '18px', fontWeight: 900, color: '#0f172a' }}>
             {vitals.heartRate} <span style={{ fontSize: '11px', fontWeight: 700, color: '#64748b' }}>BPM</span>
+          </span>
+        </div>
+
+        {/* Live Wearable Integration Status Strip */}
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          background: '#fdf2f8',
+          border: '1px solid #fbcfe8',
+          borderRadius: '10px',
+          padding: '5px 10px',
+          marginBottom: '12px'
+        }}>
+          <span style={{ fontSize: '10.5px', color: '#db2777', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '5px' }}>
+            <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#db2777', boxShadow: '0 0 6px #db2777' }} />
+            Apple Watch & Google Health Synced
+          </span>
+          <span style={{ fontSize: '10px', color: '#9d174d', fontWeight: 600 }}>
+            Live Lead I ECG
           </span>
         </div>
 

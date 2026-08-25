@@ -21,10 +21,12 @@ import {
   Globe
 } from 'lucide-react';
 
+import { Watch } from 'lucide-react';
+
 interface OrchestratorSidebarProps {
   onOpenSOS?: () => void;
   activeTab?: string;
-  onTabChange?: (tab: 'overview' | 'swarm' | 'analytics' | 'hospital' | 'scan' | 'records') => void;
+  onTabChange?: (tab: 'overview' | 'swarm' | 'analytics' | 'hospital' | 'scan' | 'records' | 'sync') => void;
 }
 
 export default function OrchestratorSidebar({ 
@@ -41,6 +43,7 @@ export default function OrchestratorSidebar({
     { label: 'WHO Global Surveillance', tab: 'hospital', icon: Globe, isTab: true },
     { label: 'Medical Scan AI (YOLOv8)', tab: 'scan', icon: Scan, isTab: true },
     { label: 'ABHA & On-Chain Records', tab: 'records', icon: FileText, isTab: true },
+    { label: 'Google & Apple Health Sync', tab: 'sync', icon: Watch, isTab: true },
     { label: 'Sanjeevani OS Home', href: '/', icon: Home }
   ];
 

@@ -65,13 +65,23 @@ export default function NavigationMenu({
           >
             01. Home
           </Link>
+          <Link
+            href="/orchestrator-agent?tab=hospital"
+            onClick={onClose}
+            className="text-3xl md:text-5xl lg:text-6xl font-serif text-pink-400 hover:text-pink-300 transition-colors uppercase flex items-center gap-3"
+          >
+            <span>02. Outbreak Map</span>
+            <span className="text-xs bg-pink-500 text-white font-sans px-3 py-1 rounded-full font-bold">
+              Live GIS
+            </span>
+          </Link>
           <div className="flex flex-col space-y-2">
             <Link
-              href="/projects"
+              href="/orchestrator-agent"
               onClick={onClose}
               className="text-3xl md:text-5xl lg:text-6xl font-serif hover:text-white/70 transition-colors uppercase"
             >
-              02. Projects
+              03. Orchestrator OS
             </Link>
             {/* Sub-projects list */}
             <div className="pl-6 md:pl-12 flex flex-col space-y-2 pt-2 border-l border-[#ECE4DA]/20">

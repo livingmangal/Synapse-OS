@@ -45,3 +45,18 @@ Thumbs.db
 
 # AI & Agent artifacts
 .agents/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+.pytest_cache/
+
+# Archives
+*.rar
+

@@ -4,11 +4,14 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import NavigationMenu from './NavigationMenu';
 import ContactModal from '../ui/ContactModal';
+import LanguageSelector from '../ui/LanguageSelector';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isContactOpen, setIsContactOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -36,39 +39,52 @@ export default function Header() {
             href="/"
             className="text-xl md:text-2xl tracking-widest font-serif font-bold uppercase transition-opacity hover:opacity-75 text-black"
           >
-            Normal is Boring
+            {t('brand_title', 'Normal is Boring')}
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8 text-xs font-semibold tracking-widest uppercase">
+          <nav className="hidden md:flex items-center space-x-6 text-xs font-semibold tracking-widest uppercase">
+            <Link
+              href="/orchestrator-agent"
+              className="text-emerald-700 font-bold hover:text-emerald-900 transition-colors flex items-center gap-1"
+            >
+              <span>⚡</span> {t('nav_orchestrator', 'Orchestrator OS')}
+            </Link>
+            <Link
+              href="/orchestrator-agent?tab=hospital"
+              className="text-pink-600 font-bold hover:text-pink-800 transition-colors flex items-center gap-1"
+            >
+              <span>🗺️</span> Outbreak Map
+            </Link>
             <Link
               href="/projects"
               className="text-black/80 hover:text-black transition-colors"
             >
-              Projects
+              {t('nav_projects', 'Projects')}
             </Link>
             <Link
               href="/about-us"
               className="text-black/80 hover:text-black transition-colors"
             >
-              About Us
+              {t('nav_about', 'About Us')}
             </Link>
             <button
               onClick={() => setIsContactOpen(true)}
               className="text-black/80 hover:text-black transition-colors cursor-pointer"
             >
-              Contact
+              {t('nav_contact', 'Contact')}
             </button>
             <Link
-              href="/projects"
+              href="/orchestrator-agent"
               className="px-4 py-2 border border-black/30 rounded-full text-[11px] hover:bg-black hover:text-white transition-all"
             >
-              Available Homes
+              {t('nav_available_homes', 'Launch Workspace')}
             </Link>
           </nav>
 
-          {/* Menu Trigger Button */}
-          <div className="flex items-center space-x-4">
+          {/* Controls: Language Selector + Menu Trigger */}
+          <div className="flex items-center space-x-3">
+            <LanguageSelector variant="header" />
             <button
               onClick={() => setIsMenuOpen(true)}
               className="flex items-center space-x-2 text-xs font-semibold tracking-widest uppercase px-4 py-2 bg-black text-white rounded-full hover:bg-black/80 transition-all cursor-pointer"
