@@ -130,11 +130,11 @@ export default function HealthSyncPanel() {
       const height = canvas.height;
 
       // Clear & Draw Medical Grid
-      ctx.fillStyle = '#0f172a';
+      ctx.fillStyle = '#f8fafc';
       ctx.fillRect(0, 0, width, height);
 
       // Fine Grid (0.04s equivalent)
-      ctx.strokeStyle = 'rgba(219, 39, 119, 0.12)';
+      ctx.strokeStyle = 'rgba(14, 165, 233, 0.08)';
       ctx.lineWidth = 1;
       const gridSize = 14;
       for (let x = 0; x < width; x += gridSize) {
@@ -151,7 +151,7 @@ export default function HealthSyncPanel() {
       }
 
       // Major Grid
-      ctx.strokeStyle = 'rgba(219, 39, 119, 0.25)';
+      ctx.strokeStyle = 'rgba(14, 165, 233, 0.18)';
       ctx.lineWidth = 1.2;
       for (let x = 0; x < width; x += gridSize * 5) {
         ctx.beginPath();
@@ -167,10 +167,10 @@ export default function HealthSyncPanel() {
       }
 
       // Draw ECG P-Q-R-S-T Waveform
-      ctx.strokeStyle = '#38bdf8';
-      ctx.lineWidth = 2.2;
-      ctx.shadowColor = '#38bdf8';
-      ctx.shadowBlur = 8;
+      ctx.strokeStyle = '#0284c7';
+      ctx.lineWidth = 1.8;
+      ctx.shadowColor = 'rgba(2, 132, 199, 0.2)';
+      ctx.shadowBlur = 4;
       ctx.beginPath();
 
       const centerY = height / 2;
@@ -212,8 +212,8 @@ export default function HealthSyncPanel() {
 
       // Sweep head line
       const sweepX = (offset * 1.5) % width;
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
-      ctx.lineWidth = 1;
+      ctx.strokeStyle = 'rgba(2, 132, 199, 0.35)';
+      ctx.lineWidth = 1.2;
       ctx.beginPath();
       ctx.moveTo(sweepX, 0);
       ctx.lineTo(sweepX, height);
@@ -321,20 +321,21 @@ export default function HealthSyncPanel() {
       gap: '24px',
       maxWidth: '1600px',
       margin: '0 auto',
-      fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+      fontFamily: '"Times New Roman", Times, serif'
     }}>
       {/* 1. Header Banner & Sync Controls */}
       <div style={{
-        background: 'linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%)',
-        borderRadius: '24px',
+        background: 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #f0fdfa 100%)',
+        borderRadius: '20px',
+        border: '1px solid #bae6fd',
         padding: '24px 28px',
-        color: '#ffffff',
+        color: '#0f172a',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
         flexWrap: 'wrap',
         gap: '16px',
-        boxShadow: '0 4px 20px rgba(15, 23, 42, 0.15)'
+        boxShadow: '0 2px 12px rgba(14, 165, 233, 0.08)'
       }}>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px' }}>
@@ -343,22 +344,22 @@ export default function HealthSyncPanel() {
               fontWeight: 800,
               padding: '3px 10px',
               borderRadius: '999px',
-              background: 'rgba(236, 72, 153, 0.25)',
-              border: '1px solid rgba(244, 114, 182, 0.4)',
-              color: '#f472b6',
+              background: '#e0f2fe',
+              border: '1px solid #7dd3fc',
+              color: '#0369a1',
               textTransform: 'uppercase',
               letterSpacing: '0.6px'
             }}>
               WEARABLE HEALTH DATA CONNECTOR
             </span>
-            <span style={{ fontSize: '12px', color: '#4ade80', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '4px' }}>
+            <span style={{ fontSize: '12px', color: '#059669', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '4px' }}>
               <CheckCircle2 size={13} /> {t('wearable_status_connected', 'Connected & Streaming')}
             </span>
           </div>
-          <h2 style={{ fontSize: '22px', fontWeight: 800, margin: 0 }}>
+          <h2 style={{ fontSize: '22px', fontWeight: 800, color: '#0f172a', margin: 0 }}>
             {t('health_sync_title', 'Google Health Connect & Apple HealthKit Hub')}
           </h2>
-          <p style={{ fontSize: '13px', color: '#94a3b8', margin: '4px 0 0 0' }}>
+          <p style={{ fontSize: '13px', color: '#475569', margin: '4px 0 0 0' }}>
             {t('health_sync_subtitle', 'Real-time telemetry aggregation from Apple Watch, Pixel Watch, and Android Health Connect')}
           </p>
         </div>
@@ -368,11 +369,12 @@ export default function HealthSyncPanel() {
           <button
             onClick={() => setShowBridgeModal(true)}
             style={{
-              padding: '10px 16px',
-              borderRadius: '12px',
-              background: 'rgba(255, 255, 255, 0.12)',
-              color: '#ffffff',
-              border: '1px solid rgba(255, 255, 255, 0.2)',
+              padding: '9px 16px',
+              borderRadius: '10px',
+              background: '#ffffff',
+              color: '#0f172a',
+              border: '1px solid #cbd5e1',
+              boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
               fontSize: '12.5px',
               fontWeight: 700,
               cursor: 'pointer',
@@ -382,18 +384,19 @@ export default function HealthSyncPanel() {
               transition: 'all 0.15s ease'
             }}
           >
-            <Smartphone size={15} />
+            <Smartphone size={15} color="#0284c7" />
             <span>{translateText('iOS / Android Bridge')}</span>
           </button>
 
           <button
             onClick={() => setShowFhirModal(true)}
             style={{
-              padding: '10px 16px',
-              borderRadius: '12px',
-              background: 'rgba(255, 255, 255, 0.12)',
-              color: '#ffffff',
-              border: '1px solid rgba(255, 255, 255, 0.2)',
+              padding: '9px 16px',
+              borderRadius: '10px',
+              background: '#ffffff',
+              color: '#0f172a',
+              border: '1px solid #cbd5e1',
+              boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
               fontSize: '12.5px',
               fontWeight: 700,
               cursor: 'pointer',
@@ -403,7 +406,7 @@ export default function HealthSyncPanel() {
               transition: 'all 0.15s ease'
             }}
           >
-            <FileCode size={15} />
+            <FileCode size={15} color="#0284c7" />
             <span>{translateText('HL7 FHIR R4')}</span>
           </button>
 
@@ -411,9 +414,9 @@ export default function HealthSyncPanel() {
             onClick={handleTriggerSync}
             disabled={isSyncing}
             style={{
-              padding: '10px 18px',
-              borderRadius: '12px',
-              background: '#db2777',
+              padding: '9px 18px',
+              borderRadius: '10px',
+              background: '#0284c7',
               color: '#ffffff',
               border: 'none',
               fontSize: '13px',
@@ -422,7 +425,7 @@ export default function HealthSyncPanel() {
               display: 'flex',
               alignItems: 'center',
               gap: '8px',
-              boxShadow: '0 4px 14px rgba(219, 39, 119, 0.4)',
+              boxShadow: '0 3px 10px rgba(2, 132, 199, 0.3)',
               transition: 'all 0.15s ease'
             }}
           >
