@@ -1,7 +1,14 @@
 {
   "profileId": "cardiac_arrhythmia_google_fitbit",
-  "title": "Cardiac Arrhythmia & Tachycardia Monitoring",
-  "subtitle": "Google Pixel Watch 3 / Fitbit Health Connect Dump",
+  "title": "Cardiac Arrhythmia & Tachycardia",
+  "subtitle": "Resting Tachycardia (106 BPM), Suppressed HRV (24ms)",
+  "jsonPath": "/data/mockHealthData/cardiac_arrhythmia_google_fitbit.json",
+  "badge": {
+    "label": "Cardiac Warning",
+    "color": "#dc2626",
+    "bg": "#fee2e2",
+    "border": "#fca5a5"
+  },
   "patient": {
     "name": "Rajiv Sen",
     "age": 58,
@@ -9,7 +16,7 @@
     "abhaId": "91-8840-2911-5832"
   },
   "device": {
-    "name": "Google Pixel Watch 3 (Fitbit)",
+    "name": "Google Pixel Watch 3",
     "brand": "google",
     "firmware": "Wear OS 5.1",
     "battery": 68
@@ -38,10 +45,44 @@
     "bloodPressure": "142/88 mmHg",
     "wristTempDeviation": "+0.6°F"
   },
-  "ecgStatus": "⚠️ Sinus Tachycardia (HR 106 BPM) • Irregular Pulse Detected",
+  "ecgStatus": "⚠️ Sinus Tachycardia (HR 106 BPM) • Irregular Pulse Alert",
   "aiAnalysis": {
     "type": "alert",
     "title": "Cardiac Arrhythmia & Autonomic Stress Alert",
     "description": "Resting tachycardia episode detected (peak 106 BPM). Suppressed HRV of 24ms denotes sympathetic overdrive and elevated cardiovascular strain. Elevated nocturnal temperature (+0.6°F) and fragmented sleep score (58/100). Tele-cardiology consultation recommended."
+  },
+  "visualAnalytics": {
+    "healthScore": 58,
+    "nextAppointment": {
+      "doctor": "Dr. Maya Chen (Cardiologist)",
+      "date": "Tomorrow, 10:00 AM",
+      "type": "URGENT TELECONSULT",
+      "photoUrl": "https://images.unsplash.com/photo-1594824813689-d102e3b2e535?w=150&auto=format&fit=crop&q=80"
+    },
+    "heartRateAvg": "106bpm",
+    "heartRatePath": "M 0 35 Q 20 20 40 15 T 80 40 T 120 18 T 160 25 T 200 15 T 240 22",
+    "sleepAvg": "5.45h",
+    "sleepBars": [40, 55, 30, 60, 45, 50, 65, 35],
+    "stressAvg": "+0.74",
+    "stressPath": "M 0 40 L 35 25 L 70 45 L 105 18 L 140 30 L 175 14 L 210 35 L 240 20",
+    "stressPoints": [
+      { "x": 35, "y": 25, "isHigh": true },
+      { "x": 70, "y": 45 },
+      { "x": 105, "y": 18, "isHigh": true },
+      { "x": 140, "y": 30 },
+      { "x": 175, "y": 14, "isHigh": true },
+      { "x": 210, "y": 35 }
+    ],
+    "stepsAvg": "3,840",
+    "stepsBars": [25, 35, 40, 30, 45, 35, 50, 40, 30, 35, 40],
+    "insights": {
+      "positive": { "title": "Baseline Sync Active", "desc": "Fitbit PPG sensor transmitting real-time rhythm." },
+      "action": { "title": "Limit Exertion", "desc": "Avoid heavy cardiovascular loads during tachycardia episodes." },
+      "monitor": { "title": "Arrhythmia Traces", "desc": "Irregular rhythm notifications logged in ABHA locker." }
+    },
+    "carePlan": {
+      "medication": { "title": "Beta-Blocker (Metoprolol 25mg)", "desc": "Evening dose pending", "completed": false },
+      "hydration": { "title": "Cardiac Fluid Limit", "desc": "1.4 / 2.0L completed", "progress": 70 }
+    }
   }
 }

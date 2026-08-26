@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { 
   Sparkles, 
   ArrowUpRight, 
@@ -17,9 +17,14 @@ import {
   Pill,
   ChevronRight,
   TrendingUp,
-  Activity
+  Activity,
+  Upload,
+  Download,
+  Zap,
+  ChevronDown
 } from 'lucide-react';
 import { PatientInfo, VitalsData } from '../types';
+import { MOCK_HEALTH_PROFILES, MockHealthProfile } from '@/data/mockHealthProfiles';
 
 interface VisualAnalyticsPanelProps {
   patient: PatientInfo;
@@ -33,24 +38,98 @@ export default function VisualAnalyticsPanel({
   onOpenExportModal
 }: VisualAnalyticsPanelProps) {
   const [chatMessage, setChatMessage] = useState('');
+  const [selectedProfileId, setSelectedProfileId] = useState<string>('healthy_adult_baseline');
+  const [customProfile, setCustomProfile] = useState<MockHealthProfile | null>(null);
+  const [statusMessage, setStatusMessage] = useState<string | null>(null);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  // Active dataset
+  const activeProfile: MockHealthProfile = customProfile || 
+    MOCK_HEALTH_PROFILES.find(p => p.profileId === selectedProfileId) || 
+    MOCK_HEALTH_PROFILES[5];
 
   const handleOpenSanjeevaniAI = (promptText?: string) => {
     const text = promptText || chatMessage || '';
     setChatMessage('');
     if (typeof window !== 'undefined') {
-      // 1. Dispatch custom open event
       window.dispatchEvent(new CustomEvent('open-sanjeevani-assistant', {
         detail: { prompt: text }
       }));
-      // 2. Direct global handler invocation if registered
       if (typeof (window as any).openSanjeevaniAssistant === 'function') {
         (window as any).openSanjeevaniAssistant();
       }
-      // 3. Trigger DOM button click fallback
       const triggerBtn = document.querySelector('.sanjeevani-trigger-pill, .sanjeevani-trigger-btn') as HTMLElement;
       if (triggerBtn) {
         triggerBtn.click();
       }
+    }
+  };
+
+  // Switch pre-loaded clinical dataset
+  const handleSelectProfile = (profileId: string) => {
+    setSelectedProfileId(profileId);
+    setCustomProfile(null);
+    setIsDropdownOpen(false);
+    const target = MOCK_HEALTH_PROFILES.find(p => p.profileId === profileId);
+    if (target) {
+      setStatusMessage(`✅ Telemetry synchronized with ${target.title} (${target.patient.name})`);
+      setTimeout(() => setStatusMessage(null), 4000);
+    }
+  };
+
+  // Direct JSON file upload
+  const handleDirectJsonUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const parsed = JSON.parse(e.target?.result as string);
+        if (parsed.visualAnalytics && parsed.patient) {
+          setCustomProfile(parsed as MockHealthProfile);
+          setStatusMessage(`✅ Successfully imported and visualized ${file.name}`);
+        } else if (parsed.vitals) {
+          const customGenerated: MockHealthProfile = {
+            ...MOCK_HEALTH_PROFILES[5],
+            title: `Imported: ${file.name}`,
+            subtitle: `Custom JSON Ingested Telemetry`,
+            vitals: parsed.vitals,
+            visualAnalytics: {
+              ...MOCK_HEALTH_PROFILES[5].visualAnalytics,
+              healthScore: parsed.vitals.sleepScore || 82,
+              heartRateAvg: `${parsed.vitals.currentHeartRate || 72}bpm`,
+              stepsAvg: (parsed.vitals.steps || 7500).toLocaleString(),
+              sleepAvg: parsed.vitals.sleepDuration || '7.40h'
+            }
+          };
+          setCustomProfile(customGenerated);
+          setStatusMessage(`✅ Successfully parsed vitals from ${file.name}`);
+        } else {
+          setStatusMessage(`✅ Ingested JSON telemetry from ${file.name}`);
+        }
+      } catch {
+        setStatusMessage(`⚠️ Could not parse JSON file format.`);
+      }
+      setTimeout(() => setStatusMessage(null), 5000);
+    };
+    reader.readAsText(file);
+  };
+
+  // Download active JSON dataset
+  const handleDownloadActiveJson = async () => {
+    try {
+      const dataStr = JSON.stringify(activeProfile, null, 2);
+      const blob = new Blob([dataStr], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${activeProfile.profileId || 'telemetry_dataset'}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error(err);
     }
   };
 
@@ -72,6 +151,215 @@ export default function VisualAnalyticsPanel({
       margin: '0 auto',
       fontFamily: '"Times New Roman", Times, serif'
     }}>
+      {/* 0. Telemetry Dataset & JSON Sync Ribbon */}
+      <div style={{
+        background: 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #f0fdfa 100%)',
+        borderRadius: '18px',
+        border: '1px solid #bae6fd',
+        padding: '12px 20px',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        flexWrap: 'wrap',
+        gap: '12px',
+        boxShadow: '0 2px 10px rgba(2, 132, 199, 0.05)'
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <div style={{
+            width: '34px',
+            height: '34px',
+            borderRadius: '10px',
+            background: '#ffffff',
+            border: '1px solid #bae6fd',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#0284c7'
+          }}>
+            <Activity size={18} />
+          </div>
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span style={{ fontSize: '12px', fontWeight: 800, color: '#0f172a' }}>
+                Active Telemetry Feed: <b style={{ color: '#0284c7' }}>{activeProfile.title}</b>
+              </span>
+              <span style={{
+                fontSize: '9.5px',
+                fontWeight: 800,
+                padding: '2px 7px',
+                borderRadius: '6px',
+                background: activeProfile.badge.bg,
+                color: activeProfile.badge.color,
+                border: `1px solid ${activeProfile.badge.border}`
+              }}>
+                {activeProfile.badge.label}
+              </span>
+            </div>
+            <div style={{ fontSize: '11px', color: '#64748b' }}>
+              Patient: <b>{activeProfile.patient.name}</b> ({activeProfile.patient.age}y {activeProfile.patient.gender}) • {activeProfile.device.name} • {activeProfile.observationCount.toLocaleString()} Records
+            </div>
+          </div>
+        </div>
+
+        {/* Action Controls: Profile Selector Dropdown + Direct Upload + Download */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          {/* Profile Dropdown */}
+          <div style={{ position: 'relative' }}>
+            <button
+              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                padding: '6px 12px',
+                borderRadius: '9px',
+                background: '#ffffff',
+                border: '1px solid #cbd5e1',
+                color: '#0f172a',
+                fontSize: '11.5px',
+                fontWeight: 700,
+                cursor: 'pointer',
+                boxShadow: '0 2px 6px rgba(0,0,0,0.04)'
+              }}
+            >
+              <Zap size={13} color="#0284c7" />
+              <span>Select Dataset Profile</span>
+              <ChevronDown size={13} color="#64748b" />
+            </button>
+
+            {isDropdownOpen && (
+              <div style={{
+                position: 'absolute',
+                top: '38px',
+                right: 0,
+                width: '320px',
+                background: '#ffffff',
+                borderRadius: '14px',
+                border: '1px solid #e2e8f0',
+                boxShadow: '0 12px 32px rgba(0,0,0,0.12)',
+                zIndex: 50,
+                padding: '6px',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '4px'
+              }}>
+                {MOCK_HEALTH_PROFILES.map((p) => {
+                  const isSelected = p.profileId === activeProfile.profileId;
+                  return (
+                    <div
+                      key={p.profileId}
+                      onClick={() => handleSelectProfile(p.profileId)}
+                      style={{
+                        padding: '8px 10px',
+                        borderRadius: '8px',
+                        cursor: 'pointer',
+                        background: isSelected ? '#f0f9ff' : 'transparent',
+                        border: isSelected ? '1px solid #bae6fd' : '1px solid transparent',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center'
+                      }}
+                      onMouseEnter={(e) => { if (!isSelected) e.currentTarget.style.background = '#f8fafc'; }}
+                      onMouseLeave={(e) => { if (!isSelected) e.currentTarget.style.background = 'transparent'; }}
+                    >
+                      <div>
+                        <div style={{ fontSize: '12px', fontWeight: 800, color: isSelected ? '#0284c7' : '#0f172a' }}>
+                          {p.title}
+                        </div>
+                        <div style={{ fontSize: '10px', color: '#64748b' }}>
+                          {p.patient.name} ({p.patient.age}y) • {p.vitals.currentHeartRate} BPM
+                        </div>
+                      </div>
+                      <span style={{
+                        fontSize: '9px',
+                        fontWeight: 800,
+                        padding: '2px 6px',
+                        borderRadius: '4px',
+                        background: p.badge.bg,
+                        color: p.badge.color
+                      }}>
+                        {p.badge.label}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+
+          {/* Direct JSON File Uploader */}
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept=".json"
+            onChange={handleDirectJsonUpload}
+            style={{ display: 'none' }}
+          />
+          <button
+            onClick={() => fileInputRef.current?.click()}
+            title="Upload custom JSON telemetry file"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '5px',
+              padding: '6px 12px',
+              borderRadius: '9px',
+              background: '#ffffff',
+              border: '1px solid #cbd5e1',
+              color: '#0f172a',
+              fontSize: '11.5px',
+              fontWeight: 700,
+              cursor: 'pointer',
+              boxShadow: '0 2px 6px rgba(0,0,0,0.04)'
+            }}
+          >
+            <Upload size={13} color="#0284c7" />
+            <span>Upload JSON</span>
+          </button>
+
+          {/* Download Active JSON Button */}
+          <button
+            onClick={handleDownloadActiveJson}
+            title="Download active dataset JSON"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '5px',
+              padding: '6px 12px',
+              borderRadius: '9px',
+              background: '#0284c7',
+              border: 'none',
+              color: '#ffffff',
+              fontSize: '11.5px',
+              fontWeight: 800,
+              cursor: 'pointer',
+              boxShadow: '0 2px 8px rgba(2,132,199,0.3)'
+            }}
+          >
+            <Download size={13} />
+            <span>Download JSON</span>
+          </button>
+        </div>
+      </div>
+
+      {statusMessage && (
+        <div style={{
+          padding: '10px 16px',
+          borderRadius: '12px',
+          background: '#f0fdf4',
+          border: '1px solid #bbf7d0',
+          color: '#166534',
+          fontSize: '12px',
+          fontWeight: 700,
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px'
+        }}>
+          <CheckCircle2 size={16} color="#16a34a" />
+          <span>{statusMessage}</span>
+        </div>
+      )}
+
       {/* TOP ROW: Chat with Synapse Hero (Left) + Wellness / Quick Access (Right) */}
       <div style={{
         display: 'grid',
@@ -276,7 +564,9 @@ export default function VisualAnalyticsPanel({
 
               <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px' }}>
                 <span style={{ fontSize: '11px', color: '#64748b', fontWeight: 600 }}>Your Health Score:</span>
-                <span style={{ fontSize: '28px', fontWeight: 900, color: '#0f172a' }}>68%</span>
+                <span style={{ fontSize: '28px', fontWeight: 900, color: '#0f172a' }}>
+                  {activeProfile.visualAnalytics.healthScore}%
+                </span>
               </div>
             </div>
 
@@ -304,7 +594,9 @@ export default function VisualAnalyticsPanel({
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginTop: '12px' }}>
                 <div style={{ textAlign: 'right' }}>
                   <div style={{ fontSize: '10px', color: '#94a3b8', fontWeight: 700 }}>Next Appointment:</div>
-                  <div style={{ fontSize: '12px', fontWeight: 800, color: '#0f172a' }}>8AM, Aug 5 2026</div>
+                  <div style={{ fontSize: '12px', fontWeight: 800, color: '#0f172a' }}>
+                    {activeProfile.visualAnalytics.nextAppointment.date}
+                  </div>
                 </div>
                 <div style={{
                   width: '32px',
@@ -323,11 +615,10 @@ export default function VisualAnalyticsPanel({
             </div>
           </div>
 
-          {/* Quick Access Two Cards: My Records & Appointments */}
+          {/* Quick Access Two Cards: My Records & Appointments (with COMING SOON BADGE) */}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-            {/* My Records */}
+            {/* My Records - COMING SOON */}
             <div 
-              onClick={onOpenExportModal}
               style={{
                 background: '#ffffff',
                 borderRadius: '24px',
@@ -342,15 +633,19 @@ export default function VisualAnalyticsPanel({
             >
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                 <div>
-                  <h4 style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a', margin: 0 }}>My Records</h4>
-                  <span style={{ fontSize: '11px', color: '#64748b' }}>Access medical history</span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <h4 style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a', margin: 0 }}>My Records</h4>
+                  </div>
+                  <span style={{ fontSize: '10px', fontWeight: 800, color: '#db2777', background: '#fdf2f8', padding: '1px 6px', borderRadius: '4px', display: 'inline-block', marginTop: '2px' }}>
+                    Coming Soon
+                  </span>
                 </div>
                 <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: '#f8fafc', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <ArrowUpRight size={14} color="#64748b" />
                 </div>
               </div>
               <div style={{
-                marginTop: '20px',
+                marginTop: '16px',
                 height: '70px',
                 borderRadius: '16px',
                 background: 'linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%)',
@@ -363,7 +658,7 @@ export default function VisualAnalyticsPanel({
               </div>
             </div>
 
-            {/* Appointments */}
+            {/* Appointments - COMING SOON */}
             <div 
               style={{
                 background: '#ffffff',
@@ -379,15 +674,19 @@ export default function VisualAnalyticsPanel({
             >
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                 <div>
-                  <h4 style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a', margin: 0 }}>Appointments</h4>
-                  <span style={{ fontSize: '11px', color: '#64748b' }}>Manage your schedule</span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <h4 style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a', margin: 0 }}>Appointments</h4>
+                  </div>
+                  <span style={{ fontSize: '10px', fontWeight: 800, color: '#4f46e5', background: '#e0e7ff', padding: '1px 6px', borderRadius: '4px', display: 'inline-block', marginTop: '2px' }}>
+                    Coming Soon
+                  </span>
                 </div>
                 <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: '#f8fafc', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <ArrowUpRight size={14} color="#64748b" />
                 </div>
               </div>
               <div style={{
-                marginTop: '20px',
+                marginTop: '16px',
                 height: '70px',
                 borderRadius: '16px',
                 background: 'linear-gradient(135deg, #e0e7ff 0%, #fbcfe8 100%)',
@@ -439,7 +738,9 @@ export default function VisualAnalyticsPanel({
 
             <h4 style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a', margin: '0 0 2px 0' }}>Heart Rate</h4>
             <div style={{ fontSize: '11px', color: '#64748b' }}>
-              The average heart rate is <strong style={{ color: '#0f172a', background: '#f1f5f9', padding: '1px 6px', borderRadius: '4px' }}>72bpm</strong>
+              The average heart rate is <strong style={{ color: '#0f172a', background: '#f1f5f9', padding: '1px 6px', borderRadius: '4px' }}>
+                {activeProfile.visualAnalytics.heartRateAvg}
+              </strong>
             </div>
           </div>
 
@@ -448,7 +749,7 @@ export default function VisualAnalyticsPanel({
             <div style={{ height: '70px', position: 'relative' }}>
               <svg viewBox="0 0 240 70" style={{ width: '100%', height: '100%', overflow: 'visible' }}>
                 <path
-                  d="M 0 50 Q 20 52 40 45 T 80 55 T 120 30 T 160 50 T 200 42 T 240 48"
+                  d={activeProfile.visualAnalytics.heartRatePath}
                   fill="none"
                   stroke="#a855f7"
                   strokeWidth="2.5"
@@ -495,21 +796,24 @@ export default function VisualAnalyticsPanel({
 
             <h4 style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a', margin: '0 0 2px 0' }}>Sleep Score</h4>
             <div style={{ fontSize: '11px', color: '#64748b' }}>
-              The average sleep is <strong style={{ color: '#0f172a', background: '#f1f5f9', padding: '1px 6px', borderRadius: '4px' }}>7.30h</strong>
+              The average sleep is <strong style={{ color: '#0f172a', background: '#f1f5f9', padding: '1px 6px', borderRadius: '4px' }}>
+                {activeProfile.visualAnalytics.sleepAvg}
+              </strong>
             </div>
           </div>
 
           {/* Bar Chart */}
           <div style={{ marginTop: '24px' }}>
             <div style={{ height: '70px', display: 'flex', alignItems: 'flex-end', gap: '8px', justifyContent: 'space-between' }}>
-              {[45, 65, 30, 80, 55, 70, 90, 40].map((h, i) => (
+              {activeProfile.visualAnalytics.sleepBars.map((h, i) => (
                 <div
                   key={i}
                   style={{
                     flex: 1,
                     height: `${h}%`,
                     borderRadius: '6px',
-                    background: i % 2 === 0 ? '#fbcfe8' : '#fbcfe8'
+                    background: '#fbcfe8',
+                    transition: 'height 0.4s ease'
                   }}
                 />
               ))}
@@ -553,7 +857,9 @@ export default function VisualAnalyticsPanel({
 
             <h4 style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a', margin: '0 0 2px 0' }}>Stress Balance</h4>
             <div style={{ fontSize: '11px', color: '#64748b' }}>
-              Your average stress is <strong style={{ color: '#0f172a', background: '#f1f5f9', padding: '1px 6px', borderRadius: '4px' }}>+0.34</strong>
+              Your average stress is <strong style={{ color: '#0f172a', background: '#f1f5f9', padding: '1px 6px', borderRadius: '4px' }}>
+                {activeProfile.visualAnalytics.stressAvg}
+              </strong>
             </div>
           </div>
 
@@ -562,19 +868,22 @@ export default function VisualAnalyticsPanel({
             <div style={{ height: '70px', position: 'relative' }}>
               <svg viewBox="0 0 240 70" style={{ width: '100%', height: '100%', overflow: 'visible' }}>
                 <path
-                  d="M 0 50 L 35 40 L 70 55 L 105 25 L 140 45 L 175 20 L 210 50 L 240 35"
+                  d={activeProfile.visualAnalytics.stressPath}
                   fill="none"
                   stroke="#cbd5e1"
                   strokeWidth="1.5"
                   strokeDasharray="3 3"
                 />
                 {/* Highlighted Scatter Dots */}
-                <circle cx="35" cy="40" r="3.5" fill="#818cf8" />
-                <circle cx="70" cy="55" r="3.5" fill="#818cf8" />
-                <circle cx="105" cy="25" r="4.5" fill="#ef4444" />
-                <circle cx="140" cy="45" r="3.5" fill="#818cf8" />
-                <circle cx="175" cy="20" r="4.5" fill="#ef4444" />
-                <circle cx="210" cy="50" r="3.5" fill="#818cf8" />
+                {activeProfile.visualAnalytics.stressPoints.map((pt, pIdx) => (
+                  <circle
+                    key={pIdx}
+                    cx={pt.x}
+                    cy={pt.y}
+                    r={pt.isHigh ? 4.5 : 3.5}
+                    fill={pt.isHigh ? '#ef4444' : '#818cf8'}
+                  />
+                ))}
               </svg>
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '9px', color: '#94a3b8', fontWeight: 700, marginTop: '8px' }}>
@@ -618,21 +927,24 @@ export default function VisualAnalyticsPanel({
 
             <h4 style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a', margin: '0 0 2px 0' }}>Weekly Steps</h4>
             <div style={{ fontSize: '11px', color: '#64748b' }}>
-              Your average steps is <strong style={{ color: '#0f172a', background: '#f1f5f9', padding: '1px 6px', borderRadius: '4px' }}>4,060</strong>
+              Your average steps is <strong style={{ color: '#0f172a', background: '#f1f5f9', padding: '1px 6px', borderRadius: '4px' }}>
+                {activeProfile.visualAnalytics.stepsAvg}
+              </strong>
             </div>
           </div>
 
           {/* Multi-Bar Gradient Chart */}
           <div style={{ marginTop: '24px' }}>
             <div style={{ height: '70px', display: 'flex', alignItems: 'flex-end', gap: '5px', justifyContent: 'space-between' }}>
-              {[35, 60, 45, 80, 25, 40, 75, 95, 50, 70, 85].map((h, i) => (
+              {activeProfile.visualAnalytics.stepsBars.map((h, i) => (
                 <div
                   key={i}
                   style={{
                     flex: 1,
                     height: `${h}%`,
                     borderRadius: '4px',
-                    background: i > 6 ? 'linear-gradient(180deg, #c084fc 0%, #818cf8 100%)' : '#e2e8f0'
+                    background: i > 6 ? 'linear-gradient(180deg, #c084fc 0%, #818cf8 100%)' : '#e2e8f0',
+                    transition: 'height 0.4s ease'
                   }}
                 />
               ))}
@@ -675,24 +987,36 @@ export default function VisualAnalyticsPanel({
               <span style={{ fontSize: '9px', fontWeight: 800, color: '#059669', background: '#ecfdf5', padding: '2px 6px', borderRadius: '4px' }}>
                 POSITIVE
               </span>
-              <h5 style={{ fontSize: '12px', fontWeight: 800, color: '#0f172a', margin: '8px 0 2px 0' }}>Recovery Improving</h5>
-              <p style={{ fontSize: '10px', color: '#64748b', margin: 0, lineHeight: 1.3 }}>Resting HR down 4% this week.</p>
+              <h5 style={{ fontSize: '12px', fontWeight: 800, color: '#0f172a', margin: '8px 0 2px 0' }}>
+                {activeProfile.visualAnalytics.insights.positive.title}
+              </h5>
+              <p style={{ fontSize: '10px', color: '#64748b', margin: 0, lineHeight: 1.3 }}>
+                {activeProfile.visualAnalytics.insights.positive.desc}
+              </p>
             </div>
 
             <div style={{ background: '#f8fafc', padding: '12px', borderRadius: '16px', border: '1px solid #f1f5f9' }}>
               <span style={{ fontSize: '9px', fontWeight: 800, color: '#d97706', background: '#fffbeb', padding: '2px 6px', borderRadius: '4px' }}>
                 TAKE ACTION
               </span>
-              <h5 style={{ fontSize: '12px', fontWeight: 800, color: '#0f172a', margin: '8px 0 2px 0' }}>Sleep Debt</h5>
-              <p style={{ fontSize: '10px', color: '#64748b', margin: 0, lineHeight: 1.3 }}>Target 8h sleep tonight.</p>
+              <h5 style={{ fontSize: '12px', fontWeight: 800, color: '#0f172a', margin: '8px 0 2px 0' }}>
+                {activeProfile.visualAnalytics.insights.action.title}
+              </h5>
+              <p style={{ fontSize: '10px', color: '#64748b', margin: 0, lineHeight: 1.3 }}>
+                {activeProfile.visualAnalytics.insights.action.desc}
+              </p>
             </div>
 
             <div style={{ background: '#f8fafc', padding: '12px', borderRadius: '16px', border: '1px solid #f1f5f9' }}>
               <span style={{ fontSize: '9px', fontWeight: 800, color: '#ef4444', background: '#fef2f2', padding: '2px 6px', borderRadius: '4px' }}>
                 MONITOR
               </span>
-              <h5 style={{ fontSize: '12px', fontWeight: 800, color: '#0f172a', margin: '8px 0 2px 0' }}>Stress Elevated</h5>
-              <p style={{ fontSize: '10px', color: '#64748b', margin: 0, lineHeight: 1.3 }}>Evening cortisol peaks detected.</p>
+              <h5 style={{ fontSize: '12px', fontWeight: 800, color: '#0f172a', margin: '8px 0 2px 0' }}>
+                {activeProfile.visualAnalytics.insights.monitor.title}
+              </h5>
+              <p style={{ fontSize: '10px', color: '#64748b', margin: 0, lineHeight: 1.3 }}>
+                {activeProfile.visualAnalytics.insights.monitor.desc}
+              </p>
             </div>
           </div>
         </div>
@@ -715,11 +1039,19 @@ export default function VisualAnalyticsPanel({
                   <Pill size={16} color="#0f172a" />
                 </div>
                 <div>
-                  <div style={{ fontSize: '12px', fontWeight: 800, color: '#0f172a' }}>Medication</div>
-                  <div style={{ fontSize: '10px', color: '#64748b' }}>Morning dose taken</div>
+                  <div style={{ fontSize: '12px', fontWeight: 800, color: '#0f172a' }}>
+                    {activeProfile.visualAnalytics.carePlan.medication.title}
+                  </div>
+                  <div style={{ fontSize: '10px', color: '#64748b' }}>
+                    {activeProfile.visualAnalytics.carePlan.medication.desc}
+                  </div>
                 </div>
               </div>
-              <CheckCircle2 size={18} color="#059669" />
+              {activeProfile.visualAnalytics.carePlan.medication.completed ? (
+                <CheckCircle2 size={18} color="#059669" />
+              ) : (
+                <Clock size={18} color="#d97706" />
+              )}
             </div>
 
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: '#f8fafc', padding: '10px 14px', borderRadius: '14px', border: '1px solid #f1f5f9' }}>
@@ -728,11 +1060,25 @@ export default function VisualAnalyticsPanel({
                   <Droplets size={16} color="#db2777" />
                 </div>
                 <div>
-                  <div style={{ fontSize: '12px', fontWeight: 800, color: '#0f172a' }}>Hydration</div>
-                  <div style={{ fontSize: '10px', color: '#64748b' }}>1.8 / 2.5L completed</div>
+                  <div style={{ fontSize: '12px', fontWeight: 800, color: '#0f172a' }}>
+                    {activeProfile.visualAnalytics.carePlan.hydration.title}
+                  </div>
+                  <div style={{ fontSize: '10px', color: '#64748b' }}>
+                    {activeProfile.visualAnalytics.carePlan.hydration.desc}
+                  </div>
                 </div>
               </div>
-              <div style={{ width: '18px', height: '18px', borderRadius: '50%', border: '2px solid #f472b6' }} />
+              <div style={{
+                fontSize: '11px',
+                fontWeight: 800,
+                color: '#db2777',
+                background: '#fdf2f8',
+                padding: '2px 8px',
+                borderRadius: '6px',
+                border: '1px solid #fbcfe8'
+              }}>
+                {activeProfile.visualAnalytics.carePlan.hydration.progress}%
+              </div>
             </div>
           </div>
         </div>
@@ -753,15 +1099,19 @@ export default function VisualAnalyticsPanel({
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <img
-              src="https://images.unsplash.com/photo-1594824813689-d102e3b2e535?w=150&auto=format&fit=crop&q=80"
-              alt="Dr. Maya Chen"
+              src={activeProfile.visualAnalytics.nextAppointment.photoUrl}
+              alt={activeProfile.visualAnalytics.nextAppointment.doctor}
               style={{ width: '52px', height: '52px', borderRadius: '14px', objectFit: 'cover' }}
             />
             <div>
-              <div style={{ fontSize: '13px', fontWeight: 800, color: '#0f172a' }}>Dr. Maya Chen</div>
-              <div style={{ fontSize: '10px', color: '#64748b', margin: '2px 0' }}>Aug 20, 2026 10:00 AM</div>
-              <span style={{ fontSize: '9px', fontWeight: 800, padding: '2px 6px', borderRadius: '4px', background: '#f1f5f9', color: '#475569' }}>
-                IN-PERSON
+              <div style={{ fontSize: '13px', fontWeight: 800, color: '#0f172a' }}>
+                {activeProfile.visualAnalytics.nextAppointment.doctor}
+              </div>
+              <div style={{ fontSize: '10px', color: '#64748b', margin: '2px 0' }}>
+                {activeProfile.visualAnalytics.nextAppointment.date}
+              </div>
+              <span style={{ fontSize: '9px', fontWeight: 800, padding: '2px 6px', borderRadius: '4px', background: '#e0f2fe', color: '#0284c7', border: '1px solid #bae6fd' }}>
+                {activeProfile.visualAnalytics.nextAppointment.type}
               </span>
             </div>
           </div>

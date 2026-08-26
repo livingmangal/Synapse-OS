@@ -1,7 +1,14 @@
 {
   "profileId": "healthy_adult_baseline",
-  "title": "Healthy Adult Baseline (Optimal Homeostasis)",
-  "subtitle": "Apple Watch Ultra 2 + Health Connect Aggregated",
+  "title": "Healthy Adult Baseline Profile",
+  "subtitle": "Homeostasis (HRV 66ms, SpO2 99%, 10.4k Steps)",
+  "jsonPath": "/data/mockHealthData/healthy_adult_baseline.json",
+  "badge": {
+    "label": "Optimal Homeostasis",
+    "color": "#15803d",
+    "bg": "#dcfce7",
+    "border": "#86efac"
+  },
   "patient": {
     "name": "Siddharth Sharma",
     "age": 29,
@@ -43,5 +50,39 @@
     "type": "optimal",
     "title": "Optimal Physiological Homeostasis",
     "description": "All systemic biomarkers are in the optimal clinical target ranges. HRV (66ms) confirms robust autonomic parasympathetic balance. Restorative sleep score (90/100) with healthy deep/REM cycles. SpO2 consistent at 99%."
+  },
+  "visualAnalytics": {
+    "healthScore": 68,
+    "nextAppointment": {
+      "doctor": "Dr. Maya Chen",
+      "date": "Aug 20, 2026 10:00 AM",
+      "type": "IN-PERSON",
+      "photoUrl": "https://images.unsplash.com/photo-1594824813689-d102e3b2e535?w=150&auto=format&fit=crop&q=80"
+    },
+    "heartRateAvg": "72bpm",
+    "heartRatePath": "M 0 50 Q 20 52 40 45 T 80 55 T 120 30 T 160 50 T 200 42 T 240 48",
+    "sleepAvg": "7.30h",
+    "sleepBars": [45, 65, 30, 80, 55, 70, 90, 40],
+    "stressAvg": "+0.34",
+    "stressPath": "M 0 50 L 35 40 L 70 55 L 105 25 L 140 45 L 175 20 L 210 50 L 240 35",
+    "stressPoints": [
+      { "x": 35, "y": 40 },
+      { "x": 70, "y": 55 },
+      { "x": 105, "y": 25, "isHigh": true },
+      { "x": 140, "y": 45 },
+      { "x": 175, "y": 20, "isHigh": true },
+      { "x": 210, "y": 50 }
+    ],
+    "stepsAvg": "4,060",
+    "stepsBars": [35, 60, 45, 80, 25, 40, 75, 95, 50, 70, 85],
+    "insights": {
+      "positive": { "title": "Recovery Improving", "desc": "Resting HR down 4% this week." },
+      "action": { "title": "Sleep Debt", "desc": "Target 8h sleep tonight." },
+      "monitor": { "title": "Stress Elevated", "desc": "Evening cortisol peaks detected." }
+    },
+    "carePlan": {
+      "medication": { "title": "Medication", "desc": "Morning dose taken", "completed": true },
+      "hydration": { "title": "Hydration", "desc": "1.8 / 2.5L completed", "progress": 72 }
+    }
   }
 }

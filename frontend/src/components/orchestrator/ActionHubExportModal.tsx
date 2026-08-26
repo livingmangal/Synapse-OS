@@ -9,7 +9,8 @@ import {
   AlertOctagon, 
   ExternalLink,
   ShieldCheck,
-  Send
+  Send,
+  Activity
 } from 'lucide-react';
 import { PatientInfo } from './types';
 

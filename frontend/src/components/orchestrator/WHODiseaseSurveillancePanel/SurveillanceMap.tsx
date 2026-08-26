@@ -794,7 +794,11 @@ export default function SurveillanceMap({
                   onClick={() => onSelectHub(hub.id)}
                   onMouseEnter={() => setHoveredHub(hub)}
                   onMouseLeave={() => setHoveredHub(null)}
-                  style={{ cursor: 'pointer' }}
+                  style={{
+                    default: { cursor: 'pointer' },
+                    hover: { cursor: 'pointer' },
+                    pressed: { cursor: 'pointer' }
+                  }}
                 >
                   {/* Subtle Outer Radar Glow Pulse */}
                   {activeLayers.heatmap && (

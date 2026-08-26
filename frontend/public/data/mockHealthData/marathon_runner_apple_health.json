@@ -1,7 +1,14 @@
 {
   "profileId": "marathon_runner_apple_health",
-  "title": "Marathon Athlete (High HRV & Low Resting HR)",
-  "subtitle": "Apple HealthKit 5-Year Telemetry Archive",
+  "title": "Marathon Athlete Profile",
+  "subtitle": "High HRV (88ms), Bradycardia (46 BPM), 18.4k Steps",
+  "jsonPath": "/data/mockHealthData/marathon_runner_apple_health.json",
+  "badge": {
+    "label": "Athletic Conditioning",
+    "color": "#0284c7",
+    "bg": "#e0f2fe",
+    "border": "#bae6fd"
+  },
   "patient": {
     "name": "Aryan Mehta",
     "age": 32,
@@ -9,7 +16,7 @@
     "abhaId": "91-3829-4910-1120"
   },
   "device": {
-    "name": "Apple Watch Ultra 2 (Cellular)",
+    "name": "Apple Watch Ultra 2",
     "brand": "apple",
     "firmware": "watchOS 11.2",
     "battery": 92
@@ -43,5 +50,39 @@
     "type": "optimal",
     "title": "Elite Endurance Conditioning Profile",
     "description": "Marked physiological bradycardia (Resting HR: 46 BPM) indicative of robust left-ventricular stroke volume. HRV at 88ms demonstrates superior parasympathetic recovery. SpO2 stable at 99.2% with exceptional VO2 max (56.4 mL/kg/min)."
+  },
+  "visualAnalytics": {
+    "healthScore": 94,
+    "nextAppointment": {
+      "doctor": "Dr. Kabir Anand",
+      "date": "Sep 12, 2026 09:30 AM",
+      "type": "SPORTS MEDICINE",
+      "photoUrl": "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=150&auto=format&fit=crop&q=80"
+    },
+    "heartRateAvg": "54bpm",
+    "heartRatePath": "M 0 58 Q 20 60 40 56 T 80 62 T 120 48 T 160 58 T 200 54 T 240 56",
+    "sleepAvg": "8.20h",
+    "sleepBars": [75, 90, 85, 95, 88, 92, 98, 85],
+    "stressAvg": "+0.08",
+    "stressPath": "M 0 55 L 35 52 L 70 58 L 105 50 L 140 56 L 175 48 L 210 54 L 240 50",
+    "stressPoints": [
+      { "x": 35, "y": 52 },
+      { "x": 70, "y": 58 },
+      { "x": 105, "y": 50 },
+      { "x": 140, "y": 56 },
+      { "x": 175, "y": 48 },
+      { "x": 210, "y": 54 }
+    ],
+    "stepsAvg": "18,420",
+    "stepsBars": [70, 85, 90, 95, 80, 85, 95, 100, 90, 88, 96],
+    "insights": {
+      "positive": { "title": "Optimal Recovery", "desc": "HRV at 88ms indicates superior athletic adaptation." },
+      "action": { "title": "Electrolyte Balance", "desc": "Hydration goal increased for high calorie burn." },
+      "monitor": { "title": "Resting Pulse Stable", "desc": "Bradycardia is normal for trained athlete." }
+    },
+    "carePlan": {
+      "medication": { "title": "Multivitamins & Omega-3", "desc": "Morning athletic supplements taken", "completed": true },
+      "hydration": { "title": "Electrolyte Hydration", "desc": "3.2 / 3.5L completed", "progress": 91 }
+    }
   }
 }
