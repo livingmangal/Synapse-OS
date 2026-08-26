@@ -1,0 +1,47 @@
+{
+  "profileId": "marathon_runner_apple_health",
+  "title": "Marathon Athlete (High HRV & Low Resting HR)",
+  "subtitle": "Apple HealthKit 5-Year Telemetry Archive",
+  "patient": {
+    "name": "Aryan Mehta",
+    "age": 32,
+    "gender": "Male",
+    "abhaId": "91-3829-4910-1120"
+  },
+  "device": {
+    "name": "Apple Watch Ultra 2 (Cellular)",
+    "brand": "apple",
+    "firmware": "watchOS 11.2",
+    "battery": 92
+  },
+  "observationCount": 4820,
+  "vitals": {
+    "steps": 18420,
+    "stepGoal": 15000,
+    "restingHeartRate": 46,
+    "currentHeartRate": 54,
+    "hrvMs": 88,
+    "spo2": 99.2,
+    "vo2Max": 56.4,
+    "respiratoryRate": 13,
+    "activeCalories": 1140,
+    "calorieGoal": 1000,
+    "sleepScore": 94,
+    "sleepDuration": "8h 20m",
+    "sleepStages": {
+      "deep": "2h 30m (30%)",
+      "rem": "2h 10m (26%)",
+      "light": "3h 15m (39%)",
+      "awake": "25m (5%)"
+    },
+    "bloodGlucose": 88,
+    "bloodPressure": "112/68 mmHg",
+    "wristTempDeviation": "-0.1°F"
+  },
+  "ecgStatus": "🟢 Sinus Bradycardia (HR 54 BPM) • Athletic Conditioning",
+  "aiAnalysis": {
+    "type": "optimal",
+    "title": "Elite Endurance Conditioning Profile",
+    "description": "Marked physiological bradycardia (Resting HR: 46 BPM) indicative of robust left-ventricular stroke volume. HRV at 88ms demonstrates superior parasympathetic recovery. SpO2 stable at 99.2% with exceptional VO2 max (56.4 mL/kg/min)."
+  }
+}

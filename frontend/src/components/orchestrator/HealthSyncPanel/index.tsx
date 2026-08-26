@@ -30,6 +30,7 @@ import {
   Terminal
 } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
+import { MOCK_HEALTH_PROFILES, MockHealthProfile } from '@/data/mockHealthProfiles';
 
 interface WearableDevice {
   id: string;
@@ -38,35 +39,31 @@ interface WearableDevice {
   model: string;
   battery: number;
   lastSynced: string;
-  status: 'connected' | 'syncing' | 'standby';
   firmware: string;
   isSimulated?: boolean;
 }
 
 export default function HealthSyncPanel() {
   const { t, translateText } = useLanguage();
-
-  // Connected Wearables State (Simulated Stream Baseline)
+  const [activeTab, setActiveTab] = useState<'overview' | 'bridge' | 'fhir'>('overview');
   const [devices, setDevices] = useState<WearableDevice[]>([
     {
-      id: 'dev_apple_1',
+      id: 'dev_apple_watch',
       name: 'Apple Watch Ultra 2',
       brand: 'apple',
-      model: 'Watch Ultra 2 (Cellular + GPS)',
+      model: 'Watch7,5 (Cellular)',
       battery: 88,
-      lastSynced: 'Just now',
-      status: 'connected',
+      lastSynced: '2 mins ago',
       firmware: 'watchOS 11.2',
       isSimulated: true
     },
     {
-      id: 'dev_pixel_1',
+      id: 'dev_pixel_watch',
       name: 'Google Pixel Watch 3',
       brand: 'google',
-      model: 'Pixel Watch 3 (Fitbit Engine)',
-      battery: 74,
-      lastSynced: '3 mins ago',
-      status: 'connected',
+      model: 'PW3-45mm',
+      battery: 64,
+      lastSynced: '14 mins ago',
       firmware: 'Wear OS 5.1',
       isSimulated: true
     }
@@ -80,28 +77,44 @@ export default function HealthSyncPanel() {
   const [copiedWebhook, setCopiedWebhook] = useState(false);
   const [copiedCurl, setCopiedCurl] = useState(false);
 
+  // Active Mock Dataset / Profile State
+  const [selectedMockProfileId, setSelectedMockProfileId] = useState<string>('healthy_adult_baseline');
+  const [importerMode, setImporterMode] = useState<'presets' | 'upload'>('presets');
+  const [currentAiAnalysis, setCurrentAiAnalysis] = useState<{
+    type: 'optimal' | 'warning' | 'alert';
+    title: string;
+    description: string;
+  }>({
+    type: 'optimal',
+    title: 'Optimal Physiological Homeostasis',
+    description: 'All systemic biomarkers are in the optimal clinical target ranges. HRV (66ms) confirms robust autonomic parasympathetic balance. Restorative sleep score (90/100) with healthy deep/REM cycles. SpO2 consistent at 99%.'
+  });
+  const [ecgClassificationText, setEcgClassificationText] = useState<string>(
+    '🟢 Sinus Rhythm (HR 70 BPM) • No AFib detected'
+  );
+
   // Live Wearable Telemetry State
   const [wearableVitals, setWearableVitals] = useState({
-    steps: 8640,
+    steps: 10480,
     stepGoal: 10000,
-    restingHeartRate: 62,
-    currentHeartRate: 74,
-    hrvMs: 58,
-    spo2: 98.4,
-    vo2Max: 44.5,
-    respiratoryRate: 15,
-    activeCalories: 580,
+    restingHeartRate: 60,
+    currentHeartRate: 70,
+    hrvMs: 66,
+    spo2: 99.0,
+    vo2Max: 48.0,
+    respiratoryRate: 14,
+    activeCalories: 680,
     calorieGoal: 700,
-    sleepScore: 86,
-    sleepDuration: '7h 38m',
+    sleepScore: 90,
+    sleepDuration: '7h 50m',
     sleepStages: {
-      deep: '1h 45m (23%)',
-      rem: '1h 55m (25%)',
-      light: '3h 30m (46%)',
-      awake: '28m (6%)'
+      deep: '1h 55m (24%)',
+      rem: '2h 05m (27%)',
+      light: '3h 25m (43%)',
+      awake: '25m (6%)'
     },
-    bloodGlucose: 96,
-    bloodPressure: '118/76 mmHg',
+    bloodGlucose: 92,
+    bloodPressure: '116/74 mmHg',
     wristTempDeviation: '-0.2°F'
   });
 
@@ -112,9 +125,11 @@ export default function HealthSyncPanel() {
   const ecgOffsetRef = useRef<number>(0);
 
   // File Importer State (Apple Health export.xml or Google Takeout JSON)
-  const [parsedRecordsCount, setParsedRecordsCount] = useState<number | null>(null);
-  const [importStatus, setImportStatus] = useState<string | null>(null);
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [parsedRecordsCount, setParsedRecordsCount] = useState<number | null>(6420);
+  const [importStatus, setImportStatus] = useState<string | null>(
+    '✅ Healthy Adult Baseline dataset active (6,420 observations parsed)'
+  );
+  const fileInputRef = useRef<HTMLInputElement | null>(null);;
 
   // Draw simulated medical-grade ECG Rhythm Strip (Lead I)
   useEffect(() => {
@@ -276,6 +291,56 @@ export default function HealthSyncPanel() {
     }, 800);
   };
 
+  // Select and Activate Pre-Loaded Mock Health Dataset
+  const handleSelectMockProfile = (profile: MockHealthProfile) => {
+    setSelectedMockProfileId(profile.profileId);
+    setWearableVitals(profile.vitals);
+    setParsedRecordsCount(profile.observationCount);
+    setCurrentAiAnalysis(profile.aiAnalysis);
+    setEcgClassificationText(profile.ecgStatus);
+    setImportStatus(`✅ Active Profile: ${profile.title} (${profile.observationCount.toLocaleString()} clinical records)`);
+
+    // Optionally update device label to match the profile device
+    setDevices(prev => [
+      {
+        id: 'dev_primary',
+        name: profile.device.name,
+        brand: profile.device.brand,
+        model: profile.device.name,
+        battery: profile.device.battery,
+        lastSynced: 'Just now',
+        firmware: profile.device.firmware,
+        isSimulated: true
+      },
+      ...prev.slice(1)
+    ]);
+  };
+
+  // Direct JSON File Downloader
+  const handleDownloadJson = async (profile: MockHealthProfile, e: React.MouseEvent) => {
+    e.stopPropagation();
+    try {
+      const res = await fetch(profile.jsonPath);
+      const jsonBlob = await res.blob();
+      const url = URL.createObjectURL(jsonBlob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${profile.profileId}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+    } catch {
+      // Fallback generate from profile
+      const dataStr = JSON.stringify(profile, null, 2);
+      const blob = new Blob([dataStr], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${profile.profileId}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+  };
+
   // Handle Apple Health export.xml or Google Takeout JSON File Parsing
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -287,31 +352,47 @@ export default function HealthSyncPanel() {
     reader.onload = (e) => {
       const content = e.target?.result as string;
       try {
-        if (file.name.endsWith('.xml') || file.type.includes('xml')) {
+        if (file.name.endsWith('.json') || file.type.includes('json')) {
+          const parsed = JSON.parse(content);
+          if (parsed.vitals) {
+            setWearableVitals(parsed.vitals);
+          }
+          if (parsed.observationCount) {
+            setParsedRecordsCount(parsed.observationCount);
+          } else {
+            setParsedRecordsCount(1420);
+          }
+          if (parsed.aiAnalysis) {
+            setCurrentAiAnalysis(parsed.aiAnalysis);
+          }
+          if (parsed.ecgStatus) {
+            setEcgClassificationText(parsed.ecgStatus);
+          }
+          setImportStatus(`✅ Successfully imported ${file.name} (${parsed.observationCount || 1420} observations parsed)!`);
+        } else if (file.name.endsWith('.xml') || file.type.includes('xml')) {
           // Count XML records
           const recordMatches = content.match(/<Record/g) || [];
           const count = Math.max(recordMatches.length, 1284);
           setParsedRecordsCount(count);
-          setImportStatus(`Successfully ingested ${count.toLocaleString()} HealthKit observations!`);
+          setImportStatus(`✅ Successfully ingested ${count.toLocaleString()} Apple HealthKit XML observations!`);
           
-          // Update vitals with slight dynamic variation
+          // Update vitals with dynamic variation
           setWearableVitals(prev => ({
             ...prev,
-            steps: prev.steps + 420,
+            steps: prev.steps + 650,
             restingHeartRate: 61,
-            spo2: 98.7
+            spo2: 98.8
           }));
         } else {
-          // JSON takeout file
-          setParsedRecordsCount(840);
-          setImportStatus('Successfully ingested Google Health Connect dataset!');
+          setParsedRecordsCount(950);
+          setImportStatus(`✅ Successfully ingested ${file.name} telemetry archive!`);
         }
       } catch (err) {
-        setImportStatus('Parsed file successfully with standard LOINC clinical mappings.');
+        setImportStatus('✅ Parsed file successfully with standard LOINC clinical mappings.');
       }
     };
 
-    reader.readAsText(file.slice(0, 1024 * 500)); // Read first chunk for speed
+    reader.readAsText(file.slice(0, 1024 * 500)); // Read first chunk for fast parsing
   };
 
   return (
@@ -555,13 +636,13 @@ export default function HealthSyncPanel() {
             <span style={{
               fontSize: '11px',
               fontWeight: 800,
-              color: '#059669',
-              background: '#ecfdf5',
-              border: '1px solid #a7f3d0',
-              padding: '4px 10px',
+              color: ecgClassificationText.includes('⚠️') ? '#dc2626' : '#059669',
+              background: ecgClassificationText.includes('⚠️') ? '#fee2e2' : '#ecfdf5',
+              border: `1px solid ${ecgClassificationText.includes('⚠️') ? '#fca5a5' : '#a7f3d0'}`,
+              padding: '4px 12px',
               borderRadius: '999px'
             }}>
-              🟢 Sinus Rhythm (HR {wearableVitals.currentHeartRate} BPM) • No AFib
+              {ecgClassificationText}
             </span>
             <button
               onClick={() => setIsPlayingEcg(!isPlayingEcg)}
@@ -699,7 +780,7 @@ export default function HealthSyncPanel() {
         </div>
       </div>
 
-      {/* 5. Apple Health XML & Google Takeout File Drag & Drop Importer */}
+      {/* 5. Apple Health XML & Google Takeout Multi-Profile Data Hub */}
       <div style={{
         background: '#ffffff',
         borderRadius: '20px',
@@ -707,77 +788,342 @@ export default function HealthSyncPanel() {
         padding: '24px',
         boxShadow: '0 2px 8px rgba(0,0,0,0.02)'
       }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+        {/* Section Header & Mode Toggle */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px', flexWrap: 'wrap', gap: '12px' }}>
           <div>
-            <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#0f172a', margin: 0 }}>
-              {t('import_export_xml', 'Import Apple Health export.xml or Google Takeout')}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span style={{
+                fontSize: '10.5px',
+                fontWeight: 800,
+                color: '#0284c7',
+                background: '#e0f2fe',
+                padding: '2px 8px',
+                borderRadius: '6px',
+                textTransform: 'uppercase',
+                letterSpacing: '0.04em'
+              }}>
+                Telemetry Data Ingestion Engine
+              </span>
+              <span style={{ fontSize: '11px', fontWeight: 700, color: '#10b981', background: '#ecfdf5', padding: '2px 8px', borderRadius: '999px' }}>
+                🔒 Local Client-Side Parsing
+              </span>
+            </div>
+            <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#0f172a', margin: '4px 0 0 0' }}>
+              {t('import_export_xml', 'Import Wearable Data & Pre-Loaded Clinical Datasets')}
             </h3>
-            <p style={{ fontSize: '12px', color: '#64748b', margin: '4px 0 0 0' }}>
-              Upload your complete historical HealthKit XML archive or Android Health Connect dump to parse multi-year telemetry.
+            <p style={{ fontSize: '12px', color: '#64748b', margin: '2px 0 0 0' }}>
+              Select from 6 standardized clinical patient mock JSON datasets, or upload your personal Apple Health <code style={{ background: '#f1f5f9', padding: '1px 5px', borderRadius: '4px' }}>export.xml</code> / Google Takeout JSON.
             </p>
           </div>
-          <span style={{ fontSize: '11px', fontWeight: 700, color: '#10b981', background: '#ecfdf5', padding: '3px 10px', borderRadius: '999px' }}>
-            🔒 Local Client-Side Parsing
-          </span>
+
+          {/* Mode Switcher Tabs */}
+          <div style={{ display: 'flex', gap: '4px', background: '#f1f5f9', padding: '4px', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
+            <button
+              onClick={() => setImporterMode('presets')}
+              style={{
+                padding: '6px 14px',
+                borderRadius: '9px',
+                border: 'none',
+                fontSize: '12px',
+                fontWeight: importerMode === 'presets' ? 800 : 600,
+                background: importerMode === 'presets' ? '#0284c7' : 'transparent',
+                color: importerMode === 'presets' ? '#ffffff' : '#475569',
+                cursor: 'pointer',
+                boxShadow: importerMode === 'presets' ? '0 2px 8px rgba(2,132,199,0.3)' : 'none',
+                transition: 'all 0.15s ease',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px'
+              }}
+            >
+              <Zap size={14} />
+              <span>Select Datasets (6 Profiles)</span>
+            </button>
+            <button
+              onClick={() => setImporterMode('upload')}
+              style={{
+                padding: '6px 14px',
+                borderRadius: '9px',
+                border: 'none',
+                fontSize: '12px',
+                fontWeight: importerMode === 'upload' ? 800 : 600,
+                background: importerMode === 'upload' ? '#0284c7' : 'transparent',
+                color: importerMode === 'upload' ? '#ffffff' : '#475569',
+                cursor: 'pointer',
+                boxShadow: importerMode === 'upload' ? '0 2px 8px rgba(2,132,199,0.3)' : 'none',
+                transition: 'all 0.15s ease',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px'
+              }}
+            >
+              <Upload size={14} />
+              <span>Upload Custom File</span>
+            </button>
+          </div>
         </div>
 
-        {/* Dropzone Container */}
-        <div
-          onClick={() => fileInputRef.current?.click()}
-          style={{
-            border: '2px dashed #cbd5e1',
-            borderRadius: '16px',
-            padding: '32px 20px',
-            textAlign: 'center',
-            background: '#f8fafc',
-            cursor: 'pointer',
-            transition: 'all 0.2s ease'
-          }}
-          onMouseEnter={(e) => (e.currentTarget.style.borderColor = '#db2777')}
-          onMouseLeave={(e) => (e.currentTarget.style.borderColor = '#cbd5e1')}
-        >
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept=".xml,.json,.zip"
-            onChange={handleFileUpload}
-            style={{ display: 'none' }}
-          />
-          <div style={{ width: '48px', height: '48px', borderRadius: '50%', background: '#fdf2f8', color: '#db2777', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 12px auto' }}>
-            <Upload size={22} />
-          </div>
-          <div style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a' }}>
-            {t('drop_file_here', 'Drag & Drop XML / JSON Health Export File')}
-          </div>
-          <div style={{ fontSize: '11.5px', color: '#64748b', marginTop: '4px' }}>
-            Supports Apple Health <code style={{ background: '#e2e8f0', padding: '2px 6px', borderRadius: '4px' }}>export.xml</code> & Google Takeout JSON
-          </div>
+        {/* Tab 1: Pre-Loaded Mock Datasets Grid */}
+        {importerMode === 'presets' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(310px, 1fr))',
+              gap: '14px'
+            }}>
+              {MOCK_HEALTH_PROFILES.map((profile) => {
+                const isSelected = profile.profileId === selectedMockProfileId;
+                return (
+                  <div
+                    key={profile.profileId}
+                    onClick={() => handleSelectMockProfile(profile)}
+                    style={{
+                      background: isSelected ? '#f0f9ff' : '#f8fafc',
+                      borderRadius: '16px',
+                      border: isSelected ? '2px solid #0284c7' : '1px solid #e2e8f0',
+                      padding: '16px',
+                      cursor: 'pointer',
+                      transition: 'all 0.15s ease',
+                      boxShadow: isSelected ? '0 4px 16px rgba(2, 132, 199, 0.12)' : 'none',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '10px'
+                    }}
+                  >
+                    {/* Header: Badge & Status */}
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <span style={{
+                        fontSize: '10px',
+                        fontWeight: 800,
+                        padding: '2px 8px',
+                        borderRadius: '6px',
+                        background: profile.badge.bg,
+                        color: profile.badge.color,
+                        border: `1px solid ${profile.badge.border}`
+                      }}>
+                        {profile.badge.label}
+                      </span>
+                      {isSelected ? (
+                        <span style={{
+                          fontSize: '10px',
+                          fontWeight: 800,
+                          color: '#0284c7',
+                          background: '#e0f2fe',
+                          padding: '2px 8px',
+                          borderRadius: '999px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '4px'
+                        }}>
+                          ● ACTIVE DATASET
+                        </span>
+                      ) : (
+                        <span style={{ fontSize: '10.5px', color: '#64748b', fontWeight: 600 }}>
+                          {profile.observationCount.toLocaleString()} Records
+                        </span>
+                      )}
+                    </div>
 
-          {importStatus && (
-            <div style={{ marginTop: '14px', fontSize: '12px', fontWeight: 700, color: '#059669', background: '#ecfdf5', padding: '6px 14px', borderRadius: '8px', display: 'inline-block' }}>
-              {importStatus}
+                    {/* Title & Patient */}
+                    <div>
+                      <h4 style={{
+                        fontSize: '13.5px',
+                        fontWeight: 800,
+                        color: isSelected ? '#0284c7' : '#0f172a',
+                        margin: 0
+                      }}>
+                        {profile.title}
+                      </h4>
+                      <div style={{ fontSize: '11px', color: '#64748b', marginTop: '2px' }}>
+                        Patient: <b style={{ color: '#334155' }}>{profile.patient.name}</b> ({profile.patient.age}y {profile.patient.gender}) • <span style={{ color: '#0284c7' }}>{profile.device.name}</span>
+                      </div>
+                      <div style={{ fontSize: '11px', color: '#475569', marginTop: '3px' }}>
+                        {profile.subtitle}
+                      </div>
+                    </div>
+
+                    {/* Key Metrics Mini-Row */}
+                    <div style={{
+                      display: 'grid',
+                      gridTemplateColumns: 'repeat(4, 1fr)',
+                      gap: '6px',
+                      background: isSelected ? '#ffffff' : '#f1f5f9',
+                      padding: '8px',
+                      borderRadius: '10px',
+                      border: '1px solid #e2e8f0',
+                      textAlign: 'center'
+                    }}>
+                      <div>
+                        <div style={{ fontSize: '9px', color: '#64748b' }}>HR</div>
+                        <div style={{ fontSize: '11.5px', fontWeight: 800, color: '#0f172a' }}>{profile.vitals.currentHeartRate} <span style={{ fontSize: '8.5px' }}>BPM</span></div>
+                      </div>
+                      <div>
+                        <div style={{ fontSize: '9px', color: '#64748b' }}>SpO2</div>
+                        <div style={{ fontSize: '11.5px', fontWeight: 800, color: profile.vitals.spo2 < 93 ? '#dc2626' : '#0f172a' }}>{profile.vitals.spo2}%</div>
+                      </div>
+                      <div>
+                        <div style={{ fontSize: '9px', color: '#64748b' }}>HRV</div>
+                        <div style={{ fontSize: '11.5px', fontWeight: 800, color: '#0f172a' }}>{profile.vitals.hrvMs} <span style={{ fontSize: '8.5px' }}>ms</span></div>
+                      </div>
+                      <div>
+                        <div style={{ fontSize: '9px', color: '#64748b' }}>Steps</div>
+                        <div style={{ fontSize: '11.5px', fontWeight: 800, color: '#0f172a' }}>{(profile.vitals.steps / 1000).toFixed(1)}k</div>
+                      </div>
+                    </div>
+
+                    {/* Footer Actions */}
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '2px' }}>
+                      <button
+                        onClick={(e) => handleDownloadJson(profile, e)}
+                        title="Download raw JSON dataset file to your computer"
+                        style={{
+                          padding: '5px 10px',
+                          borderRadius: '8px',
+                          background: '#ffffff',
+                          border: '1px solid #cbd5e1',
+                          fontSize: '11px',
+                          fontWeight: 700,
+                          color: '#334155',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '4px',
+                          cursor: 'pointer'
+                        }}
+                      >
+                        <Download size={12} color="#0284c7" />
+                        <span>Download JSON</span>
+                      </button>
+
+                      <button
+                        onClick={() => handleSelectMockProfile(profile)}
+                        style={{
+                          padding: '5px 12px',
+                          borderRadius: '8px',
+                          background: isSelected ? '#0284c7' : '#ffffff',
+                          border: isSelected ? 'none' : '1px solid #cbd5e1',
+                          fontSize: '11px',
+                          fontWeight: 800,
+                          color: isSelected ? '#ffffff' : '#0f172a',
+                          cursor: 'pointer'
+                        }}
+                      >
+                        {isSelected ? '✓ Ingested' : 'Load Dataset'}
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
-          )}
-        </div>
+
+            {/* Ingestion Status Bar */}
+            {importStatus && (
+              <div style={{
+                padding: '10px 16px',
+                borderRadius: '12px',
+                background: '#f0f9ff',
+                border: '1px solid #bae6fd',
+                color: '#0369a1',
+                fontSize: '12px',
+                fontWeight: 700,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                flexWrap: 'wrap',
+                gap: '8px'
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <CheckCircle2 size={16} color="#0284c7" />
+                  <span>{importStatus}</span>
+                </div>
+                <span style={{ fontSize: '11px', color: '#64748b' }}>
+                  Standard LOINC & SNOMED CT Unified Format
+                </span>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Tab 2: Custom File Drag & Drop Importer */}
+        {importerMode === 'upload' && (
+          <div>
+            <div
+              onClick={() => fileInputRef.current?.click()}
+              style={{
+                border: '2px dashed #bae6fd',
+                borderRadius: '16px',
+                padding: '36px 20px',
+                textAlign: 'center',
+                background: '#f0f9ff',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease'
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.borderColor = '#0284c7')}
+              onMouseLeave={(e) => (e.currentTarget.style.borderColor = '#bae6fd')}
+            >
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept=".xml,.json,.zip"
+                onChange={handleFileUpload}
+                style={{ display: 'none' }}
+              />
+              <div style={{ width: '48px', height: '48px', borderRadius: '50%', background: '#e0f2fe', color: '#0284c7', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 12px auto' }}>
+                <Upload size={22} />
+              </div>
+              <div style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a' }}>
+                {t('drop_file_here', 'Drag & Drop XML / JSON Health Export File')}
+              </div>
+              <div style={{ fontSize: '11.5px', color: '#64748b', marginTop: '4px' }}>
+                Supports Apple Health <code style={{ background: '#ffffff', border: '1px solid #cbd5e1', padding: '2px 6px', borderRadius: '4px' }}>export.xml</code> & Google Takeout JSON files
+              </div>
+
+              {importStatus && (
+                <div style={{ marginTop: '14px', fontSize: '12px', fontWeight: 700, color: '#0369a1', background: '#e0f2fe', border: '1px solid #bae6fd', padding: '6px 14px', borderRadius: '8px', display: 'inline-block' }}>
+                  {importStatus}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
       </div>
 
-      {/* 6. AI Anomaly Correlator Box */}
+      {/* 6. AI Anomaly Correlator Box (Dynamic Based on Profile) */}
       <div style={{
-        background: '#fffbeb',
+        background: currentAiAnalysis.type === 'alert' ? '#fef2f2' : currentAiAnalysis.type === 'warning' ? '#fffbeb' : '#f0fdf4',
         borderRadius: '18px',
-        border: '1px solid #fde68a',
-        padding: '18px',
+        border: `1px solid ${currentAiAnalysis.type === 'alert' ? '#fecaca' : currentAiAnalysis.type === 'warning' ? '#fde68a' : '#bbf7d0'}`,
+        padding: '18px 22px',
         display: 'flex',
         gap: '14px',
-        alignItems: 'flex-start'
+        alignItems: 'flex-start',
+        boxShadow: '0 2px 10px rgba(0,0,0,0.02)'
       }}>
-        <AlertTriangle size={22} color="#d97706" style={{ flexShrink: 0, marginTop: '2px' }} />
+        {currentAiAnalysis.type === 'alert' ? (
+          <AlertTriangle size={22} color="#dc2626" style={{ flexShrink: 0, marginTop: '2px' }} />
+        ) : currentAiAnalysis.type === 'warning' ? (
+          <AlertTriangle size={22} color="#d97706" style={{ flexShrink: 0, marginTop: '2px' }} />
+        ) : (
+          <CheckCircle2 size={22} color="#16a34a" style={{ flexShrink: 0, marginTop: '2px' }} />
+        )}
         <div>
-          <div style={{ fontSize: '13px', fontWeight: 800, color: '#92400e' }}>
-            {t('ai_anomaly_alert', 'AI Wearable Anomaly & Risk Analysis')}
+          <div style={{
+            fontSize: '13.5px',
+            fontWeight: 800,
+            color: currentAiAnalysis.type === 'alert' ? '#991b1b' : currentAiAnalysis.type === 'warning' ? '#92400e' : '#166534',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px'
+          }}>
+            <span>AI Wearable Clinical Risk Correlator:</span>
+            <span>{currentAiAnalysis.title}</span>
           </div>
-          <div style={{ fontSize: '12px', color: '#b45309', marginTop: '4px', lineHeight: 1.5 }}>
-            Telemetry trends over the past 7 days show steady resting heart rate (62 BPM) and excellent blood oxygenation (98.4%). No nocturnal hypoxemia or arrhythmia patterns detected. Telemetry has been linked with your <b>ABHA ID: 91-5829-3910-4821</b>.
+          <div style={{
+            fontSize: '12px',
+            color: currentAiAnalysis.type === 'alert' ? '#b91c1c' : currentAiAnalysis.type === 'warning' ? '#b45309' : '#15803d',
+            marginTop: '4px',
+            lineHeight: 1.55
+          }}>
+            {currentAiAnalysis.description}
           </div>
         </div>
       </div>
@@ -790,8 +1136,8 @@ export default function HealthSyncPanel() {
           left: 0,
           right: 0,
           bottom: 0,
-          backgroundColor: 'rgba(15, 23, 42, 0.75)',
-          backdropFilter: 'blur(6px)',
+          backgroundColor: 'rgba(15, 23, 42, 0.45)',
+          backdropFilter: 'blur(8px)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -805,28 +1151,40 @@ export default function HealthSyncPanel() {
             width: '100%',
             maxHeight: '90vh',
             overflowY: 'auto',
-            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
-            border: '1px solid #e2e8f0'
+            boxShadow: '0 25px 50px -12px rgba(2, 132, 199, 0.2)',
+            border: '1px solid #bae6fd'
           }}>
             {/* Modal Header */}
             <div style={{
               padding: '20px 24px',
-              borderBottom: '1px solid #e2e8f0',
+              borderBottom: '1px solid #bae6fd',
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
-              background: 'linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%)',
-              color: '#ffffff',
+              background: 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #f0fdfa 100%)',
+              color: '#0f172a',
               borderTopLeftRadius: '24px',
               borderTopRightRadius: '24px'
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <Smartphone size={22} color="#f472b6" />
+                <div style={{
+                  width: '38px',
+                  height: '38px',
+                  borderRadius: '10px',
+                  background: '#ffffff',
+                  border: '1px solid #bae6fd',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  boxShadow: '0 2px 6px rgba(2, 132, 199, 0.12)'
+                }}>
+                  <Smartphone size={22} color="#0284c7" />
+                </div>
                 <div>
-                  <h3 style={{ margin: 0, fontSize: '17px', fontWeight: 800 }}>
+                  <h3 style={{ margin: 0, fontSize: '17px', fontWeight: 800, color: '#0f172a' }}>
                     iOS HealthKit & Health Connect Bridge Setup
                   </h3>
-                  <p style={{ margin: '2px 0 0 0', fontSize: '11.5px', color: '#94a3b8' }}>
+                  <p style={{ margin: '2px 0 0 0', fontSize: '11.5px', color: '#64748b' }}>
                     Connect real iPhones and Android watches via automated background webhooks
                   </p>
                 </div>
@@ -834,12 +1192,13 @@ export default function HealthSyncPanel() {
               <button
                 onClick={() => setShowBridgeModal(false)}
                 style={{
-                  background: 'rgba(255, 255, 255, 0.1)',
-                  border: 'none',
+                  background: '#ffffff',
+                  border: '1px solid #cbd5e1',
                   borderRadius: '10px',
                   padding: '6px',
-                  color: '#ffffff',
-                  cursor: 'pointer'
+                  color: '#334155',
+                  cursor: 'pointer',
+                  boxShadow: '0 2px 6px rgba(0,0,0,0.06)'
                 }}
               >
                 <X size={18} />
@@ -850,11 +1209,11 @@ export default function HealthSyncPanel() {
             <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
               {/* Webhook Endpoint Box */}
               <div style={{ background: '#f8fafc', padding: '16px', borderRadius: '14px', border: '1px solid #e2e8f0' }}>
-                <div style={{ fontSize: '11px', fontWeight: 800, color: '#64748b', textTransform: 'uppercase', marginBottom: '6px' }}>
+                <div style={{ fontSize: '11px', fontWeight: 800, color: '#0284c7', textTransform: 'uppercase', marginBottom: '6px' }}>
                   Live Webhook Ingestion Endpoint
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <code style={{ flex: 1, padding: '8px 12px', background: '#0f172a', color: '#38bdf8', borderRadius: '8px', fontSize: '12px', wordBreak: 'break-all' }}>
+                  <code style={{ flex: 1, padding: '9px 12px', background: '#f0f9ff', border: '1px solid #bae6fd', color: '#0284c7', borderRadius: '8px', fontSize: '12px', fontWeight: 700, wordBreak: 'break-all' }}>
                     POST http://127.0.0.1:8000/api/wearables/sync
                   </code>
                   <button
@@ -865,7 +1224,7 @@ export default function HealthSyncPanel() {
                     }}
                     style={{
                       padding: '8px 14px',
-                      background: copiedWebhook ? '#10b981' : '#0f172a',
+                      background: copiedWebhook ? '#10b981' : '#0284c7',
                       color: '#ffffff',
                       border: 'none',
                       borderRadius: '8px',
@@ -874,7 +1233,9 @@ export default function HealthSyncPanel() {
                       cursor: 'pointer',
                       display: 'flex',
                       alignItems: 'center',
-                      gap: '4px'
+                      gap: '4px',
+                      boxShadow: '0 2px 8px rgba(2, 132, 199, 0.3)',
+                      transition: 'all 0.15s ease'
                     }}
                   >
                     {copiedWebhook ? <Check size={14} /> : <Copy size={14} />}
@@ -884,9 +1245,9 @@ export default function HealthSyncPanel() {
               </div>
 
               {/* iOS Shortcuts Option */}
-              <div style={{ border: '1px solid #e2e8f0', borderRadius: '16px', padding: '18px' }}>
+              <div style={{ border: '1px solid #e2e8f0', borderRadius: '16px', padding: '18px', background: '#ffffff' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
-                  <span style={{ padding: '4px 8px', borderRadius: '6px', background: '#fdf2f8', color: '#db2777', fontWeight: 800, fontSize: '11px' }}>
+                  <span style={{ padding: '3px 8px', borderRadius: '6px', background: '#e0f2fe', color: '#0284c7', border: '1px solid #bae6fd', fontWeight: 800, fontSize: '11px' }}>
                     METHOD 1 (RECOMMENDED)
                   </span>
                   <h4 style={{ margin: 0, fontSize: '14px', fontWeight: 800, color: '#0f172a' }}>
@@ -906,9 +1267,9 @@ export default function HealthSyncPanel() {
               </div>
 
               {/* Health Auto Export Option */}
-              <div style={{ border: '1px solid #e2e8f0', borderRadius: '16px', padding: '18px' }}>
+              <div style={{ border: '1px solid #e2e8f0', borderRadius: '16px', padding: '18px', background: '#ffffff' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
-                  <span style={{ padding: '4px 8px', borderRadius: '6px', background: '#eff6ff', color: '#2563eb', fontWeight: 800, fontSize: '11px' }}>
+                  <span style={{ padding: '3px 8px', borderRadius: '6px', background: '#e0f2fe', color: '#0284c7', border: '1px solid #bae6fd', fontWeight: 800, fontSize: '11px' }}>
                     METHOD 2
                   </span>
                   <h4 style={{ margin: 0, fontSize: '14px', fontWeight: 800, color: '#0f172a' }}>
@@ -921,10 +1282,10 @@ export default function HealthSyncPanel() {
               </div>
 
               {/* cURL Quick Test */}
-              <div style={{ border: '1px solid #e2e8f0', borderRadius: '16px', padding: '18px' }}>
+              <div style={{ border: '1px solid #e2e8f0', borderRadius: '16px', padding: '18px', background: '#ffffff' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
                   <span style={{ fontSize: '12px', fontWeight: 800, color: '#0f172a', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                    <Terminal size={14} /> Quick Terminal Test (cURL)
+                    <Terminal size={14} color="#0284c7" /> Quick Terminal Test (cURL)
                   </span>
                   <button
                     onClick={() => {
@@ -935,7 +1296,7 @@ export default function HealthSyncPanel() {
                     style={{
                       background: 'none',
                       border: 'none',
-                      color: copiedCurl ? '#10b981' : '#2563eb',
+                      color: copiedCurl ? '#10b981' : '#0284c7',
                       fontSize: '11.5px',
                       fontWeight: 700,
                       cursor: 'pointer'
@@ -945,11 +1306,12 @@ export default function HealthSyncPanel() {
                   </button>
                 </div>
                 <pre style={{
-                  background: '#0f172a',
-                  color: '#e2e8f0',
-                  padding: '10px 14px',
+                  background: '#f8fafc',
+                  border: '1px solid #cbd5e1',
+                  color: '#0f172a',
+                  padding: '12px 14px',
                   borderRadius: '10px',
-                  fontSize: '11px',
+                  fontSize: '11.5px',
                   overflowX: 'auto',
                   margin: 0
                 }}>
@@ -978,8 +1340,8 @@ export default function HealthSyncPanel() {
           left: 0,
           right: 0,
           bottom: 0,
-          backgroundColor: 'rgba(15, 23, 42, 0.75)',
-          backdropFilter: 'blur(6px)',
+          backgroundColor: 'rgba(15, 23, 42, 0.45)',
+          backdropFilter: 'blur(8px)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -993,28 +1355,40 @@ export default function HealthSyncPanel() {
             width: '100%',
             maxHeight: '90vh',
             overflowY: 'auto',
-            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
-            border: '1px solid #e2e8f0'
+            boxShadow: '0 25px 50px -12px rgba(2, 132, 199, 0.2)',
+            border: '1px solid #bae6fd'
           }}>
             {/* Modal Header */}
             <div style={{
               padding: '20px 24px',
-              borderBottom: '1px solid #e2e8f0',
+              borderBottom: '1px solid #bae6fd',
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
-              background: 'linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%)',
-              color: '#ffffff',
+              background: 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #f0fdfa 100%)',
+              color: '#0f172a',
               borderTopLeftRadius: '24px',
               borderTopRightRadius: '24px'
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <FileCode size={22} color="#38bdf8" />
+                <div style={{
+                  width: '38px',
+                  height: '38px',
+                  borderRadius: '10px',
+                  background: '#ffffff',
+                  border: '1px solid #bae6fd',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  boxShadow: '0 2px 6px rgba(2, 132, 199, 0.12)'
+                }}>
+                  <FileCode size={22} color="#0284c7" />
+                </div>
                 <div>
-                  <h3 style={{ margin: 0, fontSize: '17px', fontWeight: 800 }}>
+                  <h3 style={{ margin: 0, fontSize: '17px', fontWeight: 800, color: '#0f172a' }}>
                     HL7 FHIR R4 Observation Standard Bundle
                   </h3>
-                  <p style={{ margin: '2px 0 0 0', fontSize: '11.5px', color: '#94a3b8' }}>
+                  <p style={{ margin: '2px 0 0 0', fontSize: '11.5px', color: '#64748b' }}>
                     Interoperable clinical observations generated from wearable telemetry with LOINC codes
                   </p>
                 </div>
@@ -1022,12 +1396,13 @@ export default function HealthSyncPanel() {
               <button
                 onClick={() => setShowFhirModal(false)}
                 style={{
-                  background: 'rgba(255, 255, 255, 0.1)',
-                  border: 'none',
+                  background: '#ffffff',
+                  border: '1px solid #cbd5e1',
                   borderRadius: '10px',
                   padding: '6px',
-                  color: '#ffffff',
-                  cursor: 'pointer'
+                  color: '#334155',
+                  cursor: 'pointer',
+                  boxShadow: '0 2px 6px rgba(0,0,0,0.06)'
                 }}
               >
                 <X size={18} />
@@ -1044,54 +1419,54 @@ export default function HealthSyncPanel() {
                 <div style={{ border: '1px solid #e2e8f0', borderRadius: '12px', overflow: 'hidden' }}>
                   <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '11.5px' }}>
                     <thead>
-                      <tr style={{ background: '#f8fafc', borderBottom: '1px solid #e2e8f0', textAlign: 'left' }}>
-                        <th style={{ padding: '8px 12px', fontWeight: 700, color: '#475569' }}>Metric</th>
-                        <th style={{ padding: '8px 12px', fontWeight: 700, color: '#475569' }}>LOINC Code</th>
-                        <th style={{ padding: '8px 12px', fontWeight: 700, color: '#475569' }}>Unit</th>
-                        <th style={{ padding: '8px 12px', fontWeight: 700, color: '#475569' }}>Category</th>
+                      <tr style={{ background: '#f0f9ff', borderBottom: '1px solid #bae6fd', textAlign: 'left' }}>
+                        <th style={{ padding: '9px 12px', fontWeight: 800, color: '#0369a1' }}>Metric</th>
+                        <th style={{ padding: '9px 12px', fontWeight: 800, color: '#0369a1' }}>LOINC Code</th>
+                        <th style={{ padding: '9px 12px', fontWeight: 800, color: '#0369a1' }}>Unit</th>
+                        <th style={{ padding: '9px 12px', fontWeight: 800, color: '#0369a1' }}>Category</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
                         <td style={{ padding: '8px 12px', fontWeight: 700, color: '#0f172a' }}>Pulse Oximetry (SpO2)</td>
-                        <td style={{ padding: '8px 12px', color: '#db2777', fontWeight: 700 }}>59408-5</td>
-                        <td style={{ padding: '8px 12px' }}>%</td>
+                        <td style={{ padding: '8px 12px', color: '#0284c7', fontWeight: 800 }}>59408-5</td>
+                        <td style={{ padding: '8px 12px', color: '#475569' }}>%</td>
                         <td style={{ padding: '8px 12px', color: '#64748b' }}>vital-signs</td>
                       </tr>
                       <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
                         <td style={{ padding: '8px 12px', fontWeight: 700, color: '#0f172a' }}>Current Heart Rate</td>
-                        <td style={{ padding: '8px 12px', color: '#db2777', fontWeight: 700 }}>8867-4</td>
-                        <td style={{ padding: '8px 12px' }}>beats/min</td>
+                        <td style={{ padding: '8px 12px', color: '#0284c7', fontWeight: 800 }}>8867-4</td>
+                        <td style={{ padding: '8px 12px', color: '#475569' }}>beats/min</td>
                         <td style={{ padding: '8px 12px', color: '#64748b' }}>vital-signs</td>
                       </tr>
                       <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
                         <td style={{ padding: '8px 12px', fontWeight: 700, color: '#0f172a' }}>Resting Heart Rate</td>
-                        <td style={{ padding: '8px 12px', color: '#db2777', fontWeight: 700 }}>40443-4</td>
-                        <td style={{ padding: '8px 12px' }}>beats/min</td>
+                        <td style={{ padding: '8px 12px', color: '#0284c7', fontWeight: 800 }}>40443-4</td>
+                        <td style={{ padding: '8px 12px', color: '#475569' }}>beats/min</td>
                         <td style={{ padding: '8px 12px', color: '#64748b' }}>vital-signs</td>
                       </tr>
                       <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
                         <td style={{ padding: '8px 12px', fontWeight: 700, color: '#0f172a' }}>HRV (SDNN / RMSSD)</td>
-                        <td style={{ padding: '8px 12px', color: '#db2777', fontWeight: 700 }}>80404-7</td>
-                        <td style={{ padding: '8px 12px' }}>ms</td>
+                        <td style={{ padding: '8px 12px', color: '#0284c7', fontWeight: 800 }}>80404-7</td>
+                        <td style={{ padding: '8px 12px', color: '#475569' }}>ms</td>
                         <td style={{ padding: '8px 12px', color: '#64748b' }}>vital-signs</td>
                       </tr>
                       <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
                         <td style={{ padding: '8px 12px', fontWeight: 700, color: '#0f172a' }}>Respiratory Rate</td>
-                        <td style={{ padding: '8px 12px', color: '#db2777', fontWeight: 700 }}>9279-1</td>
-                        <td style={{ padding: '8px 12px' }}>breaths/min</td>
+                        <td style={{ padding: '8px 12px', color: '#0284c7', fontWeight: 800 }}>9279-1</td>
+                        <td style={{ padding: '8px 12px', color: '#475569' }}>breaths/min</td>
                         <td style={{ padding: '8px 12px', color: '#64748b' }}>vital-signs</td>
                       </tr>
                       <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
                         <td style={{ padding: '8px 12px', fontWeight: 700, color: '#0f172a' }}>Daily Step Count</td>
-                        <td style={{ padding: '8px 12px', color: '#db2777', fontWeight: 700 }}>41950-7</td>
-                        <td style={{ padding: '8px 12px' }}>steps</td>
+                        <td style={{ padding: '8px 12px', color: '#0284c7', fontWeight: 800 }}>41950-7</td>
+                        <td style={{ padding: '8px 12px', color: '#475569' }}>steps</td>
                         <td style={{ padding: '8px 12px', color: '#64748b' }}>activity</td>
                       </tr>
                       <tr>
                         <td style={{ padding: '8px 12px', fontWeight: 700, color: '#0f172a' }}>Single-Lead ECG Rhythm</td>
-                        <td style={{ padding: '8px 12px', color: '#db2777', fontWeight: 700 }}>11524-6</td>
-                        <td style={{ padding: '8px 12px' }}>study</td>
+                        <td style={{ padding: '8px 12px', color: '#0284c7', fontWeight: 800 }}>11524-6</td>
+                        <td style={{ padding: '8px 12px', color: '#475569' }}>study</td>
                         <td style={{ padding: '8px 12px', color: '#64748b' }}>exam</td>
                       </tr>
                     </tbody>
@@ -1116,28 +1491,31 @@ export default function HealthSyncPanel() {
                       navigator.clipboard.writeText(text);
                     }}
                     style={{
-                      background: '#f1f5f9',
+                      background: '#ffffff',
                       border: '1px solid #cbd5e1',
-                      borderRadius: '6px',
-                      padding: '4px 10px',
+                      borderRadius: '8px',
+                      padding: '5px 12px',
                       fontSize: '11px',
                       fontWeight: 700,
                       cursor: 'pointer',
-                      color: '#334155'
+                      color: '#0284c7',
+                      boxShadow: '0 1px 4px rgba(0,0,0,0.04)'
                     }}
                   >
                     Copy JSON
                   </button>
                 </div>
                 <pre style={{
-                  background: '#0f172a',
-                  color: '#38bdf8',
+                  background: '#f8fafc',
+                  border: '1px solid #cbd5e1',
+                  color: '#0369a1',
                   padding: '14px',
                   borderRadius: '12px',
                   fontSize: '11.5px',
                   maxHeight: '260px',
                   overflowY: 'auto',
-                  margin: 0
+                  margin: 0,
+                  lineHeight: 1.45
                 }}>
                   {JSON.stringify(lastFhirBundle || {
                     resourceType: "Bundle",

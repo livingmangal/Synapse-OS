@@ -1,0 +1,47 @@
+{
+  "profileId": "elderly_hypertension_profile",
+  "title": "Hypertensive Chronic Care & Vitals Telemetry",
+  "subtitle": "Withings ScanWatch 2 + Google Health Connect",
+  "patient": {
+    "name": "Meenakshi Iyer",
+    "age": 71,
+    "gender": "Female",
+    "abhaId": "91-7712-4029-3381"
+  },
+  "device": {
+    "name": "Withings ScanWatch 2",
+    "brand": "google",
+    "firmware": "Health OS 3.2",
+    "battery": 89
+  },
+  "observationCount": 2750,
+  "vitals": {
+    "steps": 4350,
+    "stepGoal": 6000,
+    "restingHeartRate": 76,
+    "currentHeartRate": 79,
+    "hrvMs": 38,
+    "spo2": 96.5,
+    "vo2Max": 25.0,
+    "respiratoryRate": 17,
+    "activeCalories": 260,
+    "calorieGoal": 450,
+    "sleepScore": 72,
+    "sleepDuration": "6h 50m",
+    "sleepStages": {
+      "deep": "1h 10m (17%)",
+      "rem": "1h 20m (20%)",
+      "light": "3h 40m (54%)",
+      "awake": "40m (9%)"
+    },
+    "bloodGlucose": 108,
+    "bloodPressure": "154/94 mmHg",
+    "wristTempDeviation": "+0.1°F"
+  },
+  "ecgStatus": "⚠️ Stage-2 Systolic Hypertension Alert (BP 154/94)",
+  "aiAnalysis": {
+    "type": "warning",
+    "title": "Stage-2 Systolic Blood Pressure Elevation",
+    "description": "Continuous and cuff measurements confirm systolic BP exceeding 150 mmHg (154/94 mmHg). Pulse pressure widened to 60 mmHg. Vitals auto-forwarded to attending geriatric specialist via ABHA clinical gateway for dosage review."
+  }
+}

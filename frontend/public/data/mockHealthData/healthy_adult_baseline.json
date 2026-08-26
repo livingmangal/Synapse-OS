@@ -1,0 +1,47 @@
+{
+  "profileId": "healthy_adult_baseline",
+  "title": "Healthy Adult Baseline (Optimal Homeostasis)",
+  "subtitle": "Apple Watch Ultra 2 + Health Connect Aggregated",
+  "patient": {
+    "name": "Siddharth Sharma",
+    "age": 29,
+    "gender": "Male",
+    "abhaId": "91-5829-3910-4821"
+  },
+  "device": {
+    "name": "Apple Watch Ultra 2",
+    "brand": "apple",
+    "firmware": "watchOS 11.2",
+    "battery": 88
+  },
+  "observationCount": 6420,
+  "vitals": {
+    "steps": 10480,
+    "stepGoal": 10000,
+    "restingHeartRate": 60,
+    "currentHeartRate": 70,
+    "hrvMs": 66,
+    "spo2": 99.0,
+    "vo2Max": 48.0,
+    "respiratoryRate": 14,
+    "activeCalories": 680,
+    "calorieGoal": 700,
+    "sleepScore": 90,
+    "sleepDuration": "7h 50m",
+    "sleepStages": {
+      "deep": "1h 55m (24%)",
+      "rem": "2h 05m (27%)",
+      "light": "3h 25m (43%)",
+      "awake": "25m (6%)"
+    },
+    "bloodGlucose": 92,
+    "bloodPressure": "116/74 mmHg",
+    "wristTempDeviation": "-0.2°F"
+  },
+  "ecgStatus": "🟢 Sinus Rhythm (HR 70 BPM) • No AFib detected",
+  "aiAnalysis": {
+    "type": "optimal",
+    "title": "Optimal Physiological Homeostasis",
+    "description": "All systemic biomarkers are in the optimal clinical target ranges. HRV (66ms) confirms robust autonomic parasympathetic balance. Restorative sleep score (90/100) with healthy deep/REM cycles. SpO2 consistent at 99%."
+  }
+}

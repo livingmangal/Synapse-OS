@@ -1,0 +1,47 @@
+{
+  "profileId": "sleep_apnea_hypoxemia_dataset",
+  "title": "Obstructive Sleep Apnea & Nocturnal Desaturation",
+  "subtitle": "Samsung Health / Android Health Connect Dataset",
+  "patient": {
+    "name": "Vikramaditya Rao",
+    "age": 52,
+    "gender": "Male",
+    "abhaId": "91-4920-3319-9021"
+  },
+  "device": {
+    "name": "Samsung Galaxy Watch 6 Pro",
+    "brand": "samsung",
+    "firmware": "One UI Watch 5.0",
+    "battery": 75
+  },
+  "observationCount": 3980,
+  "vitals": {
+    "steps": 5120,
+    "stepGoal": 8000,
+    "restingHeartRate": 72,
+    "currentHeartRate": 78,
+    "hrvMs": 34,
+    "spo2": 91.4,
+    "vo2Max": 31.5,
+    "respiratoryRate": 21,
+    "activeCalories": 340,
+    "calorieGoal": 600,
+    "sleepScore": 49,
+    "sleepDuration": "6h 05m",
+    "sleepStages": {
+      "deep": "35m (9%)",
+      "rem": "40m (11%)",
+      "light": "3h 30m (58%)",
+      "awake": "1h 20m (22%)"
+    },
+    "bloodGlucose": 104,
+    "bloodPressure": "138/86 mmHg",
+    "wristTempDeviation": "+0.3°F"
+  },
+  "ecgStatus": "⚠️ Sinus Arrhythmia with Hypoxemic Drops (HR 78 BPM)",
+  "aiAnalysis": {
+    "type": "alert",
+    "title": "Nocturnal Hypoxemia & Sleep Architecture Disruption",
+    "description": "Critical nocturnal SpO2 desaturations detected with nadir of 86% and mean overnight saturation of 91.4%. Frequent awakenings (1h 20m awake) and suppressed deep sleep (9%) strongly indicate obstructive sleep apnea (OSA). Polysomnography recommended."
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "profileId": "diabetic_continuous_glucose_export",
+  "title": "Type-2 Glycemic & Continuous CGM Telemetry",
+  "subtitle": "Apple HealthKit + Dexcom CGM Continuous Ingestion",
+  "patient": {
+    "name": "Sunita Verma",
+    "age": 47,
+    "gender": "Female",
+    "abhaId": "91-2291-8840-7712"
+  },
+  "device": {
+    "name": "Apple Watch Series 9 + Dexcom G7",
+    "brand": "apple",
+    "firmware": "watchOS 11.1",
+    "battery": 82
+  },
+  "observationCount": 5610,
+  "vitals": {
+    "steps": 7920,
+    "stepGoal": 10000,
+    "restingHeartRate": 68,
+    "currentHeartRate": 76,
+    "hrvMs": 52,
+    "spo2": 98.0,
+    "vo2Max": 36.2,
+    "respiratoryRate": 16,
+    "activeCalories": 490,
+    "calorieGoal": 650,
+    "sleepScore": 79,
+    "sleepDuration": "7h 10m",
+    "sleepStages": {
+      "deep": "1h 20m (19%)",
+      "rem": "1h 35m (22%)",
+      "light": "3h 45m (52%)",
+      "awake": "30m (7%)"
+    },
+    "bloodGlucose": 158,
+    "bloodPressure": "124/80 mmHg",
+    "wristTempDeviation": "-0.1°F"
+  },
+  "ecgStatus": "🟢 Normal Sinus Rhythm (HR 76 BPM) • No AFib detected",
+  "aiAnalysis": {
+    "type": "warning",
+    "title": "Post-Prandial Glycemic Excursion Detected",
+    "description": "Continuous glucose monitoring flags a post-meal glycemic peak at 158 mg/dL with 72% time-in-range (TIR: 70-140 mg/dL). Cardiovascular biomarkers, SpO2 (98%), and resting pulse (68 BPM) remain within safe physiological limits."
+  }
+}

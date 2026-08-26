@@ -1,0 +1,47 @@
+{
+  "profileId": "cardiac_arrhythmia_google_fitbit",
+  "title": "Cardiac Arrhythmia & Tachycardia Monitoring",
+  "subtitle": "Google Pixel Watch 3 / Fitbit Health Connect Dump",
+  "patient": {
+    "name": "Rajiv Sen",
+    "age": 58,
+    "gender": "Male",
+    "abhaId": "91-8840-2911-5832"
+  },
+  "device": {
+    "name": "Google Pixel Watch 3 (Fitbit)",
+    "brand": "google",
+    "firmware": "Wear OS 5.1",
+    "battery": 68
+  },
+  "observationCount": 3240,
+  "vitals": {
+    "steps": 3840,
+    "stepGoal": 8000,
+    "restingHeartRate": 84,
+    "currentHeartRate": 106,
+    "hrvMs": 24,
+    "spo2": 95.1,
+    "vo2Max": 29.8,
+    "respiratoryRate": 19,
+    "activeCalories": 290,
+    "calorieGoal": 600,
+    "sleepScore": 58,
+    "sleepDuration": "5h 45m",
+    "sleepStages": {
+      "deep": "45m (13%)",
+      "rem": "50m (14%)",
+      "light": "3h 10m (55%)",
+      "awake": "1h 00m (18%)"
+    },
+    "bloodGlucose": 114,
+    "bloodPressure": "142/88 mmHg",
+    "wristTempDeviation": "+0.6°F"
+  },
+  "ecgStatus": "⚠️ Sinus Tachycardia (HR 106 BPM) • Irregular Pulse Detected",
+  "aiAnalysis": {
+    "type": "alert",
+    "title": "Cardiac Arrhythmia & Autonomic Stress Alert",
+    "description": "Resting tachycardia episode detected (peak 106 BPM). Suppressed HRV of 24ms denotes sympathetic overdrive and elevated cardiovascular strain. Elevated nocturnal temperature (+0.6°F) and fragmented sleep score (58/100). Tele-cardiology consultation recommended."
+  }
+}
