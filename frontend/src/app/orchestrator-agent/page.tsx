@@ -24,19 +24,45 @@ export default function OrchestratorAgentPage() {
   const [isExportModalOpen, setIsExportModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Active ABHA Profile State
+  // Active ABHA Profile State with localStorage persistence
   const [isAbhaLinked, setIsAbhaLinked] = useState<boolean>(true);
   const [selectedProfileId, setSelectedProfileId] = useState<string>('mausam_kar_verified_abha');
   const [customProfile, setCustomProfile] = useState<MockHealthProfile | null>(null);
 
+  // Restore saved profile and active tab from client storage on mount
   useEffect(() => {
     if (typeof window !== 'undefined') {
+      try {
+        const storedProfile = localStorage.getItem('sanjeevani_selected_profile_id');
+        if (storedProfile && MOCK_HEALTH_PROFILES.some(p => p.profileId === storedProfile)) {
+          setSelectedProfileId(storedProfile);
+        }
+      } catch (err) {
+        // localStorage not available
+      }
+
       const params = new URLSearchParams(window.location.search);
       const tab = params.get('tab');
       if (tab && ['overview', 'swarm', 'analytics', 'hospital', 'scan', 'records', 'sync'].includes(tab)) {
         setActiveTab(tab as any);
       }
     }
+  }, []);
+
+  // Sync profile selection changes across components
+  useEffect(() => {
+    const handleProfileSync = (e: any) => {
+      if (e.detail?.profileId && MOCK_HEALTH_PROFILES.some(p => p.profileId === e.detail.profileId)) {
+        setSelectedProfileId(e.detail.profileId);
+        setCustomProfile(null);
+        setIsAbhaLinked(true);
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('sanjeevani_selected_profile_id', e.detail.profileId);
+        }
+      }
+    };
+    window.addEventListener('sanjeevani-profile-switch', handleProfileSync);
+    return () => window.removeEventListener('sanjeevani-profile-switch', handleProfileSync);
   }, []);
 
   // Compute Active Profile
@@ -155,6 +181,9 @@ export default function OrchestratorAgentPage() {
     setCustomProfile(null);
     setSelectedProfileId(profileId);
     setIsAbhaLinked(true);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('sanjeevani_selected_profile_id', profileId);
+    }
   };
 
   const handleUploadCustomProfile = (uploaded: any) => {
@@ -311,7 +340,14 @@ export default function OrchestratorAgentPage() {
 
             {/* TAB 3: Visual Analytics (Heart Rate, Sleep, Stress, Steps) */}
             {activeTab === 'analytics' && (
-              <VisualAnalyticsPanel />
+              <VisualAnalyticsPanel
+                patient={patient}
+                vitals={vitals}
+                activeProfile={activeProfile}
+                selectedProfileId={selectedProfileId}
+                onSelectProfile={handleSelectProfile}
+                onOpenExportModal={() => setIsExportModalOpen(true)}
+              />
             )}
 
             {/* TAB 4: WHO Global Disease Surveillance & Outbreak Radar */}
@@ -331,7 +367,13 @@ export default function OrchestratorAgentPage() {
 
             {/* TAB 7: Wearable HealthKit & Google Fit Real-Time Sync */}
             {activeTab === 'sync' && (
-              <HealthSyncPanel />
+              <HealthSyncPanel
+                activeProfile={activeProfile}
+                selectedProfileId={selectedProfileId}
+                onSelectProfile={handleSelectProfile}
+                patient={patient}
+                vitals={vitals}
+              />
             )}
           </div>
         </div>

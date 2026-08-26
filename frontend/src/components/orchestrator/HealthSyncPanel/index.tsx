@@ -43,7 +43,21 @@ interface WearableDevice {
   isSimulated?: boolean;
 }
 
-export default function HealthSyncPanel() {
+interface HealthSyncPanelProps {
+  patient?: any;
+  vitals?: any;
+  activeProfile?: MockHealthProfile;
+  selectedProfileId?: string;
+  onSelectProfile?: (id: string) => void;
+}
+
+export default function HealthSyncPanel({
+  activeProfile: propActiveProfile,
+  selectedProfileId: propSelectedProfileId,
+  onSelectProfile,
+  patient,
+  vitals
+}: HealthSyncPanelProps = {}) {
   const { t, translateText } = useLanguage();
   const [activeTab, setActiveTab] = useState<'overview' | 'bridge' | 'fhir'>('overview');
   const [devices, setDevices] = useState<WearableDevice[]>([
@@ -78,45 +92,35 @@ export default function HealthSyncPanel() {
   const [copiedCurl, setCopiedCurl] = useState(false);
 
   // Active Mock Dataset / Profile State
-  const [selectedMockProfileId, setSelectedMockProfileId] = useState<string>('mausam_kar_verified_abha');
+  const initialProfile = propActiveProfile || 
+    MOCK_HEALTH_PROFILES.find(p => p.profileId === propSelectedProfileId) || 
+    MOCK_HEALTH_PROFILES[0];
+
+  const [selectedMockProfileId, setSelectedMockProfileId] = useState<string>(initialProfile.profileId);
   const [importerMode, setImporterMode] = useState<'presets' | 'upload'>('presets');
   const [currentAiAnalysis, setCurrentAiAnalysis] = useState<{
     type: 'optimal' | 'warning' | 'alert';
     title: string;
     description: string;
-  }>({
-    type: 'optimal',
-    title: 'Optimal Physiological Baseline Profile',
-    description: 'Patient Mausam Kar demonstrates verified ABDM registration. Resting heart rate (64 BPM) and HRV (68ms) indicate excellent autonomic nervous tone and recovery. Arterial oxygen saturation stable at 98.5% with healthy metabolic biomarkers.'
-  });
+  }>(initialProfile.aiAnalysis);
   const [ecgClassificationText, setEcgClassificationText] = useState<string>(
-    '🟢 Normal Sinus Rhythm (HR 74 BPM) • QTc 410ms • ST-Isoelectric'
+    initialProfile.ecgStatus
   );
 
   // Live Wearable Telemetry State
-  const [wearableVitals, setWearableVitals] = useState({
-    steps: 10480,
-    stepGoal: 10000,
-    restingHeartRate: 64,
-    currentHeartRate: 74,
-    hrvMs: 68,
-    spo2: 98.5,
-    vo2Max: 48.2,
-    respiratoryRate: 16,
-    activeCalories: 680,
-    calorieGoal: 600,
-    sleepScore: 88,
-    sleepDuration: '7h 48m',
-    sleepStages: {
-      deep: '1h 55m (25%)',
-      rem: '1h 50m (23%)',
-      light: '3h 40m (47%)',
-      awake: '23m (5%)'
-    },
-    bloodGlucose: 92,
-    bloodPressure: '118/76 mmHg',
-    wristTempDeviation: '0.0°F'
-  });
+  const [wearableVitals, setWearableVitals] = useState(initialProfile.vitals);
+
+  // Keep state synchronized with propActiveProfile changes
+  useEffect(() => {
+    if (propActiveProfile) {
+      setSelectedMockProfileId(propActiveProfile.profileId);
+      setWearableVitals(propActiveProfile.vitals);
+      setParsedRecordsCount(propActiveProfile.observationCount);
+      setCurrentAiAnalysis(propActiveProfile.aiAnalysis);
+      setEcgClassificationText(propActiveProfile.ecgStatus);
+      setImportStatus(`✅ Active Profile: ${propActiveProfile.title} (${propActiveProfile.observationCount.toLocaleString()} clinical records)`);
+    }
+  }, [propActiveProfile]);
 
   // ECG Live Canvas Rhythm State
   const ecgCanvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -300,7 +304,16 @@ export default function HealthSyncPanel() {
     setEcgClassificationText(profile.ecgStatus);
     setImportStatus(`✅ Active Profile: ${profile.title} (${profile.observationCount.toLocaleString()} clinical records)`);
 
-    // Optionally update device label to match the profile device
+    if (onSelectProfile) {
+      onSelectProfile(profile.profileId);
+    }
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('sanjeevani-profile-switch', {
+        detail: { profileId: profile.profileId }
+      }));
+    }
+
+    // Update device label to match the profile device
     setDevices(prev => [
       {
         id: 'dev_primary',

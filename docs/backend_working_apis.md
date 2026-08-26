@@ -1,7 +1,7 @@
 # Sanjeevani OS: Backend APIs, ABDM Architecture & Judge Presentation Guide
 
 > **Official Hackathon Architecture & Demonstration Guide**  
-> *How Sanjeevani OS connects to Ayushman Bharat Digital Mission (ABDM), Apple Health, Google Health Connect, and Decentralized EHRs.*
+> *How Sanjeevani OS connects to Ayushman Bharat Digital Mission (ABDM), Apple Health, Google Health Connect, Multi-Agent Swarms, and Decentralized EHRs.*
 
 ---
 
@@ -27,7 +27,72 @@
 
 ---
 
-## 2. Why Production Government ABHA APIs Require Sandbox Mocking
+## 2. End-to-End System Architecture (Detailed Mermaid Diagram)
+
+```mermaid
+flowchart TB
+    %% Subgraphs & Styling
+    classDef client fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0f172a;
+    classDef gateway fill:#f0fdf4,stroke:#16a34a,stroke-width:2px,color:#0f172a;
+    classDef swarm fill:#faf5ff,stroke:#9333ea,stroke-width:2px,color:#0f172a;
+    classDef abdm fill:#fffbeb,stroke:#d97706,stroke-width:2px,color:#0f172a;
+    classDef security fill:#fef2f2,stroke:#dc2626,stroke-width:2px,color:#0f172a;
+
+    subgraph CLIENT_TIER["1. Omnichannel Client Layer"]
+        UI_TWIN["3D Digital Health Twin & Conditions Canvas"]:::client
+        UI_ANALYTICS["Visual Analytics & Telemetry Dashboard"]:::client
+        UI_WEARABLES["Wearables & HealthKit / Google Fit Sync"]:::client
+        UI_SCANS["YOLOv8 Medical Scan Vision Diagnostics"]:::client
+        UI_PASSPORT["ABHA QR & Blockchain Passport"]:::client
+        UI_WHATSAPP["WhatsApp / Telegram Voice Assistant"]:::client
+    end
+
+    subgraph API_GATEWAY["2. FastAPI Core Gateway & Middleware"]
+        AUTH_ROUTER["OAuth2 / JWT Token & Session Guard"]:::gateway
+        SAFETY_ROUTER["Guardrails & Emergency Severity Filter"]:::gateway
+        TELEMETRY_PIPELINE["LOINC & SNOMED CT Ingestion Engine"]:::gateway
+        FHIR_TRANSLATOR["HL7 FHIR R4 JSON Bundle Serializer"]:::gateway
+    end
+
+    subgraph AGENT_SWARM["3. Multi-Agent Clinical Intelligence Swarm"]
+        ORCHESTRATOR["Swarm Orchestrator & DAG Coordinator"]:::swarm
+        TRIAGE_AGENT["Clinical Symptom Triage Agent (Llama 3.3)"]:::swarm
+        CARDIOLOGY_AGENT["Cardiovascular & Lead-I ECG Classifier"]:::swarm
+        PULMONARY_AGENT["Pulmonology & Spirometry Specialist"]:::swarm
+        ORTHO_AGENT["Orthopedic & Joint Kinematics Agent"]:::swarm
+        PHARMA_AGENT["Drug Interaction & Safety Auditor"]:::swarm
+        VISION_AGENT["FractureNet YOLOv8 Segmentation Agent"]:::swarm
+        VERIFY_AGENT["AI Council Diagnostic Supervisor"]:::swarm
+    end
+
+    subgraph ABDM_SANDBOX["4. ABDM Gateway & Health Data Network"]
+        M1_GATEWAY["Milestone 1: ABHA Registration & Aadhaar OTP KYC"]:::abdm
+        M2_GATEWAY["Milestone 2: HIP Record Digitization & FHIR Vault"]:::abdm
+        M3_GATEWAY["Milestone 3: HIU Ephemeral Consent Exchange (ECDH)"]:::abdm
+        PMJAY_SERVICE["Ayushman Bharat PM-JAY Insurance Validator"]:::abdm
+    end
+
+    subgraph SECURITY_LEDGER["5. Security, Caching & Decentralized Registry"]
+        REDIS_CACHE["Redis Real-Time Telemetry & Session Cache"]:::security
+        AES_ENCRYPTION["AES-256 GCM End-to-End Encryption"]:::security
+        IPFS_VAULT["IPFS Encrypted Medical Scan Hash Vault"]:::security
+        POLYGON_PASSPORT["Polygon Blockchain Health Verification Smart Contract"]:::security
+    end
+
+    %% Flow Connections
+    CLIENT_TIER -->|REST / Webhooks / WebSockets| API_GATEWAY
+    API_GATEWAY -->|Dispatches Clinical Telemetry| AGENT_SWARM
+    AGENT_SWARM -->|Aggregates Medical Findings| VERIFY_AGENT
+    VERIFY_AGENT -->|Validated Clinical Dossier| API_GATEWAY
+
+    API_GATEWAY <-->|FHIR R4 Bundles / Consent| ABDM_SANDBOX
+    API_GATEWAY <-->|Encrypted Records & Caching| SECURITY_LEDGER
+    ABDM_SANDBOX -->|Verifies Eligibility| PMJAY_SERVICE
+```
+
+---
+
+## 3. Why Production Government ABHA APIs Require Sandbox Mocking
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────────────────┐
@@ -40,28 +105,91 @@
 │ Sanjeevani OS ABDM Gateway    │ • Full fidelity sandbox mimicking M1, M2 & M3 milestones│
 │ (Production-Grade Simulation) │ • Standard HL7 FHIR R4 Bundles matching MoHFW schemas   │
 │                               │ • RESTful OAuth2 Consent Exchange & OTP Authentication  │
-│                               │ • Custom JSON patient import/export for live judging    │
+│                               │ • Multi-profile persistent ABHA storage for demo        │
 └───────────────────────────────┴─────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## 3. Detailed ABDM Milestone Workflows (M1, M2, M3)
+## 4. Detailed Working API Surface & Endpoints
 
-### 🔹 Milestone 1 (M1): ABHA Creation & Aadhaar OTP Authentication
-- **Purpose**: Creates the citizen's unique 14-digit ABHA number (`91-7294-8102-5309`) and virtual address (`mausamkar@abdm`).
-- **Endpoint**: `POST /api/abdm/generate-abha`
-- **Request Parameters**:
+All endpoints are hosted under `http://localhost:8000/api/v1` (or production base URL).
+
+### 🔹 1. Agent Swarm & Orchestration
+- **Route**: `POST /api/v1/orchestrate`
+- **Purpose**: Executes the multi-agent clinical swarm DAG across triage, diagnosis, drug safety, and specialist validation.
+- **Request Body**:
   ```json
   {
-    "name": "Mausam Kar",
-    "year_of_birth": 2002,
-    "gender": "Male",
-    "mobile": "+91-9876543210",
-    "state_code": "DL"
+    "user_id": "patient_mausam_kar",
+    "input_text": "Experiencing mild tightness in upper back and resting heart rate of 74 BPM.",
+    "session_id": "sess_8841_992",
+    "channel": "web_orchestrator"
   }
   ```
-- **Response Payload**:
+- **Response**:
+  ```json
+  {
+    "session_id": "sess_8841_992",
+    "detected_intent": "symptom_triage_ergonomics",
+    "safety_cleared": true,
+    "final_response": "Patient profile shows verified ABDM health status. Mild trapezius fatigue correlated with desk posture.",
+    "suggested_actions": ["Hourly Scapular Retractions", "Hydration Target 3.0L", "Annual Preventive Review"],
+    "drug_check": {
+      "detected_medications": ["Multivitamin", "Omega-3"],
+      "interactions": []
+    },
+    "verification": {
+      "auditor": "AI Council Supervisor",
+      "confidence_score": 0.98,
+      "clinical_safety": "CLEARED"
+    }
+  }
+  ```
+
+---
+
+### 🔹 2. Wearable Telemetry & HealthKit Ingestion
+- **Route**: `POST /api/v1/wearables/sync`
+- **Purpose**: Converts Apple HealthKit XML or Google Health Connect JSON streams into standard HL7 FHIR R4 `Observation` resources.
+- **Request Body**:
+  ```json
+  {
+    "device_type": "apple_watch_ultra_2",
+    "source_app": "HealthKit",
+    "patient_abha_id": "91-7294-8102-5309",
+    "vitals": {
+      "heart_rate_bpm": 74,
+      "spo2_percent": 98.5,
+      "hrv_ms": 68,
+      "respiration_rate": 16,
+      "steps": 10480,
+      "ecg_classification": "Sinus Rhythm",
+      "sleep_duration_hrs": 7.8
+    }
+  }
+  ```
+- **Response**:
+  ```json
+  {
+    "status": "SYNCED",
+    "fhir_observation_count": 8,
+    "loinc_mappings": {
+      "heart_rate": "8867-4",
+      "oxygen_saturation": "2708-6",
+      "respiratory_rate": "9279-1"
+    },
+    "risk_classification": "OPTIMAL_BASELINE",
+    "timestamp": "2026-08-26T21:50:00Z"
+  }
+  ```
+
+---
+
+### 🔹 3. ABDM Milestone 1 (M1): ABHA Generation & Verification
+- **Route**: `GET /api/v1/abdm/generate-id?name=Mausam+Kar&yob=2002`
+- **Purpose**: Generates official 14-digit ABHA ID, virtual address, and retrieves Ayushman Bharat PM-JAY insurance coverage details.
+- **Response**:
   ```json
   {
     "status": "ACTIVE",
@@ -70,50 +198,40 @@
     "kyc_verified": true,
     "pmjay_eligible": true,
     "policy_number": "PM-JAY-2026-IND-8841",
-    "coverage_amount_inr": 500000
+    "coverage_amount_inr": 500000,
+    "authorized_hospital_network": ["AIIMS New Delhi", "Medanta The Medicity", "Apollo Hospitals"]
   }
   ```
 
 ---
 
-### 🔹 Milestone 2 (M2): HIP Record Digitization & FHIR Bundling
-- **Purpose**: Encapsulates clinical observations, lab reports, and diagnostic scans into HL7 FHIR R4 JSON standard.
-- **Endpoint**: `POST /api/records/bundle-fhir`
-- **Standard Clinical Coding Used**:
-  - **Heart Rate**: LOINC `8867-4` (beats/minute)
-  - **Oxygen Saturation (SpO2)**: LOINC `2708-6` (%)
-  - **Blood Pressure (Systolic/Diastolic)**: LOINC `85354-9` (mmHg)
-  - **CT Lung Pulmonary Function**: LOINC `19868-9` (Liters)
-  - **Knee Joint Range of Motion**: SNOMED CT `298640003` (degrees)
+### 🔹 4. Medical Imaging AI (YOLOv8 FractureNet & Segmentation)
+- **Route**: `POST /api/v1/scans/analyze`
+- **Purpose**: Performs real-time diagnostic object detection, bounding box localization, and Grad-CAM saliency heatmaps on DICOM / X-Ray / CT scans.
+- **Request Body**:
+  ```json
+  {
+    "scan_type": "chest_xray",
+    "image_b64": "<base64_encoded_xray_buffer>",
+    "patient_id": "mausam_kar_verified_abha"
+  }
+  ```
+- **Response**:
+  ```json
+  {
+    "findings": "Normal thoracic cavity. No consolidation, pleural effusion, or pneumothorax.",
+    "confidence": 0.965,
+    "bounding_boxes": [],
+    "model_version": "FractureNet-YOLOv8-Clinical-v2.1",
+    "gradcam_heatmap_cid": "ipfs://QmXoypizjW3WknFiJnKLwHCnL72vedxjQkDDP1mXWo6uco"
+  }
+  ```
 
 ---
 
-### 🔹 Milestone 3 (M3): HIU Consent Management & Secure Data Transfer
-- **Purpose**: Facilitates time-limited, consent-driven record sharing between the patient's personal health vault and attending physicians.
-- **Security**: 256-bit SHA-256 integrity hash + ECDH Ephemeral Key encryption matching ABDM specs.
-
----
-
-## 4. Google & Apple Health Bridge Architecture
-
-```
-┌─────────────────────────┐          ┌─────────────────────────┐
-│ Apple Watch (HealthKit) │          │ Pixel Watch (Google Fit)│
-└────────────┬────────────┘          └────────────┬────────────┘
-             │ iOS Bridge (JSON Stream)           │ REST Health Connect API
-             ▼                                    ▼
-┌──────────────────────────────────────────────────────────────┐
-│       Sanjeevani OS Telemetry Normalization Pipeline         │
-│  • Maps Apple HealthKit HKQuantityType to HL7 FHIR R4        │
-│  • Computes Real-Time Vitals: SpO2, HRV, Arrhythmia Alarms   │
-└──────────────────────────────┬───────────────────────────────┘
-                               ▼
-┌──────────────────────────────────────────────────────────────┐
-│               Interactive 3D Digital Twin Canvas             │
-│  • Pulmonology (Lungs CT) • Orthopedics (Knee/Shoulder)      │
-│  • Cardiology (Live ECG Lead-I Spline & Vitals Dossier)      │
-└──────────────────────────────────────────────────────────────┘
-```
+### 🔹 5. HL7 FHIR R4 Bundle Retrieval
+- **Route**: `GET /api/v1/fhir/bundle?abha_id=91-7294-8102-5309`
+- **Purpose**: Generates standard HL7 FHIR R4 JSON bundle for clinical interoperability with Indian hospital EHRs (Cerner, Epic, e-Hospital).
 
 ---
 

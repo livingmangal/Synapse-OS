@@ -29,25 +29,34 @@ import { MOCK_HEALTH_PROFILES, MockHealthProfile } from '@/data/mockHealthProfil
 interface VisualAnalyticsPanelProps {
   patient?: PatientInfo;
   vitals?: VitalsData;
+  activeProfile?: MockHealthProfile;
+  selectedProfileId?: string;
+  onSelectProfile?: (id: string) => void;
   onOpenExportModal?: () => void;
 }
 
 export default function VisualAnalyticsPanel({
   patient,
   vitals,
+  activeProfile: propActiveProfile,
+  selectedProfileId: propSelectedProfileId,
+  onSelectProfile,
   onOpenExportModal
 }: VisualAnalyticsPanelProps) {
   const [chatMessage, setChatMessage] = useState('');
-  const [selectedProfileId, setSelectedProfileId] = useState<string>('mausam_kar_verified_abha');
+  const [localSelectedProfileId, setLocalSelectedProfileId] = useState<string>('mausam_kar_verified_abha');
   const [customProfile, setCustomProfile] = useState<MockHealthProfile | null>(null);
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  // Active dataset
+  // Synchronized active dataset
   const activeProfile: MockHealthProfile = customProfile || 
-    MOCK_HEALTH_PROFILES.find(p => p.profileId === selectedProfileId) || 
-    MOCK_HEALTH_PROFILES[5];
+    propActiveProfile || 
+    MOCK_HEALTH_PROFILES.find(p => p.profileId === (propSelectedProfileId || localSelectedProfileId)) || 
+    MOCK_HEALTH_PROFILES[0];
+
+  const currentSelectedId = propSelectedProfileId || localSelectedProfileId;
 
   const handleOpenSanjeevaniAI = (promptText?: string) => {
     const text = promptText || chatMessage || '';
@@ -68,9 +77,19 @@ export default function VisualAnalyticsPanel({
 
   // Switch pre-loaded clinical dataset
   const handleSelectProfile = (profileId: string) => {
-    setSelectedProfileId(profileId);
+    setLocalSelectedProfileId(profileId);
     setCustomProfile(null);
     setIsDropdownOpen(false);
+    
+    if (onSelectProfile) {
+      onSelectProfile(profileId);
+    }
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('sanjeevani-profile-switch', {
+        detail: { profileId }
+      }));
+    }
+
     const target = MOCK_HEALTH_PROFILES.find(p => p.profileId === profileId);
     if (target) {
       setStatusMessage(`✅ Telemetry synchronized with ${target.title} (${target.patient.name})`);
