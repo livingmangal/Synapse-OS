@@ -10,7 +10,7 @@
   "policyNumber": "PM-JAY-2026-IND-5290",
   "planType": "Ayushman Bharat PM-JAY (ABDM Verified)",
   "residence": "Mumbai / New Delhi, India",
-  "avatarUrl": "",
+  "avatarUrl": "/images/shaikh_warsi.jpg",
   "device": "OnePlus Watch 2 & Health Connect",
   "status": "ABDM_VERIFIED_ACTIVE",
   "kycVerified": true,
@@ -30,33 +30,41 @@
   "conditions": [
     {
       "id": "cond-lungs",
-      "title": "Cardio-Pulmonary Performance",
+      "title": "Bronchial Dynamics & Ventilation Index",
       "doctor": "Dr. Rajesh K. Varma",
       "specialty": "Pulmonology & Critical Care",
       "organ": "lungs",
       "status": "Stable",
-      "notes": "FEV1: 4.8L, O2 Saturation: 98.4%, Healthy lung capacity."
+      "notes": "O2 Saturation: 98.4%, FEV1: 4.8L. Healthy bronchial tone and baseline physiological ventilation.",
+      "lastUpdated": "Nov 24, 2025 at 4:00 PM",
+      "metrics": {
+        "fev1": "4.8 L",
+        "o2": "98.4%",
+        "heartRate": "76 BPM",
+        "trendThisMonth": "98.4%",
+        "trendPrevMonth": "96.5%"
+      }
     },
     {
       "id": "cond-shoulder",
-      "title": "Trapezius & Cervical Posture",
+      "title": "Right Trapezius Workstation Posture",
       "doctor": "Dr. Rajesh K. Varma",
-      "specialty": "Orthopedics & Posture Medicine",
+      "specialty": "Orthopedics",
       "organ": "shoulder",
       "painLevel": 3,
       "status": "Monitoring",
-      "notes": "Mild trapezius stiffness from keyboard use. Stretching recommended."
+      "notes": "Slight stiffness from prolonged terminal coding. Active standing breaks and thoracic mobility prescribed."
     },
     {
       "id": "cond-knee",
-      "title": "Lower Limb Biomechanics",
+      "title": "Meniscal Kinetics & Knee Extension",
       "doctor": "Dr. Naresh Trehan",
-      "specialty": "Orthopedics & Sports Medicine",
+      "specialty": "Joint Surgery & Orthopedics",
       "organ": "knee",
       "angleCurrent": 119,
       "angleNormal": 120,
       "status": "Stable",
-      "notes": "Healthy joint mobility and full range of motion."
+      "notes": "Smooth articular glide. No effusion or mechanical restriction with 119° extension."
     }
   ],
   "visualAnalytics": {
@@ -113,7 +121,7 @@
       "specialty": "Pulmonologist & Critical Care",
       "date": "Friday, 23 Jan, 04:00 PM",
       "type": "Preventive Health Assessment",
-      "photoUrl": ""
+      "photoUrl": "/images/shaikh_warsi.jpg"
     }
   }
 }

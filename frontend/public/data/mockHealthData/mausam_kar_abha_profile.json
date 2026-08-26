@@ -30,33 +30,41 @@
   "conditions": [
     {
       "id": "cond-lungs",
-      "title": "Pulmonary Function & Respiration",
+      "title": "Pulmonary Aerobic Function",
       "doctor": "Dr. Rajesh K. Varma",
       "specialty": "Pulmonology & Critical Care",
       "organ": "lungs",
       "status": "Stable",
-      "notes": "FEV1: 4.8L, O2 Saturation: 98.5%, Normal alveolar diffusion."
+      "notes": "O2 Saturation: 98.5%, FEV1: 4.8L. Clear bilateral breath sounds with normal alveolar diffusion.",
+      "lastUpdated": "Oct 27, 2025 at 2:15 PM",
+      "metrics": {
+        "fev1": "4.8 L",
+        "o2": "98.5%",
+        "heartRate": "74 BPM",
+        "trendThisMonth": "98.5%",
+        "trendPrevMonth": "96.8%"
+      }
     },
     {
       "id": "cond-shoulder",
-      "title": "Cervical & Shoulder Posture Ergonomics",
+      "title": "Cervical & Trapezius Desk Ergonomics",
       "doctor": "Dr. Rajesh K. Varma",
       "specialty": "Orthopedics & Sports Medicine",
       "organ": "shoulder",
       "painLevel": 4,
       "status": "Monitoring",
-      "notes": "Mild trapezius tightness from desk posture. Ergonomic stretches recommended."
+      "notes": "Mild trapezius stiffness from display work. Ergonomic desk setup and scapular stretches recommended."
     },
     {
       "id": "cond-knee",
-      "title": "Patellar Joint Biomechanics",
+      "title": "Patellar Biomechanics & Joint Cartilage",
       "doctor": "Dr. Naresh Trehan",
       "specialty": "Orthopedics & Joint Care",
       "organ": "knee",
       "angleCurrent": 118,
       "angleNormal": 120,
       "status": "Stable",
-      "notes": "Healthy cartilage thickness and full range of motion."
+      "notes": "Healthy joint space. Full physiological range of motion with preserved articular cartilage."
     }
   ],
   "visualAnalytics": {

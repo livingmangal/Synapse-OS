@@ -55,6 +55,7 @@ export default function ClinicalConditionsPanel({
       {/* 1. Lungs & Pulmonary Function Card */}
       <div 
         className="orch-card-interactive"
+        onClick={() => lungsCondition && onSelectCondition(lungsCondition)}
         style={{
           background: '#ffffff',
           borderRadius: '20px',
@@ -63,24 +64,29 @@ export default function ClinicalConditionsPanel({
           boxShadow: selectedCondition?.organ === 'lungs' ? '0 6px 20px rgba(219, 39, 119,0.08)' : '0 4px 14px rgba(0,0,0,0.03)',
           transition: 'all 0.2s ease',
           display: 'flex',
-          flexDirection: 'column'
+          flexDirection: 'column',
+          cursor: 'pointer'
         }}
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
           <div>
-            <h3 style={{ fontSize: '16px', fontWeight: 900, color: '#0f172a', margin: 0 }}>Lungs</h3>
-            <span style={{ fontSize: '11px', color: '#64748b' }}>Updated: Oct 27, 2025 at 2:15 PM</span>
+            <h3 style={{ fontSize: '16px', fontWeight: 900, color: '#0f172a', margin: 0 }}>
+              {lungsCondition?.title || 'Pulmonary Function'}
+            </h3>
+            <span style={{ fontSize: '11px', color: '#64748b' }}>
+              {lungsCondition?.lastUpdated || 'Updated: Recently'} • {lungsCondition?.doctor || 'Dr. Rajesh K. Varma'}
+            </span>
           </div>
           <span style={{
             fontSize: '11px',
             padding: '3px 9px',
             borderRadius: '6px',
-            background: '#ecfdf5',
-            color: '#059669',
+            background: lungsCondition?.status === 'Critical' ? '#fef2f2' : '#ecfdf5',
+            color: lungsCondition?.status === 'Critical' ? '#ef4444' : '#059669',
             fontWeight: 800,
-            border: '1px solid #a7f3d0'
+            border: lungsCondition?.status === 'Critical' ? '1px solid #fecaca' : '1px solid #a7f3d0'
           }}>
-            Stable
+            {lungsCondition?.status || 'Stable'}
           </span>
         </div>
 
@@ -94,10 +100,10 @@ export default function ClinicalConditionsPanel({
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', fontWeight: 800, color: '#0f172a' }}>
             <FileText size={14} color="#db2777" />
-            <span>Pulmonary function test</span>
+            <span>{lungsCondition?.specialty || 'Pulmonology'} Evaluation</span>
           </div>
           <p style={{ fontSize: '11px', color: '#64748b', margin: '6px 0 12px 0', lineHeight: 1.45 }}>
-            Comprehensive respiratory evaluation. Results show stable lung capacity and normal oxygen delivery.
+            {lungsCondition?.notes || 'Comprehensive respiratory evaluation. Results show stable lung capacity and normal oxygen delivery.'}
           </p>
 
           {/* Diagnostic X-Ray & CT Radiography Strip */}
@@ -189,9 +195,9 @@ export default function ClinicalConditionsPanel({
 
           {/* Telemetry Metrics */}
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '11px', color: '#475569', borderTop: '1px solid #e2e8f0', paddingTop: '10px' }}>
-            <span>FEVI: <strong style={{ color: '#0f172a' }}>4.8 L</strong></span>
-            <span>O2 Level: <strong style={{ color: '#059669' }}>97.2%</strong></span>
-            <span>Heart Rate: <strong style={{ color: '#0f172a' }}>72 BPM</strong></span>
+            <span>FEV1: <strong style={{ color: '#0f172a' }}>{lungsCondition?.metrics?.fev1 || '4.8 L'}</strong></span>
+            <span>O2 Level: <strong style={{ color: '#059669' }}>{lungsCondition?.metrics?.o2 || '98.5%'}</strong></span>
+            <span>Heart Rate: <strong style={{ color: '#0f172a' }}>{lungsCondition?.metrics?.heartRate || '74 BPM'}</strong></span>
           </div>
         </div>
 
@@ -200,11 +206,13 @@ export default function ClinicalConditionsPanel({
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
             <div>
               <span style={{ fontSize: '10px', color: '#64748b', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.04em' }}>OXYGEN LEVEL</span>
-              <div style={{ fontSize: '18px', fontWeight: 900, color: '#0f172a' }}>97.2%</div>
+              <div style={{ fontSize: '18px', fontWeight: 900, color: '#0f172a' }}>
+                {lungsCondition?.metrics?.o2 || '98.5%'}
+              </div>
             </div>
             <div style={{ fontSize: '11px', textAlign: 'right' }}>
-              <div><span style={{ color: '#059669', fontWeight: 800 }}>● This month:</span> <strong style={{ color: '#0f172a' }}>97.4%</strong></div>
-              <div><span style={{ color: '#db2777', fontWeight: 800 }}>● Previous:</span> <strong style={{ color: '#64748b' }}>92.2%</strong></div>
+              <div><span style={{ color: '#059669', fontWeight: 800 }}>● This month:</span> <strong style={{ color: '#0f172a' }}>{lungsCondition?.metrics?.trendThisMonth || '98.5%'}</strong></div>
+              <div><span style={{ color: '#db2777', fontWeight: 800 }}>● Previous:</span> <strong style={{ color: '#64748b' }}>{lungsCondition?.metrics?.trendPrevMonth || '96.8%'}</strong></div>
             </div>
           </div>
 
@@ -245,7 +253,7 @@ export default function ClinicalConditionsPanel({
               {/* Peak indicator dot & label */}
               <circle cx="225" cy="10" r="4.5" fill="#059669" stroke="#ffffff" strokeWidth="2" />
               <rect x="205" y="-3" width="40" height="15" rx="5" fill="#db2777" />
-              <text x="225" y="8" fill="#ffffff" fontSize="9.5" fontWeight="bold" textAnchor="middle">97.4%</text>
+              <text x="225" y="8" fill="#ffffff" fontSize="9.5" fontWeight="bold" textAnchor="middle">{lungsCondition?.metrics?.trendThisMonth || '98.5%'}</text>
             </svg>
           </div>
 
@@ -318,26 +326,42 @@ export default function ClinicalConditionsPanel({
       {/* 2. Left Shoulder Joint Mobility */}
       <div 
         className="orch-card-interactive"
+        onClick={() => shoulderCondition && onSelectCondition(shoulderCondition)}
         style={{
           background: '#ffffff',
           borderRadius: '20px',
           border: selectedCondition?.organ === 'shoulder' ? '1.5px solid #f59e0b' : '1px solid #e2e8f0',
           padding: '18px',
           boxShadow: selectedCondition?.organ === 'shoulder' ? '0 6px 20px rgba(245,158,11,0.08)' : '0 4px 14px rgba(0,0,0,0.03)',
-          transition: 'all 0.2s ease'
+          transition: 'all 0.2s ease',
+          cursor: 'pointer'
         }}
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
           <div>
-            <h3 style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a', margin: '0 0 2px 0' }}>Left Shoulder</h3>
-            <span style={{ fontSize: '11px', color: '#64748b' }}>Dr. Rajesh K. Varma</span>
+            <h3 style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a', margin: '0 0 2px 0' }}>
+              {shoulderCondition?.title || 'Left Shoulder Joint Mobility'}
+            </h3>
+            <span style={{ fontSize: '11px', color: '#64748b' }}>
+              {shoulderCondition?.doctor || 'Dr. Rajesh K. Varma'} • {shoulderCondition?.specialty || 'Orthopedics'}
+            </span>
           </div>
-          <span style={{ fontSize: '10px', fontWeight: 800, color: '#d97706', background: '#fffbeb', padding: '2px 8px', borderRadius: '6px', border: '1px solid #fde68a' }}>
-            Moderate
+          <span style={{
+            fontSize: '10px',
+            fontWeight: 800,
+            color: (shoulderCondition?.painLevel || 3) > 3 ? '#d97706' : '#059669',
+            background: (shoulderCondition?.painLevel || 3) > 3 ? '#fffbeb' : '#ecfdf5',
+            padding: '2px 8px',
+            borderRadius: '6px',
+            border: (shoulderCondition?.painLevel || 3) > 3 ? '1px solid #fde68a' : '1px solid #a7f3d0'
+          }}>
+            {shoulderCondition?.status || 'Stable'}
           </span>
         </div>
 
-        <div style={{ fontSize: '11px', fontWeight: 700, color: '#64748b', marginBottom: '8px' }}>Pain Severity Index (14/20)</div>
+        <div style={{ fontSize: '11px', fontWeight: 700, color: '#64748b', marginBottom: '8px' }}>
+          Pain Severity Index ({shoulderCondition?.painLevel || 3}/20) • {shoulderCondition?.notes?.split('.')[0] || 'Ergonomic stretching active'}
+        </div>
         <div style={{ display: 'flex', gap: '4px' }}>
           {Array.from({ length: 20 }).map((_, i) => (
             <div
@@ -346,32 +370,48 @@ export default function ClinicalConditionsPanel({
                 flex: 1,
                 height: '20px',
                 borderRadius: '4px',
-                background: i < 14 ? 'linear-gradient(180deg, #38bdf8 0%, #0284c7 100%)' : '#f1f5f9'
+                background: i < (shoulderCondition?.painLevel || 3) 
+                  ? 'linear-gradient(180deg, #38bdf8 0%, #0284c7 100%)' 
+                  : '#f1f5f9'
               }}
             />
           ))}
         </div>
       </div>
 
-      {/* 3. Osteoarthritis Left Knee Card with X-Ray Asset */}
+      {/* 3. Patellar & Knee Biomechanics Card with X-Ray Asset */}
       <div 
         className="orch-card-interactive"
+        onClick={() => kneeCondition && onSelectCondition(kneeCondition)}
         style={{
           background: '#ffffff',
           borderRadius: '20px',
-          border: selectedCondition?.organ === 'knee' ? '1.5px solid #ef4444' : '1px solid #e2e8f0',
+          border: selectedCondition?.organ === 'knee' ? '1.5px solid #0284c7' : '1px solid #e2e8f0',
           padding: '18px',
-          boxShadow: selectedCondition?.organ === 'knee' ? '0 6px 20px rgba(239,68,68,0.08)' : '0 4px 14px rgba(0,0,0,0.03)',
-          transition: 'all 0.2s ease'
+          boxShadow: selectedCondition?.organ === 'knee' ? '0 6px 20px rgba(2,132,199,0.08)' : '0 4px 14px rgba(0,0,0,0.03)',
+          transition: 'all 0.2s ease',
+          cursor: 'pointer'
         }}
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
           <div>
-            <h3 style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a', margin: '0 0 2px 0' }}>Osteoarthritis (Left Knee)</h3>
-            <span style={{ fontSize: '11px', color: '#64748b' }}>Dr. Naresh Trehan</span>
+            <h3 style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a', margin: '0 0 2px 0' }}>
+              {kneeCondition?.title || 'Patellar Joint Biomechanics'}
+            </h3>
+            <span style={{ fontSize: '11px', color: '#64748b' }}>
+              {kneeCondition?.doctor || 'Dr. Naresh Trehan'} • {kneeCondition?.specialty || 'Orthopedics'}
+            </span>
           </div>
-          <span style={{ fontSize: '10px', fontWeight: 800, color: '#ef4444', background: '#fef2f2', padding: '2px 8px', borderRadius: '6px', border: '1px solid #fecaca' }}>
-            Attention
+          <span style={{
+            fontSize: '10px',
+            fontWeight: 800,
+            color: kneeCondition?.status === 'Critical' ? '#ef4444' : '#059669',
+            background: kneeCondition?.status === 'Critical' ? '#fef2f2' : '#ecfdf5',
+            padding: '2px 8px',
+            borderRadius: '6px',
+            border: kneeCondition?.status === 'Critical' ? '1px solid #fecaca' : '1px solid #a7f3d0'
+          }}>
+            {kneeCondition?.status || 'Stable'}
           </span>
         </div>
 
@@ -382,24 +422,24 @@ export default function ClinicalConditionsPanel({
             height: '68px',
             borderRadius: '12px',
             overflow: 'hidden',
-            border: '1.5px solid #ef4444',
+            border: '1.5px solid #0284c7',
             flexShrink: 0,
-            boxShadow: '0 2px 8px rgba(239,68,68,0.15)'
+            boxShadow: '0 2px 8px rgba(2,132,199,0.15)'
           }}>
             <img
               src="/images/knee_xray_scan.jpg"
-              alt="Left Knee Osteoarthritis X-Ray"
+              alt="Left Knee Orthopedic X-Ray"
               style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />
           </div>
 
           <div style={{ flex: 1 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: '#64748b', marginBottom: '4px' }}>
-              <span>Current Range: <strong style={{ color: '#0f172a' }}>75°</strong></span>
-              <span>Target: <strong style={{ color: '#059669' }}>120°</strong></span>
+              <span>Current Range: <strong style={{ color: '#0f172a' }}>{kneeCondition?.angleCurrent || 119}°</strong></span>
+              <span>Target: <strong style={{ color: '#059669' }}>{kneeCondition?.angleNormal || 120}°</strong></span>
             </div>
             <p style={{ fontSize: '11px', color: '#64748b', margin: 0, lineHeight: 1.4 }}>
-              Joint space narrowing. Physiotherapy regimen assigned.
+              {kneeCondition?.notes || 'Healthy joint space. Full physiological range of motion.'}
             </p>
           </div>
         </div>

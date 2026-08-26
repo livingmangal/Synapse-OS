@@ -30,33 +30,41 @@
   "conditions": [
     {
       "id": "cond-lungs",
-      "title": "Cardio-Pulmonary Vitality",
+      "title": "Cardiorespiratory Stamina & Gas Exchange",
       "doctor": "Dr. Rajesh K. Varma",
-      "specialty": "Pulmonology & Critical Care",
+      "specialty": "Pulmonology",
       "organ": "lungs",
       "status": "Stable",
-      "notes": "FEV1: 4.9L, O2 Saturation: 98.8%, Normal alveolar diffusion."
+      "notes": "O2 Saturation: 98.8%, FEV1: 4.9L. Clear bilateral breath sounds, optimal tidal volume.",
+      "lastUpdated": "Nov 12, 2025 at 3:30 PM",
+      "metrics": {
+        "fev1": "4.9 L",
+        "o2": "98.8%",
+        "heartRate": "72 BPM",
+        "trendThisMonth": "98.8%",
+        "trendPrevMonth": "97.2%"
+      }
     },
     {
       "id": "cond-shoulder",
-      "title": "Cervical & Trapezius Posture Ergonomics",
+      "title": "Left Scapular & Trapezius Tone",
       "doctor": "Dr. Rajesh K. Varma",
-      "specialty": "Orthopedics & Posture Medicine",
+      "specialty": "Physiotherapy & Orthopedics",
       "organ": "shoulder",
       "painLevel": 3,
       "status": "Monitoring",
-      "notes": "Mild trapezius stiffness. Active postural breaks recommended."
+      "notes": "Slight desk posture tension. Ergonomic keyboard setup and scapular retractions recommended."
     },
     {
       "id": "cond-knee",
-      "title": "Patellar & Lower Extremity Kinetics",
+      "title": "Patellar Tendon & Meniscal Mechanics",
       "doctor": "Dr. Naresh Trehan",
-      "specialty": "Orthopedics & Sports Medicine",
+      "specialty": "Orthopedics",
       "organ": "knee",
       "angleCurrent": 119,
       "angleNormal": 120,
       "status": "Stable",
-      "notes": "Optimal joint alignment and full physiological range of motion."
+      "notes": "Normal joint space. Intact ligamentous stability with zero lateral deviation."
     }
   ],
   "visualAnalytics": {

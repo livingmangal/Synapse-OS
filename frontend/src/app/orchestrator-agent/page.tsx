@@ -48,23 +48,32 @@ export default function OrchestratorAgentPage() {
   const isMangal = activeProfile.profileId === 'mangal_singh_verified_abha';
   const isRachit = activeProfile.profileId === 'rachit_tiwari_verified_abha';
   const isMausam = activeProfile.profileId === 'mausam_kar_verified_abha';
+  const isJiya = activeProfile.profileId === 'jiya_jaiswal_verified_abha';
+  const isSurabhi = activeProfile.profileId === 'surabhi_verified_abha';
+  const isWarsi = activeProfile.profileId === 'shaikh_warsi_verified_abha';
 
   const patient: PatientInfo = isAbhaLinked ? {
     name: activeProfile.patient.name,
     abhaId: activeProfile.patient.abhaId,
-    dob: isMangal ? 'November 05, 2001' : isRachit ? 'June 18, 2003' : isMausam ? 'April 14, 2002' : 'March 28, 1997',
+    dob: isJiya ? 'August 22, 2003' : isSurabhi ? 'March 15, 2002' : isWarsi ? 'December 10, 2001' : isMangal ? 'November 05, 2001' : isRachit ? 'June 18, 2003' : isMausam ? 'April 14, 2002' : 'March 28, 1997',
     gender: activeProfile.patient.gender,
-    bloodType: isMangal ? 'A+' : isRachit ? 'O+' : isMausam ? 'B+' : 'O+',
-    policyNumber: isMangal ? 'PM-JAY-2026-IND-7732' : isRachit ? 'PM-JAY-2026-IND-9924' : isMausam ? 'PM-JAY-2026-IND-8841' : 'XY-2025-3487',
-    planType: isMangal || isRachit || isMausam ? 'Ayushman Bharat PM-JAY (ABDM Verified)' : 'PrimeCare Plus (ABDM)',
-    residence: isMangal ? 'Jaipur / New Delhi, India' : isRachit ? 'Lucknow / New Delhi, India' : isMausam ? 'New Delhi, India' : 'New Delhi / Mumbai',
-    avatarUrl: isMangal
+    bloodType: isJiya ? 'B+' : isSurabhi ? 'O+' : isWarsi ? 'AB+' : isMangal ? 'A+' : isRachit ? 'O+' : isMausam ? 'B+' : 'O+',
+    policyNumber: isJiya ? 'PM-JAY-2026-IND-6120' : isSurabhi ? 'PM-JAY-2026-IND-4891' : isWarsi ? 'PM-JAY-2026-IND-5290' : isMangal ? 'PM-JAY-2026-IND-7732' : isRachit ? 'PM-JAY-2026-IND-9924' : isMausam ? 'PM-JAY-2026-IND-8841' : 'XY-2025-3487',
+    planType: isJiya || isSurabhi || isWarsi || isMangal || isRachit || isMausam ? 'Ayushman Bharat PM-JAY (ABDM Verified)' : 'PrimeCare Plus (ABDM)',
+    residence: isJiya ? 'Noida / New Delhi, India' : isSurabhi ? 'Bengaluru / New Delhi, India' : isWarsi ? 'Mumbai / New Delhi, India' : isMangal ? 'Jaipur / New Delhi, India' : isRachit ? 'Lucknow / New Delhi, India' : isMausam ? 'New Delhi, India' : 'New Delhi / Mumbai',
+    avatarUrl: isJiya
+      ? '/images/jiya_jaiswal.jpg'
+      : isSurabhi
+      ? '/images/surabhi.jpg'
+      : isWarsi
+      ? '/images/shaikh_warsi.jpg'
+      : isMangal
       ? '/images/mangal_singh.jpg'
       : isRachit 
       ? '/images/rachit_tiwari.jpg' 
       : isMausam 
       ? '/images/mausam_kar.jpg' 
-      : 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80'
+      : ''
   } : {
     name: '----',
     abhaId: '----',
@@ -96,41 +105,50 @@ export default function OrchestratorAgentPage() {
     respirationRate: 0
   };
 
-  // Clinical Conditions list
-  const [conditions, setConditions] = useState<DetectedCondition[]>([
-    {
-      id: 'cond-lungs',
-      title: 'Pulmonary Function & Respiration',
-      doctor: 'Dr. Rajesh K. Varma',
-      specialty: 'Pulmonology',
-      organ: 'lungs',
-      status: 'Stable',
-      notes: 'O2 Saturation: 98.5%, FEVI: 4.8L, Normal alveolar diffusion.'
-    },
-    {
-      id: 'cond-shoulder',
-      title: 'Left Shoulder Joint Mobility',
-      doctor: 'Dr. Rajesh K. Varma',
-      specialty: 'Orthopedics',
-      organ: 'shoulder',
-      painLevel: 4,
-      status: 'Monitoring',
-      notes: 'Mild trapezius tightness from desk posture. Ergonomic stretches recommended.'
-    },
-    {
-      id: 'cond-knee',
-      title: 'Patellar Joint Biomechanics',
-      doctor: 'Dr. Naresh Trehan',
-      specialty: 'Rheumatology & Orthopedics',
-      organ: 'knee',
-      angleCurrent: 118,
-      angleNormal: 120,
-      status: 'Stable',
-      notes: 'Healthy joint space. Full physiological range of motion.'
-    }
-  ]);
+  // Dynamic Real-time Conditions list from Active ABHA Profile
+  const conditions: DetectedCondition[] = activeProfile.conditions && activeProfile.conditions.length > 0 
+    ? activeProfile.conditions 
+    : [
+        {
+          id: 'cond-lungs',
+          title: 'Pulmonary Aerobic Function',
+          doctor: 'Dr. Rajesh K. Varma',
+          specialty: 'Pulmonology',
+          organ: 'lungs',
+          status: 'Stable',
+          notes: `O2 Saturation: ${activeProfile.vitals.spo2 || 98.5}%, FEV1: 4.8L, Normal alveolar diffusion.`
+        },
+        {
+          id: 'cond-shoulder',
+          title: 'Cervical & Shoulder Joint Mobility',
+          doctor: 'Dr. Rajesh K. Varma',
+          specialty: 'Orthopedics',
+          organ: 'shoulder',
+          painLevel: 3,
+          status: 'Monitoring',
+          notes: 'Mild trapezius tightness from desk posture. Ergonomic stretches recommended.'
+        },
+        {
+          id: 'cond-knee',
+          title: 'Patellar Joint Biomechanics',
+          doctor: 'Dr. Naresh Trehan',
+          specialty: 'Rheumatology & Orthopedics',
+          organ: 'knee',
+          angleCurrent: 119,
+          angleNormal: 120,
+          status: 'Stable',
+          notes: 'Healthy joint space. Full physiological range of motion.'
+        }
+      ];
 
   const [selectedCondition, setSelectedCondition] = useState<DetectedCondition | null>(conditions[0]);
+
+  // Keep selectedCondition synced when active profile switches
+  useEffect(() => {
+    if (conditions.length > 0) {
+      setSelectedCondition(conditions[0]);
+    }
+  }, [activeProfile.profileId]);
 
   // Handlers for switching/uploading profiles
   const handleSelectProfile = (profileId: string) => {

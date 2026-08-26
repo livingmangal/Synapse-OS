@@ -30,33 +30,41 @@
   "conditions": [
     {
       "id": "cond-lungs",
-      "title": "Cardio-Pulmonary Respiratory Function",
+      "title": "High-Endurance VO2 Max Pulmonary Reserve",
       "doctor": "Dr. Rajesh K. Varma",
-      "specialty": "Pulmonology & Sports Health",
+      "specialty": "Sports Pulmonology",
       "organ": "lungs",
       "status": "Stable",
-      "notes": "FEV1: 5.1L, O2 Saturation: 99.0%, High aerobic pulmonary reserve."
+      "notes": "O2 Saturation: 99.0%, FEV1: 5.2L. Peak athletic respiratory capacity and rapid ventilatory recovery.",
+      "lastUpdated": "Nov 02, 2025 at 10:45 AM",
+      "metrics": {
+        "fev1": "5.2 L",
+        "o2": "99.0%",
+        "heartRate": "70 BPM",
+        "trendThisMonth": "99.2%",
+        "trendPrevMonth": "98.0%"
+      }
     },
     {
       "id": "cond-shoulder",
-      "title": "Lumbar & Shoulder Posture Ergonomics",
+      "title": "Thoracic & Deltoid Athletic Mobility",
       "doctor": "Dr. Rajesh K. Varma",
-      "specialty": "Orthopedics & Posture Biomechanics",
+      "specialty": "Sports Medicine",
       "organ": "shoulder",
       "painLevel": 2,
       "status": "Stable",
-      "notes": "Optimal posture alignment. Core stability exercises maintained."
+      "notes": "Optimal rotator cuff function. Minimal athletic muscular tension."
     },
     {
       "id": "cond-knee",
-      "title": "Lower Limb Kinetic Chain",
+      "title": "Lower Kinetic Chain & Patellar Dynamics",
       "doctor": "Dr. Naresh Trehan",
-      "specialty": "Orthopedics & Sports Medicine",
+      "specialty": "Sports Orthopedics",
       "organ": "knee",
       "angleCurrent": 120,
       "angleNormal": 120,
       "status": "Stable",
-      "notes": "Full bilateral flexion (120°). Zero joint inflammation."
+      "notes": "Optimal quadriceps force transfer. 120° full physiological range without crepitus."
     }
   ],
   "visualAnalytics": {

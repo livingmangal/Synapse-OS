@@ -78,7 +78,7 @@ export default function HealthSyncPanel() {
   const [copiedCurl, setCopiedCurl] = useState(false);
 
   // Active Mock Dataset / Profile State
-  const [selectedMockProfileId, setSelectedMockProfileId] = useState<string>('healthy_adult_baseline');
+  const [selectedMockProfileId, setSelectedMockProfileId] = useState<string>('mausam_kar_verified_abha');
   const [importerMode, setImporterMode] = useState<'presets' | 'upload'>('presets');
   const [currentAiAnalysis, setCurrentAiAnalysis] = useState<{
     type: 'optimal' | 'warning' | 'alert';
@@ -86,36 +86,36 @@ export default function HealthSyncPanel() {
     description: string;
   }>({
     type: 'optimal',
-    title: 'Optimal Physiological Homeostasis',
-    description: 'All systemic biomarkers are in the optimal clinical target ranges. HRV (66ms) confirms robust autonomic parasympathetic balance. Restorative sleep score (90/100) with healthy deep/REM cycles. SpO2 consistent at 99%.'
+    title: 'Optimal Physiological Baseline Profile',
+    description: 'Patient Mausam Kar demonstrates verified ABDM registration. Resting heart rate (64 BPM) and HRV (68ms) indicate excellent autonomic nervous tone and recovery. Arterial oxygen saturation stable at 98.5% with healthy metabolic biomarkers.'
   });
   const [ecgClassificationText, setEcgClassificationText] = useState<string>(
-    '🟢 Sinus Rhythm (HR 70 BPM) • No AFib detected'
+    '🟢 Normal Sinus Rhythm (HR 74 BPM) • QTc 410ms • ST-Isoelectric'
   );
 
   // Live Wearable Telemetry State
   const [wearableVitals, setWearableVitals] = useState({
     steps: 10480,
     stepGoal: 10000,
-    restingHeartRate: 60,
-    currentHeartRate: 70,
-    hrvMs: 66,
-    spo2: 99.0,
-    vo2Max: 48.0,
-    respiratoryRate: 14,
+    restingHeartRate: 64,
+    currentHeartRate: 74,
+    hrvMs: 68,
+    spo2: 98.5,
+    vo2Max: 48.2,
+    respiratoryRate: 16,
     activeCalories: 680,
-    calorieGoal: 700,
-    sleepScore: 90,
-    sleepDuration: '7h 50m',
+    calorieGoal: 600,
+    sleepScore: 88,
+    sleepDuration: '7h 48m',
     sleepStages: {
-      deep: '1h 55m (24%)',
-      rem: '2h 05m (27%)',
-      light: '3h 25m (43%)',
-      awake: '25m (6%)'
+      deep: '1h 55m (25%)',
+      rem: '1h 50m (23%)',
+      light: '3h 40m (47%)',
+      awake: '23m (5%)'
     },
     bloodGlucose: 92,
-    bloodPressure: '116/74 mmHg',
-    wristTempDeviation: '-0.2°F'
+    bloodPressure: '118/76 mmHg',
+    wristTempDeviation: '0.0°F'
   });
 
   // ECG Live Canvas Rhythm State
@@ -125,9 +125,9 @@ export default function HealthSyncPanel() {
   const ecgOffsetRef = useRef<number>(0);
 
   // File Importer State (Apple Health export.xml or Google Takeout JSON)
-  const [parsedRecordsCount, setParsedRecordsCount] = useState<number | null>(6420);
+  const [parsedRecordsCount, setParsedRecordsCount] = useState<number | null>(5120);
   const [importStatus, setImportStatus] = useState<string | null>(
-    '✅ Healthy Adult Baseline dataset active (6,420 observations parsed)'
+    '✅ Verified ABHA Profile: Mausam Kar (5,120 observations parsed)'
   );
   const fileInputRef = useRef<HTMLInputElement | null>(null);;
 

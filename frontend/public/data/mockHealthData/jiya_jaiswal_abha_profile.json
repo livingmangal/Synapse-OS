@@ -10,7 +10,7 @@
   "policyNumber": "PM-JAY-2026-IND-6120",
   "planType": "Ayushman Bharat PM-JAY (ABDM Verified)",
   "residence": "Noida / New Delhi, India",
-  "avatarUrl": "",
+  "avatarUrl": "/images/jiya_jaiswal.jpg",
   "device": "Apple Watch Series 9 & Health Connect",
   "status": "ABDM_VERIFIED_ACTIVE",
   "kycVerified": true,
@@ -30,33 +30,41 @@
   "conditions": [
     {
       "id": "cond-lungs",
-      "title": "Respiratory & Oxygenation Index",
+      "title": "Pulmonary Oxygenation & Diffusion Index",
       "doctor": "Dr. Rajesh K. Varma",
-      "specialty": "Pulmonology & Critical Care",
+      "specialty": "Pulmonology & Wellness",
       "organ": "lungs",
       "status": "Stable",
-      "notes": "FEV1: 4.2L, O2 Saturation: 99.2%, Excellent pulmonary dynamics."
+      "notes": "O2 Saturation: 99.2%, FEV1: 4.3L. Peak arterial oxygenation and efficient diaphragmatic excursion.",
+      "lastUpdated": "Nov 28, 2025 at 11:20 AM",
+      "metrics": {
+        "fev1": "4.3 L",
+        "o2": "99.2%",
+        "heartRate": "72 BPM",
+        "trendThisMonth": "99.2%",
+        "trendPrevMonth": "98.0%"
+      }
     },
     {
       "id": "cond-shoulder",
-      "title": "Shoulder & Posture Alignment",
+      "title": "Cervical Spine & Rotator Alignment",
       "doctor": "Dr. Rajesh K. Varma",
-      "specialty": "Orthopedics & Posture",
+      "specialty": "Orthopedic Rehabilitation",
       "organ": "shoulder",
-      "painLevel": 2,
+      "painLevel": 1,
       "status": "Stable",
-      "notes": "Normal trapezius tone. Stretching maintained."
+      "notes": "Excellent cervical and shoulder range of motion. Zero functional limitation or nerve entrapment."
     },
     {
       "id": "cond-knee",
-      "title": "Patellar & Knee Joint Kinetics",
+      "title": "Bilateral Knee & Quadriceps Stability",
       "doctor": "Dr. Naresh Trehan",
-      "specialty": "Orthopedics & Sports Health",
+      "specialty": "Orthopedics",
       "organ": "knee",
       "angleCurrent": 120,
       "angleNormal": 120,
       "status": "Stable",
-      "notes": "Full bilateral flexion without discomfort."
+      "notes": "Full 120° physiological flexion. Excellent ligamentous stability and bilateral weight distribution."
     }
   ],
   "visualAnalytics": {
@@ -113,7 +121,7 @@
       "specialty": "Pulmonologist & Preventive Health",
       "date": "Wednesday, 21 Jan, 10:30 AM",
       "type": "Routine Wellness Review",
-      "photoUrl": ""
+      "photoUrl": "/images/jiya_jaiswal.jpg"
     }
   }
 }

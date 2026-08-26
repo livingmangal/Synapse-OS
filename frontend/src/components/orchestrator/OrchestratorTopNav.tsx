@@ -424,18 +424,39 @@ export default function OrchestratorTopNav({
           borderLeft: '1px solid #e2e8f0',
           flexShrink: 0
         }}>
-          <img
-            src={patient.avatarUrl}
-            alt={patient.name}
-            style={{
-              width: '32px',
-              height: '32px',
-              borderRadius: '50%',
-              objectFit: 'cover',
-              border: '2px solid #bae6fd',
-              flexShrink: 0
-            }}
-          />
+          {patient.avatarUrl ? (
+            <img
+              src={patient.avatarUrl}
+              alt={patient.name}
+              style={{
+                width: '32px',
+                height: '32px',
+                borderRadius: '50%',
+                objectFit: 'cover',
+                border: '2px solid #bae6fd',
+                flexShrink: 0
+              }}
+            />
+          ) : (
+            <div
+              style={{
+                width: '32px',
+                height: '32px',
+                borderRadius: '50%',
+                background: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
+                color: '#ffffff',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '11px',
+                fontWeight: 900,
+                border: '2px solid #bae6fd',
+                flexShrink: 0
+              }}
+            >
+              {patient.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || 'AB'}
+            </div>
+          )}
           <div style={{ whiteSpace: 'nowrap' }}>
             <div style={{ fontSize: '11px', fontWeight: 800, color: '#0f172a', lineHeight: 1.2 }}>
               {patient.name}

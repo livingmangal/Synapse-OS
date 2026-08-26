@@ -10,7 +10,7 @@
   "policyNumber": "PM-JAY-2026-IND-4891",
   "planType": "Ayushman Bharat PM-JAY (ABDM Verified)",
   "residence": "Bengaluru / New Delhi, India",
-  "avatarUrl": "",
+  "avatarUrl": "/images/surabhi.jpg",
   "device": "Fitbit Sense 2 & Health Connect",
   "status": "ABDM_VERIFIED_ACTIVE",
   "kycVerified": true,
@@ -30,33 +30,41 @@
   "conditions": [
     {
       "id": "cond-lungs",
-      "title": "Respiratory Balance & Aerobic Capacity",
+      "title": "Aerobic Diffusion & Vital Capacity",
       "doctor": "Dr. Rajesh K. Varma",
-      "specialty": "Pulmonology & Critical Care",
+      "specialty": "Pulmonology",
       "organ": "lungs",
       "status": "Stable",
-      "notes": "FEV1: 4.4L, O2 Saturation: 98.6%, Optimal ventilation index."
+      "notes": "O2 Saturation: 98.6%, FEV1: 4.4L. Normal spirometry parameters and airway conductance.",
+      "lastUpdated": "Nov 18, 2025 at 1:15 PM",
+      "metrics": {
+        "fev1": "4.4 L",
+        "o2": "98.6%",
+        "heartRate": "74 BPM",
+        "trendThisMonth": "98.6%",
+        "trendPrevMonth": "97.0%"
+      }
     },
     {
       "id": "cond-shoulder",
-      "title": "Upper Back & Cervical Posture",
+      "title": "Upper Back Posture & Scapular Balance",
       "doctor": "Dr. Rajesh K. Varma",
-      "specialty": "Orthopedics & Posture",
+      "specialty": "Physical Medicine",
       "organ": "shoulder",
       "painLevel": 2,
       "status": "Stable",
-      "notes": "Good shoulder mobility. Daily posture breaks recommended."
+      "notes": "Good postural alignment. Stretching exercises maintaining upper thoracic flexibility."
     },
     {
       "id": "cond-knee",
-      "title": "Lower Kinetic Biomechanics",
+      "title": "Patellofemoral Joint Biomechanics",
       "doctor": "Dr. Naresh Trehan",
-      "specialty": "Orthopedics & Joint Health",
+      "specialty": "Rheumatology & Orthopedics",
       "organ": "knee",
       "angleCurrent": 120,
       "angleNormal": 120,
       "status": "Stable",
-      "notes": "Full physiological range of motion."
+      "notes": "Preserved articular cartilage. Normal smooth patellar tracking with 120° extension."
     }
   ],
   "visualAnalytics": {
@@ -113,7 +121,7 @@
       "specialty": "Pulmonologist & Internal Medicine",
       "date": "Thursday, 22 Jan, 02:00 PM",
       "type": "Biometric Checkup",
-      "photoUrl": ""
+      "photoUrl": "/images/surabhi.jpg"
     }
   }
 }

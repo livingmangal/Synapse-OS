@@ -424,18 +424,40 @@ export default function PatientVitalsPanel({
         )}
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '16px' }}>
-          <img
-            src={patient.avatarUrl}
-            alt={patient.name}
-            style={{
-              width: '64px',
-              height: '64px',
-              borderRadius: '16px',
-              objectFit: 'cover',
-              border: '2px solid #bae6fd',
-              boxShadow: '0 4px 10px rgba(2,132,199,0.1)'
-            }}
-          />
+          {patient.avatarUrl ? (
+            <img
+              src={patient.avatarUrl}
+              alt={patient.name}
+              style={{
+                width: '64px',
+                height: '64px',
+                borderRadius: '16px',
+                objectFit: 'cover',
+                border: '2px solid #bae6fd',
+                boxShadow: '0 4px 10px rgba(2,132,199,0.1)'
+              }}
+            />
+          ) : (
+            <div
+              style={{
+                width: '64px',
+                height: '64px',
+                borderRadius: '16px',
+                background: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
+                color: '#ffffff',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '20px',
+                fontWeight: 900,
+                border: '2px solid #bae6fd',
+                boxShadow: '0 4px 10px rgba(2,132,199,0.15)',
+                flexShrink: 0
+              }}
+            >
+              {patient.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || 'AB'}
+            </div>
+          )}
           <div>
             <h2 style={{ fontSize: '18px', fontWeight: 800, color: '#0f172a', margin: '0 0 3px 0' }}>
               {patient.name}

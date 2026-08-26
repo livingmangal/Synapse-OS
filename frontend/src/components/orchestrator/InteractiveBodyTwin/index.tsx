@@ -305,17 +305,17 @@ export default function InteractiveBodyTwin({
               }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <span style={{ fontSize: '12px', fontWeight: 800, color: '#0f172a' }}>
-                    Pulmonary Function
+                    {lungsCondition?.title || 'Pulmonary Function'}
                   </span>
                   <span style={{ fontSize: '10px', fontWeight: 700, color: '#059669', background: '#ecfdf5', padding: '1px 6px', borderRadius: '4px' }}>
-                    97.2%
+                    {lungsCondition?.metrics?.o2 || '98.5%'}
                   </span>
                 </div>
                 <div style={{ fontSize: '11px', color: '#64748b', marginTop: '2px' }}>
-                  FEVI: <strong>4.8 L</strong> • Heart: <strong>72 BPM</strong>
+                  FEV1: <strong>{lungsCondition?.metrics?.fev1 || '4.8 L'}</strong> • Heart: <strong>{lungsCondition?.metrics?.heartRate || '74 BPM'}</strong>
                 </div>
                 <div style={{ fontSize: '10px', color: '#0284c7', fontWeight: 700, marginTop: '4px', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                  <span>Dr. Rajesh K. Varma</span>
+                  <span>{lungsCondition?.doctor || 'Dr. Rajesh K. Varma'}</span>
                   <ChevronRight size={10} />
                 </div>
               </div>
