@@ -314,8 +314,8 @@ export default function InteractiveBodyTwin({
                 <div style={{ fontSize: '11px', color: '#64748b', marginTop: '2px' }}>
                   FEVI: <strong>4.8 L</strong> • Heart: <strong>72 BPM</strong>
                 </div>
-                <div style={{ fontSize: '10px', color: '#db2777', fontWeight: 700, marginTop: '4px', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                  <span>Dr. Steven Fandel</span>
+                <div style={{ fontSize: '10px', color: '#0284c7', fontWeight: 700, marginTop: '4px', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                  <span>Dr. Rajesh K. Varma</span>
                   <ChevronRight size={10} />
                 </div>
               </div>

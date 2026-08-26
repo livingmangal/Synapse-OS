@@ -89,8 +89,8 @@ export function useSwarmLogic(patient: PatientInfo) {
         verification: {
           consensus_confidence_score: 96,
           agent_votes: [
-            { agent: 'Dr. Steven Fandel (Pulmonology)', score: 98, status: 'Approved' },
-            { agent: 'Dr. Vetrick Wilsen (Cardiology)', score: 95, status: 'Approved' },
+            { agent: 'Dr. Rajesh K. Varma (Pulmonology)', score: 98, status: 'Approved' },
+            { agent: 'Dr. Naresh Trehan (Cardiology)', score: 95, status: 'Approved' },
             { agent: 'RxNav Safety Daemon (Pharmacology)', score: 99, status: 'Approved' }
           ]
         },

@@ -330,7 +330,7 @@ export default function ClinicalConditionsPanel({
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
           <div>
             <h3 style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a', margin: '0 0 2px 0' }}>Left Shoulder</h3>
-            <span style={{ fontSize: '11px', color: '#64748b' }}>Dr. Steven Fandel</span>
+            <span style={{ fontSize: '11px', color: '#64748b' }}>Dr. Rajesh K. Varma</span>
           </div>
           <span style={{ fontSize: '10px', fontWeight: 800, color: '#d97706', background: '#fffbeb', padding: '2px 8px', borderRadius: '6px', border: '1px solid #fde68a' }}>
             Moderate
@@ -346,7 +346,7 @@ export default function ClinicalConditionsPanel({
                 flex: 1,
                 height: '20px',
                 borderRadius: '4px',
-                background: i < 14 ? 'linear-gradient(180deg, #f472b6 0%, #db2777 100%)' : '#f1f5f9'
+                background: i < 14 ? 'linear-gradient(180deg, #38bdf8 0%, #0284c7 100%)' : '#f1f5f9'
               }}
             />
           ))}
@@ -368,7 +368,7 @@ export default function ClinicalConditionsPanel({
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
           <div>
             <h3 style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a', margin: '0 0 2px 0' }}>Osteoarthritis (Left Knee)</h3>
-            <span style={{ fontSize: '11px', color: '#64748b' }}>Dr. Vetrick Wilsen</span>
+            <span style={{ fontSize: '11px', color: '#64748b' }}>Dr. Naresh Trehan</span>
           </div>
           <span style={{ fontSize: '10px', fontWeight: 800, color: '#ef4444', background: '#fef2f2', padding: '2px 8px', borderRadius: '6px', border: '1px solid #fecaca' }}>
             Attention

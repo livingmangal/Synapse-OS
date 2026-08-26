@@ -10,7 +10,7 @@ from typing import Dict, Any
 from datetime import datetime
 
 
-def generate_abha_id(name: str = "Demo Citizen", year_of_birth: int = 1995, state_code: str = "DL") -> Dict[str, Any]:
+def generate_abha_id(name: str = "Mausam Kar", year_of_birth: int = 2002, state_code: str = "DL") -> Dict[str, Any]:
     """
     Generates mock Indian ABHA (Ayushman Bharat Health Account) 14-digit number and virtual ABHA address.
     Compliant with NDHM / ABDM FHIR profile specifications.

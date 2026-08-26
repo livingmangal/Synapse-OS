@@ -1,0 +1,119 @@
+{
+  "id": "surabhi_verified_abha",
+  "name": "Surabhi",
+  "age": 24,
+  "gender": "Female",
+  "dob": "March 15, 2002",
+  "bloodType": "O+",
+  "abhaId": "91-4478-2910-6351",
+  "abhaAddress": "surabhi@abdm",
+  "policyNumber": "PM-JAY-2026-IND-4891",
+  "planType": "Ayushman Bharat PM-JAY (ABDM Verified)",
+  "residence": "Bengaluru / New Delhi, India",
+  "avatarUrl": "",
+  "device": "Fitbit Sense 2 & Health Connect",
+  "status": "ABDM_VERIFIED_ACTIVE",
+  "kycVerified": true,
+  "pmjayCoverage": "₹5,00,000 Annual Family Floating Cover",
+  "vitals": {
+    "heartRate": 74,
+    "avgHeartRate": 68,
+    "maxHeartRate": 122,
+    "systolicBp": 116,
+    "diastolicBp": 75,
+    "oxygenSaturation": 98.6,
+    "respirationRate": 16,
+    "hrv": 68,
+    "vo2Max": 45.8,
+    "leadIEcg": "Normal Sinus Rhythm (NSR) • QTc 404ms • Healthy Autonomic Tone"
+  },
+  "conditions": [
+    {
+      "id": "cond-lungs",
+      "title": "Respiratory Balance & Aerobic Capacity",
+      "doctor": "Dr. Rajesh K. Varma",
+      "specialty": "Pulmonology & Critical Care",
+      "organ": "lungs",
+      "status": "Stable",
+      "notes": "FEV1: 4.4L, O2 Saturation: 98.6%, Optimal ventilation index."
+    },
+    {
+      "id": "cond-shoulder",
+      "title": "Upper Back & Cervical Posture",
+      "doctor": "Dr. Rajesh K. Varma",
+      "specialty": "Orthopedics & Posture",
+      "organ": "shoulder",
+      "painLevel": 2,
+      "status": "Stable",
+      "notes": "Good shoulder mobility. Daily posture breaks recommended."
+    },
+    {
+      "id": "cond-knee",
+      "title": "Lower Kinetic Biomechanics",
+      "doctor": "Dr. Naresh Trehan",
+      "specialty": "Orthopedics & Joint Health",
+      "organ": "knee",
+      "angleCurrent": 120,
+      "angleNormal": 120,
+      "status": "Stable",
+      "notes": "Full physiological range of motion."
+    }
+  ],
+  "visualAnalytics": {
+    "healthScore": 93,
+    "avgBpm": 74,
+    "bpmStatus": "Optimal Resting Heart Rate (Rest: 68 bpm)",
+    "heartRatePath": "M 0 98 Q 25 78, 50 82 T 100 64 T 150 88 T 200 46 T 250 78 T 300 68 T 350 86 T 400 58",
+    "sleepHours": "7h 45m",
+    "sleepStatus": "88% Restorative Deep Sleep (Optimal)",
+    "sleepBars": [68, 80, 85, 92, 88, 95, 90],
+    "stressScore": "18 / 100",
+    "stressStatus": "Relaxed Autonomic Balance",
+    "stressPath": "M 0 122 Q 30 112, 60 115 T 120 105 T 180 120 T 240 102 T 300 115 T 350 110",
+    "stressPoints": [
+      { "cx": 40, "cy": 113, "isHigh": false },
+      { "cx": 110, "cy": 107, "isHigh": false },
+      { "cx": 190, "cy": 119, "isHigh": false },
+      { "cx": 270, "cy": 103, "isHigh": false },
+      { "cx": 340, "cy": 111, "isHigh": false }
+    ],
+    "avgSteps": "9,800",
+    "stepsStatus": "+12% Active Daily Movement vs Target",
+    "stepsBars": [
+      { "height": 76, "active": false },
+      { "height": 86, "active": false },
+      { "height": 90, "active": false },
+      { "height": 80, "active": false },
+      { "height": 96, "active": true },
+      { "height": 84, "active": false },
+      { "height": 88, "active": false }
+    ],
+    "aiInsights": {
+      "positive": {
+        "title": "Optimal Biomarker Equilibrium",
+        "description": "Blood pressure (116/75 mmHg) and SpO2 (98.6%) confirm robust cardiovascular baseline."
+      },
+      "takeAction": {
+        "title": "Daily Step Consistency",
+        "description": "Maintain 10,000 steps daily average with regular evening walks."
+      },
+      "monitor": {
+        "title": "Postural Alignment",
+        "description": "Incorporate upper body stretches during extended sitting."
+      }
+    },
+    "carePlan": {
+      "medicationPercent": 100,
+      "medicationStatus": "Daily Nutrition & Omega-3 Complete",
+      "hydrationPercent": 84,
+      "hydrationStatus": "2.3L / 2.7L Target Reached"
+    },
+    "nextAppointment": {
+      "doctor": "Dr. Rajesh K. Varma",
+      "specialty": "Pulmonologist & Internal Medicine",
+      "date": "Thursday, 22 Jan, 02:00 PM",
+      "type": "Biometric Checkup",
+      "photoUrl": ""
+    }
+  }
+}

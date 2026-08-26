@@ -1,0 +1,119 @@
+{
+  "id": "mangal_singh_verified_abha",
+  "name": "Mangal Singh",
+  "age": 25,
+  "gender": "Male",
+  "dob": "November 05, 2001",
+  "bloodType": "A+",
+  "abhaId": "91-6310-9284-5172",
+  "abhaAddress": "mangalsingh@abdm",
+  "policyNumber": "PM-JAY-2026-IND-7732",
+  "planType": "Ayushman Bharat PM-JAY (ABDM Verified)",
+  "residence": "Jaipur / New Delhi, India",
+  "avatarUrl": "/images/mangal_singh.jpg",
+  "device": "Samsung Galaxy Watch 6 & Health Connect",
+  "status": "ABDM_VERIFIED_ACTIVE",
+  "kycVerified": true,
+  "pmjayCoverage": "₹5,00,000 Annual Family Floating Cover",
+  "vitals": {
+    "heartRate": 72,
+    "avgHeartRate": 65,
+    "maxHeartRate": 126,
+    "systolicBp": 118,
+    "diastolicBp": 78,
+    "oxygenSaturation": 98.8,
+    "respirationRate": 16,
+    "hrv": 66,
+    "vo2Max": 49.0,
+    "leadIEcg": "Normal Sinus Rhythm (NSR) • QTc 408ms • ST-Isoelectric"
+  },
+  "conditions": [
+    {
+      "id": "cond-lungs",
+      "title": "Cardio-Pulmonary Vitality",
+      "doctor": "Dr. Rajesh K. Varma",
+      "specialty": "Pulmonology & Critical Care",
+      "organ": "lungs",
+      "status": "Stable",
+      "notes": "FEV1: 4.9L, O2 Saturation: 98.8%, Normal alveolar diffusion."
+    },
+    {
+      "id": "cond-shoulder",
+      "title": "Cervical & Trapezius Posture Ergonomics",
+      "doctor": "Dr. Rajesh K. Varma",
+      "specialty": "Orthopedics & Posture Medicine",
+      "organ": "shoulder",
+      "painLevel": 3,
+      "status": "Monitoring",
+      "notes": "Mild trapezius stiffness. Active postural breaks recommended."
+    },
+    {
+      "id": "cond-knee",
+      "title": "Patellar & Lower Extremity Kinetics",
+      "doctor": "Dr. Naresh Trehan",
+      "specialty": "Orthopedics & Sports Medicine",
+      "organ": "knee",
+      "angleCurrent": 119,
+      "angleNormal": 120,
+      "status": "Stable",
+      "notes": "Optimal joint alignment and full physiological range of motion."
+    }
+  ],
+  "visualAnalytics": {
+    "healthScore": 94,
+    "avgBpm": 72,
+    "bpmStatus": "Optimal Resting Heart Rate (Rest: 65 bpm)",
+    "heartRatePath": "M 0 98 Q 25 78, 50 82 T 100 62 T 150 88 T 200 42 T 250 78 T 300 68 T 350 85 T 400 58",
+    "sleepHours": "7h 55m",
+    "sleepStatus": "89% Restorative Deep Sleep (Optimal)",
+    "sleepBars": [68, 80, 86, 94, 90, 96, 92],
+    "stressScore": "16 / 100",
+    "stressStatus": "Autonomic Balance (Vagal Recovery)",
+    "stressPath": "M 0 122 Q 30 112, 60 116 T 120 106 T 180 120 T 240 102 T 300 116 T 350 110",
+    "stressPoints": [
+      { "cx": 40, "cy": 114, "isHigh": false },
+      { "cx": 110, "cy": 107, "isHigh": false },
+      { "cx": 190, "cy": 120, "isHigh": false },
+      { "cx": 270, "cy": 104, "isHigh": false },
+      { "cx": 340, "cy": 111, "isHigh": false }
+    ],
+    "avgSteps": "11,200",
+    "stepsStatus": "+20% Active Daily Movement vs Baseline",
+    "stepsBars": [
+      { "height": 78, "active": false },
+      { "height": 88, "active": false },
+      { "height": 92, "active": false },
+      { "height": 82, "active": false },
+      { "height": 98, "active": true },
+      { "height": 86, "active": false },
+      { "height": 90, "active": false }
+    ],
+    "aiInsights": {
+      "positive": {
+        "title": "Cardiovascular Conditioning",
+        "description": "Resting heart rate (72 BPM) and 66ms HRV indicate strong autonomic regulation and consistent recovery."
+      },
+      "takeAction": {
+        "title": "Hydration Balance",
+        "description": "Daily hydration goal at 85%. Add 400ml water during afternoon work intervals."
+      },
+      "monitor": {
+        "title": "Neck & Shoulder Ergonomics",
+        "description": "Perform cervical stretches every 90 minutes to maintain optimal neck posture."
+      }
+    },
+    "carePlan": {
+      "medicationPercent": 100,
+      "medicationStatus": "Daily Multivitamin & Omega-3 Complete",
+      "hydrationPercent": 85,
+      "hydrationStatus": "2.55L / 3.0L Target Reached"
+    },
+    "nextAppointment": {
+      "doctor": "Dr. Rajesh K. Varma",
+      "specialty": "Pulmonologist & Critical Care",
+      "date": "Tuesday, 20 Jan, 03:30 PM",
+      "type": "Preventive Health Assessment",
+      "photoUrl": "/images/mangal_singh.jpg"
+    }
+  }
+}

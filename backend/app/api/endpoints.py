@@ -109,7 +109,7 @@ async def diagnostic_risk_endpoint(req: DiagnosticRiskRequest):
 
 
 @router.get("/abdm/generate-id", tags=["Gov Schemes & ABDM"])
-async def abdm_id_endpoint(name: str = "Demo Citizen", year_of_birth: int = 1995, state_code: str = "DL"):
+async def abdm_id_endpoint(name: str = "Mausam Kar", year_of_birth: int = 2002, state_code: str = "DL"):
     """Generates mock Indian ABHA Health ID & PM-JAY eligibility profile."""
     return generate_abha_id(name=name, year_of_birth=year_of_birth, state_code=state_code)
 

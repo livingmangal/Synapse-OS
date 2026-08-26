@@ -53,11 +53,11 @@ export default function HospitalOperationsPanel() {
       ]
     },
     admittedList: [
-      { name: 'Edward Parker', age: 32, gender: 'M', id: '25698', room: 'ICU-11', doctor: 'Dr. ChrisGeller', nurse: 'Kip Andrews', division: 'Surgery', critical: true },
-      { name: 'Maria Dorothy', age: 35, gender: 'F', id: '56965', room: 'Ge. Ward- 9', doctor: 'Dr. Dorene Thirlaway', nurse: 'Kevin Burrow', division: 'Gynecology', critical: false },
-      { name: 'Alasteir Swinglehurst', age: 54, gender: 'M', id: '68956', room: 'Private A- 5', doctor: 'Dr. Elmo Canedo', nurse: 'Stacey Izzatt', division: 'Dermatology', critical: false },
-      { name: 'Broddie Philpon', age: 29, gender: 'M', id: '10023', room: 'Covid- 10', doctor: 'Dr. Emilio Grabiec', nurse: 'Stefaniee Heamus', division: 'COVID-19', critical: true },
-      { name: 'Edena Smorthwaite', age: 41, gender: 'F', id: '23056', room: 'Ge. Ward- 15', doctor: 'Dr. Lara Eagger', nurse: 'Toinette Antonsen', division: 'Neurology', critical: false }
+      { name: 'Aarav Sharma', age: 32, gender: 'M', id: '25698', room: 'ICU-11', doctor: 'Dr. Rajesh Varma', nurse: 'Sunita Sharma', division: 'Surgery', critical: true },
+      { name: 'Pooja Verma', age: 35, gender: 'F', id: '56965', room: 'Ge. Ward- 9', doctor: 'Dr. Ananya Sen', nurse: 'Kavita Nair', division: 'Gynecology', critical: false },
+      { name: 'Amitabh Sen', age: 54, gender: 'M', id: '68956', room: 'Private A- 5', doctor: 'Dr. Suresh Menon', nurse: 'Priya Patel', division: 'Dermatology', critical: false },
+      { name: 'Rahul Nair', age: 29, gender: 'M', id: '10023', room: 'Covid- 10', doctor: 'Dr. Arvind Patel', nurse: 'Ritu Deshmukh', division: 'COVID-19', critical: true },
+      { name: 'Kavita Reddy', age: 41, gender: 'F', id: '23056', room: 'Ge. Ward- 15', doctor: 'Dr. Meenakshi Sundaram', nurse: 'Deepa Rao', division: 'Neurology', critical: false }
     ]
   };
 

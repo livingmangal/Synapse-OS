@@ -27,9 +27,9 @@ import { PatientInfo, VitalsData } from '../types';
 import { MOCK_HEALTH_PROFILES, MockHealthProfile } from '@/data/mockHealthProfiles';
 
 interface VisualAnalyticsPanelProps {
-  patient: PatientInfo;
-  vitals: VitalsData;
-  onOpenExportModal: () => void;
+  patient?: PatientInfo;
+  vitals?: VitalsData;
+  onOpenExportModal?: () => void;
 }
 
 export default function VisualAnalyticsPanel({
@@ -38,7 +38,7 @@ export default function VisualAnalyticsPanel({
   onOpenExportModal
 }: VisualAnalyticsPanelProps) {
   const [chatMessage, setChatMessage] = useState('');
-  const [selectedProfileId, setSelectedProfileId] = useState<string>('healthy_adult_baseline');
+  const [selectedProfileId, setSelectedProfileId] = useState<string>('mausam_kar_verified_abha');
   const [customProfile, setCustomProfile] = useState<MockHealthProfile | null>(null);
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);

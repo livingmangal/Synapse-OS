@@ -1,0 +1,119 @@
+{
+  "id": "shaikh_warsi_verified_abha",
+  "name": "Shaikh Mohammad Warsi",
+  "age": 24,
+  "gender": "Male",
+  "dob": "December 10, 2001",
+  "bloodType": "AB+",
+  "abhaId": "91-7712-4890-3318",
+  "abhaAddress": "shaikhwarsi@abdm",
+  "policyNumber": "PM-JAY-2026-IND-5290",
+  "planType": "Ayushman Bharat PM-JAY (ABDM Verified)",
+  "residence": "Mumbai / New Delhi, India",
+  "avatarUrl": "",
+  "device": "OnePlus Watch 2 & Health Connect",
+  "status": "ABDM_VERIFIED_ACTIVE",
+  "kycVerified": true,
+  "pmjayCoverage": "₹5,00,000 Annual Family Floating Cover",
+  "vitals": {
+    "heartRate": 76,
+    "avgHeartRate": 67,
+    "maxHeartRate": 128,
+    "systolicBp": 120,
+    "diastolicBp": 80,
+    "oxygenSaturation": 98.4,
+    "respirationRate": 16,
+    "hrv": 65,
+    "vo2Max": 47.0,
+    "leadIEcg": "Normal Sinus Rhythm (NSR) • QTc 406ms • Isoelectric ST Segment"
+  },
+  "conditions": [
+    {
+      "id": "cond-lungs",
+      "title": "Cardio-Pulmonary Performance",
+      "doctor": "Dr. Rajesh K. Varma",
+      "specialty": "Pulmonology & Critical Care",
+      "organ": "lungs",
+      "status": "Stable",
+      "notes": "FEV1: 4.8L, O2 Saturation: 98.4%, Healthy lung capacity."
+    },
+    {
+      "id": "cond-shoulder",
+      "title": "Trapezius & Cervical Posture",
+      "doctor": "Dr. Rajesh K. Varma",
+      "specialty": "Orthopedics & Posture Medicine",
+      "organ": "shoulder",
+      "painLevel": 3,
+      "status": "Monitoring",
+      "notes": "Mild trapezius stiffness from keyboard use. Stretching recommended."
+    },
+    {
+      "id": "cond-knee",
+      "title": "Lower Limb Biomechanics",
+      "doctor": "Dr. Naresh Trehan",
+      "specialty": "Orthopedics & Sports Medicine",
+      "organ": "knee",
+      "angleCurrent": 119,
+      "angleNormal": 120,
+      "status": "Stable",
+      "notes": "Healthy joint mobility and full range of motion."
+    }
+  ],
+  "visualAnalytics": {
+    "healthScore": 93,
+    "avgBpm": 76,
+    "bpmStatus": "Optimal Resting Heart Rate (Rest: 67 bpm)",
+    "heartRatePath": "M 0 100 Q 25 80, 50 84 T 100 66 T 150 90 T 200 48 T 250 80 T 300 70 T 350 88 T 400 60",
+    "sleepHours": "7h 30m",
+    "sleepStatus": "87% Restorative Deep Sleep (Optimal)",
+    "sleepBars": [65, 78, 84, 90, 86, 92, 88],
+    "stressScore": "20 / 100",
+    "stressStatus": "Healthy Autonomic Function",
+    "stressPath": "M 0 120 Q 30 110, 60 114 T 120 104 T 180 118 T 240 100 T 300 114 T 350 108",
+    "stressPoints": [
+      { "cx": 40, "cy": 112, "isHigh": false },
+      { "cx": 110, "cy": 106, "isHigh": false },
+      { "cx": 190, "cy": 118, "isHigh": false },
+      { "cx": 270, "cy": 102, "isHigh": false },
+      { "cx": 340, "cy": 110, "isHigh": false }
+    ],
+    "avgSteps": "11,500",
+    "stepsStatus": "+22% Active Daily Movement vs Target",
+    "stepsBars": [
+      { "height": 80, "active": false },
+      { "height": 88, "active": false },
+      { "height": 94, "active": false },
+      { "height": 84, "active": false },
+      { "height": 98, "active": true },
+      { "height": 86, "active": false },
+      { "height": 90, "active": false }
+    ],
+    "aiInsights": {
+      "positive": {
+        "title": "Cardiorespiratory Stamina",
+        "description": "Resting heart rate (76 BPM) and 11.5k average steps reflect healthy activity levels and endurance."
+      },
+      "takeAction": {
+        "title": "Hydration Balance",
+        "description": "Daily hydration goal at 82%. Target 500ml additional water intake during afternoon focus hours."
+      },
+      "monitor": {
+        "title": "Ergonomic Desk Posture",
+        "description": "Take 2-minute standing breaks every 90 minutes to relieve trapezius tension."
+      }
+    },
+    "carePlan": {
+      "medicationPercent": 100,
+      "medicationStatus": "Daily Multivitamin & Omega-3 Complete",
+      "hydrationPercent": 82,
+      "hydrationStatus": "2.45L / 3.0L Target Reached"
+    },
+    "nextAppointment": {
+      "doctor": "Dr. Rajesh K. Varma",
+      "specialty": "Pulmonologist & Critical Care",
+      "date": "Friday, 23 Jan, 04:00 PM",
+      "type": "Preventive Health Assessment",
+      "photoUrl": ""
+    }
+  }
+}

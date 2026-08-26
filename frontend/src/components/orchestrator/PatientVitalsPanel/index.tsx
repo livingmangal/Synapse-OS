@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   Heart, 
   Activity, 
@@ -10,20 +10,31 @@ import {
   CheckCircle2, 
   ChevronLeft, 
   ChevronRight, 
-  UserCheck,
-  Stethoscope,
-  Share2,
-  MoreHorizontal,
-  Copy,
-  Printer,
-  FileCode,
-  Check
+  UserCheck, 
+  Stethoscope, 
+  Share2, 
+  MoreHorizontal, 
+  Copy, 
+  Printer, 
+  FileCode, 
+  Check,
+  Upload,
+  RefreshCw,
+  ShieldCheck,
+  Link as LinkIcon,
+  X
 } from 'lucide-react';
 import { PatientInfo, VitalsData, DoctorSlot } from '../types';
+import { MOCK_HEALTH_PROFILES } from '@/data/mockHealthProfiles';
 
 interface PatientVitalsPanelProps {
   patient: PatientInfo;
   vitals: VitalsData;
+  isAbhaLinked?: boolean;
+  onToggleAbhaLink?: () => void;
+  selectedProfileId?: string;
+  onSelectProfile?: (id: string) => void;
+  onUploadCustomProfile?: (data: any) => void;
   onBookDoctor?: (doctor: DoctorSlot) => void;
 }
 
@@ -32,12 +43,20 @@ const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
 export default function PatientVitalsPanel({
   patient,
   vitals,
+  isAbhaLinked = true,
+  onToggleAbhaLink,
+  selectedProfileId = 'mausam_kar_verified_abha',
+  onSelectProfile,
+  onUploadCustomProfile,
   onBookDoctor
 }: PatientVitalsPanelProps) {
   const [selectedDay, setSelectedDay] = useState(12);
   const [copiedLink, setCopiedLink] = useState(false);
   const [showMoreMenu, setShowMoreMenu] = useState(false);
+  const [showQrModal, setShowQrModal] = useState(false);
   const [bookingSuccess, setBookingSuccess] = useState<string | null>(null);
+  const [isLinking, setIsLinking] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Dynamic doctor slots based on selected day
   const getDoctorsForDay = (dayNum: number): DoctorSlot[] => {
@@ -56,7 +75,7 @@ export default function PatientVitalsPanel({
     return [
       {
         id: 'DOC-AIIMS-101',
-        name: 'Dr. Steven Fandel',
+        name: 'Dr. Rajesh K. Varma',
         specialty: 'Pulmonologist & Critical Care',
         hospital: 'AIIMS New Delhi',
         experienceYears: 14,
@@ -67,7 +86,7 @@ export default function PatientVitalsPanel({
       },
       {
         id: 'DOC-CARDIO-204',
-        name: 'Dr. Vetrick Wilsen',
+        name: 'Dr. Naresh Trehan',
         specialty: 'Cardiologist & Electrophysiologist',
         hospital: 'Fortis Escorts Heart Institute',
         experienceYears: 18,
@@ -114,6 +133,30 @@ export default function PatientVitalsPanel({
     onBookDoctor?.(doc);
   };
 
+  const handleSimulateAbhaLink = () => {
+    setIsLinking(true);
+    setTimeout(() => {
+      setIsLinking(false);
+      onToggleAbhaLink?.();
+    }, 900);
+  };
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      try {
+        const json = JSON.parse(event.target?.result as string);
+        onUploadCustomProfile?.(json);
+      } catch (err) {
+        alert('Invalid JSON file format.');
+      }
+    };
+    reader.readAsText(file);
+  };
+
   const days = [
     { day: 'Sat', num: 9 },
     { day: 'Sun', num: 10 },
@@ -130,21 +173,92 @@ export default function PatientVitalsPanel({
       style={{
         display: 'flex',
         flexDirection: 'column',
-        gap: '20px',
+        gap: '16px',
         width: '340px',
         flexShrink: 0,
         fontFamily: '"Times New Roman", Times, serif'
       }}
     >
+      {/* Hidden File Input for Custom JSON Upload */}
+      <input
+        type="file"
+        ref={fileInputRef}
+        onChange={handleFileUpload}
+        accept=".json"
+        style={{ display: 'none' }}
+      />
+
+      {/* ABDM Gateway & Profile Switcher Strip */}
+      <div style={{
+        background: '#ffffff',
+        borderRadius: '16px',
+        border: '1px solid #bae6fd',
+        padding: '10px 12px',
+        boxShadow: '0 2px 8px rgba(2,132,199,0.06)',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '8px'
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <span style={{ fontSize: '10.5px', fontWeight: 800, color: '#0369a1', display: 'flex', alignItems: 'center', gap: '5px' }}>
+            <ShieldCheck size={13} color="#0284c7" />
+            ABDM Sandbox Gateway
+          </span>
+          <button
+            onClick={() => fileInputRef.current?.click()}
+            title="Upload custom patient JSON export"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '4px',
+              padding: '3px 8px',
+              borderRadius: '6px',
+              background: '#f0f9ff',
+              border: '1px solid #bae6fd',
+              color: '#0284c7',
+              fontSize: '10px',
+              fontWeight: 800,
+              cursor: 'pointer'
+            }}
+          >
+            <Upload size={11} /> Upload JSON
+          </button>
+        </div>
+
+        {/* Profile Selector Dropdown */}
+        <select
+          value={selectedProfileId}
+          onChange={(e) => onSelectProfile?.(e.target.value)}
+          style={{
+            width: '100%',
+            padding: '5px 8px',
+            borderRadius: '8px',
+            background: '#f8fafc',
+            border: '1px solid #cbd5e1',
+            color: '#0f172a',
+            fontSize: '11px',
+            fontWeight: 700,
+            cursor: 'pointer',
+            outline: 'none'
+          }}
+        >
+          {MOCK_HEALTH_PROFILES.map((p) => (
+            <option key={p.profileId} value={p.profileId}>
+              {p.title}
+            </option>
+          ))}
+        </select>
+      </div>
+
       {/* 1. Patient Profile Card */}
       <div 
         className="orch-card-interactive"
         style={{
           background: '#ffffff',
           borderRadius: '20px',
-          border: '1px solid #e2e8f0',
+          border: '1px solid #bae6fd',
           padding: '20px',
-          boxShadow: '0 4px 14px rgba(0,0,0,0.03)',
+          boxShadow: '0 4px 14px rgba(2,132,199,0.04)',
           position: 'relative'
         }}
       >
@@ -154,9 +268,9 @@ export default function PatientVitalsPanel({
             fontWeight: 800,
             padding: '4px 10px',
             borderRadius: '8px',
-            background: '#fdf2f8',
-            color: '#db2777',
-            border: '1px solid #fbcfe8'
+            background: isAbhaLinked ? '#e0f2fe' : '#fef2f2',
+            color: isAbhaLinked ? '#0369a1' : '#b91c1c',
+            border: isAbhaLinked ? '1px solid #bae6fd' : '1px solid #fecaca'
           }}>
             ● {patient.planType}
           </span>
@@ -166,10 +280,10 @@ export default function PatientVitalsPanel({
               onClick={handleShare}
               title="Copy Patient Share Link"
               style={{
-                background: copiedLink ? '#ecfdf5' : '#f8fafc',
+                background: copiedLink ? '#ecfdf5' : '#f0f9ff',
                 border: '1px solid',
-                borderColor: copiedLink ? '#a7f3d0' : '#e2e8f0',
-                color: copiedLink ? '#059669' : '#64748b',
+                borderColor: copiedLink ? '#a7f3d0' : '#bae6fd',
+                color: copiedLink ? '#059669' : '#0284c7',
                 width: '28px',
                 height: '28px',
                 borderRadius: '8px',
@@ -187,10 +301,10 @@ export default function PatientVitalsPanel({
               onClick={() => setShowMoreMenu(!showMoreMenu)}
               title="More Options"
               style={{
-                background: showMoreMenu ? '#fdf2f8' : '#f8fafc',
+                background: showMoreMenu ? '#e0f2fe' : '#f0f9ff',
                 border: '1px solid',
-                borderColor: showMoreMenu ? '#fbcfe8' : '#e2e8f0',
-                color: showMoreMenu ? '#db2777' : '#64748b',
+                borderColor: showMoreMenu ? '#0284c7' : '#bae6fd',
+                color: '#0284c7',
                 width: '28px',
                 height: '28px',
                 borderRadius: '8px',
@@ -210,17 +324,39 @@ export default function PatientVitalsPanel({
                 position: 'absolute',
                 top: '34px',
                 right: 0,
-                width: '180px',
+                width: '190px',
                 background: '#ffffff',
                 borderRadius: '12px',
-                border: '1px solid #e2e8f0',
-                boxShadow: '0 10px 25px rgba(0,0,0,0.08)',
+                border: '1px solid #bae6fd',
+                boxShadow: '0 10px 25px rgba(2,132,199,0.12)',
                 zIndex: 50,
                 padding: '6px',
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '2px'
               }}>
+                <button
+                  onClick={() => { onToggleAbhaLink?.(); setShowMoreMenu(false); }}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    padding: '8px 10px',
+                    borderRadius: '8px',
+                    border: 'none',
+                    background: 'transparent',
+                    fontSize: '11px',
+                    color: isAbhaLinked ? '#b91c1c' : '#0369a1',
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                    textAlign: 'left'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.background = '#f0f9ff'}
+                  onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                >
+                  <RefreshCw size={13} color={isAbhaLinked ? '#b91c1c' : '#0284c7'} />
+                  <span>{isAbhaLinked ? 'Unlink ABHA (View Empty)' : 'Relink ABHA Record'}</span>
+                </button>
                 <button
                   onClick={() => { window.print(); setShowMoreMenu(false); }}
                   style={{
@@ -240,7 +376,7 @@ export default function PatientVitalsPanel({
                   onMouseEnter={(e) => e.currentTarget.style.background = '#f8fafc'}
                   onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
                 >
-                  <Printer size={13} color="#db2777" />
+                  <Printer size={13} color="#0284c7" />
                   <span>Print EHR Record</span>
                 </button>
                 <button
@@ -262,7 +398,7 @@ export default function PatientVitalsPanel({
                   onMouseEnter={(e) => e.currentTarget.style.background = '#f8fafc'}
                   onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
                 >
-                  <Copy size={13} color="#db2777" />
+                  <Copy size={13} color="#0284c7" />
                   <span>Copy FHIR URL</span>
                 </button>
               </div>
@@ -296,19 +432,19 @@ export default function PatientVitalsPanel({
               height: '64px',
               borderRadius: '16px',
               objectFit: 'cover',
-              border: '2px solid #e2e8f0',
-              boxShadow: '0 4px 10px rgba(0,0,0,0.06)'
+              border: '2px solid #bae6fd',
+              boxShadow: '0 4px 10px rgba(2,132,199,0.1)'
             }}
           />
           <div>
-            <h2 style={{ fontSize: '17px', fontWeight: 800, color: '#0f172a', margin: '0 0 3px 0' }}>
+            <h2 style={{ fontSize: '18px', fontWeight: 800, color: '#0f172a', margin: '0 0 3px 0' }}>
               {patient.name}
             </h2>
             <div style={{ fontSize: '11px', color: '#64748b', marginBottom: '2px' }}>
               DOB: <strong style={{ color: '#334155' }}>{patient.dob}</strong>
             </div>
             <div style={{ fontSize: '11px', color: '#64748b' }}>
-              Gender: <strong style={{ color: '#334155' }}>{patient.gender}</strong> • Blood: <strong style={{ color: '#ef4444' }}>{patient.bloodType}</strong>
+              Gender: <strong style={{ color: '#334155' }}>{patient.gender}</strong> • Blood: <strong style={{ color: '#0284c7' }}>{patient.bloodType}</strong>
             </div>
           </div>
         </div>
@@ -319,35 +455,78 @@ export default function PatientVitalsPanel({
           alignItems: 'center',
           gap: '12px',
           padding: '12px 14px',
-          background: '#f8fafc',
+          background: '#f0f9ff',
           borderRadius: '14px',
-          border: '1px solid #f1f5f9'
+          border: '1px solid #bae6fd'
         }}>
-          <div style={{
-            width: '46px',
-            height: '46px',
-            background: '#ffffff',
-            borderRadius: '10px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            border: '1px solid #e2e8f0',
-            flexShrink: 0
-          }}>
-            <QrCode size={30} color="#db2777" />
+          <div 
+            onClick={() => setShowQrModal(true)}
+            title="View Official National ABHA QR Code"
+            style={{
+              width: '46px',
+              height: '46px',
+              background: '#ffffff',
+              borderRadius: '10px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              border: '1px solid #bae6fd',
+              flexShrink: 0,
+              cursor: 'pointer',
+              boxShadow: '0 2px 6px rgba(2,132,199,0.1)'
+            }}
+          >
+            <QrCode size={28} color="#0284c7" />
           </div>
           <div style={{ flex: 1, minWidth: 0 }}>
             <div style={{ fontSize: '10px', color: '#64748b', fontWeight: 700, textTransform: 'uppercase' }}>
               Policy #{patient.policyNumber}
             </div>
-            <div style={{ fontSize: '12px', fontWeight: 800, color: '#0f172a', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', margin: '2px 0' }}>
+            <div style={{ fontSize: '12.5px', fontWeight: 800, color: '#0f172a', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', margin: '2px 0' }}>
               ABHA: {patient.abhaId}
             </div>
-            <div style={{ fontSize: '10px', color: '#059669', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '4px' }}>
-              <span>✓ Verified PM-JAY Citizen</span>
+            <div style={{ fontSize: '10px', color: isAbhaLinked ? '#059669' : '#b91c1c', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '4px' }}>
+              <span>{isAbhaLinked ? '✓ Verified PM-JAY Citizen' : '⚠️ Unlinked ABHA Profile'}</span>
             </div>
           </div>
         </div>
+
+        {/* Unlinked State Connect Action Button */}
+        {!isAbhaLinked && (
+          <button
+            onClick={handleSimulateAbhaLink}
+            disabled={isLinking}
+            style={{
+              marginTop: '12px',
+              width: '100%',
+              padding: '10px',
+              borderRadius: '10px',
+              border: 'none',
+              background: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
+              color: '#ffffff',
+              fontSize: '12px',
+              fontWeight: 800,
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '6px',
+              boxShadow: '0 4px 12px rgba(2,132,199,0.3)'
+            }}
+          >
+            {isLinking ? (
+              <>
+                <RefreshCw size={14} className="animate-spin" />
+                <span>Authenticating with ABDM Gateway...</span>
+              </>
+            ) : (
+              <>
+                <LinkIcon size={14} />
+                <span>Connect Verified ABHA via OTP</span>
+              </>
+            )}
+          </button>
+        )}
       </div>
 
       {/* 2. Hearth Check & 3D Cardiac Monitor */}
@@ -356,9 +535,9 @@ export default function PatientVitalsPanel({
         style={{
           background: '#ffffff',
           borderRadius: '20px',
-          border: '1px solid #e2e8f0',
+          border: '1px solid #bae6fd',
           padding: '20px',
-          boxShadow: '0 4px 14px rgba(0,0,0,0.03)'
+          boxShadow: '0 4px 14px rgba(2,132,199,0.04)'
         }}
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
@@ -370,11 +549,11 @@ export default function PatientVitalsPanel({
               </h3>
             </div>
             <div style={{ fontSize: '11px', color: '#64748b', marginTop: '2px' }}>
-              Average: <strong>{vitals.avgHeartRate} bpm</strong> • Max: <strong>{vitals.maxHeartRate} bpm</strong>
+              Average: <strong>{isAbhaLinked ? `${vitals.avgHeartRate} bpm` : '---'}</strong> • Max: <strong>{isAbhaLinked ? `${vitals.maxHeartRate} bpm` : '---'}</strong>
             </div>
           </div>
           <span style={{ fontSize: '18px', fontWeight: 900, color: '#0f172a' }}>
-            {vitals.heartRate} <span style={{ fontSize: '11px', fontWeight: 700, color: '#64748b' }}>BPM</span>
+            {isAbhaLinked ? vitals.heartRate : '---'} <span style={{ fontSize: '11px', fontWeight: 700, color: '#64748b' }}>BPM</span>
           </span>
         </div>
 
@@ -383,17 +562,17 @@ export default function PatientVitalsPanel({
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          background: '#fdf2f8',
-          border: '1px solid #fbcfe8',
+          background: '#f0f9ff',
+          border: '1px solid #bae6fd',
           borderRadius: '10px',
           padding: '5px 10px',
           marginBottom: '12px'
         }}>
-          <span style={{ fontSize: '10.5px', color: '#db2777', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '5px' }}>
-            <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#db2777', boxShadow: '0 0 6px #db2777' }} />
+          <span style={{ fontSize: '10.5px', color: '#0284c7', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '5px' }}>
+            <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#0284c7', boxShadow: '0 0 6px #0284c7' }} />
             Apple Watch & Google Health Synced
           </span>
-          <span style={{ fontSize: '10px', color: '#9d174d', fontWeight: 600 }}>
+          <span style={{ fontSize: '10px', color: '#0369a1', fontWeight: 700 }}>
             Live Lead I ECG
           </span>
         </div>
@@ -406,7 +585,7 @@ export default function PatientVitalsPanel({
             height: '68px',
             borderRadius: '14px',
             background: '#fafaf9',
-            border: '1px solid #f1f5f9',
+            border: '1px solid #bae6fd',
             overflow: 'hidden',
             flexShrink: 0,
             display: 'flex',
@@ -423,14 +602,14 @@ export default function PatientVitalsPanel({
           {/* ECG Continuous Spline Chart with Amplitude Axes */}
           <div style={{ flex: 1, height: '68px', position: 'relative' }}>
             <svg viewBox="0 0 200 68" style={{ width: '100%', height: '100%', overflow: 'visible' }}>
-              <line x1="0" y1="34" x2="200" y2="34" stroke="#f1f5f9" strokeWidth="1" />
-              <line x1="0" y1="12" x2="200" y2="12" stroke="#f8fafc" strokeWidth="1" strokeDasharray="2 2" />
-              <line x1="0" y1="56" x2="200" y2="56" stroke="#f8fafc" strokeWidth="1" strokeDasharray="2 2" />
+              <line x1="0" y1="34" x2="200" y2="34" stroke="#e0f2fe" strokeWidth="1" />
+              <line x1="0" y1="12" x2="200" y2="12" stroke="#f0f9ff" strokeWidth="1" strokeDasharray="2 2" />
+              <line x1="0" y1="56" x2="200" y2="56" stroke="#f0f9ff" strokeWidth="1" strokeDasharray="2 2" />
 
               <path
                 d="M 0 34 L 20 34 L 28 20 L 36 50 L 44 26 L 52 38 L 60 34 L 90 34 L 98 10 L 106 58 L 114 20 L 122 42 L 130 34 L 160 34 L 168 20 L 176 50 L 184 26 L 192 38 L 200 34"
                 fill="none"
-                stroke="#db2777"
+                stroke="#0284c7"
                 strokeWidth="2.2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -441,16 +620,16 @@ export default function PatientVitalsPanel({
 
         {/* Blood Pressure & Oxygen Row */}
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
-          <div style={{ background: '#f8fafc', padding: '10px 12px', borderRadius: '12px', border: '1px solid #f1f5f9' }}>
+          <div style={{ background: '#f8fafc', padding: '10px 12px', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
             <div style={{ fontSize: '10px', color: '#64748b', fontWeight: 700 }}>BLOOD PRESSURE</div>
             <div style={{ fontSize: '13px', fontWeight: 800, color: '#0f172a', marginTop: '2px' }}>
-              {vitals.systolicBp}/{vitals.diastolicBp} <span style={{ fontSize: '10px', fontWeight: 600, color: '#64748b' }}>mmHg</span>
+              {isAbhaLinked ? `${vitals.systolicBp}/${vitals.diastolicBp}` : '---/---'} <span style={{ fontSize: '10px', fontWeight: 600, color: '#64748b' }}>mmHg</span>
             </div>
           </div>
-          <div style={{ background: '#f8fafc', padding: '10px 12px', borderRadius: '12px', border: '1px solid #f1f5f9' }}>
+          <div style={{ background: '#f8fafc', padding: '10px 12px', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
             <div style={{ fontSize: '10px', color: '#64748b', fontWeight: 700 }}>O2 SATURATION</div>
             <div style={{ fontSize: '13px', fontWeight: 800, color: '#059669', marginTop: '2px' }}>
-              {vitals.oxygenSaturation}% <span style={{ fontSize: '10px', fontWeight: 600, color: '#64748b' }}>Normal</span>
+              {isAbhaLinked ? `${vitals.oxygenSaturation}%` : '---%'} <span style={{ fontSize: '10px', fontWeight: 600, color: '#64748b' }}>{isAbhaLinked ? 'Normal' : 'Pending'}</span>
             </div>
           </div>
         </div>
@@ -462,16 +641,16 @@ export default function PatientVitalsPanel({
         style={{
           background: '#ffffff',
           borderRadius: '20px',
-          border: '1px solid #e2e8f0',
+          border: '1px solid #bae6fd',
           padding: '20px',
-          boxShadow: '0 4px 14px rgba(0,0,0,0.03)'
+          boxShadow: '0 4px 14px rgba(2,132,199,0.04)'
         }}
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
           <h3 style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a', margin: 0 }}>
             Schedule with Doctor
           </h3>
-          <span style={{ fontSize: '11px', color: '#db2777', fontWeight: 700, background: '#fdf2f8', padding: '2px 8px', borderRadius: '6px' }}>
+          <span style={{ fontSize: '11px', color: '#0284c7', fontWeight: 800, background: '#e0f2fe', padding: '2px 8px', borderRadius: '6px', border: '1px solid #bae6fd' }}>
             Jan, 2026
           </span>
         </div>
@@ -509,11 +688,11 @@ export default function PatientVitalsPanel({
                   alignItems: 'center',
                   padding: '7px 8px',
                   borderRadius: '12px',
-                  background: isSelected ? '#db2777' : 'transparent',
+                  background: isSelected ? 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)' : 'transparent',
                   color: isSelected ? '#ffffff' : '#64748b',
                   cursor: 'pointer',
                   transition: 'all 0.15s ease',
-                  boxShadow: isSelected ? '0 4px 12px rgba(219, 39, 119,0.3)' : 'none'
+                  boxShadow: isSelected ? '0 4px 12px rgba(2,132,199,0.35)' : 'none'
                 }}
               >
                 <span style={{ fontSize: '9px', fontWeight: 600 }}>{d.day}</span>
@@ -529,7 +708,7 @@ export default function PatientVitalsPanel({
             <div
               key={doc.id}
               style={{
-                border: '1px solid #f1f5f9',
+                border: '1px solid #e2e8f0',
                 borderRadius: '14px',
                 padding: '12px 14px',
                 background: '#fafaf9'
@@ -555,12 +734,12 @@ export default function PatientVitalsPanel({
                     padding: '5px 12px',
                     borderRadius: '8px',
                     border: 'none',
-                    background: '#db2777',
+                    background: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
                     color: '#ffffff',
                     fontSize: '11px',
                     fontWeight: 700,
                     cursor: 'pointer',
-                    boxShadow: '0 2px 6px rgba(219, 39, 119,0.25)',
+                    boxShadow: '0 2px 6px rgba(2,132,199,0.25)',
                     transition: 'all 0.15s ease'
                   }}
                 >
@@ -571,6 +750,93 @@ export default function PatientVitalsPanel({
           ))}
         </div>
       </div>
+
+      {/* Official ABHA Card QR Modal */}
+      {showQrModal && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'rgba(15, 23, 42, 0.65)',
+          backdropFilter: 'blur(6px)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 9999,
+          padding: '20px'
+        }}>
+          <div style={{
+            background: '#ffffff',
+            borderRadius: '24px',
+            border: '1px solid #bae6fd',
+            width: '100%',
+            maxWidth: '380px',
+            padding: '24px',
+            boxShadow: '0 20px 50px rgba(2,132,199,0.2)',
+            position: 'relative'
+          }}>
+            <button
+              onClick={() => setShowQrModal(false)}
+              style={{
+                position: 'absolute',
+                top: '16px',
+                right: '16px',
+                width: '32px',
+                height: '32px',
+                borderRadius: '50%',
+                background: '#f0f9ff',
+                border: '1px solid #bae6fd',
+                color: '#0284c7',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer'
+              }}
+            >
+              <X size={16} />
+            </button>
+
+            <div style={{ textAlign: 'center', marginBottom: '16px' }}>
+              <div style={{ fontSize: '11px', fontWeight: 800, color: '#0369a1', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                National Health Authority (NHA)
+              </div>
+              <h3 style={{ fontSize: '18px', fontWeight: 900, color: '#0f172a', margin: '4px 0 0 0' }}>
+                Ayushman Bharat Health Card
+              </h3>
+            </div>
+
+            <div style={{
+              background: '#f0f9ff',
+              border: '2px dashed #bae6fd',
+              borderRadius: '16px',
+              padding: '20px',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: '12px'
+            }}>
+              <QrCode size={140} color="#0284c7" />
+              <div style={{ textAlign: 'center' }}>
+                <div style={{ fontSize: '15px', fontWeight: 900, color: '#0f172a' }}>
+                  {patient.name}
+                </div>
+                <div style={{ fontSize: '13px', fontWeight: 800, color: '#0284c7', margin: '2px 0' }}>
+                  {patient.abhaId}
+                </div>
+                <div style={{ fontSize: '10.5px', color: '#64748b' }}>
+                  ABHA Address: <strong>{patient.name.toLowerCase().replace(/\s+/g, '')}@abdm</strong>
+                </div>
+              </div>
+            </div>
+
+            <div style={{ marginTop: '16px', fontSize: '10.5px', color: '#059669', textAlign: 'center', fontWeight: 700 }}>
+              ✓ Verified via ABDM FastTrack M1/M2 Gateway Protocol
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

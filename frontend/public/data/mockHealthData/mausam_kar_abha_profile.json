@@ -1,0 +1,119 @@
+{
+  "id": "mausam_kar_verified_abha",
+  "name": "Mausam Kar",
+  "age": 24,
+  "gender": "Male",
+  "dob": "April 14, 2002",
+  "bloodType": "B+",
+  "abhaId": "91-7294-8102-5309",
+  "abhaAddress": "mausamkar@abdm",
+  "policyNumber": "PM-JAY-2026-IND-8841",
+  "planType": "Ayushman Bharat PM-JAY (ABDM Verified)",
+  "residence": "New Delhi, India",
+  "avatarUrl": "/images/mausam_kar.jpg",
+  "device": "Apple Watch Ultra & Google Health Connect Synced",
+  "status": "ABDM_VERIFIED_ACTIVE",
+  "kycVerified": true,
+  "pmjayCoverage": "₹5,00,000 Annual Family Floating Cover",
+  "vitals": {
+    "heartRate": 74,
+    "avgHeartRate": 72,
+    "maxHeartRate": 128,
+    "systolicBp": 118,
+    "diastolicBp": 76,
+    "oxygenSaturation": 98.5,
+    "respirationRate": 16,
+    "hrv": 68,
+    "vo2Max": 48.2,
+    "leadIEcg": "Normal Sinus Rhythm (NSR) • QTc 410ms • ST-Isoelectric"
+  },
+  "conditions": [
+    {
+      "id": "cond-lungs",
+      "title": "Pulmonary Function & Respiration",
+      "doctor": "Dr. Rajesh K. Varma",
+      "specialty": "Pulmonology & Critical Care",
+      "organ": "lungs",
+      "status": "Stable",
+      "notes": "FEV1: 4.8L, O2 Saturation: 98.5%, Normal alveolar diffusion."
+    },
+    {
+      "id": "cond-shoulder",
+      "title": "Cervical & Shoulder Posture Ergonomics",
+      "doctor": "Dr. Rajesh K. Varma",
+      "specialty": "Orthopedics & Sports Medicine",
+      "organ": "shoulder",
+      "painLevel": 4,
+      "status": "Monitoring",
+      "notes": "Mild trapezius tightness from desk posture. Ergonomic stretches recommended."
+    },
+    {
+      "id": "cond-knee",
+      "title": "Patellar Joint Biomechanics",
+      "doctor": "Dr. Naresh Trehan",
+      "specialty": "Orthopedics & Joint Care",
+      "organ": "knee",
+      "angleCurrent": 118,
+      "angleNormal": 120,
+      "status": "Stable",
+      "notes": "Healthy cartilage thickness and full range of motion."
+    }
+  ],
+  "visualAnalytics": {
+    "healthScore": 92,
+    "avgBpm": 74,
+    "bpmStatus": "Optimal Resting Heart Rate (Rest: 64 bpm)",
+    "heartRatePath": "M 0 100 Q 25 80, 50 85 T 100 65 T 150 90 T 200 45 T 250 80 T 300 70 T 350 88 T 400 60",
+    "sleepHours": "7h 48m",
+    "sleepStatus": "88% Restorative Deep Sleep (Optimal)",
+    "sleepBars": [65, 78, 85, 92, 88, 95, 90],
+    "stressScore": "18 / 100",
+    "stressStatus": "Relaxed State (Parasympathetic Dominant)",
+    "stressPath": "M 0 120 Q 30 110, 60 115 T 120 105 T 180 120 T 240 100 T 300 115 T 350 110",
+    "stressPoints": [
+      { "cx": 40, "cy": 112, "isHigh": false },
+      { "cx": 110, "cy": 106, "isHigh": false },
+      { "cx": 190, "cy": 118, "isHigh": false },
+      { "cx": 270, "cy": 102, "isHigh": false },
+      { "cx": 340, "cy": 110, "isHigh": false }
+    ],
+    "avgSteps": "10,480",
+    "stepsStatus": "+18% Active Calorie Burn vs Baseline",
+    "stepsBars": [
+      { "height": 75, "active": false },
+      { "height": 88, "active": false },
+      { "height": 92, "active": false },
+      { "height": 78, "active": false },
+      { "height": 98, "active": true },
+      { "height": 84, "active": false },
+      { "height": 90, "active": false }
+    ],
+    "aiInsights": {
+      "positive": {
+        "title": "Cardiovascular Stamina",
+        "description": "Resting heart rate (74 BPM) and HRV (68 ms) indicate excellent cardiovascular conditioning and recovery."
+      },
+      "takeAction": {
+        "title": "Hydration Balance",
+        "description": "Daily hydration goal at 82%. Target 500ml additional water intake during afternoon focus hours."
+      },
+      "monitor": {
+        "title": "Postural Ergonomics",
+        "description": "Continue desk stretches every 90 minutes to maintain optimal cervical spinal alignment."
+      }
+    },
+    "carePlan": {
+      "medicationPercent": 100,
+      "medicationStatus": "Multivitamin & Omega-3 Complete",
+      "hydrationPercent": 82,
+      "hydrationStatus": "2.4L / 3.0L Target Reached"
+    },
+    "nextAppointment": {
+      "doctor": "Dr. Rajesh K. Varma",
+      "specialty": "Pulmonologist & Critical Care",
+      "date": "Friday, 16 Jan, 04:00 PM",
+      "type": "Annual Preventive Review",
+      "photoUrl": "/images/mausam_kar.jpg"
+    }
+  }
+}

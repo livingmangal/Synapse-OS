@@ -1,0 +1,119 @@
+{
+  "id": "rachit_tiwari_verified_abha",
+  "name": "Rachit Tiwari",
+  "age": 23,
+  "gender": "Male",
+  "dob": "June 18, 2003",
+  "bloodType": "O+",
+  "abhaId": "91-8842-1920-7463",
+  "abhaAddress": "rachittiwari@abdm",
+  "policyNumber": "PM-JAY-2026-IND-9924",
+  "planType": "Ayushman Bharat PM-JAY (ABDM Verified)",
+  "residence": "Lucknow / New Delhi, India",
+  "avatarUrl": "/images/rachit_tiwari.jpg",
+  "device": "Pixel Watch 3 & Google Health Connect Synced",
+  "status": "ABDM_VERIFIED_ACTIVE",
+  "kycVerified": true,
+  "pmjayCoverage": "₹5,00,000 Annual Family Floating Cover",
+  "vitals": {
+    "heartRate": 70,
+    "avgHeartRate": 62,
+    "maxHeartRate": 124,
+    "systolicBp": 116,
+    "diastolicBp": 74,
+    "oxygenSaturation": 99.0,
+    "respirationRate": 15,
+    "hrv": 72,
+    "vo2Max": 51.4,
+    "leadIEcg": "Normal Sinus Rhythm (NSR) • QTc 402ms • High Autonomic Tone"
+  },
+  "conditions": [
+    {
+      "id": "cond-lungs",
+      "title": "Cardio-Pulmonary Respiratory Function",
+      "doctor": "Dr. Rajesh K. Varma",
+      "specialty": "Pulmonology & Sports Health",
+      "organ": "lungs",
+      "status": "Stable",
+      "notes": "FEV1: 5.1L, O2 Saturation: 99.0%, High aerobic pulmonary reserve."
+    },
+    {
+      "id": "cond-shoulder",
+      "title": "Lumbar & Shoulder Posture Ergonomics",
+      "doctor": "Dr. Rajesh K. Varma",
+      "specialty": "Orthopedics & Posture Biomechanics",
+      "organ": "shoulder",
+      "painLevel": 2,
+      "status": "Stable",
+      "notes": "Optimal posture alignment. Core stability exercises maintained."
+    },
+    {
+      "id": "cond-knee",
+      "title": "Lower Limb Kinetic Chain",
+      "doctor": "Dr. Naresh Trehan",
+      "specialty": "Orthopedics & Sports Medicine",
+      "organ": "knee",
+      "angleCurrent": 120,
+      "angleNormal": 120,
+      "status": "Stable",
+      "notes": "Full bilateral flexion (120°). Zero joint inflammation."
+    }
+  ],
+  "visualAnalytics": {
+    "healthScore": 95,
+    "avgBpm": 70,
+    "bpmStatus": "Optimal Resting Heart Rate (Rest: 62 bpm)",
+    "heartRatePath": "M 0 95 Q 25 75, 50 80 T 100 60 T 150 85 T 200 40 T 250 75 T 300 65 T 350 82 T 400 55",
+    "sleepHours": "8h 05m",
+    "sleepStatus": "91% Restorative Deep Sleep (Optimal)",
+    "sleepBars": [70, 82, 88, 95, 91, 98, 93],
+    "stressScore": "15 / 100",
+    "stressStatus": "High Heart Rate Variability (Vagal Dominance)",
+    "stressPath": "M 0 125 Q 30 115, 60 118 T 120 108 T 180 122 T 240 105 T 300 118 T 350 112",
+    "stressPoints": [
+      { "cx": 40, "cy": 115, "isHigh": false },
+      { "cx": 110, "cy": 108, "isHigh": false },
+      { "cx": 190, "cy": 122, "isHigh": false },
+      { "cx": 270, "cy": 105, "isHigh": false },
+      { "cx": 340, "cy": 112, "isHigh": false }
+    ],
+    "avgSteps": "12,450",
+    "stepsStatus": "+24% Active Daily Movement vs Target",
+    "stepsBars": [
+      { "height": 80, "active": false },
+      { "height": 90, "active": false },
+      { "height": 95, "active": false },
+      { "height": 85, "active": false },
+      { "height": 100, "active": true },
+      { "height": 88, "active": false },
+      { "height": 92, "active": false }
+    ],
+    "aiInsights": {
+      "positive": {
+        "title": "Cardio-Respiratory Endurance",
+        "description": "VO2 Max at 51.4 mL/kg/min and 72ms HRV reflect outstanding athletic autonomic balance."
+      },
+      "takeAction": {
+        "title": "Electrolyte Replenishment",
+        "description": "Daily step target exceeded (12.4k). Maintain magnesium and hydration intake."
+      },
+      "monitor": {
+        "title": "Ergonomic Lumbar Alignment",
+        "description": "Maintain lumbar support during coding/screen sessions."
+      }
+    },
+    "carePlan": {
+      "medicationPercent": 100,
+      "medicationStatus": "Electrolytes & Vitamin D3 Complete",
+      "hydrationPercent": 90,
+      "hydrationStatus": "2.7L / 3.0L Target Reached"
+    },
+    "nextAppointment": {
+      "doctor": "Dr. Rajesh K. Varma",
+      "specialty": "Pulmonologist & Sports Health",
+      "date": "Monday, 19 Jan, 11:00 AM",
+      "type": "Biometric Wellness Check",
+      "photoUrl": "/images/rachit_tiwari.jpg"
+    }
+  }
+}

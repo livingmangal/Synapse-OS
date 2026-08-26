@@ -84,6 +84,630 @@ export interface MockHealthProfile {
 
 export const MOCK_HEALTH_PROFILES: MockHealthProfile[] = [
   {
+    profileId: 'mausam_kar_verified_abha',
+    title: 'Mausam Kar (Verified ABHA Profile)',
+    subtitle: 'ABHA: 91-7294-8102-5309 • PM-JAY Verified • Optimal Vitals',
+    jsonPath: '/data/mockHealthData/mausam_kar_abha_profile.json',
+    badge: {
+      label: 'ABDM Verified Citizen',
+      color: '#0284c7',
+      bg: '#e0f2fe',
+      border: '#bae6fd'
+    },
+    patient: {
+      name: 'Mausam Kar',
+      age: 24,
+      gender: 'Male',
+      abhaId: '91-7294-8102-5309'
+    },
+    device: {
+      name: 'Apple Watch Ultra & Google Health Connect',
+      brand: 'apple',
+      firmware: 'ABDM-Bridge v4.2',
+      battery: 96
+    },
+    observationCount: 5120,
+    vitals: {
+      steps: 10480,
+      stepGoal: 10000,
+      restingHeartRate: 64,
+      currentHeartRate: 74,
+      hrvMs: 68,
+      spo2: 98.5,
+      vo2Max: 48.2,
+      respiratoryRate: 16,
+      activeCalories: 680,
+      calorieGoal: 600,
+      sleepScore: 88,
+      sleepDuration: '7h 48m',
+      sleepStages: {
+        deep: '1h 55m (25%)',
+        rem: '1h 50m (23%)',
+        light: '3h 40m (47%)',
+        awake: '23m (5%)'
+      },
+      bloodGlucose: 92,
+      bloodPressure: '118/76 mmHg',
+      wristTempDeviation: '0.0°F'
+    },
+    ecgStatus: '🟢 Normal Sinus Rhythm (HR 74 BPM) • QTc 410ms • ST-Isoelectric',
+    aiAnalysis: {
+      type: 'optimal',
+      title: 'Optimal Physiological Baseline Profile',
+      description: 'Patient Mausam Kar demonstrates verified ABDM registration. Resting heart rate (64 BPM) and HRV (68ms) indicate excellent autonomic nervous tone and recovery. Arterial oxygen saturation stable at 98.5% with healthy metabolic biomarkers.'
+    },
+    visualAnalytics: {
+      healthScore: 92,
+      nextAppointment: {
+        doctor: 'Dr. Rajesh K. Varma',
+        date: 'Friday, 16 Jan, 04:00 PM',
+        type: 'Annual Preventive Review',
+        photoUrl: '/images/mausam_kar.jpg'
+      },
+      heartRateAvg: '74 BPM',
+      heartRatePath: 'M 0 100 Q 25 80, 50 85 T 100 65 T 150 90 T 200 45 T 250 80 T 300 70 T 350 88 T 400 60',
+      sleepAvg: '7h 48m',
+      sleepBars: [65, 78, 85, 92, 88, 95, 90],
+      stressAvg: '18 / 100',
+      stressPoints: [
+        { x: 40, y: 112, isHigh: false },
+        { x: 110, y: 106, isHigh: false },
+        { x: 190, y: 118, isHigh: false },
+        { x: 270, y: 102, isHigh: false },
+        { x: 340, y: 110, isHigh: false }
+      ],
+      stressPath: 'M 0 120 Q 30 110, 60 115 T 120 105 T 180 120 T 240 100 T 300 115 T 350 110',
+      stepsAvg: '10,480',
+      stepsBars: [75, 88, 92, 78, 98, 84, 90],
+      insights: {
+        positive: {
+          title: 'Cardiovascular Stamina',
+          desc: 'Resting heart rate (74 BPM) and HRV (68 ms) indicate excellent cardiovascular conditioning and recovery.'
+        },
+        action: {
+          title: 'Hydration Balance',
+          desc: 'Daily hydration goal at 82%. Target 500ml additional water intake during afternoon focus hours.'
+        },
+        monitor: {
+          title: 'Postural Ergonomics',
+          desc: 'Continue desk stretches every 90 minutes to maintain optimal cervical spinal alignment.'
+        }
+      },
+      carePlan: {
+        medication: {
+          title: 'Multivitamin & Omega-3 Complete',
+          desc: '1 tablet with breakfast daily (PM-JAY Scheme Dispensed)',
+          completed: true
+        },
+        hydration: {
+          title: 'Hydration Target (2.4L / 3.0L)',
+          desc: '82% of daily objective completed',
+          progress: 82
+        }
+      }
+    }
+  },
+  {
+    profileId: 'rachit_tiwari_verified_abha',
+    title: 'Rachit Tiwari (Verified ABHA Profile)',
+    subtitle: 'ABHA: 91-8842-1920-7463 • PM-JAY Verified • Optimal Vitals',
+    jsonPath: '/data/mockHealthData/rachit_tiwari_abha_profile.json',
+    badge: {
+      label: 'ABDM Verified Citizen',
+      color: '#0284c7',
+      bg: '#e0f2fe',
+      border: '#bae6fd'
+    },
+    patient: {
+      name: 'Rachit Tiwari',
+      age: 23,
+      gender: 'Male',
+      abhaId: '91-8842-1920-7463'
+    },
+    device: {
+      name: 'Pixel Watch 3 & Health Connect',
+      brand: 'google',
+      firmware: 'WearOS-ABDM v3.8',
+      battery: 94
+    },
+    observationCount: 4980,
+    vitals: {
+      steps: 12450,
+      stepGoal: 10000,
+      restingHeartRate: 62,
+      currentHeartRate: 70,
+      hrvMs: 72,
+      spo2: 99.0,
+      vo2Max: 51.4,
+      respiratoryRate: 15,
+      activeCalories: 740,
+      calorieGoal: 650,
+      sleepScore: 91,
+      sleepDuration: '8h 05m',
+      sleepStages: {
+        deep: '2h 10m (27%)',
+        rem: '2h 00m (25%)',
+        light: '3h 30m (43%)',
+        awake: '25m (5%)'
+      },
+      bloodGlucose: 90,
+      bloodPressure: '116/74 mmHg',
+      wristTempDeviation: '-0.1°F'
+    },
+    ecgStatus: '🟢 Normal Sinus Rhythm (HR 70 BPM) • QTc 402ms • High Autonomic Tone',
+    aiAnalysis: {
+      type: 'optimal',
+      title: 'High-Endurance Athletic Homeostasis',
+      description: 'Patient Rachit Tiwari demonstrates verified ABDM registration. Resting heart rate (62 BPM), VO2 Max (51.4), and robust HRV (72ms) indicate prime cardiorespiratory endurance and rapid recovery kinetics.'
+    },
+    visualAnalytics: {
+      healthScore: 95,
+      nextAppointment: {
+        doctor: 'Dr. Rajesh K. Varma',
+        date: 'Monday, 19 Jan, 11:00 AM',
+        type: 'Biometric Wellness Check',
+        photoUrl: '/images/rachit_tiwari.jpg'
+      },
+      heartRateAvg: '70 BPM',
+      heartRatePath: 'M 0 95 Q 25 75, 50 80 T 100 60 T 150 85 T 200 40 T 250 75 T 300 65 T 350 82 T 400 55',
+      sleepAvg: '8h 05m',
+      sleepBars: [70, 82, 88, 95, 91, 98, 93],
+      stressAvg: '15 / 100',
+      stressPoints: [
+        { x: 40, y: 115, isHigh: false },
+        { x: 110, y: 108, isHigh: false },
+        { x: 190, y: 122, isHigh: false },
+        { x: 270, y: 105, isHigh: false },
+        { x: 340, y: 112, isHigh: false }
+      ],
+      stressPath: 'M 0 125 Q 30 115, 60 118 T 120 108 T 180 122 T 240 105 T 300 118 T 350 112',
+      stepsAvg: '12,450',
+      stepsBars: [80, 90, 95, 85, 100, 88, 92],
+      insights: {
+        positive: {
+          title: 'Cardio-Respiratory Endurance',
+          desc: 'VO2 Max at 51.4 mL/kg/min and 72ms HRV reflect outstanding athletic autonomic balance.'
+        },
+        action: {
+          title: 'Electrolyte Replenishment',
+          desc: 'Daily step target exceeded (12.4k). Maintain magnesium and hydration intake.'
+        },
+        monitor: {
+          title: 'Ergonomic Lumbar Alignment',
+          desc: 'Maintain lumbar support during coding/screen sessions.'
+        }
+      },
+      carePlan: {
+        medication: {
+          title: 'Electrolytes & Vitamin D3 Complete',
+          desc: '1 tablet daily with morning hydration',
+          completed: true
+        },
+        hydration: {
+          title: 'Hydration Target (2.7L / 3.0L)',
+          desc: '90% of daily objective completed',
+          progress: 90
+        }
+      }
+    }
+  },
+  {
+    profileId: 'mangal_singh_verified_abha',
+    title: 'Mangal Singh (Verified ABHA Profile)',
+    subtitle: 'ABHA: 91-6310-9284-5172 • PM-JAY Verified • Optimal Vitals',
+    jsonPath: '/data/mockHealthData/mangal_singh_abha_profile.json',
+    badge: {
+      label: 'ABDM Verified Citizen',
+      color: '#0284c7',
+      bg: '#e0f2fe',
+      border: '#bae6fd'
+    },
+    patient: {
+      name: 'Mangal Singh',
+      age: 25,
+      gender: 'Male',
+      abhaId: '91-6310-9284-5172'
+    },
+    device: {
+      name: 'Galaxy Watch 6 & Health Connect',
+      brand: 'samsung',
+      firmware: 'WearOS-ABDM v4.0',
+      battery: 92
+    },
+    observationCount: 5040,
+    vitals: {
+      steps: 11200,
+      stepGoal: 10000,
+      restingHeartRate: 65,
+      currentHeartRate: 72,
+      hrvMs: 66,
+      spo2: 98.8,
+      vo2Max: 49.0,
+      respiratoryRate: 16,
+      activeCalories: 710,
+      calorieGoal: 600,
+      sleepScore: 89,
+      sleepDuration: '7h 55m',
+      sleepStages: {
+        deep: '2h 00m (25%)',
+        rem: '1h 55m (24%)',
+        light: '3h 35m (45%)',
+        awake: '25m (6%)'
+      },
+      bloodGlucose: 94,
+      bloodPressure: '118/78 mmHg',
+      wristTempDeviation: '+0.1°F'
+    },
+    ecgStatus: '🟢 Normal Sinus Rhythm (HR 72 BPM) • QTc 408ms • ST-Isoelectric',
+    aiAnalysis: {
+      type: 'optimal',
+      title: 'Optimal Autonomic Regulation & Vitality',
+      description: 'Patient Mangal Singh demonstrates verified ABDM registration. Resting heart rate (65 BPM) and HRV (66ms) denote consistent autonomic balance. Oxygen saturation stable at 98.8% with excellent respiratory endurance.'
+    },
+    visualAnalytics: {
+      healthScore: 94,
+      nextAppointment: {
+        doctor: 'Dr. Rajesh K. Varma',
+        date: 'Tuesday, 20 Jan, 03:30 PM',
+        type: 'Preventive Health Assessment',
+        photoUrl: '/images/mangal_singh.jpg'
+      },
+      heartRateAvg: '72 BPM',
+      heartRatePath: 'M 0 98 Q 25 78, 50 82 T 100 62 T 150 88 T 200 42 T 250 78 T 300 68 T 350 85 T 400 58',
+      sleepAvg: '7h 55m',
+      sleepBars: [68, 80, 86, 94, 90, 96, 92],
+      stressAvg: '16 / 100',
+      stressPoints: [
+        { x: 40, y: 114, isHigh: false },
+        { x: 110, y: 107, isHigh: false },
+        { x: 190, y: 120, isHigh: false },
+        { x: 270, y: 104, isHigh: false },
+        { x: 340, y: 111, isHigh: false }
+      ],
+      stressPath: 'M 0 122 Q 30 112, 60 116 T 120 106 T 180 120 T 240 102 T 300 116 T 350 110',
+      stepsAvg: '11,200',
+      stepsBars: [78, 88, 92, 82, 98, 86, 90],
+      insights: {
+        positive: {
+          title: 'Cardiovascular Conditioning',
+          desc: 'Resting heart rate (72 BPM) and 66ms HRV indicate strong autonomic regulation and consistent recovery.'
+        },
+        action: {
+          title: 'Hydration Balance',
+          desc: 'Daily hydration goal at 85%. Add 400ml water during afternoon work intervals.'
+        },
+        monitor: {
+          title: 'Neck & Shoulder Ergonomics',
+          desc: 'Perform cervical stretches every 90 minutes to maintain optimal neck posture.'
+        }
+      },
+      carePlan: {
+        medication: {
+          title: 'Daily Multivitamin & Omega-3 Complete',
+          desc: '1 tablet daily after breakfast',
+          completed: true
+        },
+        hydration: {
+          title: 'Hydration Target (2.55L / 3.0L)',
+          desc: '85% of daily objective completed',
+          progress: 85
+        }
+      }
+    }
+  },
+  {
+    profileId: 'jiya_jaiswal_verified_abha',
+    title: 'Jiya Jaiswal (Verified ABHA Profile)',
+    subtitle: 'ABHA: 91-5519-3820-9104 • PM-JAY Verified • Optimal Vitals',
+    jsonPath: '/data/mockHealthData/jiya_jaiswal_abha_profile.json',
+    badge: {
+      label: 'ABDM Verified Citizen',
+      color: '#0284c7',
+      bg: '#e0f2fe',
+      border: '#bae6fd'
+    },
+    patient: {
+      name: 'Jiya Jaiswal',
+      age: 23,
+      gender: 'Female',
+      abhaId: '91-5519-3820-9104'
+    },
+    device: {
+      name: 'Apple Watch Series 9 & Health Connect',
+      brand: 'apple',
+      firmware: 'WatchOS-ABDM v4.1',
+      battery: 95
+    },
+    observationCount: 4890,
+    vitals: {
+      steps: 10800,
+      stepGoal: 10000,
+      restingHeartRate: 66,
+      currentHeartRate: 72,
+      hrvMs: 70,
+      spo2: 99.2,
+      vo2Max: 46.5,
+      respiratoryRate: 15,
+      activeCalories: 640,
+      calorieGoal: 600,
+      sleepScore: 92,
+      sleepDuration: '8h 12m',
+      sleepStages: {
+        deep: '2h 05m (25%)',
+        rem: '2h 00m (24%)',
+        light: '3h 45m (46%)',
+        awake: '22m (5%)'
+      },
+      bloodGlucose: 88,
+      bloodPressure: '114/72 mmHg',
+      wristTempDeviation: '0.0°F'
+    },
+    ecgStatus: '🟢 Normal Sinus Rhythm (HR 72 BPM) • QTc 398ms • Stable Rhythm',
+    aiAnalysis: {
+      type: 'optimal',
+      title: 'Optimal Biomarker Profile & Restorative Sleep',
+      description: 'Patient Jiya Jaiswal demonstrates verified ABDM registration. High sleep efficiency score (92/100), 70ms HRV, and stable arterial oxygenation (99.2%) reflect exceptional physiological recovery.'
+    },
+    visualAnalytics: {
+      healthScore: 96,
+      nextAppointment: {
+        doctor: 'Dr. Rajesh K. Varma',
+        date: 'Wednesday, 21 Jan, 10:30 AM',
+        type: 'Routine Wellness Review',
+        photoUrl: ''
+      },
+      heartRateAvg: '72 BPM',
+      heartRatePath: 'M 0 96 Q 25 76, 50 80 T 100 62 T 150 86 T 200 44 T 250 76 T 300 66 T 350 84 T 400 56',
+      sleepAvg: '8h 12m',
+      sleepBars: [72, 84, 88, 96, 92, 98, 94],
+      stressAvg: '14 / 100',
+      stressPoints: [
+        { x: 40, y: 114, isHigh: false },
+        { x: 110, y: 106, isHigh: false },
+        { x: 190, y: 120, isHigh: false },
+        { x: 270, y: 104, isHigh: false },
+        { x: 340, y: 110, isHigh: false }
+      ],
+      stressPath: 'M 0 124 Q 30 114, 60 116 T 120 106 T 180 120 T 240 104 T 300 116 T 350 110',
+      stepsAvg: '10,800',
+      stepsBars: [82, 90, 94, 86, 100, 88, 92],
+      insights: {
+        positive: {
+          title: 'Restorative Sleep Rhythm',
+          desc: 'Deep & REM sleep cycles exceed 92% benchmark, promoting optimal cognitive and immune recovery.'
+        },
+        action: {
+          title: 'Hydration Balance',
+          desc: 'Target 2.5L daily hydration goal during peak daytime intervals.'
+        },
+        monitor: {
+          title: 'Cervical Spine Ergonomics',
+          desc: 'Maintain eye-level monitor height during screen work.'
+        }
+      },
+      carePlan: {
+        medication: {
+          title: 'Daily Multivitamin Complete',
+          desc: '1 capsule daily with water',
+          completed: true
+        },
+        hydration: {
+          title: 'Hydration Target (2.4L / 2.7L)',
+          desc: '88% of daily objective completed',
+          progress: 88
+        }
+      }
+    }
+  },
+  {
+    profileId: 'surabhi_verified_abha',
+    title: 'Surabhi (Verified ABHA Profile)',
+    subtitle: 'ABHA: 91-4478-2910-6351 • PM-JAY Verified • Optimal Vitals',
+    jsonPath: '/data/mockHealthData/surabhi_abha_profile.json',
+    badge: {
+      label: 'ABDM Verified Citizen',
+      color: '#0284c7',
+      bg: '#e0f2fe',
+      border: '#bae6fd'
+    },
+    patient: {
+      name: 'Surabhi',
+      age: 24,
+      gender: 'Female',
+      abhaId: '91-4478-2910-6351'
+    },
+    device: {
+      name: 'Fitbit Sense 2 & Health Connect',
+      brand: 'google',
+      firmware: 'FitbitOS-ABDM v2.4',
+      battery: 91
+    },
+    observationCount: 4760,
+    vitals: {
+      steps: 9800,
+      stepGoal: 10000,
+      restingHeartRate: 68,
+      currentHeartRate: 74,
+      hrvMs: 68,
+      spo2: 98.6,
+      vo2Max: 45.8,
+      respiratoryRate: 16,
+      activeCalories: 620,
+      calorieGoal: 600,
+      sleepScore: 88,
+      sleepDuration: '7h 45m',
+      sleepStages: {
+        deep: '1h 50m (24%)',
+        rem: '1h 45m (23%)',
+        light: '3h 45m (48%)',
+        awake: '25m (5%)'
+      },
+      bloodGlucose: 90,
+      bloodPressure: '116/75 mmHg',
+      wristTempDeviation: '+0.1°F'
+    },
+    ecgStatus: '🟢 Normal Sinus Rhythm (HR 74 BPM) • QTc 404ms • Healthy Autonomic Tone',
+    aiAnalysis: {
+      type: 'optimal',
+      title: 'Robust Cardiovascular Homeostasis',
+      description: 'Patient Surabhi demonstrates verified ABDM registration. Balanced hemodynamic parameters (116/75 mmHg BP, 98.6% SpO2) and consistent autonomic metrics confirm healthy vital equilibrium.'
+    },
+    visualAnalytics: {
+      healthScore: 93,
+      nextAppointment: {
+        doctor: 'Dr. Rajesh K. Varma',
+        date: 'Thursday, 22 Jan, 02:00 PM',
+        type: 'Biometric Checkup',
+        photoUrl: ''
+      },
+      heartRateAvg: '74 BPM',
+      heartRatePath: 'M 0 98 Q 25 78, 50 82 T 100 64 T 150 88 T 200 46 T 250 78 T 300 68 T 350 86 T 400 58',
+      sleepAvg: '7h 45m',
+      sleepBars: [68, 80, 85, 92, 88, 95, 90],
+      stressAvg: '18 / 100',
+      stressPoints: [
+        { x: 40, y: 113, isHigh: false },
+        { x: 110, y: 107, isHigh: false },
+        { x: 190, y: 119, isHigh: false },
+        { x: 270, y: 103, isHigh: false },
+        { x: 340, y: 111, isHigh: false }
+      ],
+      stressPath: 'M 0 122 Q 30 112, 60 115 T 120 105 T 180 120 T 240 102 T 300 115 T 350 110',
+      stepsAvg: '9,800',
+      stepsBars: [76, 86, 90, 80, 96, 84, 88],
+      insights: {
+        positive: {
+          title: 'Optimal Biomarker Equilibrium',
+          desc: 'Blood pressure (116/75 mmHg) and SpO2 (98.6%) confirm robust cardiovascular baseline.'
+        },
+        action: {
+          title: 'Daily Step Consistency',
+          desc: 'Maintain 10,000 steps daily average with regular evening walks.'
+        },
+        monitor: {
+          title: 'Postural Alignment',
+          desc: 'Incorporate upper body stretches during extended sitting.'
+        }
+      },
+      carePlan: {
+        medication: {
+          title: 'Daily Nutrition & Omega-3 Complete',
+          desc: '1 capsule daily with meal',
+          completed: true
+        },
+        hydration: {
+          title: 'Hydration Target (2.3L / 2.7L)',
+          desc: '84% of daily objective completed',
+          progress: 84
+        }
+      }
+    }
+  },
+  {
+    profileId: 'shaikh_warsi_verified_abha',
+    title: 'Shaikh Mohammad Warsi (Verified ABHA Profile)',
+    subtitle: 'ABHA: 91-7712-4890-3318 • PM-JAY Verified • Optimal Vitals',
+    jsonPath: '/data/mockHealthData/shaikh_warsi_abha_profile.json',
+    badge: {
+      label: 'ABDM Verified Citizen',
+      color: '#0284c7',
+      bg: '#e0f2fe',
+      border: '#bae6fd'
+    },
+    patient: {
+      name: 'Shaikh Mohammad Warsi',
+      age: 24,
+      gender: 'Male',
+      abhaId: '91-7712-4890-3318'
+    },
+    device: {
+      name: 'OnePlus Watch 2 & Health Connect',
+      brand: 'oneplus',
+      firmware: 'WearOS-ABDM v3.9',
+      battery: 93
+    },
+    observationCount: 5110,
+    vitals: {
+      steps: 11500,
+      stepGoal: 10000,
+      restingHeartRate: 67,
+      currentHeartRate: 76,
+      hrvMs: 65,
+      spo2: 98.4,
+      vo2Max: 47.0,
+      respiratoryRate: 16,
+      activeCalories: 690,
+      calorieGoal: 600,
+      sleepScore: 87,
+      sleepDuration: '7h 30m',
+      sleepStages: {
+        deep: '1h 50m (24%)',
+        rem: '1h 45m (23%)',
+        light: '3h 30m (47%)',
+        awake: '25m (6%)'
+      },
+      bloodGlucose: 92,
+      bloodPressure: '120/80 mmHg',
+      wristTempDeviation: '0.0°F'
+    },
+    ecgStatus: '🟢 Normal Sinus Rhythm (HR 76 BPM) • QTc 406ms • Isoelectric ST Segment',
+    aiAnalysis: {
+      type: 'optimal',
+      title: 'Healthy Metabolic & Autonomic Equilibrium',
+      description: 'Patient Shaikh Mohammad Warsi demonstrates verified ABDM registration. Strong daily activity (11.5k steps), normal sinus ECG profile, and stable hemodynamic parameters denote optimal wellness.'
+    },
+    visualAnalytics: {
+      healthScore: 93,
+      nextAppointment: {
+        doctor: 'Dr. Rajesh K. Varma',
+        date: 'Friday, 23 Jan, 04:00 PM',
+        type: 'Preventive Health Assessment',
+        photoUrl: ''
+      },
+      heartRateAvg: '76 BPM',
+      heartRatePath: 'M 0 100 Q 25 80, 50 84 T 100 66 T 150 90 T 200 48 T 250 80 T 300 70 T 350 88 T 400 60',
+      sleepAvg: '7h 30m',
+      sleepBars: [65, 78, 84, 90, 86, 92, 88],
+      stressAvg: '20 / 100',
+      stressPoints: [
+        { x: 40, y: 112, isHigh: false },
+        { x: 110, y: 106, isHigh: false },
+        { x: 190, y: 118, isHigh: false },
+        { x: 270, y: 102, isHigh: false },
+        { x: 340, y: 110, isHigh: false }
+      ],
+      stressPath: 'M 0 120 Q 30 110, 60 114 T 120 104 T 180 118 T 240 100 T 300 114 T 350 108',
+      stepsAvg: '11,500',
+      stepsBars: [80, 88, 94, 84, 98, 86, 90],
+      insights: {
+        positive: {
+          title: 'Cardiorespiratory Stamina',
+          desc: 'Resting heart rate (76 BPM) and 11.5k average steps reflect healthy activity levels and endurance.'
+        },
+        action: {
+          title: 'Hydration Balance',
+          desc: 'Daily hydration goal at 82%. Target 500ml additional water intake during afternoon focus hours.'
+        },
+        monitor: {
+          title: 'Ergonomic Desk Posture',
+          desc: 'Take 2-minute standing breaks every 90 minutes to relieve trapezius tension.'
+        }
+      },
+      carePlan: {
+        medication: {
+          title: 'Daily Multivitamin & Omega-3 Complete',
+          desc: '1 tablet daily after lunch',
+          completed: true
+        },
+        hydration: {
+          title: 'Hydration Target (2.45L / 3.0L)',
+          desc: '82% of daily objective completed',
+          progress: 82
+        }
+      }
+    }
+  },
+  {
     profileId: 'marathon_runner_apple_health',
     title: 'Marathon Athlete Profile',
     subtitle: 'High HRV (88ms), Bradycardia (46 BPM), 18.4k Steps',
@@ -227,7 +851,7 @@ export const MOCK_HEALTH_PROFILES: MockHealthProfile[] = [
     visualAnalytics: {
       healthScore: 58,
       nextAppointment: {
-        doctor: 'Dr. Maya Chen (Cardiologist)',
+        doctor: 'Dr. Naresh Trehan (Cardiologist)',
         date: 'Tomorrow, 10:00 AM',
         type: 'URGENT TELECONSULT',
         photoUrl: 'https://images.unsplash.com/photo-1594824813689-d102e3b2e535?w=150&auto=format&fit=crop&q=80'
@@ -579,7 +1203,7 @@ export const MOCK_HEALTH_PROFILES: MockHealthProfile[] = [
     visualAnalytics: {
       healthScore: 68,
       nextAppointment: {
-        doctor: 'Dr. Maya Chen',
+        doctor: 'Dr. Ananya Sen',
         date: 'Aug 20, 2026 10:00 AM',
         type: 'IN-PERSON',
         photoUrl: 'https://images.unsplash.com/photo-1594824813689-d102e3b2e535?w=150&auto=format&fit=crop&q=80'
