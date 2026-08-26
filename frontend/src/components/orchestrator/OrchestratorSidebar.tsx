@@ -118,12 +118,24 @@ export default function OrchestratorSidebar({
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    background: isActive ? '#fdf2f8' : 'transparent',
-                    color: isActive ? '#db2777' : '#64748b',
+                    background: isActive ? '#e0f2fe' : 'transparent',
+                    color: isActive ? '#0284c7' : '#334155',
                     cursor: 'pointer',
                     position: 'relative',
                     transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
-                    boxShadow: isActive ? 'inset 0 0 0 1.5px #fbcfe8' : 'none'
+                    boxShadow: isActive ? 'inset 0 0 0 1.5px #bae6fd' : 'none'
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!isActive) {
+                      e.currentTarget.style.background = '#f0f9ff';
+                      e.currentTarget.style.color = '#0284c7';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!isActive) {
+                      e.currentTarget.style.background = 'transparent';
+                      e.currentTarget.style.color = '#334155';
+                    }
                   }}
                 >
                   <Icon size={20} strokeWidth={isActive ? 2.5 : 1.8} />
@@ -133,7 +145,7 @@ export default function OrchestratorSidebar({
                       left: '0px',
                       width: '4px',
                       height: '22px',
-                      background: '#db2777',
+                      background: '#0284c7',
                       borderRadius: '0 4px 4px 0'
                     }} />
                   )}
@@ -154,12 +166,24 @@ export default function OrchestratorSidebar({
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  background: isActive ? '#fdf2f8' : 'transparent',
-                  color: isActive ? '#db2777' : '#64748b',
+                  background: isActive ? '#e0f2fe' : 'transparent',
+                  color: isActive ? '#0284c7' : '#334155',
                   textDecoration: 'none',
                   position: 'relative',
                   transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
-                  boxShadow: isActive ? 'inset 0 0 0 1.5px #fbcfe8' : 'none'
+                  boxShadow: isActive ? 'inset 0 0 0 1.5px #bae6fd' : 'none'
+                }}
+                onMouseEnter={(e) => {
+                  if (!isActive) {
+                    e.currentTarget.style.background = '#f0f9ff';
+                    e.currentTarget.style.color = '#0284c7';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!isActive) {
+                    e.currentTarget.style.background = 'transparent';
+                    e.currentTarget.style.color = '#334155';
+                  }
                 }}
               >
                 <Icon size={20} strokeWidth={isActive ? 2.5 : 1.8} />

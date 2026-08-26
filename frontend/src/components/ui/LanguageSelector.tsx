@@ -63,7 +63,7 @@ export default function LanguageSelector({ variant = 'header' }: LanguageSelecto
         aria-label="Select Language"
         title="Switch Language / भाषा बदलें"
       >
-        <Globe size={13} color="#db2777" style={{ flexShrink: 0 }} />
+        <Globe size={13} color="#0284c7" style={{ flexShrink: 0 }} />
         <span style={{ fontWeight: 800, color: '#0f172a' }}>{currentLangInfo.nativeName}</span>
         <span style={{ fontSize: '9.5px', color: '#64748b', fontWeight: 600, textTransform: 'uppercase' }}>({currentLangInfo.code})</span>
         <ChevronDown 
@@ -88,8 +88,8 @@ export default function LanguageSelector({ variant = 'header' }: LanguageSelecto
             overflowY: 'auto',
             background: '#ffffff',
             borderRadius: '16px',
-            border: '1px solid #e2e8f0',
-            boxShadow: '0 12px 36px rgba(0,0,0,0.18), 0 4px 12px rgba(0,0,0,0.06)',
+            border: '1px solid #bae6fd',
+            boxShadow: '0 12px 36px rgba(2,132,199,0.18), 0 4px 12px rgba(0,0,0,0.06)',
             zIndex: 99999,
             padding: '8px',
             boxSizing: 'border-box'
@@ -138,9 +138,9 @@ export default function LanguageSelector({ variant = 'header' }: LanguageSelecto
                     padding: '7px 10px',
                     borderRadius: '10px',
                     fontSize: '11.5px',
-                    border: isSelected ? '1px solid #fbcfe8' : '1px solid transparent',
-                    background: isSelected ? '#fdf2f8' : 'transparent',
-                    color: isSelected ? '#9d174d' : '#334155',
+                    border: isSelected ? '1px solid #bae6fd' : '1px solid transparent',
+                    background: isSelected ? '#f0f9ff' : 'transparent',
+                    color: isSelected ? '#0369a1' : '#334155',
                     cursor: 'pointer',
                     textAlign: 'left',
                     transition: 'all 0.1s ease',
