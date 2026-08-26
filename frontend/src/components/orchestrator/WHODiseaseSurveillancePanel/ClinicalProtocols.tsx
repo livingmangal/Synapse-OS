@@ -17,14 +17,14 @@ export default function ClinicalProtocols({ activeDisease }: ClinicalProtocolsPr
     }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '18px', borderBottom: '1px solid #f1f5f9', paddingBottom: '14px' }}>
         <div>
-          <span style={{ fontSize: '10.5px', fontWeight: 800, color: '#ec4899', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+          <span style={{ fontSize: '10.5px', fontWeight: 800, color: '#0284c7', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
             Step 2: Clinical Protocols & Evidence-Based Directives
           </span>
           <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#0f172a', margin: '2px 0 0 0' }}>
             WHO Clinical Guidelines & Precautions: {activeDisease.name}
           </h3>
         </div>
-        <span style={{ fontSize: '11px', fontWeight: 800, color: '#ec4899', background: '#fce7f3', padding: '4px 10px', borderRadius: '8px' }}>
+        <span style={{ fontSize: '11px', fontWeight: 800, color: '#0284c7', background: '#e0f2fe', padding: '4px 10px', borderRadius: '8px' }}>
           WHO Essential Guidance 2026
         </span>
       </div>
@@ -47,7 +47,7 @@ export default function ClinicalProtocols({ activeDisease }: ClinicalProtocolsPr
           flexDirection: 'column',
           gap: '8px'
         }}>
-          <div style={{ fontSize: '11px', fontWeight: 800, color: '#ec4899', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '6px' }}>
+          <div style={{ fontSize: '11px', fontWeight: 800, color: '#0284c7', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '6px' }}>
             <ShieldCheck size={15} />
             <span>1. Primary Precautions</span>
           </div>

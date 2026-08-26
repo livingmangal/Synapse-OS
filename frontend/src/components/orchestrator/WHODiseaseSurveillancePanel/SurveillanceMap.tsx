@@ -240,26 +240,26 @@ export default function SurveillanceMap({
           display: 'flex',
           alignItems: 'center',
           gap: '14px',
-          background: '#0f172a',
-          color: '#ffffff',
+          background: '#f8fafc',
+          color: '#0f172a',
           padding: '8px 16px',
           borderRadius: '12px',
-          border: '1px solid #1e293b',
+          border: '1px solid #e2e8f0',
           fontSize: '11.5px'
         }}>
           <div>
-            <div style={{ fontSize: '9px', color: '#94a3b8', textTransform: 'uppercase', fontWeight: 700 }}>Total Confirmed</div>
-            <div style={{ fontWeight: 800, color: '#f472b6' }}>{activeDisease.globalCases}</div>
+            <div style={{ fontSize: '9px', color: '#64748b', textTransform: 'uppercase', fontWeight: 700 }}>Total Confirmed</div>
+            <div style={{ fontWeight: 800, color: '#0284c7' }}>{activeDisease.globalCases}</div>
           </div>
-          <div style={{ width: '1px', height: '22px', background: '#334155' }} />
+          <div style={{ width: '1px', height: '22px', background: '#cbd5e1' }} />
           <div>
-            <div style={{ fontSize: '9px', color: '#94a3b8', textTransform: 'uppercase', fontWeight: 700 }}>Total Mortality</div>
+            <div style={{ fontSize: '9px', color: '#64748b', textTransform: 'uppercase', fontWeight: 700 }}>Total Mortality</div>
             <div style={{ fontWeight: 800, color: '#ef4444' }}>{activeDisease.annualDeaths}</div>
           </div>
-          <div style={{ width: '1px', height: '22px', background: '#334155' }} />
+          <div style={{ width: '1px', height: '22px', background: '#cbd5e1' }} />
           <div>
-            <div style={{ fontSize: '9px', color: '#94a3b8', textTransform: 'uppercase', fontWeight: 700 }}>Recovery Rate</div>
-            <div style={{ fontWeight: 800, color: '#4ade80' }}>{activeDisease.recoveryRate}%</div>
+            <div style={{ fontSize: '9px', color: '#64748b', textTransform: 'uppercase', fontWeight: 700 }}>Recovery Rate</div>
+            <div style={{ fontWeight: 800, color: '#16a34a' }}>{activeDisease.recoveryRate}%</div>
           </div>
         </div>
 
@@ -284,7 +284,7 @@ export default function SurveillanceMap({
               transition: 'all 0.15s ease'
             }}
           >
-            {isFullscreen ? <Minimize2 size={14} /> : <Maximize2 size={14} color="#db2777" />}
+            {isFullscreen ? <Minimize2 size={14} /> : <Maximize2 size={14} color="#0284c7" />}
             <span>{isFullscreen ? 'Exit Full Screen' : 'Full Screen Map'}</span>
           </button>
 
@@ -297,10 +297,10 @@ export default function SurveillanceMap({
                 border: 'none',
                 fontSize: '11.5px',
                 fontWeight: mapScope === 'global' ? 800 : 600,
-                background: mapScope === 'global' ? '#db2777' : 'transparent',
+                background: mapScope === 'global' ? '#0284c7' : 'transparent',
                 color: mapScope === 'global' ? '#ffffff' : '#64748b',
                 cursor: 'pointer',
-                boxShadow: mapScope === 'global' ? '0 2px 8px rgba(219,39,119,0.3)' : 'none',
+                boxShadow: mapScope === 'global' ? '0 2px 8px rgba(2,132,199,0.3)' : 'none',
                 transition: 'all 0.15s ease'
               }}
             >
@@ -314,10 +314,10 @@ export default function SurveillanceMap({
                 border: 'none',
                 fontSize: '11.5px',
                 fontWeight: mapScope === 'india' ? 800 : 600,
-                background: mapScope === 'india' ? '#db2777' : 'transparent',
+                background: mapScope === 'india' ? '#0284c7' : 'transparent',
                 color: mapScope === 'india' ? '#ffffff' : '#64748b',
                 cursor: 'pointer',
-                boxShadow: mapScope === 'india' ? '0 2px 8px rgba(219,39,119,0.3)' : 'none',
+                boxShadow: mapScope === 'india' ? '0 2px 8px rgba(2,132,199,0.3)' : 'none',
                 transition: 'all 0.15s ease'
               }}
             >
@@ -337,9 +337,9 @@ export default function SurveillanceMap({
           });
         }}
         style={{
-          background: '#070b13',
+          background: 'linear-gradient(180deg, #f0f9ff 0%, #e0f2fe 100%)',
           borderRadius: isFullscreen ? '0px' : '20px',
-          border: '1px solid #1e293b',
+          border: '1px solid #bae6fd',
           position: 'relative',
           flex: 1,
           minHeight: isFullscreen ? 'calc(100vh - 160px)' : '680px',
@@ -347,7 +347,7 @@ export default function SurveillanceMap({
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          boxShadow: 'inset 0 0 60px rgba(0,0,0,0.7)'
+          boxShadow: 'inset 0 0 30px rgba(2, 132, 199, 0.05)'
         }}
       >
         {/* Floating Top In-Map Toolbar: Dual Search (Virus + Country) & Layers */}
@@ -377,21 +377,21 @@ export default function SurveillanceMap({
                     display: 'flex',
                     alignItems: 'center',
                     gap: '7px',
-                    background: 'rgba(15, 23, 42, 0.92)',
+                    background: 'rgba(255, 255, 255, 0.95)',
                     backdropFilter: 'blur(10px)',
-                    border: '1.5px solid rgba(244, 114, 182, 0.4)',
-                    color: '#ffffff',
+                    border: '1.5px solid #bae6fd',
+                    color: '#0f172a',
                     padding: '7px 12px',
                     borderRadius: '10px',
                     fontSize: '11.5px',
                     fontWeight: 800,
                     cursor: 'pointer',
-                    boxShadow: '0 4px 16px rgba(0,0,0,0.4)'
+                    boxShadow: '0 4px 16px rgba(0,0,0,0.06)'
                   }}
                 >
-                  <Biohazard size={14} color="#f472b6" />
-                  <span>Outbreak: <b style={{ color: '#f472b6' }}>{activeDisease.shortName}</b></span>
-                  <ChevronDown size={12} color="#94a3b8" />
+                  <Biohazard size={14} color="#0284c7" />
+                  <span>Outbreak: <b style={{ color: '#0284c7' }}>{activeDisease.shortName}</b></span>
+                  <ChevronDown size={12} color="#64748b" />
                 </button>
 
                 {isVirusDropdownOpen && (
@@ -400,16 +400,16 @@ export default function SurveillanceMap({
                     top: '38px',
                     left: 0,
                     width: '260px',
-                    background: '#0f172a',
+                    background: '#ffffff',
                     borderRadius: '12px',
-                    border: '1px solid #334155',
-                    boxShadow: '0 12px 36px rgba(0,0,0,0.7)',
+                    border: '1px solid #e2e8f0',
+                    boxShadow: '0 12px 36px rgba(0,0,0,0.12)',
                     zIndex: 40,
                     padding: '6px',
                     maxHeight: '280px',
                     overflowY: 'auto'
                   }}>
-                    <div style={{ padding: '4px', borderBottom: '1px solid #1e293b', marginBottom: '4px' }}>
+                    <div style={{ padding: '4px', borderBottom: '1px solid #f1f5f9', marginBottom: '4px' }}>
                       <input
                         type="text"
                         placeholder="Search pathogen (e.g. Nipah, COVID)..."
@@ -417,10 +417,10 @@ export default function SurveillanceMap({
                         onChange={(e) => setVirusSearch(e.target.value)}
                         style={{
                           width: '100%',
-                          background: '#1e293b',
-                          border: 'none',
+                          background: '#f8fafc',
+                          border: '1px solid #e2e8f0',
                           borderRadius: '6px',
-                          color: '#ffffff',
+                          color: '#0f172a',
                           padding: '5px 8px',
                           fontSize: '11px',
                           outline: 'none'
@@ -441,15 +441,15 @@ export default function SurveillanceMap({
                           borderRadius: '8px',
                           fontSize: '11px',
                           fontWeight: d.id === activeDisease.id ? 800 : 500,
-                          background: d.id === activeDisease.id ? 'rgba(219,39,119,0.3)' : 'transparent',
-                          color: d.id === activeDisease.id ? '#f472b6' : '#e2e8f0',
+                          background: d.id === activeDisease.id ? '#e0f2fe' : 'transparent',
+                          color: d.id === activeDisease.id ? '#0284c7' : '#334155',
                           cursor: 'pointer',
                           display: 'flex',
                           justifyContent: 'space-between',
                           alignItems: 'center'
                         }}
-                        onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.08)')}
-                        onMouseLeave={(e) => (e.currentTarget.style.background = d.id === activeDisease.id ? 'rgba(219,39,119,0.3)' : 'transparent')}
+                        onMouseEnter={(e) => (e.currentTarget.style.background = '#f1f5f9')}
+                        onMouseLeave={(e) => (e.currentTarget.style.background = d.id === activeDisease.id ? '#e0f2fe' : 'transparent')}
                       >
                         <span>{d.name}</span>
                         <span style={{ fontSize: '9.5px', color: '#ef4444', fontWeight: 700 }}>{d.whoThreatLevel}</span>
@@ -466,14 +466,14 @@ export default function SurveillanceMap({
               display: 'flex',
               alignItems: 'center',
               gap: '6px',
-              background: 'rgba(15, 23, 42, 0.92)',
+              background: 'rgba(255, 255, 255, 0.95)',
               backdropFilter: 'blur(10px)',
               padding: '6px 12px',
               borderRadius: '10px',
-              border: '1px solid rgba(255,255,255,0.15)',
-              boxShadow: '0 4px 16px rgba(0,0,0,0.4)'
+              border: '1px solid #cbd5e1',
+              boxShadow: '0 4px 16px rgba(0,0,0,0.06)'
             }}>
-              <Search size={13} color="#94a3b8" />
+              <Search size={13} color="#64748b" />
               <input
                 type="text"
                 placeholder={mapScope === 'global' ? 'Search country / epicenter...' : 'Search Indian state...'}
@@ -483,7 +483,7 @@ export default function SurveillanceMap({
                   background: 'transparent',
                   border: 'none',
                   outline: 'none',
-                  color: '#ffffff',
+                  color: '#0f172a',
                   fontSize: '11.5px',
                   width: '160px'
                 }}
@@ -494,10 +494,10 @@ export default function SurveillanceMap({
                   top: '38px',
                   left: 0,
                   width: '240px',
-                  background: '#0f172a',
+                  background: '#ffffff',
                   borderRadius: '12px',
-                  border: '1px solid #334155',
-                  boxShadow: '0 12px 36px rgba(0,0,0,0.7)',
+                  border: '1px solid #e2e8f0',
+                  boxShadow: '0 12px 36px rgba(0,0,0,0.12)',
                   zIndex: 40,
                   padding: '6px',
                   maxHeight: '220px',
@@ -516,17 +516,17 @@ export default function SurveillanceMap({
                           padding: '7px 10px',
                           borderRadius: '8px',
                           fontSize: '11px',
-                          color: '#f8fafc',
+                          color: '#0f172a',
                           cursor: 'pointer',
                           display: 'flex',
                           justifyContent: 'space-between',
                           alignItems: 'center'
                         }}
-                        onMouseEnter={(e) => (e.currentTarget.style.background = '#1e293b')}
+                        onMouseEnter={(e) => (e.currentTarget.style.background = '#f1f5f9')}
                         onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
                       >
                         <span>{hub.name.split('(')[0]}</span>
-                        <span style={{ fontSize: '10px', color: '#f472b6', fontWeight: 800 }}>{hub.activeCases}</span>
+                        <span style={{ fontSize: '10px', color: '#0284c7', fontWeight: 800 }}>{hub.activeCases}</span>
                       </div>
                     ))}
                 </div>
@@ -534,7 +534,7 @@ export default function SurveillanceMap({
             </div>
 
             {/* 3. Layer Toggles Strip */}
-            <div style={{ display: 'flex', gap: '4px', background: 'rgba(15,23,42,0.85)', padding: '4px', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.1)' }}>
+            <div style={{ display: 'flex', gap: '4px', background: 'rgba(255,255,255,0.9)', padding: '4px', borderRadius: '10px', border: '1px solid #cbd5e1', boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}>
               <button
                 onClick={() => toggleLayer('heatmap')}
                 title="Toggle Outbreak Density Radar"
@@ -542,14 +542,15 @@ export default function SurveillanceMap({
                   padding: '4px 8px',
                   borderRadius: '6px',
                   border: 'none',
-                  background: activeLayers.heatmap ? '#db2777' : 'transparent',
-                  color: '#ffffff',
+                  background: activeLayers.heatmap ? '#0284c7' : 'transparent',
+                  color: activeLayers.heatmap ? '#ffffff' : '#64748b',
                   fontSize: '10.5px',
                   fontWeight: 700,
                   cursor: 'pointer',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '4px'
+                  gap: '4px',
+                  transition: 'all 0.15s ease'
                 }}
               >
                 <Radio size={11} /> Radar
@@ -562,13 +563,14 @@ export default function SurveillanceMap({
                   borderRadius: '6px',
                   border: 'none',
                   background: activeLayers.vectors ? '#059669' : 'transparent',
-                  color: '#ffffff',
+                  color: activeLayers.vectors ? '#ffffff' : '#64748b',
                   fontSize: '10.5px',
                   fontWeight: 700,
                   cursor: 'pointer',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '4px'
+                  gap: '4px',
+                  transition: 'all 0.15s ease'
                 }}
               >
                 <Activity size={11} /> Flight Vectors
@@ -580,14 +582,15 @@ export default function SurveillanceMap({
                   padding: '4px 8px',
                   borderRadius: '6px',
                   border: 'none',
-                  background: activeLayers.labels ? '#2563eb' : 'transparent',
-                  color: '#ffffff',
+                  background: activeLayers.labels ? '#0284c7' : 'transparent',
+                  color: activeLayers.labels ? '#ffffff' : '#64748b',
                   fontSize: '10.5px',
                   fontWeight: 700,
                   cursor: 'pointer',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '4px'
+                  gap: '4px',
+                  transition: 'all 0.15s ease'
                 }}
               >
                 Numbers On-Map
@@ -600,21 +603,21 @@ export default function SurveillanceMap({
             <button
               onClick={handleZoomIn}
               title="Zoom In"
-              style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'rgba(15,23,42,0.85)', backdropFilter: 'blur(6px)', border: '1px solid rgba(255,255,255,0.15)', color: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}
+              style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'rgba(255,255,255,0.95)', backdropFilter: 'blur(6px)', border: '1px solid #cbd5e1', color: '#0f172a', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', boxShadow: '0 2px 6px rgba(0,0,0,0.06)' }}
             >
               <Plus size={14} />
             </button>
             <button
               onClick={handleZoomOut}
               title="Zoom Out"
-              style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'rgba(15,23,42,0.85)', backdropFilter: 'blur(6px)', border: '1px solid rgba(255,255,255,0.15)', color: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}
+              style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'rgba(255,255,255,0.95)', backdropFilter: 'blur(6px)', border: '1px solid #cbd5e1', color: '#0f172a', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', boxShadow: '0 2px 6px rgba(0,0,0,0.06)' }}
             >
               <Minus size={14} />
             </button>
             <button
               onClick={handleResetZoom}
               title="Reset View"
-              style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'rgba(15,23,42,0.85)', backdropFilter: 'blur(6px)', border: '1px solid rgba(255,255,255,0.15)', color: '#f472b6', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}
+              style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'rgba(255,255,255,0.95)', backdropFilter: 'blur(6px)', border: '1px solid #cbd5e1', color: '#0284c7', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', boxShadow: '0 2px 6px rgba(0,0,0,0.06)' }}
             >
               <RotateCcw size={13} />
             </button>
@@ -628,13 +631,13 @@ export default function SurveillanceMap({
             left: `${Math.min(Math.max(16, tooltipPos.x + 14), 780)}px`,
             top: `${Math.min(Math.max(16, tooltipPos.y - 60), 420)}px`,
             zIndex: 35,
-            background: 'rgba(15, 23, 42, 0.96)',
+            background: 'rgba(255, 255, 255, 0.96)',
             backdropFilter: 'blur(14px)',
-            color: '#ffffff',
+            color: '#0f172a',
             padding: '14px 18px',
             borderRadius: '16px',
-            border: '1.5px solid rgba(244, 114, 182, 0.6)',
-            boxShadow: '0 16px 48px rgba(0,0,0,0.7)',
+            border: '1.5px solid #bae6fd',
+            boxShadow: '0 16px 48px rgba(2, 132, 199, 0.15)',
             fontSize: '11px',
             pointerEvents: 'none',
             minWidth: '260px',
@@ -644,8 +647,8 @@ export default function SurveillanceMap({
             gap: '8px'
           }}>
             {/* Country Title & Risk Badge */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '6px' }}>
-              <div style={{ fontWeight: 800, fontSize: '13.5px', color: '#f8fafc' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #f1f5f9', paddingBottom: '6px' }}>
+              <div style={{ fontWeight: 800, fontSize: '13.5px', color: '#0f172a' }}>
                 {hoveredHub.name}
               </div>
               <span style={{ 
@@ -653,8 +656,9 @@ export default function SurveillanceMap({
                 fontWeight: 800, 
                 padding: '2px 8px', 
                 borderRadius: '6px',
-                background: hoveredHub.riskLevel === 'High' ? '#ef4444' : hoveredHub.riskLevel === 'Moderate' ? '#f59e0b' : '#10b981',
-                color: '#ffffff'
+                background: hoveredHub.riskLevel === 'High' ? '#fee2e2' : hoveredHub.riskLevel === 'Moderate' ? '#fef3c7' : '#dcfce7',
+                color: hoveredHub.riskLevel === 'High' ? '#dc2626' : hoveredHub.riskLevel === 'Moderate' ? '#d97706' : '#15803d',
+                border: `1px solid ${hoveredHub.riskLevel === 'High' ? '#fca5a5' : hoveredHub.riskLevel === 'Moderate' ? '#fde68a' : '#86efac'}`
               }}>
                 {hoveredHub.riskLevel} Risk
               </span>
@@ -663,51 +667,51 @@ export default function SurveillanceMap({
             {/* Exact Clinical Case and Death Metrics */}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
               <div>
-                <div style={{ fontSize: '9.5px', color: '#94a3b8' }}>Active Cases</div>
-                <div style={{ fontSize: '14px', fontWeight: 800, color: '#f472b6' }}>
+                <div style={{ fontSize: '9.5px', color: '#64748b' }}>Active Cases</div>
+                <div style={{ fontSize: '14px', fontWeight: 800, color: '#0284c7' }}>
                   {hoveredHub.activeCases}
                 </div>
               </div>
 
               <div>
-                <div style={{ fontSize: '9.5px', color: '#94a3b8' }}>Total Deaths</div>
+                <div style={{ fontSize: '9.5px', color: '#64748b' }}>Total Deaths</div>
                 <div style={{ fontSize: '14px', fontWeight: 800, color: '#ef4444' }}>
                   {hoveredHub.deathsCount || `${Math.round(hoveredHub.activeNumber * 0.04).toLocaleString()} Deaths`}
                 </div>
               </div>
 
               <div>
-                <div style={{ fontSize: '9.5px', color: '#94a3b8' }}>Cumulative Cases</div>
-                <div style={{ fontSize: '12px', fontWeight: 700, color: '#e2e8f0' }}>
+                <div style={{ fontSize: '9.5px', color: '#64748b' }}>Cumulative Cases</div>
+                <div style={{ fontSize: '12px', fontWeight: 700, color: '#334155' }}>
                   {hoveredHub.cumulativeCases || `${(hoveredHub.activeNumber * 1.6).toLocaleString()} Cases`}
                 </div>
               </div>
 
               <div>
-                <div style={{ fontSize: '9.5px', color: '#94a3b8' }}>Recovery Rate</div>
-                <div style={{ fontSize: '12px', fontWeight: 700, color: '#4ade80' }}>
+                <div style={{ fontSize: '9.5px', color: '#64748b' }}>Recovery Rate</div>
+                <div style={{ fontSize: '12px', fontWeight: 700, color: '#16a34a' }}>
                   {hoveredHub.recoveryRate}%
                 </div>
               </div>
 
               <div>
-                <div style={{ fontSize: '9.5px', color: '#94a3b8' }}>ICU Load</div>
-                <div style={{ fontSize: '12px', fontWeight: 700, color: '#60a5fa' }}>
+                <div style={{ fontSize: '9.5px', color: '#64748b' }}>ICU Load</div>
+                <div style={{ fontSize: '12px', fontWeight: 700, color: '#0284c7' }}>
                   {hoveredHub.icuOccupancy}%
                 </div>
               </div>
 
               <div>
-                <div style={{ fontSize: '9.5px', color: '#94a3b8' }}>Spread (R₀ Index)</div>
-                <div style={{ fontSize: '12px', fontWeight: 700, color: '#facc15' }}>
+                <div style={{ fontSize: '9.5px', color: '#64748b' }}>Spread (R₀ Index)</div>
+                <div style={{ fontSize: '12px', fontWeight: 700, color: '#d97706' }}>
                   {hoveredHub.r0Index || '1.24'}
                 </div>
               </div>
             </div>
 
             {hoveredHub.genomicStrain && (
-              <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '6px', fontSize: '10.5px', color: '#cbd5e1' }}>
-                Dominant Strain: <span style={{ color: '#f472b6', fontWeight: 800 }}>{hoveredHub.genomicStrain}</span>
+              <div style={{ borderTop: '1px solid #f1f5f9', paddingTop: '6px', fontSize: '10.5px', color: '#475569' }}>
+                Dominant Strain: <span style={{ color: '#0284c7', fontWeight: 800 }}>{hoveredHub.genomicStrain}</span>
               </div>
             )}
           </div>
@@ -735,13 +739,13 @@ export default function SurveillanceMap({
                   <Geography
                     key={geo.rsmKey}
                     geography={geo}
-                    fill="#111827"
-                    stroke="#1f2937"
-                    strokeWidth={0.5}
+                    fill="#ffffff"
+                    stroke="#cbd5e1"
+                    strokeWidth={0.6}
                     style={{
-                      default: { fill: '#111827', outline: 'none' },
-                      hover: { fill: '#1f2937', outline: 'none' },
-                      pressed: { fill: '#0f172a', outline: 'none' }
+                      default: { fill: '#ffffff', outline: 'none' },
+                      hover: { fill: '#f8fafc', stroke: '#94a3b8', outline: 'none' },
+                      pressed: { fill: '#f1f5f9', outline: 'none' }
                     }}
                   />
                 ))
@@ -757,9 +761,9 @@ export default function SurveillanceMap({
                     key={`line-${hub.id}-${target.id}`}
                     from={hub.coordinates}
                     to={target.coordinates}
-                    stroke="#db2777"
+                    stroke="#0284c7"
                     strokeWidth={1.2}
-                    strokeOpacity={0.4}
+                    strokeOpacity={0.45}
                     strokeDasharray="4, 4"
                   />
                 );
@@ -774,13 +778,13 @@ export default function SurveillanceMap({
               const baseRadius = isSelected ? 6 : 4;
               const bubbleRadius = baseRadius;
 
-              let bubbleColor = '#db2777';
+              let bubbleColor = '#0284c7';
               if (colorMode === 'risk') {
-                bubbleColor = hub.riskLevel === 'High' ? '#ef4444' : hub.riskLevel === 'Moderate' ? '#f59e0b' : '#db2777';
+                bubbleColor = hub.riskLevel === 'High' ? '#ef4444' : hub.riskLevel === 'Moderate' ? '#f59e0b' : '#0284c7';
               } else if (colorMode === 'icu') {
-                bubbleColor = hub.icuOccupancy > 70 ? '#ef4444' : hub.icuOccupancy > 55 ? '#f59e0b' : '#3b82f6';
+                bubbleColor = hub.icuOccupancy > 70 ? '#ef4444' : hub.icuOccupancy > 55 ? '#f59e0b' : '#0284c7';
               } else if (colorMode === 'recovery') {
-                bubbleColor = hub.recoveryRate > 80 ? '#10b981' : hub.recoveryRate > 70 ? '#3b82f6' : '#f59e0b';
+                bubbleColor = hub.recoveryRate > 80 ? '#10b981' : hub.recoveryRate > 70 ? '#0284c7' : '#f59e0b';
               }
 
               return (
@@ -797,7 +801,7 @@ export default function SurveillanceMap({
                     <circle
                       r={bubbleRadius + (isSelected ? 5 : 3)}
                       fill={bubbleColor}
-                      opacity={isSelected ? 0.35 : 0.18}
+                      opacity={isSelected ? 0.3 : 0.15}
                     />
                   )}
 
@@ -806,7 +810,7 @@ export default function SurveillanceMap({
                     <circle
                       r={bubbleRadius + 1.8}
                       fill="none"
-                      stroke={hub.icuOccupancy > 65 ? '#ef4444' : '#38bdf8'}
+                      stroke={hub.icuOccupancy > 65 ? '#ef4444' : '#0284c7'}
                       strokeWidth={1}
                       strokeDasharray={`${(hub.icuOccupancy / 100) * 18} 50`}
                       opacity={0.85}
@@ -818,7 +822,7 @@ export default function SurveillanceMap({
                     r={bubbleRadius}
                     fill={bubbleColor}
                     stroke="#ffffff"
-                    strokeWidth={isSelected ? 1.8 : 1}
+                    strokeWidth={isSelected ? 2 : 1.2}
                   />
 
                   {/* Center Micro Core */}
@@ -832,12 +836,12 @@ export default function SurveillanceMap({
                     textAnchor="middle"
                     y={bubbleRadius + 8}
                     style={{
-                      fontFamily: 'Inter, -apple-system, sans-serif',
-                      fontSize: isSelected ? '9px' : '7.5px',
+                      fontFamily: '"Times New Roman", Times, serif',
+                      fontSize: isSelected ? '9.5px' : '8px',
                       fontWeight: 800,
-                      fill: isSelected ? '#f472b6' : '#cbd5e1',
-                      stroke: '#070b13',
-                      strokeWidth: 2,
+                      fill: isSelected ? '#0284c7' : '#1e293b',
+                      stroke: '#ffffff',
+                      strokeWidth: 2.5,
                       paintOrder: 'stroke fill',
                       letterSpacing: '-0.2px'
                     }}
@@ -852,11 +856,11 @@ export default function SurveillanceMap({
                       y={bubbleRadius + 16}
                       style={{
                         fontFamily: 'monospace, sans-serif',
-                        fontSize: '7px',
+                        fontSize: '7.5px',
                         fontWeight: 900,
-                        fill: '#fcd34d',
-                        stroke: '#070b13',
-                        strokeWidth: 1.8,
+                        fill: '#d97706',
+                        stroke: '#ffffff',
+                        strokeWidth: 2,
                         paintOrder: 'stroke fill'
                       }}
                     >
@@ -875,17 +879,18 @@ export default function SurveillanceMap({
           bottom: '14px',
           left: '14px',
           right: '14px',
-          background: 'rgba(15, 23, 42, 0.94)',
+          background: 'rgba(255, 255, 255, 0.95)',
           backdropFilter: 'blur(12px)',
           borderRadius: '14px',
-          border: '1px solid rgba(255, 255, 255, 0.14)',
+          border: '1px solid #cbd5e1',
           padding: '8px 16px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
           flexWrap: 'wrap',
           gap: '10px',
-          zIndex: 20
+          zIndex: 20,
+          boxShadow: '0 8px 24px rgba(0,0,0,0.08)'
         }}>
           {/* Play / Pause Scrubber Controls */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -895,22 +900,22 @@ export default function SurveillanceMap({
                 width: '30px',
                 height: '30px',
                 borderRadius: '50%',
-                background: '#db2777',
+                background: '#0284c7',
                 border: 'none',
                 color: '#ffffff',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 cursor: 'pointer',
-                boxShadow: '0 0 12px rgba(219,39,119,0.5)'
+                boxShadow: '0 2px 8px rgba(2,132,199,0.35)'
               }}
             >
               {isPlayingTimeline ? <Pause size={13} /> : <Play size={13} style={{ marginLeft: '2px' }} />}
             </button>
             <div>
-              <div style={{ fontSize: '9px', color: '#94a3b8', fontWeight: 700 }}>EPIDEMIC TIMELINE</div>
-              <div style={{ fontSize: '11.5px', color: '#ffffff', fontWeight: 800 }}>
-                Day: <span style={{ color: '#f472b6' }}>{timelineDays[timelineIndex]} (Aug {14 + timelineIndex})</span>
+              <div style={{ fontSize: '9px', color: '#64748b', fontWeight: 700 }}>EPIDEMIC TIMELINE</div>
+              <div style={{ fontSize: '11.5px', color: '#0f172a', fontWeight: 800 }}>
+                Day: <span style={{ color: '#0284c7' }}>{timelineDays[timelineIndex]} (Aug {14 + timelineIndex})</span>
               </div>
             </div>
           </div>
@@ -927,12 +932,13 @@ export default function SurveillanceMap({
                 style={{
                   padding: '3px 8px',
                   borderRadius: '7px',
-                  border: timelineIndex === idx ? '1px solid #db2777' : '1px solid rgba(255,255,255,0.1)',
-                  background: timelineIndex === idx ? 'rgba(219,39,119,0.3)' : 'transparent',
-                  color: timelineIndex === idx ? '#ffffff' : '#94a3b8',
+                  border: timelineIndex === idx ? '1px solid #0284c7' : '1px solid #e2e8f0',
+                  background: timelineIndex === idx ? '#0284c7' : '#f8fafc',
+                  color: timelineIndex === idx ? '#ffffff' : '#64748b',
                   fontSize: '10px',
                   fontWeight: timelineIndex === idx ? 800 : 600,
-                  cursor: 'pointer'
+                  cursor: 'pointer',
+                  transition: 'all 0.15s ease'
                 }}
               >
                 {day}
@@ -941,9 +947,9 @@ export default function SurveillanceMap({
           </div>
 
           {/* Legend */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '10px', color: '#cbd5e1' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '10px', color: '#475569' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-              <span style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#db2777' }} />
+              <span style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#0284c7' }} />
               <span>Standard</span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
@@ -976,14 +982,14 @@ export default function SurveillanceMap({
             </div>
             <div style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a', display: 'flex', alignItems: 'center', gap: '6px' }}>
               <span>{selectedHub.name}</span>
-              <span style={{ fontSize: '11px', color: '#db2777', fontWeight: 700 }}>({selectedHub.trend})</span>
+              <span style={{ fontSize: '11px', color: '#0284c7', fontWeight: 700 }}>({selectedHub.trend})</span>
             </div>
           </div>
 
           <div style={{ display: 'flex', gap: '14px' }}>
             <div>
               <div style={{ fontSize: '9.5px', color: '#64748b' }}>Active Cases</div>
-              <div style={{ fontSize: '13px', fontWeight: 800, color: '#db2777' }}>{selectedHub.activeCases}</div>
+              <div style={{ fontSize: '13px', fontWeight: 800, color: '#0284c7' }}>{selectedHub.activeCases}</div>
             </div>
             <div>
               <div style={{ fontSize: '9.5px', color: '#64748b' }}>Total Deaths</div>
@@ -1016,7 +1022,7 @@ export default function SurveillanceMap({
                 cursor: 'pointer'
               }}
             >
-              <Download size={12} color="#db2777" />
+              <Download size={12} color="#0284c7" />
               <span>Export GIS JSON</span>
             </button>
             <button
@@ -1024,7 +1030,7 @@ export default function SurveillanceMap({
               style={{
                 padding: '6px 14px',
                 borderRadius: '8px',
-                background: '#db2777',
+                background: '#0284c7',
                 border: 'none',
                 fontSize: '11px',
                 fontWeight: 700,
@@ -1033,7 +1039,7 @@ export default function SurveillanceMap({
                 alignItems: 'center',
                 gap: '5px',
                 cursor: 'pointer',
-                boxShadow: '0 2px 8px rgba(219,39,119,0.3)'
+                boxShadow: '0 2px 8px rgba(2,132,199,0.3)'
               }}
             >
               <ShieldAlert size={12} />

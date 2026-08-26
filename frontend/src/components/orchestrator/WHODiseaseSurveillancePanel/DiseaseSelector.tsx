@@ -68,7 +68,7 @@ export default function DiseaseSelector({ diseases, selectedDiseaseId, onSelectD
         }}>
           <div style={{ textAlign: 'right' }}>
             <div style={{ fontSize: '10px', fontWeight: 800, color: '#64748b', textTransform: 'uppercase' }}>Surveillance Telemetry</div>
-            <div style={{ fontSize: '13px', fontWeight: 800, color: '#ec4899' }}>194 Member States Active</div>
+            <div style={{ fontSize: '13px', fontWeight: 800, color: '#0284c7' }}>194 Member States Active</div>
           </div>
           <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#10b981', display: 'inline-block' }} />
         </div>
@@ -78,7 +78,7 @@ export default function DiseaseSelector({ diseases, selectedDiseaseId, onSelectD
       <div>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
           <div>
-            <span style={{ fontSize: '10.5px', fontWeight: 800, color: '#ec4899', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+            <span style={{ fontSize: '10.5px', fontWeight: 800, color: '#0284c7', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
               Step 1: Select Monitored Condition
             </span>
             <h2 style={{ fontSize: '15px', fontWeight: 800, color: '#0f172a', margin: '2px 0 0 0' }}>
@@ -107,11 +107,11 @@ export default function DiseaseSelector({ diseases, selectedDiseaseId, onSelectD
                 style={{
                   padding: '14px 16px',
                   borderRadius: '14px',
-                  border: isSelected ? '2px solid #ec4899' : '1px solid #e2e8f0',
-                  background: isSelected ? '#fdf2f8' : '#f8fafc',
+                  border: isSelected ? '2px solid #0284c7' : '1px solid #e2e8f0',
+                  background: isSelected ? '#f0f9ff' : '#ffffff',
                   cursor: 'pointer',
                   transition: 'all 0.15s ease',
-                  boxShadow: isSelected ? '0 4px 14px rgba(236, 72, 153,0.12)' : 'none',
+                  boxShadow: isSelected ? '0 4px 14px rgba(2, 132, 199, 0.12)' : 'none',
                   display: 'flex',
                   flexDirection: 'column',
                   gap: '8px'
@@ -122,8 +122,8 @@ export default function DiseaseSelector({ diseases, selectedDiseaseId, onSelectD
                     width: '32px',
                     height: '32px',
                     borderRadius: '8px',
-                    background: isSelected ? '#ec4899' : '#ffffff',
-                    color: isSelected ? '#ffffff' : '#ec4899',
+                    background: isSelected ? '#0284c7' : '#f0f9ff',
+                    color: isSelected ? '#ffffff' : '#0284c7',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -136,7 +136,7 @@ export default function DiseaseSelector({ diseases, selectedDiseaseId, onSelectD
                     fontWeight: 800,
                     padding: '2px 6px',
                     borderRadius: '6px',
-                    background: isSelected ? '#ec4899' : '#e2e8f0',
+                    background: isSelected ? '#0284c7' : '#e2e8f0',
                     color: isSelected ? '#ffffff' : '#475569'
                   }}>
                     WHO #{d.rank}
@@ -147,7 +147,7 @@ export default function DiseaseSelector({ diseases, selectedDiseaseId, onSelectD
                   <h3 style={{
                     fontSize: '13px',
                     fontWeight: 800,
-                    color: isSelected ? '#be185d' : '#1e293b',
+                    color: isSelected ? '#0284c7' : '#1e293b',
                     margin: '0 0 2px 0',
                     lineHeight: 1.3
                   }}>
