@@ -745,19 +745,33 @@ export default function VisualAnalyticsPanel({
           </div>
 
           {/* Dynamic Spline Chart */}
-          <div style={{ marginTop: '24px' }}>
-            <div style={{ height: '70px', position: 'relative' }}>
-              <svg viewBox="0 0 240 70" style={{ width: '100%', height: '100%', overflow: 'visible' }}>
+          <div style={{ marginTop: '20px' }}>
+            <div style={{ height: '60px', width: '100%', position: 'relative' }}>
+              <svg viewBox="0 0 240 60" style={{ width: '100%', height: '100%', overflow: 'hidden' }}>
+                <defs>
+                  <linearGradient id="hrCardGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#a855f7" stopOpacity="0.3" />
+                    <stop offset="100%" stopColor="#a855f7" stopOpacity="0.0" />
+                  </linearGradient>
+                </defs>
+                {/* Gradient area under the curve */}
                 <path
-                  d={activeProfile.visualAnalytics.heartRatePath}
+                  d="M 0 42 C 35 15, 65 50, 95 24 C 125 8, 155 44, 185 20 C 205 8, 225 32, 240 18 L 240 60 L 0 60 Z"
+                  fill="url(#hrCardGrad)"
+                />
+                {/* Smooth wave stroke */}
+                <path
+                  d="M 0 42 C 35 15, 65 50, 95 24 C 125 8, 155 44, 185 20 C 205 8, 225 32, 240 18"
                   fill="none"
                   stroke="#a855f7"
                   strokeWidth="2.5"
                   strokeLinecap="round"
                 />
+                {/* Active telemetry pulse dot */}
+                <circle cx="240" cy="18" r="4" fill="#a855f7" stroke="#ffffff" strokeWidth="2" />
               </svg>
             </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '9px', color: '#94a3b8', fontWeight: 700, marginTop: '8px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '9px', color: '#94a3b8', fontWeight: 700, marginTop: '8px', padding: '0 2px' }}>
               <span>10:00 AM</span>
               <span>11:00 AM</span>
               <span>12:00 PM</span>
@@ -803,26 +817,31 @@ export default function VisualAnalyticsPanel({
           </div>
 
           {/* Bar Chart */}
-          <div style={{ marginTop: '24px' }}>
-            <div style={{ height: '70px', display: 'flex', alignItems: 'flex-end', gap: '8px', justifyContent: 'space-between' }}>
+          <div style={{ marginTop: '20px' }}>
+            <div style={{ height: '60px', display: 'flex', alignItems: 'flex-end', gap: '6px', justifyContent: 'space-between' }}>
               {activeProfile.visualAnalytics.sleepBars.map((h, i) => (
                 <div
                   key={i}
                   style={{
                     flex: 1,
-                    height: `${h}%`,
+                    height: `${Math.max(25, h)}%`,
                     borderRadius: '6px',
-                    background: '#fbcfe8',
+                    background: i === 5 || i === 3 
+                      ? 'linear-gradient(180deg, #818cf8 0%, #a855f7 100%)' 
+                      : 'linear-gradient(180deg, #c4b5fd 0%, #e9d5ff 100%)',
                     transition: 'height 0.4s ease'
                   }}
                 />
               ))}
             </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '9px', color: '#94a3b8', fontWeight: 700, marginTop: '8px' }}>
-              <span>10:00 AM</span>
-              <span>11:00 AM</span>
-              <span>12:00 PM</span>
-              <span>01:00 PM</span>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '9px', color: '#94a3b8', fontWeight: 700, marginTop: '8px', padding: '0 2px' }}>
+              <span>Mon</span>
+              <span>Tue</span>
+              <span>Wed</span>
+              <span>Thu</span>
+              <span>Fri</span>
+              <span>Sat</span>
+              <span>Sun</span>
             </div>
           </div>
         </div>
@@ -864,35 +883,43 @@ export default function VisualAnalyticsPanel({
           </div>
 
           {/* Scatter Line Chart */}
-          <div style={{ marginTop: '24px' }}>
-            <div style={{ height: '70px', position: 'relative' }}>
-              <svg viewBox="0 0 240 70" style={{ width: '100%', height: '100%', overflow: 'visible' }}>
+          <div style={{ marginTop: '20px' }}>
+            <div style={{ height: '60px', width: '100%', position: 'relative' }}>
+              <svg viewBox="0 0 240 60" style={{ width: '100%', height: '100%', overflow: 'hidden' }}>
+                <defs>
+                  <linearGradient id="stressCardGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#818cf8" stopOpacity="0.2" />
+                    <stop offset="100%" stopColor="#818cf8" stopOpacity="0.0" />
+                  </linearGradient>
+                </defs>
                 <path
-                  d={activeProfile.visualAnalytics.stressPath}
+                  d="M 0 38 C 40 48, 80 18, 120 34 C 160 48, 200 16, 240 28 L 240 60 L 0 60 Z"
+                  fill="url(#stressCardGrad)"
+                />
+                <path
+                  d="M 0 38 C 40 48, 80 18, 120 34 C 160 48, 200 16, 240 28"
                   fill="none"
-                  stroke="#cbd5e1"
-                  strokeWidth="1.5"
-                  strokeDasharray="3 3"
+                  stroke="#818cf8"
+                  strokeWidth="1.8"
+                  strokeDasharray="4 4"
                 />
                 {/* Highlighted Scatter Dots */}
-                {activeProfile.visualAnalytics.stressPoints.map((pt, pIdx) => (
-                  <circle
-                    key={pIdx}
-                    cx={pt.x}
-                    cy={pt.y}
-                    r={pt.isHigh ? 4.5 : 3.5}
-                    fill={pt.isHigh ? '#ef4444' : '#818cf8'}
-                  />
-                ))}
+                <circle cx="35" cy="44" r="3.5" fill="#818cf8" stroke="#ffffff" strokeWidth="1.5" />
+                <circle cx="75" cy="22" r="3.5" fill="#818cf8" stroke="#ffffff" strokeWidth="1.5" />
+                <circle cx="120" cy="34" r="3.5" fill="#818cf8" stroke="#ffffff" strokeWidth="1.5" />
+                <circle cx="165" cy="46" r="3.5" fill="#818cf8" stroke="#ffffff" strokeWidth="1.5" />
+                <circle cx="205" cy="18" r="4.5" fill="#ef4444" stroke="#ffffff" strokeWidth="1.5" />
+                <circle cx="235" cy="28" r="3.5" fill="#818cf8" stroke="#ffffff" strokeWidth="1.5" />
               </svg>
             </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '9px', color: '#94a3b8', fontWeight: 700, marginTop: '8px' }}>
-              <span>SUN</span>
-              <span>MON</span>
-              <span>TUE</span>
-              <span>WED</span>
-              <span>THU</span>
-              <span>FRI</span>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '9px', color: '#94a3b8', fontWeight: 700, marginTop: '8px', padding: '0 2px' }}>
+              <span>Sun</span>
+              <span>Mon</span>
+              <span>Tue</span>
+              <span>Wed</span>
+              <span>Thu</span>
+              <span>Fri</span>
+              <span>Sat</span>
             </div>
           </div>
         </div>
@@ -934,26 +961,31 @@ export default function VisualAnalyticsPanel({
           </div>
 
           {/* Multi-Bar Gradient Chart */}
-          <div style={{ marginTop: '24px' }}>
-            <div style={{ height: '70px', display: 'flex', alignItems: 'flex-end', gap: '5px', justifyContent: 'space-between' }}>
+          <div style={{ marginTop: '20px' }}>
+            <div style={{ height: '60px', display: 'flex', alignItems: 'flex-end', gap: '6px', justifyContent: 'space-between' }}>
               {activeProfile.visualAnalytics.stepsBars.map((h, i) => (
                 <div
                   key={i}
                   style={{
                     flex: 1,
-                    height: `${h}%`,
-                    borderRadius: '4px',
-                    background: i > 6 ? 'linear-gradient(180deg, #c084fc 0%, #818cf8 100%)' : '#e2e8f0',
+                    height: `${Math.max(25, h)}%`,
+                    borderRadius: '6px',
+                    background: i === 4 || i === 2 
+                      ? 'linear-gradient(180deg, #38bdf8 0%, #0284c7 100%)' 
+                      : 'linear-gradient(180deg, #bae6fd 0%, #e0f2fe 100%)',
                     transition: 'height 0.4s ease'
                   }}
                 />
               ))}
             </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '9px', color: '#94a3b8', fontWeight: 700, marginTop: '8px' }}>
-              <span>10:00 AM</span>
-              <span>10:00 AM</span>
-              <span>10:00 AM</span>
-              <span>10:00 AM</span>
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '9px', color: '#94a3b8', fontWeight: 700, marginTop: '8px', padding: '0 2px' }}>
+              <span>Mon</span>
+              <span>Tue</span>
+              <span>Wed</span>
+              <span>Thu</span>
+              <span>Fri</span>
+              <span>Sat</span>
+              <span>Sun</span>
             </div>
           </div>
         </div>

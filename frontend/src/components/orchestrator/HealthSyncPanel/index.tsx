@@ -1015,27 +1015,28 @@ export default function HealthSyncPanel() {
               })}
             </div>
 
-            {/* Ingestion Status Bar */}
             {importStatus && (
               <div style={{
+                marginTop: '16px',
                 padding: '10px 16px',
                 borderRadius: '12px',
                 background: '#f0f9ff',
                 border: '1px solid #bae6fd',
-                color: '#0369a1',
                 fontSize: '12px',
                 fontWeight: 700,
+                color: '#0369a1',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                flexWrap: 'wrap',
-                gap: '8px'
+                height: '42px',
+                minHeight: '42px',
+                boxSizing: 'border-box'
               }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <CheckCircle2 size={16} color="#0284c7" />
-                  <span>{importStatus}</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                  <CheckCircle2 size={16} color="#0284c7" style={{ flexShrink: 0 }} />
+                  <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{importStatus}</span>
                 </div>
-                <span style={{ fontSize: '11px', color: '#64748b' }}>
+                <span style={{ fontSize: '11px', color: '#64748b', flexShrink: 0, marginLeft: '12px' }}>
                   Standard LOINC & SNOMED CT Unified Format
                 </span>
               </div>
@@ -1087,41 +1088,55 @@ export default function HealthSyncPanel() {
         )}
       </div>
 
-      {/* 6. AI Anomaly Correlator Box (Dynamic Based on Profile) */}
+      {/* 6. AI Anomaly Correlator Box (Strict Fixed Container - Zero Webpage Dimension Jitter) */}
       <div style={{
         background: currentAiAnalysis.type === 'alert' ? '#fef2f2' : currentAiAnalysis.type === 'warning' ? '#fffbeb' : '#f0fdf4',
         borderRadius: '18px',
         border: `1px solid ${currentAiAnalysis.type === 'alert' ? '#fecaca' : currentAiAnalysis.type === 'warning' ? '#fde68a' : '#bbf7d0'}`,
-        padding: '18px 22px',
+        padding: '14px 20px',
         display: 'flex',
         gap: '14px',
-        alignItems: 'flex-start',
-        boxShadow: '0 2px 10px rgba(0,0,0,0.02)'
+        alignItems: 'center',
+        boxShadow: '0 2px 10px rgba(0,0,0,0.02)',
+        height: '76px',
+        minHeight: '76px',
+        maxHeight: '76px',
+        boxSizing: 'border-box',
+        overflow: 'hidden'
       }}>
         {currentAiAnalysis.type === 'alert' ? (
-          <AlertTriangle size={22} color="#dc2626" style={{ flexShrink: 0, marginTop: '2px' }} />
+          <AlertTriangle size={22} color="#dc2626" style={{ flexShrink: 0 }} />
         ) : currentAiAnalysis.type === 'warning' ? (
-          <AlertTriangle size={22} color="#d97706" style={{ flexShrink: 0, marginTop: '2px' }} />
+          <AlertTriangle size={22} color="#d97706" style={{ flexShrink: 0 }} />
         ) : (
-          <CheckCircle2 size={22} color="#16a34a" style={{ flexShrink: 0, marginTop: '2px' }} />
+          <CheckCircle2 size={22} color="#16a34a" style={{ flexShrink: 0 }} />
         )}
-        <div>
+        <div style={{ flex: 1, minWidth: 0, overflow: 'hidden' }}>
           <div style={{
-            fontSize: '13.5px',
+            fontSize: '13px',
             fontWeight: 800,
             color: currentAiAnalysis.type === 'alert' ? '#991b1b' : currentAiAnalysis.type === 'warning' ? '#92400e' : '#166534',
             display: 'flex',
             alignItems: 'center',
-            gap: '8px'
+            gap: '8px',
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis'
           }}>
-            <span>AI Wearable Clinical Risk Correlator:</span>
-            <span>{currentAiAnalysis.title}</span>
+            <span style={{ flexShrink: 0 }}>AI Wearable Clinical Risk Correlator:</span>
+            <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>{currentAiAnalysis.title}</span>
           </div>
           <div style={{
-            fontSize: '12px',
+            fontSize: '11.5px',
             color: currentAiAnalysis.type === 'alert' ? '#b91c1c' : currentAiAnalysis.type === 'warning' ? '#b45309' : '#15803d',
-            marginTop: '4px',
-            lineHeight: 1.55
+            marginTop: '3px',
+            lineHeight: 1.4,
+            display: '-webkit-box',
+            WebkitLineClamp: 2,
+            WebkitBoxOrient: 'vertical',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            maxHeight: '32px'
           }}>
             {currentAiAnalysis.description}
           </div>
