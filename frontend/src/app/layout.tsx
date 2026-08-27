@@ -14,6 +14,7 @@ export const metadata: Metadata = {
   },
 };
 
+import ContactModal from '@/components/ui/ContactModal';
 import MobileNoticeBarrier from '@/components/ui/MobileNoticeBarrier';
 import { LanguageProvider } from '@/context/LanguageContext';
 
@@ -35,6 +36,9 @@ export default function RootLayout({
         <LanguageProvider>
           {/* Mobile Screen Barrier Notice (Smart VIT Hackathon Edition) */}
           <MobileNoticeBarrier />
+
+          {/* Global Luxury Editorial Contact & Partnership Modal */}
+          <ContactModal />
 
           <LegacyThemeShell>
             {children}
