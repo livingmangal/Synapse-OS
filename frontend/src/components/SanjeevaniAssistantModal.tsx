@@ -85,6 +85,19 @@ export default function SanjeevaniAssistantModal() {
     handleSend
   } = useAssistantLogic();
 
+  const [isFullscreen, setIsFullscreen] = React.useState(false);
+
+  // Exit fullscreen on Escape key
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isFullscreen) {
+        setIsFullscreen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isFullscreen]);
+
   // Hide assistant trigger on 3D Model / Vibrant page so it does not interfere
   if (pathname === '/vibrant' || pathname?.startsWith('/vibrant')) {
     return null;
@@ -100,23 +113,26 @@ export default function SanjeevaniAssistantModal() {
 
       {/* Main Assistant Modal Window */}
       {isOpen && (
-        <div className="sanjeevani-modal-window sanjeevani-root" data-lenis-prevent="true">
+        <div className={`sanjeevani-modal-window sanjeevani-root ${isFullscreen ? 'sanjeevani-modal-fullscreen' : ''}`} data-lenis-prevent="true">
           
           {/* Header Bar */}
           <AssistantHeader
             persona={assistantPersona}
             activeTab={activeTab}
             waConnected={waConnected}
+            isFullscreen={isFullscreen}
             onTabChange={setActiveTab}
+            onToggleFullscreen={() => setIsFullscreen(prev => !prev)}
             onNewChat={startNewChat}
             onClose={() => setIsOpen(false)}
           />
 
-          {/* Persona Switcher Bar */}
-          <PersonaSwitcher
-            assistantPersona={assistantPersona}
-            onPersonaChange={handlePersonaChange}
-          />
+          <div className="sanjeevani-modal-inner">
+            {/* Persona Switcher Bar */}
+            <PersonaSwitcher
+              assistantPersona={assistantPersona}
+              onPersonaChange={handlePersonaChange}
+            />
 
           {/* Live AI Voice Mode Overlay (ChatGPT style central orb & voice dialogue) */}
           {isVoiceMode ? (
@@ -222,6 +238,7 @@ export default function SanjeevaniAssistantModal() {
               />
             </>
           )}
+          </div>
         </div>
       )}
     </>

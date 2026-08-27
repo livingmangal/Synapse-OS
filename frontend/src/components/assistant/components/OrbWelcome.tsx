@@ -28,48 +28,54 @@ export default function OrbWelcome({ assistantPersona, onSendChip, onToggleVoice
     setOrbOffset({ x: 0, y: 0 });
   };
 
-  const getPersonaChips = () => {
+  const getPersonaCards = () => {
     if (assistantPersona === 'triage') {
       return [
-        { label: '🩺 Check Symptoms', query: 'I have a headache and mild fever, assess my symptoms' },
-        { label: '🚨 Emergency Red Flags', query: 'What are immediate medical emergency red flags?' },
-        { label: '🌡️ Fever & Vitals Guide', query: 'What are standard normal body temperature ranges?' },
-        { label: '💊 Medication Safety', query: 'How to check drug interactions safely?' },
-        { label: '📊 Triage Urgency', query: 'Explain how clinical urgency triage scores are computed' }
+        { icon: '🩺', title: 'Evaluate Symptoms', desc: 'Assess headache, fever or body aches', query: 'I have a headache and mild fever, assess my symptoms' },
+        { icon: '🚨', title: 'Emergency Flags', desc: 'Identify immediate critical symptoms', query: 'What are immediate medical emergency red flags?' },
+        { icon: '🌡️', title: 'Vitals & Fever Guide', desc: 'Standard clinical temperature ranges', query: 'What are standard normal body temperature ranges?' },
+        { icon: '💊', title: 'Medication Safety', desc: 'Verify prescription & drug interactions', query: 'How to check drug interactions safely?' }
       ];
     }
     if (assistantPersona === 'nutrition') {
       return [
-        { label: '🥗 Custom Macro Split', query: 'Calculate my daily macronutrient distribution' },
-        { label: '💧 Hydration Target', query: 'What is my optimal daily water intake calculation?' },
-        { label: '🥑 Mediterranean Diet', query: 'Outline a healthy Mediterranean nutrition meal blueprint' },
-        { label: '⌚ Sleep & Wearables', query: 'Analyze my continuous Apple Watch sleep stages and nocturnal SpO2' },
-        { label: '⚡ Metabolic Energy', query: 'What foods help maintain consistent energy levels?' },
-        { label: '📋 Daily Calorie Target', query: 'How to set a clean calorie deficit or maintenance target' }
+        { icon: '🥗', title: 'Macro Distribution', desc: 'Calculate daily protein, carb & fat split', query: 'Calculate my daily macronutrient distribution' },
+        { icon: '💧', title: 'Hydration Target', desc: 'Calculate optimal daily water intake', query: 'What is my optimal daily water intake calculation?' },
+        { icon: '🥑', title: 'Mediterranean Plan', desc: 'Evidence-based longevity nutrition', query: 'Outline a healthy Mediterranean nutrition meal blueprint' },
+        { icon: '⌚', title: 'Metabolic Sleep', desc: 'Sync wearable sleep stages & resting HR', query: 'Analyze my continuous Apple Watch sleep stages and nocturnal SpO2' }
       ];
     }
     return [
-      { label: '⌚ Wearables & ECG', query: 'Analyze my Apple Watch ECG rhythm strip and heart rate variability' },
-      { label: '💡 Swarm Diagnostics', query: 'Explain how the multi-agent clinical consensus works' },
-      { label: '📊 Analyze Records', query: 'How are medical records stored securely in ABHA?' },
-      { label: '📱 WhatsApp Bridge', query: 'How does the WhatsApp prescription upload bridge work?' },
-      { label: '💬 Ask me anything', query: 'What can Sanjeevani AI do for patients?' }
+      { icon: '⌚', title: 'Wearables & ECG', desc: 'Analyze Apple Watch ECG & HRV rhythm', query: 'Analyze my Apple Watch ECG rhythm strip and heart rate variability' },
+      { icon: '💡', title: 'Multi-Agent Swarm', desc: 'Clinical consensus and orchestration', query: 'Explain how the multi-agent clinical consensus works' },
+      { icon: '🔒', title: 'ABHA Blockchain', desc: 'Tamper-proof on-chain record vaults', query: 'How are medical records stored securely in ABHA?' },
+      { icon: '📱', title: 'WhatsApp Bridge', desc: 'Upload lab reports & Rx via chat', query: 'How does the WhatsApp prescription upload bridge work?' }
     ];
   };
 
   const getPersonaHeadline = () => {
     if (assistantPersona === 'triage') {
-      return <>What symptoms can I <br />evaluate for you ?</>;
+      return 'What symptoms can I evaluate for you?';
     }
     if (assistantPersona === 'nutrition') {
-      return <>What are your nutrition <br />& metabolic goals ?</>;
+      return 'What are your nutrition & metabolic goals?';
     }
-    return <>What can I help you <br />with today ?</>;
+    return 'What can I help you with today?';
+  };
+
+  const getPersonaSubtitle = () => {
+    if (assistantPersona === 'triage') {
+      return 'Fast, empathetic clinical triage cross-referenced with emergency guidelines.';
+    }
+    if (assistantPersona === 'nutrition') {
+      return 'Custom metabolic breakdowns, calorie calculations, and longevity meal plans.';
+    }
+    return 'Sanjeevani AI Orchestrator — Clinical diagnostics, scan analysis & blockchain records.';
   };
 
   return (
     <div 
-      style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', margin: 'auto 0' }}
+      className="sanjeevani-orb-welcome"
       onMouseMove={handleOrbMouseMove}
       onMouseLeave={handleOrbMouseLeave}
     >
@@ -82,7 +88,7 @@ export default function OrbWelcome({ assistantPersona, onSendChip, onToggleVoice
           transition: 'transform 0.16s ease-out'
         }}
         onClick={onToggleVoice}
-        title="Click to start voice conversation"
+        title="Click to start live voice conversation"
       >
         {/* Soft Multi-layered Volumetric Halos */}
         <div className="sanjeevani-orb-ambient-glow" />
@@ -108,20 +114,29 @@ export default function OrbWelcome({ assistantPersona, onSendChip, onToggleVoice
         </div>
       </div>
 
-      {/* Headline matching Active Persona */}
-      <h2 style={{ fontSize: '26px', fontWeight: 600, color: '#0f172a', letterSpacing: '-0.6px', marginTop: '6px', marginBottom: '18px', lineHeight: 1.25 }}>
-        {getPersonaHeadline()}
-      </h2>
+      {/* Headline & Subtitle matching Active Persona */}
+      <div className="sanjeevani-welcome-heading-wrap">
+        <h2 className="sanjeevani-welcome-title">
+          {getPersonaHeadline()}
+        </h2>
+        <p className="sanjeevani-welcome-subtitle">
+          {getPersonaSubtitle()}
+        </p>
+      </div>
 
-      {/* Quick Trigger Action Chips Grid per Persona */}
-      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '7px', maxWidth: '340px', margin: '0 auto' }}>
-        {getPersonaChips().map((chip, idx) => (
+      {/* Quick Trigger Action Cards Grid per Persona */}
+      <div className="sanjeevani-welcome-grid">
+        {getPersonaCards().map((card, idx) => (
           <button
             key={idx}
-            onClick={() => onSendChip(chip.query)}
-            className="sanjeevani-chip-btn"
+            onClick={() => onSendChip(card.query)}
+            className="sanjeevani-prompt-card"
           >
-            {chip.label}
+            <span className="sanjeevani-prompt-icon">{card.icon}</span>
+            <div className="sanjeevani-prompt-text">
+              <span className="sanjeevani-prompt-title">{card.title}</span>
+              <span className="sanjeevani-prompt-desc">{card.desc}</span>
+            </div>
           </button>
         ))}
       </div>

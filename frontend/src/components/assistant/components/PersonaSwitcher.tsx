@@ -7,36 +7,31 @@ interface PersonaSwitcherProps {
 }
 
 export default function PersonaSwitcher({ assistantPersona, onPersonaChange }: PersonaSwitcherProps) {
-  const personas: Array<{ id: Persona; label: string }> = [
-    { id: 'copilot', label: '🏥 Copilot' },
-    { id: 'triage', label: '🩺 Triage' },
-    { id: 'nutrition', label: '🥗 Nutrition' }
+  const personas: Array<{ id: Persona; label: string; icon: string; title: string }> = [
+    { id: 'copilot', label: 'Clinical Copilot', icon: '🏥', title: 'General healthcare & multi-agent assistance' },
+    { id: 'triage', label: 'Triage Specialist', icon: '🩺', title: 'Emergency triage & symptom assessment' },
+    { id: 'nutrition', label: 'Metabolic & Nutrition', icon: '🥗', title: 'Macronutrients, diet & wellness planning' }
   ];
 
   return (
-    <div style={{ display: 'flex', padding: '6px 14px', background: 'rgba(241, 245, 249, 0.7)', borderBottom: '1px solid rgba(16, 185, 129, 0.08)', gap: '6px' }}>
-      {personas.map(p => (
-        <button
-          key={p.id}
-          type="button"
-          onClick={() => onPersonaChange(p.id)}
-          style={{
-            flex: 1,
-            padding: '4px 6px',
-            borderRadius: '20px',
-            border: assistantPersona === p.id ? '1px solid #10b981' : '1px solid transparent',
-            background: assistantPersona === p.id ? '#ffffff' : 'transparent',
-            color: assistantPersona === p.id ? '#065f46' : '#64748b',
-            fontSize: '11px',
-            fontWeight: assistantPersona === p.id ? 700 : 500,
-            cursor: 'pointer',
-            boxShadow: assistantPersona === p.id ? '0 1px 4px rgba(0,0,0,0.06)' : 'none',
-            transition: 'all 0.15s'
-          }}
-        >
-          {p.label}
-        </button>
-      ))}
+    <div className="sanjeevani-persona-bar">
+      <div className="sanjeevani-persona-inner">
+        {personas.map(p => {
+          const isActive = assistantPersona === p.id;
+          return (
+            <button
+              key={p.id}
+              type="button"
+              onClick={() => onPersonaChange(p.id)}
+              title={p.title}
+              className={`sanjeevani-persona-btn ${isActive ? 'active' : ''}`}
+            >
+              <span className="sanjeevani-persona-icon">{p.icon}</span>
+              <span className="sanjeevani-persona-label">{p.label}</span>
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 }
