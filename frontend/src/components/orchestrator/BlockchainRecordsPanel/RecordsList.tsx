@@ -3,8 +3,11 @@ import { ShieldCheck, CheckCircle2, UploadCloud, AlertTriangle } from 'lucide-re
 import { hashFile, hashBuffer, generateRecordId } from '@/lib/blockchain/crypto';
 import { uploadFile, fetchFile } from '@/lib/blockchain/ipfs';
 import { registerRecord, getRecord, getSigner } from '@/lib/blockchain/contract';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function RecordsList({ state }: { state: any }) {
+  const { translateText } = useLanguage();
+
   // Upload State
   const [file, setFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
@@ -100,14 +103,18 @@ export default function RecordsList({ state }: { state: any }) {
       {/* Tab 3: Blockchain */}
       {state.activeTab === 'blockchain' && (
         <div>
-          <h2 style={{ fontSize: '20px', marginBottom: '8px', color: '#0f172a', fontWeight: 800, fontFamily: 'system-ui, -apple-system, sans-serif' }}>On-Chain Medical Record Registry (Hardhat + IPFS)</h2>
+          <h2 style={{ fontSize: '20px', marginBottom: '8px', color: '#0f172a', fontWeight: 800, fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+            {translateText('On-Chain Medical Record Registry (Hardhat + IPFS)')}
+          </h2>
           <p style={{ color: '#64748b', fontSize: '14px', marginBottom: '28px', lineHeight: 1.5 }}>
             Records are hashed with SHA-256, pinned to IPFS, and anchored to the <code>MedicalRecords.sol</code> smart contract.
           </p>
 
           {/* Upload UI matching Sanjeevani Style */}
           <div style={{ background: '#f8fafc', border: '1px dashed #cbd5e1', borderRadius: '14px', padding: '24px', marginBottom: '32px', display: 'flex', flexDirection: 'column', gap: '16px', alignItems: 'flex-start' }}>
-            <h3 style={{ fontSize: '16px', margin: 0, color: '#0f172a', fontWeight: 700, fontFamily: 'system-ui, -apple-system, sans-serif' }}>Register New Record</h3>
+            <h3 style={{ fontSize: '16px', margin: 0, color: '#0f172a', fontWeight: 700, fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+              {translateText('Register New Record')}
+            </h3>
             
             <div style={{ display: 'flex', gap: '12px', width: '100%', alignItems: 'center', flexWrap: 'wrap' }}>
               <input type="file" ref={fileInputRef} onChange={handleFileChange} style={{ flex: 1, padding: '10px', background: '#fff', border: '1px solid #e2e8f0', borderRadius: '8px', fontSize: '14px' }} />
@@ -130,7 +137,7 @@ export default function RecordsList({ state }: { state: any }) {
                 }}
               >
                 <UploadCloud size={16} />
-                {uploading ? uploadStep : 'Hash & Register'}
+                {uploading ? uploadStep : translateText('Hash & Register')}
               </button>
             </div>
             
@@ -146,9 +153,9 @@ export default function RecordsList({ state }: { state: any }) {
             {state.records.map((r: any, i: number) => (
               <div key={i} style={{ background: '#ffffff', border: '1px solid #cbd5e1', borderRadius: '14px', padding: '20px', boxShadow: '0 2px 8px rgba(0,0,0,0.02)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px', flexWrap: 'wrap', gap: '10px' }}>
-                  <span style={{ fontWeight: 800, color: '#db2777', fontSize: '15px', fontFamily: 'system-ui, -apple-system, sans-serif' }}>{r.type}</span>
+                  <span style={{ fontWeight: 800, color: '#db2777', fontSize: '15px', fontFamily: 'system-ui, -apple-system, sans-serif' }}>{translateText(r.type)}</span>
                   <span style={{ fontSize: '11px', color: '#059669', background: '#ecfdf5', border: '1px solid #a7f3d0', padding: '4px 10px', borderRadius: '20px', fontWeight: 700, fontFamily: 'system-ui, -apple-system, sans-serif' }}>
-                    ✓ On-Chain Verified
+                    ✓ {translateText('On-Chain Verified')}
                   </span>
                 </div>
                 <div style={{ fontSize: '14px', color: '#475569', marginBottom: '8px' }}>Patient: <b style={{ color: '#0f172a' }}>{r.patient}</b> (ABHA: {r.abha})</div>
@@ -164,7 +171,9 @@ export default function RecordsList({ state }: { state: any }) {
       {/* Tab 4: Verify */}
       {state.activeTab === 'verify' && (
         <div>
-          <h2 style={{ fontSize: '20px', marginBottom: '8px', color: '#0f172a', fontWeight: 800, fontFamily: 'system-ui, -apple-system, sans-serif' }}>Verify Record Cryptographic Authenticity</h2>
+          <h2 style={{ fontSize: '20px', marginBottom: '8px', color: '#0f172a', fontWeight: 800, fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+            {translateText('Verify Record Cryptographic Authenticity')}
+          </h2>
           <p style={{ color: '#64748b', fontSize: '14px', marginBottom: '24px', lineHeight: 1.5 }}>
             Enter a Record ID to fetch from IPFS, re-hash, and verify against the smart contract registry.
           </p>
@@ -197,7 +206,7 @@ export default function RecordsList({ state }: { state: any }) {
               }}
             >
               <ShieldCheck size={16} />
-              {verifying ? 'Verifying...' : 'Verify Hash'}
+              {verifying ? 'Verifying...' : translateText('Verify Hash')}
             </button>
           </div>
 
