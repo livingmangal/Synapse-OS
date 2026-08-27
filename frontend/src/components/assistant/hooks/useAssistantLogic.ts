@@ -10,7 +10,12 @@ const LANGUAGE_SPEECH_MAP: Record<SupportedLanguage, { speechCode: string; name:
   bn: { speechCode: 'bn-IN', name: 'Bengali', native: 'বাংলা' },
   ta: { speechCode: 'ta-IN', name: 'Tamil', native: 'தமிழ்' },
   te: { speechCode: 'te-IN', name: 'Telugu', native: 'తెలుగు' },
-  mr: { speechCode: 'mr-IN', name: 'Marathi', native: 'मराठी' }
+  mr: { speechCode: 'mr-IN', name: 'Marathi', native: 'मराठी' },
+  gu: { speechCode: 'gu-IN', name: 'Gujarati', native: 'ગુજરાતી' },
+  kn: { speechCode: 'kn-IN', name: 'Kannada', native: 'ಕನ್ನಡ' },
+  ml: { speechCode: 'ml-IN', name: 'Malayalam', native: 'മലയാളം' },
+  pa: { speechCode: 'pa-IN', name: 'Punjabi', native: 'ਪੰਜਾਬੀ' },
+  or: { speechCode: 'or-IN', name: 'Odia', native: 'ଓଡ଼ିଆ' }
 };
 
 export function useAssistantLogic() {

@@ -72,7 +72,9 @@ export function useSwarmLogic(patient: PatientInfo) {
     } catch {
       setResult({
         session_id: 'SWARM-' + Math.random().toString(36).substring(2, 8).toUpperCase(),
-        detected_intent: 'PHARMACOLOGY_AND_TRIAGE' as string,
+        user_id: patient.name,
+        input_text: q,
+        detected_intent: 'PHARMACOLOGY_AND_TRIAGE' as any,
         safety_cleared: true,
         channel: 'web',
         final_response: `**Triage Assessment:** 🟢 Home Self-Care & Monitoring\n\nMonitor symptoms, ensure adequate hydration, rest, and follow OTC symptom relief protocols. Seek medical care if symptoms worsen.\n\n• **Recommended Care:** Primary Care Provider if symptoms persist > 5 days\n\n• **Medication Scan:** Detected warfarin\n\n✅ *No known high-risk drug-to-drug interactions detected.*\n\n• **AI Council Consensus:** 96% Agreement *(All participating AI agents agree on the clinical severity and recommended next steps.)*`,

@@ -554,7 +554,7 @@ export default function SwarmIntelligencePanel({
                   padding: '22px 26px',
                   border: '1px solid #e2e8f0'
                 }}>
-                  <ClinicalDirectiveDocument content={result.final_response} />
+                  <ClinicalDirectiveDocument content={result.final_response || ''} />
                 </div>
               </div>
 
