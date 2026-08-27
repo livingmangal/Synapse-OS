@@ -1,0 +1,14 @@
+{
+  "name": "sanjeevani-openwa-bridge",
+  "version": "1.0.0",
+  "description": "Standalone OpenWA WhatsApp Gateway for Sanjeevani OS",
+  "main": "runner.js",
+  "scripts": {
+    "start": "node runner.js"
+  },
+  "dependencies": {
+    "@open-wa/wa-automate": "^4.70.0",
+    "axios": "^1.7.9",
+    "dotenv": "^16.4.7"
+  }
+}

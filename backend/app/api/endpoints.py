@@ -161,6 +161,29 @@ async def whatsapp_webhook_endpoint(payload: Dict[str, Any]):
     return await process_whatsapp_inbound_webhook(payload)
 
 
+class WhatsAppSimulateRequest(BaseModel):
+    message: str = Field(default="1 I have severe fever and dry cough", example="1 I have severe fever and dry cough")
+    sender_phone: str = Field(default="+919876543210", example="+919876543210")
+    message_type: str = Field(default="chat", example="chat")
+    image_base64: Optional[str] = None
+
+
+@router.post("/whatsapp/simulate", tags=["Omnichannel"])
+async def whatsapp_simulate_endpoint(req: WhatsAppSimulateRequest):
+    """Simulates an incoming WhatsApp message/scan through the OpenWA pipeline."""
+    payload = {
+        "event": "onMessage",
+        "data": {
+            "from": f"{req.sender_phone.replace('+', '')}@c.us",
+            "body": req.image_base64 if req.image_base64 else req.message,
+            "text": req.message,
+            "type": req.message_type,
+            "caption": req.message if req.image_base64 else ""
+        }
+    }
+    return await process_whatsapp_inbound_webhook(payload)
+
+
 @router.get("/fhir/bundle", tags=["EHR & FHIR R4"])
 async def fhir_bundle_endpoint(patient_id: str = "PAT-91-4829", name: str = "Siddharth Sharma"):
     """Generates official HL7 FHIR R4 Bundle for Patient, Observations, and Conditions."""
