@@ -8,20 +8,14 @@ import {
   Layers, 
   Activity, 
   Scan, 
-  Box, 
   FileText, 
   AlertOctagon, 
   Sun, 
-  Stethoscope, 
-  FlaskConical, 
-  Pill, 
-  Syringe, 
-  History,
-  Zap,
-  Globe
+  Zap, 
+  Globe,
+  Watch
 } from 'lucide-react';
-
-import { Watch } from 'lucide-react';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface OrchestratorSidebarProps {
   onOpenSOS?: () => void;
@@ -35,16 +29,17 @@ export default function OrchestratorSidebar({
   onTabChange
 }: OrchestratorSidebarProps) {
   const pathname = usePathname();
+  const { t } = useLanguage();
 
   const primaryNavItems = [
-    { label: 'Agent Swarm DAG', tab: 'swarm', icon: Zap, isTab: true },
-    { label: 'Digital Twin & Condition', tab: 'overview', icon: Layers, isTab: true },
-    { label: 'Clinical Analytics Hub', tab: 'analytics', icon: Activity, isTab: true },
-    { label: 'WHO Global Surveillance', tab: 'hospital', icon: Globe, isTab: true },
-    { label: 'Medical Scan AI (YOLOv8)', tab: 'scan', icon: Scan, isTab: true },
-    { label: 'ABHA & On-Chain Records', tab: 'records', icon: FileText, isTab: true },
-    { label: 'Google & Apple Health Sync', tab: 'sync', icon: Watch, isTab: true },
-    { label: 'Sanjeevani OS Home', href: '/', icon: Home }
+    { labelKey: 'tab_swarm', fallback: 'Swarm Intelligence', tab: 'swarm', icon: Zap, isTab: true },
+    { labelKey: 'tab_overview', fallback: 'My Condition', tab: 'overview', icon: Layers, isTab: true },
+    { labelKey: 'tab_analytics', fallback: 'Visual Analytics', tab: 'analytics', icon: Activity, isTab: true },
+    { labelKey: 'tab_hospital', fallback: 'WHO Surveillance & Map', tab: 'hospital', icon: Globe, isTab: true },
+    { labelKey: 'tab_scan', fallback: 'Medical Scan AI', tab: 'scan', icon: Scan, isTab: true },
+    { labelKey: 'tab_records', fallback: 'ABHA & Records', tab: 'records', icon: FileText, isTab: true },
+    { labelKey: 'tab_health_sync', fallback: 'Google & Apple Health', tab: 'sync', icon: Watch, isTab: true },
+    { labelKey: 'brand_title', fallback: 'Sanjeevani OS Home', href: '/', icon: Home }
   ];
 
   return (
@@ -103,13 +98,14 @@ export default function OrchestratorSidebar({
             const isTabActive = item.isTab && activeTab === item.tab;
             const isRouteActive = !item.isTab && pathname === item.href;
             const isActive = isTabActive || isRouteActive;
+            const titleLabel = t(item.labelKey, item.fallback);
 
             if (item.isTab && onTabChange) {
               return (
                 <button
                   key={idx}
                   onClick={() => onTabChange(item.tab as any)}
-                  title={item.label}
+                  title={titleLabel}
                   style={{
                     width: '46px',
                     height: '46px',
@@ -157,7 +153,7 @@ export default function OrchestratorSidebar({
               <Link
                 key={idx}
                 href={item.href || '/'}
-                title={item.label}
+                title={titleLabel}
                 data-no-swup="true"
                 style={{
                   width: '46px',
@@ -198,7 +194,7 @@ export default function OrchestratorSidebar({
         {onOpenSOS && (
           <button
             onClick={onOpenSOS}
-            title="1-Click Emergency SOS Dispatch (112 / 108)"
+            title={t('btn_emergency_sos', 'Emergency SOS (112)')}
             style={{
               width: '46px',
               height: '46px',

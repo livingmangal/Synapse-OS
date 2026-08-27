@@ -6,6 +6,7 @@ import { useBlockchainRecords, UseBlockchainRecordsProps } from './useBlockchain
 import AbhaGenerator from './AbhaGenerator';
 import RecordsList from './RecordsList';
 import { MOCK_HEALTH_PROFILES } from '@/data/mockHealthProfiles';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function BlockchainRecordsPanel({
   patient,
@@ -15,6 +16,7 @@ export default function BlockchainRecordsPanel({
 }: UseBlockchainRecordsProps) {
   const state = useBlockchainRecords({ patient, activeProfile, selectedProfileId, onSelectProfile });
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const { t, translateText } = useLanguage();
 
   const activeMatchedProfile = MOCK_HEALTH_PROFILES.find(p => p.profileId === state.currentProfileId) || MOCK_HEALTH_PROFILES[0];
 
@@ -26,7 +28,7 @@ export default function BlockchainRecordsPanel({
       width: '100%',
       maxWidth: '1200px',
       margin: '0 auto',
-      fontFamily: '"Times New Roman", Times, serif'
+      fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
     }}>
       
       {/* 0. Telemetry Dataset & Citizen ABHA Profile Switcher Ribbon */}
@@ -58,8 +60,8 @@ export default function BlockchainRecordsPanel({
           </div>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span style={{ fontSize: '12.5px', fontWeight: 800, color: '#0f172a', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
-                Active ABDM Citizen: <b style={{ color: '#db2777' }}>{state.name}</b>
+              <span style={{ fontSize: '12.5px', fontWeight: 800, color: '#0f172a' }}>
+                {t('active_citizen_label', 'Active ABDM Citizen')}: <b style={{ color: '#db2777' }}>{state.name}</b>
               </span>
               <span style={{
                 fontSize: '9.5px',
@@ -68,8 +70,7 @@ export default function BlockchainRecordsPanel({
                 borderRadius: '6px',
                 background: activeMatchedProfile.badge.bg,
                 color: activeMatchedProfile.badge.color,
-                border: `1px solid ${activeMatchedProfile.badge.border}`,
-                fontFamily: 'system-ui, -apple-system, sans-serif'
+                border: `1px solid ${activeMatchedProfile.badge.border}`
               }}>
                 {activeMatchedProfile.badge.label}
               </span>
@@ -96,12 +97,11 @@ export default function BlockchainRecordsPanel({
               fontSize: '11.5px',
               fontWeight: 700,
               cursor: 'pointer',
-              boxShadow: '0 2px 6px rgba(0,0,0,0.04)',
-              fontFamily: 'system-ui, -apple-system, sans-serif'
+              boxShadow: '0 2px 6px rgba(0,0,0,0.04)'
             }}
           >
             <Zap size={13} color="#db2777" />
-            <span>Select Citizen (My Condition)</span>
+            <span>{t('select_citizen_btn', 'Select Citizen (My Condition)')}</span>
             <ChevronDown size={13} color="#64748b" />
           </button>
 
@@ -138,8 +138,7 @@ export default function BlockchainRecordsPanel({
                       border: isSelected ? '1px solid #fbcfe8' : '1px solid transparent',
                       display: 'flex',
                       justifyContent: 'space-between',
-                      alignItems: 'center',
-                      fontFamily: 'system-ui, -apple-system, sans-serif'
+                      alignItems: 'center'
                     }}
                     onMouseEnter={(e) => { if (!isSelected) e.currentTarget.style.background = '#f8fafc'; }}
                     onMouseLeave={(e) => { if (!isSelected) e.currentTarget.style.background = 'transparent'; }}
@@ -173,11 +172,11 @@ export default function BlockchainRecordsPanel({
       {/* Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px' }}>
         <div>
-          <h1 style={{ fontSize: '24px', fontWeight: 800, margin: 0, color: '#0f172a', fontFamily: 'system-ui, -apple-system, sans-serif', letterSpacing: '-0.02em' }}>
-            Health Records & Blockchain Passport
+          <h1 style={{ fontSize: '24px', fontWeight: 800, margin: 0, color: '#0f172a', letterSpacing: '-0.02em' }}>
+            {t('records_title', 'Health Records & Blockchain Passport')}
           </h1>
           <p style={{ color: '#64748b', fontSize: '13.5px', margin: '4px 0 0 0' }}>
-            ABDM Integration • Cryptographic Verification • Decentralized Registry
+            {t('records_subtitle', 'ABDM Integration • Cryptographic Verification • Decentralized Registry')}
           </p>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -199,8 +198,7 @@ export default function BlockchainRecordsPanel({
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
-              gap: '6px',
-              fontFamily: 'system-ui, -apple-system, sans-serif',
+              gap: '6px'
             }}
           >
             <Wallet size={12} />
@@ -221,8 +219,7 @@ export default function BlockchainRecordsPanel({
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
-              gap: '6px',
-              fontFamily: 'system-ui, -apple-system, sans-serif',
+              gap: '6px'
             }}
           >
             🦊 MetaMask
@@ -236,7 +233,6 @@ export default function BlockchainRecordsPanel({
             color: state.contractOk ? '#059669' : '#ef4444', 
             fontSize: '11px', 
             fontWeight: 800,
-            fontFamily: 'system-ui, -apple-system, sans-serif',
             display: 'flex',
             alignItems: 'center',
             gap: '6px'
@@ -265,34 +261,36 @@ export default function BlockchainRecordsPanel({
         boxShadow: '0 4px 16px rgba(0,0,0,0.02)'
       }}>
         {[
-          { id: 'abha', label: 'National ABHA ID', icon: Fingerprint },
-          { id: 'passport', label: 'QR Health Passport', icon: FileCheck2 },
-          { id: 'blockchain', label: 'On-Chain Records', icon: LinkIcon },
-          { id: 'verify', label: 'Verify Integrity', icon: ShieldCheck }
-        ].map(t => (
-          <button
-            key={t.id}
-            onClick={() => state.setActiveTab(t.id as any)}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
-              padding: '10px 18px',
-              borderRadius: '10px',
-              backgroundColor: state.activeTab === t.id ? '#db2777' : '#f8fafc',
-              color: state.activeTab === t.id ? '#ffffff' : '#64748b',
-              border: '1px solid ' + (state.activeTab === t.id ? '#be185d' : '#e2e8f0'),
-              cursor: 'pointer',
-              fontWeight: state.activeTab === t.id ? 800 : 600,
-              fontSize: '12px',
-              transition: 'all 0.15s ease',
-              fontFamily: 'system-ui, -apple-system, sans-serif'
-            }}
-          >
-            <t.icon size={14} />
-            {t.label}
-          </button>
-        ))}
+          { id: 'abha', labelKey: 'tab_national_abha', defaultLabel: 'National ABHA ID', icon: Fingerprint },
+          { id: 'passport', labelKey: 'tab_qr_passport', defaultLabel: 'QR Health Passport', icon: FileCheck2 },
+          { id: 'blockchain', labelKey: 'tab_onchain_records', defaultLabel: 'On-Chain Records', icon: LinkIcon },
+          { id: 'verify', labelKey: 'tab_verify_integrity', defaultLabel: 'Verify Integrity', icon: ShieldCheck }
+        ].map(item => {
+          const label = t(item.labelKey, item.defaultLabel);
+          return (
+            <button
+              key={item.id}
+              onClick={() => state.setActiveTab(item.id as any)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                padding: '10px 18px',
+                borderRadius: '10px',
+                backgroundColor: state.activeTab === item.id ? '#db2777' : '#f8fafc',
+                color: state.activeTab === item.id ? '#ffffff' : '#64748b',
+                border: '1px solid ' + (state.activeTab === item.id ? '#be185d' : '#e2e8f0'),
+                cursor: 'pointer',
+                fontWeight: state.activeTab === item.id ? 800 : 600,
+                fontSize: '12px',
+                transition: 'all 0.15s ease'
+              }}
+            >
+              <item.icon size={14} />
+              {label}
+            </button>
+          );
+        })}
       </div>
 
       {/* Tab Contents */}
@@ -302,20 +300,24 @@ export default function BlockchainRecordsPanel({
         
         {state.activeTab === 'passport' && (
           <div>
-            <h2 style={{ fontSize: '20px', marginBottom: '8px', color: '#0f172a', fontWeight: 800, fontFamily: 'system-ui, -apple-system, sans-serif' }}>Verifiable Digital Health Passport</h2>
+            <h2 style={{ fontSize: '20px', marginBottom: '8px', color: '#0f172a', fontWeight: 800 }}>
+              {t('tab_qr_passport', 'Verifiable Digital Health Passport')}
+            </h2>
             <p style={{ color: '#64748b', fontSize: '14px', marginBottom: '24px', lineHeight: 1.5 }}>
-              Compiles clinical triage results, vital trends, active prescriptions, and cryptographic QR signature for <b>{state.name}</b> into a single downloadable PDF.
+              {translateText(`Compiles clinical triage results, vital trends, active prescriptions, and cryptographic QR signature for ${state.name} into a single downloadable PDF.`)}
             </p>
 
             <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '24px', marginBottom: '24px' }}>
-              <h4 style={{ margin: '0 0 16px 0', color: '#db2777', fontWeight: 800, fontFamily: 'system-ui, -apple-system, sans-serif' }}>Included Clinical Payload for {state.name}:</h4>
+              <h4 style={{ margin: '0 0 16px 0', color: '#db2777', fontWeight: 800 }}>
+                {t('passport_payload_title', 'Included Clinical Payload')}:
+              </h4>
               <ul style={{ color: '#334155', fontSize: '14px', lineHeight: '2', margin: 0, paddingLeft: '20px' }}>
-                <li>✓ Full patient demographic header & ABHA ID registration (<b>{state.abhaData?.abha_number || '91-7294-8102-5309'}</b>)</li>
-                <li>✓ Date of Birth: <b>{state.dob || state.yearOfBirth}</b> • PM-JAY Scheme Coverage Active</li>
-                <li>✓ Clinical triage urgency level (Red/Amber/Green) & AI Council consensus</li>
-                <li>✓ Physiological vital benchmarks (Blood Pressure, Heart Rate, SpO2, Fasting Glucose)</li>
-                <li>✓ Active medication schedule & dosage safety check</li>
-                <li>✓ <b>Tamper-Evident QR Code Stamp</b> linking to IPFS & Ethereum testnet contract</li>
+                <li>{t('passport_included_1', '✓ Full patient demographic header & ABHA ID registration')} (<b>{state.abhaData?.abha_number || '91-7294-8102-5309'}</b>)</li>
+                <li>{t('passport_included_2', '✓ Date of Birth & PM-JAY Scheme Coverage Active')} (<b>{state.dob || state.yearOfBirth}</b>)</li>
+                <li>{t('passport_included_3', '✓ Clinical triage urgency level & AI Council consensus')}</li>
+                <li>{t('passport_included_4', '✓ Physiological vital benchmarks (Blood Pressure, Heart Rate, SpO2, Fasting Glucose)')}</li>
+                <li>{t('passport_included_5', '✓ Active medication schedule & dosage safety check')}</li>
+                <li>{t('passport_included_6', '✓ Tamper-Evident QR Code Stamp linking to IPFS & Ethereum contract')}</li>
               </ul>
             </div>
 
@@ -331,7 +333,6 @@ export default function BlockchainRecordsPanel({
                 cursor: 'pointer',
                 fontWeight: 800,
                 fontSize: '14px',
-                fontFamily: 'system-ui, -apple-system, sans-serif',
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '8px',
@@ -339,7 +340,7 @@ export default function BlockchainRecordsPanel({
               }}
             >
               <Download size={16} />
-              {state.downloading ? 'Compiling PDF with ReportLab...' : `Download Official Health Passport for ${state.name} (PDF)`}
+              {state.downloading ? 'Compiling PDF with ReportLab...' : `${t('btn_download_passport_pdf', 'Download Official Health Passport')} (${state.name})`}
             </button>
           </div>
         )}

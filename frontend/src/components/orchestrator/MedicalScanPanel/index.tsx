@@ -5,9 +5,11 @@ import { Upload, AlertTriangle } from 'lucide-react';
 import { useMedicalScan, ModalityType } from './useMedicalScan';
 import ScanViewer from './ScanViewer';
 import ScanResults from './ScanResults';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function MedicalScanPanel() {
   const scanState = useMedicalScan();
+  const { t, translateText } = useLanguage();
 
   return (
     <div style={{ 
@@ -17,16 +19,16 @@ export default function MedicalScanPanel() {
       width: '100%',
       maxWidth: '1600px',
       margin: '0 auto',
-      fontFamily: '"Times New Roman", Times, serif'
+      fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
     }}>
       {/* Navigation & Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px' }}>
         <div>
-          <h1 style={{ fontSize: '24px', fontWeight: 800, margin: 0, color: '#0f172a', fontFamily: 'system-ui, -apple-system, sans-serif', letterSpacing: '-0.02em' }}>
-            Medical Imaging & Scan AI
+          <h1 style={{ fontSize: '24px', fontWeight: 800, margin: 0, color: '#0f172a', letterSpacing: '-0.02em' }}>
+            {t('scan_title', 'Medical Imaging & Scan AI')}
           </h1>
           <p style={{ color: '#64748b', fontSize: '13px', margin: '4px 0 0 0' }}>
-            YOLOv8 Bone Fracture Detection • Grad-CAM Heatmaps • MONAI Chest Radiography • TrOCR Digitization
+            {t('scan_subtitle', 'YOLOv8 Bone Fracture Detection • Grad-CAM Heatmaps • MONAI Chest Radiography • TrOCR Digitization')}
           </p>
         </div>
         
@@ -38,10 +40,9 @@ export default function MedicalScanPanel() {
             border: '1px solid #a7f3d0', 
             color: '#059669', 
             fontSize: '11px', 
-            fontWeight: 800,
-            fontFamily: 'system-ui, -apple-system, sans-serif'
+            fontWeight: 800
           }}>
-            ● FractureNet YOLOv8 Ready
+            {t('scan_status_ready', '● FractureNet YOLOv8 Ready')}
           </span>
         </div>
       </div>
@@ -63,37 +64,39 @@ export default function MedicalScanPanel() {
         {/* Modality Tabs */}
         <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
           {[
-            { id: 'bone_fracture', label: '🦴 Bone Fracture X-Ray (FractureNet)' },
-            { id: 'chest_xray', label: '🫁 Chest Radiograph (MONAI)' },
-            { id: 'prescription', label: '📄 Prescription OCR (TrOCR)' },
-            { id: 'lab_report', label: '🧪 Metabolic Lab Panel' }
-          ].map(t => (
-            <button
-              key={t.id}
-              onClick={() => {
-                scanState.setModality(t.id as ModalityType);
-                scanState.setUploadedImagePreview(null);
-                scanState.setUploadedFileName(null);
-                scanState.setSelectedBoxIndex(null);
-                scanState.handleAnalyzeScan(t.id as ModalityType);
-              }}
-              disabled={scanState.loading}
-              style={{
-                padding: '10px 16px',
-                borderRadius: '10px',
-                backgroundColor: scanState.modality === t.id ? '#db2777' : '#f8fafc',
-                color: scanState.modality === t.id ? '#ffffff' : '#64748b',
-                border: '1px solid ' + (scanState.modality === t.id ? '#be185d' : '#e2e8f0'),
-                cursor: scanState.loading ? 'not-allowed' : 'pointer',
-                fontWeight: scanState.modality === t.id ? 800 : 600,
-                fontSize: '12px',
-                transition: 'all 0.15s ease',
-                fontFamily: 'system-ui, -apple-system, sans-serif'
-              }}
-            >
-              {t.label}
-            </button>
-          ))}
+            { id: 'bone_fracture', labelKey: 'scan_tab_bone', defaultLabel: '🦴 Bone Fracture X-Ray (FractureNet)' },
+            { id: 'chest_xray', labelKey: 'scan_tab_chest', defaultLabel: '🫁 Chest Radiograph (MONAI)' },
+            { id: 'prescription', labelKey: 'scan_tab_prescription', defaultLabel: '📄 Prescription OCR (TrOCR)' },
+            { id: 'lab_report', labelKey: 'scan_tab_lab', defaultLabel: '🧪 Metabolic Lab Panel' }
+          ].map(item => {
+            const label = t(item.labelKey, item.defaultLabel);
+            return (
+              <button
+                key={item.id}
+                onClick={() => {
+                  scanState.setModality(item.id as ModalityType);
+                  scanState.setUploadedImagePreview(null);
+                  scanState.setUploadedFileName(null);
+                  scanState.setSelectedBoxIndex(null);
+                  scanState.handleAnalyzeScan(item.id as ModalityType);
+                }}
+                disabled={scanState.loading}
+                style={{
+                  padding: '10px 16px',
+                  borderRadius: '10px',
+                  backgroundColor: scanState.modality === item.id ? '#db2777' : '#f8fafc',
+                  color: scanState.modality === item.id ? '#ffffff' : '#64748b',
+                  border: '1px solid ' + (scanState.modality === item.id ? '#be185d' : '#e2e8f0'),
+                  cursor: scanState.loading ? 'not-allowed' : 'pointer',
+                  fontWeight: scanState.modality === item.id ? 800 : 600,
+                  fontSize: '12px',
+                  transition: 'all 0.15s ease'
+                }}
+              >
+                {label}
+              </button>
+            );
+          })}
         </div>
 
         {/* Upload Button */}
@@ -119,12 +122,11 @@ export default function MedicalScanPanel() {
               display: 'inline-flex',
               alignItems: 'center',
               gap: '8px',
-              boxShadow: '0 4px 12px rgba(16, 185, 129, 0.2)',
-              fontFamily: 'system-ui, -apple-system, sans-serif'
+              boxShadow: '0 4px 12px rgba(16, 185, 129, 0.2)'
             }}
           >
             <Upload size={14} />
-            <span>Upload Custom Scan</span>
+            <span>{t('scan_upload_btn', 'Upload Scan Image')}</span>
           </button>
         </div>
       </div>

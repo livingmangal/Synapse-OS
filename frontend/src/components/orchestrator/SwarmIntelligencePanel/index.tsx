@@ -34,6 +34,7 @@ import {
   AlertOctagon
 } from 'lucide-react';
 import { SanjeevaniState, PatientInfo } from '../types';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface SwarmIntelligencePanelProps {
   patient: PatientInfo;
@@ -141,6 +142,7 @@ export default function SwarmIntelligencePanel({
   onOpenExportModal
 }: SwarmIntelligencePanelProps) {
   const state = useSwarmLogic(patient);
+  const { t, translateText } = useLanguage();
   
   const {
     query, setQuery,
@@ -161,7 +163,7 @@ export default function SwarmIntelligencePanel({
       width: '100%',
       maxWidth: '1600px',
       margin: '0 auto',
-      fontFamily: '"Times New Roman", Times, serif'
+      fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
     }}>
       {/* 1 & 2. Merged Top Hero & DAG StateGraph Pipeline View with Background */}
       <div style={{
@@ -201,13 +203,13 @@ export default function SwarmIntelligencePanel({
                 <Zap size={18} color="#db2777" />
               </div>
               <div>
-                <h2 style={{ fontSize: '18px', fontWeight: 900, margin: 0, color: '#0f172a', letterSpacing: '-0.02em', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
-                  Multi-Agent Swarm Intelligence & DAG Consensus Engine
+                <h2 style={{ fontSize: '18px', fontWeight: 900, margin: 0, color: '#0f172a', letterSpacing: '-0.02em' }}>
+                  {t('swarm_title', 'Multi-Agent Swarm Intelligence & DAG Consensus Engine')}
                 </h2>
               </div>
             </div>
             <p style={{ color: '#64748b', fontSize: '12px', margin: 0, fontWeight: 500 }}>
-              Deterministic Safety Gate → Intent Routing → Clinical Triage → RxNav Drug Safety Check → AI Council Consensus
+              {t('swarm_subtitle', 'Deterministic Safety Gate → Intent Routing → Clinical Triage → RxNav Drug Safety Check → AI Council Consensus')}
             </p>
           </div>
 
@@ -222,11 +224,10 @@ export default function SwarmIntelligencePanel({
               border: '1px solid #a7f3d0',
               color: '#059669',
               fontSize: '11px',
-              fontWeight: 800,
-              fontFamily: 'system-ui, -apple-system, sans-serif'
+              fontWeight: 800
             }}>
               <span style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#059669', display: 'inline-block' }} />
-              <span>Swarm StateGraph Online (5 Sub-Agents)</span>
+              <span>{translateText('Swarm StateGraph Online (5 Sub-Agents)')}</span>
             </div>
           </div>
         </div>
@@ -236,11 +237,11 @@ export default function SwarmIntelligencePanel({
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <GitBranch size={16} color="#db2777" />
             <h3 style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a', margin: 0, fontFamily: 'system-ui, -apple-system, sans-serif' }}>
-              Orchestrator DAG Execution Pipeline
+              {translateText('Orchestrator DAG Execution Pipeline')}
             </h3>
           </div>
           <span style={{ fontSize: '11px', color: '#64748b', fontWeight: 600 }}>
-            Topology: Sequential-Parallel Directed Acyclic Graph
+            {translateText('Topology: Sequential-Parallel Directed Acyclic Graph')}
           </span>
         </div>
 
@@ -297,13 +298,17 @@ export default function SwarmIntelligencePanel({
                     color: isCompleted ? '#15803d' : isRunning ? '#be185d' : isWarning ? '#b45309' : '#64748b',
                     fontFamily: 'system-ui, -apple-system, sans-serif'
                   }}>
-                    {isCompleted ? '✓ 200 OK' : isRunning ? '⚡ Running' : isWarning ? '⚠ Alert' : 'Standby'}
+                    {isCompleted ? `✓ ${translateText('200 OK')}` : isRunning ? `⚡ ${translateText('Running')}` : isWarning ? `⚠ ${translateText('Alert')}` : translateText('Standby')}
                   </span>
                 </div>
 
                 <div>
-                  <div style={{ fontSize: '13px', fontWeight: 800, color: '#0f172a', fontFamily: 'system-ui, -apple-system, sans-serif' }}>{node.name}</div>
-                  <div style={{ fontSize: '10px', color: '#64748b', marginTop: '2px' }}>{node.role}</div>
+                  <div style={{ fontSize: '13px', fontWeight: 800, color: '#0f172a', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+                    {translateText(node.name)}
+                  </div>
+                  <div style={{ fontSize: '10px', color: '#64748b', marginTop: '2px' }}>
+                    {translateText(node.role)}
+                  </div>
                 </div>
 
                 <div style={{
@@ -316,7 +321,7 @@ export default function SwarmIntelligencePanel({
                   justifyContent: 'space-between',
                   fontFamily: 'system-ui, -apple-system, sans-serif'
                 }}>
-                  <span>Latency:</span>
+                  <span>{translateText('Latency:')}</span>
                   <span>{isCompleted ? `${node.latencyMs} ms` : '--'}</span>
                 </div>
               </div>
@@ -336,7 +341,7 @@ export default function SwarmIntelligencePanel({
         {/* Scenario Chips */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '14px', flexWrap: 'wrap' }}>
           <span style={{ fontSize: '11px', fontWeight: 800, color: '#64748b', textTransform: 'uppercase', marginRight: '4px' }}>
-            Clinical Scenarios:
+            {translateText('CLINICAL SCENARIOS:')}
           </span>
           {presets.map((p, idx) => (
             <button
@@ -363,7 +368,7 @@ export default function SwarmIntelligencePanel({
               onMouseLeave={(e) => { e.currentTarget.style.background = '#f8fafc'; e.currentTarget.style.borderColor = '#e2e8f0'; e.currentTarget.style.color = '#334155'; }}
             >
               <Sparkles size={12} color="#db2777" />
-              <span>{p.title}</span>
+              <span>{translateText(p.title)}</span>
             </button>
           ))}
         </div>
@@ -375,7 +380,7 @@ export default function SwarmIntelligencePanel({
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleExecuteSwarm()}
-            placeholder="Type a clinical query, complex co-morbidities, or multi-drug interaction inquiry..."
+            placeholder={translateText('Type a clinical query, complex co-morbidities, or multi-drug interaction inquiry...')}
             style={{
               flex: 1,
               minWidth: '320px',
@@ -409,7 +414,7 @@ export default function SwarmIntelligencePanel({
             }}
           >
             <Send size={15} />
-            <span>{loading ? 'Executing Swarm DAG...' : 'Execute Swarm DAG'}</span>
+            <span>{loading ? translateText('Executing Swarm DAG...') : translateText('Execute Swarm DAG')}</span>
           </button>
         </div>
       </div>

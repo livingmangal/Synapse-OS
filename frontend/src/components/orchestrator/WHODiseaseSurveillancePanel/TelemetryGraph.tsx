@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { MapPin } from 'lucide-react';
 import { RegionalHub } from './types';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface TelemetryGraphProps {
   activeHub: RegionalHub;
@@ -9,6 +10,7 @@ interface TelemetryGraphProps {
 export default function TelemetryGraph({ activeHub }: TelemetryGraphProps) {
   const [activeGraphTab, setActiveGraphTab] = useState<'active' | 'recovery' | 'icu'>('active');
   const [hoveredGraphIndex, setHoveredGraphIndex] = useState<number | null>(4); // defaults to Fri / current
+  const { translateText } = useLanguage();
 
   // Fallback trajectory if none exists
   const trajectory = activeHub?.trajectory || [
@@ -91,10 +93,10 @@ export default function TelemetryGraph({ activeHub }: TelemetryGraphProps) {
           </div>
           <div>
             <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#0f172a', margin: 0 }}>
-              {activeHub?.name || 'Regional Hub'}
+              {translateText(activeHub?.name || 'Regional Hub')}
             </h3>
             <span style={{ fontSize: '11px', color: '#64748b' }}>
-              Real-time Epidemiological Telemetry
+              {translateText('Real-time Epidemiological Telemetry')}
             </span>
           </div>
         </div>
@@ -108,31 +110,31 @@ export default function TelemetryGraph({ activeHub }: TelemetryGraphProps) {
           color: activeHub?.riskLevel === 'High' ? '#ef4444' : activeHub?.riskLevel === 'Moderate' ? '#d97706' : '#059669',
           border: `1px solid ${activeHub?.riskLevel === 'High' ? '#fecaca' : activeHub?.riskLevel === 'Moderate' ? '#fde68a' : '#a7f3d0'}`
         }}>
-          ● {activeHub?.riskLevel} Risk
+          ● {translateText(activeHub?.riskLevel || 'Moderate')} {translateText('Risk')}
         </span>
       </div>
 
       {/* 4 Metric Summary Cards */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '10px' }}>
         <div style={{ background: '#f8fafc', padding: '10px 12px', borderRadius: '10px', border: '1px solid #f1f5f9' }}>
-          <div style={{ fontSize: '10px', fontWeight: 700, color: '#64748b', textTransform: 'uppercase' }}>Active Cases</div>
+          <div style={{ fontSize: '10px', fontWeight: 700, color: '#64748b', textTransform: 'uppercase' }}>{translateText('Active Cases')}</div>
           <div style={{ fontSize: '15px', fontWeight: 800, color: '#0f172a', marginTop: '2px' }}>{activeHub?.activeCases}</div>
-          <span style={{ fontSize: '10px', color: '#0096c7', fontWeight: 600 }}>Trend: {activeHub?.trend}</span>
+          <span style={{ fontSize: '10px', color: '#0096c7', fontWeight: 600 }}>{translateText('Trend:')} {activeHub?.trend}</span>
         </div>
         <div style={{ background: '#f8fafc', padding: '10px 12px', borderRadius: '10px', border: '1px solid #f1f5f9' }}>
-          <div style={{ fontSize: '10px', fontWeight: 700, color: '#64748b', textTransform: 'uppercase' }}>Recovery Rate</div>
+          <div style={{ fontSize: '10px', fontWeight: 700, color: '#64748b', textTransform: 'uppercase' }}>{translateText('Recovery Rate')}</div>
           <div style={{ fontSize: '15px', fontWeight: 800, color: '#16a34a', marginTop: '2px' }}>{activeHub?.recoveryRate}%</div>
-          <span style={{ fontSize: '10px', color: '#16a34a', fontWeight: 600 }}>Optimal</span>
+          <span style={{ fontSize: '10px', color: '#16a34a', fontWeight: 600 }}>{translateText('Optimal')}</span>
         </div>
         <div style={{ background: '#f8fafc', padding: '10px 12px', borderRadius: '10px', border: '1px solid #f1f5f9' }}>
-          <div style={{ fontSize: '10px', fontWeight: 700, color: '#64748b', textTransform: 'uppercase' }}>Test Positivity</div>
+          <div style={{ fontSize: '10px', fontWeight: 700, color: '#64748b', textTransform: 'uppercase' }}>{translateText('Test Positivity')}</div>
           <div style={{ fontSize: '15px', fontWeight: 800, color: '#d97706', marginTop: '2px' }}>{activeHub?.testPositivity}%</div>
-          <span style={{ fontSize: '10px', color: '#64748b' }}>Target &lt; 5%</span>
+          <span style={{ fontSize: '10px', color: '#64748b' }}>{translateText('Target < 5%')}</span>
         </div>
         <div style={{ background: '#f8fafc', padding: '10px 12px', borderRadius: '10px', border: '1px solid #f1f5f9' }}>
-          <div style={{ fontSize: '10px', fontWeight: 700, color: '#64748b', textTransform: 'uppercase' }}>ICU Available</div>
+          <div style={{ fontSize: '10px', fontWeight: 700, color: '#64748b', textTransform: 'uppercase' }}>{translateText('ICU Available')}</div>
           <div style={{ fontSize: '15px', fontWeight: 800, color: '#0284c7', marginTop: '2px' }}>{100 - (activeHub?.icuOccupancy || 50)}%</div>
-          <span style={{ fontSize: '10px', color: '#64748b' }}>{activeHub?.icuOccupancy}% Occupied</span>
+          <span style={{ fontSize: '10px', color: '#64748b' }}>{activeHub?.icuOccupancy}% {translateText('Occupied')}</span>
         </div>
       </div>
 
@@ -140,7 +142,7 @@ export default function TelemetryGraph({ activeHub }: TelemetryGraphProps) {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '4px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <span style={{ fontSize: '13px', fontWeight: 700, color: '#0f172a' }}>
-            7-Day Epidemic Trajectory
+            {translateText('7-Day Epidemic Trajectory')}
           </span>
           <span style={{
             fontSize: '11px',
@@ -150,7 +152,7 @@ export default function TelemetryGraph({ activeHub }: TelemetryGraphProps) {
             padding: '2px 8px',
             borderRadius: '6px'
           }}>
-            {hoveredPoint.point.date}: {hoveredPoint.val}{activeGraphTab === 'icu' ? '%' : 'M'} {activeGraphTab === 'active' ? 'Active' : activeGraphTab === 'recovery' ? 'Recovered' : 'ICU'}
+            {hoveredPoint.point.date}: {hoveredPoint.val}{activeGraphTab === 'icu' ? '%' : 'M'} {activeGraphTab === 'active' ? translateText('Active') : activeGraphTab === 'recovery' ? translateText('Recovered') : 'ICU'}
           </span>
         </div>
 
@@ -173,7 +175,7 @@ export default function TelemetryGraph({ activeHub }: TelemetryGraphProps) {
                 transition: 'all 0.15s ease'
               }}
             >
-              {tab === 'active' ? 'Active' : tab === 'recovery' ? 'Recovered' : 'ICU %'}
+              {tab === 'active' ? translateText('Active') : tab === 'recovery' ? translateText('Recovered') : translateText('ICU %')}
             </button>
           ))}
         </div>

@@ -222,11 +222,11 @@ export default function SurveillanceMap({
                 background: '#fdf2f8',
                 border: '1px solid #fbcfe8'
               }}>
-                GLOBAL GIS EPIDEMIOLOGICAL MATRIX
+                {translateText('GLOBAL GIS EPIDEMIOLOGICAL MATRIX')}
               </span>
               <span style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#10b981', boxShadow: '0 0 8px #10b981' }} />
               <span style={{ fontSize: '11px', color: '#64748b', fontWeight: 700 }}>
-                Live Stream: <span style={{ color: '#0f172a' }}>{activeHubList.length} Active Regional Nodes</span>
+                {translateText('Live Stream:')} <span style={{ color: '#0f172a' }}>{activeHubList.length} {translateText('Active Regional Nodes')}</span>
               </span>
             </div>
             <h2 style={{ fontSize: '18px', fontWeight: 800, color: '#0f172a', margin: '2px 0 0 0' }}>
@@ -248,17 +248,17 @@ export default function SurveillanceMap({
           fontSize: '11.5px'
         }}>
           <div>
-            <div style={{ fontSize: '9px', color: '#64748b', textTransform: 'uppercase', fontWeight: 700 }}>Total Confirmed</div>
-            <div style={{ fontWeight: 800, color: '#0284c7' }}>{activeDisease.globalCases}</div>
+            <div style={{ fontSize: '9px', color: '#64748b', textTransform: 'uppercase', fontWeight: 700 }}>{translateText('Total Confirmed')}</div>
+            <div style={{ fontWeight: 800, color: '#0284c7' }}>{translateText(activeDisease.globalCases)}</div>
           </div>
           <div style={{ width: '1px', height: '22px', background: '#cbd5e1' }} />
           <div>
-            <div style={{ fontSize: '9px', color: '#64748b', textTransform: 'uppercase', fontWeight: 700 }}>Total Mortality</div>
-            <div style={{ fontWeight: 800, color: '#ef4444' }}>{activeDisease.annualDeaths}</div>
+            <div style={{ fontSize: '9px', color: '#64748b', textTransform: 'uppercase', fontWeight: 700 }}>{translateText('Total Mortality')}</div>
+            <div style={{ fontWeight: 800, color: '#ef4444' }}>{translateText(activeDisease.annualDeaths)}</div>
           </div>
           <div style={{ width: '1px', height: '22px', background: '#cbd5e1' }} />
           <div>
-            <div style={{ fontSize: '9px', color: '#64748b', textTransform: 'uppercase', fontWeight: 700 }}>Recovery Rate</div>
+            <div style={{ fontSize: '9px', color: '#64748b', textTransform: 'uppercase', fontWeight: 700 }}>{translateText('Recovery Rate')}</div>
             <div style={{ fontWeight: 800, color: '#16a34a' }}>{activeDisease.recoveryRate}%</div>
           </div>
         </div>
@@ -267,7 +267,7 @@ export default function SurveillanceMap({
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <button
             onClick={() => setIsFullscreen(!isFullscreen)}
-            title={isFullscreen ? 'Exit Full Screen' : 'View Full Screen World Map'}
+            title={isFullscreen ? translateText('Exit Full Screen') : translateText('Full Screen Map')}
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -285,7 +285,7 @@ export default function SurveillanceMap({
             }}
           >
             {isFullscreen ? <Minimize2 size={14} /> : <Maximize2 size={14} color="#0284c7" />}
-            <span>{isFullscreen ? 'Exit Full Screen' : 'Full Screen Map'}</span>
+            <span>{isFullscreen ? translateText('Exit Full Screen') : translateText('Full Screen Map')}</span>
           </button>
 
           <div style={{ display: 'flex', gap: '3px', background: '#f1f5f9', padding: '3px', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
@@ -304,7 +304,7 @@ export default function SurveillanceMap({
                 transition: 'all 0.15s ease'
               }}
             >
-              🌐 Global
+              {translateText('Global')}
             </button>
             <button
               onClick={() => onSwitchScope('india')}
@@ -321,7 +321,7 @@ export default function SurveillanceMap({
                 transition: 'all 0.15s ease'
               }}
             >
-              🇮🇳 India Focus
+              {translateText('India Focus')}
             </button>
           </div>
         </div>
@@ -390,7 +390,7 @@ export default function SurveillanceMap({
                   }}
                 >
                   <Biohazard size={14} color="#0284c7" />
-                  <span>Outbreak: <b style={{ color: '#0284c7' }}>{activeDisease.shortName}</b></span>
+                  <span>{translateText('Outbreak:')} <b style={{ color: '#0284c7' }}>{translateText(activeDisease.shortName)}</b></span>
                   <ChevronDown size={12} color="#64748b" />
                 </button>
 
@@ -412,7 +412,7 @@ export default function SurveillanceMap({
                     <div style={{ padding: '4px', borderBottom: '1px solid #f1f5f9', marginBottom: '4px' }}>
                       <input
                         type="text"
-                        placeholder="Search pathogen (e.g. Nipah, COVID)..."
+                        placeholder={translateText('Search pathogen (e.g. Nipah, COVID)...')}
                         value={virusSearch}
                         onChange={(e) => setVirusSearch(e.target.value)}
                         style={{
@@ -451,8 +451,8 @@ export default function SurveillanceMap({
                         onMouseEnter={(e) => (e.currentTarget.style.background = '#f1f5f9')}
                         onMouseLeave={(e) => (e.currentTarget.style.background = d.id === activeDisease.id ? '#e0f2fe' : 'transparent')}
                       >
-                        <span>{d.name}</span>
-                        <span style={{ fontSize: '9.5px', color: '#ef4444', fontWeight: 700 }}>{d.whoThreatLevel}</span>
+                        <span>{translateText(d.name)}</span>
+                        <span style={{ fontSize: '9.5px', color: '#ef4444', fontWeight: 700 }}>{translateText(d.whoThreatLevel)}</span>
                       </div>
                     ))}
                   </div>
@@ -476,7 +476,7 @@ export default function SurveillanceMap({
               <Search size={13} color="#64748b" />
               <input
                 type="text"
-                placeholder={mapScope === 'global' ? 'Search country / epicenter...' : 'Search Indian state...'}
+                placeholder={mapScope === 'global' ? translateText('Search country / epicenter...') : translateText('Search Indian state...')}
                 value={countrySearch}
                 onChange={(e) => setCountrySearch(e.target.value)}
                 style={{
@@ -553,7 +553,7 @@ export default function SurveillanceMap({
                   transition: 'all 0.15s ease'
                 }}
               >
-                <Radio size={11} /> Radar
+                <Radio size={11} /> {translateText('Radar')}
               </button>
               <button
                 onClick={() => toggleLayer('vectors')}
@@ -573,7 +573,7 @@ export default function SurveillanceMap({
                   transition: 'all 0.15s ease'
                 }}
               >
-                <Activity size={11} /> Flight Vectors
+                <Activity size={11} /> {translateText('Flight Vectors')}
               </button>
               <button
                 onClick={() => toggleLayer('labels')}
@@ -593,7 +593,7 @@ export default function SurveillanceMap({
                   transition: 'all 0.15s ease'
                 }}
               >
-                Numbers On-Map
+                {translateText('Numbers On-Map')}
               </button>
             </div>
           </div>

@@ -30,6 +30,7 @@ import {
   FileSpreadsheet
 } from 'lucide-react';
 import { PatientInfo } from './types';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface ActionHubExportModalProps {
   isOpen: boolean;
@@ -44,6 +45,7 @@ export default function ActionHubExportModal({
   onClose,
   patient
 }: ActionHubExportModalProps) {
+  const { t, translateText } = useLanguage();
   const modalScrollRef = useRef<HTMLDivElement | null>(null);
 
   const [downloadingPdf, setDownloadingPdf] = useState(false);
@@ -526,7 +528,7 @@ Verification URL: https://abdm.gov.in/verify?abha=${patient.abhaId || '91-7294-8
                   letterSpacing: '-0.02em',
                   fontFamily: 'inherit'
                 }}>
-                  Sanjeevani Export & Action Hub
+                  {t('export_modal_title', 'Sanjeevani Export & Action Hub')}
                 </h2>
                 
                 <span style={{
@@ -542,7 +544,7 @@ Verification URL: https://abdm.gov.in/verify?abha=${patient.abhaId || '91-7294-8
                   gap: '4px'
                 }}>
                   <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#10b981', display: 'inline-block' }} />
-                  ABDM Verified
+                  {translateText('ABDM Verified')}
                 </span>
               </div>
             </div>
@@ -563,7 +565,7 @@ Verification URL: https://abdm.gov.in/verify?abha=${patient.abhaId || '91-7294-8
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
               <User size={13} color="#64748b" />
-              <span>Citizen: <strong style={{ color: '#0f172a' }}>{patient.name}</strong></span>
+              <span>{translateText('Citizen')}: <strong style={{ color: '#0f172a' }}>{patient.name}</strong></span>
             </div>
             <div style={{ color: '#cbd5e1' }}>•</div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
@@ -578,7 +580,7 @@ Verification URL: https://abdm.gov.in/verify?abha=${patient.abhaId || '91-7294-8
             <div style={{ color: '#cbd5e1' }}>•</div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
               <Droplet size={13} color="#ef4444" />
-              <span>Blood: <strong style={{ color: '#ef4444' }}>{patient.bloodType || 'B+'}</strong></span>
+              <span>{translateText('Blood')}: <strong style={{ color: '#ef4444' }}>{patient.bloodType || 'B+'}</strong></span>
             </div>
           </div>
         </div>
@@ -613,10 +615,10 @@ Verification URL: https://abdm.gov.in/verify?abha=${patient.abhaId || '91-7294-8
               
               <div>
                 <div style={{ fontSize: '13.5px', fontWeight: 800, color: '#991b1b', letterSpacing: '-0.01em' }}>
-                  1-Click Emergency SOS Dispatch
+                  {t('sos_dispatch_title', '1-Click Emergency SOS Dispatch')}
                 </div>
                 <div style={{ fontSize: '11px', color: '#b91c1c', marginTop: '1px', lineHeight: 1.35 }}>
-                  Instantly alerts 112 / 108 Emergency units & broadcasts GPS coordinates.
+                  {t('sos_dispatch_sub', 'Instantly alerts 112 / 108 Emergency units & broadcasts GPS coordinates.')}
                 </div>
               </div>
             </div>
@@ -643,7 +645,7 @@ Verification URL: https://abdm.gov.in/verify?abha=${patient.abhaId || '91-7294-8
               onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; }}
             >
               {isSosLoading ? <RefreshCw size={13} className="animate-spin" /> : <Radio size={13} />}
-              {isSosLoading ? 'Dispatching...' : 'Trigger SOS'}
+              {isSosLoading ? translateText('Dispatching...') : t('btn_trigger_sos', 'Trigger SOS')}
             </button>
           </div>
 
@@ -661,7 +663,7 @@ Verification URL: https://abdm.gov.in/verify?abha=${patient.abhaId || '91-7294-8
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                   <span style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#ef4444', display: 'inline-block' }} />
                   <span style={{ fontSize: '11.5px', fontWeight: 800, color: '#991b1b', letterSpacing: '0.02em' }}>
-                    EMERGENCY DISPATCH ACTIVE
+                    {translateText('EMERGENCY DISPATCH ACTIVE')}
                   </span>
                 </div>
                 <span style={{ fontSize: '10.5px', fontWeight: 800, fontFamily: 'monospace', color: '#dc2626', background: '#fee2e2', padding: '2px 7px', borderRadius: '5px' }}>
@@ -677,16 +679,16 @@ Verification URL: https://abdm.gov.in/verify?abha=${patient.abhaId || '91-7294-8
                 color: '#334155'
               }}>
                 <div style={{ background: '#f8fafc', padding: '6px 8px', borderRadius: '7px', border: '1px solid #e2e8f0' }}>
-                  🚑 <strong style={{ color: '#0f172a' }}>Ambulance:</strong> {sosStatus.ambulance}
+                  🚑 <strong style={{ color: '#0f172a' }}>{translateText('Ambulance')}:</strong> {sosStatus.ambulance}
                 </div>
                 <div style={{ background: '#f8fafc', padding: '6px 8px', borderRadius: '7px', border: '1px solid #e2e8f0' }}>
                   📍 <strong style={{ color: '#0f172a' }}>GPS Node:</strong> {sosStatus.gps}
                 </div>
                 <div style={{ background: '#f8fafc', padding: '6px 8px', borderRadius: '7px', border: '1px solid #e2e8f0' }}>
-                  📱 <strong style={{ color: '#0f172a' }}>Relay Contact:</strong> {sosStatus.contact}
+                  📱 <strong style={{ color: '#0f172a' }}>{translateText('Relay Contact')}:</strong> {sosStatus.contact}
                 </div>
                 <div style={{ background: '#f8fafc', padding: '6px 8px', borderRadius: '7px', border: '1px solid #e2e8f0' }}>
-                  👤 <strong style={{ color: '#0f172a' }}>Citizen:</strong> {sosStatus.patientName} (Blood: <strong style={{ color: '#ef4444' }}>{sosStatus.bloodGroup}</strong>)
+                  👤 <strong style={{ color: '#0f172a' }}>{translateText('Citizen')}:</strong> {sosStatus.patientName} (Blood: <strong style={{ color: '#ef4444' }}>{sosStatus.bloodGroup}</strong>)
                 </div>
               </div>
             </div>
@@ -726,17 +728,17 @@ Verification URL: https://abdm.gov.in/verify?abha=${patient.abhaId || '91-7294-8
               </div>
 
               <div style={{ fontSize: '13px', fontWeight: 800, color: '#0f172a', marginBottom: '3px' }}>
-                Clinical PDF
+                {t('card_pdf_title', 'Clinical PDF')}
               </div>
               <p style={{ fontSize: '10.5px', color: '#64748b', margin: '0 0 12px 0', lineHeight: 1.35 }}>
-                Official summary with blockchain hash & QR code.
+                {t('card_pdf_desc', 'Official summary with blockchain hash & QR code.')}
               </p>
             </div>
 
             <div>
               {pdfSuccess && (
                 <div style={{ fontSize: '10.5px', color: '#059669', fontWeight: 700, marginBottom: '5px', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                  <CheckCircle2 size={12} /> PDF Downloaded!
+                  <CheckCircle2 size={12} /> {translateText('PDF Downloaded!')}
                 </div>
               )}
               <button
@@ -761,7 +763,7 @@ Verification URL: https://abdm.gov.in/verify?abha=${patient.abhaId || '91-7294-8
                 }}
               >
                 {downloadingPdf ? <RefreshCw size={12} className="animate-spin" /> : <Download size={12} />}
-                {downloadingPdf ? 'Compiling...' : 'Download PDF'}
+                {downloadingPdf ? translateText('Compiling...') : t('btn_download_pdf', 'Download PDF')}
               </button>
             </div>
           </div>
@@ -795,10 +797,10 @@ Verification URL: https://abdm.gov.in/verify?abha=${patient.abhaId || '91-7294-8
               </div>
 
               <div style={{ fontSize: '13px', fontWeight: 800, color: '#0f172a', marginBottom: '3px' }}>
-                HL7 FHIR R4
+                {t('card_fhir_title', 'HL7 FHIR R4')}
               </div>
               <p style={{ fontSize: '10.5px', color: '#64748b', margin: '0 0 12px 0', lineHeight: 1.35 }}>
-                JSON bundle for hospital EHR & ABHA locker.
+                {t('card_fhir_desc', 'JSON bundle for hospital EHR & ABHA locker.')}
               </p>
             </div>
 
@@ -825,7 +827,7 @@ Verification URL: https://abdm.gov.in/verify?abha=${patient.abhaId || '91-7294-8
                 }}
               >
                 {exportingFhir ? <RefreshCw size={12} className="animate-spin" /> : <FileCode size={12} />}
-                {exportingFhir ? 'Generating...' : 'Generate Bundle'}
+                {exportingFhir ? translateText('Generating...') : t('btn_generate_fhir', 'Generate Bundle')}
               </button>
             </div>
           </div>
@@ -859,17 +861,17 @@ Verification URL: https://abdm.gov.in/verify?abha=${patient.abhaId || '91-7294-8
               </div>
 
               <div style={{ fontSize: '13px', fontWeight: 800, color: '#831843', marginBottom: '3px' }}>
-                Wearables Dossier
+                {t('card_dossier_title', 'Wearables Dossier')}
               </div>
               <p style={{ fontSize: '10.5px', color: '#9d174d', margin: '0 0 12px 0', lineHeight: 1.35 }}>
-                Apple Watch & Pixel Watch 30-day vitals archive.
+                {t('card_dossier_desc', 'Apple Watch & Pixel Watch 30-day vitals archive.')}
               </p>
             </div>
 
             <div>
               {dossierSuccess && (
                 <div style={{ fontSize: '10.5px', color: '#831843', fontWeight: 700, marginBottom: '5px', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                  <CheckCircle2 size={12} /> Dossier Exported!
+                  <CheckCircle2 size={12} /> {translateText('Dossier Exported!')}
                 </div>
               )}
               <button
@@ -894,7 +896,7 @@ Verification URL: https://abdm.gov.in/verify?abha=${patient.abhaId || '91-7294-8
                 }}
               >
                 {exportingDossier ? <RefreshCw size={12} className="animate-spin" /> : <Activity size={12} />}
-                {exportingDossier ? 'Exporting...' : 'Export Dossier'}
+                {exportingDossier ? translateText('Exporting...') : t('btn_export_dossier', 'Export Dossier')}
               </button>
             </div>
           </div>

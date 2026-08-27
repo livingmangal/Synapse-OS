@@ -16,6 +16,7 @@ import {
   ArrowRight
 } from 'lucide-react';
 import { DetectedCondition } from '../types';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface InteractiveBodyTwinProps {
   conditions: DetectedCondition[];
@@ -30,6 +31,7 @@ export default function InteractiveBodyTwin({
   onSelectCondition,
   onNavigateToSwarmTab
 }: InteractiveBodyTwinProps) {
+  const { t, translateText } = useLanguage();
   const [activeLayer, setActiveLayer] = useState<'all' | 'muscular' | 'skeletal' | 'vascular'>('all');
   const [zoomLevel, setZoomLevel] = useState(1);
   const [hoveredHotspot, setHoveredHotspot] = useState<string | null>(null);
@@ -82,7 +84,7 @@ export default function InteractiveBodyTwin({
         flexDirection: 'column',
         gap: '20px',
         height: 'calc(100vh - 130px)',
-        fontFamily: '"Times New Roman", Times, serif'
+        fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
       }}
     >
       {/* 1. Main 3D Anatomy Digital Twin Canvas Card */}
@@ -142,7 +144,7 @@ export default function InteractiveBodyTwin({
                   boxShadow: activeLayer === layer ? '0 2px 8px rgba(219, 39, 119,0.35)' : 'none'
                 }}
               >
-                {layer}
+                {translateText(layer === 'all' ? 'All' : layer.charAt(0).toUpperCase() + layer.slice(1))}
               </button>
             ))}
           </div>
@@ -164,7 +166,7 @@ export default function InteractiveBodyTwin({
               boxShadow: '0 2px 6px rgba(16, 185, 129, 0.1)'
             }}>
               <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#10b981' }} />
-              <span>Watch Calibrated (HRV 58ms • VO2 Max 44.5)</span>
+              <span>{translateText('Watch Calibrated (HRV 58ms • VO2 Max 44.5)')}</span>
             </div>
 
             <div style={{
@@ -183,7 +185,7 @@ export default function InteractiveBodyTwin({
               boxShadow: '0 2px 8px rgba(219, 39, 119,0.08)'
             }}>
               <Sparkles size={13} />
-              <span>{currentLayer.badge}</span>
+              <span>{translateText(currentLayer.badge)}</span>
             </div>
           </div>
         </div>

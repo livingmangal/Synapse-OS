@@ -25,6 +25,7 @@ import {
 } from 'lucide-react';
 import { PatientInfo, VitalsData } from '../types';
 import { MOCK_HEALTH_PROFILES, MockHealthProfile } from '@/data/mockHealthProfiles';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface VisualAnalyticsPanelProps {
   patient?: PatientInfo;
@@ -43,6 +44,7 @@ export default function VisualAnalyticsPanel({
   onSelectProfile,
   onOpenExportModal
 }: VisualAnalyticsPanelProps) {
+  const { t, translateText } = useLanguage();
   const [chatMessage, setChatMessage] = useState('');
   const [localSelectedProfileId, setLocalSelectedProfileId] = useState<string>('mausam_kar_verified_abha');
   const [customProfile, setCustomProfile] = useState<MockHealthProfile | null>(null);
@@ -168,7 +170,7 @@ export default function VisualAnalyticsPanel({
       width: '100%',
       maxWidth: '1600px',
       margin: '0 auto',
-      fontFamily: '"Times New Roman", Times, serif'
+      fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
     }}>
       {/* 0. Telemetry Dataset & JSON Sync Ribbon */}
       <div style={{
@@ -200,7 +202,7 @@ export default function VisualAnalyticsPanel({
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <span style={{ fontSize: '12px', fontWeight: 800, color: '#0f172a' }}>
-                Active Telemetry Feed: <b style={{ color: '#0284c7' }}>{activeProfile.title}</b>
+                {t('analytics_dataset_switcher', 'Active Telemetry Feed')}: <b style={{ color: '#0284c7' }}>{activeProfile.title}</b>
               </span>
               <span style={{
                 fontSize: '9.5px',
@@ -215,7 +217,7 @@ export default function VisualAnalyticsPanel({
               </span>
             </div>
             <div style={{ fontSize: '11px', color: '#64748b' }}>
-              Patient: <b>{activeProfile.patient.name}</b> ({activeProfile.patient.age}y {activeProfile.patient.gender}) • {activeProfile.device.name} • {activeProfile.observationCount.toLocaleString()} Records
+              {translateText('Patient')}: <b>{activeProfile.patient.name}</b> ({activeProfile.patient.age}y {activeProfile.patient.gender}) • {activeProfile.device.name} • {activeProfile.observationCount.toLocaleString()} Records
             </div>
           </div>
         </div>
@@ -242,7 +244,7 @@ export default function VisualAnalyticsPanel({
               }}
             >
               <Zap size={13} color="#0284c7" />
-              <span>Select Dataset Profile</span>
+              <span>{t('analytics_dataset_switcher', 'Select Dataset Profile')}</span>
               <ChevronDown size={13} color="#64748b" />
             </button>
 
@@ -333,7 +335,7 @@ export default function VisualAnalyticsPanel({
             }}
           >
             <Upload size={13} color="#0284c7" />
-            <span>Upload JSON</span>
+            <span>{translateText('Upload JSON')}</span>
           </button>
 
           {/* Download Active JSON Button */}
@@ -356,7 +358,7 @@ export default function VisualAnalyticsPanel({
             }}
           >
             <Download size={13} />
-            <span>Download JSON</span>
+            <span>{translateText('Download JSON')}</span>
           </button>
         </div>
       </div>
@@ -430,10 +432,10 @@ export default function VisualAnalyticsPanel({
               boxShadow: '0 2px 6px rgba(0,0,0,0.03)',
               marginBottom: '16px'
             }}>
-              AI DOCTOR
+              {translateText('AI DOCTOR')}
             </span>
 
-            <div style={{ fontSize: '14px', color: '#64748b', fontWeight: 600 }}>Chat with</div>
+            <div style={{ fontSize: '14px', color: '#64748b', fontWeight: 600 }}>{translateText('Chat with')}</div>
             <h2 style={{
               fontSize: '34px',
               fontWeight: 900,
@@ -441,7 +443,7 @@ export default function VisualAnalyticsPanel({
               margin: '2px 0 0 0',
               letterSpacing: '-0.03em'
             }}>
-              SYNAPSE
+              {translateText('SYNAPSE')}
             </h2>
           </div>
 
@@ -467,7 +469,7 @@ export default function VisualAnalyticsPanel({
                 onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#f9a8d4'; e.currentTarget.style.color = '#db2777'; }}
                 onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#cbd5e1'; e.currentTarget.style.color = '#1e293b'; }}
               >
-                💬 How can I improve my sleep?
+                💬 {translateText('How can I improve my sleep?')}
               </button>
               <button 
                 onClick={() => handleOpenSanjeevaniAI('Analyze my latest ECG telemetry')}
@@ -487,7 +489,7 @@ export default function VisualAnalyticsPanel({
                 onMouseEnter={(e) => { e.currentTarget.style.borderColor = '#f9a8d4'; e.currentTarget.style.color = '#db2777'; }}
                 onMouseLeave={(e) => { e.currentTarget.style.borderColor = '#cbd5e1'; e.currentTarget.style.color = '#1e293b'; }}
               >
-                ⚡ Analyze my latest ECG telemetry
+                ⚡ {translateText('Analyze my latest ECG telemetry')}
               </button>
             </div>
 
@@ -507,7 +509,7 @@ export default function VisualAnalyticsPanel({
             >
               <input
                 type="text"
-                placeholder="Ask your health coach..."
+                placeholder={translateText('Ask your health coach...')}
                 value={chatMessage}
                 onChange={(e) => setChatMessage(e.target.value)}
                 onKeyDown={(e) => {
@@ -575,14 +577,14 @@ export default function VisualAnalyticsPanel({
           }}>
             <div>
               <h3 style={{ fontSize: '15px', fontWeight: 800, color: '#0f172a', margin: '0 0 2px 0' }}>
-                Wellness Progress
+                {translateText('Wellness Progress')}
               </h3>
               <p style={{ fontSize: '11px', color: '#64748b', margin: '0 0 20px 0' }}>
-                View your monthly progress at a glance
+                {translateText('View your monthly progress at a glance')}
               </p>
 
               <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px' }}>
-                <span style={{ fontSize: '11px', color: '#64748b', fontWeight: 600 }}>Your Health Score:</span>
+                <span style={{ fontSize: '11px', color: '#64748b', fontWeight: 600 }}>{translateText('Your Health Score:')}</span>
                 <span style={{ fontSize: '28px', fontWeight: 900, color: '#0f172a' }}>
                   {activeProfile.visualAnalytics.healthScore}%
                 </span>
@@ -612,9 +614,9 @@ export default function VisualAnalyticsPanel({
 
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginTop: '12px' }}>
                 <div style={{ textAlign: 'right' }}>
-                  <div style={{ fontSize: '10px', color: '#94a3b8', fontWeight: 700 }}>Next Appointment:</div>
+                  <div style={{ fontSize: '10px', color: '#94a3b8', fontWeight: 700 }}>{translateText('Next Appointment:')}</div>
                   <div style={{ fontSize: '12px', fontWeight: 800, color: '#0f172a' }}>
-                    {activeProfile.visualAnalytics.nextAppointment.date}
+                    {translateText(activeProfile.visualAnalytics.nextAppointment.date)}
                   </div>
                 </div>
                 <div style={{
@@ -653,10 +655,10 @@ export default function VisualAnalyticsPanel({
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                 <div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                    <h4 style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a', margin: 0 }}>My Records</h4>
+                    <h4 style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a', margin: 0 }}>{translateText('My Records')}</h4>
                   </div>
                   <span style={{ fontSize: '10px', fontWeight: 800, color: '#db2777', background: '#fdf2f8', padding: '1px 6px', borderRadius: '4px', display: 'inline-block', marginTop: '2px' }}>
-                    Coming Soon
+                    {translateText('Coming Soon')}
                   </span>
                 </div>
                 <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: '#f8fafc', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -694,10 +696,10 @@ export default function VisualAnalyticsPanel({
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                 <div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                    <h4 style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a', margin: 0 }}>Appointments</h4>
+                    <h4 style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a', margin: 0 }}>{translateText('Appointments')}</h4>
                   </div>
                   <span style={{ fontSize: '10px', fontWeight: 800, color: '#4f46e5', background: '#e0e7ff', padding: '1px 6px', borderRadius: '4px', display: 'inline-block', marginTop: '2px' }}>
-                    Coming Soon
+                    {translateText('Coming Soon')}
                   </span>
                 </div>
                 <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: '#f8fafc', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -755,9 +757,10 @@ export default function VisualAnalyticsPanel({
               <MoreVertical size={16} color="#94a3b8" style={{ cursor: 'pointer' }} />
             </div>
 
-            <h4 style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a', margin: '0 0 2px 0' }}>Heart Rate</h4>
+            <h4 style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a', margin: '0 0 2px 0' }}>{translateText('Heart Rate')}</h4>
             <div style={{ fontSize: '11px', color: '#64748b' }}>
-              The average heart rate is <strong style={{ color: '#0f172a', background: '#f1f5f9', padding: '1px 6px', borderRadius: '4px' }}>
+              {translateText('The average heart rate is')}{' '}
+              <strong style={{ color: '#0f172a', background: '#f1f5f9', padding: '1px 6px', borderRadius: '4px' }}>
                 {activeProfile.visualAnalytics.heartRateAvg}
               </strong>
             </div>
@@ -827,9 +830,10 @@ export default function VisualAnalyticsPanel({
               <MoreVertical size={16} color="#94a3b8" style={{ cursor: 'pointer' }} />
             </div>
 
-            <h4 style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a', margin: '0 0 2px 0' }}>Sleep Score</h4>
+            <h4 style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a', margin: '0 0 2px 0' }}>{translateText('Sleep Score')}</h4>
             <div style={{ fontSize: '11px', color: '#64748b' }}>
-              The average sleep is <strong style={{ color: '#0f172a', background: '#f1f5f9', padding: '1px 6px', borderRadius: '4px' }}>
+              {translateText('The average sleep is')}{' '}
+              <strong style={{ color: '#0f172a', background: '#f1f5f9', padding: '1px 6px', borderRadius: '4px' }}>
                 {activeProfile.visualAnalytics.sleepAvg}
               </strong>
             </div>
@@ -893,9 +897,10 @@ export default function VisualAnalyticsPanel({
               <MoreVertical size={16} color="#94a3b8" style={{ cursor: 'pointer' }} />
             </div>
 
-            <h4 style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a', margin: '0 0 2px 0' }}>Stress Balance</h4>
+            <h4 style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a', margin: '0 0 2px 0' }}>{translateText('Stress Balance')}</h4>
             <div style={{ fontSize: '11px', color: '#64748b' }}>
-              Your average stress is <strong style={{ color: '#0f172a', background: '#f1f5f9', padding: '1px 6px', borderRadius: '4px' }}>
+              {translateText('Your average stress is')}{' '}
+              <strong style={{ color: '#0f172a', background: '#f1f5f9', padding: '1px 6px', borderRadius: '4px' }}>
                 {activeProfile.visualAnalytics.stressAvg}
               </strong>
             </div>
@@ -971,9 +976,10 @@ export default function VisualAnalyticsPanel({
               <MoreVertical size={16} color="#94a3b8" style={{ cursor: 'pointer' }} />
             </div>
 
-            <h4 style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a', margin: '0 0 2px 0' }}>Weekly Steps</h4>
+            <h4 style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a', margin: '0 0 2px 0' }}>{translateText('Weekly Steps')}</h4>
             <div style={{ fontSize: '11px', color: '#64748b' }}>
-              Your average steps is <strong style={{ color: '#0f172a', background: '#f1f5f9', padding: '1px 6px', borderRadius: '4px' }}>
+              {translateText('Your average steps is')}{' '}
+              <strong style={{ color: '#0f172a', background: '#f1f5f9', padding: '1px 6px', borderRadius: '4px' }}>
                 {activeProfile.visualAnalytics.stepsAvg}
               </strong>
             </div>
@@ -1027,8 +1033,8 @@ export default function VisualAnalyticsPanel({
         }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
             <div>
-              <h4 style={{ fontSize: '15px', fontWeight: 800, color: '#0f172a', margin: 0 }}>AI Insights</h4>
-              <span style={{ fontSize: '11px', color: '#64748b' }}>Personalized insights for you</span>
+              <h4 style={{ fontSize: '15px', fontWeight: 800, color: '#0f172a', margin: 0 }}>{translateText('AI Insights')}</h4>
+              <span style={{ fontSize: '11px', color: '#64748b' }}>{translateText('Personalized insights for you')}</span>
             </div>
             <MoreVertical size={16} color="#94a3b8" style={{ cursor: 'pointer' }} />
           </div>
@@ -1036,37 +1042,37 @@ export default function VisualAnalyticsPanel({
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px' }}>
             <div style={{ background: '#f8fafc', padding: '12px', borderRadius: '16px', border: '1px solid #f1f5f9' }}>
               <span style={{ fontSize: '9px', fontWeight: 800, color: '#059669', background: '#ecfdf5', padding: '2px 6px', borderRadius: '4px' }}>
-                POSITIVE
+                {translateText('POSITIVE')}
               </span>
               <h5 style={{ fontSize: '12px', fontWeight: 800, color: '#0f172a', margin: '8px 0 2px 0' }}>
-                {activeProfile.visualAnalytics.insights.positive.title}
+                {translateText(activeProfile.visualAnalytics.insights.positive.title)}
               </h5>
               <p style={{ fontSize: '10px', color: '#64748b', margin: 0, lineHeight: 1.3 }}>
-                {activeProfile.visualAnalytics.insights.positive.desc}
+                {translateText(activeProfile.visualAnalytics.insights.positive.desc)}
               </p>
             </div>
 
             <div style={{ background: '#f8fafc', padding: '12px', borderRadius: '16px', border: '1px solid #f1f5f9' }}>
               <span style={{ fontSize: '9px', fontWeight: 800, color: '#d97706', background: '#fffbeb', padding: '2px 6px', borderRadius: '4px' }}>
-                TAKE ACTION
+                {translateText('TAKE ACTION')}
               </span>
               <h5 style={{ fontSize: '12px', fontWeight: 800, color: '#0f172a', margin: '8px 0 2px 0' }}>
-                {activeProfile.visualAnalytics.insights.action.title}
+                {translateText(activeProfile.visualAnalytics.insights.action.title)}
               </h5>
               <p style={{ fontSize: '10px', color: '#64748b', margin: 0, lineHeight: 1.3 }}>
-                {activeProfile.visualAnalytics.insights.action.desc}
+                {translateText(activeProfile.visualAnalytics.insights.action.desc)}
               </p>
             </div>
 
             <div style={{ background: '#f8fafc', padding: '12px', borderRadius: '16px', border: '1px solid #f1f5f9' }}>
               <span style={{ fontSize: '9px', fontWeight: 800, color: '#ef4444', background: '#fef2f2', padding: '2px 6px', borderRadius: '4px' }}>
-                MONITOR
+                {translateText('MONITOR')}
               </span>
               <h5 style={{ fontSize: '12px', fontWeight: 800, color: '#0f172a', margin: '8px 0 2px 0' }}>
-                {activeProfile.visualAnalytics.insights.monitor.title}
+                {translateText(activeProfile.visualAnalytics.insights.monitor.title)}
               </h5>
               <p style={{ fontSize: '10px', color: '#64748b', margin: 0, lineHeight: 1.3 }}>
-                {activeProfile.visualAnalytics.insights.monitor.desc}
+                {translateText(activeProfile.visualAnalytics.insights.monitor.desc)}
               </p>
             </div>
           </div>
@@ -1081,7 +1087,7 @@ export default function VisualAnalyticsPanel({
           padding: '24px',
           boxShadow: '0 4px 14px rgba(0,0,0,0.02)'
         }}>
-          <h4 style={{ fontSize: '15px', fontWeight: 800, color: '#0f172a', margin: '0 0 16px 0' }}>Care Plan</h4>
+          <h4 style={{ fontSize: '15px', fontWeight: 800, color: '#0f172a', margin: '0 0 16px 0' }}>{translateText('Care Plan')}</h4>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: '#f8fafc', padding: '10px 14px', borderRadius: '14px', border: '1px solid #f1f5f9' }}>
@@ -1091,10 +1097,10 @@ export default function VisualAnalyticsPanel({
                 </div>
                 <div>
                   <div style={{ fontSize: '12px', fontWeight: 800, color: '#0f172a' }}>
-                    {activeProfile.visualAnalytics.carePlan.medication.title}
+                    {translateText(activeProfile.visualAnalytics.carePlan.medication.title)}
                   </div>
                   <div style={{ fontSize: '10px', color: '#64748b' }}>
-                    {activeProfile.visualAnalytics.carePlan.medication.desc}
+                    {translateText(activeProfile.visualAnalytics.carePlan.medication.desc)}
                   </div>
                 </div>
               </div>
@@ -1112,10 +1118,10 @@ export default function VisualAnalyticsPanel({
                 </div>
                 <div>
                   <div style={{ fontSize: '12px', fontWeight: 800, color: '#0f172a' }}>
-                    {activeProfile.visualAnalytics.carePlan.hydration.title}
+                    {translateText(activeProfile.visualAnalytics.carePlan.hydration.title)}
                   </div>
                   <div style={{ fontSize: '10px', color: '#64748b' }}>
-                    {activeProfile.visualAnalytics.carePlan.hydration.desc}
+                    {translateText(activeProfile.visualAnalytics.carePlan.hydration.desc)}
                   </div>
                 </div>
               </div>
@@ -1146,7 +1152,7 @@ export default function VisualAnalyticsPanel({
           flexDirection: 'column',
           justifyContent: 'space-between'
         }}>
-          <h4 style={{ fontSize: '15px', fontWeight: 800, color: '#0f172a', margin: '0 0 12px 0' }}>Next Checkup</h4>
+          <h4 style={{ fontSize: '15px', fontWeight: 800, color: '#0f172a', margin: '0 0 12px 0' }}>{translateText('Next Checkup')}</h4>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <img
@@ -1156,13 +1162,13 @@ export default function VisualAnalyticsPanel({
             />
             <div>
               <div style={{ fontSize: '13px', fontWeight: 800, color: '#0f172a' }}>
-                {activeProfile.visualAnalytics.nextAppointment.doctor}
+                {translateText(activeProfile.visualAnalytics.nextAppointment.doctor)}
               </div>
               <div style={{ fontSize: '10px', color: '#64748b', margin: '2px 0' }}>
-                {activeProfile.visualAnalytics.nextAppointment.date}
+                {translateText(activeProfile.visualAnalytics.nextAppointment.date)}
               </div>
               <span style={{ fontSize: '9px', fontWeight: 800, padding: '2px 6px', borderRadius: '4px', background: '#e0f2fe', color: '#0284c7', border: '1px solid #bae6fd' }}>
-                {activeProfile.visualAnalytics.nextAppointment.type}
+                {translateText(activeProfile.visualAnalytics.nextAppointment.type)}
               </span>
             </div>
           </div>

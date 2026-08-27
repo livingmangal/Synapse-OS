@@ -18,6 +18,7 @@ import {
   Zap
 } from 'lucide-react';
 import { DetectedCondition } from '../types';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface ClinicalConditionsPanelProps {
   conditions: DetectedCondition[];
@@ -34,6 +35,7 @@ export default function ClinicalConditionsPanel({
   onOpenExportModal,
   onNavigateToSwarmTab
 }: ClinicalConditionsPanelProps) {
+  const { t, translateText } = useLanguage();
   const [selectedOrganTab, setSelectedOrganTab] = useState<'all' | 'lungs' | 'knee' | 'shoulder'>('all');
 
   const lungsCondition = conditions.find(c => c.organ === 'lungs') || conditions[0];
@@ -49,7 +51,7 @@ export default function ClinicalConditionsPanel({
         gap: '20px',
         width: '380px',
         flexShrink: 0,
-        fontFamily: '"Times New Roman", Times, serif'
+        fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
       }}
     >
       {/* 1. Lungs & Pulmonary Function Card */}
@@ -71,10 +73,10 @@ export default function ClinicalConditionsPanel({
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
           <div>
             <h3 style={{ fontSize: '16px', fontWeight: 900, color: '#0f172a', margin: 0 }}>
-              {lungsCondition?.title || 'Pulmonary Function'}
+              {translateText(lungsCondition?.title || 'Pulmonary Aerobic Function')}
             </h3>
             <span style={{ fontSize: '11px', color: '#64748b' }}>
-              {lungsCondition?.lastUpdated || 'Updated: Recently'} • {lungsCondition?.doctor || 'Dr. Rajesh K. Varma'}
+              {translateText(lungsCondition?.lastUpdated || 'Updated: Recently')} • {lungsCondition?.doctor || 'Dr. Rajesh K. Varma'}
             </span>
           </div>
           <span style={{
@@ -86,7 +88,7 @@ export default function ClinicalConditionsPanel({
             fontWeight: 800,
             border: lungsCondition?.status === 'Critical' ? '1px solid #fecaca' : '1px solid #a7f3d0'
           }}>
-            {lungsCondition?.status || 'Stable'}
+            {translateText(lungsCondition?.status || 'Stable')}
           </span>
         </div>
 
@@ -100,10 +102,10 @@ export default function ClinicalConditionsPanel({
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', fontWeight: 800, color: '#0f172a' }}>
             <FileText size={14} color="#db2777" />
-            <span>{lungsCondition?.specialty || 'Pulmonology'} Evaluation</span>
+            <span>{translateText(`${lungsCondition?.specialty || 'Pulmonology'} & Critical Care Evaluation`)}</span>
           </div>
           <p style={{ fontSize: '11px', color: '#64748b', margin: '6px 0 12px 0', lineHeight: 1.45 }}>
-            {lungsCondition?.notes || 'Comprehensive respiratory evaluation. Results show stable lung capacity and normal oxygen delivery.'}
+            {translateText(lungsCondition?.notes || 'Comprehensive respiratory evaluation. Results show stable lung capacity and normal oxygen delivery.')}
           </p>
 
           {/* Diagnostic X-Ray & CT Radiography Strip */}
@@ -196,8 +198,8 @@ export default function ClinicalConditionsPanel({
           {/* Telemetry Metrics */}
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '11px', color: '#475569', borderTop: '1px solid #e2e8f0', paddingTop: '10px' }}>
             <span>FEV1: <strong style={{ color: '#0f172a' }}>{lungsCondition?.metrics?.fev1 || '4.8 L'}</strong></span>
-            <span>O2 Level: <strong style={{ color: '#059669' }}>{lungsCondition?.metrics?.o2 || '98.5%'}</strong></span>
-            <span>Heart Rate: <strong style={{ color: '#0f172a' }}>{lungsCondition?.metrics?.heartRate || '74 BPM'}</strong></span>
+            <span>{translateText('O2 Level')}: <strong style={{ color: '#059669' }}>{lungsCondition?.metrics?.o2 || '98.5%'}</strong></span>
+            <span>{translateText('Heart Rate')}: <strong style={{ color: '#0f172a' }}>{lungsCondition?.metrics?.heartRate || '74 BPM'}</strong></span>
           </div>
         </div>
 
@@ -205,14 +207,14 @@ export default function ClinicalConditionsPanel({
         <div style={{ marginTop: '18px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
             <div>
-              <span style={{ fontSize: '10px', color: '#64748b', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.04em' }}>OXYGEN LEVEL</span>
+              <span style={{ fontSize: '10px', color: '#64748b', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.04em' }}>{translateText('OXYGEN LEVEL')}</span>
               <div style={{ fontSize: '18px', fontWeight: 900, color: '#0f172a' }}>
                 {lungsCondition?.metrics?.o2 || '98.5%'}
               </div>
             </div>
             <div style={{ fontSize: '11px', textAlign: 'right' }}>
-              <div><span style={{ color: '#059669', fontWeight: 800 }}>● This month:</span> <strong style={{ color: '#0f172a' }}>{lungsCondition?.metrics?.trendThisMonth || '98.5%'}</strong></div>
-              <div><span style={{ color: '#db2777', fontWeight: 800 }}>● Previous:</span> <strong style={{ color: '#64748b' }}>{lungsCondition?.metrics?.trendPrevMonth || '96.8%'}</strong></div>
+              <div><span style={{ color: '#059669', fontWeight: 800 }}>● {translateText('This month:')}</span> <strong style={{ color: '#0f172a' }}>{lungsCondition?.metrics?.trendThisMonth || '98.5%'}</strong></div>
+              <div><span style={{ color: '#db2777', fontWeight: 800 }}>● {translateText('Previous:')}</span> <strong style={{ color: '#64748b' }}>{lungsCondition?.metrics?.trendPrevMonth || '96.8%'}</strong></div>
             </div>
           </div>
 
@@ -299,11 +301,11 @@ export default function ClinicalConditionsPanel({
             }}
           >
             <Plus size={15} />
-            <span>Add Record / Export</span>
+            <span>{translateText('+ Add Record / Export')}</span>
           </button>
           <button
             onClick={onOpenExportModal}
-            title="Download PDF"
+            title={translateText('Download PDF')}
             style={{
               width: '42px',
               height: '42px',
@@ -340,10 +342,10 @@ export default function ClinicalConditionsPanel({
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
           <div>
             <h3 style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a', margin: '0 0 2px 0' }}>
-              {shoulderCondition?.title || 'Left Shoulder Joint Mobility'}
+              {translateText(shoulderCondition?.title || 'Cervical & Trapezius Desk Ergonomics')}
             </h3>
             <span style={{ fontSize: '11px', color: '#64748b' }}>
-              {shoulderCondition?.doctor || 'Dr. Rajesh K. Varma'} • {shoulderCondition?.specialty || 'Orthopedics'}
+              {shoulderCondition?.doctor || 'Dr. Rajesh K. Varma'} • {translateText(shoulderCondition?.specialty || 'Orthopedics')}
             </span>
           </div>
           <span style={{
@@ -355,12 +357,12 @@ export default function ClinicalConditionsPanel({
             borderRadius: '6px',
             border: (shoulderCondition?.painLevel || 3) > 3 ? '1px solid #fde68a' : '1px solid #a7f3d0'
           }}>
-            {shoulderCondition?.status || 'Stable'}
+            {translateText(shoulderCondition?.status || 'Monitoring')}
           </span>
         </div>
 
         <div style={{ fontSize: '11px', fontWeight: 700, color: '#64748b', marginBottom: '8px' }}>
-          Pain Severity Index ({shoulderCondition?.painLevel || 3}/20) • {shoulderCondition?.notes?.split('.')[0] || 'Ergonomic stretching active'}
+          {translateText(shoulderCondition?.notes || 'Pain Severity Index (4/20) • Mild trapezius stiffness from display work')}
         </div>
         <div style={{ display: 'flex', gap: '4px' }}>
           {Array.from({ length: 20 }).map((_, i) => (
@@ -396,10 +398,10 @@ export default function ClinicalConditionsPanel({
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
           <div>
             <h3 style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a', margin: '0 0 2px 0' }}>
-              {kneeCondition?.title || 'Patellar Joint Biomechanics'}
+              {translateText(kneeCondition?.title || 'Patellar Joint Biomechanics')}
             </h3>
             <span style={{ fontSize: '11px', color: '#64748b' }}>
-              {kneeCondition?.doctor || 'Dr. Naresh Trehan'} • {kneeCondition?.specialty || 'Orthopedics'}
+              {kneeCondition?.doctor || 'Dr. Naresh Trehan'} • {translateText(kneeCondition?.specialty || 'Orthopedics')}
             </span>
           </div>
           <span style={{
@@ -411,7 +413,7 @@ export default function ClinicalConditionsPanel({
             borderRadius: '6px',
             border: kneeCondition?.status === 'Critical' ? '1px solid #fecaca' : '1px solid #a7f3d0'
           }}>
-            {kneeCondition?.status || 'Stable'}
+            {translateText(kneeCondition?.status || 'Stable')}
           </span>
         </div>
 
@@ -435,11 +437,11 @@ export default function ClinicalConditionsPanel({
 
           <div style={{ flex: 1 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: '#64748b', marginBottom: '4px' }}>
-              <span>Current Range: <strong style={{ color: '#0f172a' }}>{kneeCondition?.angleCurrent || 119}°</strong></span>
-              <span>Target: <strong style={{ color: '#059669' }}>{kneeCondition?.angleNormal || 120}°</strong></span>
+              <span>{translateText('Current Range')}: <strong style={{ color: '#0f172a' }}>{kneeCondition?.angleCurrent || 119}°</strong></span>
+              <span>{translateText('Target')}: <strong style={{ color: '#059669' }}>{kneeCondition?.angleNormal || 120}°</strong></span>
             </div>
             <p style={{ fontSize: '11px', color: '#64748b', margin: 0, lineHeight: 1.4 }}>
-              {kneeCondition?.notes || 'Healthy joint space. Full physiological range of motion.'}
+              {translateText(kneeCondition?.notes || 'Healthy joint space. Full physiological range of motion.')}
             </p>
           </div>
         </div>

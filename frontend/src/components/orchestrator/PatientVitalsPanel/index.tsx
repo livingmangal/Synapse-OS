@@ -26,6 +26,7 @@ import {
 } from 'lucide-react';
 import { PatientInfo, VitalsData, DoctorSlot } from '../types';
 import { MOCK_HEALTH_PROFILES } from '@/data/mockHealthProfiles';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface PatientVitalsPanelProps {
   patient: PatientInfo;
@@ -50,6 +51,7 @@ export default function PatientVitalsPanel({
   onUploadCustomProfile,
   onBookDoctor
 }: PatientVitalsPanelProps) {
+  const { t, translateText } = useLanguage();
   const [selectedDay, setSelectedDay] = useState(12);
   const [copiedLink, setCopiedLink] = useState(false);
   const [showMoreMenu, setShowMoreMenu] = useState(false);
@@ -176,7 +178,7 @@ export default function PatientVitalsPanel({
         gap: '16px',
         width: '340px',
         flexShrink: 0,
-        fontFamily: '"Times New Roman", Times, serif'
+        fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
       }}
     >
       {/* Hidden File Input for Custom JSON Upload */}
@@ -202,7 +204,7 @@ export default function PatientVitalsPanel({
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <span style={{ fontSize: '10.5px', fontWeight: 800, color: '#0369a1', display: 'flex', alignItems: 'center', gap: '5px' }}>
             <ShieldCheck size={13} color="#0284c7" />
-            ABDM Sandbox Gateway
+            {translateText('ABDM Sandbox Gateway')}
           </span>
           <button
             onClick={() => fileInputRef.current?.click()}
@@ -221,7 +223,7 @@ export default function PatientVitalsPanel({
               cursor: 'pointer'
             }}
           >
-            <Upload size={11} /> Upload JSON
+            <Upload size={11} /> {translateText('Upload JSON')}
           </button>
         </div>
 
@@ -244,7 +246,7 @@ export default function PatientVitalsPanel({
         >
           {MOCK_HEALTH_PROFILES.map((p) => (
             <option key={p.profileId} value={p.profileId}>
-              {p.title}
+              {translateText(p.title)}
             </option>
           ))}
         </select>
@@ -272,7 +274,7 @@ export default function PatientVitalsPanel({
             color: isAbhaLinked ? '#0369a1' : '#b91c1c',
             border: isAbhaLinked ? '1px solid #bae6fd' : '1px solid #fecaca'
           }}>
-            ● {patient.planType}
+            ● {translateText(patient.planType)}
           </span>
           
           <div style={{ display: 'flex', gap: '8px', position: 'relative' }}>
@@ -355,7 +357,7 @@ export default function PatientVitalsPanel({
                   onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
                 >
                   <RefreshCw size={13} color={isAbhaLinked ? '#b91c1c' : '#0284c7'} />
-                  <span>{isAbhaLinked ? 'Unlink ABHA (View Empty)' : 'Relink ABHA Record'}</span>
+                  <span>{isAbhaLinked ? translateText('Unlink ABHA (View Empty)') : translateText('Relink ABHA Record')}</span>
                 </button>
                 <button
                   onClick={() => { window.print(); setShowMoreMenu(false); }}
@@ -377,7 +379,7 @@ export default function PatientVitalsPanel({
                   onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
                 >
                   <Printer size={13} color="#0284c7" />
-                  <span>Print EHR Record</span>
+                  <span>{translateText('Print EHR Record')}</span>
                 </button>
                 <button
                   onClick={() => { handleShare(); setShowMoreMenu(false); }}
@@ -399,7 +401,7 @@ export default function PatientVitalsPanel({
                   onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
                 >
                   <Copy size={13} color="#0284c7" />
-                  <span>Copy FHIR URL</span>
+                  <span>{translateText('Copy FHIR URL')}</span>
                 </button>
               </div>
             )}
@@ -419,7 +421,7 @@ export default function PatientVitalsPanel({
             alignItems: 'center',
             gap: '4px'
           }}>
-            <Check size={12} /> Patient Record Link Copied!
+            <Check size={12} /> {translateText('Patient Record Link Copied!')}
           </div>
         )}
 
@@ -463,10 +465,10 @@ export default function PatientVitalsPanel({
               {patient.name}
             </h2>
             <div style={{ fontSize: '11px', color: '#64748b', marginBottom: '2px' }}>
-              DOB: <strong style={{ color: '#334155' }}>{patient.dob}</strong>
+              {translateText('DOB:')} <strong style={{ color: '#334155' }}>{patient.dob}</strong>
             </div>
             <div style={{ fontSize: '11px', color: '#64748b' }}>
-              Gender: <strong style={{ color: '#334155' }}>{patient.gender}</strong> • Blood: <strong style={{ color: '#0284c7' }}>{patient.bloodType}</strong>
+              {translateText('Gender:')} <strong style={{ color: '#334155' }}>{translateText(patient.gender)}</strong> • {translateText('Blood:')} <strong style={{ color: '#0284c7' }}>{patient.bloodType}</strong>
             </div>
           </div>
         </div>
@@ -502,13 +504,13 @@ export default function PatientVitalsPanel({
           </div>
           <div style={{ flex: 1, minWidth: 0 }}>
             <div style={{ fontSize: '10px', color: '#64748b', fontWeight: 700, textTransform: 'uppercase' }}>
-              Policy #{patient.policyNumber}
+              {translateText('POLICY')} #{patient.policyNumber}
             </div>
             <div style={{ fontSize: '12.5px', fontWeight: 800, color: '#0f172a', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', margin: '2px 0' }}>
               ABHA: {patient.abhaId}
             </div>
             <div style={{ fontSize: '10px', color: isAbhaLinked ? '#059669' : '#b91c1c', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '4px' }}>
-              <span>{isAbhaLinked ? '✓ Verified PM-JAY Citizen' : '⚠️ Unlinked ABHA Profile'}</span>
+              <span>{isAbhaLinked ? `✓ ${translateText('Verified PM-JAY Citizen')}` : `⚠️ ${translateText('Unlinked ABHA Profile')}`}</span>
             </div>
           </div>
         </div>
@@ -539,12 +541,12 @@ export default function PatientVitalsPanel({
             {isLinking ? (
               <>
                 <RefreshCw size={14} className="animate-spin" />
-                <span>Authenticating with ABDM Gateway...</span>
+                <span>{translateText('Authenticating with ABDM Gateway...')}</span>
               </>
             ) : (
               <>
                 <LinkIcon size={14} />
-                <span>Connect Verified ABHA via OTP</span>
+                <span>{translateText('Connect Verified ABHA via OTP')}</span>
               </>
             )}
           </button>
@@ -567,11 +569,11 @@ export default function PatientVitalsPanel({
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
               <Heart size={16} color="#ef4444" fill="#ef4444" />
               <h3 style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a', margin: 0 }}>
-                Heart Check
+                {translateText('Heart Check')}
               </h3>
             </div>
             <div style={{ fontSize: '11px', color: '#64748b', marginTop: '2px' }}>
-              Average: <strong>{isAbhaLinked ? `${vitals.avgHeartRate} bpm` : '---'}</strong> • Max: <strong>{isAbhaLinked ? `${vitals.maxHeartRate} bpm` : '---'}</strong>
+              {translateText('Average:')} <strong>{isAbhaLinked ? `${vitals.avgHeartRate} bpm` : '---'}</strong> • {translateText('Max:')} <strong>{isAbhaLinked ? `${vitals.maxHeartRate} bpm` : '---'}</strong>
             </div>
           </div>
           <span style={{ fontSize: '18px', fontWeight: 900, color: '#0f172a' }}>
@@ -592,10 +594,10 @@ export default function PatientVitalsPanel({
         }}>
           <span style={{ fontSize: '10.5px', color: '#0284c7', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '5px' }}>
             <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#0284c7', boxShadow: '0 0 6px #0284c7' }} />
-            Apple Watch & Google Health Synced
+            {translateText('Apple Watch & Google Health Synced')}
           </span>
           <span style={{ fontSize: '10px', color: '#0369a1', fontWeight: 700 }}>
-            Live Lead I ECG
+            {translateText('Live Lead I ECG')}
           </span>
         </div>
 
@@ -643,15 +645,15 @@ export default function PatientVitalsPanel({
         {/* Blood Pressure & Oxygen Row */}
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
           <div style={{ background: '#f8fafc', padding: '10px 12px', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
-            <div style={{ fontSize: '10px', color: '#64748b', fontWeight: 700 }}>BLOOD PRESSURE</div>
+            <div style={{ fontSize: '10px', color: '#64748b', fontWeight: 700 }}>{translateText('BLOOD PRESSURE')}</div>
             <div style={{ fontSize: '13px', fontWeight: 800, color: '#0f172a', marginTop: '2px' }}>
               {isAbhaLinked ? `${vitals.systolicBp}/${vitals.diastolicBp}` : '---/---'} <span style={{ fontSize: '10px', fontWeight: 600, color: '#64748b' }}>mmHg</span>
             </div>
           </div>
           <div style={{ background: '#f8fafc', padding: '10px 12px', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
-            <div style={{ fontSize: '10px', color: '#64748b', fontWeight: 700 }}>O2 SATURATION</div>
+            <div style={{ fontSize: '10px', color: '#64748b', fontWeight: 700 }}>{translateText('O2 SATURATION')}</div>
             <div style={{ fontSize: '13px', fontWeight: 800, color: '#059669', marginTop: '2px' }}>
-              {isAbhaLinked ? `${vitals.oxygenSaturation}%` : '---%'} <span style={{ fontSize: '10px', fontWeight: 600, color: '#64748b' }}>{isAbhaLinked ? 'Normal' : 'Pending'}</span>
+              {isAbhaLinked ? `${vitals.oxygenSaturation}%` : '---%'} <span style={{ fontSize: '10px', fontWeight: 600, color: '#64748b' }}>{isAbhaLinked ? translateText('Normal') : translateText('Pending')}</span>
             </div>
           </div>
         </div>
@@ -670,10 +672,10 @@ export default function PatientVitalsPanel({
       >
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
           <h3 style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a', margin: 0 }}>
-            Schedule with Doctor
+            {translateText('Schedule with Doctor')}
           </h3>
           <span style={{ fontSize: '11px', color: '#0284c7', fontWeight: 800, background: '#e0f2fe', padding: '2px 8px', borderRadius: '6px', border: '1px solid #bae6fd' }}>
-            Jan, 2026
+            {translateText('Jan, 2026')}
           </span>
         </div>
 
@@ -717,7 +719,7 @@ export default function PatientVitalsPanel({
                   boxShadow: isSelected ? '0 4px 12px rgba(2,132,199,0.35)' : 'none'
                 }}
               >
-                <span style={{ fontSize: '9px', fontWeight: 600 }}>{d.day}</span>
+                <span style={{ fontSize: '9px', fontWeight: 600 }}>{translateText(d.day)}</span>
                 <span style={{ fontSize: '13px', fontWeight: 800 }}>{d.num}</span>
               </div>
             );
@@ -739,7 +741,7 @@ export default function PatientVitalsPanel({
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                 <div>
                   <div style={{ fontSize: '12px', fontWeight: 800, color: '#0f172a' }}>{doc.name}</div>
-                  <div style={{ fontSize: '10px', color: '#64748b' }}>{doc.specialty}</div>
+                  <div style={{ fontSize: '10px', color: '#64748b' }}>{translateText(doc.specialty)}</div>
                 </div>
                 <span style={{ fontSize: '10px', padding: '2px 6px', borderRadius: '4px', background: '#ecfdf5', color: '#059669', fontWeight: 800 }}>
                   ★ {doc.rating}
@@ -765,7 +767,7 @@ export default function PatientVitalsPanel({
                     transition: 'all 0.15s ease'
                   }}
                 >
-                  Book Slot
+                  {translateText('Book Slot')}
                 </button>
               </div>
             </div>
