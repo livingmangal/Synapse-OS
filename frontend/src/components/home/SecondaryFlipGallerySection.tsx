@@ -15,8 +15,9 @@ export function SecondaryFlipGallerySection() {
           <div className="media__wrap-source image">
             <img
               className="media__source w-100"
-              src="/wp-content/uploads/2026/04/HOME_6.1-previa-1rgf.jpg"
-              alt="Clinical Scan Preview"
+              src="/images/medical/scan_radiologist_diagnostic.jpg"
+              alt="Clinical Scan AI Diagnostics"
+              style={{ objectFit: 'cover', width: '100%', height: '100%' }}
             />
           </div>
         </div>
@@ -28,8 +29,9 @@ export function SecondaryFlipGallerySection() {
           <div className="media__wrap-source image">
             <img
               className="media__source w-100"
-              src="/wp-content/uploads/2025/08/HOME_6.1-previa.jpg"
-              alt="Clinical Scan Diagram"
+              src="/images/medical/scan_ct_suite.jpg"
+              alt="Clinical CT Imaging Suite"
+              style={{ objectFit: 'cover', width: '100%', height: '100%' }}
             />
           </div>
         </div>
@@ -47,8 +49,9 @@ export function SecondaryFlipGallerySection() {
           <div className="media__wrap-source image">
             <img
               className="media__source w-100"
-              src="/wp-content/uploads/2026/04/HOME_6.2g.jpg"
-              alt="Medical Imaging Flow"
+              src="/images/medical/gallery_robotic_surgery.jpg"
+              alt="Advanced Surgical Operating Theater"
+              style={{ objectFit: 'cover', width: '100%', height: '100%' }}
             />
           </div>
         </div>
@@ -60,8 +63,9 @@ export function SecondaryFlipGallerySection() {
           <div className="media__wrap-source image">
             <img
               className="media__source w-100"
-              src="/wp-content/uploads/2026/04/HOME_8_cierre2.jpg"
-              alt="Sanjeevani Telemetry"
+              src="/images/medical/orchestrator_ops_center.jpg"
+              alt="Sanjeevani Hospital Operations Telemetry"
+              style={{ objectFit: 'cover', width: '100%', height: '100%' }}
             />
           </div>
         </div>

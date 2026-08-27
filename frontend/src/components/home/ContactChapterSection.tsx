@@ -16,7 +16,7 @@ export function ContactChapterSection() {
       <section className="mod-media mod-media--double bg-beige c-black none pb-xs wrapper">
         <div className="media mod-media__item col-6" data-delay="">
           <div className="media__wrap-source image">
-            <img className="media__source w-100" src="/wp-content/uploads/2025/08/FOOTER_1.jpg" alt="Footer Media 1" />
+            <img className="media__source w-100" src="/images/medical/aiims_guwahati.jpg" alt="AIIMS Healthcare Center" style={{ objectFit: 'cover', width: '100%', height: '100%' }} />
           </div>
         </div>
 
@@ -24,8 +24,9 @@ export function ContactChapterSection() {
           <div className="media__wrap-source image">
             <img
               className="media__source w-100"
-              src="/wp-content/uploads/2026/04/Foto-08-scaled-2.jpg"
-              alt="Footer Media 2"
+              src="/images/medical/agent_swarm_doctors.jpg"
+              alt="Medical Care Team"
+              style={{ objectFit: 'cover', width: '100%', height: '100%' }}
             />
           </div>
         </div>

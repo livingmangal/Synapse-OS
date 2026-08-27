@@ -15,7 +15,7 @@ import {
 
 export const metadata: Metadata = {
   title: 'Home - Sanjeevani OS',
-  description: 'Living Spaces That Defy The Ordinary',
+  description: 'Sanjeevani OS - Multi-Agent Health Platform and Clinical AI OS',
 };
 
 export default function HomePage() {

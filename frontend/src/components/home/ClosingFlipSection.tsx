@@ -12,8 +12,9 @@ export function ClosingFlipSection() {
             <div className="media__wrap-source image">
               <img
                 className="media__source w-100"
-                src="/wp-content/uploads/2026/04/Foto-08-scaled-1.jpg"
-                alt="Closure Image Top"
+                src="/images/medical/aiims_new_delhi_block.jpg"
+                alt="AIIMS Healthcare Center New Delhi"
+                style={{ objectFit: 'cover', width: '100%', height: '100%' }}
               />
             </div>
           </div>
@@ -25,8 +26,9 @@ export function ClosingFlipSection() {
             <div className="media__wrap-source image">
               <img
                 className="media__source w-100"
-                src="/wp-content/uploads/2026/04/HOME_8_cierre2-1.jpg"
-                alt="Closure Image Bottom"
+                src="/images/medical/agent_swarm_doctors.jpg"
+                alt="Sanjeevani Multidisciplinary Clinical Care Team"
+                style={{ objectFit: 'cover', width: '100%', height: '100%' }}
               />
             </div>
           </div>

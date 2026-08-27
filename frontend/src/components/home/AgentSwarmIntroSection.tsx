@@ -16,8 +16,9 @@ export function AgentSwarmIntroSection() {
             <div className="media__wrap-source image">
               <img
                 className="media__source w-100"
-                src="/wp-content/uploads/2026/04/CONOCENOS_GAL_3-2.jpg"
-                alt="Agent Swarm Overview"
+                src="/images/medical/agent_swarm_doctors.jpg"
+                alt="Multidisciplinary Indian Medical Team"
+                style={{ objectFit: 'cover', width: '100%', height: '100%' }}
               />
             </div>
           </div>
@@ -29,8 +30,9 @@ export function AgentSwarmIntroSection() {
             <div className="media__wrap-source image">
               <img
                 className="media__source w-100"
-                src="/wp-content/uploads/2025/08/HOME_4.1_previa.jpg"
-                alt="Agent Swarm Preview"
+                src="/images/medical/agent_swarm_workstation.jpg"
+                alt="Clinical AI Diagnostics Workstation"
+                style={{ objectFit: 'cover', width: '100%', height: '100%' }}
               />
             </div>
           </div>
@@ -48,8 +50,9 @@ export function AgentSwarmIntroSection() {
             <div className="media__wrap-source image">
               <img
                 className="media__source w-100"
-                src="/wp-content/uploads/2025/07/MMP-1857209.png"
-                alt="Agent Swarm Schematics"
+                src="/images/medical/agent_swarm_icu.jpg"
+                alt="Intensive Care Telemetry Monitoring"
+                style={{ objectFit: 'cover', width: '100%', height: '100%' }}
               />
             </div>
           </div>
@@ -61,8 +64,9 @@ export function AgentSwarmIntroSection() {
             <div className="media__wrap-source image">
               <img
                 className="media__source w-100"
-                src="/wp-content/uploads/2025/08/HOME_4.2.jpg"
-                alt="Agent Swarm Clinical Flow"
+                src="/images/medical/triage_er_intake.jpg"
+                alt="Emergency Triage & Patient Intake"
+                style={{ objectFit: 'cover', width: '100%', height: '100%' }}
               />
             </div>
           </div>

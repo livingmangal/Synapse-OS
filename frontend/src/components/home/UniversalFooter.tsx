@@ -183,30 +183,40 @@ export function UniversalFooter() {
             </ul>
           </div>
 
-          {/* Column 4: More products */}
+          {/* Column 4: Platform Features */}
           <div>
             <h3 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#111', margin: '0 0 1.25rem 0', letterSpacing: '-0.01em' }}>
-              More products
+              Platform Features
             </h3>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.85rem', fontSize: '0.875rem' }}>
               <li>
-                <a href="/projects/orchestrator-agent" style={{ color: '#4a443d', textDecoration: 'none', fontWeight: 500 }}>
-                  Orchestrator Agent
+                <a href="/orchestrator-agent?tab=swarm" style={{ color: '#4a443d', textDecoration: 'none', fontWeight: 500 }}>
+                  Multi-Agent Swarm
                 </a>
               </li>
               <li>
-                <a href="/projects/medical-scan-agent" style={{ color: '#4a443d', textDecoration: 'none', fontWeight: 500 }}>
+                <a href="/orchestrator-agent?tab=scan" style={{ color: '#4a443d', textDecoration: 'none', fontWeight: 500 }}>
                   Medical Scan AI
                 </a>
               </li>
               <li>
-                <a href="/projects/symptom-triage-agent" style={{ color: '#4a443d', textDecoration: 'none', fontWeight: 500 }}>
+                <a href="/orchestrator-agent" style={{ color: '#4a443d', textDecoration: 'none', fontWeight: 500 }}>
                   Symptom Triage Agent
                 </a>
               </li>
               <li>
                 <a href="/vibrant" style={{ color: '#4a443d', textDecoration: 'none', fontWeight: 500 }}>
                   3D Body Explorer
+                </a>
+              </li>
+              <li>
+                <a href="/orchestrator-agent?tab=records" style={{ color: '#4a443d', textDecoration: 'none', fontWeight: 500 }}>
+                  ABHA &amp; Blockchain
+                </a>
+              </li>
+              <li>
+                <a href="/orchestrator-agent?tab=hospital" style={{ color: '#4a443d', textDecoration: 'none', fontWeight: 500 }}>
+                  WHO Disease Radar
                 </a>
               </li>
             </ul>

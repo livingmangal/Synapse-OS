@@ -32,7 +32,7 @@ export function HeroFlipGallerySection() {
             className="media__wrap-source image"
             style={{
               overflow: 'hidden',
-              background: '#ffffff',
+              background: '#f8fafc',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -40,9 +40,9 @@ export function HeroFlipGallerySection() {
           >
             <img
               className="media__source w-100"
-              src="/anatomy-skull.jpg"
-              alt="Anatomical Cranial Diagram"
-              style={{ objectFit: 'contain', width: '90%', height: '90%' }}
+              src="/images/medical/gallery_icu_barasat.jpg"
+              alt="Hospital Intensive Care Ward"
+              style={{ objectFit: 'cover', width: '100%', height: '100%' }}
             />
           </div>
         </div>
@@ -56,7 +56,7 @@ export function HeroFlipGallerySection() {
             className="media__wrap-source image"
             style={{
               overflow: 'hidden',
-              background: '#ffffff',
+              background: '#f8fafc',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -64,9 +64,9 @@ export function HeroFlipGallerySection() {
           >
             <img
               className="media__source w-100"
-              src="/anatomy-shoulder.jpg"
-              alt="Anatomical Shoulder Diagram"
-              style={{ objectFit: 'contain', width: '90%', height: '90%' }}
+              src="/images/medical/closing_hospital_building.jpg"
+              alt="National Health Infrastructure"
+              style={{ objectFit: 'cover', width: '100%', height: '100%' }}
             />
           </div>
         </div>

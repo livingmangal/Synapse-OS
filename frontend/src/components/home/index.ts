@@ -5,7 +5,7 @@ export { AgentSwarmIntroSection } from './AgentSwarmIntroSection';
 export { ValuesCarouselSection } from './ValuesCarouselSection';
 export { SecondaryFlipGallerySection } from './SecondaryFlipGallerySection';
 export { AgenticStackDiagramSection } from './AgenticStackDiagramSection';
-export { ProjectsSection } from './ProjectsSection';
+export { ProjectsSection, FeaturesSection } from './ProjectsSection';
 export { ClosingFlipSection } from './ClosingFlipSection';
 export { ContactChapterSection } from './ContactChapterSection';
 export { TryPlatformSection } from './TryPlatformSection';
