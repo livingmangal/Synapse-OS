@@ -335,8 +335,8 @@ export function ProjectsSection() {
             <div className="media__wrap-source image">
               <img
                 className="media__source w-100"
-                src="/images/medical/blockchain_nodes_network.jpg"
-                alt="Decentralized Blockchain Health Nodes"
+                src="/images/medical/blockchain_doctor_tablet.jpg"
+                alt="Digital Health Records &amp; ABHA Verification"
                 style={{ objectFit: 'cover', width: '100%', height: '100%' }}
               />
             </div>
@@ -346,8 +346,8 @@ export function ProjectsSection() {
             <div className="media__wrap-source image">
               <img
                 className="media__source w-100"
-                src="/images/medical/blockchain_crypto_vault.jpg"
-                alt="Cryptographic Tamper-Proof Health Ledger"
+                src="/images/medical/blockchain_datacenter_vault.jpg"
+                alt="Decentralized Encrypted Healthcare Data Infrastructure"
                 style={{ objectFit: 'cover', width: '100%', height: '100%' }}
               />
             </div>
@@ -371,8 +371,8 @@ export function ProjectsSection() {
               <div className="media__wrap-source image">
                 <img
                   className="media__source w-100"
-                  src="/images/medical/blockchain_crypto_vault.jpg"
-                  alt="Cryptographic Block Vault"
+                  src="/images/medical/blockchain_datacenter_vault.jpg"
+                  alt="Encrypted Data Vault"
                   style={{ objectFit: 'cover', width: '100%', height: '100%' }}
                 />
               </div>
@@ -382,8 +382,8 @@ export function ProjectsSection() {
               <div className="media__wrap-source image">
                 <img
                   className="media__source w-100"
-                  src="/images/medical/blockchain_nodes_network.jpg"
-                  alt="Blockchain Network"
+                  src="/images/medical/blockchain_doctor_tablet.jpg"
+                  alt="Digital Clinical Records"
                   style={{ objectFit: 'cover', width: '100%', height: '100%' }}
                 />
               </div>
