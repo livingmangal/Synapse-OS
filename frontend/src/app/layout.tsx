@@ -14,6 +14,7 @@ export const metadata: Metadata = {
   },
 };
 
+import MobileNoticeBarrier from '@/components/ui/MobileNoticeBarrier';
 import { LanguageProvider } from '@/context/LanguageContext';
 
 export default function RootLayout({
@@ -32,6 +33,9 @@ export default function RootLayout({
       </head>
       <body suppressHydrationWarning>
         <LanguageProvider>
+          {/* Mobile Screen Barrier Notice (Smart VIT Hackathon Edition) */}
+          <MobileNoticeBarrier />
+
           <LegacyThemeShell>
             {children}
           </LegacyThemeShell>
