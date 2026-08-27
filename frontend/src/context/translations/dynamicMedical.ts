@@ -1,7 +1,6 @@
 import { LanguageCode } from './types';
 
 export const DYNAMIC_MEDICAL_TRANSLATIONS: Record<string, Record<LanguageCode, string>> = {
-  // Headings
   "Interpretation Summary": {
     en: "Interpretation Summary",
     hi: "व्याख्या सारांश",
@@ -54,8 +53,6 @@ export const DYNAMIC_MEDICAL_TRANSLATIONS: Record<string, Record<LanguageCode, s
     pa: "ਆਪਣੇ ਡਾਕਟਰ ਨੂੰ ਪੁੱਛਣ ਲਈ ਸਿਫਾਰਸ਼ ਕੀਤੇ ਸਵਾਲ",
     or: "ଆପଣଙ୍କ ଡାକ୍ତରଙ୍କୁ ପଚାରିବା ପାଇଁ ସୁପାରିଶ ପ୍ରଶ୍ନ"
   },
-
-  // Urgency & Diagnosis
   "🔴 Urgent Orthopedic Review Required": {
     en: "🔴 Urgent Orthopedic Review Required",
     hi: "🔴 तत्काल आर्थोपेडिक (हड्डी रोग) समीक्षा आवश्यक",
@@ -82,8 +79,6 @@ export const DYNAMIC_MEDICAL_TRANSLATIONS: Record<string, Record<LanguageCode, s
     pa: "ਫ੍ਰੈਕਚਰਨੈੱਟ YOLOv8: ਗੁੱਟ ਦੇ ਕੋਲ ਬਾਂਹ ਦੀ ਹੱਡੀ ਦਾ ਫ੍ਰੈਕਚਰ",
     or: "ଫ୍ରାକ୍ଚରନେଟ୍ YOLOv8: ହାତର ଅଗ୍ରଭାଗ ହାଡ଼ ଭଙ୍ଗା (ରେଡିଅସ୍ ଫ୍ରାକ୍ଚର)"
   },
-
-  // Patient friendly paragraph
   "The X-ray shows a clear fracture line in the forearm bone (radius) near the wrist. The wrist joint itself appears aligned, but the broken bone requires immediate orthopedic stabilization (splint or cast) to ensure proper healing.": {
     en: "The X-ray shows a clear fracture line in the forearm bone (radius) near the wrist. The wrist joint itself appears aligned, but the broken bone requires immediate orthopedic stabilization (splint or cast) to ensure proper healing.",
     hi: "एक्स-रे में कलाई के पास अग्रभाग की हड्डी (रेडियस) में एक स्पष्ट फ्रैक्चर लाइन दिखाई दे रही है। कलाई का जोड़ स्वयं संरेखित दिखता है, लेकिन टूटी हुई हड्डी को ठीक से जुड़ने के लिए तत्काल प्लास्टर (कास्ट या स्प्लिंट) की आवश्यकता है।",
@@ -97,8 +92,6 @@ export const DYNAMIC_MEDICAL_TRANSLATIONS: Record<string, Record<LanguageCode, s
     pa: "ਐਕਸ-ਰੇ ਵਿੱਚ ਗੁੱਟ ਦੇ ਕੋਲ ਬਾਂਹ ਦੀ ਹੱਡੀ (ਰੇਡੀਅਸ) ਵਿੱਚ ਇੱਕ ਸਾਫ਼ ਫ੍ਰੈਕਚਰ ਲਾਈਨ ਦਿਖਾਈ ਦੇ ਰਹੀ ਹੈ। ਗੁੱਟ ਦਾ ਜੋੜ ਠੀਕ ਲੱਗਦਾ ਹੈ, ਪਰ ਟੁੱਟੀ ਹੋਈ ਹੱਡੀ ਨੂੰ ਠੀਕ ਹੋਣ ਲਈ ਤੁਰੰਤ ਪਲਾਸਟਰ (ਸਪਲਿੰਟ ਜਾਂ ਕਾਸਟ) ਦੀ ਲੋੜ ਹੈ।",
     or: "ଏକ୍ସ-ରେ ରିପୋର୍ଟରେ କବ୍ଜି ପାଖ ହାତ ହାଡ଼ (ରେଡିଅସ୍) ରେ ସ୍ପଷ୍ଟ ଭଙ୍ଗା ରେଖା ଦେଖାଯାଉଛି । ଭଙ୍ଗା ହାଡ଼ ଠିକ୍ ଭାବେ ଯୋଡ଼ି ହେବା ପାଇଁ ତୁରନ୍ତ ପ୍ଲାଷ୍ଟର (କାଷ୍ଟ୍) ଆବଶ୍ୟକ ।"
   },
-
-  // Observations
   "Transverse cortical break localized at the distal metaphyseal radius junction.": {
     en: "Transverse cortical break localized at the distal metaphyseal radius junction.",
     hi: "डिस्टल मेटाफिसियल रेडियस जंक्शन पर अनुप्रस्थ कॉर्टिकल ब्रेक स्थित है।",
@@ -151,8 +144,6 @@ export const DYNAMIC_MEDICAL_TRANSLATIONS: Record<string, Record<LanguageCode, s
     pa: "ਅਲਨਾਰ ਹੱਡੀ ਸੁਰੱਖਿਅਤ ਹੈ ਅਤੇ ਜੋੜ ਦੀ ਬਣਤਰ ਠੀਕ ਹੈ।",
     or: "ଅଲନାର୍ ହାଡ଼ ସୁରକ୍ଷିତ ଅଛି ଏବଂ ଗଣ୍ଠି ସଠିକ୍ ଅଛି ।"
   },
-
-  // Questions for doctor
   "Do I need a follow-up imaging scan after cast placement?": {
     en: "Do I need a follow-up imaging scan after cast placement?",
     hi: "क्या प्लास्टर (कास्ट) लगाने के बाद मुझे दोबारा एक्स-रे करवाने की आवश्यकता होगी?",
@@ -192,8 +183,6 @@ export const DYNAMIC_MEDICAL_TRANSLATIONS: Record<string, Record<LanguageCode, s
     pa: "ਫਿਜ਼ੀਓਥੈਰੇਪੀ ਸ਼ੁਰੂ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਪਲਾਸਟਰ ਕਿੰਨੇ ਸਮੇਂ ਲਈ ਰਹੇਗਾ?",
     or: "ଫିଜିଓଥେରାପି ପୂର୍ବରୁ ପ୍ଲାଷ୍ଟର କେତେ ଦିନ ରହିବ?"
   },
-
-  // Wearables
   "Google Pixel Watch 3": {
     en: "Google Pixel Watch 3",
     hi: "गूगल पिक्सल वॉच 3",
@@ -246,8 +235,6 @@ export const DYNAMIC_MEDICAL_TRANSLATIONS: Record<string, Record<LanguageCode, s
     pa: "● ਲਾਈਵ ਸਿੰਕ (ਹੁਣੇ ਹੀ)",
     or: "● ଲାଇଭ୍ ସିଙ୍କ୍ (ଏବେ)"
   },
-
-  // Visual Analytics UI
   "AI DOCTOR": {
     en: "AI DOCTOR",
     hi: "एआई डॉक्टर",
@@ -379,17 +366,7 @@ export const DYNAMIC_MEDICAL_TRANSLATIONS: Record<string, Record<LanguageCode, s
     or: "ପରବର୍ତ୍ତୀ ସାକ୍ଷାତ:"
   },
   "Friday, 16 Jan, 04:00 PM": {
-    en: "Friday, 16 Jan, 04:00 PM",
-    hi: "शुक्रवार, 16 जनवरी, शाम 04:00 बजे",
-    bn: "শুক্রবার, ১৬ জানুয়ারি, বিকাল ০৪:০০",
-    ta: "வெள்ளிக்கிழமை, 16 ஜனவரி, மாலை 04:00",
-    te: "శుక్రవారం, 16 జనవరి, సాయంత్రం 04:00",
-    mr: "शुक्रवार, १६ जानेवारी, दुपारी ०४:००",
-    gu: "શુક્રવાર, ૧૬ જાન્યુઆરી, સાંજે ૦૪:૦૦",
-    kn: "ಶುಕ್ರವಾರ, 16 ಜನವರಿ, ಸಂಜೆ 04:00",
-    ml: "വെള്ളി, 16 ജനുവരി, വൈകുന്നേരം 04:00",
-    pa: "ਸ਼ੁੱਕਰਵਾਰ, 16 ਜਨਵਰੀ, ਸ਼ਾਮ 04:00",
-    or: "ଶୁକ୍ରବାର, ୧୬ ଜାନୁଆରୀ, ସନ୍ଧ୍ୟା ୦୪:୦୦"
+    en: "Friday, 16 Jan, 04:00 PM", hi: "शुक्रवार, 16 जन, 04:00 PM", bn: "শুক্রবার, ১৬ জানু, ০৪:০০ PM", ta: "வெள்ளி, 16 ஜன, 04:00 PM", te: "శుక్రవారం, 16 జన, 04:00 PM", mr: "शुक्रवार, १६ जाने, ०४:०० PM", gu: "શુક્રવાર, ૧૬ જાન્યુ, ૦૪:૦૦ PM", kn: "ಶುಕ್ರವಾರ, 16 ಜನ, 04:00 PM", ml: "വെള്ളി, 16 ജനു, 04:00 PM", pa: "ਸ਼ੁੱਕਰਵਾਰ, 16 ਜਨ, 04:00 PM", or: "ଶୁକ୍ରବାର, ୧୬ ଜାନୁ, ୦୪:୦୦ PM"
   },
   "My Records": {
     en: "My Records",
@@ -573,8 +550,6 @@ export const DYNAMIC_MEDICAL_TRANSLATIONS: Record<string, Record<LanguageCode, s
     pa: "ਡਾਟਾਸੈੱਟ ਪ੍ਰੋਫਾਈਲ ਚੁਣੋ",
     or: "ଡାଟାସେଟ୍ ପ୍ରୋଫାଇଲ୍ ଚୟନ କରନ୍ତୁ"
   },
-
-  // Swarm Intelligence DAG Nodes & Scenarios
   "Safety Gate": {
     en: "Safety Gate",
     hi: "सुरक्षा गेट",
@@ -861,8 +836,6 @@ export const DYNAMIC_MEDICAL_TRANSLATIONS: Record<string, Record<LanguageCode, s
     pa: "ਸਵਾਰਮ ਪ੍ਰਕਿਰਿਆ ਜਾਰੀ ਹੈ...",
     or: "ସ୍ୱାର୍ମ ପ୍ରକ୍ରିୟା ଚାଲିଛି..."
   },
-
-  // My Condition / Vitals & Twin & Conditions
   "ABDM Sandbox Gateway": {
     en: "ABDM Sandbox Gateway",
     hi: "एबीडीएम सैंडबॉक्स गेटवे",
@@ -1356,9 +1329,7 @@ export const DYNAMIC_MEDICAL_TRANSLATIONS: Record<string, Record<LanguageCode, s
     ml: "വേദന തീവ്രത സൂചിക (4/20) • സ്ക്രീൻ ജോലി മൂലമുള്ള നേരിയ കാഠിന്യം",
     pa: "ਦਰਦ ਦੀ ਗੰਭੀਰਤਾ (4/20) • ਕੰਪਿਊਟਰ ਕੰਮ ਕਾਰਨ ਮਾਸਪੇਸ਼ੀਆਂ ਵਿੱਚ ਹਲਕਾ ਖਿਚਾਅ",
     or: "ଯନ୍ତ୍ରଣା ତୀବ୍ରତା ସୂଚକାଙ୍କ (୪/୨୦) • ସ୍କ୍ରିନ୍ କାମ ହେତୁ ସାମାନ୍ୟ କାନ୍ଧ ଟାଣ"
-  }
-,
-// ABHA Generator & Card
+  },
   "Ayushman Bharat Health Account (ABHA) Generator & Registry": {
     en: "Ayushman Bharat Health Account (ABHA) Generator & Registry",
     hi: "आयुष्मान भारत स्वास्थ्य खाता (ABHA) जनरेटर एवं रजिस्ट्री",
@@ -1684,8 +1655,6 @@ export const DYNAMIC_MEDICAL_TRANSLATIONS: Record<string, Record<LanguageCode, s
     pa: "EHR ਪਹੁੰਚ ਲਈ ਸਕੈਨ ਕਰੋ",
     or: "EHR ପ୍ରବେଶ ପାଇଁ ସ୍କାନ୍ କରନ୍ତୁ"
   },
-
-  // Surveillance Map & Telemetry
   "Surveillance Telemetry": {
     en: "Surveillance Telemetry",
     hi: "निगरानी टेलीमेट्री",
@@ -2063,8 +2032,6 @@ export const DYNAMIC_MEDICAL_TRANSLATIONS: Record<string, Record<LanguageCode, s
     pa: "4. ਟੀਕਾਕਰਨ ਅਤੇ ਬਚਾਅ",
     or: "୪. ଟିକା ଏବଂ ରୋଗ ନିରୋଧକ"
   },
-
-  // Visual Analytics Insights & Care Plan
   "AI Insights": {
     en: "AI Insights",
     hi: "एआई स्वास्थ्य अंतर्दृष्टि",
@@ -2298,9 +2265,8 @@ export const DYNAMIC_MEDICAL_TRANSLATIONS: Record<string, Record<LanguageCode, s
     ml: "വാർഷിക പ്രതിരോധ അവലോകനം",
     pa: "ਸਾਲਾਨਾ ਬਚਾਅ ਸਮੀਖਿਆ",
     or: "ବାର୍ଷିକ ପ୍ରତିରୋଧକ ସମୀକ୍ଷା"
-  }
-,
-"On-Chain Medical Record Registry (Hardhat + IPFS)": {
+  },
+  "On-Chain Medical Record Registry (Hardhat + IPFS)": {
     en: "On-Chain Medical Record Registry (Hardhat + IPFS)",
     hi: "ऑन-चेन मेडिकल रिकॉर्ड रजिस्ट्री (Hardhat + IPFS)",
     bn: "অন-চেইন মেডিকেল রেকর্ড রেজিস্ট্রি (Hardhat + IPFS)",
@@ -2377,9 +2343,7 @@ export const DYNAMIC_MEDICAL_TRANSLATIONS: Record<string, Record<LanguageCode, s
     ml: "ഹാഷ് പരിശോധിക്കുക",
     pa: "ਹੈਸ਼ ਪ੍ਰਮਾਣਿਤ ਕਰੋ",
     or: "ହ୍ୟାଶ୍ ଯାଞ୍ଚ କରନ୍ତୁ"
-  }
-,
-// Patient Names & Hospital Facilities
+  },
   "Mausam Kar": {
     en: "Mausam Kar", hi: "मौसम कर", bn: "মৌসম কর", ta: "மௌசம் கர்", te: "మౌసమ్ కర్", mr: "मौसम कर", gu: "મૌસમ કર", kn: "ಮೌಸಮ್ ಕರ್", ml: "മൗസം കർ", pa: "ਮੌਸਮ ਕਰ", or: "ମୌସମ କର"
   },
@@ -2463,8 +2427,6 @@ export const DYNAMIC_MEDICAL_TRANSLATIONS: Record<string, Record<LanguageCode, s
     pa: "ਜੇਪੀ ਹਸਪਤਾਲ ਨੋਇਡਾ ਅਤੇ AIIMS ਨਵੀਂ ਦਿੱਲੀ",
     or: "ଜୟପୀ ହସ୍ପିଟାଲ୍ ନୋଏଡ଼ା ଏବଂ AIIMS ନୂଆଦିଲ୍ଲୀ"
   },
-
-  // Organ Condition Titles
   "Pulmonary Oxygenation & Diffusion Index": {
     en: "Pulmonary Oxygenation & Diffusion Index",
     hi: "फुफ्फुसीय ऑक्सीजन एवं प्रसार सूचकांक",
@@ -2620,9 +2582,7 @@ export const DYNAMIC_MEDICAL_TRANSLATIONS: Record<string, Record<LanguageCode, s
     ml: "ലോവർ കൈനറ്റിക് ചെയിൻ, പറ്റെല്ലാർ ഡൈനാമിക്സ്",
     pa: "ਹੇਠਲੀ ਗਤੀਜ ਲੜੀ ਅਤੇ ਪੈਟੇਲਰ ਗਤੀਸ਼ੀਲਤਾ",
     or: "ତଳ ଗତିଜ ଶୃଙ୍ଖଳା ଏବଂ ପାଟେଲାର୍ ଗତିଶୀଳତା"
-  }
-,
-// Doctor Names
+  },
   "Dr. Rajesh K. Varma": {
     en: "Dr. Rajesh K. Varma", hi: "डॉ. राजेश के. वर्मा", bn: "ডাঃ রাজেশ কে. বর্মা", ta: "டாக்டர் ராஜேஷ் கே. வர்மா", te: "డాక్టర్ రాజేష్ కె. వర్మ", mr: "डॉ. राजेश के. वर्मा", gu: "ડો. રાજેશ કે. વર્મા", kn: "ಡಾ. ರಾಜೇಶ್ ಕೆ. ವರ್ಮಾ", ml: "ഡോ. രാജേഷ് കെ. വർമ്മ", pa: "ਡਾ. ਰਾਜੇਸ਼ ਕੇ. ਵਰਮਾ", or: "ଡା. ରାଜେଶ କେ. ବର୍ମା"
   },
@@ -2677,8 +2637,6 @@ export const DYNAMIC_MEDICAL_TRANSLATIONS: Record<string, Record<LanguageCode, s
   "Dr. Rohit Sen": {
     en: "Dr. Rohit Sen", hi: "डॉ. रोहित सेन", bn: "ডাঃ রোহিত সেন", ta: "டாக்டர் ரோஹித் சென்", te: "డాక్టర్ రోహిత్ సేన్", mr: "डॉ. रोहित सेन", gu: "ડો. રોહિત સેન", kn: "ಡಾ. ರೋಹಿತ್ ಸೇನ್", ml: "ഡോ. രോഹിത് സെൻ", pa: "ਡਾ. ਰੋਹਿਤ ਸੇਨ", or: "ଡା. ରୋହିତ ସେନ"
   },
-
-  // Appointment Types & Subtitles
   "Next Checkups": {
     en: "Next Checkups", hi: "आगामी स्वास्थ्य जांच", bn: "পরবর্তী স্বাস্থ্য পরীক্ষা", ta: "அடுத்த பரிசோதனைகள்", te: "తదుపరి వైద్య పరీక్షలు", mr: "पुढील तपासण्या", gu: "આગામી તપાસ", kn: "ಮುಂದಿನ ತಪಾಸಣೆಗಳು", ml: "അടുത്ത പരിശോധനകൾ", pa: "ਅਗਲੀਆਂ ਜਾਂਚਾਂ", or: "ପରବର୍ତ୍ତୀ ପରୀକ୍ଷା"
   },
@@ -2736,8 +2694,6 @@ export const DYNAMIC_MEDICAL_TRANSLATIONS: Record<string, Record<LanguageCode, s
   "Comprehensive ABDM Checkup": {
     en: "Comprehensive ABDM Checkup", hi: "व्यापक ABDM स्वास्थ्य जांच", bn: "ব্যাপক ABDM স্বাস্থ্য পরীক্ষা", ta: "விரிவான ABDM பரிசோதனை", te: "సమగ్ర ABDM వైద్య పరీక్ష", mr: "सर्वसमावेशक ABDM तपासणी", gu: "વ્યાપક ABDM આરોગ્ય તપાસ", kn: "ಸಮಗ್ರ ABDM ತಪಾಸಣೆ", ml: "വിപുലമായ ABDM പരിശോധന", pa: "ਵਿਆਪਕ ABDM ਸਿਹਤ ਜਾਂਚ", or: "ବିସ୍ତୃତ ABDM ସ୍ୱାସ୍ଥ୍ୟ ପରୀକ୍ଷା"
   },
-
-  // Appointment Modes & Badges
   "Teleconsultation": {
     en: "Teleconsultation", hi: "टेली-परामर्श", bn: "টেলিকনসাল্টেশন", ta: "தொலை மருத்துவ ஆலோசனை", te: "టెలికన్సల్టేషన్", mr: "टेलिकन्सल्टेशन", gu: "ટેલિકન્સલ્ટેશન", kn: "ಟೆಲಿಕನ್ಸಲ್ಟೇಶನ್", ml: "ടെലികൺസൾട്ടേഷൻ", pa: "ਟੈਲੀਕੰਸਲਟੇਸ਼ਨ", or: "ଟେଲିକନସଲଟେସନ୍"
   },
@@ -2746,14 +2702,9 @@ export const DYNAMIC_MEDICAL_TRANSLATIONS: Record<string, Record<LanguageCode, s
   },
   "Hospital Review": {
     en: "Hospital Review", hi: "अस्पताल समीक्षा", bn: "হাসপাতাল পর্যালোচনা", ta: "மருத்துவமனை ஆய்வு", te: "హాస్పిటల్ సమీక్ష", mr: "रुग्णालय पुनरावलोकन", gu: "હોસ્પિટલ સમીક્ષા", kn: "ಆಸ್ಪತ್ರೆ ಪರಿಶೀಲನೆ", ml: "ആശുപത്രി അവലോകനം", pa: "ਹਸਪਤਾਲ ਸਮੀਖਿਆ", or: "ହସ୍ପିଟାଲ୍ ସମୀକ୍ଷା"
-  }
-,
-"Scheduled": {
+  },
+  "Scheduled": {
     en: "Scheduled", hi: "निर्धारित", bn: "নির্ধারিত", ta: "திட்டமிடப்பட்டது", te: "షెడ్యూల్ చేయబడింది", mr: "नियोजित", gu: "નિર્ધારિત", kn: "ನಿಗದಿತ", ml: "നിശ്ചയിച്ചത്", pa: "ਨਿਰਧਾਰਤ", or: "ନିର୍ଦ୍ଧାରିତ"
-  }
-,
-"Friday, 16 Jan, 04:00 PM": {
-    en: "Friday, 16 Jan, 04:00 PM", hi: "शुक्रवार, 16 जन, 04:00 PM", bn: "শুক্রবার, ১৬ জানু, ০৪:০০ PM", ta: "வெள்ளி, 16 ஜன, 04:00 PM", te: "శుక్రవారం, 16 జన, 04:00 PM", mr: "शुक्रवार, १६ जाने, ०४:०० PM", gu: "શુક્રવાર, ૧૬ જાન્યુ, ૦૪:૦૦ PM", kn: "ಶುಕ್ರವಾರ, 16 ಜನ, 04:00 PM", ml: "വെള്ളി, 16 ജനു, 04:00 PM", pa: "ਸ਼ੁੱਕਰਵਾਰ, 16 ਜਨ, 04:00 PM", or: "ଶୁକ୍ରବାର, ୧୬ ଜାନୁ, ୦୪:୦୦ PM"
   },
   "Monday, 19 Jan, 11:30 AM": {
     en: "Monday, 19 Jan, 11:30 AM", hi: "सोमवार, 19 जन, 11:30 AM", bn: "সোমবার, ১৯ জানু, ১১:৩০ AM", ta: "திங்கள், 19 ஜன, 11:30 AM", te: "సోమవారం, 19 జన, 11:30 AM", mr: "सोमवार, १९ जाने, ११:३० AM", gu: "સોમવાર, ૧૯ જાન્યુ, ૧૧:૩૦ AM", kn: "ಸೋಮವಾರ, 19 ಜನ, 11:30 AM", ml: "തിങ്കൾ, 19 ജനു, 11:30 AM", pa: "ਸੋਮਵਾਰ, 19 ਜਨ, 11:30 AM", or: "ସୋମବାର, ୧୯ ଜାନୁ, ୧୧:୩୦ AM"
