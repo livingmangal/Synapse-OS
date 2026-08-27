@@ -15,7 +15,14 @@ export const rachitTiwariProfile: MockHealthProfile = {
     name: 'Rachit Tiwari',
     age: 23,
     gender: 'Male',
-    abhaId: '91-8842-1920-7463'
+    dob: 'June 18, 2003',
+    yearOfBirth: 2003,
+    bloodType: 'O+',
+    abhaId: '91-8842-1920-7463',
+    abhaAddress: 'rachittiwari@abdm',
+    policyNumber: 'PM-JAY-2026-IND-9924',
+    linkedHip: "King George's Medical University (KGMU) & AIIMS Node",
+    stateCode: 'UP'
   },
   device: {
     name: 'Google Pixel Watch 3 & Health Connect',

@@ -15,7 +15,14 @@ export const surabhiProfile: MockHealthProfile = {
     name: 'Surabhi',
     age: 24,
     gender: 'Female',
-    abhaId: '91-4478-2910-6351'
+    dob: 'March 15, 2002',
+    yearOfBirth: 2002,
+    bloodType: 'O+',
+    abhaId: '91-4478-2910-6351',
+    abhaAddress: 'surabhi@abdm',
+    policyNumber: 'PM-JAY-2026-IND-4891',
+    linkedHip: 'NIMHANS & Manipal Hospital Bengaluru',
+    stateCode: 'KA'
   },
   device: {
     name: 'Google Fitbit Sense 2 & Health Connect',

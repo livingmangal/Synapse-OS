@@ -4,11 +4,14 @@
   "age": 24,
   "gender": "Male",
   "dob": "April 14, 2002",
+  "yearOfBirth": 2002,
   "bloodType": "B+",
   "abhaId": "91-7294-8102-5309",
   "abhaAddress": "mausamkar@abdm",
   "policyNumber": "PM-JAY-2026-IND-8841",
   "planType": "Ayushman Bharat PM-JAY (ABDM Verified)",
+  "stateCode": "DL",
+  "linkedHip": "All India Institute of Medical Sciences (AIIMS) - Central Node, New Delhi",
   "residence": "New Delhi, India",
   "avatarUrl": "/images/mausam_kar.jpg",
   "device": "Apple Watch Ultra & Google Health Connect Synced",
@@ -123,5 +126,29 @@
       "type": "Annual Preventive Review",
       "photoUrl": "/images/mausam_kar.jpg"
     }
-  }
+  },
+  "blockchainRecords": [
+    {
+      "id": "REC-0x8921-MK",
+      "patient": "Mausam Kar",
+      "abha": "91-7294-8102-5309",
+      "hash": "8f4e2b81239c09a8e74b321098ef69c1a76d8e209841af09",
+      "cid": "QmZ4tDuvesekSs4qM5ZBKpXiZGun7S2CYtEZRB3DYXkjGx",
+      "type": "Chest Radiograph & Alveolar Diffusion Report",
+      "timestamp": "2026-08-18 11:45 UTC",
+      "facility": "AIIMS Pulmonology Department",
+      "verified": true
+    },
+    {
+      "id": "REC-0x7412-MK",
+      "patient": "Mausam Kar",
+      "abha": "91-7294-8102-5309",
+      "hash": "3e4a91b2c45d6789e0123456789abcdef0123456789abcdef0123456789abcde",
+      "cid": "QmausamKarLeadIEcgWaveformTelemetryHashDigest2026",
+      "type": "Continuous Lead I ECG & HRV Autonomic Stream",
+      "timestamp": "2026-08-22 08:30 UTC",
+      "facility": "Apple Watch Ultra & Google Health Connect Gateway",
+      "verified": true
+    }
+  ]
 }

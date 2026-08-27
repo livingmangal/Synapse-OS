@@ -433,4 +433,27 @@ async def get_live_surveillance_data():
         }
 
 
+@router.get("/abdm/generate-id", tags=["Ayushman Bharat ABDM"])
+async def generate_abdm_health_id(
+    name: str = "Mausam Kar",
+    year_of_birth: int = 2002,
+    state_code: str = "DL"
+):
+    """
+    Generates official 14-digit ABDM-compliant health number (ABHA ID),
+    virtual ABHA address (@abdm), and verifies PM-JAY ₹5 Lakh annual insurance eligibility.
+    """
+    return generate_abha_id(name=name, year_of_birth=year_of_birth, state_code=state_code)
+
+
+@router.get("/abdm/schemes", tags=["Ayushman Bharat ABDM"])
+async def get_ayushman_schemes(condition: str = "general"):
+    """
+    Returns available Indian Government healthcare schemes, PM-JAY tertiary coverage,
+    Jan Aushadhi generic dispensary locator, and Tele-MANAS national helpline.
+    """
+    return check_ayushman_bharat_schemes(condition=condition)
+
+
+
 

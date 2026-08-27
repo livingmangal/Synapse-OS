@@ -4,11 +4,14 @@
   "age": 23,
   "gender": "Female",
   "dob": "August 22, 2003",
+  "yearOfBirth": 2003,
   "bloodType": "B+",
   "abhaId": "91-5519-3820-9104",
   "abhaAddress": "jiyajaiswal@abdm",
   "policyNumber": "PM-JAY-2026-IND-6120",
   "planType": "Ayushman Bharat PM-JAY (ABDM Verified)",
+  "stateCode": "UP",
+  "linkedHip": "Jaypee Hospital Noida & AIIMS New Delhi",
   "residence": "Noida / New Delhi, India",
   "avatarUrl": "/images/jiya_jaiswal.jpg",
   "device": "Apple Watch Series 9 & Health Connect",
@@ -123,5 +126,29 @@
       "type": "Routine Wellness Review",
       "photoUrl": "/images/jiya_jaiswal.jpg"
     }
-  }
+  },
+  "blockchainRecords": [
+    {
+      "id": "REC-0x6120-JJ",
+      "patient": "Jiya Jaiswal",
+      "abha": "91-5519-3820-9104",
+      "hash": "2d1c0b9a8f7e6d5c4b3a2f1e0d9c8b7a3e9c1f8d4b2e6a5c0f9e8d7c6b5a4f3e",
+      "cid": "QmJiyaPulmonaryOxygenationDiffusionReport2026",
+      "type": "Pulmonary Oxygenation & Diaphragmatic Excursion Report",
+      "timestamp": "2026-08-23 10:30 UTC",
+      "facility": "Jaypee Hospital Pulmonology Node",
+      "verified": true
+    },
+    {
+      "id": "REC-0x6121-JJ",
+      "patient": "Jiya Jaiswal",
+      "abha": "91-5519-3820-9104",
+      "hash": "7e6d5c4b3a2f1e0d9c8b7a3e9c1f8d4b2e6a5c0f9e8d7c6b5a4f3e2d1c0b9a8f",
+      "cid": "QmJiyaPolysomnographyRestorativeSleepDigest2026",
+      "type": "Polysomnography & Circadian Restorative Sleep Profile",
+      "timestamp": "2026-08-26 07:15 UTC",
+      "facility": "Apple Watch 9 Biometric Synapse Stream",
+      "verified": true
+    }
+  ]
 }

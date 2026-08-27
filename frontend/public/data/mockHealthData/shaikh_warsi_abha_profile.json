@@ -4,11 +4,14 @@
   "age": 24,
   "gender": "Male",
   "dob": "December 10, 2001",
+  "yearOfBirth": 2001,
   "bloodType": "AB+",
   "abhaId": "91-7712-4890-3318",
   "abhaAddress": "shaikhwarsi@abdm",
   "policyNumber": "PM-JAY-2026-IND-5290",
   "planType": "Ayushman Bharat PM-JAY (ABDM Verified)",
+  "stateCode": "MH",
+  "linkedHip": "King Edward Memorial (KEM) Hospital & Tata Memorial Centre",
   "residence": "Mumbai / New Delhi, India",
   "avatarUrl": "/images/shaikh_warsi.jpg",
   "device": "OnePlus Watch 2 & Health Connect",
@@ -123,5 +126,29 @@
       "type": "Preventive Health Assessment",
       "photoUrl": "/images/shaikh_warsi.jpg"
     }
-  }
+  },
+  "blockchainRecords": [
+    {
+      "id": "REC-0x5290-SW",
+      "patient": "Shaikh Mohammad Warsi",
+      "abha": "91-7712-4890-3318",
+      "hash": "3a2f1e0d9c8b7a3e9c1f8d4b2e6a5c0f9e8d7c6b5a4f3e2d1c0b9a8f7e6d5c4b",
+      "cid": "QmWarsiBronchialDynamicsAndVentilationReport2026",
+      "type": "Bronchial Dynamics & Ventilation Index Analysis",
+      "timestamp": "2026-08-22 13:00 UTC",
+      "facility": "KEM Hospital Pulmonary Critical Care",
+      "verified": true
+    },
+    {
+      "id": "REC-0x5291-SW",
+      "patient": "Shaikh Mohammad Warsi",
+      "abha": "91-7712-4890-3318",
+      "hash": "8d7c6b5a4f3e2d1c0b9a8f7e6d5c4b3a2f1e0d9c8b7a3e9c1f8d4b2e6a5c0f9e",
+      "cid": "QmWarsiLeadISinusRhythmElectrocardiogram2026",
+      "type": "Continuous Sinus Rhythm Electrocardiogram & QTc Digest",
+      "timestamp": "2026-08-25 09:45 UTC",
+      "facility": "OnePlus Watch 2 Wearables Gateway",
+      "verified": true
+    }
+  ]
 }

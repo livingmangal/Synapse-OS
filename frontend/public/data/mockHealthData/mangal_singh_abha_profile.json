@@ -4,11 +4,14 @@
   "age": 25,
   "gender": "Male",
   "dob": "November 05, 2001",
+  "yearOfBirth": 2001,
   "bloodType": "A+",
   "abhaId": "91-6310-9284-5172",
   "abhaAddress": "mangalsingh@abdm",
   "policyNumber": "PM-JAY-2026-IND-7732",
   "planType": "Ayushman Bharat PM-JAY (ABDM Verified)",
+  "stateCode": "RJ",
+  "linkedHip": "Sawai Man Singh (SMS) Medical College & AIIMS Jodhpur",
   "residence": "Jaipur / New Delhi, India",
   "avatarUrl": "/images/mangal_singh.jpg",
   "device": "Samsung Galaxy Watch 6 & Health Connect",
@@ -123,5 +126,29 @@
       "type": "Preventive Health Assessment",
       "photoUrl": "/images/mangal_singh.jpg"
     }
-  }
+  },
+  "blockchainRecords": [
+    {
+      "id": "REC-0x7732-MS",
+      "patient": "Mangal Singh",
+      "abha": "91-6310-9284-5172",
+      "hash": "1c0b9a8f7e6d5c4b3a2f1e0d9c8b7a3e9c1f8d4b2e6a5c0f9e8d7c6b5a4f3e2d",
+      "cid": "QmMangalCardiorespiratoryGasExchangeVerifiedHash2026",
+      "type": "Cardiorespiratory Gas Exchange & Bilateral Breath Sounds",
+      "timestamp": "2026-08-20 09:20 UTC",
+      "facility": "SMS Medical College Jaipur",
+      "verified": true
+    },
+    {
+      "id": "REC-0x7733-MS",
+      "patient": "Mangal Singh",
+      "abha": "91-6310-9284-5172",
+      "hash": "9e8d7c6b5a4f3e2d1c0b9a8f7e6d5c4b3a2f1e0d9c8b7a3e9c1f8d4b2e6a5c0f",
+      "cid": "QmMangalMeniscalKineticsAndExtensionReport2026",
+      "type": "Patellar Tendon & Meniscal Mechanics Assessment",
+      "timestamp": "2026-08-23 10:15 UTC",
+      "facility": "AIIMS Jodhpur Orthopedic Division",
+      "verified": true
+    }
+  ]
 }

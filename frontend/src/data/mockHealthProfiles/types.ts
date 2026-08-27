@@ -44,6 +44,14 @@ export interface MockHealthProfile {
     age: number;
     gender: string;
     abhaId: string;
+    dob?: string;
+    yearOfBirth?: number;
+    bloodType?: string;
+    policyNumber?: string;
+    abhaAddress?: string;
+    linkedHip?: string;
+    stateCode?: string;
+    blockchainRecords?: any[];
   };
   device: {
     name: string;

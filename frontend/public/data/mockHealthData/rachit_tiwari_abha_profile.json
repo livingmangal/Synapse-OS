@@ -4,11 +4,14 @@
   "age": 23,
   "gender": "Male",
   "dob": "June 18, 2003",
+  "yearOfBirth": 2003,
   "bloodType": "O+",
   "abhaId": "91-8842-1920-7463",
   "abhaAddress": "rachittiwari@abdm",
   "policyNumber": "PM-JAY-2026-IND-9924",
   "planType": "Ayushman Bharat PM-JAY (ABDM Verified)",
+  "stateCode": "UP",
+  "linkedHip": "King George's Medical University (KGMU) & AIIMS Node",
   "residence": "Lucknow / New Delhi, India",
   "avatarUrl": "/images/rachit_tiwari.jpg",
   "device": "Pixel Watch 3 & Google Health Connect Synced",
@@ -123,5 +126,29 @@
       "type": "Biometric Wellness Check",
       "photoUrl": "/images/rachit_tiwari.jpg"
     }
-  }
+  },
+  "blockchainRecords": [
+    {
+      "id": "REC-0x9924-RT",
+      "patient": "Rachit Tiwari",
+      "abha": "91-8842-1920-7463",
+      "hash": "7a3e9c1f8d4b2e6a5c0f9e8d7c6b5a4f3e2d1c0b9a8f7e6d5c4b3a2f1e0d9c8b",
+      "cid": "QmRachitPulmonaryAthleticVo2MaxReserveReport2026",
+      "type": "Athletic VO2 Max & High-Endurance Pulmonary Spirometry",
+      "timestamp": "2026-08-19 14:15 UTC",
+      "facility": "Sports Medicine & Pulmonology Centre",
+      "verified": true
+    },
+    {
+      "id": "REC-0x9925-RT",
+      "patient": "Rachit Tiwari",
+      "abha": "91-8842-1920-7463",
+      "hash": "4b2e6a5c0f9e8d7c6b5a4f3e2d1c0b9a8f7e6d5c4b3a2f1e0d9c8b7a3e9c1f8d",
+      "cid": "QmRachitOrthopedicLowerKineticChainScan2026",
+      "type": "Lower Kinetic Chain & Patellar Joint Cartilage Diagnostic",
+      "timestamp": "2026-08-21 16:40 UTC",
+      "facility": "KGMU Sports Orthopedics Unit",
+      "verified": true
+    }
+  ]
 }

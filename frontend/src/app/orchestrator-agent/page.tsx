@@ -362,7 +362,12 @@ export default function OrchestratorAgentPage() {
 
             {/* TAB 6: ABHA National Health ID & Blockchain Records */}
             {activeTab === 'records' && (
-              <BlockchainRecordsPanel />
+              <BlockchainRecordsPanel
+                patient={patient}
+                activeProfile={activeProfile}
+                selectedProfileId={selectedProfileId}
+                onSelectProfile={handleSelectProfile}
+              />
             )}
 
             {/* TAB 7: Wearable HealthKit & Google Fit Real-Time Sync */}

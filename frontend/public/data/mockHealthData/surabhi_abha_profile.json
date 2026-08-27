@@ -4,11 +4,14 @@
   "age": 24,
   "gender": "Female",
   "dob": "March 15, 2002",
+  "yearOfBirth": 2002,
   "bloodType": "O+",
   "abhaId": "91-4478-2910-6351",
   "abhaAddress": "surabhi@abdm",
   "policyNumber": "PM-JAY-2026-IND-4891",
   "planType": "Ayushman Bharat PM-JAY (ABDM Verified)",
+  "stateCode": "KA",
+  "linkedHip": "NIMHANS & Manipal Hospital Bengaluru",
   "residence": "Bengaluru / New Delhi, India",
   "avatarUrl": "/images/surabhi.jpg",
   "device": "Fitbit Sense 2 & Health Connect",
@@ -123,5 +126,29 @@
       "type": "Biometric Checkup",
       "photoUrl": "/images/surabhi.jpg"
     }
-  }
+  },
+  "blockchainRecords": [
+    {
+      "id": "REC-0x4891-SR",
+      "patient": "Surabhi",
+      "abha": "91-4478-2910-6351",
+      "hash": "5a4f3e2d1c0b9a8f7e6d5c4b3a2f1e0d9c8b7a3e9c1f8d4b2e6a5c0f9e8d7c6b",
+      "cid": "QmSurabhiAerobicDiffusionAndVitalCapacityReport2026",
+      "type": "Aerobic Diffusion & Vital Capacity Spirometry",
+      "timestamp": "2026-08-21 11:10 UTC",
+      "facility": "NIMHANS Pulmonology & Wellness Node",
+      "verified": true
+    },
+    {
+      "id": "REC-0x4892-SR",
+      "patient": "Surabhi",
+      "abha": "91-4478-2910-6351",
+      "hash": "6d5c4b3a2f1e0d9c8b7a3e9c1f8d4b2e6a5c0f9e8d7c6b5a4f3e2d1c0b9a8f7e",
+      "cid": "QmSurabhiPatellofemoralJointBiomechanicsReport2026",
+      "type": "Patellofemoral Joint Biomechanics & Articular Assessment",
+      "timestamp": "2026-08-24 15:30 UTC",
+      "facility": "Manipal Hospital Orthopedics Unit",
+      "verified": true
+    }
+  ]
 }

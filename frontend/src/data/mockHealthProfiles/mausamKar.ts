@@ -15,7 +15,14 @@ export const mausamKarProfile: MockHealthProfile = {
     name: 'Mausam Kar',
     age: 24,
     gender: 'Male',
-    abhaId: '91-7294-8102-5309'
+    dob: 'April 14, 2002',
+    yearOfBirth: 2002,
+    bloodType: 'B+',
+    abhaId: '91-7294-8102-5309',
+    abhaAddress: 'mausamkar@abdm',
+    policyNumber: 'PM-JAY-2026-IND-8841',
+    linkedHip: 'All India Institute of Medical Sciences (AIIMS) - Central Node, New Delhi',
+    stateCode: 'DL'
   },
   device: {
     name: 'Apple Watch Ultra 2 & Google Health Connect',

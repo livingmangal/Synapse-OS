@@ -155,7 +155,7 @@ export default function ScanViewer({ state }: { state: any }) {
             </defs>
 
             {/* DICOM Overlay Header */}
-            <text x="24" y="32" fill="#64748b" fontSize="11" fontFamily="monospace">PATIENT: SHARMA, S. #91-4829</text>
+            <text x="24" y="32" fill="#64748b" fontSize="11" fontFamily="monospace">PATIENT: SANJEEVANI CITIZEN #91-7294</text>
             <text x="24" y="48" fill="#64748b" fontSize="11" fontFamily="monospace">STUDY: CHEST PA (ER-PORTABLE)</text>
             <text x="660" y="32" fill="#38bdf8" fontSize="12" fontWeight="bold" fontFamily="sans-serif">SANJEEVANI DICOM</text>
             <text x="740" y="48" fill="#64748b" fontSize="11" fontFamily="monospace">kVp: 120</text>
@@ -205,12 +205,12 @@ export default function ScanViewer({ state }: { state: any }) {
             {/* Clinic Header */}
             <div style={{ borderBottom: '2px solid #db2777', paddingBottom: '12px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexShrink: 0 }}>
               <div>
-                <div style={{ fontWeight: 800, fontSize: '16px', color: '#db2777', fontFamily: 'system-ui, -apple-system, sans-serif' }}>CITY HEALTH MEDICAL CENTER</div>
-                <div style={{ fontSize: '12px', color: '#64748b', marginTop: '4px' }}>Dr. Siddharth Sharma, MD • Registration: MCI-84920</div>
+                <div style={{ fontWeight: 800, fontSize: '16px', color: '#db2777', fontFamily: 'system-ui, -apple-system, sans-serif' }}>AIIMS CENTRAL CLINICAL NODE</div>
+                <div style={{ fontSize: '12px', color: '#64748b', marginTop: '4px' }}>Dr. Rajesh K. Varma, MD • Registration: MCI-84920</div>
               </div>
               <div style={{ fontSize: '12px', color: '#64748b', textAlign: 'right' }}>
                 Date: 18-AUG-2026<br/>
-                Patient: S. Sharma (Age: 32 / M)
+                Patient: ABDM Verified Citizen
               </div>
             </div>
 
@@ -238,7 +238,7 @@ export default function ScanViewer({ state }: { state: any }) {
             {/* Doctor Signature Stamp */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', borderTop: '1px solid #e2e8f0', paddingTop: '8px', fontSize: '10px', color: '#64748b' }}>
               <span>Digitized via TrOCR Transformer Pipeline</span>
-              <span style={{ fontStyle: 'italic', fontWeight: 600, color: '#0f172a' }}>Verified Signature: S. Sharma, MD</span>
+              <span style={{ fontStyle: 'italic', fontWeight: 600, color: '#0f172a' }}>Verified Signature: Dr. Rajesh K. Varma, MD</span>
             </div>
           </div>
 

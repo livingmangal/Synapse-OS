@@ -15,7 +15,14 @@ export const mangalSinghProfile: MockHealthProfile = {
     name: 'Mangal Singh',
     age: 25,
     gender: 'Male',
-    abhaId: '91-6310-9284-5172'
+    dob: 'November 05, 2001',
+    yearOfBirth: 2001,
+    bloodType: 'A+',
+    abhaId: '91-6310-9284-5172',
+    abhaAddress: 'mangalsingh@abdm',
+    policyNumber: 'PM-JAY-2026-IND-7732',
+    linkedHip: 'Sawai Man Singh (SMS) Medical College & AIIMS Jodhpur',
+    stateCode: 'RJ'
   },
   device: {
     name: 'Samsung Galaxy Watch 6 & Health Connect',

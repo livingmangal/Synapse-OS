@@ -15,7 +15,14 @@ export const shaikhWarsiProfile: MockHealthProfile = {
     name: 'Shaikh Mohammad Warsi',
     age: 24,
     gender: 'Male',
-    abhaId: '91-7712-4890-3318'
+    dob: 'December 10, 2001',
+    yearOfBirth: 2001,
+    bloodType: 'AB+',
+    abhaId: '91-7712-4890-3318',
+    abhaAddress: 'shaikhwarsi@abdm',
+    policyNumber: 'PM-JAY-2026-IND-5290',
+    linkedHip: 'King Edward Memorial (KEM) Hospital & Tata Memorial Centre',
+    stateCode: 'MH'
   },
   device: {
     name: 'Google Pixel Watch 2 & Health Connect',

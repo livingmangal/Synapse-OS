@@ -58,6 +58,7 @@ export default function HealthSyncPanel({
   patient,
   vitals
 }: HealthSyncPanelProps = {}) {
+  const activeProfile = propActiveProfile || MOCK_HEALTH_PROFILES.find(p => p.profileId === propSelectedProfileId) || MOCK_HEALTH_PROFILES[0];
   const { t, translateText } = useLanguage();
   const [activeTab, setActiveTab] = useState<'overview' | 'bridge' | 'fhir'>('overview');
   const [devices, setDevices] = useState<WearableDevice[]>([
@@ -263,9 +264,9 @@ export default function HealthSyncPanel({
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           source: 'apple_health',
-          device_name: 'Apple Watch Ultra 2',
-          patient_id: 'PAT-91-4829',
-          patient_name: 'Siddharth Sharma',
+          device_name: activeProfile?.device?.name || 'Apple Watch Ultra 2',
+          patient_id: patient?.abhaId || activeProfile?.patient?.abhaId || 'PAT-91-7294',
+          patient_name: patient?.name || activeProfile?.patient?.name || 'Mausam Kar',
           heart_rate_bpm: wearableVitals.currentHeartRate,
           resting_heart_rate: wearableVitals.restingHeartRate,
           spo2_percent: wearableVitals.spo2,
@@ -1551,7 +1552,7 @@ export default function HealthSyncPanel({
                     type: "collection",
                     timestamp: "2026-08-25T11:45:00Z",
                     total: 7,
-                    patient: "PAT-91-4829 (Siddharth Sharma)",
+                    patient: `${patient?.abhaId || activeProfile?.patient?.abhaId || '91-7294-8102-5309'} (${patient?.name || activeProfile?.patient?.name || 'Mausam Kar'})`,
                     notice: "Click 'Sync Wearables' in dashboard to generate fresh real-time HL7 FHIR Bundle."
                   }, null, 2)}
                 </pre>

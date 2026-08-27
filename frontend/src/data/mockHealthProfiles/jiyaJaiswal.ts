@@ -15,7 +15,14 @@ export const jiyaJaiswalProfile: MockHealthProfile = {
     name: 'Jiya Jaiswal',
     age: 23,
     gender: 'Female',
-    abhaId: '91-5519-3820-9104'
+    dob: 'August 22, 2003',
+    yearOfBirth: 2003,
+    bloodType: 'B+',
+    abhaId: '91-5519-3820-9104',
+    abhaAddress: 'jiyajaiswal@abdm',
+    policyNumber: 'PM-JAY-2026-IND-6120',
+    linkedHip: 'Jaypee Hospital Noida & AIIMS New Delhi',
+    stateCode: 'UP'
   },
   device: {
     name: 'Apple Watch Series 9 & Health Connect',
