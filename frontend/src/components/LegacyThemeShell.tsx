@@ -109,9 +109,9 @@ export default function LegacyThemeShell({ children }: { children: React.ReactNo
 				<div class="header__menu__media expand_mouse follow__wrap" data-text="Explore" data-url="/orchestrator-agent">
 					<a href="/orchestrator-agent" data-no-swup="true" class="btn btn--circle follow__mouse--md f-izmir t-parrafo-l d-none d-md-flex"></a>
 					<div class="header__menu__media__title f-medium t-titulo-xl t-upper" style="opacity: 0; position: absolute; pointer-events: none;">ORCHESTRATOR AGENT</div>
-          <div class="media header__menu__media__image noAnimate no-general-anim noAspect" data-delay="" style="transform: scale(1.3); transform-origin: left center;"> 
-            <div class="media__wrap-source image" style="border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
-              <img class="media__source w-100" src="/architecture_diagram_light.png" alt="Architecture Diagram" style="display: block; border-radius: 16px;">
+          <div class="media header__menu__media__image noAnimate no-general-anim noAspect" data-delay="" style="transform: scale(1.1); transform-origin: left center;"> 
+            <div class="media__wrap-source image" style="border-radius: 16px; overflow: hidden; box-shadow: 0 8px 30px rgba(0,0,0,0.12);">
+              <img class="media__source w-100" src="/images/medical/abha_card.png" alt="ABHA Health Identification Card" style="display: block; border-radius: 16px; object-fit: contain;">
             </div>
           </div>
 				</div>
