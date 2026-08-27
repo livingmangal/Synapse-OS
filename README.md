@@ -273,10 +273,11 @@ sequenceDiagram
 
 ### 3.7 Omnichannel Messaging Gateway
 
-- **WhatsApp Service (`backend.app.services.whatsapp_service`)**:
-  - Integrates with OpenWA / WhatsApp Business API webhooks.
-  - Processes inbound voice notes (converted via Speech-to-Text pipelines) and text queries.
-  - Provides a one-tap emergency SOS dispatch mechanism with precise GPS coordinate packets.
+- **OpenWA WhatsApp Package (`backend.app.openwa` & `openwa/`)**:
+  - Standalone `@open-wa/wa-automate` gateway bridge relaying inbound chat and media.
+  - Interactive clinical concierge menu (`1` Triage, `2` Drug Safety, `3` Scan Upload, `4` Tele-MANAS, `5` Doctors, `6` ABHA).
+  - Multi-modal vision ingestion: analyzes uploaded X-ray and prescription photos using FractureNet YOLOv8 and MONAI.
+  - One-tap emergency SOS dispatch with real-time GPS coordinate packets and national hotline links (112, 108, 14416).
 
 ---
 
@@ -284,63 +285,63 @@ sequenceDiagram
 
 ```
 Sanjeevni-OS/
-├── AI-Health-Platform-MultiAgent-Plan.md  # Comprehensive multi-agent specification
+├── openwa/                               # Dedicated OpenWA WhatsApp Gateway Bridge
+│   ├── runner.js                         # Node.js @open-wa/wa-automate runner and webhook forwarder
+│   ├── package.json                      # Node.js dependencies for WhatsApp bridge
+│   ├── README.md                         # Dedicated OpenWA gateway documentation
+│   └── .env.example                      # OpenWA environment configuration template
 ├── SVH-2026-Docs/                        # Architecture diagrams and design collateral
-├── backend/                              # FastAPI core backend service
+├── docs/                                 # Architectural specifications and judge defense guides
+├── backend/                              # FastAPI core backend service (:8000)
 │   ├── requirements.txt                  # Python runtime dependencies
+│   ├── Final.pt                          # FractureNet YOLOv8 bone fracture model weights
 │   ├── app/
 │   │   ├── main.py                       # FastAPI application entrypoint and lifespan hooks
 │   │   ├── core/
 │   │   │   ├── config.py                 # Pydantic environment configuration
 │   │   │   ├── safety_router.py          # Deterministic safety gate and crisis filter
 │   │   │   └── state.py                  # Agent trace schemas and session state definitions
+│   │   ├── openwa/                       # Dedicated OpenWA WhatsApp client & service engine
+│   │   │   ├── __init__.py               # OpenWA package exports
+│   │   │   ├── client.py                 # Outbound HTTP REST client for OpenWA endpoints
+│   │   │   └── service.py                # Webhook parser, menu flow, and agent routing
 │   │   ├── agents/
 │   │   │   ├── orchestrator.py           # Swarm DAG coordinator and intent router
 │   │   │   ├── triage_agent.py           # Symptom analysis and clinical tiering
 │   │   │   ├── drug_agent.py             # RxNav pharmacological interaction checker
-│   │   │   ├── scan_agent.py             # Radiographic vision and fracture analysis
+│   │   │   ├── scan_agent.py             # Radiographic vision and fracture analysis (YOLOv8/MONAI)
 │   │   │   ├── mental_health_agent.py    # Tele-MANAS mental health support node
 │   │   │   ├── verification_agent.py     # AI Council consensus verification
 │   │   │   ├── retrieval_agent.py        # Hybrid vector and clinical context retrieval
 │   │   │   └── appointment_agent.py      # Provider locator and scheduling logic
 │   │   ├── ml/
-│   │   │   ├── diagnostics.py            # Quantitative clinical risk calculators
+│   │   │   ├── diagnostics.py            # Quantitative clinical risk calculators (Framingham, ADA, CKD, FIB-4)
 │   │   │   └── digital_twin.py           # 10-year multi-organ longitudinal trajectory model
 │   │   ├── services/
 │   │   │   ├── abdm_service.py           # ABHA ID generation and PM-JAY scheme matcher
 │   │   │   ├── fhir_service.py           # HL7 FHIR R4 JSON bundle constructor
-│   │   │   ├── llm_service.py            # Multi-provider LLM interface (Groq, Gemini, Ollama)
+│   │   │   ├── llm_service.py            # Multi-provider LLM interface (Groq, Gemini, OpenRouter)
 │   │   │   ├── pdf_service.py            # ReportLab clinical summary and QR generator
-│   │   │   ├── whatsapp_service.py       # Inbound webhook parser and SOS dispatcher
-│   │   │   └── i18n_service.py           # Multilingual clinical translation service
+│   │   │   ├── whatsapp_service.py       # Backward-compatible proxy to backend.app.openwa
+│   │   │   └── i18n_service.py           # Multilingual clinical translation service (11+ languages)
 │   │   └── api/
-│   │       └── endpoints.py              # Unified REST API route controllers
-│   └── tests/
-│       └── test_backend.py               # Pytest automated test suite
+│   │       └── endpoints.py              # Unified REST API route controllers & simulation endpoints
+│   └── tests/                            # Comprehensive 45-test suite
+│       ├── test_api_endpoints.py         # Integration tests for all 18 FastAPI REST endpoints
+│       ├── test_clinical_ml_and_agents.py# Unit tests for ML models, Digital Twin, and Agents
+│       ├── test_openwa_service.py        # OpenWA WhatsApp webhook & flow test suite
+│       └── test_backend.py               # Core safety, crisis, and triage test suite
 ├── blockchain/                           # Decentralized record verification subsystem
 │   ├── contracts/                        # Hardhat Ethereum development environment
-│   │   ├── package.json
-│   │   ├── hardhat.config.js
-│   │   ├── contracts/
-│   │   │   └── MedicalRecords.sol        # Solidity smart contract for hash registration
-│   │   ├── scripts/
-│   │   │   └── deploy.js                 # Deployment script writing ABI and address
-│   │   └── test/
-│   │       └── MedicalRecords.test.js    # Hardhat contract test suite
-│   └── frontend/                         # Independent decentralized records verification portal
-│       ├── package.json
-│       ├── app/
-│       ├── components/
-│       └── lib/
-├── frontend/                             # Primary Sanjeevani OS Web Portal (Next.js 16)
-│   ├── package.json
-│   ├── next.config.ts
-│   ├── postcss.config.mjs
-│   ├── public/                           # Static assets, 3D anatomical models, and shaders
-│   └── src/
-│       └── app/
-│           ├── layout.tsx                # Root layout, theme providers, and font definitions
-│           ├── page.tsx                  # Standard dashboard landing page
+│   │   ├── contracts/MedicalRecords.sol  # Solidity smart contract for hash registration
+│   │   ├── scripts/deploy.js             # Deployment script writing ABI and address
+│   │   └── test/MedicalRecords.test.js   # Hardhat contract test suite
+│   └── README.md                         # Blockchain architecture and deployment guide
+└── frontend/                             # Primary Sanjeevani OS Web Portal (Next.js 16 / React 19)
+    ├── package.json
+    ├── next.config.ts
+    ├── public/                           # Static assets and 3D anatomical models
+    └── src/                              # React 19 components, App Router pages, and styles         # Standard dashboard landing page
 │           ├── interactive-body/         # 3D interactive human body visualizer
 │           ├── orchestrator-agent/       # Swarm execution live trace viewer
 │           ├── symptom-triage-agent/     # Interactive triage diagnostic interface
@@ -767,22 +768,20 @@ OPENWA_API_KEY="your_openwa_api_key"
 
 ## 9. Testing and Quality Assurance
 
-### 9.1 Backend Unit & Integration Tests
+### 9.1 Comprehensive 45-Test Automated Suite
 
-Execute the comprehensive automated test suite across all agent nodes and mathematical engines:
+Execute the complete multi-suite automated test matrix across all API endpoints, OpenWA messaging, ML risk models, and clinical agents:
 
 ```bash
-cd backend
-pytest tests/test_backend.py -v
+# Run the entire 45-test suite
+python -m pytest backend/tests -v
 ```
 
 The test suite validates:
-- Deterministic safety routing and emergency early exits.
-- Multi-agent orchestration state propagation.
-- NIH RxNav pharmacological conflict rules.
-- Framingham, ADA, CKD-EPI, and FIB-4 diagnostic calculations.
-- 10-year longitudinal multi-organ trajectory projections.
-- Cryptographic PDF generation and FHIR R4 schema compliance.
+- **18 FastAPI Endpoints (`test_api_endpoints.py`)**: Full HTTP request/response validation across all clinical routes.
+- **Clinical ML & Specialist Agents (`test_clinical_ml_and_agents.py`)**: Framingham CVD, ADA Diabetes, CKD-EPI eGFR, FIB-4 Liver score, 10-year Digital Twin Trajectory, HL7 FHIR R4 & Wearable IoT Bundles, AI Council Verification, and Tele-MANAS.
+- **OpenWA WhatsApp Engine (`test_openwa_service.py`)**: Interactive Menu Flow (`1-6`), Numbered Commands, Medical Image & Scan Upload over WhatsApp, Emergency SOS Broadcast, and ABDM Schemes.
+- **Core Guardrails (`test_backend.py`)**: Deterministic safety routing, crisis interception, RxNav drug safety, 11+ Indian Regional Languages, and Blockchain PDF Generator.
 
 ### 9.2 Smart Contract Verification Tests
 
