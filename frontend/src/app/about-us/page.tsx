@@ -3,7 +3,7 @@ import { UniversalFooter } from '@/components/home/UniversalFooter';
 
 export const metadata: Metadata = {
   title: 'About Us - Sanjeevani OS',
-  description: 'Learn about our philosophy and 40+ years of architectural excellence.',
+  description: 'Learn about our philosophy and clinical multi-agent AI architecture.',
 };
 
 export default function AboutUsPage() {
@@ -34,14 +34,14 @@ export default function AboutUsPage() {
                     
 <div class="media flipMedia__media flipMedia__media--down noAspect noAnimate no-general-anim" data-delay=""> 
             <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2026/04/IMG_9153.jpeg-2.jpg">
+            <img class="media__source w-100" src="/images/medical/orchestrator_ops_center.jpg" style="object-fit: cover; width:100%; height:100%;">
         </div>
     </div>
 
 
 <div class="media flipMedia__media flipMedia__media--up noAspect noAnimate no-general-anim" data-delay=""> 
             <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2026/04/HOME_6.2.jpg">
+            <img class="media__source w-100" src="/images/medical/orchestrator_director_review.jpg" style="object-fit: cover; width:100%; height:100%;">
         </div>
     </div>
 
@@ -53,14 +53,14 @@ export default function AboutUsPage() {
                     
 <div class="media flipMedia__media flipMedia__media--down noAspect noAnimate no-general-anim" data-delay=""> 
             <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2026/04/HOME_4.1_previa.jpg">
+            <img class="media__source w-100" src="/images/medical/scan_radiologist_diagnostic.jpg" style="object-fit: cover; width:100%; height:100%;">
         </div>
     </div>
 
 
 <div class="media flipMedia__media flipMedia__media--up noAspect noAnimate no-general-anim" data-delay=""> 
             <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2026/04/HOME_Img_principal-1.jpg">
+            <img class="media__source w-100" src="/images/medical/scan_ct_suite.jpg" style="object-fit: cover; width:100%; height:100%;">
         </div>
     </div>
 
@@ -88,7 +88,7 @@ export default function AboutUsPage() {
             
 <div class="media mod-content__image col-5" data-delay=""> 
             <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/07/Grupo-12755.png">
+            <img class="media__source w-100" src="/images/medical/records_abha_tablet.jpg" style="object-fit: cover; width:100%; height:100%;">
         </div>
     </div>
 
@@ -113,7 +113,7 @@ export default function AboutUsPage() {
                 
 <div class="media mod-media__item noAnimate" data-delay=""> 
             <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/07/mod-scroll_high-1.png">
+            <img class="media__source w-100" src="/images/medical/gallery_icu_barasat.jpg" style="object-fit: cover; width:100%; height:100%;">
         </div>
     </div>
 
@@ -148,7 +148,7 @@ export default function AboutUsPage() {
             
 <div class="media mod-content__image col-5" data-delay=""> 
             <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/07/Imagen-24.png">
+            <img class="media__source w-100" src="/images/medical/records_data_security.jpg" style="object-fit: cover; width:100%; height:100%;">
         </div>
     </div>
 
@@ -174,14 +174,14 @@ export default function AboutUsPage() {
         
 <div class="media mod-media__item col-6" data-delay=""> 
             <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2026/04/DESTACADO_2_1@15x-1.jpg">
+            <img class="media__source w-100" src="/images/medical/outbreak_surveillance_warroom.jpg" style="object-fit: cover; width:100%; height:100%;">
         </div>
     </div>
 
         
 <div class="media mod-media__item col-4" data-delay="0.2"> 
             <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2026/04/HOME_Img_principal-1-1.jpg">
+            <img class="media__source w-100" src="/images/medical/outbreak_field_team.jpg" style="object-fit: cover; width:100%; height:100%;">
         </div>
     </div>
 
@@ -239,7 +239,7 @@ export default function AboutUsPage() {
                         
 <div class="media mod-media__slider__slide__image noAspect noAnimate" data-delay=""> 
             <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/08/CONOCENOS_GAL_2.jpg">
+            <img class="media__source w-100" src="/images/medical/agent_swarm_doctors.jpg" style="object-fit: cover; width:100%; height:100%;">
         </div>
     </div>
 
@@ -248,7 +248,7 @@ export default function AboutUsPage() {
                         
 <div class="media mod-media__slider__slide__image noAspect noAnimate" data-delay=""> 
             <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/08/CONOCENOS_GAL_3.jpg">
+            <img class="media__source w-100" src="/images/medical/scan_radiologist_diagnostic.jpg" style="object-fit: cover; width:100%; height:100%;">
         </div>
     </div>
 
@@ -257,7 +257,7 @@ export default function AboutUsPage() {
                         
 <div class="media mod-media__slider__slide__image noAspect noAnimate" data-delay=""> 
             <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/08/CONOCENOS_GAL_4.jpg">
+            <img class="media__source w-100" src="/images/medical/gallery_icu_barasat.jpg" style="object-fit: cover; width:100%; height:100%;">
         </div>
     </div>
 
@@ -266,7 +266,7 @@ export default function AboutUsPage() {
                         
 <div class="media mod-media__slider__slide__image noAspect noAnimate" data-delay=""> 
             <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/08/CONOCENOS_GAL_5.jpg">
+            <img class="media__source w-100" src="/images/medical/closing_hospital_building.jpg" style="object-fit: cover; width:100%; height:100%;">
         </div>
     </div>
 
@@ -275,7 +275,7 @@ export default function AboutUsPage() {
                         
 <div class="media mod-media__slider__slide__image noAspect noAnimate" data-delay=""> 
             <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/08/CONOCENOS_GAL_6.jpg">
+            <img class="media__source w-100" src="/images/medical/records_data_security.jpg" style="object-fit: cover; width:100%; height:100%;">
         </div>
     </div>
 
@@ -284,7 +284,7 @@ export default function AboutUsPage() {
                         
 <div class="media mod-media__slider__slide__image noAspect noAnimate" data-delay=""> 
             <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/08/CONOCENOS_GAL_7.jpg">
+            <img class="media__source w-100" src="/images/medical/outbreak_surveillance_warroom.jpg" style="object-fit: cover; width:100%; height:100%;">
         </div>
     </div>
 
@@ -293,7 +293,7 @@ export default function AboutUsPage() {
                         
 <div class="media mod-media__slider__slide__image noAspect noAnimate" data-delay=""> 
             <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/08/CONOCENOS_GAL_1.jpg">
+            <img class="media__source w-100" src="/images/medical/orchestrator_ops_center.jpg" style="object-fit: cover; width:100%; height:100%;">
         </div>
     </div>
 
@@ -302,7 +302,7 @@ export default function AboutUsPage() {
                         
 <div class="media mod-media__slider__slide__image noAspect noAnimate" data-delay=""> 
             <div class="media__wrap-source image">
-            <img class="media__source w-100" src="/wp-content/uploads/2025/08/CONOCENOS_GAL_8.jpg">
+            <img class="media__source w-100" src="/images/medical/triage_er_intake.jpg" style="object-fit: cover; width:100%; height:100%;">
         </div>
     </div>
 

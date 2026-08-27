@@ -9,8 +9,8 @@ export const metadata: Metadata = {
   title: 'Sanjeevani OS | Multi-Agent Health Platform',
   description: 'The Sanjeevani OS is an open-source, multi-agent health architecture powered by specialized AI sub-agents.',
   icons: {
-    icon: '/wp-content/uploads/2025/05/favicon-150x150.png',
-    apple: '/wp-content/uploads/2025/05/favicon-300x300.png',
+    icon: '/fav.png',
+    apple: '/fav.png',
   },
 };
 
