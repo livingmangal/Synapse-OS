@@ -242,41 +242,41 @@ export function HeroIntroSection() {
             />
           </g>
 
-          {/* Badges */}
-          <g className="diagram-badge" transform="translate(48, 80)">
-            <rect x="0" y="0" width="84" height="28" rx="14" fill="#edebe8" stroke="rgb(205, 200, 194)" strokeWidth="0.8" />
-            <text x="42" y="18" textAnchor="middle" fontFamily="monospace, Courier" fontSize="11" fill="#44403c">
-              commits
+          {/* Clinical Real-Time Medical Badges */}
+          <g className="diagram-badge" transform="translate(30, 80)">
+            <rect x="0" y="0" width="146" height="28" rx="14" fill="#edebe8" stroke="rgb(205, 200, 194)" strokeWidth="0.8" />
+            <text x="73" y="18" textAnchor="middle" fontFamily="monospace, Courier" fontSize="11" fill="#44403c">
+              vitals telemetry
             </text>
           </g>
-          <g className="diagram-badge" transform="translate(48, 248)">
-            <rect x="0" y="0" width="78" height="28" rx="14" fill="#edebe8" stroke="rgb(205, 200, 194)" strokeWidth="0.8" />
-            <text x="39" y="18" textAnchor="middle" fontFamily="monospace, Courier" fontSize="11" fill="#44403c">
-              tokens
+          <g className="diagram-badge" transform="translate(30, 248)">
+            <rect x="0" y="0" width="148" height="28" rx="14" fill="#edebe8" stroke="rgb(205, 200, 194)" strokeWidth="0.8" />
+            <text x="74" y="18" textAnchor="middle" fontFamily="monospace, Courier" fontSize="11" fill="#44403c">
+              prescription ocr
             </text>
           </g>
-          <g className="diagram-badge" transform="translate(236, 164)">
-            <rect x="0" y="0" width="134" height="28" rx="14" fill="#edebe8" stroke="rgb(205, 200, 194)" strokeWidth="0.8" />
-            <text x="67" y="18" textAnchor="middle" fontFamily="monospace, Courier" fontSize="11" fill="#44403c">
-              pull requests
+          <g className="diagram-badge" transform="translate(230, 164)">
+            <rect x="0" y="0" width="138" height="28" rx="14" fill="#edebe8" stroke="rgb(205, 200, 194)" strokeWidth="0.8" />
+            <text x="69" y="18" textAnchor="middle" fontFamily="monospace, Courier" fontSize="11" fill="#44403c">
+              symptom triage
             </text>
           </g>
-          <g className="diagram-badge" transform="translate(784, 164)">
-            <rect x="0" y="0" width="88" height="28" rx="14" fill="#edebe8" stroke="rgb(205, 200, 194)" strokeWidth="0.8" />
-            <text x="44" y="18" textAnchor="middle" fontFamily="monospace, Courier" fontSize="11" fill="#44403c">
-              reviews
+          <g className="diagram-badge" transform="translate(774, 164)">
+            <rect x="0" y="0" width="142" height="28" rx="14" fill="#edebe8" stroke="rgb(205, 200, 194)" strokeWidth="0.8" />
+            <text x="71" y="18" textAnchor="middle" fontFamily="monospace, Courier" fontSize="11" fill="#44403c">
+              ct &amp; x-ray scans
             </text>
           </g>
-          <g className="diagram-badge" transform="translate(1000, 80)">
-            <rect x="0" y="0" width="84" height="28" rx="14" fill="#edebe8" stroke="rgb(205, 200, 194)" strokeWidth="0.8" />
-            <text x="42" y="18" textAnchor="middle" fontFamily="monospace, Courier" fontSize="11" fill="#44403c">
-              deploys
+          <g className="diagram-badge" transform="translate(950, 80)">
+            <rect x="0" y="0" width="162" height="28" rx="14" fill="#edebe8" stroke="rgb(205, 200, 194)" strokeWidth="0.8" />
+            <text x="81" y="18" textAnchor="middle" fontFamily="monospace, Courier" fontSize="11" fill="#44403c">
+              who outbreak radar
             </text>
           </g>
-          <g className="diagram-badge" transform="translate(956, 248)">
-            <rect x="0" y="0" width="136" height="28" rx="14" fill="#edebe8" stroke="rgb(205, 200, 194)" strokeWidth="0.8" />
-            <text x="68" y="18" textAnchor="middle" fontFamily="monospace, Courier" fontSize="11" fill="#44403c">
-              ai telemetry
+          <g className="diagram-badge" transform="translate(930, 248)">
+            <rect x="0" y="0" width="180" height="28" rx="14" fill="#edebe8" stroke="rgb(205, 200, 194)" strokeWidth="0.8" />
+            <text x="90" y="18" textAnchor="middle" fontFamily="monospace, Courier" fontSize="11" fill="#44403c">
+              abha on-chain records
             </text>
           </g>
         </svg>
