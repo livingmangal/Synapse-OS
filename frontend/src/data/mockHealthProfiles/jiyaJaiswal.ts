@@ -63,11 +63,43 @@ export const jiyaJaiswalProfile: MockHealthProfile = {
   visualAnalytics: {
     healthScore: 96,
     nextAppointment: {
-      doctor: 'Dr. Rajesh K. Varma',
-      date: 'Wednesday, 21 Jan, 10:30 AM',
-      type: 'Routine Wellness Review',
-      photoUrl: '/images/jiya_jaiswal.jpg'
-    },
+      "doctor": "Dr. Sneha Roy",
+      "initials": "SR",
+      "specialty": "Orthopedics & Sports",
+      "date": "Monday, 19 Jan, 10:30 AM",
+      "type": "Patellar Kinetic Screening",
+      "mode": "In-Clinic",
+      "color": "#0284c7"
+},
+    upcomingAppointments: [
+      {
+            "doctor": "Dr. Sneha Roy",
+            "initials": "SR",
+            "specialty": "Orthopedics & Sports",
+            "date": "Monday, 19 Jan, 10:30 AM",
+            "type": "Patellar Kinetic Screening",
+            "mode": "In-Clinic",
+            "color": "#0284c7"
+      },
+      {
+            "doctor": "Dr. Manish Gupta",
+            "initials": "MG",
+            "specialty": "Preventive Pulmonology",
+            "date": "Thursday, 22 Jan, 04:15 PM",
+            "type": "Aerobic Diffusion Evaluation",
+            "mode": "Teleconsultation",
+            "color": "#059669"
+      },
+      {
+            "doctor": "Dr. Deepa Nair",
+            "initials": "DN",
+            "specialty": "Clinical Nutrition",
+            "date": "Monday, 26 Jan, 01:45 PM",
+            "type": "Hydration & Metabolic Plan",
+            "mode": "Teleconsultation",
+            "color": "#db2777"
+      }
+],
     heartRateAvg: '72 BPM',
     heartRatePath: 'M 0 96 Q 25 76, 50 80 T 100 62 T 150 86 T 200 44 T 250 76 T 300 66 T 350 84 T 400 56',
     sleepAvg: '8h 12m',

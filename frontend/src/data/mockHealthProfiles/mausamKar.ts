@@ -63,11 +63,43 @@ export const mausamKarProfile: MockHealthProfile = {
   visualAnalytics: {
     healthScore: 92,
     nextAppointment: {
-      doctor: 'Dr. Rajesh K. Varma',
-      date: 'Friday, 16 Jan, 04:00 PM',
-      type: 'Annual Preventive Review',
-      photoUrl: '/images/mausam_kar.jpg'
-    },
+      "doctor": "Dr. Rajesh K. Varma",
+      "initials": "RV",
+      "specialty": "Pulmonology & Critical Care",
+      "date": "Friday, 16 Jan, 04:00 PM",
+      "type": "Annual Preventive Review",
+      "mode": "Teleconsultation",
+      "color": "#0284c7"
+},
+    upcomingAppointments: [
+      {
+            "doctor": "Dr. Rajesh K. Varma",
+            "initials": "RV",
+            "specialty": "Pulmonology & Critical Care",
+            "date": "Friday, 16 Jan, 04:00 PM",
+            "type": "Annual Preventive Review",
+            "mode": "Teleconsultation",
+            "color": "#0284c7"
+      },
+      {
+            "doctor": "Dr. Anita Sharma",
+            "initials": "AS",
+            "specialty": "Sports Orthopedics",
+            "date": "Monday, 19 Jan, 11:30 AM",
+            "type": "Cervical Ergonomics Review",
+            "mode": "In-Clinic",
+            "color": "#7c3aed"
+      },
+      {
+            "doctor": "Dr. Suresh N. Rao",
+            "initials": "SR",
+            "specialty": "General Medicine",
+            "date": "Thursday, 22 Jan, 02:15 PM",
+            "type": "Diagnostic Blood Panel",
+            "mode": "Hospital Review",
+            "color": "#059669"
+      }
+],
     heartRateAvg: '74 BPM',
     heartRatePath: 'M 0 100 Q 25 80, 50 85 T 100 65 T 150 90 T 200 45 T 250 80 T 300 70 T 350 88 T 400 60',
     sleepAvg: '7h 48m',

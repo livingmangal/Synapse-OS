@@ -1,13 +1,20 @@
 import { DetectedCondition } from '@/components/orchestrator/types';
 
+export interface AppointmentItem {
+  doctor: string;
+  initials?: string;
+  specialty?: string;
+  date: string;
+  type: string;
+  mode?: 'Teleconsultation' | 'In-Clinic' | 'Hospital Review';
+  photoUrl?: string;
+  color?: string;
+}
+
 export interface VisualAnalyticsData {
   healthScore: number;
-  nextAppointment: {
-    doctor: string;
-    date: string;
-    type: string;
-    photoUrl: string;
-  };
+  nextAppointment: AppointmentItem;
+  upcomingAppointments?: AppointmentItem[];
   heartRateAvg: string;
   heartRatePath: string;
   sleepAvg: string;

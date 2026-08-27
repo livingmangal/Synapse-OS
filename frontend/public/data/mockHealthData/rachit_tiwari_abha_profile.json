@@ -77,27 +77,76 @@
     "heartRatePath": "M 0 95 Q 25 75, 50 80 T 100 60 T 150 85 T 200 40 T 250 75 T 300 65 T 350 82 T 400 55",
     "sleepHours": "8h 05m",
     "sleepStatus": "91% Restorative Deep Sleep (Optimal)",
-    "sleepBars": [70, 82, 88, 95, 91, 98, 93],
+    "sleepBars": [
+      70,
+      82,
+      88,
+      95,
+      91,
+      98,
+      93
+    ],
     "stressScore": "15 / 100",
     "stressStatus": "High Heart Rate Variability (Vagal Dominance)",
     "stressPath": "M 0 125 Q 30 115, 60 118 T 120 108 T 180 122 T 240 105 T 300 118 T 350 112",
     "stressPoints": [
-      { "cx": 40, "cy": 115, "isHigh": false },
-      { "cx": 110, "cy": 108, "isHigh": false },
-      { "cx": 190, "cy": 122, "isHigh": false },
-      { "cx": 270, "cy": 105, "isHigh": false },
-      { "cx": 340, "cy": 112, "isHigh": false }
+      {
+        "cx": 40,
+        "cy": 115,
+        "isHigh": false
+      },
+      {
+        "cx": 110,
+        "cy": 108,
+        "isHigh": false
+      },
+      {
+        "cx": 190,
+        "cy": 122,
+        "isHigh": false
+      },
+      {
+        "cx": 270,
+        "cy": 105,
+        "isHigh": false
+      },
+      {
+        "cx": 340,
+        "cy": 112,
+        "isHigh": false
+      }
     ],
     "avgSteps": "12,450",
     "stepsStatus": "+24% Active Daily Movement vs Target",
     "stepsBars": [
-      { "height": 80, "active": false },
-      { "height": 90, "active": false },
-      { "height": 95, "active": false },
-      { "height": 85, "active": false },
-      { "height": 100, "active": true },
-      { "height": 88, "active": false },
-      { "height": 92, "active": false }
+      {
+        "height": 80,
+        "active": false
+      },
+      {
+        "height": 90,
+        "active": false
+      },
+      {
+        "height": 95,
+        "active": false
+      },
+      {
+        "height": 85,
+        "active": false
+      },
+      {
+        "height": 100,
+        "active": true
+      },
+      {
+        "height": 88,
+        "active": false
+      },
+      {
+        "height": 92,
+        "active": false
+      }
     ],
     "aiInsights": {
       "positive": {
@@ -120,12 +169,43 @@
       "hydrationStatus": "2.7L / 3.0L Target Reached"
     },
     "nextAppointment": {
-      "doctor": "Dr. Rajesh K. Varma",
-      "specialty": "Pulmonologist & Sports Health",
-      "date": "Monday, 19 Jan, 11:00 AM",
-      "type": "Biometric Wellness Check",
-      "photoUrl": "/images/rachit_tiwari.jpg"
-    }
+      "doctor": "Dr. Amitava Roy",
+      "initials": "AR",
+      "specialty": "Sports Medicine & Rehab",
+      "date": "Wednesday, 21 Jan, 03:30 PM",
+      "type": "Thoracic & Deltoid Mobility",
+      "mode": "In-Clinic",
+      "color": "#7c3aed"
+    },
+    "upcomingAppointments": [
+      {
+        "doctor": "Dr. Amitava Roy",
+        "initials": "AR",
+        "specialty": "Sports Medicine & Rehab",
+        "date": "Wednesday, 21 Jan, 03:30 PM",
+        "type": "Thoracic & Deltoid Mobility",
+        "mode": "In-Clinic",
+        "color": "#7c3aed"
+      },
+      {
+        "doctor": "Dr. Sunita Kapoor",
+        "initials": "SK",
+        "specialty": "Diagnostic Cardiology",
+        "date": "Saturday, 24 Jan, 11:15 AM",
+        "type": "Resting HRV & Rhythm Check",
+        "mode": "Hospital Review",
+        "color": "#ef4444"
+      },
+      {
+        "doctor": "Dr. Rohit Sen",
+        "initials": "RS",
+        "specialty": "Primary Health Care",
+        "date": "Tuesday, 27 Jan, 02:00 PM",
+        "type": "Comprehensive ABDM Checkup",
+        "mode": "Teleconsultation",
+        "color": "#059669"
+      }
+    ]
   },
   "blockchainRecords": [
     {

@@ -77,27 +77,76 @@
     "heartRatePath": "M 0 98 Q 25 78, 50 82 T 100 64 T 150 88 T 200 46 T 250 78 T 300 68 T 350 86 T 400 58",
     "sleepHours": "7h 45m",
     "sleepStatus": "88% Restorative Deep Sleep (Optimal)",
-    "sleepBars": [68, 80, 85, 92, 88, 95, 90],
+    "sleepBars": [
+      68,
+      80,
+      85,
+      92,
+      88,
+      95,
+      90
+    ],
     "stressScore": "18 / 100",
     "stressStatus": "Relaxed Autonomic Balance",
     "stressPath": "M 0 122 Q 30 112, 60 115 T 120 105 T 180 120 T 240 102 T 300 115 T 350 110",
     "stressPoints": [
-      { "cx": 40, "cy": 113, "isHigh": false },
-      { "cx": 110, "cy": 107, "isHigh": false },
-      { "cx": 190, "cy": 119, "isHigh": false },
-      { "cx": 270, "cy": 103, "isHigh": false },
-      { "cx": 340, "cy": 111, "isHigh": false }
+      {
+        "cx": 40,
+        "cy": 113,
+        "isHigh": false
+      },
+      {
+        "cx": 110,
+        "cy": 107,
+        "isHigh": false
+      },
+      {
+        "cx": 190,
+        "cy": 119,
+        "isHigh": false
+      },
+      {
+        "cx": 270,
+        "cy": 103,
+        "isHigh": false
+      },
+      {
+        "cx": 340,
+        "cy": 111,
+        "isHigh": false
+      }
     ],
     "avgSteps": "9,800",
     "stepsStatus": "+12% Active Daily Movement vs Target",
     "stepsBars": [
-      { "height": 76, "active": false },
-      { "height": 86, "active": false },
-      { "height": 90, "active": false },
-      { "height": 80, "active": false },
-      { "height": 96, "active": true },
-      { "height": 84, "active": false },
-      { "height": 88, "active": false }
+      {
+        "height": 76,
+        "active": false
+      },
+      {
+        "height": 86,
+        "active": false
+      },
+      {
+        "height": 90,
+        "active": false
+      },
+      {
+        "height": 80,
+        "active": false
+      },
+      {
+        "height": 96,
+        "active": true
+      },
+      {
+        "height": 84,
+        "active": false
+      },
+      {
+        "height": 88,
+        "active": false
+      }
     ],
     "aiInsights": {
       "positive": {
@@ -120,12 +169,43 @@
       "hydrationStatus": "2.3L / 2.7L Target Reached"
     },
     "nextAppointment": {
-      "doctor": "Dr. Rajesh K. Varma",
-      "specialty": "Pulmonologist & Internal Medicine",
+      "doctor": "Dr. Priya Sundaram",
+      "initials": "PS",
+      "specialty": "Rheumatology & Joint Care",
       "date": "Thursday, 22 Jan, 02:00 PM",
-      "type": "Biometric Checkup",
-      "photoUrl": "/images/surabhi.jpg"
-    }
+      "type": "Joint Mobility Assessment",
+      "mode": "In-Clinic",
+      "color": "#db2777"
+    },
+    "upcomingAppointments": [
+      {
+        "doctor": "Dr. Priya Sundaram",
+        "initials": "PS",
+        "specialty": "Rheumatology & Joint Care",
+        "date": "Thursday, 22 Jan, 02:00 PM",
+        "type": "Joint Mobility Assessment",
+        "mode": "In-Clinic",
+        "color": "#db2777"
+      },
+      {
+        "doctor": "Dr. Arun Mehra",
+        "initials": "AM",
+        "specialty": "Internal Medicine",
+        "date": "Monday, 26 Jan, 09:30 AM",
+        "type": "Metabolic & Vitals Screening",
+        "mode": "Teleconsultation",
+        "color": "#059669"
+      },
+      {
+        "doctor": "Dr. Kavita Joshi",
+        "initials": "KJ",
+        "specialty": "Physical Therapy",
+        "date": "Friday, 30 Jan, 04:45 PM",
+        "type": "Shoulder Scapular Rehab",
+        "mode": "In-Clinic",
+        "color": "#7c3aed"
+      }
+    ]
   },
   "blockchainRecords": [
     {

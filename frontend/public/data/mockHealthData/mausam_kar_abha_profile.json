@@ -77,27 +77,76 @@
     "heartRatePath": "M 0 100 Q 25 80, 50 85 T 100 65 T 150 90 T 200 45 T 250 80 T 300 70 T 350 88 T 400 60",
     "sleepHours": "7h 48m",
     "sleepStatus": "88% Restorative Deep Sleep (Optimal)",
-    "sleepBars": [65, 78, 85, 92, 88, 95, 90],
+    "sleepBars": [
+      65,
+      78,
+      85,
+      92,
+      88,
+      95,
+      90
+    ],
     "stressScore": "18 / 100",
     "stressStatus": "Relaxed State (Parasympathetic Dominant)",
     "stressPath": "M 0 120 Q 30 110, 60 115 T 120 105 T 180 120 T 240 100 T 300 115 T 350 110",
     "stressPoints": [
-      { "cx": 40, "cy": 112, "isHigh": false },
-      { "cx": 110, "cy": 106, "isHigh": false },
-      { "cx": 190, "cy": 118, "isHigh": false },
-      { "cx": 270, "cy": 102, "isHigh": false },
-      { "cx": 340, "cy": 110, "isHigh": false }
+      {
+        "cx": 40,
+        "cy": 112,
+        "isHigh": false
+      },
+      {
+        "cx": 110,
+        "cy": 106,
+        "isHigh": false
+      },
+      {
+        "cx": 190,
+        "cy": 118,
+        "isHigh": false
+      },
+      {
+        "cx": 270,
+        "cy": 102,
+        "isHigh": false
+      },
+      {
+        "cx": 340,
+        "cy": 110,
+        "isHigh": false
+      }
     ],
     "avgSteps": "10,480",
     "stepsStatus": "+18% Active Calorie Burn vs Baseline",
     "stepsBars": [
-      { "height": 75, "active": false },
-      { "height": 88, "active": false },
-      { "height": 92, "active": false },
-      { "height": 78, "active": false },
-      { "height": 98, "active": true },
-      { "height": 84, "active": false },
-      { "height": 90, "active": false }
+      {
+        "height": 75,
+        "active": false
+      },
+      {
+        "height": 88,
+        "active": false
+      },
+      {
+        "height": 92,
+        "active": false
+      },
+      {
+        "height": 78,
+        "active": false
+      },
+      {
+        "height": 98,
+        "active": true
+      },
+      {
+        "height": 84,
+        "active": false
+      },
+      {
+        "height": 90,
+        "active": false
+      }
     ],
     "aiInsights": {
       "positive": {
@@ -121,11 +170,42 @@
     },
     "nextAppointment": {
       "doctor": "Dr. Rajesh K. Varma",
-      "specialty": "Pulmonologist & Critical Care",
+      "initials": "RV",
+      "specialty": "Pulmonology & Critical Care",
       "date": "Friday, 16 Jan, 04:00 PM",
       "type": "Annual Preventive Review",
-      "photoUrl": "/images/mausam_kar.jpg"
-    }
+      "mode": "Teleconsultation",
+      "color": "#0284c7"
+    },
+    "upcomingAppointments": [
+      {
+        "doctor": "Dr. Rajesh K. Varma",
+        "initials": "RV",
+        "specialty": "Pulmonology & Critical Care",
+        "date": "Friday, 16 Jan, 04:00 PM",
+        "type": "Annual Preventive Review",
+        "mode": "Teleconsultation",
+        "color": "#0284c7"
+      },
+      {
+        "doctor": "Dr. Anita Sharma",
+        "initials": "AS",
+        "specialty": "Sports Orthopedics",
+        "date": "Monday, 19 Jan, 11:30 AM",
+        "type": "Cervical Ergonomics Review",
+        "mode": "In-Clinic",
+        "color": "#7c3aed"
+      },
+      {
+        "doctor": "Dr. Suresh N. Rao",
+        "initials": "SR",
+        "specialty": "General Medicine",
+        "date": "Thursday, 22 Jan, 02:15 PM",
+        "type": "Diagnostic Blood Panel",
+        "mode": "Hospital Review",
+        "color": "#059669"
+      }
+    ]
   },
   "blockchainRecords": [
     {

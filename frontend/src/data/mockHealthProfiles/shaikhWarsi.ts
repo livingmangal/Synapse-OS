@@ -63,11 +63,43 @@ export const shaikhWarsiProfile: MockHealthProfile = {
   visualAnalytics: {
     healthScore: 93,
     nextAppointment: {
-      doctor: 'Dr. Rajesh K. Varma',
-      date: 'Friday, 23 Jan, 04:00 PM',
-      type: 'Preventive Health Assessment',
-      photoUrl: '/images/shaikh_warsi.jpg'
-    },
+      "doctor": "Dr. Farhan Qureshi",
+      "initials": "FQ",
+      "specialty": "Cardiovascular Health",
+      "date": "Tuesday, 20 Jan, 11:00 AM",
+      "type": "Arterial Hemodynamics Review",
+      "mode": "In-Clinic",
+      "color": "#ef4444"
+},
+    upcomingAppointments: [
+      {
+            "doctor": "Dr. Farhan Qureshi",
+            "initials": "FQ",
+            "specialty": "Cardiovascular Health",
+            "date": "Tuesday, 20 Jan, 11:00 AM",
+            "type": "Arterial Hemodynamics Review",
+            "mode": "In-Clinic",
+            "color": "#ef4444"
+      },
+      {
+            "doctor": "Dr. Sanjay Deshmukh",
+            "initials": "SD",
+            "specialty": "Pulmonology",
+            "date": "Friday, 23 Jan, 03:00 PM",
+            "type": "Respiratory Capacity Test",
+            "mode": "Teleconsultation",
+            "color": "#0284c7"
+      },
+      {
+            "doctor": "Dr. Zainab Khan",
+            "initials": "ZK",
+            "specialty": "Endocrinology",
+            "date": "Wednesday, 28 Jan, 10:30 AM",
+            "type": "Annual PM-JAY Health Review",
+            "mode": "Hospital Review",
+            "color": "#059669"
+      }
+],
     heartRateAvg: '76 BPM',
     heartRatePath: 'M 0 100 Q 25 80, 50 84 T 100 66 T 150 90 T 200 48 T 250 80 T 300 70 T 350 88 T 400 60',
     sleepAvg: '7h 30m',

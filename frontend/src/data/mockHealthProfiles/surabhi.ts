@@ -63,11 +63,43 @@ export const surabhiProfile: MockHealthProfile = {
   visualAnalytics: {
     healthScore: 93,
     nextAppointment: {
-      doctor: 'Dr. Rajesh K. Varma',
-      date: 'Thursday, 22 Jan, 02:00 PM',
-      type: 'Biometric Checkup',
-      photoUrl: '/images/surabhi.jpg'
-    },
+      "doctor": "Dr. Priya Sundaram",
+      "initials": "PS",
+      "specialty": "Rheumatology & Joint Care",
+      "date": "Thursday, 22 Jan, 02:00 PM",
+      "type": "Joint Mobility Assessment",
+      "mode": "In-Clinic",
+      "color": "#db2777"
+},
+    upcomingAppointments: [
+      {
+            "doctor": "Dr. Priya Sundaram",
+            "initials": "PS",
+            "specialty": "Rheumatology & Joint Care",
+            "date": "Thursday, 22 Jan, 02:00 PM",
+            "type": "Joint Mobility Assessment",
+            "mode": "In-Clinic",
+            "color": "#db2777"
+      },
+      {
+            "doctor": "Dr. Arun Mehra",
+            "initials": "AM",
+            "specialty": "Internal Medicine",
+            "date": "Monday, 26 Jan, 09:30 AM",
+            "type": "Metabolic & Vitals Screening",
+            "mode": "Teleconsultation",
+            "color": "#059669"
+      },
+      {
+            "doctor": "Dr. Kavita Joshi",
+            "initials": "KJ",
+            "specialty": "Physical Therapy",
+            "date": "Friday, 30 Jan, 04:45 PM",
+            "type": "Shoulder Scapular Rehab",
+            "mode": "In-Clinic",
+            "color": "#7c3aed"
+      }
+],
     heartRateAvg: '74 BPM',
     heartRatePath: 'M 0 98 Q 25 78, 50 82 T 100 64 T 150 88 T 200 46 T 250 78 T 300 68 T 350 86 T 400 58',
     sleepAvg: '7h 45m',

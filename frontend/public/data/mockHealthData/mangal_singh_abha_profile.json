@@ -77,27 +77,76 @@
     "heartRatePath": "M 0 98 Q 25 78, 50 82 T 100 62 T 150 88 T 200 42 T 250 78 T 300 68 T 350 85 T 400 58",
     "sleepHours": "7h 55m",
     "sleepStatus": "89% Restorative Deep Sleep (Optimal)",
-    "sleepBars": [68, 80, 86, 94, 90, 96, 92],
+    "sleepBars": [
+      68,
+      80,
+      86,
+      94,
+      90,
+      96,
+      92
+    ],
     "stressScore": "16 / 100",
     "stressStatus": "Autonomic Balance (Vagal Recovery)",
     "stressPath": "M 0 122 Q 30 112, 60 116 T 120 106 T 180 120 T 240 102 T 300 116 T 350 110",
     "stressPoints": [
-      { "cx": 40, "cy": 114, "isHigh": false },
-      { "cx": 110, "cy": 107, "isHigh": false },
-      { "cx": 190, "cy": 120, "isHigh": false },
-      { "cx": 270, "cy": 104, "isHigh": false },
-      { "cx": 340, "cy": 111, "isHigh": false }
+      {
+        "cx": 40,
+        "cy": 114,
+        "isHigh": false
+      },
+      {
+        "cx": 110,
+        "cy": 107,
+        "isHigh": false
+      },
+      {
+        "cx": 190,
+        "cy": 120,
+        "isHigh": false
+      },
+      {
+        "cx": 270,
+        "cy": 104,
+        "isHigh": false
+      },
+      {
+        "cx": 340,
+        "cy": 111,
+        "isHigh": false
+      }
     ],
     "avgSteps": "11,200",
     "stepsStatus": "+20% Active Daily Movement vs Baseline",
     "stepsBars": [
-      { "height": 78, "active": false },
-      { "height": 88, "active": false },
-      { "height": 92, "active": false },
-      { "height": 82, "active": false },
-      { "height": 98, "active": true },
-      { "height": 86, "active": false },
-      { "height": 90, "active": false }
+      {
+        "height": 78,
+        "active": false
+      },
+      {
+        "height": 88,
+        "active": false
+      },
+      {
+        "height": 92,
+        "active": false
+      },
+      {
+        "height": 82,
+        "active": false
+      },
+      {
+        "height": 98,
+        "active": true
+      },
+      {
+        "height": 86,
+        "active": false
+      },
+      {
+        "height": 90,
+        "active": false
+      }
     ],
     "aiInsights": {
       "positive": {
@@ -120,12 +169,43 @@
       "hydrationStatus": "2.55L / 3.0L Target Reached"
     },
     "nextAppointment": {
-      "doctor": "Dr. Rajesh K. Varma",
-      "specialty": "Pulmonologist & Critical Care",
-      "date": "Tuesday, 20 Jan, 03:30 PM",
-      "type": "Preventive Health Assessment",
-      "photoUrl": "/images/mangal_singh.jpg"
-    }
+      "doctor": "Dr. Naresh Trehan",
+      "initials": "NT",
+      "specialty": "Cardiology & Thoracic Care",
+      "date": "Wednesday, 21 Jan, 10:00 AM",
+      "type": "Cardiac Stress & ECG Review",
+      "mode": "Hospital Review",
+      "color": "#ef4444"
+    },
+    "upcomingAppointments": [
+      {
+        "doctor": "Dr. Naresh Trehan",
+        "initials": "NT",
+        "specialty": "Cardiology & Thoracic Care",
+        "date": "Wednesday, 21 Jan, 10:00 AM",
+        "type": "Cardiac Stress & ECG Review",
+        "mode": "Hospital Review",
+        "color": "#ef4444"
+      },
+      {
+        "doctor": "Dr. Vikram Patel",
+        "initials": "VP",
+        "specialty": "Pulmonary Medicine",
+        "date": "Saturday, 24 Jan, 03:30 PM",
+        "type": "VO2 Max Performance Check",
+        "mode": "Teleconsultation",
+        "color": "#0284c7"
+      },
+      {
+        "doctor": "Dr. Geeta Pillai",
+        "initials": "GP",
+        "specialty": "Joint Biomechanics",
+        "date": "Tuesday, 27 Jan, 01:00 PM",
+        "type": "Knee Articular Follow-up",
+        "mode": "In-Clinic",
+        "color": "#d97706"
+      }
+    ]
   },
   "blockchainRecords": [
     {

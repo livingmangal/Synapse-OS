@@ -1146,31 +1146,131 @@ export default function VisualAnalyticsPanel({
           background: '#ffffff',
           borderRadius: '24px',
           border: '1px solid #e2e8f0',
-          padding: '24px',
+          padding: '20px',
           boxShadow: '0 4px 14px rgba(0,0,0,0.02)',
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'space-between'
+          gap: '12px'
         }}>
-          <h4 style={{ fontSize: '15px', fontWeight: 800, color: '#0f172a', margin: '0 0 12px 0' }}>{translateText('Next Checkup')}</h4>
-
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <img
-              src={activeProfile.visualAnalytics.nextAppointment.photoUrl}
-              alt={activeProfile.visualAnalytics.nextAppointment.doctor}
-              style={{ width: '52px', height: '52px', borderRadius: '14px', objectFit: 'cover' }}
-            />
+          {/* Header */}
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div>
-              <div style={{ fontSize: '13px', fontWeight: 800, color: '#0f172a' }}>
-                {translateText(activeProfile.visualAnalytics.nextAppointment.doctor)}
-              </div>
-              <div style={{ fontSize: '10px', color: '#64748b', margin: '2px 0' }}>
-                {translateText(activeProfile.visualAnalytics.nextAppointment.date)}
-              </div>
-              <span style={{ fontSize: '9px', fontWeight: 800, padding: '2px 6px', borderRadius: '4px', background: '#e0f2fe', color: '#0284c7', border: '1px solid #bae6fd' }}>
-                {translateText(activeProfile.visualAnalytics.nextAppointment.type)}
+              <h4 style={{ fontSize: '15px', fontWeight: 800, color: '#0f172a', margin: 0 }}>
+                {translateText('Next Checkups')}
+              </h4>
+              <span style={{ fontSize: '10.5px', color: '#64748b' }}>
+                {translateText('Scheduled ABDM Consultations')}
               </span>
             </div>
+            <span style={{
+              fontSize: '10px',
+              fontWeight: 800,
+              color: '#0284c7',
+              background: '#e0f2fe',
+              padding: '2px 8px',
+              borderRadius: '999px',
+              border: '1px solid #bae6fd'
+            }}>
+              {(activeProfile.visualAnalytics.upcomingAppointments || [activeProfile.visualAnalytics.nextAppointment]).length} {translateText('Scheduled')}
+            </span>
+          </div>
+
+          {/* Appointments List */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            {(activeProfile.visualAnalytics.upcomingAppointments || [activeProfile.visualAnalytics.nextAppointment]).map((appt, idx) => {
+              // Dynamic gradient based on doctor initials
+              const gradients = [
+                'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
+                'linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%)',
+                'linear-gradient(135deg, #059669 0%, #047857 100%)',
+                'linear-gradient(135deg, #db2777 0%, #be185d 100%)',
+                'linear-gradient(135deg, #ea580c 0%, #c2410c 100%)'
+              ];
+              const initials = appt.initials || appt.doctor.split(' ').map(n => n[0]).filter(Boolean).slice(-2).join('').toUpperCase() || 'DR';
+              const gradIndex = idx % gradients.length;
+
+              return (
+                <div 
+                  key={idx}
+                  style={{ 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    gap: '10px', 
+                    background: '#f8fafc', 
+                    padding: '9px 12px', 
+                    borderRadius: '14px', 
+                    border: '1px solid #f1f5f9',
+                    transition: 'all 0.15s ease'
+                  }}
+                >
+                  {/* Doctor Initials Avatar Badge */}
+                  <div style={{
+                    width: '38px',
+                    height: '38px',
+                    borderRadius: '11px',
+                    background: gradients[gradIndex],
+                    color: '#ffffff',
+                    fontWeight: 900,
+                    fontSize: '13px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    letterSpacing: '0.5px',
+                    boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
+                    flexShrink: 0,
+                    fontFamily: 'system-ui, -apple-system, sans-serif'
+                  }}>
+                    {initials}
+                  </div>
+
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '4px' }}>
+                      <span style={{ fontSize: '12px', fontWeight: 800, color: '#0f172a', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                        {translateText(appt.doctor)}
+                      </span>
+                      {appt.mode && (
+                        <span style={{
+                          fontSize: '8.5px',
+                          fontWeight: 800,
+                          color: appt.mode === 'Teleconsultation' ? '#0284c7' : appt.mode === 'In-Clinic' ? '#059669' : '#7c3aed',
+                          background: appt.mode === 'Teleconsultation' ? '#e0f2fe' : appt.mode === 'In-Clinic' ? '#ecfdf5' : '#f5f3ff',
+                          padding: '1px 5px',
+                          borderRadius: '4px',
+                          whiteSpace: 'nowrap'
+                        }}>
+                          {translateText(appt.mode)}
+                        </span>
+                      )}
+                    </div>
+                    
+                    <div style={{ fontSize: '10px', color: '#64748b', margin: '2px 0', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                      <CalendarIcon size={10} color="#94a3b8" />
+                      <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                        {translateText(appt.date)}
+                      </span>
+                    </div>
+
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '4px', marginTop: '1px' }}>
+                      <span style={{
+                        fontSize: '9px',
+                        fontWeight: 700,
+                        padding: '1px 6px',
+                        borderRadius: '4px',
+                        background: '#ffffff',
+                        color: appt.color || '#0284c7',
+                        border: '1px solid #e2e8f0',
+                        whiteSpace: 'nowrap',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        maxWidth: '100%'
+                      }}>
+                        {translateText(appt.type)}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

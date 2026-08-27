@@ -63,11 +63,43 @@ export const rachitTiwariProfile: MockHealthProfile = {
   visualAnalytics: {
     healthScore: 95,
     nextAppointment: {
-      doctor: 'Dr. Rajesh K. Varma',
-      date: 'Monday, 19 Jan, 11:00 AM',
-      type: 'Biometric Wellness Check',
-      photoUrl: '/images/rachit_tiwari.jpg'
-    },
+      "doctor": "Dr. Amitava Roy",
+      "initials": "AR",
+      "specialty": "Sports Medicine & Rehab",
+      "date": "Wednesday, 21 Jan, 03:30 PM",
+      "type": "Thoracic & Deltoid Mobility",
+      "mode": "In-Clinic",
+      "color": "#7c3aed"
+},
+    upcomingAppointments: [
+      {
+            "doctor": "Dr. Amitava Roy",
+            "initials": "AR",
+            "specialty": "Sports Medicine & Rehab",
+            "date": "Wednesday, 21 Jan, 03:30 PM",
+            "type": "Thoracic & Deltoid Mobility",
+            "mode": "In-Clinic",
+            "color": "#7c3aed"
+      },
+      {
+            "doctor": "Dr. Sunita Kapoor",
+            "initials": "SK",
+            "specialty": "Diagnostic Cardiology",
+            "date": "Saturday, 24 Jan, 11:15 AM",
+            "type": "Resting HRV & Rhythm Check",
+            "mode": "Hospital Review",
+            "color": "#ef4444"
+      },
+      {
+            "doctor": "Dr. Rohit Sen",
+            "initials": "RS",
+            "specialty": "Primary Health Care",
+            "date": "Tuesday, 27 Jan, 02:00 PM",
+            "type": "Comprehensive ABDM Checkup",
+            "mode": "Teleconsultation",
+            "color": "#059669"
+      }
+],
     heartRateAvg: '70 BPM',
     heartRatePath: 'M 0 95 Q 25 75, 50 80 T 100 60 T 150 85 T 200 40 T 250 75 T 300 65 T 350 82 T 400 55',
     sleepAvg: '8h 05m',

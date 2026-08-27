@@ -77,27 +77,76 @@
     "heartRatePath": "M 0 96 Q 25 76, 50 80 T 100 62 T 150 86 T 200 44 T 250 76 T 300 66 T 350 84 T 400 56",
     "sleepHours": "8h 12m",
     "sleepStatus": "92% Restorative Deep Sleep (Optimal)",
-    "sleepBars": [72, 84, 88, 96, 92, 98, 94],
+    "sleepBars": [
+      72,
+      84,
+      88,
+      96,
+      92,
+      98,
+      94
+    ],
     "stressScore": "14 / 100",
     "stressStatus": "Parasympathetic Rest State (High HRV)",
     "stressPath": "M 0 124 Q 30 114, 60 116 T 120 106 T 180 120 T 240 104 T 300 116 T 350 110",
     "stressPoints": [
-      { "cx": 40, "cy": 114, "isHigh": false },
-      { "cx": 110, "cy": 106, "isHigh": false },
-      { "cx": 190, "cy": 120, "isHigh": false },
-      { "cx": 270, "cy": 104, "isHigh": false },
-      { "cx": 340, "cy": 110, "isHigh": false }
+      {
+        "cx": 40,
+        "cy": 114,
+        "isHigh": false
+      },
+      {
+        "cx": 110,
+        "cy": 106,
+        "isHigh": false
+      },
+      {
+        "cx": 190,
+        "cy": 120,
+        "isHigh": false
+      },
+      {
+        "cx": 270,
+        "cy": 104,
+        "isHigh": false
+      },
+      {
+        "cx": 340,
+        "cy": 110,
+        "isHigh": false
+      }
     ],
     "avgSteps": "10,800",
     "stepsStatus": "+15% Active Daily Movement vs Target",
     "stepsBars": [
-      { "height": 82, "active": false },
-      { "height": 90, "active": false },
-      { "height": 94, "active": false },
-      { "height": 86, "active": false },
-      { "height": 100, "active": true },
-      { "height": 88, "active": false },
-      { "height": 92, "active": false }
+      {
+        "height": 82,
+        "active": false
+      },
+      {
+        "height": 90,
+        "active": false
+      },
+      {
+        "height": 94,
+        "active": false
+      },
+      {
+        "height": 86,
+        "active": false
+      },
+      {
+        "height": 100,
+        "active": true
+      },
+      {
+        "height": 88,
+        "active": false
+      },
+      {
+        "height": 92,
+        "active": false
+      }
     ],
     "aiInsights": {
       "positive": {
@@ -120,12 +169,43 @@
       "hydrationStatus": "2.4L / 2.7L Target Reached"
     },
     "nextAppointment": {
-      "doctor": "Dr. Rajesh K. Varma",
-      "specialty": "Pulmonologist & Preventive Health",
-      "date": "Wednesday, 21 Jan, 10:30 AM",
-      "type": "Routine Wellness Review",
-      "photoUrl": "/images/jiya_jaiswal.jpg"
-    }
+      "doctor": "Dr. Sneha Roy",
+      "initials": "SR",
+      "specialty": "Orthopedics & Sports",
+      "date": "Monday, 19 Jan, 10:30 AM",
+      "type": "Patellar Kinetic Screening",
+      "mode": "In-Clinic",
+      "color": "#0284c7"
+    },
+    "upcomingAppointments": [
+      {
+        "doctor": "Dr. Sneha Roy",
+        "initials": "SR",
+        "specialty": "Orthopedics & Sports",
+        "date": "Monday, 19 Jan, 10:30 AM",
+        "type": "Patellar Kinetic Screening",
+        "mode": "In-Clinic",
+        "color": "#0284c7"
+      },
+      {
+        "doctor": "Dr. Manish Gupta",
+        "initials": "MG",
+        "specialty": "Preventive Pulmonology",
+        "date": "Thursday, 22 Jan, 04:15 PM",
+        "type": "Aerobic Diffusion Evaluation",
+        "mode": "Teleconsultation",
+        "color": "#059669"
+      },
+      {
+        "doctor": "Dr. Deepa Nair",
+        "initials": "DN",
+        "specialty": "Clinical Nutrition",
+        "date": "Monday, 26 Jan, 01:45 PM",
+        "type": "Hydration & Metabolic Plan",
+        "mode": "Teleconsultation",
+        "color": "#db2777"
+      }
+    ]
   },
   "blockchainRecords": [
     {

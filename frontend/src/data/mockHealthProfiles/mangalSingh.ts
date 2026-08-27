@@ -63,11 +63,43 @@ export const mangalSinghProfile: MockHealthProfile = {
   visualAnalytics: {
     healthScore: 94,
     nextAppointment: {
-      doctor: 'Dr. Rajesh K. Varma',
-      date: 'Tuesday, 20 Jan, 03:30 PM',
-      type: 'Preventive Health Assessment',
-      photoUrl: '/images/mangal_singh.jpg'
-    },
+      "doctor": "Dr. Naresh Trehan",
+      "initials": "NT",
+      "specialty": "Cardiology & Thoracic Care",
+      "date": "Wednesday, 21 Jan, 10:00 AM",
+      "type": "Cardiac Stress & ECG Review",
+      "mode": "Hospital Review",
+      "color": "#ef4444"
+},
+    upcomingAppointments: [
+      {
+            "doctor": "Dr. Naresh Trehan",
+            "initials": "NT",
+            "specialty": "Cardiology & Thoracic Care",
+            "date": "Wednesday, 21 Jan, 10:00 AM",
+            "type": "Cardiac Stress & ECG Review",
+            "mode": "Hospital Review",
+            "color": "#ef4444"
+      },
+      {
+            "doctor": "Dr. Vikram Patel",
+            "initials": "VP",
+            "specialty": "Pulmonary Medicine",
+            "date": "Saturday, 24 Jan, 03:30 PM",
+            "type": "VO2 Max Performance Check",
+            "mode": "Teleconsultation",
+            "color": "#0284c7"
+      },
+      {
+            "doctor": "Dr. Geeta Pillai",
+            "initials": "GP",
+            "specialty": "Joint Biomechanics",
+            "date": "Tuesday, 27 Jan, 01:00 PM",
+            "type": "Knee Articular Follow-up",
+            "mode": "In-Clinic",
+            "color": "#d97706"
+      }
+],
     heartRateAvg: '72 BPM',
     heartRatePath: 'M 0 98 Q 25 78, 50 82 T 100 62 T 150 88 T 200 42 T 250 78 T 300 68 T 350 85 T 400 58',
     sleepAvg: '7h 55m',
