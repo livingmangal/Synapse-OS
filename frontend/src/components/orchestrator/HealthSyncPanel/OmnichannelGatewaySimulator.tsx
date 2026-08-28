@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Smartphone, Send, Sparkles, MessageSquare, Globe, CheckCheck, RefreshCw } from 'lucide-react';
+import { Smartphone, Send, Globe } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
@@ -22,6 +22,61 @@ const REGIONAL_SCRIPTS = [
   { code: 'te', name: 'తెలుగు (Telugu)', sample: '1 నాకు తీవ్రమైన జ్వరం మరియు తలనొప్పి ఉంది' },
   { code: 'mr', name: 'मराठी (Marathi)', sample: '1 मला तीव्र ताप आणि डोकेदुखी आहे' }
 ];
+
+// Rich WhatsApp message formatter that parses *bold*, _italics_, ~strike~, code, and bullet points
+function renderWhatsAppFormattedText(text: string, translateTextFn?: (t: string) => string) {
+  if (!text) return null;
+  const lines = text.split('\n');
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
+      {lines.map((line, lineIdx) => {
+        const trimmed = line.trim();
+        if (!trimmed) {
+          return <div key={lineIdx} style={{ height: '6px' }} />;
+        }
+
+        // Split line by bold (*text*), italic (_text_), strike (~text~)
+        const tokens = line.split(/(\*[^*\n]+\*|_[^_\n]+_|~[^~\n]+~)/g);
+
+        return (
+          <div key={lineIdx} style={{ lineHeight: '1.45' }}>
+            {tokens.map((token, tokenIdx) => {
+              if (token.startsWith('*') && token.endsWith('*') && token.length > 2) {
+                const inner = token.slice(1, -1);
+                const translated = translateTextFn ? translateTextFn(inner) : inner;
+                return (
+                  <strong key={tokenIdx} style={{ fontWeight: 800, color: '#0f172a' }}>
+                    {translated}
+                  </strong>
+                );
+              }
+              if (token.startsWith('_') && token.endsWith('_') && token.length > 2) {
+                const inner = token.slice(1, -1);
+                const translated = translateTextFn ? translateTextFn(inner) : inner;
+                return (
+                  <em key={tokenIdx} style={{ fontStyle: 'italic', color: '#475569' }}>
+                    {translated}
+                  </em>
+                );
+              }
+              if (token.startsWith('~') && token.endsWith('~') && token.length > 2) {
+                const inner = token.slice(1, -1);
+                const translated = translateTextFn ? translateTextFn(inner) : inner;
+                return (
+                  <span key={tokenIdx} style={{ textDecoration: 'line-through', color: '#94a3b8' }}>
+                    {translated}
+                  </span>
+                );
+              }
+              const translatedToken = translateTextFn ? translateTextFn(token) : token;
+              return <span key={tokenIdx}>{translatedToken}</span>;
+            })}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
 
 export default function OmnichannelGatewaySimulator() {
   const { t, translateText } = useLanguage();
@@ -188,7 +243,7 @@ export default function OmnichannelGatewaySimulator() {
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <Globe size={16} color="#0284c7" />
           <span style={{ fontSize: '13px', fontWeight: 800, color: '#0f172a' }}>
-            Multilingual Script Auto-Detection:
+            {t('multilingual_script_title', 'Multilingual Script Auto-Detection:')}
           </span>
         </div>
 
@@ -222,11 +277,11 @@ export default function OmnichannelGatewaySimulator() {
       {/* 2. Preset Command Shortcuts */}
       <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
         {[
-          { label: '💉 7 (Vaccination 6 Weeks)', cmd: '7 6 weeks' },
-          { label: '🚨 8 (Delhi Outbreak Alert)', cmd: '8 Delhi' },
-          { label: '🌿 9 (ORS & Diarrhea Guide)', cmd: '9' },
-          { label: '💊 2 (Paracetamol + Aspirin)', cmd: '2 Paracetamol and Aspirin' },
-          { label: '🚨 SOS Emergency Broadcast', cmd: 'SOS' }
+          { icon: '💉', label: translateText('7 (Vaccination 6 Weeks)'), cmd: '7 6 weeks' },
+          { icon: '🚨', label: translateText('8 (Delhi Outbreak Alert)'), cmd: '8 Delhi' },
+          { icon: '🌿', label: translateText('9 (ORS & Diarrhea Guide)'), cmd: '9' },
+          { icon: '💊', label: translateText('2 (Paracetamol + Aspirin)'), cmd: '2 Paracetamol and Aspirin' },
+          { icon: '🚨', label: translateText('SOS Emergency Broadcast'), cmd: 'SOS' }
         ].map((c, i) => (
           <button
             key={i}
@@ -248,7 +303,7 @@ export default function OmnichannelGatewaySimulator() {
               transition: 'all 0.15s ease'
             }}
           >
-            {c.label}
+            {c.icon} {c.label}
           </button>
         ))}
       </div>
@@ -278,12 +333,16 @@ export default function OmnichannelGatewaySimulator() {
                 🌿
               </div>
               <div>
-                <div style={{ fontSize: '13.5px', fontWeight: 800 }}>Sanjeevni-OS WhatsApp Bot</div>
-                <div style={{ fontSize: '10.5px', color: '#e0f2fe' }}>OpenWA Gateway • Online</div>
+                <div style={{ fontSize: '13.5px', fontWeight: 800 }}>
+                  {t('wa_bot_title', 'Sanjeevni-OS WhatsApp Bot')}
+                </div>
+                <div style={{ fontSize: '10.5px', color: '#e0f2fe' }}>
+                  {t('wa_gateway_online', 'OpenWA Gateway • Online')}
+                </div>
               </div>
             </div>
             <span style={{ fontSize: '11px', color: '#ffffff', background: 'rgba(255,255,255,0.2)', padding: '2px 8px', borderRadius: '8px' }}>
-              WhatsApp Channel
+              {t('wa_channel_badge', 'WhatsApp Channel')}
             </span>
           </div>
 
@@ -306,15 +365,15 @@ export default function OmnichannelGatewaySimulator() {
                   whiteSpace: 'pre-line'
                 }}
               >
-                {m.text}
+                {renderWhatsAppFormattedText(m.text, translateText)}
                 <div style={{ fontSize: '10px', color: '#64748b', textAlign: 'right', marginTop: '4px' }}>
-                  {m.timestamp} {m.sender === 'user' ? '✓✓' : ''}
+                  {m.timestamp === 'Just now' ? translateText('Just now') : m.timestamp} {m.sender === 'user' ? '✓✓' : ''}
                 </div>
               </div>
             ))}
             {waLoading && (
               <div style={{ alignSelf: 'flex-start', background: '#ffffff', borderRadius: '10px', padding: '8px 14px', fontSize: '12px', color: '#64748b', border: '1px solid #e2e8f0' }}>
-                Typing clinical directive...
+                {translateText('Typing clinical directive...')}
               </div>
             )}
           </div>
@@ -326,14 +385,14 @@ export default function OmnichannelGatewaySimulator() {
               value={waInput}
               onChange={e => setWaInput(e.target.value)}
               onKeyDown={e => e.key === 'Enter' && handleSendWhatsApp()}
-              placeholder="Type query or command (1-9)..."
+              placeholder={t('type_query_wa', 'Type query or command (1-9)...')}
               style={{ flex: 1, padding: '9px 14px', borderRadius: '10px', border: '1px solid #cbd5e1', fontSize: '13px', outline: 'none', background: '#f8fafc' }}
             />
             <button
               onClick={() => handleSendWhatsApp()}
               style={{ padding: '9px 16px', borderRadius: '10px', background: '#0284c7', color: '#ffffff', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px', fontWeight: 800, fontSize: '12px' }}
             >
-              <Send size={13} /> Send
+              <Send size={13} /> {t('send_btn', 'Send')}
             </button>
           </div>
         </div>
@@ -354,12 +413,16 @@ export default function OmnichannelGatewaySimulator() {
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <Smartphone size={16} color="#38bdf8" />
               <div>
-                <div style={{ fontSize: '13.5px', fontWeight: 800 }}>2G Feature Phone SMS (160 Chars)</div>
-                <div style={{ fontSize: '10px', color: '#94a3b8' }}>GSM 7-Bit Clean Protocol • Offline Fallback</div>
+                <div style={{ fontSize: '13.5px', fontWeight: 800 }}>
+                  {t('sms_bot_title', '2G Feature Phone SMS (160 Chars)')}
+                </div>
+                <div style={{ fontSize: '10px', color: '#94a3b8' }}>
+                  {t('sms_protocol_sub', 'GSM 7-Bit Clean Protocol • Offline Fallback')}
+                </div>
               </div>
             </div>
             <span style={{ fontSize: '10px', color: '#38bdf8', border: '1px solid #0284c7', padding: '2px 6px', borderRadius: '4px' }}>
-              No Internet Required
+              {t('no_internet_badge', 'No Internet Required')}
             </span>
           </div>
 
@@ -381,15 +444,15 @@ export default function OmnichannelGatewaySimulator() {
                   border: m.sender === 'user' ? '1px solid #0284c7' : '1px solid #334155'
                 }}
               >
-                {m.text}
+                {translateText(m.text)}
                 <div style={{ fontSize: '9px', color: '#94a3b8', textAlign: 'right', marginTop: '4px' }}>
-                  {m.timestamp} • {m.text.length} Chars ({Math.ceil(m.text.length / 160)} SMS Part)
+                  {m.timestamp} • {m.text.length} {translateText('Chars')} ({Math.ceil(m.text.length / 160)} {translateText('SMS Part')})
                 </div>
               </div>
             ))}
             {smsLoading && (
               <div style={{ alignSelf: 'flex-start', background: '#1e293b', padding: '6px 12px', borderRadius: '8px', fontSize: '11px', color: '#38bdf8', fontFamily: 'monospace' }}>
-                Relaying via GSM SMS Gateway...
+                {translateText('Relaying via GSM SMS Gateway...')}
               </div>
             )}
           </div>
@@ -401,14 +464,14 @@ export default function OmnichannelGatewaySimulator() {
               value={smsInput}
               onChange={e => setSmsInput(e.target.value)}
               onKeyDown={e => e.key === 'Enter' && handleSendSMS()}
-              placeholder="Type SMS query (e.g. 7, 8, 9, SOS)..."
+              placeholder={t('type_query_sms', 'Type SMS query (e.g. 7, 8, 9, SOS)...')}
               style={{ flex: 1, padding: '9px 14px', borderRadius: '10px', border: '1px solid #475569', background: '#0f172a', color: '#ffffff', fontSize: '12.5px', outline: 'none', fontFamily: 'monospace' }}
             />
             <button
               onClick={() => handleSendSMS()}
               style={{ padding: '9px 16px', borderRadius: '10px', background: '#0284c7', color: '#ffffff', border: 'none', cursor: 'pointer', fontWeight: 800, fontSize: '12px', display: 'flex', alignItems: 'center', gap: '4px' }}
             >
-              <Send size={13} /> Send
+              <Send size={13} /> {t('send_btn', 'Send')}
             </button>
           </div>
         </div>

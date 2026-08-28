@@ -205,7 +205,7 @@ export default function RuralPreventiveHub() {
               {t('rural_preventive_title', 'Rural Health Literacy & Self-Care')}
             </h3>
             <span style={{ fontSize: '11px', color: '#64748b' }}>
-              National Health Mission • Poshan Abhiyaan • WASH
+              {translateText('National Health Mission • Poshan Abhiyaan • WASH')}
             </span>
           </div>
         </div>
@@ -226,7 +226,7 @@ export default function RuralPreventiveHub() {
               transition: 'all 0.15s ease'
             }}
           >
-            Guides
+            {t('tab_guides', 'Guides')}
           </button>
           <button
             onClick={() => setActiveTab('quiz')}
@@ -242,7 +242,7 @@ export default function RuralPreventiveHub() {
               transition: 'all 0.15s ease'
             }}
           >
-            Awareness Quiz
+            {t('tab_quiz', 'Awareness Quiz')}
           </button>
         </div>
       </div>
@@ -252,16 +252,16 @@ export default function RuralPreventiveHub() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
           {/* Topic Pills */}
           <div style={{ display: 'flex', gap: '8px', overflowX: 'auto', paddingBottom: '4px' }}>
-            {PREVENTIVE_TOPICS.map(t => (
+            {PREVENTIVE_TOPICS.map(topic => (
               <button
-                key={t.id}
-                onClick={() => setSelectedTopicId(t.id)}
+                key={topic.id}
+                onClick={() => setSelectedTopicId(topic.id)}
                 style={{
                   padding: '7px 12px',
                   borderRadius: '10px',
-                  background: selectedTopicId === t.id ? '#0284c7' : '#f8fafc',
-                  color: selectedTopicId === t.id ? '#ffffff' : '#334155',
-                  border: selectedTopicId === t.id ? '1.5px solid #0369a1' : '1px solid #e2e8f0',
+                  background: selectedTopicId === topic.id ? '#0284c7' : '#f8fafc',
+                  color: selectedTopicId === topic.id ? '#ffffff' : '#334155',
+                  border: selectedTopicId === topic.id ? '1.5px solid #0369a1' : '1px solid #e2e8f0',
                   fontSize: '12px',
                   fontWeight: 700,
                   cursor: 'pointer',
@@ -269,7 +269,7 @@ export default function RuralPreventiveHub() {
                   transition: 'all 0.15s ease'
                 }}
               >
-                {t.icon} {t.title.split(' ')[0]}
+                {topic.icon} {translateText(topic.title)}
               </button>
             ))}
           </div>
@@ -286,17 +286,17 @@ export default function RuralPreventiveHub() {
           }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span style={{ fontSize: '14px', fontWeight: 900, color: '#0f172a' }}>
-                {activeTopic.icon} {activeTopic.title}
+                {activeTopic.icon} {translateText(activeTopic.title)}
               </span>
               <span style={{ fontSize: '10.5px', fontWeight: 800, padding: '2px 8px', borderRadius: '6px', background: '#fdf2f8', color: '#db2777', border: '1px solid #fbcfe8' }}>
-                {activeTopic.category}
+                {translateText(activeTopic.category)}
               </span>
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
               {activeTopic.steps.map((s, i) => (
                 <div key={i} style={{ fontSize: '12.5px', color: '#334155', lineHeight: 1.45 }}>
-                  {s}
+                  {translateText(s)}
                 </div>
               ))}
             </div>
@@ -310,11 +310,11 @@ export default function RuralPreventiveHub() {
               color: '#991b1b',
               marginTop: '4px'
             }}>
-              🚨 <b>Red Flag:</b> {activeTopic.redFlag}
+              🚨 <b>{translateText('Red Flag:')}</b> {translateText(activeTopic.redFlag)}
             </div>
 
             <div style={{ fontSize: '11px', color: '#64748b', textAlign: 'right' }}>
-              Scheme: <b>{activeTopic.scheme}</b>
+              {translateText('Scheme:')} <b>{translateText(activeTopic.scheme)}</b>
             </div>
           </div>
         </div>
@@ -326,12 +326,12 @@ export default function RuralPreventiveHub() {
           {!isQuizFinished ? (
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', color: '#64748b', marginBottom: '8px' }}>
-                <span>Question {currentQIndex + 1} of {QUIZ_QUESTIONS.length}</span>
-                <span style={{ color: '#0284c7', fontWeight: 800 }}>+25% Awareness Target</span>
+                <span>{translateText('Question')} {currentQIndex + 1} {translateText('of')} {QUIZ_QUESTIONS.length}</span>
+                <span style={{ color: '#0284c7', fontWeight: 800 }}>{translateText('+25% Awareness Target')}</span>
               </div>
 
               <div style={{ fontSize: '13.5px', fontWeight: 900, color: '#0f172a', marginBottom: '12px', lineHeight: 1.45 }}>
-                {currentQ.question}
+                {translateText(currentQ.question)}
               </div>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '12px' }}>
@@ -376,7 +376,7 @@ export default function RuralPreventiveHub() {
                         transition: 'all 0.15s ease'
                       }}
                     >
-                      {String.fromCharCode(65 + idx)}. {opt}
+                      {String.fromCharCode(65 + idx)}. {translateText(opt)}
                     </button>
                   );
                 })}
@@ -393,7 +393,7 @@ export default function RuralPreventiveHub() {
                   lineHeight: 1.45,
                   border: userSelections[currentQ.id] === currentQ.correct ? '1px solid #bbf7d0' : '1px solid #fecaca'
                 }}>
-                  💡 <b>Explanation:</b> {currentQ.explanation}
+                  💡 <b>{translateText('Explanation:')}</b> {translateText(currentQ.explanation)}
                 </div>
               )}
 
@@ -417,7 +417,7 @@ export default function RuralPreventiveHub() {
                     boxShadow: '0 2px 8px rgba(2, 132, 199, 0.25)'
                   }}
                 >
-                  {currentQIndex < QUIZ_QUESTIONS.length - 1 ? 'Next Question' : 'View Health Literacy Score'} <ArrowRight size={15} />
+                  {currentQIndex < QUIZ_QUESTIONS.length - 1 ? translateText('Next Question') : translateText('View Health Literacy Score')} <ArrowRight size={15} />
                 </button>
               )}
             </div>
@@ -435,13 +435,13 @@ export default function RuralPreventiveHub() {
             }}>
               <Award size={40} color="#0284c7" />
               <h4 style={{ margin: 0, fontSize: '16px', fontWeight: 900, color: '#0f172a' }}>
-                Awareness Level: {calculateScore()}/{QUIZ_QUESTIONS.length} ({(calculateScore()/QUIZ_QUESTIONS.length*100).toFixed(0)}%)
+                {translateText('Awareness Level:')} {calculateScore()}/{QUIZ_QUESTIONS.length} ({(calculateScore()/QUIZ_QUESTIONS.length*100).toFixed(0)}%)
               </h4>
               <span style={{ fontSize: '12px', color: '#db2777', fontWeight: 800 }}>
-                🌟 +25% Health Literacy Gain Achieved!
+                {translateText('🌟 +25% Health Literacy Gain Achieved!')}
               </span>
               <p style={{ fontSize: '12px', color: '#475569', margin: 0, lineHeight: 1.45 }}>
-                Certified compliant with National Health Mission preventive education benchmarks.
+                {translateText('Certified compliant with National Health Mission preventive education benchmarks.')}
               </p>
               <button
                 onClick={handleResetQuiz}
@@ -460,7 +460,7 @@ export default function RuralPreventiveHub() {
                   gap: '6px'
                 }}
               >
-                <RotateCcw size={13} /> Retake Quiz
+                <RotateCcw size={13} /> {translateText('Retake Quiz')}
               </button>
             </div>
           )}
