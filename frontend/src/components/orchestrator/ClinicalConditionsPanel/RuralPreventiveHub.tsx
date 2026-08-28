@@ -251,7 +251,14 @@ export default function RuralPreventiveHub() {
       {activeTab === 'guides' && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
           {/* Topic Pills */}
-          <div style={{ display: 'flex', gap: '8px', overflowX: 'auto', paddingBottom: '4px' }}>
+          <div 
+            onWheel={(e) => {
+              if (e.deltaY) {
+                e.currentTarget.scrollLeft += e.deltaY * 0.8;
+              }
+            }}
+            style={{ display: 'flex', gap: '8px', overflowX: 'auto', paddingBottom: '4px' }}
+          >
             {PREVENTIVE_TOPICS.map(topic => (
               <button
                 key={topic.id}

@@ -154,6 +154,12 @@ export default function OrchestratorTopNav({
         <div
           ref={trackRef}
           onScroll={checkScroll}
+          onWheel={(e) => {
+            if (trackRef.current && e.deltaY) {
+              e.stopPropagation();
+              trackRef.current.scrollLeft += e.deltaY * 0.8;
+            }
+          }}
           style={{
             display: 'flex',
             alignItems: 'center',

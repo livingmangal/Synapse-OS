@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './orchestrator.css';
 
 import OrchestratorSidebar from '@/components/orchestrator/OrchestratorSidebar';
@@ -29,6 +29,11 @@ export default function OrchestratorAgentPage() {
   const [isAbhaLinked, setIsAbhaLinked] = useState<boolean>(true);
   const [selectedProfileId, setSelectedProfileId] = useState<string>('mausam_kar_verified_abha');
   const [customProfile, setCustomProfile] = useState<MockHealthProfile | null>(null);
+
+  // Dynamic Workspace Ref and Mouse Drag/Wheel scrolling state
+  const workspaceRef = useRef<HTMLDivElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const dragStartRef = useRef<{ x: number; y: number; scrollLeft: number; scrollTop: number } | null>(null);
 
   // Restore saved profile and active tab from client storage on mount
   useEffect(() => {
@@ -245,10 +250,102 @@ export default function OrchestratorAgentPage() {
     }
   };
 
+  // Smooth mouse wheel conversion for horizontal overflow across sections
+  const handleWorkspaceWheel = (e: React.WheelEvent<HTMLDivElement>) => {
+    const el = workspaceRef.current;
+    if (!el) return;
+
+    // Check if hovered element or its parents are a specific scrollable sub-element
+    let target = e.target as HTMLElement | null;
+    let handledByChild = false;
+
+    while (target && target !== el) {
+      if (
+        target.scrollWidth > target.clientWidth &&
+        (target.style.overflowX === 'auto' ||
+          target.style.overflowX === 'scroll' ||
+          window.getComputedStyle(target).overflowX === 'auto' ||
+          window.getComputedStyle(target).overflowX === 'scroll')
+      ) {
+        if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+          target.scrollLeft += e.deltaY * 0.9;
+          handledByChild = true;
+          e.stopPropagation();
+          break;
+        }
+      }
+      target = target.parentElement;
+    }
+
+    if (handledByChild) return;
+
+    // Handle main workspace scrolling
+    const hasHorizontalOverflow = el.scrollWidth > el.clientWidth;
+    const hasVerticalOverflow = el.scrollHeight > el.clientHeight;
+
+    // If shift key or horizontal-only, translate vertical wheel to horizontal
+    if (e.shiftKey && hasHorizontalOverflow) {
+      el.scrollLeft += e.deltaY;
+    } else if (hasHorizontalOverflow && !hasVerticalOverflow) {
+      el.scrollLeft += e.deltaY * 1.1;
+    } else if (hasHorizontalOverflow && hasVerticalOverflow) {
+      // If user reaches the vertical boundaries, let the wheel continue horizontally
+      const atTop = el.scrollTop <= 0 && e.deltaY < 0;
+      const atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 4 && e.deltaY > 0;
+      if (atTop || atBottom) {
+        el.scrollLeft += e.deltaY * 1.1;
+      }
+    }
+  };
+
+  // Cursor Drag-to-Scroll Handlers
+  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.button !== 0) return; // Only primary left click
+
+    const target = e.target as HTMLElement;
+    // Don't drag if clicking interactive elements
+    if (
+      target.closest('button') ||
+      target.closest('input') ||
+      target.closest('select') ||
+      target.closest('textarea') ||
+      target.closest('a') ||
+      target.closest('[role="button"]') ||
+      target.closest('.interactive-clickable') ||
+      target.closest('canvas')
+    ) {
+      return;
+    }
+
+    const el = workspaceRef.current;
+    if (!el) return;
+
+    dragStartRef.current = {
+      x: e.clientX,
+      y: e.clientY,
+      scrollLeft: el.scrollLeft,
+      scrollTop: el.scrollTop
+    };
+    setIsDragging(true);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!isDragging || !dragStartRef.current || !workspaceRef.current) return;
+    const dx = e.clientX - dragStartRef.current.x;
+    const dy = e.clientY - dragStartRef.current.y;
+    workspaceRef.current.scrollLeft = dragStartRef.current.scrollLeft - dx;
+    workspaceRef.current.scrollTop = dragStartRef.current.scrollTop - dy;
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+    dragStartRef.current = null;
+  };
+
   return (
     <>
       {/* Main Orchestrator Workspace Root */}
-      <div className="orch-root" style={{ fontFamily: '"Times New Roman", Times, serif' }}>
+      <div className="orch-root" data-lenis-prevent="true" style={{ fontFamily: '"Times New Roman", Times, serif' }}>
         {/* 1. Left Navigation Sidebar */}
         <OrchestratorSidebar 
           onOpenSOS={() => setIsExportModalOpen(true)}
@@ -282,13 +379,22 @@ export default function OrchestratorAgentPage() {
 
           {/* Dynamic Main Workspace Area */}
           <div 
-            className="orch-main-workspace"
+            ref={workspaceRef}
+            data-lenis-prevent="true"
+            className={`orch-main-workspace ${isDragging ? 'is-dragging' : ''}`}
+            onWheel={handleWorkspaceWheel}
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseUp}
             style={{
               flex: 1,
               overflowY: 'auto',
+              overflowX: 'auto',
               padding: '24px 28px',
               display: 'flex',
-              flexDirection: 'column'
+              flexDirection: 'column',
+              cursor: isDragging ? 'grabbing' : 'default'
             }}
           >
             {/* TAB 1: My Condition / 3D Digital Health Twin */}

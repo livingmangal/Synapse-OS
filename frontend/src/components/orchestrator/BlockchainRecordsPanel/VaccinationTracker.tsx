@@ -207,12 +207,19 @@ export default function VaccinationTracker({ patientName = 'Aarav Sharma', abhaI
       {category === 'child' && (
         <>
           {/* Milestone Navigator Bar */}
-          <div style={{
-            display: 'flex',
-            gap: '8px',
-            overflowX: 'auto',
-            paddingBottom: '6px'
-          }}>
+          <div 
+            onWheel={(e) => {
+              if (e.deltaY) {
+                e.currentTarget.scrollLeft += e.deltaY * 0.8;
+              }
+            }}
+            style={{
+              display: 'flex',
+              gap: '8px',
+              overflowX: 'auto',
+              paddingBottom: '6px'
+            }}
+          >
             {CHILD_MILESTONES.map((m) => {
               const isSelected = m.id === selectedMilestoneId;
               const hasDue = m.vaccines.some(v => v.status === 'due_now');

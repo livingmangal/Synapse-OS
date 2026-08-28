@@ -78,22 +78,41 @@
 
 /* Custom Scrollbars */
 .orch-root ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
 }
 
 .orch-root ::-webkit-scrollbar-track {
-  background: var(--orch-surface-subtle);
-  border-radius: 4px;
+  background: rgba(241, 245, 249, 0.6);
+  border-radius: 9999px;
 }
 
 .orch-root ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 4px;
+  background: rgba(56, 189, 248, 0.45);
+  border-radius: 9999px;
+  border: 1px solid rgba(186, 230, 253, 0.5);
 }
 
 .orch-root ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: rgba(2, 132, 199, 0.75);
+}
+
+.orch-root * {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(56, 189, 248, 0.45) rgba(241, 245, 249, 0.6);
+}
+
+.orch-main-workspace {
+  overflow-x: auto !important;
+  overflow-y: auto !important;
+  scroll-behavior: auto;
+  user-select: auto;
+  cursor: default;
+}
+
+.orch-main-workspace.is-dragging {
+  cursor: grabbing !important;
+  user-select: none !important;
 }
 
 /* Hotspot pulse animations */

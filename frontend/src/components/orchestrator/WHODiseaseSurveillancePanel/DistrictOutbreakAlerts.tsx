@@ -344,7 +344,14 @@ export default function DistrictOutbreakAlerts() {
       )}
 
       {/* District Pill Selector */}
-      <div style={{ display: 'flex', gap: '8px', overflowX: 'auto', paddingBottom: '4px' }}>
+      <div 
+        onWheel={(e) => {
+          if (e.deltaY) {
+            e.currentTarget.scrollLeft += e.deltaY * 0.8;
+          }
+        }}
+        style={{ display: 'flex', gap: '8px', overflowX: 'auto', paddingBottom: '4px' }}
+      >
         {DISTRICT_DATABASE.map(d => {
           const isSelected = d.id === selectedDistrictId;
           const isHigh = d.riskLevel === 'HIGH_SURGE';
