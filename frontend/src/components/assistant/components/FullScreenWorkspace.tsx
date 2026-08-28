@@ -307,7 +307,7 @@ export default function FullScreenWorkspace({
               <span style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a' }}>AI Engine & API Settings</span>
               <button onClick={() => setShowSettingsModal(false)} style={{ background: 'none', border: 'none', cursor: 'pointer' }}><X size={16} /></button>
             </div>
-            <div style={{ flex: 1, overflowY: 'auto' }}>
+            <div style={{ flex: 1, overflowY: 'auto' }} className="synapseos-custom-scroll">
               <SettingsDrawer
                 assistantPersona={assistantPersona}
                 onPersonaChange={onPersonaChange}
@@ -371,7 +371,7 @@ export default function FullScreenWorkspace({
               <span style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a' }}>WhatsApp Multi-Channel Bridge</span>
               <button onClick={() => setShowWhatsAppModal(false)} style={{ background: 'none', border: 'none', cursor: 'pointer' }}><X size={16} /></button>
             </div>
-            <div style={{ flex: 1, overflowY: 'auto' }}>
+            <div style={{ flex: 1, overflowY: 'auto' }} className="synapseos-custom-scroll">
               <WhatsAppBridgeModal
                 waPhoneNumber={waPhoneNumber}
                 setWaPhoneNumber={setWaPhoneNumber}
