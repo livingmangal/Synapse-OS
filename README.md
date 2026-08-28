@@ -28,65 +28,66 @@
 
 ---
 
-## Table of Contents
+## 📑 Table of Contents
 
-- [Product & Interface Showcase](#-product--interface-showcase)
-- [Hackathon Problem Statement](#-hackathon-problem-statement--solution-mapping)
-- [Executive Summary](#1-executive-summary)
-- [Official Architecture Diagrams](#2-official-architecture-diagrams)
-- [System Architecture](#3-system-architecture)
-- [Agent Swarm: 13 Specialized Agents](#4-agent-swarm--13-specialized-agents)
-- [Technology Stack](#5-technology-stack)
-- [Application Workflow](#6-application-workflow)
-- [Data Flow](#7-data-flow)
-- [Blockchain Architecture](#8-blockchain-architecture)
-- [Wearable Telemetry Pipeline](#9-wearable-telemetry-pipeline)
-- [Multilingual Architecture](#10-multilingual-architecture)
-- [Project Structure](#11-project-structure)
-- [API Reference](#12-api-reference)
-- [Environment Configuration](#13-environment-configuration)
-- [Installation & Local Setup](#14-installation--local-setup)
-- [Docker & Kubernetes Deployment](#15-docker--kubernetes-deployment)
-- [Security Considerations](#16-security-considerations)
-- [Feature Documentation](#17-feature-documentation)
-- [Scalability & Future Improvements](#18-scalability--future-improvements)
-- [Contributing](#19-contributing)
-- [License](#20-license)
+| Icon | Section | Link |
+| :---: | :--- | :--- |
+| 📸 | **Product & Interface Showcase** | [Go to section](#-product--interface-showcase) |
+| 🎯 | **Hackathon Problem Statement** | [Go to section](#-hackathon-problem-statement--solution-mapping) |
+| 📝 | **Executive Summary** | [Go to section](#1-executive-summary) |
+| 🏗️ | **Official Architecture Diagrams** | [Go to section](#2-official-architecture-diagrams) |
+| 🏛️ | **System Architecture** | [Go to section](#3-system-architecture) |
+| 🤖 | **Agent Swarm: 13 Specialized Agents** | [Go to section](#4-agent-swarm--13-specialized-agents) |
+| 💻 | **Technology Stack** | [Go to section](#5-technology-stack) |
+| 🔄 | **Application Workflow** | [Go to section](#6-application-workflow) |
+| 🌊 | **Data Flow** | [Go to section](#7-data-flow) |
+| 🔗 | **Blockchain Architecture** | [Go to section](#8-blockchain-architecture) |
+| ⌚ | **Wearable Telemetry Pipeline** | [Go to section](#9-wearable-telemetry-pipeline) |
+| 🌐 | **Multilingual Architecture** | [Go to section](#10-multilingual-architecture) |
+| 📁 | **Project Structure** | [Go to section](#11-project-structure) |
+| 🔌 | **API Reference** | [Go to section](#12-api-reference) |
+| ⚙️ | **Environment Configuration** | [Go to section](#13-environment-configuration) |
+| 🚀 | **Installation & Local Setup** | [Go to section](#14-installation--local-setup) |
+| 🐳 | **Docker & Kubernetes Deployment** | [Go to section](#15-docker--kubernetes-deployment) |
+| 🔒 | **Security Considerations** | [Go to section](#16-security-considerations) |
+| 📖 | **Feature Documentation** | [Go to section](#17-feature-documentation) |
+| 📈 | **Scalability & Future Improvements** | [Go to section](#18-scalability--future-improvements) |
+| 🤝 | **Contributing** | [Go to section](#19-contributing) |
+| 📜 | **License** | [Go to section](#20-license) |
 
----
 
 ## 📸 Product & Interface Showcase
 
 <div align="center">
 
-### Landing Page & Autonomous Agentic Architecture
+### 🏠 Landing Page & Autonomous Agentic Architecture
 ![SynapseOS Landing Page](./Preview%20Images/01_Landing_Page_Architecture_Hero.png)
 
-### Clinical AI Copilot & Voice Interface
+### 🩺 Clinical AI Copilot & Voice Interface
 
 | Multilingual AI Copilot Workspace | Live Multimodal Voice AI Orb |
 | :---: | :---: |
 | ![Clinical Copilot](./Preview%20Images/02_AI_Assistant_Clinical_Copilot_Workspace.png) | ![Voice AI Orb](./Preview%20Images/03_Live_AI_Voice_Orb_Interface.png) |
 
-### Orchestrator 3D Digital Health Twin & Rural Healthcare Hub
+### 🧍 Orchestrator 3D Digital Health Twin & Rural Healthcare Hub
 
 | 3D Digital Health Twin (Hindi UI) | Omnichannel WhatsApp & 2G SMS Gateway |
 | :---: | :---: |
 | ![3D Body Twin](./Preview%20Images/04_Orchestrator_3D_Digital_Body_Twin.png) | ![Rural WhatsApp SMS Hub](./Preview%20Images/05_Rural_Health_WhatsApp_SMS_Gateway.png) |
 
-### Disease Surveillance & Universal Immunization
+### 🦠 Disease Surveillance & Universal Immunization
 
 | UIP & U-WIN Vaccine Milestone Tracker | WHO Global Epidemic Transmission Vector Map |
 | :---: | :---: |
 | ![UIP Vaccine Tracker](./Preview%20Images/06_Universal_Immunization_UWIN_Tracker.png) | ![WHO Outbreak Radar](./Preview%20Images/08_WHO_Epidemic_Outbreak_Vector_Map.png) |
 
-### Medical Scan AI & Blockchain Records
+### 🩻 Medical Scan AI & Blockchain Records
 
 | MONAI & YOLOv8 FractureNet Radiography | ABDM ABHA Generator & Blockchain Passport |
 | :---: | :---: |
 | ![Medical Scan AI](./Preview%20Images/09_Medical_Scan_MONAI_YOLOv8_Diagnostics.png) | ![ABDM Blockchain Passport](./Preview%20Images/10_ABDM_ABHA_Health_Records_Blockchain.png) |
 
-### Wearable Telemetry & Longitudinal Analytics
+### 📊 Wearable Telemetry & Longitudinal Analytics
 
 | Apple Health & Google Fit Live ECG Stream | Longitudinal Biomarkers & Wellness Dashboard |
 | :---: | :---: |
@@ -112,7 +113,7 @@
 
 ---
 
-## 1. Executive Summary
+## 📝 1. Executive Summary
 
 SynapseOS is an open-source, production-grade **multi-agent health operating system** built for the ICDC Smart VIT Hackathon 2026. It deploys a swarm of 13 specialized autonomous AI agents — each independently testable and hot-swappable — coordinated by a central Orchestrator DAG (Directed Acyclic Graph) pipeline.
 
@@ -136,30 +137,30 @@ The platform delivers a full clinical AI stack covering:
 
 ---
 
-## 2. Official Architecture Diagrams
+## 🏗️ 2. Official Architecture Diagrams
 
 The following diagrams are official project artifacts from the `SVH-2026-Docs/` directory.
 
-### System Architecture (Dark Theme)
+### 🏛️ System Architecture (Dark Theme)
 
 ![SynapseOS Architecture Diagram](./SVH-2026-Docs/Architecture%20Diagram%20Dark.png)
 
 *Five-layer freeform architecture: 6 user channels → Channel Adapter → Orchestrator Agent → 18-agent swarm in 5 clusters → shared memory (Vector DB + Relational DB + Event Bus) + external APIs + blockchain verification.*
 
-### User Journey Flowchart (Light Theme)
+### 🔹 User Journey Flowchart (Light Theme)
 
-![SynapseOS Flowchart](./SVH-2026-Docs/Flowchart%20Light.png)
+![SynapseOS Flowchart](./SVH-2026-Docs/Flowchart%20dark.png)
 
 *Five-layer flow: User Channels → Channel Adapter → Orchestrator ("Sanjeevani") → Specialized Agent Swarm (18 agents, 5 clusters) → Shared State, Live Data & Verification Layer.*
 
 ---
 
-## 3. System Architecture
+## 🏛️ 3. System Architecture
 
-### Five-Layer Architecture Overview
+### 🥞 Five-Layer Architecture Overview
 
 ```mermaid
-flowchart TB
+flowchart LR
     classDef client fill:#e0f2fe,stroke:#0284c7,color:#0f172a
     classDef gateway fill:#f0fdf4,stroke:#16a34a,color:#0f172a
     classDef swarm fill:#faf5ff,stroke:#9333ea,color:#0f172a
@@ -211,7 +212,7 @@ flowchart TB
     L1 --> L2 --> L3 --> L4 --> L5
 ```
 
-### Authentication & Session Flow
+### 🔑 Authentication & Session Flow
 
 SynapseOS uses a **session-based stateless model**. Each API request receives a UUID-based `session_id` generated server-side. No third-party authentication provider is implemented — the platform operates as a public health tool without user accounts, preserving anonymity for rural populations.
 
@@ -225,18 +226,18 @@ SynapseOS uses a **session-based stateless model**. Each API request receives a 
 
 ---
 
-## 4. Agent Swarm — 13 Specialized Agents
+## 🤖 4. Agent Swarm — 13 Specialized Agents
 
 All 13 agents share a common `SynapseOSState` Pydantic schema and contribute structured outputs to a unified execution trace that the frontend renders as a visual DAG progress tracker.
 
-### 4.1 Interface & Orchestration
+### 🎛️ 4.1 Interface & Orchestration
 
 | Agent | File | Responsibility | Key Trigger Keywords |
 | :--- | :--- | :--- | :--- |
 | **Deterministic Safety Gate** | `core/safety_router.py` | Pre-pipeline intercept for crisis, suicide ideation, and medical emergencies using deterministic regex. Never bypassed by LLM. | "kill myself", "chest pain", "unconscious" |
 | **Orchestrator DAG** | `agents/orchestrator.py` | Intent classification → agent routing → multi-agent result merge → LLM synthesis. Coordinates the full pipeline with execution tracing. | Every incoming message |
 
-### 4.2 Clinical Intelligence Cluster
+### 🧠 4.2 Clinical Intelligence Cluster
 
 | Agent | File | Responsibility | External Services |
 | :--- | :--- | :--- | :--- |
@@ -246,7 +247,7 @@ All 13 agents share a common `SynapseOSState` Pydantic schema and contribute str
 | **Hybrid Retrieval Agent** | `agents/retrieval_agent.py` | Parallel Wikipedia Medical REST + curated knowledge index (23 WHO/ICMR/MoHFW guidelines). Returns grounded clinical context. | Wikipedia REST API |
 | **Mental Health Agent** | `agents/mental_health_agent.py` | Tele-MANAS (14416) integration, WHO mhGAP protocol routing, CBT/SSRIs guidance. | Groq LLM |
 
-### 4.3 Public Health Cluster
+### 🏥 4.3 Public Health Cluster
 
 | Agent | File | Responsibility | External Services |
 | :--- | :--- | :--- | :--- |
@@ -254,7 +255,7 @@ All 13 agents share a common `SynapseOSState` Pydantic schema and contribute str
 | **Universal Immunization** | `agents/vaccination_agent.py` | Complete UIP schedule (Birth → 16 years), U-WIN digital certificate generation, maternal Td immunization, age-milestone due-date calculation. | Groq LLM |
 | **Preventive Health Hub** | `agents/preventive_health_agent.py` | ORS preparation, nutrition guides (POSHAN), breastfeeding, vector control, community health quizzes in 11 languages. | Groq LLM |
 
-### 4.4 Records & Digital Twin Cluster
+### 🧬 4.4 Records & Digital Twin Cluster
 
 | Agent / Service | File | Responsibility |
 | :--- | :--- | :--- |
@@ -268,9 +269,9 @@ All 13 agents share a common `SynapseOSState` Pydantic schema and contribute str
 
 ---
 
-## 5. Technology Stack
+## 💻 5. Technology Stack
 
-### 5.1 Frontend
+### 🖥️ 5.1 Frontend
 
 | Technology | Version | Purpose |
 | :--- | :--- | :--- |
@@ -288,7 +289,7 @@ All 13 agents share a common `SynapseOSState` Pydantic schema and contribute str
 | **VAPI AI Web** | 2.6.3 | WebRTC Voice AI SDK — STT → LLM → TTS real-time session |
 | **clsx / tailwind-merge** | latest | Conditional class composition across component variants |
 
-### 5.2 Backend & APIs
+### ⚙️ 5.2 Backend & APIs
 
 | Technology | Version | Purpose |
 | :--- | :--- | :--- |
@@ -304,7 +305,7 @@ All 13 agents share a common `SynapseOSState` Pydantic schema and contribute str
 | **Pytest** | ≥8.0 | Backend unit and integration tests in `backend/tests/` |
 | **OpenWA / wa-automate** | 4.70.0 | Node.js bridge translating WhatsApp messages to FastAPI webhook |
 
-### 5.3 AI / ML & LLM Layer
+### 🧠 5.3 AI / ML & LLM Layer
 
 | Model / Service | Provider | Role |
 | :--- | :--- | :--- |
@@ -317,7 +318,7 @@ All 13 agents share a common `SynapseOSState` Pydantic schema and contribute str
 | **Wikipedia Medical REST** | Wikimedia | Knowledge retrieval, no auth required |
 | **NIH RxNav REST** | NIH NLM | Drug name normalization and interaction lookup |
 
-### 5.4 Blockchain & Web3
+### ⛓️ 5.4 Blockchain & Web3
 
 | Technology | Role |
 | :--- | :--- |
@@ -329,7 +330,7 @@ All 13 agents share a common `SynapseOSState` Pydantic schema and contribute str
 | **Pinata** | IPFS pinning service via JWT authentication |
 | **SHA-256 hashing** | Client-side file integrity hash before on-chain commit |
 
-### 5.5 Infrastructure & DevOps
+### 🏗️ 5.5 Infrastructure & DevOps
 
 | Component | Technology | Responsibility |
 | :--- | :--- | :--- |
@@ -341,7 +342,7 @@ All 13 agents share a common `SynapseOSState` Pydantic schema and contribute str
 | **Docker Compose** | v3.8 | Local full-stack orchestration with health checks |
 | **Kubernetes** | 8 manifests in `k8s/` | Namespace, ConfigMap, Secrets, Deployments, Ingress, HPA |
 
-### 5.6 Third-Party Services & External APIs
+### 🔗 5.6 Third-Party Services & External APIs
 
 | Provider / Service | Category | Integration Point |
 | :--- | :--- | :--- |
@@ -356,9 +357,9 @@ All 13 agents share a common `SynapseOSState` Pydantic schema and contribute str
 
 ---
 
-## 6. Application Workflow
+## 🔄 6. Application Workflow
 
-### End-to-End Request Pipeline
+### 🛤️ End-to-End Request Pipeline
 
 ```mermaid
 sequenceDiagram
@@ -394,7 +395,7 @@ sequenceDiagram
     end
 ```
 
-### Intent Classification
+### 🏷️ Intent Classification
 
 The Orchestrator classifies every incoming message into one of 8 intents before routing:
 
@@ -411,7 +412,7 @@ The Orchestrator classifies every incoming message into one of 8 intents before 
 
 ---
 
-## 7. Data Flow
+## 🌊 7. Data Flow
 
 ```mermaid
 flowchart LR
@@ -436,7 +437,7 @@ flowchart LR
     FHIR_B --> IPFS_P --> SOLIDITY
 ```
 
-### Shared Agent State Schema
+### 💾 Shared Agent State Schema
 
 Every agent reads from and writes to a unified `SynapseOSState` Pydantic object:
 
@@ -459,9 +460,9 @@ Every agent reads from and writes to a unified `SynapseOSState` Pydantic object:
 
 ---
 
-## 8. Blockchain Architecture
+## 🔗 8. Blockchain Architecture
 
-### Smart Contract: `MedicalRecords.sol`
+### 📝 Smart Contract: `MedicalRecords.sol`
 
 Deployed on **Hardhat local node** (development) and **Ethereum Sepolia testnet** (staging). The contract provides a tamper-proof health record registry with SHA-256 file integrity verification and address-based access control.
 
@@ -482,7 +483,7 @@ Contract: MedicalRecords (Solidity 0.8.20)
     └── hasAccess(recordId, grantee) view → bool
 ```
 
-### Blockchain Interaction Flow
+### 🤝 Blockchain Interaction Flow
 
 ```mermaid
 sequenceDiagram
@@ -498,7 +499,7 @@ sequenceDiagram
     Note over FE,SOL: Record permanently anchored on-chain
 ```
 
-### Network Configuration
+### 📡 Network Configuration
 
 | Environment | Network | RPC |
 | :--- | :--- | :--- |
@@ -509,7 +510,7 @@ sequenceDiagram
 
 ---
 
-## 9. Wearable Telemetry Pipeline
+## ⌚ 9. Wearable Telemetry Pipeline
 
 SynapseOS implements four production-grade pathways to ingest real-world health telemetry from consumer wearables:
 
@@ -543,7 +544,7 @@ flowchart TD
 
 ---
 
-## 10. Multilingual Architecture
+## 🌐 10. Multilingual Architecture
 
 SynapseOS natively supports **11 Indic languages + English** across both frontend UI and backend clinical responses.
 
@@ -568,7 +569,7 @@ SynapseOS natively supports **11 Indic languages + English** across both fronten
 
 ---
 
-## 11. Project Structure
+## 📁 11. Project Structure
 
 ```
 Sanjeevni-OS/
@@ -659,11 +660,11 @@ Sanjeevni-OS/
 
 ---
 
-## 12. API Reference
+## 🔌 12. API Reference
 
 All endpoints served at `http://localhost:8000/api`. Interactive docs at `http://localhost:8000/docs`.
 
-### Agent Swarm Endpoints
+### 🤖 Agent Swarm Endpoints
 
 | Method | Endpoint | Description |
 | :--- | :--- | :--- |
@@ -675,7 +676,7 @@ All endpoints served at `http://localhost:8000/api`. Interactive docs at `http:/
 | `GET` | `/api/digital-twin/baseline` | Baseline organ color indices for 3D viewer |
 | `POST` | `/api/diagnostics/risk-score` | Framingham CVD, ADA Diabetes, CKD eGFR calculations |
 
-### Government Health & Records
+### 🏛️ Government Health & Records
 
 | Method | Endpoint | Description |
 | :--- | :--- | :--- |
@@ -684,7 +685,7 @@ All endpoints served at `http://localhost:8000/api`. Interactive docs at `http:/
 | `POST` | `/api/reports/generate-pdf` | Clinical PDF with blockchain QR (binary response) |
 | `GET` | `/api/fhir/bundle` | HL7 FHIR R4 patient bundle |
 
-### Omnichannel & Emergency
+### 📱 Omnichannel & Emergency
 
 | Method | Endpoint | Description |
 | :--- | :--- | :--- |
@@ -692,7 +693,7 @@ All endpoints served at `http://localhost:8000/api`. Interactive docs at `http:/
 | `POST` | `/api/whatsapp/webhook` | OpenWA inbound webhook handler |
 | `POST` | `/api/whatsapp/simulate` | Simulate WhatsApp message for testing |
 
-### Public Health
+### 🏥 Public Health
 
 | Method | Endpoint | Description |
 | :--- | :--- | :--- |
@@ -705,7 +706,7 @@ All endpoints served at `http://localhost:8000/api`. Interactive docs at `http:/
 
 ---
 
-## 13. Environment Configuration
+## ⚙️ 13. Environment Configuration
 
 Copy `.env.example` to `.env`. No secrets required for core offline operation — the platform runs deterministically without LLM keys.
 
@@ -727,9 +728,9 @@ Copy `.env.example` to `.env`. No secrets required for core offline operation �
 
 ---
 
-## 14. Installation & Local Setup
+## 🚀 14. Installation & Local Setup
 
-### Prerequisites
+### ✅ Prerequisites
 
 | Tool | Version | Purpose |
 | :--- | :--- | :--- |
@@ -738,7 +739,7 @@ Copy `.env.example` to `.env`. No secrets required for core offline operation �
 | Docker + Compose | Latest | Full containerized stack |
 | Git | ≥2.40 | Repository cloning |
 
-### Quick Start
+### ⚡ Quick Start
 
 ```bash
 # 1. Clone
@@ -774,9 +775,9 @@ node runner.js
 
 ---
 
-## 15. Docker & Kubernetes Deployment
+## 🐳 15. Docker & Kubernetes Deployment
 
-### Docker Compose (Full Stack)
+### 🐳 Docker Compose (Full Stack)
 
 ```bash
 docker compose up --build          # Development
@@ -791,7 +792,7 @@ docker compose -f docker-compose.prod.yml up --build -d  # Production
 | `synapseos-redis` | Redis 7 Alpine | 6379 | `redis-cli ping` |
 | `synapseos-ipfs` | Kubo latest | 5001, 8081 | — |
 
-### Kubernetes Deployment
+### ☸️ Kubernetes Deployment
 
 ```bash
 kubectl apply -f k8s/namespace.yaml
@@ -812,7 +813,7 @@ kubectl get pods -n synapseos
 
 ---
 
-## 16. Security Considerations
+## 🔒 16. Security Considerations
 
 | Area | Implementation | Status |
 | :--- | :--- | :--- |
@@ -828,13 +829,13 @@ kubectl get pods -n synapseos
 | **Medical Disclaimer** | Every AI clinical response includes a professional disclaimer | ✅ Implemented |
 | **No PII Persistence** | No user accounts, no database, no PII stored server-side | ✅ Implemented |
 
-### Responsible Disclosure
+### 🛡️ Responsible Disclosure
 
 If you discover a security vulnerability, please **do not** open a public GitHub issue. Open a private security advisory via the GitHub Security tab. Allow a minimum 72-hour disclosure window before any public disclosure.
 
 ---
 
-## 17. Feature Documentation
+## 📖 17. Feature Documentation
 
 | Feature | Description | Key Technologies |
 | :--- | :--- | :--- |
@@ -861,9 +862,9 @@ If you discover a security vulnerability, please **do not** open a public GitHub
 
 ---
 
-## 18. Scalability & Future Improvements
+## 📈 18. Scalability & Future Improvements
 
-### Currently Implemented
+### ✅ Currently Implemented
 - ✅ 13 specialized autonomous agents with shared state schema
 - ✅ Docker Compose full-stack local deployment (5 services)
 - ✅ Kubernetes manifests with HPA for auto-scaling
@@ -872,7 +873,7 @@ If you discover a security vulnerability, please **do not** open a public GitHub
 - ✅ Ethereum Sepolia + local Hardhat dual-network support
 - ✅ Offline-first deterministic operation without API keys
 
-### Planned Future Improvements
+### 🚀 Planned Future Improvements
 
 | Area | Improvement | Complexity |
 | :--- | :--- | :--- |
@@ -890,11 +891,11 @@ If you discover a security vulnerability, please **do not** open a public GitHub
 
 ---
 
-## 19. Contributing
+## 🤝 19. Contributing
 
 We welcome contributions from developers, healthcare professionals, and public health researchers.
 
-### Contribution Workflow
+### 📝 Contribution Workflow
 
 1. **Understand the architecture**: Read the [System Architecture](#3-system-architecture) and [Agent Swarm](#4-agent-swarm--13-specialized-agents) sections thoroughly.
 
@@ -921,7 +922,7 @@ We welcome contributions from developers, healthcare professionals, and public h
 
 ---
 
-## 20. License
+## 📜 20. License
 
 The smart contract component (`blockchain/contracts/`) is licensed under **ISC**.
 
@@ -933,7 +934,7 @@ The remainder of the repository is provided for the **ICDC Smart VIT Hackathon 2
 
 ---
 
-### Built with ❤️ for ICDC Smart VIT Hackathon 2026
+### 🔹 Built with ❤️ for ICDC Smart VIT Hackathon 2026
 
 *SynapseOS — Autonomous AI Health for Every Indian*
 
