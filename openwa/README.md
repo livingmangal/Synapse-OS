@@ -1,12 +1,12 @@
-# 📱 Sanjeevani OS — OpenWA WhatsApp Omnichannel Gateway
+# 📱 SynapseOS — OpenWA WhatsApp Omnichannel Gateway
 
-A standalone, modular gateway bridging **WhatsApp** to the **Sanjeevani OS Multi-Agent Clinical Operating System**.
+A standalone, modular gateway bridging **WhatsApp** to the **SynapseOS Multi-Agent Clinical Operating System**.
 
 ---
 
 ## 🌟 Overview
 
-The OpenWA integration allows patients and doctors to interact with Sanjeevani OS directly through WhatsApp:
+The OpenWA integration allows patients and doctors to interact with SynapseOS directly through WhatsApp:
 - **Interactive Menu Flow**: Automated response to greetings (`hi`, `hello`, `menu`, `help`, `start`).
 - **Clinical Triage Swarm**: Immediate urgency classification (**🔴 Emergency**, **🟡 Doctor Consult**, **🟢 Home Care**).
 - **NIH RxNav Drug Safety**: Cross-checks medications for dangerous interactions and flags safe alternatives.

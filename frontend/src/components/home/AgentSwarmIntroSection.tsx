@@ -74,7 +74,7 @@ export function AgentSwarmIntroSection() {
 
         <div className="mod-scroll__images-text__text">
           <p>
-            Unlike simple chatbots, Sanjeevani OS coordinates an entire Swarm of Agents. An Orchestrator plans
+            Unlike simple chatbots, SynapseOS coordinates an entire Swarm of Agents. An Orchestrator plans
             multi-step workflows, delegating sub-tasks to specialized models like the Medical Scan Agent for OCR or
             the Symptom Triage Agent for emergency routing.
           </p>

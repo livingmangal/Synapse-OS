@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%">
+  <!-- Central Tri-Lobe Organic Synapse Unit -->
+  <!-- Pure Vector Geometry with Smooth Organic Fillets -->
+  <path 
+    d="
+      M 34.5 33.5
+      A 11.5 11.5 0 0 0 23.5 44
+      A 11.5 11.5 0 0 0 34.5 54.5
+      C 42 54.5, 47 59, 49 66
+      C 49 71.5, 48.5 75, 48.5 75.5
+      A 11.5 11.5 0 0 0 60 87
+      A 11.5 11.5 0 0 0 71.5 75.5
+      C 71.5 75, 71 71.5, 71 66
+      C 73 59, 78 54.5, 85.5 54.5
+      A 11.5 11.5 0 0 0 96.5 44
+      A 11.5 11.5 0 0 0 85.5 33.5
+      C 77 33.5, 68 40, 60 50
+      C 52 40, 43 33.5, 34.5 33.5
+      Z
+    " 
+    fill="currentColor"
+  />
+
+  <!-- 3 Interstitial Satellite Synapse Nodes -->
+  <!-- Top Center -->
+  <circle cx="60" cy="24" r="9" fill="currentColor" />
+
+  <!-- Bottom-Left -->
+  <circle cx="36" cy="74" r="9" fill="currentColor" />
+
+  <!-- Bottom-Right -->
+  <circle cx="84" cy="74" r="9" fill="currentColor" />
+</svg>

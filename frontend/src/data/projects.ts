@@ -4,7 +4,7 @@ export const projects: Project[] = [
   {
     id: 'orchestrator-agent',
     slug: 'orchestrator-agent',
-    title: 'Sanjeevani Orchestrator',
+    title: 'SynapseOS Orchestrator',
     subtitle: 'The Central Brain of the Health Platform',
     tagline: 'Understands intent, plans multi-step tasks, and delegates',
     location: 'Core Infrastructure',
@@ -26,7 +26,7 @@ export const projects: Project[] = [
       '/images/medical/orchestrator_director_review.jpg',
     ],
     description:
-      'The Orchestrator Agent (Sanjeevani) is the central brain of the platform. It normalizes every channel\'s message format, understands user intent, plans complex multi-step tasks, and delegates them to the appropriate specialized agents without losing context.',
+      'The Orchestrator Agent (SynapseOS) is the central brain of the platform. It normalizes every channel\'s message format, understands user intent, plans complex multi-step tasks, and delegates them to the appropriate specialized agents without losing context.',
     chapters: [
       {
         number: '01',
@@ -214,11 +214,11 @@ export const projects: Project[] = [
     chapters: [],
   },
   {
-    id: 'sanjeevani-assistant',
-    slug: 'sanjeevani-assistant',
-    title: 'Sanjeevani AI Assistant',
+    id: 'synapseos-assistant',
+    slug: 'synapseos-assistant',
+    title: 'SynapseOS AI Assistant',
     subtitle: 'Global Voice & Text Automation Layer',
-    tagline: 'Talk to Sanjeevani for hands-free health task automation',
+    tagline: 'Talk to SynapseOS for hands-free health task automation',
     location: 'Interaction Cluster',
     status: 'Available',
     statusText: 'Vapi.ai Voice SDK · Active',
@@ -232,7 +232,7 @@ export const projects: Project[] = [
     heroImage: '/images/medical/records_abha_tablet.jpg',
     thumbnailImage: '/images/medical/agent_swarm_doctors.jpg',
     galleryImages: [],
-    description: 'Sanjeevani AI Assistant is a voice and text conversational autopilot integrated directly into the OS. Utilizing the Vapi.ai SDK, it handles hands-free patient intake, query routing, and schedules multi-agent tasks seamlessly.',
+    description: 'SynapseOS AI Assistant is a voice and text conversational autopilot integrated directly into the OS. Utilizing the Vapi.ai SDK, it handles hands-free patient intake, query routing, and schedules multi-agent tasks seamlessly.',
     chapters: [],
   },
   {

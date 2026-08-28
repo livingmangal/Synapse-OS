@@ -50,11 +50,11 @@ export function ContactChapterSection() {
           <div className="mod-content__wrap-text">
             <div className="mod-content__text big_text">
               <p>
-                The Sanjeevani OS is completely open-source and built for the community. Reach out to collaborate,
+                The SynapseOS is completely open-source and built for the community. Reach out to collaborate,
                 view our documentation, or test the live deployment.
               </p>
               <p>
-                <strong>hello@sanjeevani-os.com</strong>
+                <strong>hello@synapseos.com</strong>
               </p>
             </div>
           </div>

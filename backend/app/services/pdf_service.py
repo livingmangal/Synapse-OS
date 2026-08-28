@@ -1,5 +1,5 @@
 """
-Sanjeevani OS — services/pdf_service.py
+SynapseOS — services/pdf_service.py
 AI-Generated Clinical Health Passport & Summary PDF Generator with Verifiable QR Code.
 Compliant with ABDM (Ayushman Bharat Digital Mission) FHIR R4 standard.
 """
@@ -18,7 +18,7 @@ from reportlab.lib import colors
 def generate_health_summary_pdf(
     patient_name: str = "Mausam Kar",
     abha_id: str = "91-7294-8102-5309",
-    triage_summary: str = "Sanjeevani Multi-Agent Consensus: Stable cardiopulmonary baseline, normal sinus rhythm, vital metrics within optimal physiological parameters.",
+    triage_summary: str = "SynapseOS Multi-Agent Consensus: Stable cardiopulmonary baseline, normal sinus rhythm, vital metrics within optimal physiological parameters.",
     vital_signs: dict = None,
     medications: list = None,
     ipfs_hash: str = "QmZ4tDuvesekSs4qM5ZBKpXiZGun7S2CYtEZRB3DYXkjGx"
@@ -108,7 +108,7 @@ def generate_health_summary_pdf(
     # 1. Official Header with Dual Branding
     header_data = [
         [
-            Paragraph("<b>SANJEEVANI OS • OFFICIAL CLINICAL HEALTH PASSPORT</b>", title_style),
+            Paragraph("<b>SYNAPSEOS OS • OFFICIAL CLINICAL HEALTH PASSPORT</b>", title_style),
             Paragraph("<font color='#059669'><b>✓ PM-JAY VERIFIED</b></font><br/><font color='#0284C7'><b>ABDM FHIR R4 COMPLIANT</b></font>", badge_style)
         ],
         [
@@ -248,7 +248,7 @@ def generate_health_summary_pdf(
                 f"<b>Registry Record ID:</b> <font color='#0369A1'>SANJ-REC-{sha256_digest[:10].upper()}</font> • "
                 f"<b>IPFS CID:</b> <font color='#DB2777'>{ipfs_hash[:22]}...</font><br/>"
                 f"<b>SHA-256 Digest:</b> {sha256_digest}<br/>"
-                f"<b>Verified Signer:</b> Sanjeevani OS ABDM Health Gateway (AIIMS Node Registry)"
+                f"<b>Verified Signer:</b> SynapseOS ABDM Health Gateway (AIIMS Node Registry)"
                 f"</font>",
                 body_style
             )

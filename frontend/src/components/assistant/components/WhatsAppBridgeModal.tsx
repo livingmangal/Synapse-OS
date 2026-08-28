@@ -34,7 +34,7 @@ export default function WhatsAppBridgeModal({
   return (
     <div 
       data-lenis-prevent="true"
-      className="sanjeevani-custom-scroll"
+      className="synapseos-custom-scroll"
       onWheel={(e) => e.stopPropagation()}
       style={{ flex: 1, padding: '18px', overflowY: 'auto', background: 'rgba(255, 255, 255, 0.98)', display: 'flex', flexDirection: 'column', gap: '16px' }}
     >
@@ -49,7 +49,7 @@ export default function WhatsAppBridgeModal({
           </span>
         </div>
         <p style={{ fontSize: '12px', color: '#64748b', lineHeight: 1.5 }}>
-          Connect your WhatsApp to snap prescription photos, receive vital alerts, and consult Sanjeevani AI on the go.
+          Connect your WhatsApp to snap prescription photos, receive vital alerts, and consult SynapseOS AI on the go.
         </p>
       </div>
 
@@ -64,10 +64,10 @@ export default function WhatsAppBridgeModal({
         <div>
           <div style={{ fontSize: '12px', fontWeight: 700, color: '#065f46' }}>Scan or Click to Chat</div>
           <div style={{ fontSize: '11px', color: '#047857', marginTop: '2px', lineHeight: 1.4 }}>
-            Start chatting with <b>Sanjeevani Health Bot</b> on WhatsApp Web or mobile app.
+            Start chatting with <b>SynapseOS Health Bot</b> on WhatsApp Web or mobile app.
           </div>
           <a
-            href="https://wa.me/919876543210?text=Hi%20Sanjeevani%2C%20start%20my%20clinical%20triage"
+            href="https://wa.me/919876543210?text=Hi%20SynapseOS%2C%20start%20my%20clinical%20triage"
             target="_blank"
             rel="noopener noreferrer"
             style={{

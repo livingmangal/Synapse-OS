@@ -1,5 +1,5 @@
 """
-Sanjeevani OS — services/whatsapp_service.py
+SynapseOS — services/whatsapp_service.py
 Backward-compatible proxy re-exporting from dedicated openwa package (backend/app/openwa).
 """
 

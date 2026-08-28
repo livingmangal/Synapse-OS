@@ -27,7 +27,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   useEffect(() => {
     try {
-      const savedLang = localStorage.getItem('sanjeevani_lang') as LanguageCode;
+      const savedLang = localStorage.getItem('synapseos_lang') as LanguageCode;
       if (savedLang && TRANSLATIONS[savedLang]) {
         setLanguageState(savedLang);
       }
@@ -39,7 +39,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const setLanguage = (lang: LanguageCode) => {
     setLanguageState(lang);
     try {
-      localStorage.setItem('sanjeevani_lang', lang);
+      localStorage.setItem('synapseos_lang', lang);
     } catch {}
   };
 

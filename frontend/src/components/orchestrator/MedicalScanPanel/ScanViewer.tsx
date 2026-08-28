@@ -155,9 +155,9 @@ export default function ScanViewer({ state }: { state: any }) {
             </defs>
 
             {/* DICOM Overlay Header */}
-            <text x="24" y="32" fill="#64748b" fontSize="11" fontFamily="monospace">PATIENT: SANJEEVANI CITIZEN #91-7294</text>
+            <text x="24" y="32" fill="#64748b" fontSize="11" fontFamily="monospace">PATIENT: SYNAPSEOS CITIZEN #91-7294</text>
             <text x="24" y="48" fill="#64748b" fontSize="11" fontFamily="monospace">STUDY: CHEST PA (ER-PORTABLE)</text>
-            <text x="660" y="32" fill="#38bdf8" fontSize="12" fontWeight="bold" fontFamily="sans-serif">SANJEEVANI DICOM</text>
+            <text x="660" y="32" fill="#38bdf8" fontSize="12" fontWeight="bold" fontFamily="sans-serif">SYNAPSEOS DICOM</text>
             <text x="740" y="48" fill="#64748b" fontSize="11" fontFamily="monospace">kVp: 120</text>
             <text x="740" y="64" fill="#64748b" fontSize="11" fontFamily="monospace">W:2400 L:-400</text>
 

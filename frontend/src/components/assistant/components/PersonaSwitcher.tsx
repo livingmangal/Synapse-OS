@@ -14,8 +14,8 @@ export default function PersonaSwitcher({ assistantPersona, onPersonaChange }: P
   ];
 
   return (
-    <div className="sanjeevani-persona-bar">
-      <div className="sanjeevani-persona-inner">
+    <div className="synapseos-persona-bar">
+      <div className="synapseos-persona-inner">
         {personas.map(p => {
           const isActive = assistantPersona === p.id;
           return (
@@ -24,10 +24,10 @@ export default function PersonaSwitcher({ assistantPersona, onPersonaChange }: P
               type="button"
               onClick={() => onPersonaChange(p.id)}
               title={p.title}
-              className={`sanjeevani-persona-btn ${isActive ? 'active' : ''}`}
+              className={`synapseos-persona-btn ${isActive ? 'active' : ''}`}
             >
-              <span className="sanjeevani-persona-icon">{p.icon}</span>
-              <span className="sanjeevani-persona-label">{p.label}</span>
+              <span className="synapseos-persona-icon">{p.icon}</span>
+              <span className="synapseos-persona-label">{p.label}</span>
             </button>
           );
         })}

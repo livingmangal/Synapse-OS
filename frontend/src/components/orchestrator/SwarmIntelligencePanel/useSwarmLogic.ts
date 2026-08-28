@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { SanjeevaniState, PatientInfo } from '../types';
+import { SynapseOSState, PatientInfo } from '../types';
 import { ShieldCheck, GitBranch, Activity, Pill, Users } from 'lucide-react';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
@@ -16,7 +16,7 @@ export interface DAGNode {
 export function useSwarmLogic(patient: PatientInfo) {
   const [query, setQuery] = useState('Patient presents with acute chest pain and shortness of breath. Can we combine aspirin with warfarin?');
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<SanjeevaniState | null>(null);
+  const [result, setResult] = useState<SynapseOSState | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'synthesis' | 'tabular' | 'dag_trace' | 'interactions'>('synthesis');
 

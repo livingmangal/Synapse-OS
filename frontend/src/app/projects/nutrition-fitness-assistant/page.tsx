@@ -188,7 +188,7 @@ export default function NutritionFitnessPage() {
             Nutrition & Fitness Suite
           </h1>
           <p className="text-sm md:text-base text-[#ECE4DA]/60 max-w-2xl font-light">
-            Sanjeevani AI agent cluster dedicated to clinical-grade dietary tracking, custom meal planning, exercise diagnostics, and longevity education.
+            SynapseOS AI agent cluster dedicated to clinical-grade dietary tracking, custom meal planning, exercise diagnostics, and longevity education.
           </p>
         </div>
       </header>

@@ -110,7 +110,7 @@ export default function RecordsList({ state }: { state: any }) {
             Records are hashed with SHA-256, pinned to IPFS, and anchored to the <code>MedicalRecords.sol</code> smart contract.
           </p>
 
-          {/* Upload UI matching Sanjeevani Style */}
+          {/* Upload UI matching SynapseOS Style */}
           <div style={{ background: '#f8fafc', border: '1px dashed #cbd5e1', borderRadius: '14px', padding: '24px', marginBottom: '32px', display: 'flex', flexDirection: 'column', gap: '16px', alignItems: 'flex-start' }}>
             <h3 style={{ fontSize: '16px', margin: 0, color: '#0f172a', fontWeight: 700, fontFamily: 'system-ui, -apple-system, sans-serif' }}>
               {translateText('Register New Record')}

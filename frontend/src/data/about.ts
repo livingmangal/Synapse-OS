@@ -3,7 +3,7 @@ export const aboutData = {
     subtitle: 'About Us',
     title: 'An Operating System for Global Health',
     intro:
-      'Sanjeevani OS is an open-source health platform powered by a swarm of specialized AI agents. It provides a plain dashboard for everyday tracking, and a voice-driven assistant for automated triage and tasks.',
+      'SynapseOS is an open-source health platform powered by a swarm of specialized AI agents. It provides a plain dashboard for everyday tracking, and a voice-driven assistant for automated triage and tasks.',
   },
   philosophy: {
     title: 'Our AI Architecture Philosophy',
@@ -12,7 +12,7 @@ export const aboutData = {
         keyword: 'MULTI-AGENT',
         title: 'Specialized Agent Swarm',
         description:
-          'Unlike simple chatbots, Sanjeevani OS coordinates 18 independent agents. An Orchestrator plans multi-step tasks and delegates them seamlessly to clinical and lifestyle agents.',
+          'Unlike simple chatbots, SynapseOS coordinates 18 independent agents. An Orchestrator plans multi-step tasks and delegates them seamlessly to clinical and lifestyle agents.',
       },
       {
         keyword: 'OPEN DATA',
@@ -32,7 +32,7 @@ export const aboutData = {
     title: 'Built For The Hackathon',
     stat: '100% Free',
     description:
-      'Sanjeevani OS was conceived to push the boundaries of AI health solutions by implementing robust multi-agent orchestration, local TTS models, and blockchain verification in an entirely open-source stack.',
+      'SynapseOS was conceived to push the boundaries of AI health solutions by implementing robust multi-agent orchestration, local TTS models, and blockchain verification in an entirely open-source stack.',
   },
   values: [
     {

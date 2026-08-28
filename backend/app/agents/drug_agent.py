@@ -1,5 +1,5 @@
 """
-Sanjeevani OS — agents/drug_agent.py
+SynapseOS — agents/drug_agent.py
 Drug Safety, RxNav Name Normalization, and Multi-Drug Interaction Agent.
 Combines NIH RxNorm REST APIs with live LLM clinical pharmacology reasoning (Groq/OpenRouter).
 """
@@ -7,7 +7,7 @@ Combines NIH RxNorm REST APIs with live LLM clinical pharmacology reasoning (Gro
 import re
 import httpx
 from typing import Dict, Any, List, Optional
-from backend.app.core.state import SanjeevaniState, AgentTraceStep
+from backend.app.core.state import SynapseOSState, AgentTraceStep
 from backend.app.services.llm_service import call_llm_json
 
 RXNAV_BASE = "https://rxnav.nlm.nih.gov/REST"
@@ -167,7 +167,7 @@ async def evaluate_drug_safety(text: str) -> Dict[str, Any]:
     return fallback
 
 
-async def drug_agent_node(state: SanjeevaniState) -> SanjeevaniState:
+async def drug_agent_node(state: SynapseOSState) -> SynapseOSState:
     """LangGraph node execution for Drug Safety."""
     import time
     start = time.time()

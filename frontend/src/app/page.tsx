@@ -14,8 +14,8 @@ import {
 } from '@/components/home';
 
 export const metadata: Metadata = {
-  title: 'Home - Sanjeevani OS',
-  description: 'Sanjeevani OS - Multi-Agent Health Platform and Clinical AI OS',
+  title: 'Home - SynapseOS',
+  description: 'SynapseOS - Multi-Agent Health Platform and Clinical AI OS',
 };
 
 export default function HomePage() {

@@ -1,5 +1,5 @@
 """
-Sanjeevani OS — core/state.py
+SynapseOS — core/state.py
 Shared agent state schema across multi-agent workflows.
 """
 
@@ -16,7 +16,7 @@ class AgentTraceStep(BaseModel):
     details: Optional[Dict[str, Any]] = None
 
 
-class SanjeevaniState(BaseModel):
+class SynapseOSState(BaseModel):
     session_id: str
     user_id: str = "guest_user"
     channel: str = "web"  # web, voice, whatsapp, telegram, discord

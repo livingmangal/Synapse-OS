@@ -1,5 +1,5 @@
 """
-Sanjeevani OS — agents/scan_agent.py
+SynapseOS — agents/scan_agent.py
 Medical Scan Analysis, Genuine FractureNet YOLOv8 Bone Fracture Detection, MONAI Chest Interpretation, and TrOCR Prescription Parser.
 """
 
@@ -11,7 +11,7 @@ import logging
 from typing import Dict, Any, List, Optional
 from PIL import Image
 import numpy as np
-from backend.app.core.state import SanjeevaniState, AgentTraceStep
+from backend.app.core.state import SynapseOSState, AgentTraceStep
 
 logger = logging.getLogger(__name__)
 
@@ -346,7 +346,7 @@ def analyze_medical_image(
         }
 
 
-async def scan_agent_node(state: SanjeevaniState) -> SanjeevaniState:
+async def scan_agent_node(state: SynapseOSState) -> SynapseOSState:
     """LangGraph node execution for Medical Scan, Bone Fracture & Prescription Analysis."""
     start = time.time()
     

@@ -1,5 +1,5 @@
 """
-Sanjeevani OS — agents/appointment_agent.py
+SynapseOS — agents/appointment_agent.py
 Automated Clinical Appointment Scheduling & Calendar Dispatch Agent.
 Ported from MedAgent-main appointment scheduling workflow.
 """
@@ -71,7 +71,7 @@ def book_appointment_slot(
         "consultation_mode": "In-Person Clinic / Tele-Consultation",
         "calendar_ics_payload": {
             "title": f"Medical Consultation with {doctor['name']}",
-            "description": f"Sanjeevani OS Booking Ref: {booking_id} for {patient_name} ({symptoms_brief})",
+            "description": f"SynapseOS Booking Ref: {booking_id} for {patient_name} ({symptoms_brief})",
             "location": doctor["hospital"]
         },
         "notification_dispatched": True,

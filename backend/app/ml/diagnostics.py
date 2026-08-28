@@ -1,5 +1,5 @@
 """
-Sanjeevani OS — ml/diagnostics.py
+SynapseOS — ml/diagnostics.py
 Quantitative Disease Risk & Clinical Prediction Scoring.
 Ported from AI-Healthcare-System diagnostics algorithms.
 Calculates Framingham-like CVD risk, ADA Diabetes Score, KDIGO Renal Stage, and FIB-4 Liver Index.

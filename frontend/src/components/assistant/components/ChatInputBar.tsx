@@ -36,13 +36,13 @@ export default function ChatInputBar({
   };
 
   return (
-    <div className="sanjeevani-input-container">
+    <div className="synapseos-input-container">
       <form
         onSubmit={(e) => {
           e.preventDefault();
           onSend();
         }}
-        className="sanjeevani-input-bar"
+        className="synapseos-input-bar"
       >
         <input
           ref={inputRef}
@@ -50,14 +50,14 @@ export default function ChatInputBar({
           placeholder={getPlaceholder()}
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          className="sanjeevani-input-elem"
+          className="synapseos-input-elem"
         />
 
         {input.trim() && (
           <button
             type="submit"
             disabled={loading}
-            className="sanjeevani-send-action"
+            className="synapseos-send-action"
             title="Send Query"
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -70,7 +70,7 @@ export default function ChatInputBar({
         <button
           type="button"
           onClick={onToggleVoice}
-          className={`sanjeevani-mic-action ${callActive || isListening ? 'listening' : ''}`}
+          className={`synapseos-mic-action ${callActive || isListening ? 'listening' : ''}`}
           title={callActive || isListening ? "Stop voice listening" : "Start Voice Assistant"}
         >
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">

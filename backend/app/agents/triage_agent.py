@@ -1,5 +1,5 @@
 """
-Sanjeevani OS — agents/triage_agent.py
+SynapseOS — agents/triage_agent.py
 Clinical Symptom Triage & Risk Detection Agent.
 Uses genuine LLM reasoning (Groq / OpenRouter) with deterministic safety heuristics.
 Categorizes user symptoms into: Emergency (Red), Doctor Consult (Amber), Home Care (Green).
@@ -7,7 +7,7 @@ Categorizes user symptoms into: Emergency (Red), Doctor Consult (Amber), Home Ca
 
 import time
 from typing import Dict, Any, List
-from backend.app.core.state import SanjeevaniState, AgentTraceStep
+from backend.app.core.state import SynapseOSState, AgentTraceStep
 from backend.app.services.llm_service import call_llm_json
 
 SYMPTOM_TAXONOMY = {
@@ -93,7 +93,7 @@ async def analyze_symptoms(text: str) -> Dict[str, Any]:
     return llm_result
 
 
-async def triage_agent_node(state: SanjeevaniState) -> SanjeevaniState:
+async def triage_agent_node(state: SynapseOSState) -> SynapseOSState:
     """LangGraph node execution for Symptom Triage."""
     start = time.time()
     res = await analyze_symptoms(state.input_text)

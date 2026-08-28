@@ -1,5 +1,5 @@
 """
-Sanjeevani OS — agents/orchestrator.py
+SynapseOS — agents/orchestrator.py
 Central Multi-Agent Swarm Orchestrator & StateGraph Pipeline.
 Coordinates Safety Gate -> Intent Routing -> Specialist Agents (Triage, Drug, Scan, Mental) -> AI Council -> Unified LLM Synthesis.
 """
@@ -7,7 +7,7 @@ Coordinates Safety Gate -> Intent Routing -> Specialist Agents (Triage, Drug, Sc
 import time
 import uuid
 from typing import Dict, Any, List
-from backend.app.core.state import SanjeevaniState, AgentTraceStep
+from backend.app.core.state import SynapseOSState, AgentTraceStep
 from backend.app.core.safety_router import evaluate_safety
 from backend.app.agents.drug_agent import drug_agent_node
 from backend.app.agents.triage_agent import triage_agent_node
@@ -39,14 +39,14 @@ async def orchestrate_health_request(
     channel: str = "web",
     session_id: str = None,
     user_id: str = "demo_user"
-) -> SanjeevaniState:
+) -> SynapseOSState:
     """
     Executes the full multi-agent DAG workflow for any user message.
     """
     if not session_id:
         session_id = str(uuid.uuid4())[:8]
 
-    state = SanjeevaniState(
+    state = SynapseOSState(
         session_id=session_id,
         user_id=user_id,
         channel=channel,
@@ -107,7 +107,7 @@ async def orchestrate_health_request(
     # 4. Synthesize Final Consolidated Response via LLM (Groq / OpenRouter)
     synth_start = time.time()
     system_prompt = (
-        "You are the central Chief Medical AI Officer of Sanjeevani OS. "
+        "You are the central Chief Medical AI Officer of SynapseOS. "
         "Consolidate the findings from specialist agents (Triage, Drug Safety, Imaging, Mental Health, and AI Council) "
         "into an elegant, highly clear, structured, compassionate, and actionable clinical summary. "
         "Use markdown formatting with bold headings and bullet points. Never provide arbitrary diagnoses; provide safe triage guidance."

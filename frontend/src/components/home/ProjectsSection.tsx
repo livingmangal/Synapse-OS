@@ -24,7 +24,7 @@ export function ProjectsSection() {
               <img
                 className="media__source w-100"
                 src="/images/medical/orchestrator_ops_center.jpg"
-                alt="Sanjeevani AI Hospital Command Center"
+                alt="SynapseOS AI Hospital Command Center"
                 style={{ objectFit: 'cover', width: '100%', height: '100%' }}
               />
             </div>

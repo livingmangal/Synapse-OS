@@ -1,8 +1,8 @@
 /**
- * Sanjeevani OS — OpenWA WhatsApp Gateway Runner
+ * SynapseOS — OpenWA WhatsApp Gateway Runner
  * 
  * Standalone Node.js script that boots @open-wa/wa-automate, pairs with WhatsApp,
- * and relays inbound chat/media messages to the Sanjeevani OS FastAPI webhook at:
+ * and relays inbound chat/media messages to the SynapseOS FastAPI webhook at:
  * http://localhost:8000/api/whatsapp/webhook
  */
 
@@ -10,14 +10,14 @@ const { create, NotificationLanguage } = require('@open-wa/wa-automate');
 const axios = require('axios');
 require('dotenv').config();
 
-const FASTAPI_WEBHOOK_URL = process.env.SANJEEVANI_WEBHOOK_URL || 'http://127.0.0.1:8000/api/whatsapp/webhook';
+const FASTAPI_WEBHOOK_URL = process.env.SYNAPSEOS_WEBHOOK_URL || 'http://127.0.0.1:8000/api/whatsapp/webhook';
 const PORT = process.env.OPENWA_PORT || 3000;
 
-console.log('🌿 Initializing Sanjeevani OS OpenWA Gateway Bridge...');
+console.log('🌿 Initializing SynapseOS OpenWA Gateway Bridge...');
 console.log(`📡 Forwarding inbound WhatsApp messages to: ${FASTAPI_WEBHOOK_URL}`);
 
 create({
-  sessionId: "SANJEEVANI_OS_BOT",
+  sessionId: "SYNAPSE_OS_BOT",
   multiDevice: true,
   authTimeout: 60,
   blockCrashLogs: true,
@@ -32,7 +32,7 @@ create({
 });
 
 function start(client) {
-  console.log('✅ Sanjeevani OS WhatsApp Bot Connected & Listening!');
+  console.log('✅ SynapseOS WhatsApp Bot Connected & Listening!');
 
   // Listen for incoming messages
   client.onMessage(async message => {

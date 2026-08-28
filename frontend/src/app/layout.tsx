@@ -1,13 +1,13 @@
 import type { Metadata } from 'next';
 import Script from 'next/script';
 import '@/styles/main.css';
-import SanjeevaniAssistantModal from '@/components/SanjeevaniAssistantModal';
+import SynapseOSAssistantModal from '@/components/SynapseOSAssistantModal';
 import ScriptsLoader from '@/components/ScriptsLoader';
 import LegacyThemeShell from '@/components/LegacyThemeShell';
 
 export const metadata: Metadata = {
-  title: 'Sanjeevani OS | Multi-Agent Health Platform',
-  description: 'The Sanjeevani OS is an open-source, multi-agent health architecture powered by specialized AI sub-agents.',
+  title: 'SynapseOS | Multi-Agent Health Platform',
+  description: 'The SynapseOS is an open-source, multi-agent health architecture powered by specialized AI sub-agents.',
   icons: {
     icon: '/fav.png',
     apple: '/fav.png',
@@ -46,7 +46,7 @@ export default function RootLayout({
 
           {/* LiveKit Isometric Agentic Architecture Controller */}
           <Script src="/wp-content/themes/normalisboring25/js/agentic-diagram.js" strategy="afterInteractive" />
-          <SanjeevaniAssistantModal />
+          <SynapseOSAssistantModal />
           <ScriptsLoader />
         </LanguageProvider>
       </body>

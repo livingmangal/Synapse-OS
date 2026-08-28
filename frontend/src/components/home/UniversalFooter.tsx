@@ -3,7 +3,7 @@ import React from 'react';
 export function UniversalFooter() {
   return (
     <footer
-      className="sanjeevani-universal-footer relative w-full overflow-hidden"
+      className="synapseos-universal-footer relative w-full overflow-hidden"
       style={{
         backgroundColor: '#EDE7DF',
         fontFamily:
@@ -28,7 +28,7 @@ export function UniversalFooter() {
       >
         <img
           src="/images/footer-landscape.jpg"
-          alt="Sanjeevani Landscape"
+          alt="SynapseOS Landscape"
           style={{
             width: '100%',
             height: '100%',
@@ -110,7 +110,7 @@ export function UniversalFooter() {
                 </svg>
               </div>
               <span style={{ fontWeight: 700, fontSize: '1.15rem', color: '#111', letterSpacing: '-0.02em' }}>
-                Sanjeevani
+                SynapseOS
               </span>
             </div>
 
@@ -128,7 +128,7 @@ export function UniversalFooter() {
             </h2>
 
             <p style={{ fontSize: '0.925rem', color: '#524b44', lineHeight: 1.6, maxWidth: '420px', margin: '0 0 1.75rem 0' }}>
-              Sanjeevani brings multi-agent triage, medical vision, real-time vitals, and clinical intelligence into
+              SynapseOS brings multi-agent triage, medical vision, real-time vitals, and clinical intelligence into
               one beautiful, live ecosystem beside your original clinical workflow.
             </p>
 
@@ -161,7 +161,7 @@ export function UniversalFooter() {
             </h3>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.85rem', fontSize: '0.875rem' }}>
               <li>
-                <a href="mailto:hello@sanjeevani-os.com" style={{ color: '#4a443d', textDecoration: 'none', fontWeight: 500 }}>
+                <a href="mailto:hello@synapseos.com" style={{ color: '#4a443d', textDecoration: 'none', fontWeight: 500 }}>
                   Contact
                 </a>
               </li>
@@ -275,7 +275,7 @@ export function UniversalFooter() {
             display: 'block',
           }}
         >
-          Sanjeevani
+          SynapseOS
         </span>
       </div>
     </footer>

@@ -27,7 +27,7 @@ export function ClosingFlipSection() {
               <img
                 className="media__source w-100"
                 src="/images/medical/agent_swarm_doctors.jpg"
-                alt="Sanjeevani Multidisciplinary Clinical Care Team"
+                alt="SynapseOS Multidisciplinary Clinical Care Team"
                 style={{ objectFit: 'cover', width: '100%', height: '100%' }}
               />
             </div>

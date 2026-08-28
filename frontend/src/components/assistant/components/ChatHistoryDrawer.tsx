@@ -21,7 +21,7 @@ export default function ChatHistoryDrawer({
   return (
     <div 
       data-lenis-prevent="true"
-      className="sanjeevani-custom-scroll"
+      className="synapseos-custom-scroll"
       onWheel={(e) => e.stopPropagation()}
       style={{ flex: 1, padding: '18px', overflowY: 'auto', background: 'rgba(255, 255, 255, 0.98)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}
     >

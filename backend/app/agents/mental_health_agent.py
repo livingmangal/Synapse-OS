@@ -1,12 +1,12 @@
 """
-Sanjeevani OS — agents/mental_health_agent.py
+SynapseOS — agents/mental_health_agent.py
 Mental Health, Emotional Wellbeing & Women's Health Agent.
 Grounded in WHO mhGAP, Tele-MANAS protocols, and empathetic LLM reasoning (Groq/OpenRouter).
 """
 
 import time
 from typing import Dict, Any, List
-from backend.app.core.state import SanjeevaniState, AgentTraceStep
+from backend.app.core.state import SynapseOSState, AgentTraceStep
 from backend.app.services.llm_service import call_llm_json
 
 
@@ -52,7 +52,7 @@ async def evaluate_mental_wellbeing(text: str) -> Dict[str, Any]:
     return await call_llm_json(messages, fallback_dict=fallback)
 
 
-async def mental_health_node(state: SanjeevaniState) -> SanjeevaniState:
+async def mental_health_node(state: SynapseOSState) -> SynapseOSState:
     """LangGraph node execution for Mental & Women's Health."""
     start = time.time()
     res = await evaluate_mental_wellbeing(state.input_text)

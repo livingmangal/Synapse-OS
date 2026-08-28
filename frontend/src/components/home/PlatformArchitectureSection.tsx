@@ -43,7 +43,7 @@ export function PlatformArchitectureSection() {
           <div className="mod-scroll__text__text f-izmir t-parrafo">
             <p className="mod-scroll__text__lead">
               Use the standard clinician dashboard for routine health tracking, or switch to the voice-driven
-              Sanjeevani Assistant for interactive triage.
+              SynapseOS Assistant for interactive triage.
             </p>
             <p className="mod-scroll__text__sub">
               Both interfaces are synchronized across the same unified vector memory—meaning an intake consultation

@@ -12,7 +12,7 @@ export function HeroFlipGallerySection() {
           <img
             className="media__source w-100"
             src="/1st-photo-new.jpg"
-            alt="Sanjeevani Architecture Schematic"
+            alt="SynapseOS Architecture Schematic"
             style={{ objectFit: 'cover', width: '100%', height: '100%' }}
           />
         </div>

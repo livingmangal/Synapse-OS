@@ -43,7 +43,7 @@ export function TryPlatformSection() {
           style={{ color: '#524b44', fontSize: '0.925rem', lineHeight: 1.55 }}
         >
           <p style={{ margin: 0 }}>
-            See how leading clinicians, hospitals, and emergency specialists deploy Sanjeevani OS
+            See how leading clinicians, hospitals, and emergency specialists deploy SynapseOS
             multi-agent intelligence to streamline triage, diagnostic imaging, and decentralized care.
           </p>
         </div>
@@ -111,7 +111,7 @@ export function TryPlatformSection() {
                   lineHeight: 1,
                 }}
               >
-                sanjeevani.
+                synapseos.
               </span>
             </div>
 
@@ -348,7 +348,7 @@ export function TryPlatformSection() {
             >
               <p style={{ margin: 0 }}>
                 I used to spend 45 minutes per shift reconciling intake vitals and telemetry from
-                disparate EHR systems. Sanjeevani OS aggregates multimodal streams instantaneously.
+                disparate EHR systems. SynapseOS aggregates multimodal streams instantaneously.
               </p>
               <p style={{ margin: 0 }}>
                 The verifiable ledger ensures every triage decision and diagnostic prescription is
@@ -508,7 +508,7 @@ export function TryPlatformSection() {
                 <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
                 <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
               </svg>
-              <span>@sanjeevani_clinical</span>
+              <span>@synapseos_clinical</span>
             </div>
           </div>
 
@@ -562,7 +562,7 @@ export function TryPlatformSection() {
               }}
             >
               <p style={{ margin: 0 }}>
-                Our clinicians absolutely love Sanjeevani! As soon as an intake begins on WhatsApp
+                Our clinicians absolutely love SynapseOS! As soon as an intake begins on WhatsApp
                 or SIP telephony, the Orchestrator delegates tasks seamlessly to scan and triage
                 agents.
               </p>

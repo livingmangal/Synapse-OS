@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 60" width="100%" height="100%">
+  <!-- Icon Squircle (48x48 at x=6, y=6) -->
+  <rect 
+    x="6" 
+    y="6" 
+    width="48" 
+    height="48" 
+    rx="14" 
+    fill="#09090b" 
+  />
+
+  <!-- Synapse Tri-Lobe Symbol scaled to fit (48x48) -->
+  <g transform="translate(6, 6) scale(0.48)" fill="#ffffff">
+    <!-- Center Core & 3 Lobes -->
+    <path 
+      d="
+        M 34.5 33.5
+        A 11.5 11.5 0 0 0 23.5 44
+        A 11.5 11.5 0 0 0 34.5 54.5
+        C 42 54.5, 47 59, 49 66
+        C 49 71.5, 48.5 75, 48.5 75.5
+        A 11.5 11.5 0 0 0 60 87
+        A 11.5 11.5 0 0 0 71.5 75.5
+        C 71.5 75, 71 71.5, 71 66
+        C 73 59, 78 54.5, 85.5 54.5
+        A 11.5 11.5 0 0 0 96.5 44
+        A 11.5 11.5 0 0 0 85.5 33.5
+        C 77 33.5, 68 40, 60 50
+        C 52 40, 43 33.5, 34.5 33.5
+        Z
+      " 
+    />
+    <!-- 3 Interstitial Nodes -->
+    <circle cx="60" cy="24" r="9" />
+    <circle cx="36" cy="74" r="9" />
+    <circle cx="84" cy="74" r="9" />
+  </g>
+
+  <!-- Typography: SynapseOS -->
+  <text 
+    x="68" 
+    y="38" 
+    font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif" 
+    font-size="22" 
+    font-weight="700" 
+    letter-spacing="-0.5"
+    fill="#09090b"
+  >SynapseOS</text>
+</svg>

@@ -29,7 +29,7 @@ export default function VoiceModeOverlay({
       case 'thinking':
         return { text: '🧠 Gemini AI Reasoning...', color: '#0284c7', bg: '#e0f2fe' };
       case 'speaking':
-        return { text: '🔊 Sanjeevani AI Speaking...', color: '#059669', bg: '#ecfdf5' };
+        return { text: '🔊 SynapseOS AI Speaking...', color: '#059669', bg: '#ecfdf5' };
       case 'muted':
         return { text: '🎙️ Microphone Muted', color: '#dc2626', bg: '#fee2e2' };
       default:
@@ -40,14 +40,14 @@ export default function VoiceModeOverlay({
   const status = getStatusBadge();
 
   return (
-    <div className="sanjeevani-voice-overlay sanjeevani-root">
+    <div className="synapseos-voice-overlay synapseos-root">
       
       {/* Top Header Controls in Voice Mode */}
       <div style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#10b981', boxShadow: '0 0 10px #10b981' }} />
           <span style={{ fontSize: '13px', fontWeight: 700, color: '#0f172a' }}>
-            Sanjeevani Live Voice
+            SynapseOS Live Voice
           </span>
         </div>
 
@@ -93,45 +93,45 @@ export default function VoiceModeOverlay({
       </div>
 
       {/* Central Interactive Soundwave Reactive 3D Voice Orb */}
-      <div className={`sanjeevani-voice-orb-box ${voiceState}`}>
+      <div className={`synapseos-voice-orb-box ${voiceState}`}>
         
         {/* Expanding Soundwave Shockwave Halo Rings when Speaking or Listening */}
         {(voiceState === 'speaking' || voiceState === 'listening') && (
           <>
-            <div className="sanjeevani-voice-shockwave" />
-            <div className="sanjeevani-voice-shockwave" />
-            <div className="sanjeevani-voice-shockwave" />
+            <div className="synapseos-voice-shockwave" />
+            <div className="synapseos-voice-shockwave" />
+            <div className="synapseos-voice-shockwave" />
           </>
         )}
 
         {/* Soft Volumetric Background Glow */}
-        <div className="sanjeevani-orb-ambient-glow" style={{ width: '230px', height: '230px' }} />
-        <div className="sanjeevani-orb-ambient-glow-inner" style={{ width: '190px', height: '190px' }} />
+        <div className="synapseos-orb-ambient-glow" style={{ width: '230px', height: '230px' }} />
+        <div className="synapseos-orb-ambient-glow-inner" style={{ width: '190px', height: '190px' }} />
 
         {/* Orbiting Iridescent Ring */}
-        <div className="sanjeevani-orb-orbital-ring" style={{ width: '195px', height: '195px' }} />
+        <div className="synapseos-orb-orbital-ring" style={{ width: '195px', height: '195px' }} />
 
         {/* 3D Glass Sphere Body */}
         <div 
-          className="sanjeevani-orb-3d-sphere" 
+          className="synapseos-orb-3d-sphere" 
           style={{ width: '150px', height: '150px', cursor: 'pointer' }}
           onClick={onToggleMute}
           title={isMuted ? "Unmute Mic" : "Mute Mic"}
         >
-          <div className="sanjeevani-orb-plasma-core-1" style={{ width: '120px', height: '120px' }} />
-          <div className="sanjeevani-orb-plasma-core-2" style={{ width: '105px', height: '105px' }} />
-          <div className="sanjeevani-orb-rim-reflection" style={{ width: '55px', height: '22px' }} />
-          <div className="sanjeevani-orb-specular-glare" style={{ width: '60px', height: '32px' }} />
-          <div className="sanjeevani-orb-pinpoint-glint" />
+          <div className="synapseos-orb-plasma-core-1" style={{ width: '120px', height: '120px' }} />
+          <div className="synapseos-orb-plasma-core-2" style={{ width: '105px', height: '105px' }} />
+          <div className="synapseos-orb-rim-reflection" style={{ width: '55px', height: '22px' }} />
+          <div className="synapseos-orb-specular-glare" style={{ width: '60px', height: '32px' }} />
+          <div className="synapseos-orb-pinpoint-glint" />
         </div>
       </div>
 
       {/* Live Audio Spectrum Bar Waveform */}
-      <div className="sanjeevani-voice-spectrum">
+      <div className="synapseos-voice-spectrum">
         {[40, 75, 100, 60, 90, 45, 80, 100, 70, 50, 85, 30].map((h, i) => (
           <div
             key={i}
-            className="sanjeevani-voice-bar"
+            className="synapseos-voice-bar"
             style={{
               animationDuration: `${0.6 + (i % 4) * 0.25}s`,
               animationPlayState: voiceState === 'speaking' || voiceState === 'listening' ? 'running' : 'paused',
@@ -160,7 +160,7 @@ export default function VoiceModeOverlay({
       }}>
         {voiceState === 'listening' && (
           <div style={{ fontSize: '13.5px', color: '#0f172a', fontWeight: 500, fontStyle: transcript ? 'normal' : 'italic' }}>
-            {transcript || 'Speak now, Sanjeevani AI is listening...'}
+            {transcript || 'Speak now, SynapseOS AI is listening...'}
           </div>
         )}
 
@@ -190,11 +190,11 @@ export default function VoiceModeOverlay({
       </div>
 
       {/* Bottom Action Controls (Mute, End Call, Switch Persona) */}
-      <div className="sanjeevani-voice-controls">
+      <div className="synapseos-voice-controls">
         {/* Mute Button */}
         <button
           onClick={onToggleMute}
-          className="sanjeevani-voice-action-btn"
+          className="synapseos-voice-action-btn"
           style={{
             background: isMuted ? '#fee2e2' : '#f1f5f9',
             color: isMuted ? '#dc2626' : '#334155',
@@ -223,7 +223,7 @@ export default function VoiceModeOverlay({
         {/* End Voice Session Button */}
         <button
           onClick={onExitVoice}
-          className="sanjeevani-voice-action-btn"
+          className="synapseos-voice-action-btn"
           style={{
             background: '#ef4444',
             color: '#ffffff',
@@ -242,7 +242,7 @@ export default function VoiceModeOverlay({
         {/* Keyboard / Text Mode Switcher */}
         <button
           onClick={onExitVoice}
-          className="sanjeevani-voice-action-btn"
+          className="synapseos-voice-action-btn"
           style={{
             background: '#f1f5f9',
             color: '#334155',

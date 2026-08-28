@@ -1,5 +1,5 @@
 """
-Sanjeevani OS — Backend Unit Tests.
+SynapseOS — Backend Unit Tests.
 Tests safety guardrails, drug interaction checking, digital twin, and orchestrator swarm.
 """
 

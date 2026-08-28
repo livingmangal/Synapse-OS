@@ -1,6 +1,6 @@
-# Sanjeevani OS: Autonomous Multi-Agent Health Operating System
+# SynapseOS: Autonomous Multi-Agent Health Operating System
 
-Sanjeevani OS is an open-source, multi-agent healthcare platform engineered to provide end-to-end clinical triage, medical vision diagnostics, pharmacology safety verification, longitudinal health simulation, and tamper-evident health records management. The platform operates on a dual-interface model: a standard graphical clinical dashboard for manual interaction and an autonomous multimodal voice/text assistant mode ("Sanjeevani") for proactive task orchestration across web and messaging channels.
+SynapseOS is an open-source, multi-agent healthcare platform engineered to provide end-to-end clinical triage, medical vision diagnostics, pharmacology safety verification, longitudinal health simulation, and tamper-evident health records management. The platform operates on a dual-interface model: a standard graphical clinical dashboard for manual interaction and an autonomous multimodal voice/text assistant mode ("SynapseOS") for proactive task orchestration across web and messaging channels.
 
 ---
 
@@ -43,7 +43,7 @@ Sanjeevani OS is an open-source, multi-agent healthcare platform engineered to p
 
 ## 1. Executive Summary
 
-Sanjeevani OS unifies diverse clinical and operational capabilities into an orchestrated operating system for individual and public healthcare management. Traditional digital health tools suffer from fragmented user experiences, siloed medical records, and reliance on unverified single-prompt chatbots. Sanjeevani OS mitigates these vulnerabilities through:
+SynapseOS unifies diverse clinical and operational capabilities into an orchestrated operating system for individual and public healthcare management. Traditional digital health tools suffer from fragmented user experiences, siloed medical records, and reliance on unverified single-prompt chatbots. SynapseOS mitigates these vulnerabilities through:
 
 1. **Deterministic Safety Gating**: Hardware-level and algorithmic interceptors that isolate crisis and emergency queries before passing inputs to stochastic language models.
 2. **Multi-Agent Consensus (Council Architecture)**: Critical clinical pathways cross-evaluate hypotheses across specialist nodes to produce verifiable consensus scores.
@@ -241,12 +241,12 @@ graph TD
 
 ### 3.6 Blockchain Verification and Integrity Layer
 
-To resolve patient data tampering while upholding international data protection laws, Sanjeevani OS utilizes a hybrid on-chain / off-chain verification pipeline:
+To resolve patient data tampering while upholding international data protection laws, SynapseOS utilizes a hybrid on-chain / off-chain verification pipeline:
 
 ```mermaid
 sequenceDiagram
     autonumber
-    participant App as Sanjeevani Backend
+    participant App as SynapseOS Backend
     participant IPFS as IPFS Gateway (Pinata)
     participant EVM as Ethereum / Polygon Smart Contract
     participant Verifier as External Doctor / Verifier Portal
@@ -284,7 +284,7 @@ sequenceDiagram
 ## 4. Repository Structure
 
 ```
-Sanjeevni-OS/
+SynapseOS/
 ├── openwa/                               # Dedicated OpenWA WhatsApp Gateway Bridge
 │   ├── runner.js                         # Node.js @open-wa/wa-automate runner and webhook forwarder
 │   ├── package.json                      # Node.js dependencies for WhatsApp bridge
@@ -337,7 +337,7 @@ Sanjeevni-OS/
 │   │   ├── scripts/deploy.js             # Deployment script writing ABI and address
 │   │   └── test/MedicalRecords.test.js   # Hardhat contract test suite
 │   └── README.md                         # Blockchain architecture and deployment guide
-└── frontend/                             # Primary Sanjeevani OS Web Portal (Next.js 16 / React 19)
+└── frontend/                             # Primary SynapseOS Web Portal (Next.js 16 / React 19)
     ├── package.json
     ├── next.config.ts
     ├── public/                           # Static assets and 3D anatomical models
@@ -666,7 +666,7 @@ Create a root-level `.env` file or export the following variables:
 
 ```bash
 # General Configuration
-PROJECT_NAME="Sanjeevani OS"
+PROJECT_NAME="SynapseOS"
 VERSION="1.0.0"
 API_PREFIX="/api"
 
@@ -809,4 +809,4 @@ npx hardhat test
 
 ## 11. License
 
-Sanjeevani OS is distributed under the **MIT License**. Refer to the `LICENSE` file for terms of distribution and reuse.
+SynapseOS is distributed under the **MIT License**. Refer to the `LICENSE` file for terms of distribution and reuse.

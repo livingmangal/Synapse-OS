@@ -301,7 +301,7 @@ export function HeroIntroSection() {
           </li>
         </ul>
         <div className="mod-scroll__intro__section mod-scroll__section t-parrafo-l f-edit">Home</div>
-        <div className="mod-scroll__intro__copyright t-subtitulo f-izmir">Sanjeevani OS ©2026</div>
+        <div className="mod-scroll__intro__copyright t-subtitulo f-izmir">SynapseOS ©2026</div>
 
         <div className="mod-scroll__intro__content">
           <div className="mod-scroll__intro__wrap-titles">
@@ -314,7 +314,7 @@ export function HeroIntroSection() {
           </div>
           <div className="mod-scroll__intro__text">
             <p>
-              Sanjeevani OS is an open-source health platform powered by a swarm of specialized AI agents,
+              SynapseOS is an open-source health platform powered by a swarm of specialized AI agents,
               bridging the gap between everyday tracking and complex medical triage with absolute privacy and
               blockchain verification.
             </p>
@@ -323,12 +323,12 @@ export function HeroIntroSection() {
 
         <div className="mod-scroll__intro__logo logo c-black">
           <div className="logo__normal link" data-url="/">
-            Sanjeevani
+            Synapse
           </div>
           <div className="logo__group">
-            <div className="logo__is">O</div>
+            <div className="logo__is"></div>
             <div className="logo__boring">
-              S<div className="reg">®</div>
+              <div className="reg"></div>
             </div>
           </div>
         </div>

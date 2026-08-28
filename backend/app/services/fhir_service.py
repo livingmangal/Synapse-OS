@@ -1,7 +1,7 @@
 """
-Sanjeevani OS — services/fhir_service.py
+SynapseOS — services/fhir_service.py
 HL7 / FHIR R4 (Fast Healthcare Interoperability Resources) Standard Data Models.
-Ported from AI-Healthcare-System fhir.py for Sanjeevani OS EHR Interoperability.
+Ported from AI-Healthcare-System fhir.py for SynapseOS EHR Interoperability.
 Generates compliant FHIR R4 Bundles for Patient, Observations (Vitals), Conditions, and DiagnosticReports.
 """
 

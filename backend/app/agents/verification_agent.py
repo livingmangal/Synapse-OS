@@ -1,12 +1,12 @@
 """
-Sanjeevani OS — agents/verification_agent.py
+SynapseOS — agents/verification_agent.py
 AI Council / Second Opinion Verification Agent.
 Audits primary diagnostic and triage claims using multi-perspective LLM consensus (Groq/OpenRouter).
 """
 
 import time
 from typing import Dict, Any, List, Optional
-from backend.app.core.state import SanjeevaniState, AgentTraceStep
+from backend.app.core.state import SynapseOSState, AgentTraceStep
 from backend.app.services.llm_service import call_llm_json
 
 
@@ -77,7 +77,7 @@ async def verify_clinical_claims(
     return await call_llm_json(messages, fallback_dict=fallback)
 
 
-async def verification_agent_node(state: SanjeevaniState) -> SanjeevaniState:
+async def verification_agent_node(state: SynapseOSState) -> SynapseOSState:
     """LangGraph node execution for AI Council Verification."""
     start = time.time()
     if not state.triage_data:

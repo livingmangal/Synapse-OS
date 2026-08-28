@@ -60,17 +60,17 @@ export default function VisualAnalyticsPanel({
 
   const currentSelectedId = propSelectedProfileId || localSelectedProfileId;
 
-  const handleOpenSanjeevaniAI = (promptText?: string) => {
+  const handleOpenSynapseOSAI = (promptText?: string) => {
     const text = promptText || chatMessage || '';
     setChatMessage('');
     if (typeof window !== 'undefined') {
-      window.dispatchEvent(new CustomEvent('open-sanjeevani-assistant', {
+      window.dispatchEvent(new CustomEvent('open-synapseos-assistant', {
         detail: { prompt: text }
       }));
-      if (typeof (window as any).openSanjeevaniAssistant === 'function') {
-        (window as any).openSanjeevaniAssistant();
+      if (typeof (window as any).openSynapseOSAssistant === 'function') {
+        (window as any).openSynapseOSAssistant();
       }
-      const triggerBtn = document.querySelector('.sanjeevani-trigger-pill, .sanjeevani-trigger-btn') as HTMLElement;
+      const triggerBtn = document.querySelector('.synapseos-trigger-pill, .synapseos-trigger-btn') as HTMLElement;
       if (triggerBtn) {
         triggerBtn.click();
       }
@@ -87,7 +87,7 @@ export default function VisualAnalyticsPanel({
       onSelectProfile(profileId);
     }
     if (typeof window !== 'undefined') {
-      window.dispatchEvent(new CustomEvent('sanjeevani-profile-switch', {
+      window.dispatchEvent(new CustomEvent('synapseos-profile-switch', {
         detail: { profileId }
       }));
     }
@@ -452,7 +452,7 @@ export default function VisualAnalyticsPanel({
             {/* Quick Suggestion Chips */}
             <div style={{ display: 'flex', gap: '8px', marginBottom: '12px', flexWrap: 'wrap' }}>
               <button 
-                onClick={() => handleOpenSanjeevaniAI('How can I improve my sleep?')}
+                onClick={() => handleOpenSynapseOSAI('How can I improve my sleep?')}
                 style={{
                   background: 'rgba(255,255,255,0.95)',
                   backdropFilter: 'blur(8px)',
@@ -472,7 +472,7 @@ export default function VisualAnalyticsPanel({
                 💬 {translateText('How can I improve my sleep?')}
               </button>
               <button 
-                onClick={() => handleOpenSanjeevaniAI('Analyze my latest ECG telemetry')}
+                onClick={() => handleOpenSynapseOSAI('Analyze my latest ECG telemetry')}
                 style={{
                   background: 'rgba(255,255,255,0.95)',
                   backdropFilter: 'blur(8px)',
@@ -495,7 +495,7 @@ export default function VisualAnalyticsPanel({
 
             {/* Input Bar */}
             <div 
-              onClick={() => handleOpenSanjeevaniAI(chatMessage)}
+              onClick={() => handleOpenSynapseOSAI(chatMessage)}
               style={{
                 display: 'flex',
                 alignItems: 'center',
@@ -515,7 +515,7 @@ export default function VisualAnalyticsPanel({
                 onKeyDown={(e) => {
                   if (e.key === 'Enter') {
                     e.preventDefault();
-                    handleOpenSanjeevaniAI(chatMessage);
+                    handleOpenSynapseOSAI(chatMessage);
                   }
                 }}
                 style={{
@@ -531,9 +531,9 @@ export default function VisualAnalyticsPanel({
               <button
                 onClick={(e) => {
                   e.stopPropagation();
-                  handleOpenSanjeevaniAI(chatMessage);
+                  handleOpenSynapseOSAI(chatMessage);
                 }}
-                title="Open Sanjeevani AI Assistant"
+                title="Open SynapseOS AI Assistant"
                 style={{
                   width: '36px',
                   height: '36px',

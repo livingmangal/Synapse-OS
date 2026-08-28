@@ -1,5 +1,5 @@
 /**
- * Sanjeevani OS - LiveKit-Style Isometric Agentic Flowchart Controller
+ * SynapseOS - LiveKit-Style Isometric Agentic Flowchart Controller
  */
 (function() {
   function initAgenticDiagram() {

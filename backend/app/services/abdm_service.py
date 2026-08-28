@@ -1,5 +1,5 @@
 """
-Sanjeevani OS — services/abdm_service.py
+SynapseOS — services/abdm_service.py
 Ayushman Bharat Digital Mission (ABDM) & ABHA National Health ID Sandbox.
 Ported and adapted from AI-Healthcare-System abdm.py for Indian National Healthcare Integration.
 """

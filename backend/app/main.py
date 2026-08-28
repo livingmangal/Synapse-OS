@@ -1,5 +1,5 @@
 """
-Sanjeevani OS — Main FastAPI Application Entrypoint.
+SynapseOS — Main FastAPI Application Entrypoint.
 """
 
 from fastapi import FastAPI
@@ -20,7 +20,7 @@ async def lifespan(app: FastAPI):
     yield
 
 app = FastAPI(
-    title="Sanjeevani OS — Multi-Agent Health Platform API",
+    title="SynapseOS — Multi-Agent Health Platform API",
     version=settings.VERSION,
     description="Autonomous AI-first Health Operating System powering dual-mode health assistants, clinical ML, digital twin, ABDM, and omnichannel care.",
     docs_url="/docs",
@@ -44,7 +44,7 @@ app.include_router(api_router, prefix=settings.API_PREFIX)
 @app.get("/", tags=["Health Check"])
 async def root():
     return {
-        "platform": "Sanjeevani OS",
+        "platform": "SynapseOS",
         "version": settings.VERSION,
         "status": "ONLINE",
         "agents_active": [

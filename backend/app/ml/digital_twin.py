@@ -1,7 +1,7 @@
 """
-Sanjeevani OS — ml/digital_twin.py
+SynapseOS — ml/digital_twin.py
 Autonomous Clinical Digital Twin & 10-Year Multi-Organ Trajectory Simulation Engine.
-Ported and adapted from AI-Healthcare-System for Sanjeevani OS.
+Ported and adapted from AI-Healthcare-System for SynapseOS.
 Computes 0-100 organ vitality scores and organ visualization colors for Three.js 3D Twin.
 """
 

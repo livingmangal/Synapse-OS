@@ -70,19 +70,19 @@ export default function OrbWelcome({ assistantPersona, onSendChip, onToggleVoice
     if (assistantPersona === 'nutrition') {
       return 'Custom metabolic breakdowns, calorie calculations, and longevity meal plans.';
     }
-    return 'Sanjeevani AI Orchestrator — Clinical diagnostics, scan analysis & blockchain records.';
+    return 'SynapseOS AI Orchestrator — Clinical diagnostics, scan analysis & blockchain records.';
   };
 
   return (
     <div 
-      className="sanjeevani-orb-welcome"
+      className="synapseos-orb-welcome"
       onMouseMove={handleOrbMouseMove}
       onMouseLeave={handleOrbMouseLeave}
     >
       {/* Hyper-Realistic 3D Glowing Movable Fluid Orb */}
       <div 
         ref={orbContainerRef}
-        className="sanjeevani-orb-container"
+        className="synapseos-orb-container"
         style={{
           transform: `translate3d(${orbOffset.x}px, ${orbOffset.y}px, 0px) rotateX(${-orbOffset.y * 1.5}deg) rotateY(${orbOffset.x * 1.5}deg)`,
           transition: 'transform 0.16s ease-out'
@@ -91,51 +91,51 @@ export default function OrbWelcome({ assistantPersona, onSendChip, onToggleVoice
         title="Click to start live voice conversation"
       >
         {/* Soft Multi-layered Volumetric Halos */}
-        <div className="sanjeevani-orb-ambient-glow" />
-        <div className="sanjeevani-orb-ambient-glow-inner" />
+        <div className="synapseos-orb-ambient-glow" />
+        <div className="synapseos-orb-ambient-glow-inner" />
 
         {/* Orbiting Iridescent Glass Ring */}
-        <div className="sanjeevani-orb-orbital-ring" />
+        <div className="synapseos-orb-orbital-ring" />
 
         {/* 3D Glass Sphere Vessel */}
-        <div className="sanjeevani-orb-3d-sphere">
+        <div className="synapseos-orb-3d-sphere">
           {/* Morphing Internal Plasma Cores */}
-          <div className="sanjeevani-orb-plasma-core-1" />
-          <div className="sanjeevani-orb-plasma-core-2" />
+          <div className="synapseos-orb-plasma-core-1" />
+          <div className="synapseos-orb-plasma-core-2" />
 
           {/* Subsurface Rim Reflection */}
-          <div className="sanjeevani-orb-rim-reflection" />
+          <div className="synapseos-orb-rim-reflection" />
 
           {/* Primary 3D Curvature Glare */}
-          <div className="sanjeevani-orb-specular-glare" />
+          <div className="synapseos-orb-specular-glare" />
 
           {/* Pinpoint Specular Hotspot */}
-          <div className="sanjeevani-orb-pinpoint-glint" />
+          <div className="synapseos-orb-pinpoint-glint" />
         </div>
       </div>
 
       {/* Headline & Subtitle matching Active Persona */}
-      <div className="sanjeevani-welcome-heading-wrap">
-        <h2 className="sanjeevani-welcome-title">
+      <div className="synapseos-welcome-heading-wrap">
+        <h2 className="synapseos-welcome-title">
           {getPersonaHeadline()}
         </h2>
-        <p className="sanjeevani-welcome-subtitle">
+        <p className="synapseos-welcome-subtitle">
           {getPersonaSubtitle()}
         </p>
       </div>
 
       {/* Quick Trigger Action Cards Grid per Persona */}
-      <div className="sanjeevani-welcome-grid">
+      <div className="synapseos-welcome-grid">
         {getPersonaCards().map((card, idx) => (
           <button
             key={idx}
             onClick={() => onSendChip(card.query)}
-            className="sanjeevani-prompt-card"
+            className="synapseos-prompt-card"
           >
-            <span className="sanjeevani-prompt-icon">{card.icon}</span>
-            <div className="sanjeevani-prompt-text">
-              <span className="sanjeevani-prompt-title">{card.title}</span>
-              <span className="sanjeevani-prompt-desc">{card.desc}</span>
+            <span className="synapseos-prompt-icon">{card.icon}</span>
+            <div className="synapseos-prompt-text">
+              <span className="synapseos-prompt-title">{card.title}</span>
+              <span className="synapseos-prompt-desc">{card.desc}</span>
             </div>
           </button>
         ))}

@@ -1,7 +1,7 @@
-# Sanjeevani OS — AI-Powered Multi-Agent Health Platform
+# SynapseOS — AI-Powered Multi-Agent Health Platform
 ### Project Plan & Technical Documentation (Hackathon Build — 100% Free/Open Source)
 
-> **Naming:** **Sanjeevani OS** is the platform/project name — "OS" signals this is infrastructure (an operating system for health, running many specialized agents), not "just another chatbot." **Sanjeevani** (without "OS") is the name of the voice/command assistant *inside* the platform — the thing the user talks to in Assistant Mode. Same relationship as "Windows" (the OS) and "Cortana" (the assistant inside it).
+> **Naming:** **SynapseOS** is the platform/project name — "OS" signals this is infrastructure (an operating system for health, running many specialized agents), not "just another chatbot." **SynapseOS** (without "OS") is the name of the voice/command assistant *inside* the platform — the thing the user talks to in Assistant Mode. Same relationship as "Windows" (the OS) and "Cortana" (the assistant inside it).
 
 ---
 
@@ -10,11 +10,11 @@
 A software-only, AI-first health platform with **two ways to use it, chosen by the user, not forced on them:**
 
 1. **Standard Mode — a normal, fully interactive website.** Dashboard, forms, buttons, 3D body viewer, records, charts — no voice or bot personality required. This is what opens by default. No assistant persona shown up front.
-2. **Assistant Mode — "Sanjeevani."** A single command bar / mic button (toggled on deliberately) that turns the same platform into a voice-and-chat-driven autopilot: the user *speaks or types a command* and Sanjeevani automates the task end-to-end — filling forms, pulling records, triaging symptoms, logging meals — across the web app, WhatsApp, Telegram, and Discord.
+2. **Assistant Mode — "SynapseOS."** A single command bar / mic button (toggled on deliberately) that turns the same platform into a voice-and-chat-driven autopilot: the user *speaks or types a command* and SynapseOS automates the task end-to-end — filling forms, pulling records, triaging symptoms, logging meals — across the web app, WhatsApp, Telegram, and Discord.
 
 Under the hood, both modes are powered by the **same multi-agent system** below — Assistant Mode is just a conversational front-end to it, and Standard Mode is a direct UI front-end to it. Nothing is duplicated; it's one backend, two doors in.
 
-All agents share memory and state so nothing gets "lost" between channels — a user can start a task on WhatsApp, continue it in Standard Mode on the web, and finish it by asking Sanjeevani a question by voice.
+All agents share memory and state so nothing gets "lost" between channels — a user can start a task on WhatsApp, continue it in Standard Mode on the web, and finish it by asking SynapseOS a question by voice.
 
 No hardware/IoT — pure software, deployable on free tiers.
 
@@ -22,15 +22,15 @@ No hardware/IoT — pure software, deployable on free tiers.
 
 ## 2. High-Level Architecture
 
-![Sanjeevani OS — High-Level System Architecture](sanjeevani_architecture.png)
+![SynapseOS — High-Level System Architecture](synapseos_architecture.png)
 
-*(Full-resolution diagram file: `sanjeevani_architecture.png`, included alongside this document.)*
+*(Full-resolution diagram file: `synapseos_architecture.png`, included alongside this document.)*
 
 The architecture is five layers deep:
 
-1. **User Channels** — Standard Mode web dashboard, Assistant Mode ("Sanjeevani") web widget, WhatsApp, Telegram, Discord, and raw voice/mic input all enter through the same door.
+1. **User Channels** — Standard Mode web dashboard, Assistant Mode ("SynapseOS") web widget, WhatsApp, Telegram, Discord, and raw voice/mic input all enter through the same door.
 2. **Channel Adapter Layer** — normalizes every channel's message format into one common schema so the Orchestrator never has to know or care where a request came from.
-3. **Orchestrator Agent ("Sanjeevani")** — the central brain: detects intent, plans multi-step tasks, delegates to the right specialist agent(s), merges their results, and keeps one continuous session/memory per user across every channel.
+3. **Orchestrator Agent ("SynapseOS")** — the central brain: detects intent, plans multi-step tasks, delegates to the right specialist agent(s), merges their results, and keeps one continuous session/memory per user across every channel.
 4. **Specialized Agent Swarm** — now organized into five functional clusters (Clinical Intelligence, Lifestyle & Wellness, Access & Logistics, Public Health, and Records/Trust/Visualization) covering 18 distinct agents — see Section 3 for the full roster, several of which are new additions for real-world usefulness (doctor/hospital finder, medicine locator, insurance navigator, emergency SOS, and more).
 5. **Shared Memory & Data Layer, External Free APIs, and the Blockchain/Verification Layer** — this is what makes the system production-credible rather than a demo toy: every agent reads/writes the same Vector DB + Relational DB + Event Bus, several agents pull live data from genuinely free public healthcare APIs (Section 5.11), and trust-critical data is hashed to a free blockchain testnet.
 
@@ -46,8 +46,8 @@ The architecture is five layers deep:
 ### 3.1 Interface & Orchestration
 | Agent | Job | Trigger Examples |
 |---|---|---|
-| **Orchestrator ("Sanjeevani")** | Understands intent, plans multi-step tasks, delegates to sub-agents, merges results, keeps conversational memory | Every incoming message |
-| **Voice Agent (Sanjeevani Voice I/O)** | STT → routes to Orchestrator → TTS reply, multilingual, natural-sounding | Voice call/mic input |
+| **Orchestrator ("SynapseOS")** | Understands intent, plans multi-step tasks, delegates to sub-agents, merges results, keeps conversational memory | Every incoming message |
+| **Voice Agent (SynapseOS Voice I/O)** | STT → routes to Orchestrator → TTS reply, multilingual, natural-sounding | Voice call/mic input |
 | **Messaging Bridge Agent** | Normalizes WhatsApp/Telegram/Discord messages into the common format and sends replies back | Any bot message |
 
 ### 3.2 Clinical Intelligence
@@ -73,7 +73,7 @@ The architecture is five layers deep:
 | **Doctor & Hospital Finder Agent** | Finds nearby doctors/specialists/hospitals using free map APIs, filters by specialty and distance | "find a cardiologist near me" |
 | **Medicine & Pharmacy Locator Agent** | Looks up a medicine (generic/brand, dosage, purpose) and finds nearby pharmacies that plausibly stock it | "where can I get paracetamol nearby" |
 | **Insurance / Medicare Navigator Agent** | Explains public health insurance schemes the user may be eligible for, using open government data | "am I eligible for any govt health scheme" |
-| **Emergency SOS Agent** | One-command emergency flow: shares nearest hospital/ambulance info, and can message a pre-set emergency contact | "Sanjeevani, emergency" |
+| **Emergency SOS Agent** | One-command emergency flow: shares nearest hospital/ambulance info, and can message a pre-set emergency contact | "SynapseOS, emergency" |
 | **Appointment Scheduler Agent** | Books/reminds about doctor appointments, syncs with a simple calendar | "book me a slot with my usual GP" |
 | **Vaccination & Medication Reminder Agent** | Tracks vaccination schedules and daily medication timings, sends proactive reminders across channels | "remind me to take my meds at 9am" |
 
@@ -113,7 +113,7 @@ Use an **agentic framework**, not hand-rolled routing — it saves huge time and
 - **LLaVA / Gemini Vision (free tier)** — X-ray/MRI plain-language explanation.
 - **torchxrayvision** — free pretrained chest X-ray classifiers.
 
-### 5.3 Voice (the "Sanjeevani" experience) — optimized for the most human-sounding free option
+### 5.3 Voice (the "SynapseOS" experience) — optimized for the most human-sounding free option
 
 Voice quality is judged on two axes: **STT accuracy** (does it understand the user) and **TTS naturalness** (does the reply sound like a real person, with proper tone/prosody, not robotic). Here's a ranked recommendation:
 
@@ -128,7 +128,7 @@ Voice quality is judged on two axes: **STT accuracy** (does it understand the us
 
 **Recommendation for the demo:** Coqui XTTS-v2 as the primary voice (it's the one judges will actually be impressed by), with edge-tts wired as an automatic fallback if XTTS-v2 is too slow/unavailable on demo hardware.
 
-- **Voice pipeline:** Mic/audio in → Whisper STT → Orchestrator (text) → agent response → XTTS-v2/edge-tts → audio out. Wrap this in a WebRTC or simple WebSocket audio stream for the web "Sanjeevani" widget, streaming audio in chunks to keep latency low.
+- **Voice pipeline:** Mic/audio in → Whisper STT → Orchestrator (text) → agent response → XTTS-v2/edge-tts → audio out. Wrap this in a WebRTC or simple WebSocket audio stream for the web "SynapseOS" widget, streaming audio in chunks to keep latency low.
 - For low-latency conversational feel (interruptible, real-time turn-taking), consider **Pipecat** (open-source framework for voice agent pipelines — purpose-built for exactly this, and plugs into Whisper + XTTS-v2 directly).
 
 ### 5.4 Messaging Bots (WhatsApp / Telegram / Discord)
@@ -155,7 +155,7 @@ Voice quality is judged on two axes: **STT accuracy** (does it understand the us
 
 ### 5.7 PDF Report Generation (free)
 - **WeasyPrint** or **ReportLab** (Python, free, open source) — render a styled HTML/CSS template of the user's records/scan summaries/nutrition log into a downloadable PDF.
-- Report Generator Agent assembles the data from the shared DB, fills a branded template (logo, QR code linking to the blockchain-verified record hash), and returns a download link — usable from Standard Mode ("Download PDF Report" button) or by asking Sanjeevani to "email me a report."
+- Report Generator Agent assembles the data from the shared DB, fills a branded template (logo, QR code linking to the blockchain-verified record hash), and returns a download link — usable from Standard Mode ("Download PDF Report" button) or by asking SynapseOS to "email me a report."
 
 ### 5.8 Shared Memory / Data Layer
 - **Vector DB:** ChromaDB (free, local, easiest) or Qdrant (free, open source, more production-grade) — stores conversation context/embeddings so agents share understanding.
@@ -164,7 +164,7 @@ Voice quality is judged on two axes: **STT accuracy** (does it understand the us
 
 ### 5.9 Backend / Frontend
 - **Backend:** FastAPI (Python) — plays nicely with LangGraph/CrewAI and Hugging Face models.
-- **Frontend:** Next.js (React) — hosts the dashboard, 3D viewer, and web-based Sanjeevani voice widget.
+- **Frontend:** Next.js (React) — hosts the dashboard, 3D viewer, and web-based SynapseOS voice widget.
 - **Realtime:** WebSockets (FastAPI native) for streaming voice/chat.
 
 ### 5.10 Free Hosting
@@ -208,15 +208,15 @@ A normal, click-and-type interactive website — this is what loads first, every
 - **Insurance / Medicare Page:** browse public health insurance/government scheme eligibility (Insurance/Medicare Navigator Agent), using open government data.
 - **Outbreak Map Page:** live heatmap + personalized risk score.
 - **Nutrition / Triage / Mental Health / Fitness / Women's Health pages:** normal forms and results panels — fully usable with mouse/keyboard, zero voice required.
-- A small, unobtrusive **"Ask Sanjeevani"** button sits in the corner. It's an entry point into Assistant Mode, not something forced on the user.
+- A small, unobtrusive **"Ask SynapseOS"** button sits in the corner. It's an entry point into Assistant Mode, not something forced on the user.
 
-### 6.2 Assistant Mode ("Sanjeevani")
-Activated only when the user clicks/taps "Ask Sanjeevani" or opens it from the nav toggle. Once active:
-- Push-to-talk or wake-word ("Hey Sanjeevani") mic button, plus a text command bar.
+### 6.2 Assistant Mode ("SynapseOS")
+Activated only when the user clicks/taps "Ask SynapseOS" or opens it from the nav toggle. Once active:
+- Push-to-talk or wake-word ("Hey SynapseOS") mic button, plus a text command bar.
 - Streams STT text into the Orchestrator; Orchestrator streams back both a text reply (on-screen) and a synthesized voice reply (audio).
-- Can **automate multi-step tasks**, not just answer questions: *"Sanjeevani, check my last scan, log today's meals, and email me a PDF summary"* — the Orchestrator plans this as a sequence across the Medical Scan, Nutrition, and Report Generator agents and reports back when done.
+- Can **automate multi-step tasks**, not just answer questions: *"SynapseOS, check my last scan, log today's meals, and email me a PDF summary"* — the Orchestrator plans this as a sequence across the Medical Scan, Nutrition, and Report Generator agents and reports back when done.
 - Same command set works identically over WhatsApp/Telegram/Discord text, and voice notes on those channels get transcribed automatically — Assistant Mode isn't limited to the website.
-- Switching back to Standard Mode is one click; any action Sanjeevani took (a saved record, a generated report) shows up immediately in the normal dashboard, because both modes share the same backend/session.
+- Switching back to Standard Mode is one click; any action SynapseOS took (a saved record, a generated report) shows up immediately in the normal dashboard, because both modes share the same backend/session.
 
 ### 6.3 Why this dual-mode design is a strong hackathon pitch
 Judges consistently reward products that feel *shippable*, not just clever. A platform that forces every user through a voice bot feels gimmicky; a platform that offers a genuinely useful plain dashboard **and** a genuinely capable automation layer on top of it demonstrates real product thinking — accessibility for non-voice users, power-user automation for those who want it, and one unified backend proving the multi-agent system actually works, not just as a chat toy.
@@ -230,7 +230,7 @@ Judges consistently reward products that feel *shippable*, not just clever. A pl
 3. Orchestrator detects intent = "document scan" → routes to **Medical Scan Agent**.
 4. Medical Scan Agent runs TrOCR → extracts text → summarizes in plain language → writes result to **Vector DB** (context) and **Relational DB** (record) → publishes `scan_completed` event on the **Event Bus**.
 5. **Blockchain Records Agent** listens for `scan_completed`, hashes the record, stores file on IPFS, writes hash + metadata to the smart contract.
-6. Orchestrator composes final reply (plain-language summary + "saved to your verified record") → sent back through Telegram, and also instantly visible on the **web dashboard** and answerable by **voice** if the user asks Sanjeevani about it later — because all agents read the same shared memory.
+6. Orchestrator composes final reply (plain-language summary + "saved to your verified record") → sent back through Telegram, and also instantly visible on the **web dashboard** and answerable by **voice** if the user asks SynapseOS about it later — because all agents read the same shared memory.
 
 ---
 
@@ -245,14 +245,14 @@ Judges consistently reward products that feel *shippable*, not just clever. A pl
 - Build Orchestrator intent router (LLM-based classification into agent names).
 - Wire up Telegram bot end-to-end (fastest to demo reliably).
 - Confirm shared memory read/write (Vector DB + Postgres) across a single conversation.
-- Scaffold the **Standard Mode dashboard shell** (plain nav, empty pages) with a single "Ask Sanjeevani" toggle button wired to nothing yet — get the two-mode skeleton in place early so nothing has to be retrofitted later.
+- Scaffold the **Standard Mode dashboard shell** (plain nav, empty pages) with a single "Ask SynapseOS" toggle button wired to nothing yet — get the two-mode skeleton in place early so nothing has to be retrofitted later.
 
 ### Phase 2 — Add 2–3 Signature Agents
 - Medical Scan Agent (TrOCR + LLaVA/Gemini vision) — highest demo impact.
 - Symptom Triage Agent — simple decision-tree + LLM hybrid, easy to build fast.
 - Nutrition Agent — meal plan generation, quick win with plain LLM prompting.
 
-### Phase 3 — Voice ("Sanjeevani")
+### Phase 3 — Voice ("SynapseOS")
 - Whisper STT + Piper/Coqui TTS pipeline behind a WebSocket endpoint.
 - Simple web mic widget calling that endpoint; wire it to the same Orchestrator used by bots.
 
@@ -269,7 +269,7 @@ Judges consistently reward products that feel *shippable*, not just clever. A pl
 - Mental Health Agent: distress-detection prompt + supportive conversation flow with escalation logic.
 
 ### Phase 7 — Report Generator + Pick Your Differentiators
-- Report Generator Agent: WeasyPrint/ReportLab PDF export wired to the Records page and to a Sanjeevani voice command.
+- Report Generator Agent: WeasyPrint/ReportLab PDF export wired to the Records page and to a SynapseOS voice command.
 - Implement your chosen 2–4 items from Section 12 (Winning Differentiators) — e.g., Council Mode second opinion, the QR Health Passport, and the proactive outbreak-alert agent are the highest-impact-for-effort picks if time is short.
 
 ### Phase 8 — Polish for Demo
@@ -315,7 +315,7 @@ health-jarvis/
 │   ├── discord/
 │   └── whatsapp/
 ├── contracts/               # Hardhat project, ERC-721 record/prescription tokens
-├── frontend/                 # Next.js dashboard + 3D viewer + Sanjeevani widget
+├── frontend/                 # Next.js dashboard + 3D viewer + SynapseOS widget
 ├── shared/                   # common schemas, event bus client, DB client
 └── docs/                      # architecture diagrams, pitch deck, README
 ```
@@ -336,7 +336,7 @@ Most health-AI hackathon projects stop at "chatbot + OCR + a chart." To stand ou
 
 Pick your top 2–4, build them deeply, and lead your demo with them — that's what makes judges remember a project after seeing twenty others that day.
 
-### 12.1 Naming Alternatives (if you want options besides "Sanjeevani")
+### 12.1 Naming Alternatives (if you want options besides "SynapseOS")
 - **Aarogya** (Sanskrit: "health/wellness") — clean, meaningful, easy to say.
 - **Vaidya AI** ("Vaidya" = traditional physician) — signals medical authority.
 - **Vitalis** — Latin-rooted, feels modern/global for a broader audience.
@@ -347,4 +347,4 @@ Pick your top 2–4, build them deeply, and lead your demo with them — that's 
 
 ## 13. One-Line Pitch (for your submission)
 
-*"Sanjeevani OS is a free, fully open-source operating system for healthcare, powered by a swarm of specialized AI agents — a normal, usable website by default, with Sanjeevani, a voice-driven automation layer, on demand. It scans prescriptions, triages symptoms, plans nutrition, supports mental health, predicts outbreaks, and stores everything on a tamper-proof, QR-verifiable blockchain record, all visualized on a living 3D health twin."*
+*"SynapseOS is a free, fully open-source operating system for healthcare, powered by a swarm of specialized AI agents — a normal, usable website by default, with SynapseOS, a voice-driven automation layer, on demand. It scans prescriptions, triages symptoms, plans nutrition, supports mental health, predicts outbreaks, and stores everything on a tamper-proof, QR-verifiable blockchain record, all visualized on a living 3D health twin."*

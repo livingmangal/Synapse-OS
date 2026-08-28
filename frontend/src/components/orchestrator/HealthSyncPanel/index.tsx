@@ -309,7 +309,7 @@ export default function HealthSyncPanel({
       onSelectProfile(profile.profileId);
     }
     if (typeof window !== 'undefined') {
-      window.dispatchEvent(new CustomEvent('sanjeevani-profile-switch', {
+      window.dispatchEvent(new CustomEvent('synapseos-profile-switch', {
         detail: { profileId: profile.profileId }
       }));
     }
@@ -1306,7 +1306,7 @@ export default function HealthSyncPanel({
                   </h4>
                 </div>
                 <p style={{ fontSize: '12px', color: '#64748b', margin: '0 0 6px 0' }}>
-                  Install <b>Health Auto Export</b> from the App Store → Select <b>REST API Webhook</b> → Enter the Sanjeevani endpoint with cadence set to 15 mins.
+                  Install <b>Health Auto Export</b> from the App Store → Select <b>REST API Webhook</b> → Enter the SynapseOS endpoint with cadence set to 15 mins.
                 </p>
               </div>
 

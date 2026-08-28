@@ -1,6 +1,6 @@
 """
-Sanjeevani OS — api/endpoints.py
-Unified FastAPI API endpoints for Sanjeevani OS.
+SynapseOS — api/endpoints.py
+Unified FastAPI API endpoints for SynapseOS.
 """
 
 from fastapi import APIRouter, HTTPException, Response
@@ -133,7 +133,7 @@ async def generate_pdf_endpoint(req: PDFReportRequest):
     return Response(
         content=pdf_bytes,
         media_type="application/pdf",
-        headers={"Content-Disposition": f"attachment; filename=Sanjeevani_Health_Summary_{req.patient_name.replace(' ', '_')}.pdf"}
+        headers={"Content-Disposition": f"attachment; filename=SynapseOS_Health_Summary_{req.patient_name.replace(' ', '_')}.pdf"}
     )
 
 
@@ -340,7 +340,7 @@ async def get_wearables_bridge_spec():
     and Android Health Connect integration specifications for real device syncing.
     """
     return {
-        "bridge_name": "Sanjeevani OS Live Wearables Bridge",
+        "bridge_name": "SynapseOS Live Wearables Bridge",
         "supported_sources": ["apple_health", "google_health_connect", "ios_shortcut", "health_auto_export", "garmin"],
         "sync_endpoint": "/api/wearables/sync",
         "http_method": "POST",
@@ -361,18 +361,18 @@ async def get_wearables_bridge_spec():
             "sleep_duration_hrs": "Float (optional)"
         },
         "ios_shortcut_setup": {
-            "name": "Sanjeevani HealthKit Sync",
+            "name": "SynapseOS HealthKit Sync",
             "trigger": "Automations -> Time of Day (e.g. Every hour or on Wake Up)",
             "actions": [
                 "1. Find Health Samples (Heart Rate, Resting Heart Rate, Oxygen Saturation, Step Count)",
                 "2. Set Dictionary with keys matching payload schema",
-                "3. Get Contents of URL https://<SANJEEVANI_HOST>/api/wearables/sync via POST with JSON body"
+                "3. Get Contents of URL https://<SYNAPSEOS_HOST>/api/wearables/sync via POST with JSON body"
             ]
         },
         "health_auto_export_setup": {
             "app": "Health Auto Export (iOS App Store)",
             "sync_type": "REST API Webhook / Background Sync",
-            "url": "https://<SANJEEVANI_HOST>/api/wearables/sync",
+            "url": "https://<SYNAPSEOS_HOST>/api/wearables/sync",
             "cadence": "Every 15 minutes or upon background fetch"
         }
     }
@@ -390,14 +390,14 @@ async def get_live_surveillance_data():
     try:
         req = urllib.request.Request(
             "https://disease.sh/v3/covid-19/all",
-            headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) SanjeevaniOS/2.0"}
+            headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) SynapseOS/2.0"}
         )
         with urllib.request.urlopen(req, timeout=4) as response:
             global_data = json.loads(response.read().decode())
 
         req_countries = urllib.request.Request(
             "https://disease.sh/v3/covid-19/countries?sort=cases",
-            headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) SanjeevaniOS/2.0"}
+            headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) SynapseOS/2.0"}
         )
         with urllib.request.urlopen(req_countries, timeout=4) as response:
             countries_data = json.loads(response.read().decode())
@@ -440,7 +440,7 @@ async def get_live_surveillance_data():
     except Exception as e:
         # Resilient fallback with curated WHO dataset
         return {
-            "source": "Sanjeevani Local WHO/ICMR Matrix (Offline Resilience)",
+            "source": "SynapseOS Local WHO/ICMR Matrix (Offline Resilience)",
             "status": "CACHED_FALLBACK",
             "global": {
                 "total_cases": 775600000,
@@ -481,7 +481,7 @@ async def get_ayushman_schemes(condition: str = "general"):
 @router.post("/reports/generate-pdf", tags=["Reports & Export"])
 async def generate_pdf_endpoint(req: PDFReportRequest):
     """
-    Generates official verifiable Sanjeevani OS Digital Health Passport PDF with QR code stamp,
+    Generates official verifiable SynapseOS Digital Health Passport PDF with QR code stamp,
     ABDM compliance, vitals benchmarks, and active medication safety verification.
     """
     pdf_bytes = generate_health_summary_pdf(
@@ -496,7 +496,7 @@ async def generate_pdf_endpoint(req: PDFReportRequest):
         content=pdf_bytes,
         media_type="application/pdf",
         headers={
-            "Content-Disposition": f'attachment; filename="Sanjeevani_Health_Passport_{safe_name}.pdf"',
+            "Content-Disposition": f'attachment; filename="SynapseOS_Health_Passport_{safe_name}.pdf"',
             "Access-Control-Expose-Headers": "Content-Disposition"
         }
     )

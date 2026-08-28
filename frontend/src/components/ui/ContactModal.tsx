@@ -2,8 +2,14 @@
 
 import React, { useState, useEffect } from 'react';
 
-export default function ContactModal() {
-  const [isOpen, setIsOpen] = useState(false);
+interface ContactModalProps {
+  isOpen?: boolean;
+  onClose?: () => void;
+}
+
+export default function ContactModal({ isOpen: controlledIsOpen, onClose }: ContactModalProps = {}) {
+  const [internalIsOpen, setInternalIsOpen] = useState(false);
+  const isOpen = controlledIsOpen !== undefined ? controlledIsOpen : internalIsOpen;
   const [copied, setCopied] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
@@ -18,7 +24,7 @@ export default function ContactModal() {
 
   useEffect(() => {
     // Global event listener to open contact modal from any component
-    const handleOpen = () => setIsOpen(true);
+    const handleOpen = () => setInternalIsOpen(true);
     window.addEventListener('open-contact-modal', handleOpen);
 
     // Intercept clicks on links with href="#contacto", href="contacto", href="#contact"
@@ -29,7 +35,7 @@ export default function ContactModal() {
         if (href === '#contacto' || href === 'contacto' || href === '#contact' || href === '/contacto') {
           e.preventDefault();
           e.stopPropagation();
-          setIsOpen(true);
+          setInternalIsOpen(true);
         }
       }
     };
@@ -39,7 +45,7 @@ export default function ContactModal() {
     // Escape key listener
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && isOpen) {
-        setIsOpen(false);
+        handleClose();
       }
     };
     window.addEventListener('keydown', handleKeyDown);
@@ -49,10 +55,10 @@ export default function ContactModal() {
       document.removeEventListener('click', handleDocClick, true);
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [isOpen]);
+  }, [isOpen, onClose]);
 
   const handleCopyEmail = () => {
-    navigator.clipboard.writeText('hello@sanjeevani-os.com');
+    navigator.clipboard.writeText('hello@synapseos.com');
     setCopied(true);
     setTimeout(() => setCopied(false), 2200);
   };
@@ -67,7 +73,8 @@ export default function ContactModal() {
   };
 
   const handleClose = () => {
-    setIsOpen(false);
+    setInternalIsOpen(false);
+    if (onClose) onClose();
     setTimeout(() => {
       setSubmitted(false);
     }, 300);
@@ -77,19 +84,19 @@ export default function ContactModal() {
 
   return (
     <div 
-      className="sanjeevani-contact-backdrop"
+      className="synapseos-contact-backdrop"
       onClick={handleClose}
       data-lenis-prevent="true"
     >
       <div 
-        className="sanjeevani-contact-modal"
+        className="synapseos-contact-modal"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}
         <button 
           type="button"
           onClick={handleClose}
-          className="sanjeevani-contact-close"
+          className="synapseos-contact-close"
           aria-label="Close Contact Modal"
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
@@ -99,47 +106,47 @@ export default function ContactModal() {
         </button>
 
         {/* Modal Header */}
-        <div className="sanjeevani-contact-header">
-          <div className="sanjeevani-contact-brand-row">
-            <div className="sanjeevani-contact-badge">
-              <span className="sanjeevani-contact-badge-dot" />
-              <span>SANJEEVANI OS</span>
+        <div className="synapseos-contact-header">
+          <div className="synapseos-contact-brand-row">
+            <div className="synapseos-contact-badge">
+              <span className="synapseos-contact-badge-dot" />
+              <span>SYNAPSEOS OS</span>
             </div>
-            <span className="sanjeevani-contact-meta">CONTACT &amp; PARTNERSHIPS</span>
+            <span className="synapseos-contact-meta">CONTACT &amp; PARTNERSHIPS</span>
           </div>
 
-          <h2 className="sanjeevani-contact-title">
-            Deploy Sanjeevani OS in Your <em>Clinical Network</em>.
+          <h2 className="synapseos-contact-title">
+            Deploy SynapseOS in Your <em>Clinical Network</em>.
           </h2>
-          <p className="sanjeevani-contact-subtitle">
+          <p className="synapseos-contact-subtitle">
             Partner with <strong>Team ACDC</strong> for hospital deployments, research collaborations, ABHA blockchain integrations, or smart diagnostics.
           </p>
         </div>
 
         {/* Modal Body: Form or Success State */}
         {submitted ? (
-          <div className="sanjeevani-contact-success">
-            <div className="sanjeevani-contact-success-icon">✓</div>
-            <h3 className="sanjeevani-contact-success-title">Inquiry Transmitted</h3>
-            <p className="sanjeevani-contact-success-desc">
+          <div className="synapseos-contact-success">
+            <div className="synapseos-contact-success-icon">✓</div>
+            <h3 className="synapseos-contact-success-title">Inquiry Transmitted</h3>
+            <p className="synapseos-contact-success-desc">
               Thank you, <strong>{formData.name || 'Partner'}</strong>. Your clinical deployment request has been logged. Our core engineering team at <strong>Team ACDC</strong> will contact you via <strong>{formData.email}</strong> shortly.
             </p>
             <button
               type="button"
               onClick={handleClose}
-              className="sanjeevani-contact-btn-primary"
+              className="synapseos-contact-btn-primary"
               style={{ maxWidth: '240px', margin: '16px auto 0' }}
             >
               Return to Platform
             </button>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="sanjeevani-contact-form">
-            <div className="sanjeevani-contact-form-grid">
+          <form onSubmit={handleSubmit} className="synapseos-contact-form">
+            <div className="synapseos-contact-form-grid">
               
               {/* Full Name */}
-              <div className="sanjeevani-contact-field">
-                <label className="sanjeevani-contact-label">
+              <div className="synapseos-contact-field">
+                <label className="synapseos-contact-label">
                   Your Name / Clinical Lead <span style={{ color: '#10b981' }}>*</span>
                 </label>
                 <input
@@ -148,13 +155,13 @@ export default function ContactModal() {
                   placeholder="e.g. Dr. Aryan Sharma"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="sanjeevani-contact-input"
+                  className="synapseos-contact-input"
                 />
               </div>
 
               {/* Organization */}
-              <div className="sanjeevani-contact-field">
-                <label className="sanjeevani-contact-label">
+              <div className="synapseos-contact-field">
+                <label className="synapseos-contact-label">
                   Hospital / Institution / University
                 </label>
                 <input
@@ -162,13 +169,13 @@ export default function ContactModal() {
                   placeholder="e.g. AIIMS Delhi / Apollo Hospitals"
                   value={formData.organization}
                   onChange={(e) => setFormData({ ...formData, organization: e.target.value })}
-                  className="sanjeevani-contact-input"
+                  className="synapseos-contact-input"
                 />
               </div>
 
               {/* Work Email */}
-              <div className="sanjeevani-contact-field">
-                <label className="sanjeevani-contact-label">
+              <div className="synapseos-contact-field">
+                <label className="synapseos-contact-label">
                   Work Email Address <span style={{ color: '#10b981' }}>*</span>
                 </label>
                 <input
@@ -177,19 +184,19 @@ export default function ContactModal() {
                   placeholder="aryan@hospital.org"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="sanjeevani-contact-input"
+                  className="synapseos-contact-input"
                 />
               </div>
 
               {/* Scope of Interest */}
-              <div className="sanjeevani-contact-field">
-                <label className="sanjeevani-contact-label">
+              <div className="synapseos-contact-field">
+                <label className="synapseos-contact-label">
                   Inquiry Scope
                 </label>
                 <select
                   value={formData.category}
                   onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                  className="sanjeevani-contact-select"
+                  className="synapseos-contact-select"
                 >
                   <option value="Hospital OS Deployment">Hospital Multi-Agent OS Deployment</option>
                   <option value="ABHA & FHIR Integration">ABHA Health ID &amp; Blockchain Vault Integration</option>
@@ -200,8 +207,8 @@ export default function ContactModal() {
               </div>
 
               {/* Message Details */}
-              <div className="sanjeevani-contact-field" style={{ gridColumn: '1 / -1' }}>
-                <label className="sanjeevani-contact-label">
+              <div className="synapseos-contact-field" style={{ gridColumn: '1 / -1' }}>
+                <label className="synapseos-contact-label">
                   Clinical Requirements / Deployment Scope <span style={{ color: '#10b981' }}>*</span>
                 </label>
                 <textarea
@@ -210,18 +217,18 @@ export default function ContactModal() {
                   placeholder="Describe your facility requirements, patient volume, or research objectives..."
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  className="sanjeevani-contact-textarea"
+                  className="synapseos-contact-textarea"
                 />
               </div>
 
             </div>
 
             {/* Submit Action */}
-            <div className="sanjeevani-contact-footer-actions">
+            <div className="synapseos-contact-footer-actions">
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="sanjeevani-contact-btn-primary"
+                className="synapseos-contact-btn-primary"
               >
                 {isSubmitting ? 'Transmitting Request...' : 'Send Clinical Inquiry →'}
               </button>
@@ -230,22 +237,22 @@ export default function ContactModal() {
         )}
 
         {/* Direct Contact Channels */}
-        <div className="sanjeevani-contact-direct-bar">
-          <div className="sanjeevani-contact-direct-info">
-            <span className="sanjeevani-contact-direct-label">DIRECT EMAIL</span>
+        <div className="synapseos-contact-direct-bar">
+          <div className="synapseos-contact-direct-info">
+            <span className="synapseos-contact-direct-label">DIRECT EMAIL</span>
             <button 
               type="button"
               onClick={handleCopyEmail}
-              className="sanjeevani-contact-copy-btn"
+              className="synapseos-contact-copy-btn"
               title="Click to copy email address"
             >
-              hello@sanjeevani-os.com {copied ? '✓ Copied!' : '📋'}
+              hello@synapseos.com {copied ? '✓ Copied!' : '📋'}
             </button>
           </div>
 
-          <div className="sanjeevani-contact-direct-info" style={{ textAlign: 'right' }}>
-            <span className="sanjeevani-contact-direct-label">HACKATHON EDITION</span>
-            <span className="sanjeevani-contact-direct-val">Team ACDC • Smart VIT Hackathon</span>
+          <div className="synapseos-contact-direct-info" style={{ textAlign: 'right' }}>
+            <span className="synapseos-contact-direct-label">HACKATHON EDITION</span>
+            <span className="synapseos-contact-direct-val">Team ACDC • Smart VIT Hackathon</span>
           </div>
         </div>
 

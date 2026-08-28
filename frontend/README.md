@@ -1,4 +1,4 @@
-# 🩺 Sanjeevani OS — Frontend Clinical Dashboard & Multimodal Web App
+# 🩺 SynapseOS — Frontend Clinical Dashboard & Multimodal Web App
 
 A Next.js 16 and React 19 clinical workstation powering real-time healthcare orchestration, 3D Digital Health Twin, medical imaging analysis, and multimodal voice interaction.
 

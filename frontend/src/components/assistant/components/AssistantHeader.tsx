@@ -31,17 +31,17 @@ export default function AssistantHeader({
   };
 
   return (
-    <div className="sanjeevani-header">
-      <div className="sanjeevani-header-inner">
+    <div className="synapseos-header">
+      <div className="synapseos-header-inner">
         {/* Logo / Brand */}
-        <div className="sanjeevani-header-left">
-          <div className="sanjeevani-header-logo">
-            <div className="sanjeevani-header-logo-ring" />
-            <div className="sanjeevani-header-logo-dot" />
+        <div className="synapseos-header-left">
+          <div className="synapseos-header-logo">
+            <div className="synapseos-header-logo-ring" />
+            <div className="synapseos-header-logo-dot" />
           </div>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <span style={{ fontSize: '15px', fontWeight: 700, color: '#0f172a', letterSpacing: '-0.3px', lineHeight: 1.2 }}>
-              Sanjeevani AI
+              SynapseOS AI
             </span>
             <span style={{ fontSize: '11px', color: '#059669', fontWeight: 600 }}>
               {getPersonaLabel()}
@@ -55,7 +55,7 @@ export default function AssistantHeader({
           {/* WhatsApp Bridge Button */}
           <button
             onClick={() => onTabChange(activeTab === 'whatsapp' ? 'chat' : 'whatsapp')}
-            className={`sanjeevani-icon-btn ${activeTab === 'whatsapp' ? 'active' : ''}`}
+            className={`synapseos-icon-btn ${activeTab === 'whatsapp' ? 'active' : ''}`}
             title="WhatsApp Integration Bridge"
             style={{ position: 'relative' }}
           >
@@ -70,7 +70,7 @@ export default function AssistantHeader({
           {/* History Drawer Toggle Button */}
           <button 
             onClick={() => onTabChange(activeTab === 'history' ? 'chat' : 'history')}
-            className={`sanjeevani-icon-btn ${activeTab === 'history' ? 'active' : ''}`}
+            className={`synapseos-icon-btn ${activeTab === 'history' ? 'active' : ''}`}
             title="Chat History Sessions"
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
@@ -82,7 +82,7 @@ export default function AssistantHeader({
           {/* New Chat Button */}
           <button 
             onClick={onNewChat}
-            className="sanjeevani-icon-btn"
+            className="synapseos-icon-btn"
             title="Start New Chat"
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
@@ -94,7 +94,7 @@ export default function AssistantHeader({
           {/* Settings Button */}
           <button
             onClick={() => onTabChange(activeTab === 'settings' ? 'chat' : 'settings')}
-            className={`sanjeevani-icon-btn ${activeTab === 'settings' ? 'active' : ''}`}
+            className={`synapseos-icon-btn ${activeTab === 'settings' ? 'active' : ''}`}
             title="AI Settings & Personas"
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
@@ -107,7 +107,7 @@ export default function AssistantHeader({
           {/* Fullscreen Expand / Minimize Toggle Button */}
           <button
             onClick={onToggleFullscreen}
-            className={`sanjeevani-icon-btn ${isFullscreen ? 'active' : ''}`}
+            className={`synapseos-icon-btn ${isFullscreen ? 'active' : ''}`}
             title={isFullscreen ? 'Exit Full Screen (Esc)' : 'Expand to Full Screen'}
             aria-label={isFullscreen ? 'Exit Full Screen' : 'Expand to Full Screen'}
           >
@@ -125,7 +125,7 @@ export default function AssistantHeader({
           {/* Close Button */}
           <button
             onClick={onClose}
-            className="sanjeevani-icon-btn"
+            className="synapseos-icon-btn"
             aria-label="Close Assistant"
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">

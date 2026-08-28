@@ -1,7 +1,7 @@
-# Sanjeevani OS: Production Backend Architecture, ABDM Gateway & Hackathon Judge Guide
+# SynapseOS: Production Backend Architecture, ABDM Gateway & Hackathon Judge Guide
 
 > **Official National Hackathon Architecture & Technical Defense Dossier**  
-> *A comprehensive technical specification of Sanjeevani OS: Multi-Agent Clinical Swarm, ABDM M1/M2/M3 Sandbox Gateway, Wearable Telemetry Ingestion Pipeline (Apple HealthKit & Google Health Connect), HL7 FHIR R4 Serialization, and Decentralized Health Records.*
+> *A comprehensive technical specification of SynapseOS: Multi-Agent Clinical Swarm, ABDM M1/M2/M3 Sandbox Gateway, Wearable Telemetry Ingestion Pipeline (Apple HealthKit & Google Health Connect), HL7 FHIR R4 Serialization, and Decentralized Health Records.*
 
 ---
 
@@ -13,13 +13,13 @@
 > 2. **Government Regulatory Barrier**: Live production NHA ABDM APIs strictly require an empanelled hospital registration (HRN), institutional Data Processing Agreements, and hardware HSM signatures—preventing direct startup experimentation.
 > 3. **Lack of Continuous Intelligence**: Patients receive static PDF reports rather than a proactive, real-time **3D Digital Health Twin** capable of predicting organ degradation before it occurs.
 >
-> ***Sanjeevani OS*** *solves this by deploying a production-grade **ABDM Sandbox Gateway, Multi-Agent Clinical AI Swarm, and Wearable Ingestion Engine**. We ingest multi-frequency smartwatch telemetry, map it to **HL7 FHIR R4 and LOINC standards**, run it through specialized LLM diagnostic agents (Cardiology, Pulmonology, Orthopedics, Pharmacology), and project real-time physiological risk onto an interactive 3D anatomical avatar—all verified on the Polygon blockchain and compliant with India's **DPDP Act 2023**."*
+> ***SynapseOS*** *solves this by deploying a production-grade **ABDM Sandbox Gateway, Multi-Agent Clinical AI Swarm, and Wearable Ingestion Engine**. We ingest multi-frequency smartwatch telemetry, map it to **HL7 FHIR R4 and LOINC standards**, run it through specialized LLM diagnostic agents (Cardiology, Pulmonology, Orthopedics, Pharmacology), and project real-time physiological risk onto an interactive 3D anatomical avatar—all verified on the Polygon blockchain and compliant with India's **DPDP Act 2023**."*
 
 ---
 
 ### 🏥 The 3 Layman Metaphors (Instant Clarity for Non-Technical Judges)
 
-| Concept | Layman Metaphor | How Sanjeevani OS Implements It |
+| Concept | Layman Metaphor | How SynapseOS Implements It |
 | :--- | :--- | :--- |
 | **ABHA ID** *(14 Digits)* | **"The UPI of Healthcare"** — Just like UPI links your phone number to any bank, ABHA links your national ID to every hospital in India. | Verifies identity (`91-7294-8102-5309`), retrieves PM-JAY coverage (₹5,00,000 policy), and issues cryptographic QR passes. |
 | **HIP & HIU** *(Providers / Users)* | **"The Medical DigiLocker"** — Hospitals (*HIP*) upload lab reports; attending clinics (*HIU*) request time-bound viewing consent. | Acts as an authorized HIU/HIP gateway, bundling clinical observations into standard HL7 FHIR R4 JSON envelopes. |
@@ -101,7 +101,7 @@ flowchart TB
 sequenceDiagram
     autonumber
     actor Patient as Citizen / Patient
-    participant Client as Sanjeevani OS Web Client
+    participant Client as SynapseOS Web Client
     participant Gateway as FastAPI ABDM Gateway
     participant ABDM_GW as NHA ABDM Gateway (Sandbox)
     participant HIP as Hospital HIP Vault (AIIMS / Medanta)
@@ -173,12 +173,12 @@ flowchart LR
 
 ---
 
-## 3. "Production Reality" vs. "Sanjeevani OS Implementation" Matrix
+## 3. "Production Reality" vs. "SynapseOS Implementation" Matrix
 
 Judges often ask: *"Why didn't you connect directly to the live National Health Authority (NHA) server or live Apple Cloud?"*  
 Here is the exact technical reality and how our design is 100% production-ready:
 
-| System | Production Reality (Live Government / Big Tech) | How Sanjeevani OS Implements It for Hackathon | Production Transition Effort |
+| System | Production Reality (Live Government / Big Tech) | How SynapseOS Implements It for Hackathon | Production Transition Effort |
 | :--- | :--- | :--- | :--- |
 | **ABDM National Gateway** | Requires a registered hospital (HRN), NHA physical audit, hardware HSM for digital signing, and government VPN tunneling. Direct citizen API keys do not exist. | Full-fidelity **ABDM Sandbox Gateway** implementing exact NHA schemas for M1 (KYC), M2 (FHIR bundling), and M3 (ECDH consent). Supports pre-verified ABHA profiles (Mausam Kar, Rachit Tiwari, etc.) + custom JSON upload. | **1 Config Flag**: Change `ABDM_BASE_URL` to `https://gateway.abdm.gov.in` and provide hospital HSM certificates. |
 | **Apple HealthKit** | iOS apps require an active Apple Developer Team ID and physical iPhone Bluetooth syncing. Direct web browsers cannot query iOS sandbox sandbox storage. | **iOS Shortcut Bridge & Webhook Endpoint** (`/api/v1/wearables/sync`). Ingests genuine Apple Health `export.xml` payloads and real-time webhook JSON streams. | **Zero Code Change**: iOS shortcut posts to the same `/api/v1/wearables/sync` endpoint. |
@@ -189,7 +189,7 @@ Here is the exact technical reality and how our design is 100% production-ready:
 
 ## 4. Complete Backend API Catalog (All 20+ Working Endpoints)
 
-All endpoints are hosted on `http://localhost:8000/api/v1` and implemented in [`backend/app/api/endpoints.py`](file:///e:/Sanjeevni-OS/backend/app/api/endpoints.py).
+All endpoints are hosted on `http://localhost:8000/api/v1` and implemented in [`backend/app/api/endpoints.py`](file:///e:/SynapseOS/backend/app/api/endpoints.py).
 
 ---
 
@@ -442,14 +442,14 @@ All endpoints are hosted on `http://localhost:8000/api/v1` and implemented in [`
 ### ❓ Q1: "Is this actual data or just hardcoded mocks?"
 > **Answer**: *"Our backend runs **real, fully functional FastAPI endpoints, HL7 FHIR R4 bundle serializers, and live LLM agents (Llama 3.3 via Groq/OpenRouter)**. Because NHA regulations legally restrict production ABDM credentials to empanelled hospital entities, we have built a **sandbox gateway** that mirrors the exact government schemas for our verified team profiles—and we provide a **live JSON/XML uploader** so you can upload and test any custom medical dataset right now during judging."*
 
-### ❓ Q2: "How does Sanjeevani OS comply with India's Digital Personal Data Protection (DPDP) Act 2023?"
-> **Answer**: *"Sanjeevani OS enforces the DPDP Act 2023 and ABDM M3 consent framework:*
+### ❓ Q2: "How does SynapseOS comply with India's Digital Personal Data Protection (DPDP) Act 2023?"
+> **Answer**: *"SynapseOS enforces the DPDP Act 2023 and ABDM M3 consent framework:*
 > 1. **Zero Plaintext Storage**: Health records are encrypted with user-specific keys (AES-256 GCM) and only decrypted ephemerally in the browser upon valid citizen consent.
 > 2. **Purpose Limitation**: Consent tokens specify exact validity windows (e.g. 15 minutes for emergency triage).
 > 3. **Right to Erasure**: Citizens can revoke data access or delete their telemetry logs at any time."*
 
 ### ❓ Q3: "What if a user is in a rural area with zero internet connectivity?"
-> **Answer**: *"Sanjeevani OS is built with **Local-First PWA Architecture**. Critical patient records (blood group, allergies, chronic conditions, emergency contacts) are cached offline in IndexedDB and encoded into an **Offline ABHA QR Passport**. A rural health worker or clinic doctor can scan the physical QR code with any smartphone to inspect life-saving medical summaries without internet access."*
+> **Answer**: *"SynapseOS is built with **Local-First PWA Architecture**. Critical patient records (blood group, allergies, chronic conditions, emergency contacts) are cached offline in IndexedDB and encoded into an **Offline ABHA QR Passport**. A rural health worker or clinic doctor can scan the physical QR code with any smartphone to inspect life-saving medical summaries without internet access."*
 
 ### ❓ Q4: "How do you prevent AI hallucinations in medical diagnoses?"
 > **Answer**: *"We implement a **Deterministic Clinical Safety Layer + Multi-Agent Consensus**:*
@@ -463,4 +463,4 @@ All endpoints are hosted on `http://localhost:8000/api/v1` and implemented in [`
 
 ---
 
-*Authored for the Sanjeevani OS National Hackathon Finalists.*
+*Authored for the SynapseOS National Hackathon Finalists.*

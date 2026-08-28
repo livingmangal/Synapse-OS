@@ -1,6 +1,6 @@
-# 🐍 Sanjeevani OS — Backend API & Architecture Guide
+# 🐍 SynapseOS — Backend API & Architecture Guide
 
-Comprehensive developer guide for setting up, running, testing, and extending the **Sanjeevani OS Multi-Agent FastAPI Backend**.
+Comprehensive developer guide for setting up, running, testing, and extending the **SynapseOS Multi-Agent FastAPI Backend**.
 
 ---
 
@@ -60,7 +60,7 @@ python -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8000 --reload
 
 ## 🧪 Running the Test Suite
 
-Sanjeevani OS comes with a **45-test comprehensive test suite** covering all API endpoints, OpenWA messaging, ML risk models, and clinical agents:
+SynapseOS comes with a **45-test comprehensive test suite** covering all API endpoints, OpenWA messaging, ML risk models, and clinical agents:
 
 ```powershell
 # Run the entire test suite

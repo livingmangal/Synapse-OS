@@ -7,7 +7,7 @@
       window.location.pathname.includes('/symptom-triage') ||
       window.location.pathname.includes('/medical-scan') ||
       window.location.pathname.includes('/records') ||
-      document.getElementById('sanjeevani-3d-frame')
+      document.getElementById('synapseos-3d-frame')
     ) {
       const splash = document.getElementById('video-splash');
       if (splash) {

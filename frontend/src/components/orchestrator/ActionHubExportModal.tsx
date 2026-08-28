@@ -94,7 +94,7 @@ export default function ActionHubExportModal({
         body: JSON.stringify({
           patient_name: patient.name || 'Mausam Kar',
           abha_id: patient.abhaId || '91-7294-8102-5309',
-          triage_summary: `Sanjeevani OS Multi-Agent Clinical Review for ${patient.name || 'Citizen'}: Stable cardiopulmonary baseline, regular sinus rhythm, vital metrics within optimal physiological benchmarks.`,
+          triage_summary: `SynapseOS Multi-Agent Clinical Review for ${patient.name || 'Citizen'}: Stable cardiopulmonary baseline, regular sinus rhythm, vital metrics within optimal physiological benchmarks.`,
           vital_signs: {
             'Blood Pressure': '118/76 mmHg',
             'Heart Rate': '74 bpm',
@@ -116,7 +116,7 @@ export default function ActionHubExportModal({
         const a = document.createElement('a');
         a.href = url;
         const safeName = (patient.name || 'Citizen').replace(/\s+/g, '_');
-        a.download = `Sanjeevani_Health_Passport_${safeName}.pdf`;
+        a.download = `SynapseOS_Health_Passport_${safeName}.pdf`;
         document.body.appendChild(a);
         a.click();
         a.remove();
@@ -130,7 +130,7 @@ export default function ActionHubExportModal({
       console.warn('Backend PDF endpoint error, triggering structured client-side download:', e);
       const safeName = (patient.name || 'Citizen').replace(/\s+/g, '_');
       const textReport = `========================================================================
-SANJEEVANI OS — OFFICIAL CLINICAL HEALTH PASSPORT & EHR SUMMARY
+SYNAPSEOS OS — OFFICIAL CLINICAL HEALTH PASSPORT & EHR SUMMARY
 Ayushman Bharat Digital Mission (ABDM) • Government of India
 Generated: ${new Date().toUTCString()}
 ========================================================================
@@ -178,7 +178,7 @@ Verification URL: https://abdm.gov.in/verify?abha=${patient.abhaId || '91-7294-8
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `Sanjeevani_Health_Summary_${safeName}.txt`;
+      a.download = `SynapseOS_Health_Summary_${safeName}.txt`;
       document.body.appendChild(a);
       a.click();
       a.remove();
@@ -252,7 +252,7 @@ Verification URL: https://abdm.gov.in/verify?abha=${patient.abhaId || '91-7294-8
       const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data, null, 2));
       const downloadAnchor = document.createElement('a');
       downloadAnchor.setAttribute("href", dataStr);
-      downloadAnchor.setAttribute("download", `Sanjeevani_FHIR_R4_Bundle_${pName.replace(/\s+/g, '_')}.json`);
+      downloadAnchor.setAttribute("download", `SynapseOS_FHIR_R4_Bundle_${pName.replace(/\s+/g, '_')}.json`);
       document.body.appendChild(downloadAnchor);
       downloadAnchor.click();
       downloadAnchor.remove();
@@ -311,7 +311,7 @@ Verification URL: https://abdm.gov.in/verify?abha=${patient.abhaId || '91-7294-8
       const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data, null, 2));
       const downloadAnchor = document.createElement('a');
       downloadAnchor.setAttribute("href", dataStr);
-      downloadAnchor.setAttribute("download", `Sanjeevani_Wearables_30Day_Dossier_${pName.replace(/\s+/g, '_')}.json`);
+      downloadAnchor.setAttribute("download", `SynapseOS_Wearables_30Day_Dossier_${pName.replace(/\s+/g, '_')}.json`);
       document.body.appendChild(downloadAnchor);
       downloadAnchor.click();
       downloadAnchor.remove();
@@ -336,7 +336,7 @@ Verification URL: https://abdm.gov.in/verify?abha=${patient.abhaId || '91-7294-8
           patient_name: pName,
           location_coords: '28.6139,77.2090',
           blood_group: blood,
-          critical_symptoms: 'Acute critical condition detected by Sanjeevani AI'
+          critical_symptoms: 'Acute critical condition detected by SynapseOS AI'
         })
       });
 
@@ -528,7 +528,7 @@ Verification URL: https://abdm.gov.in/verify?abha=${patient.abhaId || '91-7294-8
                   letterSpacing: '-0.02em',
                   fontFamily: 'inherit'
                 }}>
-                  {t('export_modal_title', 'Sanjeevani Export & Action Hub')}
+                  {t('export_modal_title', 'SynapseOS Export & Action Hub')}
                 </h2>
                 
                 <span style={{

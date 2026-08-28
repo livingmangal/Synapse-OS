@@ -33,7 +33,7 @@ import {
   HelpCircle,
   AlertOctagon
 } from 'lucide-react';
-import { SanjeevaniState, PatientInfo } from '../types';
+import { SynapseOSState, PatientInfo } from '../types';
 import { useLanguage } from '@/context/LanguageContext';
 
 interface SwarmIntelligencePanelProps {

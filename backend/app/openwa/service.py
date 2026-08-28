@@ -1,5 +1,5 @@
 """
-Sanjeevani OS — openwa/service.py
+SynapseOS — openwa/service.py
 OpenWA WhatsApp Webhook Ingestion, Interactive Menu Engine & Agent Router.
 """
 
@@ -15,7 +15,7 @@ from backend.app.services.abdm_service import generate_abha_id, check_ayushman_b
 logger = logging.getLogger(__name__)
 
 MAIN_MENU_TEXT = (
-    "🌿 *SANJEEVANI OS — Clinical Health Assistant* 🌿\n"
+    "🌿 *SYNAPSEOS OS — Clinical Health Assistant* 🌿\n"
     "_Autonomous Multi-Agent Health Intelligence_\n\n"
     "Welcome! How can I assist you today? Reply with a *number* or type your query:\n\n"
     "1️⃣ *Symptom Triage* — Type `1` followed by your symptoms\n"
@@ -82,7 +82,7 @@ async def process_whatsapp_inbound_webhook(payload: Dict[str, Any]) -> Dict[str,
         )
 
         reply_parts = [
-            "📷 *SANJEEVANI MEDICAL SCAN DIAGNOSTICS* 📷\n",
+            "📷 *SYNAPSEOS MEDICAL SCAN DIAGNOSTICS* 📷\n",
             f"• *Modality:* {img_type.replace('_', ' ').title()}",
             f"• *AI Diagnosis:* {scan_result.get('ai_diagnosis_summary', 'Analysis Completed')}",
             f"• *Confidence:* {scan_result.get('confidence_pct', 94)}%",
@@ -112,7 +112,7 @@ async def process_whatsapp_inbound_webhook(payload: Dict[str, Any]) -> Dict[str,
     text_lower = message_text.lower()
 
     # Greeting / Menu trigger
-    if text_lower in ("hi", "hello", "hey", "menu", "help", "start", "guide", "sanjeevani", "options"):
+    if text_lower in ("hi", "hello", "hey", "menu", "help", "start", "guide", "synapseos", "options"):
         success = await send_whatsapp_message(to_jid=sender_jid, text=MAIN_MENU_TEXT)
         return {
             "status": "processed",
@@ -124,7 +124,7 @@ async def process_whatsapp_inbound_webhook(payload: Dict[str, Any]) -> Dict[str,
     # Emergency SOS Trigger
     if text_lower in ("sos", "emergency", "112", "108", "save me", "help me"):
         sos_res = (
-            "🚨 *SANJEEVANI OS — IMMEDIATE EMERGENCY PROTOCOL ACTIVATED* 🚨\n\n"
+            "🚨 *SYNAPSEOS OS — IMMEDIATE EMERGENCY PROTOCOL ACTIVATED* 🚨\n\n"
             "If you or someone nearby is experiencing a life-threatening emergency:\n\n"
             "📞 *National Emergency:* Call `112` directly\n"
             "🚑 *Ambulance Services:* Call `108` immediately\n"
@@ -143,7 +143,7 @@ async def process_whatsapp_inbound_webhook(payload: Dict[str, Any]) -> Dict[str,
             reply_text = "💊 *Drug Safety & RxNav Checker*\nPlease reply with the names of the medications (e.g. `2 Aspirin and Ibuprofen` or `2 Paracetamol with Alcohol`)."
         else:
             drug_res = await evaluate_drug_safety(query)
-            reply_parts = ["💊 *SANJEEVANI DRUG SAFETY & RXNAV REPORT* 💊\n"]
+            reply_parts = ["💊 *SYNAPSEOS DRUG SAFETY & RXNAV REPORT* 💊\n"]
             meds = drug_res.get("detected_medications", [])
             if meds:
                 reply_parts.append(f"• *Detected Medications:* {', '.join(meds)}")
@@ -206,7 +206,7 @@ async def process_whatsapp_inbound_webhook(payload: Dict[str, Any]) -> Dict[str,
 
     # Option 6: ABHA ID & Schemes
     if text_lower == "6" or text_lower.startswith("6 "):
-        abha_data = generate_abha_id(name="Sanjeevani User", year_of_birth=1995, state_code="DL")
+        abha_data = generate_abha_id(name="SynapseOS User", year_of_birth=1995, state_code="DL")
         schemes = check_ayushman_bharat_schemes().get("schemes", [])
         reply_parts = [
             "🪪 *AYUSHMAN BHARAT DIGITAL MISSION (ABDM)* 🪪\n",
@@ -231,7 +231,7 @@ async def process_whatsapp_inbound_webhook(payload: Dict[str, Any]) -> Dict[str,
     else:
         clean_text = message_text
 
-    # 3. Execute Sanjeevani Swarm Orchestrator
+    # 3. Execute SynapseOS Swarm Orchestrator
     agent_result = await orchestrate_health_request(
         message=clean_text,
         channel="whatsapp",
@@ -255,13 +255,13 @@ async def process_whatsapp_inbound_webhook(payload: Dict[str, Any]) -> Dict[str,
 def format_response_for_whatsapp(text: str) -> str:
     """Formats markdown response cleanly for WhatsApp client rendering."""
     if not text:
-        return "Thank you for consulting Sanjeevani OS. Please monitor your health and consult a physician if needed."
+        return "Thank you for consulting SynapseOS. Please monitor your health and consult a physician if needed."
     
     formatted = text.strip()
     # Clean redundant markdown headers for WhatsApp readability
     formatted = formatted.replace("### ", "• *").replace("## ", "*").replace("# ", "*")
-    if not formatted.endswith("\n\n_🌿 Powered by Sanjeevani OS Multi-Agent Swarm_"):
-        formatted += "\n\n_🌿 Powered by Sanjeevani OS Multi-Agent Swarm_"
+    if not formatted.endswith("\n\n_🌿 Powered by SynapseOS Multi-Agent Swarm_"):
+        formatted += "\n\n_🌿 Powered by SynapseOS Multi-Agent Swarm_"
     return formatted
 
 
@@ -274,7 +274,7 @@ async def trigger_emergency_sos_whatsapp(
 ) -> Dict[str, Any]:
     """Dispatches 1-click Emergency SOS alert to pre-set emergency contact via WhatsApp."""
     sos_message = (
-        f"🚨 *SANJEEVANI OS — EMERGENCY SOS ALERT* 🚨\n\n"
+        f"🚨 *SYNAPSEOS OS — EMERGENCY SOS ALERT* 🚨\n\n"
         f"Patient *{patient_name}* has triggered an urgent emergency medical alert.\n\n"
         f"• *Reported Condition:* {critical_symptoms}\n"
         f"• *Blood Group:* {blood_group}\n"

@@ -22,12 +22,12 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
 
   if (!project) {
     return {
-      title: 'Agent Not Found | Sanjeevani OS',
+      title: 'Agent Not Found | SynapseOS',
     };
   }
 
   return {
-    title: `${project.title} - ${project.subtitle} | Sanjeevani OS`,
+    title: `${project.title} - ${project.subtitle} | SynapseOS`,
     description: project.description,
   };
 }

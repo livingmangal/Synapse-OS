@@ -1,5 +1,5 @@
 """
-Sanjeevani OS — agents/retrieval_agent.py
+SynapseOS — agents/retrieval_agent.py
 Parallel Hybrid Retrieval Agent (Wikipedia Medical REST API + 23 WHO/ICMR/MoHFW Clinical Guidelines).
 Ported and adapted from MediGenius parallel_retrieval_agent.py and Mental-Health-Chatbot knowledge base.
 """

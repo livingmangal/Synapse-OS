@@ -1,5 +1,5 @@
 """
-Sanjeevani OS — tests/test_openwa_service.py
+SynapseOS — tests/test_openwa_service.py
 Unit tests for OpenWA WhatsApp Webhook Ingestion, Interactive Menu Engine,
 Agent Swarm Routing, Medical Image Ingestion, and Emergency Protocols.
 """

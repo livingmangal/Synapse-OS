@@ -71,28 +71,28 @@ export function useAssistantLogic() {
   // Load saved credentials & chat sessions from localStorage
   useEffect(() => {
     if (typeof window === 'undefined') return;
-    setVapiPublicKey(localStorage.getItem('sanjeevani_vapi_key') || '');
-    setVapiAssistantId(localStorage.getItem('sanjeevani_vapi_id') || '');
-    setGeminiApiKey(localStorage.getItem('sanjeevani_gemini_key') || '');
-    setBackendUrl(localStorage.getItem('sanjeevani_backend_url') || API_BASE);
+    setVapiPublicKey(localStorage.getItem('synapseos_vapi_key') || '');
+    setVapiAssistantId(localStorage.getItem('synapseos_vapi_id') || '');
+    setGeminiApiKey(localStorage.getItem('synapseos_gemini_key') || '');
+    setBackendUrl(localStorage.getItem('synapseos_backend_url') || API_BASE);
     
-    const savedPersona = localStorage.getItem('sanjeevani_persona') as Persona | null;
+    const savedPersona = localStorage.getItem('synapseos_persona') as Persona | null;
     if (savedPersona) setAssistantPersona(savedPersona);
 
-    const savedModel = localStorage.getItem('sanjeevani_selected_model') as ModelChoice | null;
+    const savedModel = localStorage.getItem('synapseos_selected_model') as ModelChoice | null;
     if (savedModel) setSelectedModel(savedModel);
 
-    const savedLang = localStorage.getItem('sanjeevani_language') as SupportedLanguage | null;
+    const savedLang = localStorage.getItem('synapseos_language') as SupportedLanguage | null;
     if (savedLang) setSelectedLanguage(savedLang);
 
-    const savedWaPhone = localStorage.getItem('sanjeevani_wa_phone');
+    const savedWaPhone = localStorage.getItem('synapseos_wa_phone');
     if (savedWaPhone) {
       setWaPhoneNumber(savedWaPhone);
       setWaConnected(true);
     }
 
     try {
-      const savedSessions = localStorage.getItem('sanjeevani_chat_sessions');
+      const savedSessions = localStorage.getItem('synapseos_chat_sessions');
       if (savedSessions) {
         const parsed: ChatSession[] = JSON.parse(savedSessions);
         setSessions(parsed);
@@ -109,7 +109,7 @@ export function useAssistantLogic() {
   const syncSessionsToStorage = (updatedSessions: ChatSession[]) => {
     setSessions(updatedSessions);
     try {
-      localStorage.setItem('sanjeevani_chat_sessions', JSON.stringify(updatedSessions));
+      localStorage.setItem('synapseos_chat_sessions', JSON.stringify(updatedSessions));
     } catch (e) {}
   };
 
@@ -131,37 +131,37 @@ export function useAssistantLogic() {
   useEffect(() => {
     const handleToggle = () => setIsOpen(prev => !prev);
     const handleOpen = () => setIsOpen(true);
-    window.addEventListener('toggle-sanjeevani-assistant', handleToggle);
-    window.addEventListener('open-sanjeevani-assistant', handleOpen);
-    (window as any).openSanjeevaniAssistant = handleOpen;
+    window.addEventListener('toggle-synapseos-assistant', handleToggle);
+    window.addEventListener('open-synapseos-assistant', handleOpen);
+    (window as any).openSynapseOSAssistant = handleOpen;
     return () => {
-      window.removeEventListener('toggle-sanjeevani-assistant', handleToggle);
-      window.removeEventListener('open-sanjeevani-assistant', handleOpen);
+      window.removeEventListener('toggle-synapseos-assistant', handleToggle);
+      window.removeEventListener('open-synapseos-assistant', handleOpen);
     };
   }, []);
 
   // Handle Persona Switching
   const handlePersonaChange = (newPersona: Persona) => {
     setAssistantPersona(newPersona);
-    localStorage.setItem('sanjeevani_persona', newPersona);
+    localStorage.setItem('synapseos_persona', newPersona);
   };
 
   // Handle Language Switching
   const handleLanguageChange = (newLang: SupportedLanguage) => {
     setSelectedLanguage(newLang);
-    localStorage.setItem('sanjeevani_language', newLang);
+    localStorage.setItem('synapseos_language', newLang);
   };
 
   // Save credentials & preferences
   const saveCredentials = (e: React.FormEvent) => {
     e.preventDefault();
-    localStorage.setItem('sanjeevani_vapi_key', vapiPublicKey);
-    localStorage.setItem('sanjeevani_vapi_id', vapiAssistantId);
-    localStorage.setItem('sanjeevani_gemini_key', geminiApiKey);
-    localStorage.setItem('sanjeevani_backend_url', backendUrl);
-    localStorage.setItem('sanjeevani_selected_model', selectedModel);
-    localStorage.setItem('sanjeevani_persona', assistantPersona);
-    localStorage.setItem('sanjeevani_language', selectedLanguage);
+    localStorage.setItem('synapseos_vapi_key', vapiPublicKey);
+    localStorage.setItem('synapseos_vapi_id', vapiAssistantId);
+    localStorage.setItem('synapseos_gemini_key', geminiApiKey);
+    localStorage.setItem('synapseos_backend_url', backendUrl);
+    localStorage.setItem('synapseos_selected_model', selectedModel);
+    localStorage.setItem('synapseos_persona', assistantPersona);
+    localStorage.setItem('synapseos_language', selectedLanguage);
     setActiveTab('chat');
     
     if (vapi) {
@@ -175,10 +175,10 @@ export function useAssistantLogic() {
   const handleSaveWhatsApp = (e: React.FormEvent) => {
     e.preventDefault();
     if (waPhoneNumber.trim()) {
-      localStorage.setItem('sanjeevani_wa_phone', waPhoneNumber);
+      localStorage.setItem('synapseos_wa_phone', waPhoneNumber);
       setWaConnected(true);
     } else {
-      localStorage.removeItem('sanjeevani_wa_phone');
+      localStorage.removeItem('synapseos_wa_phone');
       setWaConnected(false);
     }
     setActiveTab('chat');
@@ -382,7 +382,7 @@ export function useAssistantLogic() {
       default:
         if (assistantPersona === 'triage') return "Hello, I am your Clinical Triage Specialist. Please describe any symptoms you are experiencing.";
         if (assistantPersona === 'nutrition') return "Hello, I am your Nutrition Specialist. Tell me your dietary or metabolic goals.";
-        return "Hello, I am Sanjeevani AI. I'm listening, how can I help you today?";
+        return "Hello, I am SynapseOS AI. I'm listening, how can I help you today?";
     }
   };
 
@@ -441,11 +441,11 @@ export function useAssistantLogic() {
     let base = "";
 
     if (assistantPersona === 'triage') {
-      base = "You are Sanjeevani AI Clinical Triage Specialist. Focus on immediate symptom assessment, severity scoring, red-flag symptoms, vital signs monitoring, and triage urgency. Use clean bullet points and clear clinical cautions.";
+      base = "You are SynapseOS AI Clinical Triage Specialist. Focus on immediate symptom assessment, severity scoring, red-flag symptoms, vital signs monitoring, and triage urgency. Use clean bullet points and clear clinical cautions.";
     } else if (assistantPersona === 'nutrition') {
-      base = "You are Sanjeevani AI Metabolic & Clinical Nutritionist. Provide personalized daily macro distributions (Carbs, Protein, Fats), hydration targets, micronutrient recommendations, and meal timing guidelines.";
+      base = "You are SynapseOS AI Metabolic & Clinical Nutritionist. Provide personalized daily macro distributions (Carbs, Protein, Fats), hydration targets, micronutrient recommendations, and meal timing guidelines.";
     } else {
-      base = "You are Sanjeevani AI Clinical Copilot. Provide comprehensive guidance covering medical record analysis, diagnostic interpretation, wellness, triage, and multi-agent coordination.";
+      base = "You are SynapseOS AI Clinical Copilot. Provide comprehensive guidance covering medical record analysis, diagnostic interpretation, wellness, triage, and multi-agent coordination.";
     }
 
     if (isConciseVoice) {
@@ -535,7 +535,7 @@ export function useAssistantLogic() {
           visualType = 'nutrition';
           visualData = { calories: '2,150 kcal', carbs: '40%', protein: '30%', fats: '30%' };
         } else {
-          reply = `I processed your request about ${queryText}. Sanjeevani OS is actively coordinating your health profile in ${assistantPersona} mode.`;
+          reply = `I processed your request about ${queryText}. SynapseOS is actively coordinating your health profile in ${assistantPersona} mode.`;
         }
       }
     }
@@ -770,7 +770,7 @@ export function useAssistantLogic() {
           followUps = ['View FHIR data schema', 'Upload lab PDF', 'Explain smart contract'];
         }
         else if (textLower.includes('whatsapp') || textLower.includes('phone') || textLower.includes('mobile')) {
-          reply = "Sanjeevani OS supports **Omni-Channel WhatsApp Connectivity**:\n\n• You can snap and send prescription photos or MRI scans directly to WhatsApp.\n• Receive automated daily pill reminders and vital check-ins.\n• Click the **WhatsApp Sync (📱)** tab in the header to pair your device.";
+          reply = "SynapseOS supports **Omni-Channel WhatsApp Connectivity**:\n\n• You can snap and send prescription photos or MRI scans directly to WhatsApp.\n• Receive automated daily pill reminders and vital check-ins.\n• Click the **WhatsApp Sync (📱)** tab in the header to pair your device.";
           visualType = 'whatsapp';
           visualData = {
             senderNumber: waPhoneNumber || '+91 98765 43210',
@@ -780,7 +780,7 @@ export function useAssistantLogic() {
           followUps = ['Configure WhatsApp phone', 'Test sample WhatsApp prescription', 'How does WhatsApp security work?'];
         }
         else {
-          reply = `I analyzed your query: "${textToSend}". Sanjeevani OS is actively processing your clinical profile in **${assistantPersona.toUpperCase()}** mode.\n\nTo unlock unbounded, live generative reasoning and real-time voice, you can add your **Gemini API Key** in settings (⚙️).`;
+          reply = `I analyzed your query: "${textToSend}". SynapseOS is actively processing your clinical profile in **${assistantPersona.toUpperCase()}** mode.\n\nTo unlock unbounded, live generative reasoning and real-time voice, you can add your **Gemini API Key** in settings (⚙️).`;
           followUps = ['💡 Brainstorm ideas', 'Clinical Analysis', 'WhatsApp Connection'];
         }
       }

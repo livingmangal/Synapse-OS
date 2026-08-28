@@ -5,7 +5,7 @@ export interface AgentTraceStep {
   details?: Record<string, any>;
 }
 
-export interface SanjeevaniState {
+export interface SynapseOSState {
   session_id: string;
   user_id: string;
   channel: string;

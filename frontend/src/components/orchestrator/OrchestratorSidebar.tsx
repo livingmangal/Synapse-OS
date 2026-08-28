@@ -39,7 +39,7 @@ export default function OrchestratorSidebar({
     { labelKey: 'tab_scan', fallback: 'Medical Scan AI', tab: 'scan', icon: Scan, isTab: true },
     { labelKey: 'tab_records', fallback: 'ABHA & Records', tab: 'records', icon: FileText, isTab: true },
     { labelKey: 'tab_health_sync', fallback: 'Google & Apple Health', tab: 'sync', icon: Watch, isTab: true },
-    { labelKey: 'brand_title', fallback: 'Sanjeevani OS Home', href: '/', icon: Home }
+    { labelKey: 'brand_title', fallback: 'SynapseOS Home', href: '/', icon: Home }
   ];
 
   return (
@@ -66,7 +66,7 @@ export default function OrchestratorSidebar({
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px', width: '100%' }}>
         <Link 
           href="/" 
-          title="Sanjeevani OS - Home"
+          title="SynapseOS - Home"
           style={{ textDecoration: 'none' }}
         >
           <div style={{

@@ -119,7 +119,7 @@ export function AgenticStackDiagramSection() {
           </div>
 
           <a href="#agents" className="livekit-cta-btn">
-            <span>Explore the Sanjeevani Platform</span>
+            <span>Explore the SynapseOS Platform</span>
             <span className="livekit-cta-arrow">→</span>
           </a>
         </div>
@@ -150,7 +150,7 @@ export function AgenticStackDiagramSection() {
               </filter>
             </defs>
 
-            {/* Wire 1: User / Inputs -> Sanjeevani Cloud */}
+            {/* Wire 1: User / Inputs -> SynapseOS Cloud */}
             <path d="M600,328 L994,329" className="circuit-wire-base" />
             <path
               d="M600,328 L994,329"
@@ -162,7 +162,7 @@ export function AgenticStackDiagramSection() {
               <animateMotion dur="3s" repeatCount="indefinite" path="M600,328 L994,329" />
             </circle>
 
-            {/* Wire 2: Sanjeevani Cloud -> Patient Output */}
+            {/* Wire 2: SynapseOS Cloud -> Patient Output */}
             <path d="M994,321 L600,322" className="circuit-wire-base" />
             <path
               d="M994,321 L600,322"
@@ -282,7 +282,7 @@ export function AgenticStackDiagramSection() {
           <div className="framework-enclave-box node-clinical">
             <div className="framework-enclave-header">
               <a href="#agents" className="framework-enclave-title">
-                <span>Sanjeevani Agents Swarm</span>
+                <span>SynapseOS Agents Swarm</span>
                 <svg
                   viewBox="0 0 24 24"
                   fill="none"
@@ -485,7 +485,7 @@ export function AgenticStackDiagramSection() {
           >
             <img
               src="/images/home/tile-business-logic.svg"
-              alt="Sanjeevani Business Logic"
+              alt="SynapseOS Business Logic"
               style={{ width: '149px', height: '115px', filter: 'drop-shadow(0 0 15px rgba(6, 182, 212, 0.25))' }}
             />
           </div>
@@ -531,7 +531,7 @@ export function AgenticStackDiagramSection() {
             <div className="iso-tile-tooltip">Polygon PoS &amp; IPFS</div>
           </div>
 
-          {/* 15. Sanjeevani Cloud & World Telemetry Node */}
+          {/* 15. SynapseOS Cloud & World Telemetry Node */}
           <div className="cloud-telemetry-node node-predictive node-private">
             <div className="telemetry-map-layer" />
             <div className="cloud-server-pill">
@@ -546,7 +546,7 @@ export function AgenticStackDiagramSection() {
               <span>Agent Swarm Orchestrator</span>
             </div>
             <div className="iso-tile-badge" style={{ top: '-2px', left: '10px' }}>
-              Sanjeevani Cloud
+              SynapseOS Cloud
             </div>
           </div>
         </div>

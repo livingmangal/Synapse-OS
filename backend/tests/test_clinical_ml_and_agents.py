@@ -1,5 +1,5 @@
 """
-Sanjeevani OS — tests/test_clinical_ml_and_agents.py
+SynapseOS — tests/test_clinical_ml_and_agents.py
 Unit tests for Clinical ML Models, Multi-Agent Swarms, Verification Council,
 Digital Health Twin, FHIR Serializers, and Hybrid Guidelines Search.
 """

@@ -40,7 +40,7 @@ export default function VibrantPage() {
   return (
     <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, width: '100vw', height: '100vh', backgroundColor: '#fdfbf7', overflow: 'hidden', zIndex: 999999, boxSizing: 'border-box' }}>
       <style>{`
-        #video-splash, #page-loader, .animated-splash-page, .transition, #mouse, header, .header, #wrap-modals, .logo, .sanjeevani-trigger-pill, .sanjeevani-modal-window {
+        #video-splash, #page-loader, .animated-splash-page, .transition, #mouse, header, .header, #wrap-modals, .logo, .synapseos-trigger-pill, .synapseos-modal-window {
           display: none !important;
           visibility: hidden !important;
           opacity: 0 !important;
@@ -165,9 +165,9 @@ export default function VibrantPage() {
 
       {/* Pure Interactive 3D Anatomy Canvas */}
       <iframe
-        id="sanjeevani-3d-frame"
+        id="synapseos-3d-frame"
         src="/vibrant/index.html?v=5"
-        title="Sanjeevani 3D Digital Health Twin"
+        title="SynapseOS 3D Digital Health Twin"
         style={{
           width: '100%',
           height: '100%',

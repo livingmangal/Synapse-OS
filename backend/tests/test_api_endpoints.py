@@ -1,5 +1,5 @@
 """
-Sanjeevani OS — tests/test_api_endpoints.py
+SynapseOS — tests/test_api_endpoints.py
 Comprehensive integration tests for all FastAPI REST endpoints.
 """
 
@@ -16,7 +16,7 @@ def test_root_endpoint():
     assert response.status_code == 200
     data = response.json()
     assert data["status"] == "ONLINE"
-    assert data["platform"] == "Sanjeevani OS"
+    assert data["platform"] == "SynapseOS"
     assert "agents_active" in data
     assert len(data["agents_active"]) > 5
 

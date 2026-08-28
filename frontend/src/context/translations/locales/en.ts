@@ -1,5 +1,5 @@
 export const enTranslations: Record<string, string> = {
-  brand_title: 'Sanjeevani OS',
+  brand_title: 'SynapseOS',
     tagline: 'Autonomous Multi-Agent Healthcare Platform',
     nav_projects: 'Projects',
     nav_about: 'About Us',
@@ -116,7 +116,7 @@ export const enTranslations: Record<string, string> = {
     ai_anomaly_alert: 'AI Wearable Anomaly Alert',
 
     // Export Hub
-    export_modal_title: 'Sanjeevani Export & Action Hub',
+    export_modal_title: 'SynapseOS Export & Action Hub',
     export_modal_subtitle: 'Interoperability, verifiable blockchain PDF, and HL7 FHIR R4',
     sos_dispatch_title: '1-Click Emergency SOS Dispatch',
     sos_dispatch_sub: 'Instantly alerts 112 / 108 Emergency units & broadcasts GPS coordinates.',

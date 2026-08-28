@@ -1,11 +1,11 @@
 import { SiteConfig } from '@/types';
 
 export const siteConfig: SiteConfig = {
-  name: 'Sanjeevani OS',
+  name: 'SynapseOS',
   tagline: 'AI-Powered Multi-Agent Health Platform',
   description:
     'A completely open-source, dual-mode health OS driven by a swarm of specialized AI agents. One backend, two doors in.',
-  email: 'hello@sanjeevani-os.com',
+  email: 'hello@synapseos.com',
   phone: '+1 800 000 000',
   address: {
     street: 'Health Innovation Hub',
@@ -14,6 +14,6 @@ export const siteConfig: SiteConfig = {
     country: 'USA',
   },
   socials: {
-    instagram: 'https://github.com/Mausam5055/Sanjeevni-OS',
+    instagram: 'https://github.com/Mausam5055/SynapseOS',
   },
 };

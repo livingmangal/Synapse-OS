@@ -1,5 +1,5 @@
 """
-Sanjeevani OS — backend/app/openwa
+SynapseOS — backend/app/openwa
 Dedicated OpenWA WhatsApp Integration Package.
 """
 

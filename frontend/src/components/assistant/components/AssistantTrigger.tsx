@@ -9,9 +9,9 @@ export default function AssistantTrigger({ isOpen, onToggle }: AssistantTriggerP
   return (
     <button
       onClick={onToggle}
-      className="sanjeevani-trigger-pill sanjeevani-root"
-      aria-label={isOpen ? "Close Sanjeevani AI" : "Open Sanjeevani AI"}
-      title="Sanjeevani AI Copilot"
+      className="synapseos-trigger-pill synapseos-root"
+      aria-label={isOpen ? "Close SynapseOS AI" : "Open SynapseOS AI"}
+      title="SynapseOS AI Copilot"
     >
       <div style={{ position: 'relative', width: '24px', height: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         {isOpen ? (

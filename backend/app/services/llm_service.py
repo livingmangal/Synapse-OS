@@ -1,5 +1,5 @@
 """
-Sanjeevani OS — services/llm_service.py
+SynapseOS — services/llm_service.py
 Universal Asynchronous LLM Client supporting Groq and OpenRouter.
 Provides genuine medical reasoning, structured clinical JSON parsing, and automatic failover.
 """
@@ -34,8 +34,8 @@ async def call_llm(
         headers = {
             "Authorization": f"Bearer {settings.OPENROUTER_API_KEY}",
             "Content-Type": "application/json",
-            "HTTP-Referer": "https://sanjeevani-os.internal",
-            "X-Title": "Sanjeevani OS"
+            "HTTP-Referer": "https://synapseos.internal",
+            "X-Title": "SynapseOS"
         }
         payload: Dict[str, Any] = {
             "model": target_model,

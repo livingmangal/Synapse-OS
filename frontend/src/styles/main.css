@@ -507,13 +507,13 @@ main .mod-scroll__intro {
 }
 
 /* Complete suppression of all splash screens, loaders, centered logos, and transitions on 3D Model Explorer */
-body:has(#sanjeevani-3d-frame) #video-splash,
-body:has(#sanjeevani-3d-frame) #page-loader,
-body:has(#sanjeevani-3d-frame) .animated-splash-page,
-body:has(#sanjeevani-3d-frame) .header.wrapper,
-body:has(#sanjeevani-3d-frame) .header__logo,
-body:has(#sanjeevani-3d-frame) .transition,
-body:has(#sanjeevani-3d-frame) #mouse {
+body:has(#synapseos-3d-frame) #video-splash,
+body:has(#synapseos-3d-frame) #page-loader,
+body:has(#synapseos-3d-frame) .animated-splash-page,
+body:has(#synapseos-3d-frame) .header.wrapper,
+body:has(#synapseos-3d-frame) .header__logo,
+body:has(#synapseos-3d-frame) .transition,
+body:has(#synapseos-3d-frame) #mouse {
   display: none !important;
   visibility: hidden !important;
   opacity: 0 !important;
@@ -927,7 +927,7 @@ main .mod-scroll__terms {
   stroke: #9ca3af;
 }
 
-/* Sanjeevani Cloud & Telemetry Map Frame (LiveKit AMOLED Style) */
+/* SynapseOS Cloud & Telemetry Map Frame (LiveKit AMOLED Style) */
 .cloud-telemetry-node {
   position: absolute;
   top: 268px;
@@ -1173,7 +1173,7 @@ main .mod-scroll__terms {
    AMOLED EDITORIAL MOBILE BARRIER (Smart VIT Hackathon Edition)
    ========================================================================== */
 
-.sanjeevani-editorial-barrier {
+.synapseos-editorial-barrier {
   position: fixed !important;
   inset: 0 !important;
   top: 0 !important;
@@ -1194,7 +1194,7 @@ main .mod-scroll__terms {
   -webkit-overflow-scrolling: touch !important;
 }
 
-.sanjeevani-editorial-card {
+.synapseos-editorial-card {
   width: 100% !important;
   max-width: 440px !important;
   background: #080808 !important;
@@ -1207,7 +1207,7 @@ main .mod-scroll__terms {
   margin: auto !important;
 }
 
-.sanjeevani-editorial-header {
+.synapseos-editorial-header {
   display: flex !important;
   align-items: center !important;
   justify-content: space-between !important;
@@ -1216,20 +1216,20 @@ main .mod-scroll__terms {
   margin-bottom: 24px !important;
 }
 
-.sanjeevani-editorial-brand {
+.synapseos-editorial-brand {
   display: flex !important;
   align-items: center !important;
   gap: 8px !important;
 }
 
-.sanjeevani-editorial-dot {
+.synapseos-editorial-dot {
   width: 6px !important;
   height: 6px !important;
   border-radius: 50% !important;
   background: #10b981 !important;
 }
 
-.sanjeevani-editorial-title {
+.synapseos-editorial-title {
   font-family: "Editorial New", "Times New Roman", Times, serif !important;
   font-size: 13px !important;
   letter-spacing: 0.14em !important;
@@ -1238,14 +1238,14 @@ main .mod-scroll__terms {
   font-weight: 600 !important;
 }
 
-.sanjeevani-editorial-code {
+.synapseos-editorial-code {
   font-family: var(--f-mono, ui-monospace, SFMono-Regular, Menlo, monospace) !important;
   font-size: 11px !important;
   color: #78716c !important;
   letter-spacing: 0.08em !important;
 }
 
-.sanjeevani-editorial-tag {
+.synapseos-editorial-tag {
   font-family: var(--f-mono, ui-monospace, SFMono-Regular, Menlo, monospace) !important;
   font-size: 10.5px !important;
   color: #10b981 !important;
@@ -1254,7 +1254,7 @@ main .mod-scroll__terms {
   margin-bottom: 14px !important;
 }
 
-.sanjeevani-editorial-heading {
+.synapseos-editorial-heading {
   font-family: "Editorial New", "Times New Roman", Times, Georgia, serif !important;
   font-size: 26px !important;
   line-height: 1.2 !important;
@@ -1264,13 +1264,13 @@ main .mod-scroll__terms {
   margin-bottom: 16px !important;
 }
 
-.sanjeevani-editorial-heading em {
+.synapseos-editorial-heading em {
   font-style: italic !important;
   font-family: "Editorial New", "Times New Roman", Times, Georgia, serif !important;
   color: #e7e5e4 !important;
 }
 
-.sanjeevani-editorial-body {
+.synapseos-editorial-body {
   font-family: "Editorial New", "Times New Roman", Times, Georgia, serif !important;
   font-size: 14px !important;
   line-height: 1.6 !important;
@@ -1278,7 +1278,7 @@ main .mod-scroll__terms {
   margin-bottom: 24px !important;
 }
 
-.sanjeevani-editorial-specs {
+.synapseos-editorial-specs {
   display: flex !important;
   flex-direction: column !important;
   border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
@@ -1287,7 +1287,7 @@ main .mod-scroll__terms {
   margin-bottom: 24px !important;
 }
 
-.sanjeevani-editorial-spec-row {
+.synapseos-editorial-spec-row {
   display: flex !important;
   align-items: baseline !important;
   justify-content: space-between !important;
@@ -1295,34 +1295,34 @@ main .mod-scroll__terms {
   font-size: 12px !important;
 }
 
-.sanjeevani-editorial-spec-row .spec-index {
+.synapseos-editorial-spec-row .spec-index {
   font-family: var(--f-mono, ui-monospace, monospace) !important;
   color: #78716c !important;
   font-size: 11px !important;
   width: 32px !important;
 }
 
-.sanjeevani-editorial-spec-row .spec-label {
+.synapseos-editorial-spec-row .spec-label {
   font-family: "Editorial New", "Times New Roman", Times, serif !important;
   color: #d6d3d1 !important;
   flex: 1 !important;
 }
 
-.sanjeevani-editorial-spec-row .spec-val {
+.synapseos-editorial-spec-row .spec-val {
   font-family: var(--f-mono, ui-monospace, monospace) !important;
   color: #10b981 !important;
   font-size: 11px !important;
   letter-spacing: 0.04em !important;
 }
 
-.sanjeevani-editorial-actions {
+.synapseos-editorial-actions {
   display: flex !important;
   flex-direction: column !important;
   gap: 12px !important;
   margin-bottom: 26px !important;
 }
 
-.sanjeevani-editorial-btn-primary {
+.synapseos-editorial-btn-primary {
   width: 100% !important;
   padding: 13px 18px !important;
   background: #ffffff !important;
@@ -1338,12 +1338,12 @@ main .mod-scroll__terms {
   text-align: center !important;
 }
 
-.sanjeevani-editorial-btn-primary:hover {
+.synapseos-editorial-btn-primary:hover {
   background: #e7e5e4 !important;
   border-color: #e7e5e4 !important;
 }
 
-.sanjeevani-editorial-btn-bypass {
+.synapseos-editorial-btn-bypass {
   width: 100% !important;
   padding: 8px 0 !important;
   background: transparent !important;
@@ -1357,11 +1357,11 @@ main .mod-scroll__terms {
   text-align: center !important;
 }
 
-.sanjeevani-editorial-btn-bypass:hover {
+.synapseos-editorial-btn-bypass:hover {
   color: #d6d3d1 !important;
 }
 
-.sanjeevani-editorial-footer {
+.synapseos-editorial-footer {
   display: flex !important;
   align-items: center !important;
   justify-content: space-between !important;
@@ -1371,16 +1371,16 @@ main .mod-scroll__terms {
   color: #78716c !important;
 }
 
-.sanjeevani-editorial-credits {
+.synapseos-editorial-credits {
   font-family: "Editorial New", "Times New Roman", Times, serif !important;
 }
 
-.sanjeevani-editorial-credits strong {
+.synapseos-editorial-credits strong {
   color: #e7e5e4 !important;
   font-weight: 600 !important;
 }
 
-.sanjeevani-editorial-event {
+.synapseos-editorial-event {
   font-family: var(--f-mono, ui-monospace, monospace) !important;
   color: #a8a29e !important;
   font-size: 11px !important;
@@ -1391,7 +1391,7 @@ main .mod-scroll__terms {
    LUXURY EDITORIAL CONTACT MODAL
    ========================================================================== */
 
-.sanjeevani-contact-backdrop {
+.synapseos-contact-backdrop {
   position: fixed !important;
   inset: 0 !important;
   top: 0 !important;
@@ -1416,13 +1416,13 @@ main .mod-scroll__terms {
   animation: modalSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
 }
 
-.sanjeevani-contact-backdrop::-webkit-scrollbar {
+.synapseos-contact-backdrop::-webkit-scrollbar {
   display: none !important;
   width: 0 !important;
   height: 0 !important;
 }
 
-.sanjeevani-contact-modal {
+.synapseos-contact-modal {
   width: 100% !important;
   max-width: 620px !important;
   max-height: 92vh !important;
@@ -1442,13 +1442,13 @@ main .mod-scroll__terms {
   box-sizing: border-box !important;
 }
 
-.sanjeevani-contact-modal::-webkit-scrollbar {
+.synapseos-contact-modal::-webkit-scrollbar {
   display: none !important;
   width: 0 !important;
   height: 0 !important;
 }
 
-.sanjeevani-contact-close {
+.synapseos-contact-close {
   position: absolute !important;
   top: 20px !important;
   right: 20px !important;
@@ -1466,16 +1466,16 @@ main .mod-scroll__terms {
   z-index: 10 !important;
 }
 
-.sanjeevani-contact-close:hover {
+.synapseos-contact-close:hover {
   background: #000000 !important;
   color: #ffffff !important;
 }
 
-.sanjeevani-contact-header {
+.synapseos-contact-header {
   margin-bottom: 22px !important;
 }
 
-.sanjeevani-contact-brand-row {
+.synapseos-contact-brand-row {
   display: flex !important;
   align-items: center !important;
   justify-content: space-between !important;
@@ -1483,7 +1483,7 @@ main .mod-scroll__terms {
   padding-right: 44px !important;
 }
 
-.sanjeevani-contact-badge {
+.synapseos-contact-badge {
   display: inline-flex !important;
   align-items: center !important;
   gap: 6px !important;
@@ -1495,14 +1495,14 @@ main .mod-scroll__terms {
   text-transform: uppercase !important;
 }
 
-.sanjeevani-contact-badge-dot {
+.synapseos-contact-badge-dot {
   width: 7px !important;
   height: 7px !important;
   border-radius: 50% !important;
   background: #10b981 !important;
 }
 
-.sanjeevani-contact-meta {
+.synapseos-contact-meta {
   font-family: var(--f-mono, monospace) !important;
   font-size: 10.5px !important;
   color: rgba(0, 0, 0, 0.5) !important;
@@ -1510,7 +1510,7 @@ main .mod-scroll__terms {
   text-transform: uppercase !important;
 }
 
-.sanjeevani-contact-title {
+.synapseos-contact-title {
   font-family: "Editorial New", "Times New Roman", Times, Georgia, serif !important;
   font-size: 26px !important;
   line-height: 1.25 !important;
@@ -1520,19 +1520,19 @@ main .mod-scroll__terms {
   margin-bottom: 8px !important;
 }
 
-.sanjeevani-contact-title em {
+.synapseos-contact-title em {
   font-style: italic !important;
   font-family: "Editorial New", "Times New Roman", Times, Georgia, serif !important;
 }
 
-.sanjeevani-contact-subtitle {
+.synapseos-contact-subtitle {
   font-family: "Editorial New", "Times New Roman", Times, serif !important;
   font-size: 13.5px !important;
   line-height: 1.5 !important;
   color: rgba(0, 0, 0, 0.65) !important;
 }
 
-.sanjeevani-contact-form-grid {
+.synapseos-contact-form-grid {
   display: grid !important;
   grid-template-columns: repeat(2, 1fr) !important;
   gap: 12px !important;
@@ -1540,18 +1540,18 @@ main .mod-scroll__terms {
 }
 
 @media (max-width: 540px) {
-  .sanjeevani-contact-form-grid {
+  .synapseos-contact-form-grid {
     grid-template-columns: 1fr !important;
   }
 }
 
-.sanjeevani-contact-field {
+.synapseos-contact-field {
   display: flex !important;
   flex-direction: column !important;
   gap: 4px !important;
 }
 
-.sanjeevani-contact-label {
+.synapseos-contact-label {
   font-family: var(--f-mono, monospace) !important;
   font-size: 10.5px !important;
   font-weight: 600 !important;
@@ -1560,9 +1560,9 @@ main .mod-scroll__terms {
   text-transform: uppercase !important;
 }
 
-.sanjeevani-contact-input,
-.sanjeevani-contact-select,
-.sanjeevani-contact-textarea {
+.synapseos-contact-input,
+.synapseos-contact-select,
+.synapseos-contact-textarea {
   width: 100% !important;
   padding: 9px 13px !important;
   border-radius: 12px !important;
@@ -1577,15 +1577,15 @@ main .mod-scroll__terms {
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
-.sanjeevani-contact-input:focus,
-.sanjeevani-contact-select:focus,
-.sanjeevani-contact-textarea:focus {
+.synapseos-contact-input:focus,
+.synapseos-contact-select:focus,
+.synapseos-contact-textarea:focus {
   border-color: #10b981 !important;
   background: #ffffff !important;
   box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15) !important;
 }
 
-.sanjeevani-contact-btn-primary {
+.synapseos-contact-btn-primary {
   width: 100% !important;
   padding: 13px 20px !important;
   border-radius: 999px !important;
@@ -1601,13 +1601,13 @@ main .mod-scroll__terms {
   transition: all 0.2s ease !important;
 }
 
-.sanjeevani-contact-btn-primary:hover {
+.synapseos-contact-btn-primary:hover {
   background: #10b981 !important;
   color: #000000 !important;
   transform: translateY(-1px) !important;
 }
 
-.sanjeevani-contact-direct-bar {
+.synapseos-contact-direct-bar {
   display: flex !important;
   align-items: center !important;
   justify-content: space-between !important;
@@ -1617,7 +1617,7 @@ main .mod-scroll__terms {
   font-size: 11px !important;
 }
 
-.sanjeevani-contact-direct-label {
+.synapseos-contact-direct-label {
   display: block !important;
   font-family: var(--f-mono, monospace) !important;
   font-size: 9.5px !important;
@@ -1625,7 +1625,7 @@ main .mod-scroll__terms {
   letter-spacing: 0.06em !important;
 }
 
-.sanjeevani-contact-copy-btn {
+.synapseos-contact-copy-btn {
   background: none !important;
   border: none !important;
   padding: 0 !important;
@@ -1637,18 +1637,18 @@ main .mod-scroll__terms {
   cursor: pointer !important;
 }
 
-.sanjeevani-contact-direct-val {
+.synapseos-contact-direct-val {
   font-family: "Editorial New", "Times New Roman", Times, serif !important;
   color: #000000 !important;
   font-weight: 600 !important;
 }
 
-.sanjeevani-contact-success {
+.synapseos-contact-success {
   text-align: center !important;
   padding: 24px 10px !important;
 }
 
-.sanjeevani-contact-success-icon {
+.synapseos-contact-success-icon {
   width: 52px !important;
   height: 52px !important;
   border-radius: 50% !important;
@@ -1661,14 +1661,14 @@ main .mod-scroll__terms {
   margin: 0 auto 16px !important;
 }
 
-.sanjeevani-contact-success-title {
+.synapseos-contact-success-title {
   font-family: "Editorial New", "Times New Roman", Times, serif !important;
   font-size: 24px !important;
   font-weight: 600 !important;
   margin-bottom: 8px !important;
 }
 
-.sanjeevani-contact-success-desc {
+.synapseos-contact-success-desc {
   font-family: "Editorial New", "Times New Roman", Times, serif !important;
   font-size: 14px !important;
   color: rgba(0, 0, 0, 0.7) !important;

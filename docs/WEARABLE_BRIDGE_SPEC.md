@@ -1,6 +1,6 @@
-# ⌚ Sanjeevani OS — Wearables & HealthKit Integration Specification
+# ⌚ SynapseOS — Wearables & HealthKit Integration Specification
 
-> **Notice**: Browser-based web applications (Next.js / React) cannot directly access sandboxed mobile device sensors (`HKHealthStore` on iOS or `HealthConnectClient` on Android) without a bridge. Sanjeevani OS provides 4 production-grade integration pathways to stream and ingest real telemetry.
+> **Notice**: Browser-based web applications (Next.js / React) cannot directly access sandboxed mobile device sensors (`HKHealthStore` on iOS or `HealthConnectClient` on Android) without a bridge. SynapseOS provides 4 production-grade integration pathways to stream and ingest real telemetry.
 
 ---
 
@@ -16,11 +16,11 @@ flowchart TD
 
     subgraph Android_Ecosystem [Android Ecosystem]
         PW[Pixel Watch / Galaxy Watch] --> HC[Google Health Connect]
-        HC -->|Jetpack WorkManager Worker| AndroidBridge[Sanjeevani Android Companion]
+        HC -->|Jetpack WorkManager Worker| AndroidBridge[SynapseOS Android Companion]
     end
 
     subgraph Historical_Archives [Historical Archive Ingestion]
-        Zip[Apple Health export.xml / Google Takeout JSON] --> WebDrop[Sanjeevani Local Client Parser]
+        Zip[Apple Health export.xml / Google Takeout JSON] --> WebDrop[SynapseOS Local Client Parser]
     end
 
     Shortcut -->|HTTP POST JSON| Endpoint["FastAPI /api/wearables/sync"]
@@ -100,7 +100,7 @@ Follow these steps to push live Apple Health data directly from your iPhone with
 
 ### Step 1: Open Shortcuts App
 1. Open the **Shortcuts** app on iOS.
-2. Tap the **+** button to create a new Shortcut named **"Sanjeevani Sync"**.
+2. Tap the **+** button to create a new Shortcut named **"SynapseOS Sync"**.
 
 ### Step 2: Add Health Actions
 1. Add action **"Find Health Samples"**:
@@ -118,7 +118,7 @@ Follow these steps to push live Apple Health data directly from your iPhone with
    - `spo2_percent`: `[Sample Value of Oxygen Saturation * 100]`
    - `steps`: `[Sample Value of Steps]`
 2. Add action **"Get Contents of URL"**:
-   - URL: `https://<YOUR_SANJEEVANI_SERVER_IP>:8000/api/wearables/sync`
+   - URL: `https://<YOUR_SYNAPSEOS_SERVER_IP>:8000/api/wearables/sync`
    - Method: `POST`
    - Headers: `Content-Type: application/json`
    - Request Body: `Dictionary`
@@ -126,7 +126,7 @@ Follow these steps to push live Apple Health data directly from your iPhone with
 ### Step 4: Schedule Automation
 1. Navigate to the **Automation** tab in Shortcuts.
 2. Tap **New Automation** -> **Time of Day** -> Select **Hourly** or **When Waking Up**.
-3. Set action to run **"Sanjeevani Sync"** automatically in the background.
+3. Set action to run **"SynapseOS Sync"** automatically in the background.
 
 ---
 
@@ -135,7 +135,7 @@ Follow these steps to push live Apple Health data directly from your iPhone with
 If you prefer a pre-built iOS background sync utility:
 1. Install **Health Auto Export** from the App Store.
 2. Under **Sync Options**, choose **REST API / Webhook**.
-3. Set URL to `https://<YOUR_SANJEEVANI_SERVER_IP>:8000/api/wearables/sync`.
+3. Set URL to `https://<YOUR_SYNAPSEOS_SERVER_IP>:8000/api/wearables/sync`.
 4. Set Cadence to **Background Sync (15-60 min)**.
 
 ---
@@ -146,7 +146,7 @@ If you prefer a pre-built iOS background sync utility:
 // Android Jetpack Health Connect Reader
 val healthConnectClient = HealthConnectClient.getOrCreate(context)
 
-suspend fun syncVitalsToSanjeevani() {
+suspend fun syncVitalsToSynapseOS() {
     val startTime = Instant.now().minus(Duration.ofHours(1))
     val endTime = Instant.now()
     
@@ -166,7 +166,7 @@ suspend fun syncVitalsToSanjeevani() {
     val latestHR = hrResponse.records.lastOrNull()?.samples?.lastOrNull()?.beatsPerMinute
     val latestSpO2 = spo2Response.records.lastOrNull()?.percentage?.value
 
-    // Send payload to Sanjeevani OS
+    // Send payload to SynapseOS
     val payload = JSONObject().apply {
         put("source", "google_health_connect")
         put("device_name", "Pixel Watch 3")
@@ -174,7 +174,7 @@ suspend fun syncVitalsToSanjeevani() {
         put("spo2_percent", latestSpO2)
     }
 
-    HttpClient.post("https://api.sanjeevani.org/api/wearables/sync", payload)
+    HttpClient.post("https://api.synapseos.org/api/wearables/sync", payload)
 }
 ```
 

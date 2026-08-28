@@ -1,5 +1,5 @@
 """
-Sanjeevani OS — openwa/client.py
+SynapseOS — openwa/client.py
 HTTP REST Client for OpenWA WhatsApp Gateway.
 Supports sending text, markdown, and media images via OpenWA endpoints.
 """

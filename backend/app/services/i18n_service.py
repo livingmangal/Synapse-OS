@@ -1,5 +1,5 @@
 """
-Sanjeevani OS — services/i18n_service.py
+SynapseOS — services/i18n_service.py
 Multilingual Translation & Audio Accessibility Service.
 Comprehensive support for 11+ Indian Regional Languages & International standard.
 """

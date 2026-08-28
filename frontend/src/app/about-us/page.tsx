@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { UniversalFooter } from '@/components/home/UniversalFooter';
 
 export const metadata: Metadata = {
-  title: 'About Us - Sanjeevani OS',
+  title: 'About Us - SynapseOS',
   description: 'Learn about our philosophy and clinical multi-agent AI architecture.',
 };
 
@@ -96,7 +96,7 @@ export default function AboutUsPage() {
         <div class="mod-content__col big_text">
                         <div class="mod-content__wrap-text">
                                  
-                    <div class="mod-content__text big_text"><p>Sanjeevani OS was built to democratize access to advanced health orchestration. By merging specialized AI agents with an immutable blockchain backend, we ensure every interaction is intelligently routed and completely verifiable.</p>
+                    <div class="mod-content__text big_text"><p>SynapseOS was built to democratize access to advanced health orchestration. By merging specialized AI agents with an immutable blockchain backend, we ensure every interaction is intelligently routed and completely verifiable.</p>
  </div>
                             </div>
                     </div>

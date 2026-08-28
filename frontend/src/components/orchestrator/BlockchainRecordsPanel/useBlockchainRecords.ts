@@ -154,8 +154,8 @@ export function useBlockchainRecords(props?: UseBlockchainRecordsProps) {
         applyProfileData(pid);
       }
     };
-    window.addEventListener('sanjeevani-profile-switch', handleProfileSwitchEvent);
-    return () => window.removeEventListener('sanjeevani-profile-switch', handleProfileSwitchEvent);
+    window.addEventListener('synapseos-profile-switch', handleProfileSwitchEvent);
+    return () => window.removeEventListener('synapseos-profile-switch', handleProfileSwitchEvent);
   }, [applyProfileData]);
 
   // Change active profile from within the ABHA panel
@@ -166,10 +166,10 @@ export function useBlockchainRecords(props?: UseBlockchainRecordsProps) {
       props.onSelectProfile(profileId);
     }
     if (typeof window !== 'undefined') {
-      window.dispatchEvent(new CustomEvent('sanjeevani-profile-switch', {
+      window.dispatchEvent(new CustomEvent('synapseos-profile-switch', {
         detail: { profileId }
       }));
-      localStorage.setItem('sanjeevani_selected_profile_id', profileId);
+      localStorage.setItem('synapseos_selected_profile_id', profileId);
     }
   };
 
@@ -306,7 +306,7 @@ export function useBlockchainRecords(props?: UseBlockchainRecordsProps) {
         body: JSON.stringify({
           patient_name: name,
           abha_id: abhaData?.abha_number || '91-7294-8102-5309',
-          triage_summary: `Sanjeevani AI Clinical Triage for ${name}: Vitals stable, verified ABDM record.`
+          triage_summary: `SynapseOS AI Clinical Triage for ${name}: Vitals stable, verified ABDM record.`
         })
       });
       if (res.ok) {
@@ -314,7 +314,7 @@ export function useBlockchainRecords(props?: UseBlockchainRecordsProps) {
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `Sanjeevani_Health_Passport_${name.replace(/\s+/g, '_')}.pdf`;
+        a.download = `SynapseOS_Health_Passport_${name.replace(/\s+/g, '_')}.pdf`;
         document.body.appendChild(a);
         a.click();
         a.remove();

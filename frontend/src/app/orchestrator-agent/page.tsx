@@ -33,7 +33,7 @@ export default function OrchestratorAgentPage() {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       try {
-        const storedProfile = localStorage.getItem('sanjeevani_selected_profile_id');
+        const storedProfile = localStorage.getItem('synapseos_selected_profile_id');
         if (storedProfile && MOCK_HEALTH_PROFILES.some(p => p.profileId === storedProfile)) {
           setSelectedProfileId(storedProfile);
         }
@@ -57,12 +57,12 @@ export default function OrchestratorAgentPage() {
         setCustomProfile(null);
         setIsAbhaLinked(true);
         if (typeof window !== 'undefined') {
-          localStorage.setItem('sanjeevani_selected_profile_id', e.detail.profileId);
+          localStorage.setItem('synapseos_selected_profile_id', e.detail.profileId);
         }
       }
     };
-    window.addEventListener('sanjeevani-profile-switch', handleProfileSync);
-    return () => window.removeEventListener('sanjeevani-profile-switch', handleProfileSync);
+    window.addEventListener('synapseos-profile-switch', handleProfileSync);
+    return () => window.removeEventListener('synapseos-profile-switch', handleProfileSync);
   }, []);
 
   // Compute Active Profile
@@ -182,7 +182,7 @@ export default function OrchestratorAgentPage() {
     setSelectedProfileId(profileId);
     setIsAbhaLinked(true);
     if (typeof window !== 'undefined') {
-      localStorage.setItem('sanjeevani_selected_profile_id', profileId);
+      localStorage.setItem('synapseos_selected_profile_id', profileId);
     }
   };
 

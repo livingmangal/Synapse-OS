@@ -1,6 +1,6 @@
-# 🚀 Sanjeevani OS — Setup & Execution Guide
+# 🚀 SynapseOS — Setup & Execution Guide
 
-This guide provides a step-by-step walkthrough to install dependencies and run both the **FastAPI Multi-Agent Backend** and the **Next.js Frontend** for Sanjeevani OS.
+This guide provides a step-by-step walkthrough to install dependencies and run both the **FastAPI Multi-Agent Backend** and the **Next.js Frontend** for SynapseOS.
 
 ---
 
@@ -16,9 +16,9 @@ Ensure you have the following installed on your machine:
 ## 🐍 Part 1: Starting the FastAPI Backend Server
 
 ### Step 1: Open Terminal in Project Root
-Navigate to the root directory `Sanjeevni-OS`:
+Navigate to the root directory `SynapseOS`:
 ```powershell
-cd e:\Sanjeevni-OS
+cd e:\SynapseOS
 ```
 
 ### Step 2: Install Python Dependencies
@@ -56,7 +56,7 @@ INFO:     Application startup complete.
 ### Step 1: Open a Second Terminal
 Navigate to the `frontend` directory:
 ```powershell
-cd e:\Sanjeevni-OS\frontend
+cd e:\SynapseOS\frontend
 ```
 
 ### Step 2: Install Frontend Dependencies
