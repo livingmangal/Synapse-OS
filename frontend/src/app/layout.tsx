@@ -9,8 +9,13 @@ export const metadata: Metadata = {
   title: 'SynapseOS | Multi-Agent Health Platform',
   description: 'The SynapseOS is an open-source, multi-agent health architecture powered by specialized AI sub-agents.',
   icons: {
-    icon: '/fav.png',
-    apple: '/fav.png',
+    icon: [
+      { url: '/synapseos-icon.svg', type: 'image/svg+xml' },
+      { url: '/synapseos-icon.png', type: 'image/png' },
+      { url: '/fav.png', type: 'image/png' },
+    ],
+    shortcut: '/synapseos-icon.svg',
+    apple: '/synapseos-icon.png',
   },
 };
 
@@ -26,6 +31,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head suppressHydrationWarning>
+        <link rel="icon" href="/synapseos-icon.svg" type="image/svg+xml" />
+        <link rel="icon" href="/synapseos-icon.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/synapseos-icon.png" />
         <link rel="preload" href="/wp-content/themes/normalisboring25/css/fonts/editorialnew-regular.woff2" as="font" type="font/woff2" crossOrigin="anonymous" suppressHydrationWarning />
         <link rel="preload" href="/wp-content/themes/normalisboring25/css/fonts/editorialnew-regular.woff" as="font" type="font/woff" crossOrigin="anonymous" suppressHydrationWarning />
         <link rel="stylesheet" href="/wp-content/plugins/contact-form-7/includes/css/styles.css" suppressHydrationWarning />
