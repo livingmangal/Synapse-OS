@@ -2,12 +2,34 @@
 
 First off, thank you for considering contributing to SynapseOS! It's people like you that make SynapseOS such a great open-source platform for autonomous health management. This project was originally created by **Team AC-DC** and the amazing open-source contributors of the community.
 
+---
+
+## 🌟 Contributors & Activity
+
+<div align="center">
+
+### 🏆 Top Contributors
+
+[![Contributors Mosaic](https://contrib.rocks/image?repo=Mausam5055/Sanjeevni-OS&max=24&columns=8)](https://github.com/Mausam5055/Sanjeevni-OS/graphs/contributors)
+
+### 📊 Repository Analytics
+
+[![Repo Stats](https://github-readme-stats.vercel.app/api?username=Mausam5055&repo=Sanjeevni-OS&show_icons=true&theme=tokyonight&hide_border=true&include_all_commits=true&count_private=true)](https://github.com/Mausam5055/Sanjeevni-OS/network/dependencies)
+<br/>
+[![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=Mausam5055&repo=Sanjeevni-OS&layout=compact&theme=tokyonight&hide_border=true)](https://github.com/Mausam5055/Sanjeevni-OS/commits/main)
+
+*Thank you to Team AC-DC and everyone who has contributed to making SynapseOS a reality!*
+
+</div>
+
+---
+
 ## Getting Started
 
 1. **Fork the repository** on GitHub.
 2. **Clone your fork** locally:
    ```bash
-   git clone https://github.com/Mausam5055/Synapse-OS.git
+   git clone https://github.com/Mausam5055/Sanjeevni-OS.git
    ```
 3. **Set up the development environment**:
    Follow the [Installation & Local Setup](README.md#14-installation--local-setup) instructions in the README to start the Frontend (Next.js), Backend (FastAPI), and Blockchain components.
@@ -32,23 +54,3 @@ Have an idea for a new agent, a new feature, or an architectural improvement? Op
 
 ## Code of Conduct
 By participating in this project, you agree to maintain a respectful and welcoming environment for everyone. Please be kind, collaborative, and professional in all interactions.
-
----
-
-## 🌟 Contributors & Activity
-
-<div align="center">
-
-### 🏆 Top Contributors
-
-[![Contributors Mosaic](https://contrib.rocks/image?repo=Mausam5055/Synapse-OS&max=24&columns=8)](https://github.com/Mausam5055/Synapse-OS/graphs/contributors)
-
-### 📊 Repository Analytics
-
-[![Repo Stats](https://github-readme-stats.vercel.app/api?username=Mausam5055&repo=Synapse-OS&show_icons=true&theme=tokyonight&hide_border=true&include_all_commits=true&count_private=true)](https://github.com/Mausam5055/Synapse-OS/network/dependencies)
-<br/>
-[![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=Mausam5055&repo=Synapse-OS&layout=compact&theme=tokyonight&hide_border=true)](https://github.com/Mausam5055/Synapse-OS/commits/main)
-
-*Thank you to Team AC-DC and everyone who has contributed to making SynapseOS a reality!*
-
-</div>
