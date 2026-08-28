@@ -1,0 +1,38 @@
+# Git & IDEs
+.git
+.gitignore
+.gitattributes
+.vscode
+.idea
+
+# Node / JS
+node_modules
+.next
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+.pytest_cache
+.coverage
+
+# Archives & Temp
+*.rar
+*.zip
+*.tar.gz
+tmp/
+temp/
+
+# Environment Local Secrets
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: synapseos-config
+  namespace: synapseos-system
+data:
+  NODE_ENV: "production"
+  PORT: "8000"
+  FRONTEND_PORT: "3000"
+  NEXT_PUBLIC_BACKEND_URL: "https://api.synapseos.health"
+  NEXT_PUBLIC_OPENWA_URL: "https://wa.synapseos.health"
+  CORS_ORIGINS: "https://synapseos.health,https://app.synapseos.health"
+  REDIS_HOST: "synapseos-redis"
+  REDIS_PORT: "6379"
+  IPFS_GATEWAY: "http://synapseos-ipfs:5001"

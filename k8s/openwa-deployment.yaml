@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: synapseos-openwa
+  namespace: synapseos-system
+  labels:
+    app: synapseos-openwa
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: synapseos-openwa
+  template:
+    metadata:
+      labels:
+        app: synapseos-openwa
+    spec:
+      containers:
+        - name: openwa
+          image: synapseos/openwa:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+              name: http
+          env:
+            - name: BACKEND_WEBHOOK_URL
+              value: "http://synapseos-backend:8000/api/whatsapp/webhook"
+            - name: PORT
+              value: "8080"
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "1024Mi"
+            limits:
+              cpu: "1500m"
+              memory: "2048Mi"
+          volumeMounts:
+            - name: wa-session-storage
+              mountPath: /app/_sessions
+      volumes:
+        - name: wa-session-storage
+          persistentVolumeClaim:
+            claimName: synapseos-wa-pvc
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: synapseos-wa-pvc
+  namespace: synapseos-system
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: synapseos-openwa
+  namespace: synapseos-system
+spec:
+  type: ClusterIP
+  selector:
+    app: synapseos-openwa
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+      name: http

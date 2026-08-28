@@ -1,0 +1,114 @@
+version: '3.8'
+
+services:
+  # ----------------------------------------------------------------------------
+  # Next.js 16 Production Frontend
+  # ----------------------------------------------------------------------------
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: synapseos-frontend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_BACKEND_URL=http://localhost:8000
+      - NEXT_PUBLIC_OPENWA_URL=http://localhost:8080
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - synapse-net
+
+  # ----------------------------------------------------------------------------
+  # FastAPI Multi-Agent Core Backend
+  # ----------------------------------------------------------------------------
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: synapseos-backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      - PORT=8000
+      - REDIS_URL=redis://redis:6379/0
+      - IPFS_GATEWAY=http://ipfs:5001
+      - CORS_ORIGINS=http://localhost:3000,http://frontend:3000
+    depends_on:
+      - redis
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    networks:
+      - synapse-net
+
+  # ----------------------------------------------------------------------------
+  # WhatsApp Omnichannel Gateway (OpenWA)
+  # ----------------------------------------------------------------------------
+  openwa:
+    build:
+      context: ./openwa
+      dockerfile: Dockerfile
+    container_name: synapseos-openwa
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      - PORT=8080
+      - BACKEND_WEBHOOK_URL=http://backend:8000/api/whatsapp/webhook
+    volumes:
+      - wa-sessions:/app/_sessions
+    networks:
+      - synapse-net
+
+  # ----------------------------------------------------------------------------
+  # High-Speed In-Memory Cache & Task Queue
+  # ----------------------------------------------------------------------------
+  redis:
+    image: redis:7-alpine
+    container_name: synapseos-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - synapse-net
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+
+  # ----------------------------------------------------------------------------
+  # Decentralized IPFS Storage Node for Tamper-Proof Health Records
+  # ----------------------------------------------------------------------------
+  ipfs:
+    image: ipfs/kubo:latest
+    container_name: synapseos-ipfs
+    restart: unless-stopped
+    ports:
+      - "5001:5001" # API port
+      - "8081:8080" # Gateway port
+    volumes:
+      - ipfs-data:/data/ipfs
+    networks:
+      - synapse-net
+
+networks:
+  synapse-net:
+    driver: bridge
+
+volumes:
+  redis-data:
+  ipfs-data:
+  wa-sessions:

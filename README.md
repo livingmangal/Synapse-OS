@@ -61,6 +61,8 @@
   - [8.3 Backend Initialization](#83-backend-initialization)
   - [8.4 Frontend Initialization](#84-frontend-initialization)
   - [8.5 Smart Contract Deployment](#85-smart-contract-deployment)
+  - [8.6 Multi-Container Docker Deployment](#86-multi-container-docker-deployment)
+  - [8.7 Kubernetes (K8s) Production Deployment](#87-kubernetes-k8s-production-deployment)
 - [9. Testing and Quality Assurance](#9-testing-and-quality-assurance)
 - [10. Security, Privacy, and Compliance Framework](#10-security-privacy-and-compliance-framework)
 - [11. License](#11-license)
@@ -789,6 +791,48 @@ OPENWA_API_KEY="your_openwa_api_key"
    ```bash
    npx hardhat run scripts/deploy.js --network localhost
    ```
+
+---
+
+### 8.6 Multi-Container Docker Deployment
+
+To launch the complete platform (Frontend, Backend, OpenWA WhatsApp Gateway, Redis, and IPFS) with a single command:
+
+```bash
+# Build and run all services in detached mode
+docker compose up -d --build
+
+# Check status and logs
+docker compose ps
+docker compose logs -f
+```
+
+- **Frontend Application**: [`http://localhost:3000`](http://localhost:3000)
+- **Backend API & Swagger Docs**: [`http://localhost:8000/docs`](http://localhost:8000/docs)
+- **WhatsApp OpenWA Bridge**: [`http://localhost:8080`](http://localhost:8080)
+- **IPFS Gateway**: [`http://localhost:8081`](http://localhost:8081)
+
+---
+
+### 8.7 Kubernetes (K8s) Production Deployment
+
+For enterprise high-availability deployment on AWS EKS, GCP GKE, Azure AKS, or on-premise clusters:
+
+```bash
+# 1. Apply namespace, ConfigMaps, and Secrets
+kubectl apply -f k8s/namespace.yaml
+kubectl apply -f k8s/configmap.yaml
+kubectl apply -f k8s/secrets.yaml
+
+# 2. Deploy microservices & Horizontal Pod Autoscalers
+kubectl apply -f k8s/backend-deployment.yaml
+kubectl apply -f k8s/frontend-deployment.yaml
+kubectl apply -f k8s/openwa-deployment.yaml
+kubectl apply -f k8s/ingress.yaml
+kubectl apply -f k8s/hpa.yaml
+```
+
+*(See detailed infrastructure specifications in [`docs/DOCKER_K8S_INFRASTRUCTURE.md`](./docs/DOCKER_K8S_INFRASTRUCTURE.md)).*
 
 ---
 
