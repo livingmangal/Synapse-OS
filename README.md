@@ -161,12 +161,12 @@ The following diagrams are official project artifacts from the `SVH-2026-Docs/` 
 
 ```mermaid
 flowchart TD
-    classDef client fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0f172a
-    classDef api fill:#f0fdf4,stroke:#16a34a,stroke-width:2px,color:#0f172a
-    classDef core fill:#fef08a,stroke:#ca8a04,stroke-width:2px,color:#0f172a
-    classDef agent fill:#faf5ff,stroke:#9333ea,stroke-width:2px,color:#0f172a
-    classDef db fill:#fef2f2,stroke:#dc2626,stroke-width:2px,color:#0f172a
-    classDef web3 fill:#fff7ed,stroke:#ea580c,stroke-width:2px,color:#0f172a
+    classDef client fill:#0f172a,stroke:#3b82f6,stroke-width:2px,color:#ffffff
+    classDef api fill:#2e1065,stroke:#8b5cf6,stroke-width:2px,color:#ffffff
+    classDef core fill:#451a03,stroke:#f59e0b,stroke-width:2px,color:#ffffff
+    classDef agent fill:#052e16,stroke:#22c55e,stroke-width:2px,color:#ffffff
+    classDef db fill:#083344,stroke:#06b6d4,stroke-width:2px,color:#ffffff
+    classDef web3 fill:#450a0a,stroke:#ef4444,stroke-width:2px,color:#ffffff
 
     %% Client Layer
     subgraph Clients ["📱 Channel Layer"]
