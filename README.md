@@ -926,19 +926,13 @@ We welcome contributions from developers, healthcare professionals, and public h
 
 ### 🏆 Top Contributors
 
-<a href="https://github.com/Mausam5055/Sanjeevni-OS/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=Mausam5055/Sanjeevni-OS&max=24&columns=8" alt="Contributors Mosaic" />
-</a>
+[![Contributors Mosaic](https://contrib.rocks/image?repo=Mausam5055/Synapse-OS&max=24&columns=8)](https://github.com/Mausam5055/Synapse-OS/graphs/contributors)
 
 ### 📊 Repository Analytics
 
-<a href="https://github.com/Mausam5055/Sanjeevni-OS/network/dependencies">
-  <img src="https://github-readme-stats.vercel.app/api?username=Mausam5055&repo=Sanjeevni-OS&show_icons=true&theme=tokyonight&hide_border=true&include_all_commits=true&count_private=true" alt="Repo Stats" />
-</a>
+[![Repo Stats](https://github-readme-stats.vercel.app/api?username=Mausam5055&repo=Synapse-OS&show_icons=true&theme=tokyonight&hide_border=true&include_all_commits=true&count_private=true)](https://github.com/Mausam5055/Synapse-OS/network/dependencies)
 <br/>
-<a href="https://github.com/Mausam5055/Sanjeevni-OS/commits/main">
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Mausam5055&repo=Sanjeevni-OS&layout=compact&theme=tokyonight&hide_border=true" alt="Top Languages" />
-</a>
+[![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=Mausam5055&repo=Synapse-OS&layout=compact&theme=tokyonight&hide_border=true)](https://github.com/Mausam5055/Synapse-OS/commits/main)
 
 *Thank you to everyone who has contributed to making SynapseOS a reality!*
 
