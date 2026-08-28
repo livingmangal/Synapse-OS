@@ -348,3 +348,10 @@ Pick your top 2–4, build them deeply, and lead your demo with them — that's 
 ## 13. One-Line Pitch (for your submission)
 
 *"SynapseOS is a free, fully open-source operating system for healthcare, powered by a swarm of specialized AI agents — a normal, usable website by default, with SynapseOS, a voice-driven automation layer, on demand. It scans prescriptions, triages symptoms, plans nutrition, supports mental health, predicts outbreaks, and stores everything on a tamper-proof, QR-verifiable blockchain record, all visualized on a living 3D health twin."*
+
+---
+<div align="center">
+
+### 🔹 built with love by TEAM, AC-DC FOR SMART VIThackathon(SVH)-2026
+
+</div>
