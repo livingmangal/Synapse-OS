@@ -14,8 +14,7 @@ The platform runs across multiple decoupled microservices to ensure high availab
 | Component | Manifest | Description |
 | :--- | :--- | :--- |
 | **Frontend Node** | `frontend-deployment.yaml` | Next.js 16 Web Application. |
-| **Backend Node** | `backend-deployment.yaml` | FastAPI Service (13 AI Agents). |
-| **OpenWA Gateway** | `openwa-deployment.yaml` | WhatsApp Omnichannel Bridge. |
+| **Backend & Meta WhatsApp** | `backend-deployment.yaml` | FastAPI Service (13 AI Agents & Meta WhatsApp Cloud API). |
 | **Ingress Controller** | `ingress.yaml` | NGINX Ingress rules for routing external traffic. |
 | **Autoscaler (HPA)** | `hpa.yaml` | CPU/Memory based horizontal pod autoscaling. |
 | **Config/Secrets** | `configmap.yaml`, `secrets.yaml`| Centralized environment variable management. |
@@ -42,11 +41,10 @@ kubectl apply -f secrets.yaml
 
 ### 3. Deploy Microservices
 
-Spin up the frontend, backend, and WhatsApp gateway deployments:
+Spin up the frontend and backend deployments:
 ```powershell
 kubectl apply -f backend-deployment.yaml
 kubectl apply -f frontend-deployment.yaml
-kubectl apply -f openwa-deployment.yaml
 ```
 
 ### 4. Configure Networking & Autoscaling

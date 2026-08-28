@@ -3,9 +3,10 @@ SynapseOS — api/endpoints.py
 Unified FastAPI API endpoints for SynapseOS.
 """
 
-from fastapi import APIRouter, HTTPException, Response
+from fastapi import APIRouter, HTTPException, Response, Query
 from pydantic import BaseModel, Field
 from typing import Dict, Any, List, Optional
+from backend.app.core.config import settings
 
 from backend.app.agents.orchestrator import orchestrate_health_request
 from backend.app.agents.triage_agent import analyze_symptoms
@@ -33,6 +34,10 @@ from backend.app.agents.outbreak_agent import (
     get_district_outbreak_risk,
     broadcast_outbreak_advisory,
     DISTRICT_SURVEILLANCE_DATABASE
+)
+from backend.app.agents.appointment_agent import (
+    find_doctors_by_specialty,
+    book_appointment_slot
 )
 
 router = APIRouter()
@@ -169,32 +174,99 @@ async def emergency_sos_endpoint(req: EmergencySOSRequest):
     }
 
 
+@router.get("/whatsapp/webhook", tags=["Omnichannel"])
+async def whatsapp_webhook_verification(
+    hub_mode: Optional[str] = Query(None, alias="hub.mode"),
+    hub_challenge: Optional[str] = Query(None, alias="hub.challenge"),
+    hub_verify_token: Optional[str] = Query(None, alias="hub.verify_token")
+):
+    """
+    Official Meta WhatsApp Cloud API Webhook Handshake Verification.
+    Validates hub.verify_token against configured secret and returns hub.challenge.
+    """
+    expected_token = settings.WHATSAPP_WEBHOOK_VERIFY_TOKEN or "sanjeevni_secret_token_123"
+    
+    if hub_mode == "subscribe" and hub_verify_token == expected_token:
+        # Return hub.challenge directly as plain text HTTP 200
+        return Response(content=str(hub_challenge), media_type="text/plain", status_code=200)
+    
+    raise HTTPException(
+        status_code=403,
+        detail="Meta Webhook Verification Failed: Invalid hub.verify_token or hub.mode"
+    )
+
+
 @router.post("/whatsapp/webhook", tags=["Omnichannel"])
 async def whatsapp_webhook_endpoint(payload: Dict[str, Any]):
-    """OpenWA Inbound WhatsApp Webhook Handler."""
+    """
+    Official Meta WhatsApp Cloud API Inbound Webhook Handler.
+    Processes text, interactive button replies, location pins, and image scans.
+    """
     return await process_whatsapp_inbound_webhook(payload)
 
 
 class WhatsAppSimulateRequest(BaseModel):
     message: str = Field(default="1 I have severe fever and dry cough", example="1 I have severe fever and dry cough")
-    sender_phone: str = Field(default="+919876543210", example="+919876543210")
-    message_type: str = Field(default="chat", example="chat")
+    sender_phone: str = Field(default="919876543210", example="919876543210")
+    message_type: str = Field(default="text", example="text")
     image_base64: Optional[str] = None
 
 
 @router.post("/whatsapp/simulate", tags=["Omnichannel"])
 async def whatsapp_simulate_endpoint(req: WhatsAppSimulateRequest):
-    """Simulates an incoming WhatsApp message/scan through the OpenWA pipeline."""
-    payload = {
-        "event": "onMessage",
-        "data": {
-            "from": f"{req.sender_phone.replace('+', '')}@c.us",
-            "body": req.image_base64 if req.image_base64 else req.message,
-            "text": req.message,
-            "type": req.message_type,
-            "caption": req.message if req.image_base64 else ""
+    """
+    Simulates an incoming Meta WhatsApp message or scan through the multi-agent pipeline.
+    Formats the request as a Meta Graph API webhook payload.
+    """
+    clean_phone = req.sender_phone.replace("+", "").replace("@c.us", "").strip()
+    
+    # Construct standard Meta Graph API payload
+    if req.image_base64 or req.message_type == "image":
+        payload = {
+            "object": "whatsapp_business_account",
+            "entry": [{
+                "id": "100000000000000",
+                "changes": [{
+                    "value": {
+                        "messaging_product": "whatsapp",
+                        "metadata": {"display_phone_number": "15550234567", "phone_number_id": "100000000000000"},
+                        "contacts": [{"profile": {"name": "Sanjeevni User"}, "wa_id": clean_phone}],
+                        "messages": [{
+                            "from": clean_phone,
+                            "id": "wamid.SIMULATED_IMG_ID",
+                            "timestamp": "1772185000",
+                            "type": "image",
+                            "image": {"id": "meta_img_simulated", "caption": req.message, "mime_type": "image/jpeg"}
+                        }]
+                    },
+                    "field": "messages"
+                }]
+            }],
+            "image_base64": req.image_base64
         }
-    }
+    else:
+        payload = {
+            "object": "whatsapp_business_account",
+            "entry": [{
+                "id": "100000000000000",
+                "changes": [{
+                    "value": {
+                        "messaging_product": "whatsapp",
+                        "metadata": {"display_phone_number": "15550234567", "phone_number_id": "100000000000000"},
+                        "contacts": [{"profile": {"name": "Sanjeevni User"}, "wa_id": clean_phone}],
+                        "messages": [{
+                            "from": clean_phone,
+                            "id": "wamid.SIMULATED_TXT_ID",
+                            "timestamp": "1772185000",
+                            "type": "text",
+                            "text": {"body": req.message}
+                        }]
+                    },
+                    "field": "messages"
+                }]
+            }]
+        }
+
     return await process_whatsapp_inbound_webhook(payload)
 
 

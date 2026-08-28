@@ -3,19 +3,25 @@ SynapseOS — services/whatsapp_service.py
 Backward-compatible proxy re-exporting from dedicated openwa package (backend/app/openwa).
 """
 
-from backend.app.openwa import (
+from backend.app.services.meta_whatsapp_service import (
     process_whatsapp_inbound_webhook,
-    send_whatsapp_message,
-    send_whatsapp_image,
     trigger_emergency_sos_whatsapp,
     MAIN_MENU_TEXT,
     format_response_for_whatsapp
+)
+from backend.app.services.meta_whatsapp_client import (
+    send_whatsapp_message,
+    send_whatsapp_image,
+    send_whatsapp_interactive_buttons,
+    download_meta_media
 )
 
 __all__ = [
     "process_whatsapp_inbound_webhook",
     "send_whatsapp_message",
     "send_whatsapp_image",
+    "send_whatsapp_interactive_buttons",
+    "download_meta_media",
     "trigger_emergency_sos_whatsapp",
     "MAIN_MENU_TEXT",
     "format_response_for_whatsapp"

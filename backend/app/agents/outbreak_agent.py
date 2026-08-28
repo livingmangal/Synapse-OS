@@ -169,8 +169,8 @@ async def broadcast_outbreak_advisory(
         f"🏥 Free diagnosis & treatment available at your nearest PHC / Ayushman Arogya Mandir."
     )
 
-    from backend.app.openwa.client import send_whatsapp_message
-    delivery_res = await send_whatsapp_message(to_jid=recipient_phone, text=advisory_msg)
+    from backend.app.services.whatsapp_service import send_whatsapp_message
+    delivery_res = await send_whatsapp_message(to_phone=recipient_phone, text=advisory_msg)
 
     return {
         "status": "DISPATCHED",

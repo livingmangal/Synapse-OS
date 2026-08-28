@@ -182,25 +182,50 @@ def test_emergency_sos_dispatch_endpoint():
 
 
 def test_whatsapp_endpoints():
-    """Tests the OpenWA inbound webhook and simulation endpoints."""
-    # 1. Direct Webhook
-    webhook_payload = {
-        "event": "onMessage",
-        "data": {
-            "from": "919876543210@c.us",
-            "body": "Menu",
-            "type": "chat"
+    """Tests the Meta WhatsApp Cloud API verification, inbound webhook, and simulation endpoints."""
+    # 1. Meta Webhook GET Handshake Verification
+    resp_verify = client.get(
+        "/api/whatsapp/webhook",
+        params={
+            "hub.mode": "subscribe",
+            "hub.challenge": "1158201444",
+            "hub.verify_token": "sanjeevni_secret_token_123"
         }
+    )
+    assert resp_verify.status_code == 200
+    assert resp_verify.text == "1158201444"
+
+    # 2. Meta Official Format Webhook POST
+    meta_payload = {
+        "object": "whatsapp_business_account",
+        "entry": [{
+            "id": "100000000000000",
+            "changes": [{
+                "value": {
+                    "messaging_product": "whatsapp",
+                    "metadata": {"display_phone_number": "15550234567", "phone_number_id": "100000000000000"},
+                    "contacts": [{"profile": {"name": "Sanjeevni User"}, "wa_id": "919876543210"}],
+                    "messages": [{
+                        "from": "919876543210",
+                        "id": "wamid.TEST_META_ID",
+                        "timestamp": "1772185000",
+                        "type": "text",
+                        "text": {"body": "Menu"}
+                    }]
+                },
+                "field": "messages"
+            }]
+        }]
     }
-    resp_webhook = client.post("/api/whatsapp/webhook", json=webhook_payload)
+    resp_webhook = client.post("/api/whatsapp/webhook", json=meta_payload)
     assert resp_webhook.status_code == 200
     assert resp_webhook.json()["status"] == "processed"
 
-    # 2. Simulation Endpoint
+    # 3. Simulation Endpoint
     sim_payload = {
         "message": "1 I have slight fever",
-        "sender_phone": "+919876543210",
-        "message_type": "chat"
+        "sender_phone": "919876543210",
+        "message_type": "text"
     }
     resp_sim = client.post("/api/whatsapp/simulate", json=sim_payload)
     assert resp_sim.status_code == 200

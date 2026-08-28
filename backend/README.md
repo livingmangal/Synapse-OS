@@ -55,7 +55,8 @@ python -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8000 --reload
 | `/api/abdm/schemes` | `GET` | ABDM & Schemes | Returns Indian Government health schemes (PM-JAY, Jan Aushadhi, Tele-MANAS). |
 | `/api/reports/generate-pdf` | `POST` | Health Records | Generates verifiable health summary PDF with SHA-256 blockchain QR. |
 | `/api/sos/dispatch` | `POST` | Emergency SOS | Dispatches 1-click Emergency SOS alert packet with GPS navigation. |
-| `/api/whatsapp/webhook` | `POST` | Omnichannel | Inbound OpenWA WhatsApp webhook handler. |
+| `/api/whatsapp/webhook` | `GET` | Omnichannel | Official Meta Webhook verification challenge handshake. |
+| `/api/whatsapp/webhook` | `POST` | Omnichannel | Official Meta WhatsApp Cloud API inbound webhook handler. |
 | `/api/whatsapp/simulate` | `POST` | Omnichannel | Instant simulation testing of WhatsApp messages and scan uploads. |
 | `/api/fhir/bundle` | `GET` | EHR & FHIR R4 | Generates official HL7 FHIR R4 Bundle (Patient, Observation, Condition). |
 | `/api/retrieval/search` | `GET` | Hybrid RAG | Searches WHO/ICMR 23-guideline corpus and Wikipedia medical REST API. |
@@ -67,7 +68,7 @@ python -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8000 --reload
 
 ## 🧪 Running the Test Suite
 
-SynapseOS comes with a **45-test comprehensive test suite** covering all API endpoints, OpenWA messaging, ML risk models, and clinical agents:
+SynapseOS comes with a **45-test comprehensive test suite** covering all API endpoints, Meta WhatsApp messaging & multilingual onboarding, ML risk models, and clinical agents:
 
 ```powershell
 # Run the entire test suite
@@ -88,10 +89,9 @@ backend/
 ├── app/
 │   ├── agents/            # Specialist AI nodes (Triage, Drug, Scan, Mental, Council, etc.)
 │   ├── api/               # FastAPI route definitions (endpoints.py)
-│   ├── core/              # Config, State Graph, and Deterministic Safety Gate
+│   ├── core/              # Config, State Graph, Session Manager & Safety Gate
 │   ├── ml/                # Diagnostics ML & 10-Year Digital Twin Trajectory
-│   ├── openwa/            # Dedicated OpenWA WhatsApp client & service engine
-│   ├── services/          # FHIR R4, ABDM, PDF generation, and i18n translations
+│   ├── services/          # Meta WhatsApp Client/Service, FHIR R4, ABDM, PDF & i18n
 │   └── main.py            # FastAPI Application entrypoint & CORS middleware
 ├── tests/                 # Full 45-test suite
 ├── Final.pt               # FractureNet YOLOv8 bone fracture model weights

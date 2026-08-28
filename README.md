@@ -636,10 +636,13 @@ Sanjeevni-OS/
 │   │   │   ├── abdm_service.py       # ABHA ID generator + PM-JAY
 │   │   │   ├── i18n_service.py       # 11-language clinical translation
 │   │   │   ├── pdf_service.py        # ReportLab PDF generator
-│   │   │   └── whatsapp_service.py   # OpenWA webhook handler
+│   │   │   ├── meta_whatsapp_client.py # Meta WhatsApp Cloud API client
+│   │   │   ├── meta_whatsapp_service.py # Webhook parser & multilingual FSM
+│   │   │   └── whatsapp_service.py   # Unified WhatsApp re-export interface
 │   │   └── core/
 │   │       ├── config.py             # Pydantic Settings (env vars)
 │   │       ├── state.py              # SynapseOSState shared schema
+│   │       ├── session_manager.py    # In-memory WhatsApp multi-turn FSM
 │   │       └── safety_router.py      # Deterministic crisis/emergency gate
 │   ├── Final.pt                      # Custom FractureNet YOLOv8 weights (22 MB)
 │   ├── requirements.txt
@@ -651,15 +654,11 @@ Sanjeevni-OS/
 │   ├── scripts/                      # Deploy scripts
 │   └── test/                         # Hardhat Mocha tests
 │
-├── openwa/                           # WhatsApp Automation Gateway (Node.js)
-│   ├── runner.js                     # @open-wa/wa-automate session bridge
-│   └── Dockerfile
-│
 ├── docs/                             # Technical documentation
 ├── SVH-2026-Docs/                    # Hackathon architecture diagrams + PDF
 ├── k8s/                              # 8 Kubernetes manifests
 ├── Preview Images/                   # 12 numbered product screenshots
-├── docker-compose.yml                # Full local stack (5 services)
+├── docker-compose.yml                # Full local stack
 ├── .env.example                      # Environment template
 └── README.md
 ```
@@ -691,13 +690,15 @@ All endpoints served at `http://localhost:8000/api`. Interactive docs at `http:/
 | `POST` | `/api/reports/generate-pdf` | Clinical PDF with blockchain QR (binary response) |
 | `GET` | `/api/fhir/bundle` | HL7 FHIR R4 patient bundle |
 
-### 📱 Omnichannel & Emergency
+### 📱 Omnichannel & Emergency (Meta WhatsApp Cloud API & 2G SMS)
 
 | Method | Endpoint | Description |
 | :--- | :--- | :--- |
 | `POST` | `/api/sos/dispatch` | 1-click Emergency SOS via WhatsApp |
-| `POST` | `/api/whatsapp/webhook` | OpenWA inbound webhook handler |
-| `POST` | `/api/whatsapp/simulate` | Simulate WhatsApp message for testing |
+| `GET` | `/api/whatsapp/webhook` | Meta Webhook verification handshake (`hub.challenge`) |
+| `POST` | `/api/whatsapp/webhook` | Meta Official WhatsApp Cloud API inbound webhook |
+| `POST` | `/api/whatsapp/simulate` | Simulate incoming Meta WhatsApp message/scan |
+| `POST` | `/api/sms/inbound` | 2G Plain-Text SMS gateway for feature phones |
 
 ### 🏥 Public Health
 
@@ -714,18 +715,20 @@ All endpoints served at `http://localhost:8000/api`. Interactive docs at `http:/
 
 ## ⚙️ 13. Environment Configuration
 
-Copy `.env.example` to `.env`. No secrets required for core offline operation — the platform runs deterministically without LLM keys.
+Copy `.env.example` to `.env`. No secrets required for core offline operation — the platform runs deterministically with built-in simulations.
 
 | Category | Variable | Required | Purpose |
 | :--- | :--- | :--- | :--- |
+| **Meta WhatsApp** | `WHATSAPP_CLOUD_API_TOKEN` | Optional | Meta Graph API Bearer Token (100% Free Sandbox) |
+| **Meta WhatsApp** | `WHATSAPP_PHONE_NUMBER_ID` | Optional | Meta Test/Production Phone Number ID |
+| **Meta WhatsApp** | `WHATSAPP_BUSINESS_ACCOUNT_ID` | Optional | Meta WhatsApp Business Account ID |
+| **Meta WhatsApp** | `WHATSAPP_WEBHOOK_VERIFY_TOKEN`| Optional | Secret token for webhook verification (default: `sanjeevni_secret_token_123`) |
+| **Meta WhatsApp** | `WHATSAPP_API_VERSION` | Optional | Graph API version (default: `v20.0`) |
 | **LLM — Primary** | `GROQ_API_KEY` | Optional | Groq LLaMA-3.3-70B for live AI reasoning |
 | **LLM — Primary** | `GROQ_MODEL` | Optional | Default: `llama-3.3-70b-versatile` |
 | **LLM — Failover** | `OPENROUTER_API_KEY` | Optional | OpenRouter fallback for LLM calls |
 | **LLM — Failover** | `OPENROUTER_MODEL` | Optional | Default: `meta-llama/llama-3.3-70b-instruct` |
 | **LLM — Google** | `GEMINI_API_KEY` | Optional | Google Gemini (configured, not primary) |
-| **WhatsApp** | `OPENWA_URL` | Optional | OpenWA gateway URL |
-| **WhatsApp** | `OPENWA_API_KEY` | Optional | OpenWA authentication key |
-| **WhatsApp** | `SYNAPSEOS_WEBHOOK_URL` | Optional | Backend webhook for inbound messages |
 | **Blockchain** | `BLOCKCHAIN_RPC_URL` | Optional | EVM RPC (default: `http://127.0.0.1:8545`) |
 | **Blockchain** | `CONTRACT_ADDRESS` | Optional | Deployed `MedicalRecords.sol` address |
 | **Blockchain** | `DEPLOYER_PRIVATE_KEY` | Optional | Sepolia deployer account private key |
@@ -773,10 +776,10 @@ npm install
 npx hardhat node
 npx hardhat run scripts/deploy.js --network localhost
 
-# 6. (Optional) WhatsApp
-cd openwa
-npm install
-node runner.js
+# 6. (Optional) Meta WhatsApp Cloud API Live Webhook Ingress
+# Expose port 8000 using Cloudflare Tunnel (100% Free, No Card):
+cloudflared tunnel --url http://localhost:8000
+# Paste https://<tunnel-domain>/api/whatsapp/webhook in Meta Developer Portal
 ```
 
 ---

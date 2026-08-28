@@ -1,9 +1,0 @@
-node_modules
-_sessions
-.git
-.vscode
-*.log
-.env
-.env.local
-Dockerfile
-.dockerignore

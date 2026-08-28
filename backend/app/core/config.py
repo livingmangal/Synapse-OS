@@ -19,7 +19,14 @@ class Settings(BaseModel):
     GEMINI_API_KEY: str = os.getenv("GEMINI_API_KEY", "")
     OPENAI_API_KEY: str = os.getenv("OPENAI_API_KEY", "")
     
-    # OpenWA / WhatsApp settings
+    # Meta Official WhatsApp Cloud API (Graph API) Settings
+    WHATSAPP_CLOUD_API_TOKEN: str = os.getenv("WHATSAPP_CLOUD_API_TOKEN", "")
+    WHATSAPP_PHONE_NUMBER_ID: str = os.getenv("WHATSAPP_PHONE_NUMBER_ID", "")
+    WHATSAPP_BUSINESS_ACCOUNT_ID: str = os.getenv("WHATSAPP_BUSINESS_ACCOUNT_ID", "")
+    WHATSAPP_WEBHOOK_VERIFY_TOKEN: str = os.getenv("WHATSAPP_WEBHOOK_VERIFY_TOKEN", "sanjeevni_secret_token_123")
+    WHATSAPP_API_VERSION: str = os.getenv("WHATSAPP_API_VERSION", "v20.0")
+
+    # OpenWA / WhatsApp fallback settings
     OPENWA_URL: str = os.getenv("OPENWA_URL", "http://localhost:3000")
     OPENWA_API_KEY: str = os.getenv("OPENWA_API_KEY", "")
     

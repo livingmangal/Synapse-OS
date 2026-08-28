@@ -15,7 +15,6 @@ services:
     environment:
       - NODE_ENV=production
       - NEXT_PUBLIC_BACKEND_URL=http://localhost:8000
-      - NEXT_PUBLIC_OPENWA_URL=http://localhost:8080
     depends_on:
       backend:
         condition: service_healthy
@@ -23,7 +22,7 @@ services:
       - synapse-net
 
   # ----------------------------------------------------------------------------
-  # FastAPI Multi-Agent Core Backend
+  # FastAPI Multi-Agent Core Backend (Meta Official WhatsApp Cloud API Included)
   # ----------------------------------------------------------------------------
   backend:
     build:
@@ -48,25 +47,6 @@ services:
       timeout: 5s
       retries: 3
       start_period: 10s
-    networks:
-      - synapse-net
-
-  # ----------------------------------------------------------------------------
-  # WhatsApp Omnichannel Gateway (OpenWA)
-  # ----------------------------------------------------------------------------
-  openwa:
-    build:
-      context: ./openwa
-      dockerfile: Dockerfile
-    container_name: synapseos-openwa
-    restart: unless-stopped
-    ports:
-      - "8080:8080"
-    environment:
-      - PORT=8080
-      - BACKEND_WEBHOOK_URL=http://backend:8000/api/whatsapp/webhook
-    volumes:
-      - wa-sessions:/app/_sessions
     networks:
       - synapse-net
 
@@ -111,4 +91,3 @@ networks:
 volumes:
   redis-data:
   ipfs-data:
-  wa-sessions:

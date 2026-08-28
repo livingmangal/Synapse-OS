@@ -60,7 +60,7 @@ async def root():
             "WHO/Tele-MANAS Mental Health Agent",
             "3D Digital Health Twin Simulation Engine",
             "Ayushman Bharat ABDM / ABHA Service",
-            "Omnichannel 2G SMS & OpenWA WhatsApp Gateway"
+            "Omnichannel 2G SMS & Meta Official WhatsApp Cloud API Gateway"
         ],
         "docs": "/docs"
     }
