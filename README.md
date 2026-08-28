@@ -1,31 +1,57 @@
-# 🌐 SynapseOS (Sanjeevni AI): Autonomous Multi-Agent Health Operating System & Public Health Chatbot
-
 <div align="center">
 
-[![Hackathon Track](https://img.shields.io/badge/Track-AI--Driven_Public_Health_Chatbot_for_Disease_Awareness-0284c7?style=for-the-badge&logo=shield)](https://github.com/Mausam5055/Sanjeevni-OS)
-[![Compliance](https://img.shields.io/badge/Compliance-ABDM_%7C_HL7_FHIR_R4_%7C_HIPAA-10b981?style=for-the-badge)](https://github.com/Mausam5055/Sanjeevni-OS)
-[![Model Engine](https://img.shields.io/badge/LLM_Engine-Gemini_2.5_%2F_Groq_Llama--3--70B-6366f1?style=for-the-badge&logo=google)](https://github.com/Mausam5055/Sanjeevni-OS)
-[![Diagnostic Vision](https://img.shields.io/badge/Diagnostic_Vision-MONAI_DenseNet--121_%7C_YOLOv8-f59e0b?style=for-the-badge)](https://github.com/Mausam5055/Sanjeevni-OS)
-[![Blockchain](https://img.shields.io/badge/Blockchain-Polygon_EVM_%7C_IPFS_SHA--256-8b5cf6?style=for-the-badge&logo=polygon)](https://github.com/Mausam5055/Sanjeevni-OS)
-[![Omnichannel](https://img.shields.io/badge/Channels-WhatsApp_Cloud_API_%7C_SMS_%7C_WebRTC_Voice-22c55e?style=for-the-badge&logo=whatsapp)](https://github.com/Mausam5055/Sanjeevni-OS)
+<img src="./frontend/public/synapseos-icon.svg" alt="SynapseOS Logo" width="80" height="80" />
+
+# SynapseOS — AI-Powered Multi-Agent Health Platform
+
+**Open-Source · Multi-Agent Clinical AI · Hackathon Edition — ICDC Smart VIT 2026**
+
+*An autonomous health operating system powered by a swarm of 13 specialized AI agents, bridging the gap between everyday health tracking and complex clinical intelligence — with government ABDM compliance, blockchain-verified records, and multilingual accessibility for 650+ million rural citizens.*
+
+[![Next.js](https://img.shields.io/badge/Next.js-16.3.1-black?style=flat-square&logo=next.js)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-19.2-61DAFB?style=flat-square&logo=react&logoColor=black)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.110+-009688?style=flat-square&logo=fastapi)](https://fastapi.tiangolo.com/)
+[![Python](https://img.shields.io/badge/Python-3.11-3776AB?style=flat-square&logo=python)](https://python.org)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.x-06B6D4?style=flat-square&logo=tailwindcss)](https://tailwindcss.com/)
+[![Solidity](https://img.shields.io/badge/Solidity-0.8.20-363636?style=flat-square&logo=solidity)](https://soliditylang.org/)
+[![Hardhat](https://img.shields.io/badge/Hardhat-3.x-F7DF1E?style=flat-square&logo=ethereum)](https://hardhat.org/)
+[![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?style=flat-square&logo=docker)](https://docker.com)
+[![Kubernetes](https://img.shields.io/badge/Kubernetes-Manifests-326CE5?style=flat-square&logo=kubernetes)](https://kubernetes.io)
+[![Redis](https://img.shields.io/badge/Redis-7.x-DC382D?style=flat-square&logo=redis)](https://redis.io)
+[![IPFS](https://img.shields.io/badge/IPFS-Kubo-65C2CB?style=flat-square&logo=ipfs)](https://ipfs.io)
+[![Ethers.js](https://img.shields.io/badge/Ethers.js-6.x-764ABC?style=flat-square)](https://ethers.org/)
+[![Groq](https://img.shields.io/badge/Groq-LLaMA_3.3_70B-FF6B35?style=flat-square)](https://groq.com/)
+[![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg?style=flat-square)](./blockchain/contracts/package.json)
 
 </div>
 
 ---
 
-## 🎯 Hackathon Problem Statement & Solution Mapping
+## Table of Contents
 
-> **Problem Track**: *AI-Driven Public Health Chatbot for Disease Awareness*  
-> **Mission**: Create a multilingual AI chatbot to educate rural and semi-urban populations about preventive healthcare, disease symptoms, and vaccination schedules. Integrate with government health databases and provide real-time alerts for outbreaks with WhatsApp/SMS accessibility.
-
-| Hackathon Requirement | Target Benchmark | SynapseOS Production Implementation |
-| :--- | :--- | :--- |
-| **Target Population** | Rural & semi-urban populations | **Multilingual NLU across 11 Indic languages** (Hindi, Bengali, Tamil, Telugu, Marathi, Gujarati, etc.) + Low-Bandwidth ASHA field-worker offline mode. |
-| **Accessibility Channels** | WhatsApp or SMS | **Two-way Meta WhatsApp Cloud API**, Automated Lab PDF/Adherence dispatch, SMS/IVR fallback, and WebRTC Voice AI. |
-| **Preventive & Clinical Care** | Symptoms, preventive care, vaccines | **5 Autonomous Clinical Swarm Personas**: Clinical Copilot (AIIMS/ICMR calibrated), Symptom Triage (ESI Level 1-5), ICMR Nutritionist, Vaccination Scheduler, and Tele-MANAS Mental Health. |
-| **Government Health Integration** | Government health databases | **Ayushman Bharat Digital Mission (ABDM)** compliance, 14-digit ABHA ID minting, and HL7 FHIR Release 4 standard serialization. |
-| **Outbreak & Epidemic Alerts** | Real-time outbreak detection | **WHO & IDSP GeoJSON district disease surveillance engine** with real-time $R_0$ transmission velocity modeling and containment advisories. |
-| **Accuracy & Uplift Goals** | >80% accuracy, +20% awareness | **98.8%** MONAI chest PA radiograph confidence, **99.2%** YOLOv8 trauma accuracy, deterministic safety gating, and longitudinal digital health twin simulations. |
+- [Product & Interface Showcase](#-product--interface-showcase)
+- [Hackathon Problem Statement](#-hackathon-problem-statement--solution-mapping)
+- [Executive Summary](#1-executive-summary)
+- [Official Architecture Diagrams](#2-official-architecture-diagrams)
+- [System Architecture](#3-system-architecture)
+- [Agent Swarm: 13 Specialized Agents](#4-agent-swarm--13-specialized-agents)
+- [Technology Stack](#5-technology-stack)
+- [Application Workflow](#6-application-workflow)
+- [Data Flow](#7-data-flow)
+- [Blockchain Architecture](#8-blockchain-architecture)
+- [Wearable Telemetry Pipeline](#9-wearable-telemetry-pipeline)
+- [Multilingual Architecture](#10-multilingual-architecture)
+- [Project Structure](#11-project-structure)
+- [API Reference](#12-api-reference)
+- [Environment Configuration](#13-environment-configuration)
+- [Installation & Local Setup](#14-installation--local-setup)
+- [Docker & Kubernetes Deployment](#15-docker--kubernetes-deployment)
+- [Security Considerations](#16-security-considerations)
+- [Feature Documentation](#17-feature-documentation)
+- [Scalability & Future Improvements](#18-scalability--future-improvements)
+- [Contributing](#19-contributing)
+- [License](#20-license)
 
 ---
 
@@ -33,30 +59,35 @@
 
 <div align="center">
 
-### 1. Landing Page & Autonomous Agentic Architecture
+### Landing Page & Autonomous Agentic Architecture
 ![SynapseOS Landing Page](./Preview%20Images/01_Landing_Page_Architecture_Hero.png)
 
-### 2. Clinical AI Copilot & Voice Interface
+### Clinical AI Copilot & Voice Interface
+
 | Multilingual AI Copilot Workspace | Live Multimodal Voice AI Orb |
 | :---: | :---: |
 | ![Clinical Copilot](./Preview%20Images/02_AI_Assistant_Clinical_Copilot_Workspace.png) | ![Voice AI Orb](./Preview%20Images/03_Live_AI_Voice_Orb_Interface.png) |
 
-### 3. Orchestrator 3D Digital Health Twin & Rural Healthcare Hub
-| 3D Digital Health Twin & Hindi UI | Omnichannel WhatsApp & 2G SMS Gateway |
+### Orchestrator 3D Digital Health Twin & Rural Healthcare Hub
+
+| 3D Digital Health Twin (Hindi UI) | Omnichannel WhatsApp & 2G SMS Gateway |
 | :---: | :---: |
 | ![3D Body Twin](./Preview%20Images/04_Orchestrator_3D_Digital_Body_Twin.png) | ![Rural WhatsApp SMS Hub](./Preview%20Images/05_Rural_Health_WhatsApp_SMS_Gateway.png) |
 
-### 4. Disease Surveillance & Universal Immunization
+### Disease Surveillance & Universal Immunization
+
 | UIP & U-WIN Vaccine Milestone Tracker | WHO Global Epidemic Transmission Vector Map |
 | :---: | :---: |
 | ![UIP Vaccine Tracker](./Preview%20Images/06_Universal_Immunization_UWIN_Tracker.png) | ![WHO Outbreak Radar](./Preview%20Images/08_WHO_Epidemic_Outbreak_Vector_Map.png) |
 
-### 5. Medical Scan AI & Blockchain Records
+### Medical Scan AI & Blockchain Records
+
 | MONAI & YOLOv8 FractureNet Radiography | ABDM ABHA Generator & Blockchain Passport |
 | :---: | :---: |
 | ![Medical Scan AI](./Preview%20Images/09_Medical_Scan_MONAI_YOLOv8_Diagnostics.png) | ![ABDM Blockchain Passport](./Preview%20Images/10_ABDM_ABHA_Health_Records_Blockchain.png) |
 
-### 6. Wearable Telemetry & Longitudinal Analytics
+### Wearable Telemetry & Longitudinal Analytics
+
 | Apple Health & Google Fit Live ECG Stream | Longitudinal Biomarkers & Wellness Dashboard |
 | :---: | :---: |
 | ![Apple & Google HealthKit Hub](./Preview%20Images/11_Google_Apple_HealthKit_Live_ECG.png) | ![Visual Analytics Dashboard](./Preview%20Images/12_Visual_Analytics_Wellness_Dashboard.png) |
@@ -65,855 +96,847 @@
 
 ---
 
-## Table of Contents
+## 🎯 Hackathon Problem Statement & Solution Mapping
 
-- [🎯 Hackathon Problem Statement & Solution Mapping](#-hackathon-problem-statement--solution-mapping)
-- [📸 Product & Interface Showcase](#-product--interface-showcase)
-- [1. Executive Summary](#1-executive-summary)
-- [2. System Architecture](#2-system-architecture)
-  - [2.1 High-Level Architectural Layers](#21-high-level-architectural-layers)
-  - [2.2 Multi-Agent Orchestration Directed Acyclic Graph (DAG)](#22-multi-agent-orchestration-directed-acyclic-graph-dag)
-- [3. Core Subsystems and Agent Specifications](#3-core-subsystems-and-agent-specifications)
-  - [3.1 Safety and Intent Governance](#31-safety-and-intent-governance)
-  - [3.2 Clinical Intelligence Swarm](#32-clinical-intelligence-swarm)
-  - [3.3 Diagnostics and Medical Imaging](#33-diagnostics-and-medical-imaging)
-  - [3.4 Digital Health Twin and Longitudinal Simulation](#34-digital-health-twin-and-longitudinal-simulation)
-  - [3.5 National Health Stack Integration (ABDM / FHIR R4)](#35-national-health-stack-integration-abdm--fhir-r4)
-  - [3.6 Blockchain Verification and Integrity Layer](#36-blockchain-verification-and-integrity-layer)
-  - [3.7 Omnichannel Messaging Gateway](#37-omnichannel-messaging-gateway)
-- [4. Repository Structure](#4-repository-structure)
-- [5. Technology Stack](#5-technology-stack)
-- [6. API Reference](#6-api-reference)
-  - [6.1 Orchestration Endpoint](#61-orchestration-endpoint)
-  - [6.2 Clinical Triage Endpoint](#62-clinical-triage-endpoint)
-  - [6.3 Drug Interaction Endpoint](#63-drug-interaction-endpoint)
-  - [6.4 Medical Scan Analysis Endpoint](#64-medical-scan-analysis-endpoint)
-  - [6.5 Digital Health Twin Simulation Endpoint](#65-digital-health-twin-simulation-endpoint)
-  - [6.6 Diagnostic Risk Engine Endpoint](#66-diagnostic-risk-engine-endpoint)
-  - [6.7 Report Generation and Dispatch Endpoints](#67-report-generation-and-dispatch-endpoints)
-- [7. Smart Contract Architecture](#7-smart-contract-architecture)
-- [8. Installation and Local Setup](#8-installation-and-local-setup)
-  - [8.1 Prerequisites](#81-prerequisites)
-  - [8.2 Environment Configuration](#82-environment-configuration)
-  - [8.3 Backend Initialization](#83-backend-initialization)
-  - [8.4 Frontend Initialization](#84-frontend-initialization)
-  - [8.5 Smart Contract Deployment](#85-smart-contract-deployment)
-  - [8.6 Multi-Container Docker Deployment](#86-multi-container-docker-deployment)
-  - [8.7 Kubernetes (K8s) Production Deployment](#87-kubernetes-k8s-production-deployment)
-- [9. Testing and Quality Assurance](#9-testing-and-quality-assurance)
-- [10. Security, Privacy, and Compliance Framework](#10-security-privacy-and-compliance-framework)
-- [11. License](#11-license)
+> **Problem Track**: *AI-Driven Public Health Chatbot for Disease Awareness*
+> **Mission**: Create a multilingual AI chatbot to educate rural and semi-urban populations about preventive healthcare, disease symptoms, and vaccination schedules. Integrate with government health databases and provide real-time alerts for outbreaks with WhatsApp/SMS accessibility.
+
+| Hackathon Requirement | Target Benchmark | SynapseOS Production Implementation |
+| :--- | :--- | :--- |
+| **Target Population** | Rural & semi-urban populations | **11 Indic language NLU** (Hindi, Bengali, Tamil, Telugu, Marathi, Gujarati, Kannada, Malayalam, Punjabi, Odia) + Low-Bandwidth ASHA field-worker offline mode |
+| **Accessibility Channels** | WhatsApp or SMS | **Meta WhatsApp Cloud API** via OpenWA Bridge, 2G GSM 160-char SMS simulator, WebRTC VAPI voice AI |
+| **Preventive & Clinical Care** | Symptoms, preventive care, vaccines | **13 Autonomous Clinical Agents**: Clinical Copilot, Symptom Triage (ESI L1–L5), UIP Vaccination Scheduler, Preventive Health Hub, Tele-MANAS Mental Health, Drug Safety, Outbreak EWS |
+| **Government Health Integration** | Government health databases | **ABDM Sandbox M1/M2/M3** compliance, 14-digit ABHA ID minting, HL7 FHIR R4 bundle serialization, PM-JAY eligibility mapping |
+| **Outbreak & Epidemic Alerts** | Real-time outbreak detection | **WHO & IDSP GeoJSON district surveillance** engine with real-time R₀ transmission modeling, containment advisories, proactive WhatsApp push |
+| **Accuracy & Uplift Goals** | >80% accuracy, +20% awareness | **98.8%** MONAI chest radiograph confidence, **99.2%** YOLOv8 FractureNet accuracy, deterministic safety gating, longitudinal digital health twin simulations |
 
 ---
 
 ## 1. Executive Summary
 
-SynapseOS unifies diverse clinical and operational capabilities into an orchestrated operating system for individual and public healthcare management. Traditional digital health tools suffer from fragmented user experiences, siloed medical records, and reliance on unverified single-prompt chatbots. SynapseOS mitigates these vulnerabilities through:
+SynapseOS is an open-source, production-grade **multi-agent health operating system** built for the ICDC Smart VIT Hackathon 2026. It deploys a swarm of 13 specialized autonomous AI agents — each independently testable and hot-swappable — coordinated by a central Orchestrator DAG (Directed Acyclic Graph) pipeline.
 
-1. **Deterministic Safety Gating**: Hardware-level and algorithmic interceptors that isolate crisis and emergency queries before passing inputs to stochastic language models.
-2. **Multi-Agent Consensus (Council Architecture)**: Critical clinical pathways cross-evaluate hypotheses across specialist nodes to produce verifiable consensus scores.
-3. **Decentralized Record Integrity**: Integration with Ethereum-compatible smart contracts and InterPlanetary File System (IPFS) content hashing to preserve audit trails without exposing unencrypted Protected Health Information (PHI) on-chain.
-4. **Standardized Interoperability**: Full compliance with HL7 FHIR Release 4 and the Ayushman Bharat Digital Mission (ABDM / ABHA) specifications.
-5. **Dual Interface Modality**: Seamless real-time state synchronization between standard click-based web dashboards and multimodal voice-driven agent workflows.
+**The platform solves India's three critical digital healthcare failures:**
 
----
+1. **Data Fragmentation**: Hospital EHRs, smartwatch vitals (Apple/Google), and DICOM imaging exist in isolated silos. SynapseOS bridges them all through HL7 FHIR R4 serialization and LOINC medical codes.
 
-## 2. System Architecture
+2. **Government Regulatory Barrier**: ABDM APIs require institutional registration. SynapseOS implements an ABDM Sandbox Gateway with ABHA ID minting and PM-JAY scheme verification.
 
-### 2.1 High-Level Architectural Layers
+3. **Lack of Continuous Intelligence**: Patients receive static PDF reports. SynapseOS provides a real-time **3D Digital Health Twin** projecting multi-organ vitality scores onto an anatomical avatar with 10-year trajectory simulation.
 
-The platform is structured into five decoupled tiers:
-
-```mermaid
-graph TD
-    subgraph Client_Layer ["Client & Ingestion Layer"]
-        WebDash["Web Dashboard (Next.js / React 19)"]
-        VoiceIO["Voice Assistant Interface (Web Audio / WebSockets)"]
-        MsgGateway["Omnichannel Gateway (WhatsApp / Telegram / Discord)"]
-    end
-
-    subgraph Gateway_Layer ["API Gateway & Deterministic Safety"]
-        FastAPI_GW["FastAPI Core Gateway (:8000)"]
-        SafetyRouter["Deterministic Safety Gate (Emergency / Crisis Filter)"]
-    end
-
-    subgraph Agent_Orchestrator ["Orchestration & Agent Swarm"]
-        OrchestratorNode["Central Orchestrator Node (State Graph)"]
-        TriageAgent["Clinical Triage Agent"]
-        DrugAgent["Pharmacology & RxNav Agent"]
-        ScanAgent["Medical Vision & YOLOv8/MONAI Agent"]
-        MentalAgent["Tele-MANAS Mental Health Agent"]
-        CouncilAgent["AI Council & Evidence Verification Node"]
-    end
-
-    subgraph ML_Simulation ["Clinical ML & Digital Twin Engine"]
-        TwinEngine["10-Year Longitudinal Digital Twin Engine"]
-        RiskEngine["Diagnostic Risk Engine (Framingham, ADA, CKD, FIB-4)"]
-    end
-
-    subgraph Data_Storage ["Data, Protocol & Blockchain Layer"]
-        FHIR_ABDM["FHIR R4 Serializer & ABDM Gateway"]
-        LocalCache["Vector Store & Relational State DB"]
-        IPFS_Node["IPFS / Pinata Storage"]
-        PolygonEVM["EVM Smart Contract (MedicalRecords.sol)"]
-    end
-
-    WebDash --> FastAPI_GW
-    VoiceIO --> FastAPI_GW
-    MsgGateway --> FastAPI_GW
-
-    FastAPI_GW --> SafetyRouter
-    SafetyRouter -->|Safe Query| OrchestratorNode
-    SafetyRouter -->|Crisis Detected| FastAPI_GW
-
-    OrchestratorNode --> TriageAgent
-    OrchestratorNode --> DrugAgent
-    OrchestratorNode --> ScanAgent
-    OrchestratorNode --> MentalAgent
-    OrchestratorNode --> TwinEngine
-    OrchestratorNode --> RiskEngine
-
-    TriageAgent --> CouncilAgent
-    DrugAgent --> CouncilAgent
-    ScanAgent --> CouncilAgent
-    MentalAgent --> CouncilAgent
-
-    CouncilAgent --> OrchestratorNode
-
-    OrchestratorNode --> FHIR_ABDM
-    OrchestratorNode --> LocalCache
-    OrchestratorNode --> IPFS_Node
-    IPFS_Node --> PolygonEVM
-```
+The platform delivers a full clinical AI stack covering:
+- Autonomous symptom triage (ESI Level 1-5 classification)
+- FractureNet YOLOv8 bone fracture detection (trained custom weights `Final.pt`)
+- MONAI DenseNet-121 chest radiograph interpretation with Grad-CAM heatmaps
+- HL7 FHIR R4 wearable telemetry normalization (11 LOINC-coded biosignals)
+- Universal Immunization Programme (UIP) & U-WIN digital vaccine records
+- National outbreak surveillance with district-level WHO/IDSP data
+- Blockchain-anchored medical records with SHA-256 integrity + IPFS storage
+- Omnichannel delivery: Web, Voice AI, WhatsApp, and 2G SMS
 
 ---
 
-### 2.2 Multi-Agent Orchestration Directed Acyclic Graph (DAG)
+## 2. Official Architecture Diagrams
 
-When a request enters the platform, it transitions through a stateful pipeline governed by deterministic rules and dynamic model dispatch:
+The following diagrams are official project artifacts from the `SVH-2026-Docs/` directory.
 
-```mermaid
-sequenceDiagram
-    autonumber
-    participant User as Client Channel
-    participant Gateway as FastAPI Router
-    participant Safety as Deterministic Safety Gate
-    participant Orch as Central Orchestrator
-    participant Specialist as Specialist Agent Swarm
-    participant Council as AI Council / Verification
-    participant State as Shared State & Ledger
+### System Architecture (Dark Theme)
 
-    User->>Gateway: POST /api/orchestrate (Payload)
-    Gateway->>Safety: Evaluate message safety
-    alt Critical Emergency Detected (e.g., Cardiac Arrest / Suicidal Crisis)
-        Safety-->>Gateway: Immediate SOS Dispatch & Hotline Protocol
-        Gateway-->>User: Emergency Protocol Response (Early Exit)
-    else Safety Cleared
-        Safety->>Orch: Safe payload + initialized state context
-        Orch->>Orch: Intent Classification (Triage, Drug, Scan, Mental, Twin)
-        Orch->>Specialist: Parallel / Serial Specialist Execution
-        Specialist->>Specialist: Query Domain ML / Knowledge Base (RxNav, MONAI, YOLOv8)
-        Specialist-->>Council: Unverified Diagnostics & Hypotheses
-        Council->>Council: Cross-Agent Consensus & Evidence Verification
-        Council-->>Orch: Synthesized Clinical Output & Confidence Score
-        Orch->>State: Write Session Context, FHIR Bundle, & IPFS Hash
-        Orch-->>Gateway: Comprehensive State Response with Execution Trace
-        Gateway-->>User: Structured Response & Real-time Audit Trace
-    end
-```
+![SynapseOS Architecture Diagram](./SVH-2026-Docs/Architecture%20Diagram%20Dark.png)
+
+*Five-layer freeform architecture: 6 user channels → Channel Adapter → Orchestrator Agent → 18-agent swarm in 5 clusters → shared memory (Vector DB + Relational DB + Event Bus) + external APIs + blockchain verification.*
+
+### User Journey Flowchart (Light Theme)
+
+![SynapseOS Flowchart](./SVH-2026-Docs/Flowchart%20Light.png)
+
+*Five-layer flow: User Channels → Channel Adapter → Orchestrator ("Sanjeevani") → Specialized Agent Swarm (18 agents, 5 clusters) → Shared State, Live Data & Verification Layer.*
 
 ---
 
-## 3. Core Subsystems and Agent Specifications
+## 3. System Architecture
 
-### 3.1 Safety and Intent Governance
-
-- **Deterministic Safety Gate (`backend.app.core.safety_router`)**:
-  - Intercepts acute physical trauma, active cardiovascular crisis, and mental health emergencies using compiled regular expression pattern matching and keyword dictionaries.
-  - Automatically dispatches immediate emergency escalation instructions and national helpline data (e.g., Tele-MANAS 14416 / emergency services 112) without invoking LLM inference steps.
-- **Intent Classifier (`backend.app.agents.orchestrator.detect_intent`)**:
-  - Routes inbound natural language queries to specialized agent subgraphs based on semantic entity distribution:
-    - `SCAN_ANALYSIS`: Radiographs, fracture detection, MRI/CT interpretation.
-    - `DRUG_SAFETY`: Pharmacological queries, polypharmacy conflict checking.
-    - `MENTAL_HEALTH`: Psychological distress, mood tracking, anxiety screening.
-    - `DIGITAL_TWIN`: Multi-organ vitality queries and trajectory simulations.
-    - `SYMPTOM_TRIAGE`: General symptom exploration and urgent care routing.
-
-### 3.2 Clinical Intelligence Swarm
-
-- **Clinical Symptom Triage Agent (`backend.app.agents.triage_agent`)**:
-  - Classifies user symptoms into three discrete clinical urgency tiers: `EMERGENCY`, `DOCTOR_CONSULT`, or `HOME_CARE`.
-  - Produces structured differentials, recommended next actions, and red-flag monitoring parameters.
-- **Pharmacology & Drug Interaction Agent (`backend.app.agents.drug_agent`)**:
-  - Interfaces with the NIH RxNav and OpenFDA knowledge graphs.
-  - Detects high-risk drug-drug interactions (e.g., Warfarin + NSAIDs, ACE inhibitors + Potassium supplements), explains pharmacological conflict mechanisms, and suggests clinical alternatives.
-- **Mental Health & Support Agent (`backend.app.agents.mental_health_agent`)**:
-  - Adheres to WHO mental health intervention guidelines and Indian Tele-MANAS operational standards.
-  - Implements reflective listening protocols, grounding exercises, and automated escalation hooks.
-- **AI Council & Verification Agent (`backend.app.agents.verification_agent`)**:
-  - Executes a multi-agent consensus routine ("Council Mode") evaluating clinical reasoning across specialist outputs.
-  - Generates consensus confidence metrics and flags diagnostic uncertainties for human medical review.
-
-### 3.3 Diagnostics and Medical Imaging
-
-- **Medical Vision Agent (`backend.app.agents.scan_agent`)**:
-  - Loads deep learning vision models (`FractureNet` via YOLOv8 / MONAI) during backend startup.
-  - Performs automated bounding-box localization for bone fractures and radiographic anomalies.
-  - Generates localized lesion heatmaps and produces plain-language radiologist summary notes.
+### Five-Layer Architecture Overview
 
 ```mermaid
-graph LR
-    InputImage["Radiograph / Medical Image"] --> Preprocessor["Image Preprocessing & Normalization"]
-    Preprocessor --> YOLO["FractureNet YOLOv8 / MONAI Model"]
-    YOLO --> Detection["Bounding Box & Confidence Scoring"]
-    Detection --> Localization["Lesion Heatmap Overlay Generation"]
-    Detection --> SummaryLLM["Clinical Vision Translation"]
-    Localization --> FinalOutput["Structured Vision Report with Visual Overlay"]
-    SummaryLLM --> FinalOutput
-```
+flowchart TB
+    classDef client fill:#e0f2fe,stroke:#0284c7,color:#0f172a
+    classDef gateway fill:#f0fdf4,stroke:#16a34a,color:#0f172a
+    classDef swarm fill:#faf5ff,stroke:#9333ea,color:#0f172a
+    classDef storage fill:#fef2f2,stroke:#dc2626,color:#0f172a
+    classDef chain fill:#fff7ed,stroke:#ea580c,color:#0f172a
 
-### 3.4 Digital Health Twin and Longitudinal Simulation
-
-- **Digital Twin Engine (`backend.app.ml.digital_twin`)**:
-  - Computes baseline vitality indices across five primary organ systems: Heart, Kidneys, Liver, Pancreas, and Lungs.
-  - Executes a deterministic 10-year longitudinal projection simulating chronic disease progression under variable metabolic, lifestyle, and pharmacological regimens.
-  - Provides normalized numeric scores (0 to 100) mapped directly to 3D visual shader attributes in the frontend Three.js viewport.
-
-```mermaid
-graph TD
-    Biomarkers["Biomarkers (BP, HbA1c, eGFR, ALT/AST, VO2 Max)"] --> Baseline["Baseline Vitality Computation"]
-    Baseline --> Year0["Year 0 Baseline State (Heart, Kidneys, Liver, Pancreas, Lungs)"]
-    Year0 --> Interventions["Intervention Scenarios (Medication, Diet, Exercise)"]
-    Interventions --> SimLoop["10-Year Discrete Difference Equation Matrix"]
-    SimLoop --> Projections["Year-over-Year Trajectory Array"]
-    Projections --> ShaderMapping["Normalized Color Indices (Red, Amber, Green)"]
-    ShaderMapping --> ThreeJS["3D WebGL Human Twin Renderer"]
-```
-
-- **Diagnostic Risk Calculation Engine (`backend.app.ml.diagnostics`)**:
-  - **Framingham CVD Score**: 10-year cardiovascular disease risk percentage.
-  - **ADA Diabetes Risk Score**: Quantitative probability index for type 2 diabetes mellitus onset.
-  - **CKD-EPI Equation**: Estimated Glomerular Filtration Rate (eGFR) for renal staging.
-  - **FIB-4 Index**: Non-invasive liver fibrosis estimation based on platelet count and transaminases.
-
-### 3.5 National Health Stack Integration (ABDM / FHIR R4)
-
-- **ABDM / ABHA Service (`backend.app.services.abdm_service`)**:
-  - Simulates the generation and verification of 14-digit Ayushman Bharat Health Account (ABHA) IDs.
-  - Evaluates citizen eligibility profiles for Indian healthcare schemes (PM-JAY, Pradhan Mantri Jan Aushadhi, Tele-MANAS, Ni-kshay Poshan Yojana).
-- **FHIR R4 Serialization (`backend.app.services.fhir_service`)**:
-  - Compiles unstructured triage outcomes, vital signs, and diagnostic flags into standard HL7 FHIR Release 4 JSON bundles (`Bundle`, `Patient`, `Observation`, `Condition`, `MedicationStatement`).
-
-### 3.6 Blockchain Verification and Integrity Layer
-
-To resolve patient data tampering while upholding international data protection laws, SynapseOS utilizes a hybrid on-chain / off-chain verification pipeline:
-
-```mermaid
-sequenceDiagram
-    autonumber
-    participant App as SynapseOS Backend
-    participant IPFS as IPFS Gateway (Pinata)
-    participant EVM as Ethereum / Polygon Smart Contract
-    participant Verifier as External Doctor / Verifier Portal
-
-    App->>App: Generate PDF Health Record & Compute SHA-256 Digest
-    App->>IPFS: Upload Encrypted Record File
-    IPFS-->>App: Return Content Identifier (CID)
-    App->>EVM: registerRecord(recordId, sha256Hash, cid)
-    EVM-->>App: Transaction Receipt & Block Confirmation
-    App->>App: Render PDF with Verification QR Code (URL with recordId & hash)
-    
-    Note over Verifier,EVM: Verification Workflow
-    Verifier->>IPFS: Fetch File via CID
-    Verifier->>Verifier: Re-compute SHA-256 Digest
-    Verifier->>EVM: Query records(recordId)
-    EVM-->>Verifier: Return on-chain hash, owner, timestamp
-    Verifier->>Verifier: Compare On-chain Hash with Recomputed Hash
-    alt Hash Matches
-        Verifier-->>Verifier: Integrity Verified (Tamper-Free Record)
-    else Hash Mismatch
-        Verifier-->>Verifier: Tamper Detected (Invalid Record)
+    subgraph L1["Layer 1 — Omnichannel Client (Next.js 16 / React 19)"]
+        WEB["Web Dashboard\n3D Body Twin + Analytics"]:::client
+        VOICE["Live Voice AI\nVAPI WebRTC Orb"]:::client
+        WA["WhatsApp Bot\nOpenWA Gateway"]:::client
+        SMS["2G SMS\n160-char Fallback"]:::client
     end
+
+    subgraph L2["Layer 2 — Channel Adapter (FastAPI)"]
+        CORS["CORS Middleware"]:::gateway
+        SAFETY["Deterministic Safety Gate\nCrisis & Emergency Intercept"]:::gateway
+        I18N["11-Language i18n Engine"]:::gateway
+        FHIR["HL7 FHIR R4 Serializer"]:::gateway
+    end
+
+    subgraph L3["Layer 3 — Orchestrator Agent DAG"]
+        INTENT["Intent Classifier"]:::swarm
+        ROUTER["Agent Router"]:::swarm
+        COUNCIL["AI Council (2nd Opinion)"]:::swarm
+        LLM["LLM Brains\nGroq LLaMA-3.3-70B / OpenRouter"]:::swarm
+    end
+
+    subgraph L4["Layer 4 — Specialist Agent Swarm"]
+        TRIAGE["Symptom Triage\nESI L1-L5"]:::swarm
+        DRUG["Drug Safety\nNIH RxNav"]:::swarm
+        SCAN["Medical Scan AI\nYOLOv8 + MONAI"]:::swarm
+        VAX["UIP Vaccination\nU-WIN Tracker"]:::swarm
+        OUTBREAK["Outbreak EWS\nWHO + IDSP"]:::swarm
+        PREV["Preventive Health\nCommunity Education"]:::swarm
+        MENTAL["Tele-MANAS\nMental Health"]:::swarm
+        TWIN["Digital Health Twin\n10-Year Simulation"]:::swarm
+        ABDM_A["ABDM Gateway\nABHA ID + PM-JAY"]:::swarm
+        PDF["Report Generator\nPDF + QR Passport"]:::swarm
+    end
+
+    subgraph L5["Layer 5 — Data & Verification"]
+        REDIS["Redis Cache\nSession + Task Queue"]:::storage
+        IPFS_N["IPFS Node\nKubo + Pinata"]:::storage
+        CHAIN["Ethereum / Sepolia\nMedicalRecords.sol"]:::chain
+        WIKI["Wikipedia Medical REST"]:::storage
+        RXNAV["NIH RxNav API"]:::storage
+    end
+
+    L1 --> L2 --> L3 --> L4 --> L5
 ```
 
-### 3.7 Omnichannel Messaging Gateway
+### Authentication & Session Flow
 
-- **OpenWA WhatsApp Package (`backend.app.openwa` & `openwa/`)**:
-  - Standalone `@open-wa/wa-automate` gateway bridge relaying inbound chat and media.
-  - Interactive clinical concierge menu (`1` Triage, `2` Drug Safety, `3` Scan Upload, `4` Tele-MANAS, `5` Doctors, `6` ABHA).
-  - Multi-modal vision ingestion: analyzes uploaded X-ray and prescription photos using FractureNet YOLOv8 and MONAI.
-  - One-tap emergency SOS dispatch with real-time GPS coordinate packets and national hotline links (112, 108, 14416).
+SynapseOS uses a **session-based stateless model**. Each API request receives a UUID-based `session_id` generated server-side. No third-party authentication provider is implemented — the platform operates as a public health tool without user accounts, preserving anonymity for rural populations.
+
+| Layer | Mechanism | Purpose |
+| :--- | :--- | :--- |
+| Session Identity | UUID v4 `session_id` | Ties multi-turn conversations without user registration |
+| Safety Gating | Deterministic regex patterns | Intercepts crisis/emergency before any LLM is invoked |
+| CORS | FastAPI CORSMiddleware | Allows cross-origin from Next.js frontend |
+| Blockchain Auth | `msg.sender` (wallet address) | Owner-controlled record access on `MedicalRecords.sol` |
+| IPFS | Pinata JWT | Authenticated upload; public gateway for retrieval |
 
 ---
 
-## 4. Repository Structure
+## 4. Agent Swarm — 13 Specialized Agents
 
-```
-SynapseOS/
-├── openwa/                               # Dedicated OpenWA WhatsApp Gateway Bridge
-│   ├── runner.js                         # Node.js @open-wa/wa-automate runner and webhook forwarder
-│   ├── package.json                      # Node.js dependencies for WhatsApp bridge
-│   ├── README.md                         # Dedicated OpenWA gateway documentation
-│   └── .env.example                      # OpenWA environment configuration template
-├── SVH-2026-Docs/                        # Architecture diagrams and design collateral
-├── docs/                                 # Architectural specifications and judge defense guides
-├── backend/                              # FastAPI core backend service (:8000)
-│   ├── requirements.txt                  # Python runtime dependencies
-│   ├── Final.pt                          # FractureNet YOLOv8 bone fracture model weights
-│   ├── app/
-│   │   ├── main.py                       # FastAPI application entrypoint and lifespan hooks
-│   │   ├── core/
-│   │   │   ├── config.py                 # Pydantic environment configuration
-│   │   │   ├── safety_router.py          # Deterministic safety gate and crisis filter
-│   │   │   └── state.py                  # Agent trace schemas and session state definitions
-│   │   ├── openwa/                       # Dedicated OpenWA WhatsApp client & service engine
-│   │   │   ├── __init__.py               # OpenWA package exports
-│   │   │   ├── client.py                 # Outbound HTTP REST client for OpenWA endpoints
-│   │   │   └── service.py                # Webhook parser, menu flow, and agent routing
-│   │   ├── agents/
-│   │   │   ├── orchestrator.py           # Swarm DAG coordinator and intent router
-│   │   │   ├── triage_agent.py           # Symptom analysis and clinical tiering
-│   │   │   ├── drug_agent.py             # RxNav pharmacological interaction checker
-│   │   │   ├── scan_agent.py             # Radiographic vision and fracture analysis (YOLOv8/MONAI)
-│   │   │   ├── mental_health_agent.py    # Tele-MANAS mental health support node
-│   │   │   ├── verification_agent.py     # AI Council consensus verification
-│   │   │   ├── retrieval_agent.py        # Hybrid vector and clinical context retrieval
-│   │   │   └── appointment_agent.py      # Provider locator and scheduling logic
-│   │   ├── ml/
-│   │   │   ├── diagnostics.py            # Quantitative clinical risk calculators (Framingham, ADA, CKD, FIB-4)
-│   │   │   └── digital_twin.py           # 10-year multi-organ longitudinal trajectory model
-│   │   ├── services/
-│   │   │   ├── abdm_service.py           # ABHA ID generation and PM-JAY scheme matcher
-│   │   │   ├── fhir_service.py           # HL7 FHIR R4 JSON bundle constructor
-│   │   │   ├── llm_service.py            # Multi-provider LLM interface (Groq, Gemini, OpenRouter)
-│   │   │   ├── pdf_service.py            # ReportLab clinical summary and QR generator
-│   │   │   ├── whatsapp_service.py       # Backward-compatible proxy to backend.app.openwa
-│   │   │   └── i18n_service.py           # Multilingual clinical translation service (11+ languages)
-│   │   └── api/
-│   │       └── endpoints.py              # Unified REST API route controllers & simulation endpoints
-│   └── tests/                            # Comprehensive 45-test suite
-│       ├── test_api_endpoints.py         # Integration tests for all 18 FastAPI REST endpoints
-│       ├── test_clinical_ml_and_agents.py# Unit tests for ML models, Digital Twin, and Agents
-│       ├── test_openwa_service.py        # OpenWA WhatsApp webhook & flow test suite
-│       └── test_backend.py               # Core safety, crisis, and triage test suite
-├── blockchain/                           # Decentralized record verification subsystem
-│   ├── contracts/                        # Hardhat Ethereum development environment
-│   │   ├── contracts/MedicalRecords.sol  # Solidity smart contract for hash registration
-│   │   ├── scripts/deploy.js             # Deployment script writing ABI and address
-│   │   └── test/MedicalRecords.test.js   # Hardhat contract test suite
-│   └── README.md                         # Blockchain architecture and deployment guide
-└── frontend/                             # Primary SynapseOS Web Portal (Next.js 16 / React 19)
-    ├── package.json
-    ├── next.config.ts
-    ├── public/                           # Static assets and 3D anatomical models
-    └── src/                              # React 19 components, App Router pages, and styles         # Standard dashboard landing page
-│           ├── interactive-body/         # 3D interactive human body visualizer
-│           ├── orchestrator-agent/       # Swarm execution live trace viewer
-│           ├── symptom-triage-agent/     # Interactive triage diagnostic interface
-│           ├── medical-scan-agent/       # DICOM / X-ray upload and diagnostic inspection
-│           └── records/                  # Patient timeline and blockchain audit portal
-└── scripts/
-    └── update-footers.js                 # Maintenance utility script
-```
+All 13 agents share a common `SynapseOSState` Pydantic schema and contribute structured outputs to a unified execution trace that the frontend renders as a visual DAG progress tracker.
+
+### 4.1 Interface & Orchestration
+
+| Agent | File | Responsibility | Key Trigger Keywords |
+| :--- | :--- | :--- | :--- |
+| **Deterministic Safety Gate** | `core/safety_router.py` | Pre-pipeline intercept for crisis, suicide ideation, and medical emergencies using deterministic regex. Never bypassed by LLM. | "kill myself", "chest pain", "unconscious" |
+| **Orchestrator DAG** | `agents/orchestrator.py` | Intent classification → agent routing → multi-agent result merge → LLM synthesis. Coordinates the full pipeline with execution tracing. | Every incoming message |
+
+### 4.2 Clinical Intelligence Cluster
+
+| Agent | File | Responsibility | External Services |
+| :--- | :--- | :--- | :--- |
+| **Clinical Symptom Triage** | `agents/triage_agent.py` | ESI Level 1-5 severity classification. Routes to Emergency, Doctor Consult (24-48h), or Home Care with multilingual output. | Groq / OpenRouter LLM |
+| **Drug Safety & RxNav** | `agents/drug_agent.py` | NIH RxNorm drug name normalization, known DDI database (7 high-risk pairs), CYP3A4 interaction logic. | NIH RxNav REST API |
+| **Medical Scan AI** | `agents/scan_agent.py` | Genuine FractureNet YOLOv8 inference on uploaded images (`Final.pt`), MONAI DenseNet-121 chest PA interpretation, TrOCR prescription OCR. | Custom YOLOv8 weights |
+| **Hybrid Retrieval Agent** | `agents/retrieval_agent.py` | Parallel Wikipedia Medical REST + curated knowledge index (23 WHO/ICMR/MoHFW guidelines). Returns grounded clinical context. | Wikipedia REST API |
+| **Mental Health Agent** | `agents/mental_health_agent.py` | Tele-MANAS (14416) integration, WHO mhGAP protocol routing, CBT/SSRIs guidance. | Groq LLM |
+
+### 4.3 Public Health Cluster
+
+| Agent | File | Responsibility | External Services |
+| :--- | :--- | :--- | :--- |
+| **Outbreak Surveillance** | `agents/outbreak_agent.py` | District-level IDSP/WHO outbreak risk database (Dengue, Nipah, Zika, Malaria, etc.), R₀ velocity tracking, proactive WhatsApp/SMS advisory dispatch. | OpenWA WhatsApp Gateway |
+| **Universal Immunization** | `agents/vaccination_agent.py` | Complete UIP schedule (Birth → 16 years), U-WIN digital certificate generation, maternal Td immunization, age-milestone due-date calculation. | Groq LLM |
+| **Preventive Health Hub** | `agents/preventive_health_agent.py` | ORS preparation, nutrition guides (POSHAN), breastfeeding, vector control, community health quizzes in 11 languages. | Groq LLM |
+
+### 4.4 Records & Digital Twin Cluster
+
+| Agent / Service | File | Responsibility |
+| :--- | :--- | :--- |
+| **3D Digital Health Twin** | `ml/digital_twin.py` | 10-year multi-organ trajectory simulation (Cardiovascular, Renal, Hepatic, Pancreatic, Pulmonary). Computes 0-100 vitality indices mapped to Three.js color renderer. |
+| **Clinical Diagnostics ML** | `ml/diagnostics.py` | Quantitative Framingham CVD risk, ADA Diabetes 10-year risk, CKD eGFR (MDRD), FIB-4 Liver Fibrosis Index calculations. |
+| **ABDM Gateway** | `services/abdm_service.py` | 14-digit ABHA ID generation (ABDM Sandbox), PM-JAY coverage verification, government scheme mapping (Jan Aushadhi, Ni-kshay, Tele-MANAS). |
+| **HL7 FHIR R4 Service** | `services/fhir_service.py` | Generates compliant FHIR R4 Bundles (Patient, Observation, Condition, DiagnosticReport) with LOINC codes and NDHM identifier system. |
+| **PDF Report Generator** | `services/pdf_service.py` | Clinical PDF summary with blockchain QR code, patient header, vitals, medications, and downloadable FHIR-compliant report. |
+| **Verification Agent** | `agents/verification_agent.py` | Cross-validates clinical responses against evidence grounding for accuracy benchmarking. |
+| **Appointment Agent** | `agents/appointment_agent.py` | Doctor scheduling, calendar slot management, and tele-consultation routing. |
 
 ---
 
 ## 5. Technology Stack
 
-| Layer | Technologies and Libraries | Purpose |
-|---|---|---|
-| **Backend Framework** | Python 3.10+, FastAPI, Uvicorn, Pydantic v2 | High-throughput asynchronous REST API and agent orchestration runtime |
-| **Language Models** | Groq (Llama 3.3 70B), Google Gemini 1.5, Ollama (Local) | Intent parsing, clinical summarization, multi-agent debate |
-| **Computer Vision** | PyTorch, torchvision, YOLOv8 (FractureNet), MONAI, PIL | Radiographic anomaly localization, fracture detection, image preprocessing |
-| **Clinical ML** | NumPy, SciPy, custom deterministic scoring engines | Longitudinal multi-organ simulation, Framingham, ADA, CKD-EPI, FIB-4 |
-| **Interoperability** | HL7 FHIR Release 4, Ayushman Bharat Digital Mission (ABDM) | Standardized healthcare records exchange and national ID integration |
-| **Report Generation** | ReportLab, QRCode, Pillow | Verifiable clinical PDF generation with embedded cryptographic QR codes |
-| **Frontend Framework** | Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS v4 | High-performance user interface, responsive dashboard, real-time telemetry |
-| **3D Visualization** | Three.js, React Three Fiber, WebGL | Interactive 3D anatomical twin rendering and organ health shader mapping |
-| **Blockchain** | Solidity 0.8.20, Hardhat, Ethers.js, Polygon Amoy Testnet | Immutable cryptographic hash registration, timestamping, access control |
-| **Decentralized Storage** | IPFS, Pinata Cloud SDK | Content-addressable off-chain storage for medical scans and reports |
-| **Testing** | Pytest, HTTPX, Hardhat Chai Matchers | Unit, integration, and smart contract verification |
+### 5.1 Frontend
+
+| Technology | Version | Purpose |
+| :--- | :--- | :--- |
+| **Next.js** | 16.3.1 | React SSR / App Router framework, standalone Docker output |
+| **React** | 19.2.8 | UI component model, hooks, context providers |
+| **TypeScript** | 5.x | Type safety across the entire frontend codebase |
+| **Tailwind CSS** | 4.x | Utility-first styling, design tokens, responsive layout |
+| **Lenis** | 1.3.26 | Smooth scroll library with `data-lenis-prevent` on orchestrator panels |
+| **D3-Geo / D3-Scale** | 3.x / 4.x | WHO epidemic global SVG map with outbreak bubble overlays |
+| **React-Simple-Maps** | 3.0.0 | Geographic choropleth maps for WHO Surveillance panel |
+| **TopoJSON Client** | 3.1.0 | Decodes world atlas boundary data for map rendering |
+| **World Atlas** | 2.0.2 | Static GeoJSON data for the 194-member WHO map |
+| **Lucide React** | 1.31.0 | Consistent medical and UI iconography |
+| **Ethers.js** | 6.17.0 | Frontend blockchain integration for `MedicalRecords.sol` |
+| **VAPI AI Web** | 2.6.3 | WebRTC Voice AI SDK — STT → LLM → TTS real-time session |
+| **clsx / tailwind-merge** | latest | Conditional class composition across component variants |
+
+### 5.2 Backend & APIs
+
+| Technology | Version | Purpose |
+| :--- | :--- | :--- |
+| **FastAPI** | ≥0.110 | Async REST API framework, 30+ endpoints, OpenAPI at `/docs` |
+| **Uvicorn** | ≥0.28 | ASGI production server, 4-worker multi-process runtime |
+| **Pydantic** | v2 | `SynapseOSState`, `DigitalTwinInput`, all request/response schemas |
+| **HTTPX** | ≥0.27 | Async HTTP client for Groq, OpenRouter, NIH RxNav, Wikipedia |
+| **Pillow** | ≥10.2 | Decodes base64 medical scan uploads before YOLOv8 inference |
+| **ReportLab** | ≥4.1 | Clinical PDF health summary with QR codes |
+| **QRCode** | ≥7.4 | Blockchain-linked ABHA health passport QR embedded in PDFs |
+| **Python-dotenv** | ≥1.0 | Reads `.env` for API keys, blockchain RPC, IPFS config |
+| **Ultralytics YOLO** | external | Loads `Final.pt` FractureNet weights for bone fracture detection |
+| **Pytest** | ≥8.0 | Backend unit and integration tests in `backend/tests/` |
+| **OpenWA / wa-automate** | 4.70.0 | Node.js bridge translating WhatsApp messages to FastAPI webhook |
+
+### 5.3 AI / ML & LLM Layer
+
+| Model / Service | Provider | Role |
+| :--- | :--- | :--- |
+| **LLaMA 3.3-70B Versatile** | Groq | Primary LLM reasoning across all clinical agents |
+| **LLaMA 3.3-70B Instruct** | OpenRouter | Automatic failover if Groq unavailable or rate-limited |
+| **Gemini API** | Google | Optional integration (`GEMINI_API_KEY` configured) |
+| **FractureNet YOLOv8** | Custom (22MB) | Genuine bone fracture detection (`Final.pt`, `conf=0.15`) |
+| **MONAI DenseNet-121** | MONAI | Chest radiograph analysis with Grad-CAM localization |
+| **VAPI AI** | Vapi | WebRTC voice pipeline: STT → LLM → TTS real-time |
+| **Wikipedia Medical REST** | Wikimedia | Knowledge retrieval, no auth required |
+| **NIH RxNav REST** | NIH NLM | Drug name normalization and interaction lookup |
+
+### 5.4 Blockchain & Web3
+
+| Technology | Role |
+| :--- | :--- |
+| **Solidity 0.8.20** | `MedicalRecords.sol` — owner-gated health record registry |
+| **Hardhat 3.x** | EVM development framework + Sepolia testnet deploy scripts |
+| **Ethers.js 6.x** | Frontend contract interaction, auto-detects local/Sepolia |
+| **Sepolia Testnet** | Ethereum EVM test network for staging deployment |
+| **IPFS / Kubo** | Self-hosted IPFS node in Docker (ports 5001 API + 8081 gateway) |
+| **Pinata** | IPFS pinning service via JWT authentication |
+| **SHA-256 hashing** | Client-side file integrity hash before on-chain commit |
+
+### 5.5 Infrastructure & DevOps
+
+| Component | Technology | Responsibility |
+| :--- | :--- | :--- |
+| **Frontend Container** | Node 20 Alpine (multi-stage) | Next.js standalone build, non-root user, port 3000 |
+| **Backend Container** | Python 3.11 Slim | FastAPI + ML, 4-worker Uvicorn, health check on `/` |
+| **OpenWA Container** | Node 20 Bullseye + Chromium | Headless Chrome for WhatsApp Web session, port 8080 |
+| **Redis** | Redis 7 Alpine | In-memory session cache, task queue, pub/sub event bus |
+| **IPFS Node** | Kubo (latest) | Self-hosted decentralized storage |
+| **Docker Compose** | v3.8 | Local full-stack orchestration with health checks |
+| **Kubernetes** | 8 manifests in `k8s/` | Namespace, ConfigMap, Secrets, Deployments, Ingress, HPA |
+
+### 5.6 Third-Party Services & External APIs
+
+| Provider / Service | Category | Integration Point |
+| :--- | :--- | :--- |
+| **Groq** | LLM Inference | `services/llm_service.py` |
+| **OpenRouter** | LLM Failover | `services/llm_service.py` |
+| **Pinata** | IPFS Pinning | `frontend/src/lib/blockchain/ipfs.js` |
+| **NIH RxNav** | Drug Database | `agents/drug_agent.py` |
+| **Wikipedia Medical REST** | Knowledge Base | `agents/retrieval_agent.py` |
+| **VAPI AI** | Voice AI | `hooks/useAssistantLogic.ts` |
+| **WHO GHO / disease.sh** | Epidemiology Data | `agents/outbreak_agent.py` |
+| **Alchemy / Infura** | RPC Provider | `hardhat.config.js` |
 
 ---
 
-## 6. API Reference
+## 6. Application Workflow
 
-All endpoints are prefixed with `/api` unless otherwise configured in environment variables.
+### End-to-End Request Pipeline
 
-### 6.1 Orchestration Endpoint
+```mermaid
+sequenceDiagram
+    participant U as User (Web / WhatsApp / Voice)
+    participant FE as Next.js Frontend
+    participant GATE as Safety Gate
+    participant ORCH as Orchestrator DAG
+    participant AGENTS as Specialist Agents
+    participant LLM as Groq / OpenRouter
+    participant CHAIN as Blockchain + IPFS
 
-```http
-POST /api/orchestrate
-Content-Type: application/json
+    U->>FE: Send health query / upload scan / voice input
+    FE->>GATE: POST /api/orchestrate
+    GATE->>GATE: Regex crisis & emergency detection
+    alt Crisis or Emergency Detected
+        GATE-->>FE: Immediate helpline response (no LLM)
+    else Safe Input
+        GATE->>ORCH: Pass to orchestrator
+        ORCH->>ORCH: Intent classification (8 intent types)
+        ORCH->>AGENTS: Route to specialist agents in parallel
+        AGENTS->>LLM: Clinical reasoning requests
+        LLM-->>AGENTS: Structured JSON clinical outputs
+        AGENTS-->>ORCH: Agent results + execution trace
+        ORCH->>LLM: Unified synthesis prompt
+        LLM-->>ORCH: Final clinical response
+        ORCH-->>FE: SynapseOSState (response + trace + suggestions)
+    end
+    FE-->>U: Render markdown response + DAG trace + suggested actions
 
-{
-  "message": "I have severe chest pressure radiating to my left arm",
-  "channel": "web",
-  "session_id": "sess_98234",
-  "user_id": "patient_001"
-}
+    opt Blockchain Record
+        FE->>CHAIN: SHA-256 hash + IPFS CID upload
+        CHAIN-->>FE: Transaction hash + record ID
+    end
 ```
 
-**Response (`200 OK`)**:
-```json
-{
-  "session_id": "sess_98234",
-  "user_id": "patient_001",
-  "channel": "web",
-  "input_text": "I have severe chest pressure radiating to my left arm",
-  "safety_cleared": true,
-  "detected_intent": "SYMPTOM_TRIAGE",
-  "triage_result": {
-    "urgency": "EMERGENCY",
-    "recommended_action": "Seek immediate emergency medical attention or dial 112.",
-    "differential_diagnoses": ["Acute Coronary Syndrome", "Myocardial Infarction", "Angina Pectoris"],
-    "confidence_score": 0.96
-  },
-  "ai_council_evaluation": {
-    "consensus_status": "HIGH_CONFIDENCE",
-    "reviewers_agreed": 3,
-    "total_reviewers": 3,
-    "clinical_note": "Consensus reached on critical cardiac symptom presentation."
-  },
-  "trace": [
-    {
-      "agent_name": "Deterministic Safety Gate",
-      "action": "Passed safety verification protocol",
-      "duration_ms": 2
-    },
-    {
-      "agent_name": "Clinical Symptom Triage Agent",
-      "action": "Triage evaluation completed: Tier EMERGENCY",
-      "duration_ms": 140
-    },
-    {
-      "agent_name": "AI Council & Verification Agent",
-      "action": "Multi-agent consensus check executed (Score: 0.96)",
-      "duration_ms": 85
-    }
-  ]
-}
+### Intent Classification
+
+The Orchestrator classifies every incoming message into one of 8 intents before routing:
+
+| Intent | Trigger Keywords | Target Agents |
+| :--- | :--- | :--- |
+| `VACCINATION_SCHEDULE` | vaccin, uip, u-win, immuniz, bcg, booster | Vaccination Agent |
+| `OUTBREAK_ALERT` | outbreak, epidemic, dengue, nipah, surveillance | Outbreak Agent |
+| `PREVENTIVE_HEALTH` | ors, prevent, poshan, hygiene, mosquito net | Preventive Health Agent |
+| `SCAN_ANALYSIS` | xray, fracture, mri, scan, prescription, report | Medical Scan Agent |
+| `DRUG_SAFETY` | interact, drug, paracetamol, aspirin, dosage | Drug Safety Agent |
+| `MENTAL_HEALTH` | stress, anxiety, depressed, hopeless, sad | Mental Health Agent |
+| `DIGITAL_TWIN` | body, organs, twin, vitality, health score | Digital Twin ML |
+| `SYMPTOM_TRIAGE` | (default — all other queries) | Triage + Retrieval + LLM |
+
+---
+
+## 7. Data Flow
+
+```mermaid
+flowchart LR
+    WEB["User Input\n(Web / Voice / WhatsApp)"]
+    NORM["Channel Normalizer\n(FastAPI)"]
+    SAFE["Safety Gate\n(Deterministic Regex)"]
+    INT["Intent Classifier"]
+    PARA["Parallel Agent Execution"]
+    MERGE["Result Merge\n(Orchestrator)"]
+    LLM["LLM Synthesis\n(Groq/OpenRouter)"]
+    FHIR_B["FHIR R4 Bundle\nSerializer"]
+    I18N["i18n Translation\n(11 Languages)"]
+    OUT["Unified Response\n+ Agent Trace"]
+    IPFS_P["IPFS Upload\n(Pinata)"]
+    SOLIDITY["MedicalRecords.sol\n(Sepolia/Hardhat)"]
+
+    WEB --> NORM --> SAFE
+    SAFE -->|safe| INT --> PARA
+    SAFE -->|unsafe| OUT
+    PARA --> MERGE --> LLM --> I18N --> OUT
+    OUT --> FHIR_B
+    FHIR_B --> IPFS_P --> SOLIDITY
+```
+
+### Shared Agent State Schema
+
+Every agent reads from and writes to a unified `SynapseOSState` Pydantic object:
+
+| Field | Type | Description |
+| :--- | :--- | :--- |
+| `session_id` | `str` | UUID v4 session identifier |
+| `channel` | `str` | `web`, `voice`, `whatsapp`, `telegram` |
+| `input_text` | `str` | Original user message |
+| `safety_cleared` | `bool` | Deterministic safety gate result |
+| `detected_intent` | `str` | Classified intent from orchestrator |
+| `triage_data` | `Dict` | ESI level, urgency, symptom analysis |
+| `drug_check` | `Dict` | Interaction results, RxNorm IDs |
+| `scan_analysis` | `Dict` | YOLO detections, MONAI report |
+| `digital_twin` | `Dict` | Organ vitality scores (0-100) |
+| `vaccination_data` | `Dict` | UIP schedule, U-WIN certificates |
+| `outbreak_data` | `Dict` | District risk level, advisory |
+| `trace` | `List[AgentTraceStep]` | Full execution log for UI |
+| `final_response` | `str` | Synthesized markdown clinical response |
+| `suggested_actions` | `List[str]` | Next-step action chips |
+
+---
+
+## 8. Blockchain Architecture
+
+### Smart Contract: `MedicalRecords.sol`
+
+Deployed on **Hardhat local node** (development) and **Ethereum Sepolia testnet** (staging). The contract provides a tamper-proof health record registry with SHA-256 file integrity verification and address-based access control.
+
+```
+Contract: MedicalRecords (Solidity 0.8.20)
+├── Data Structure: Record { owner, fileHash, cid, timestamp }
+├── Mappings:
+│   ├── records: bytes32 → Record
+│   └── access: bytes32 → address → bool
+├── Events:
+│   ├── RecordRegistered (recordId, owner, fileHash, cid)
+│   ├── AccessGranted (recordId, grantee)
+│   └── AccessRevoked (recordId, grantee)
+└── Functions:
+    ├── registerRecord(recordId, fileHash, cid) external
+    ├── grantAccess(recordId, grantee) external (owner only)
+    ├── revokeAccess(recordId, grantee) external (owner only)
+    └── hasAccess(recordId, grantee) view → bool
+```
+
+### Blockchain Interaction Flow
+
+```mermaid
+sequenceDiagram
+    participant FE as Frontend (ethers.js v6)
+    participant IPFS as IPFS (Pinata)
+    participant SOL as MedicalRecords.sol
+
+    FE->>FE: SHA-256 hash of medical PDF
+    FE->>IPFS: Upload file via Pinata API (JWT auth)
+    IPFS-->>FE: Return CID (Content Identifier)
+    FE->>SOL: registerRecord(keccak256(id), sha256Hash, cid)
+    SOL-->>FE: Emit RecordRegistered event + tx hash
+    Note over FE,SOL: Record permanently anchored on-chain
+```
+
+### Network Configuration
+
+| Environment | Network | RPC |
+| :--- | :--- | :--- |
+| Development | Hardhat Local | `http://127.0.0.1:8545` |
+| Staging | Ethereum Sepolia | Alchemy / Infura / publicnode |
+| IPFS | Pinata Cloud | `api.pinata.cloud` (JWT auth) |
+| IPFS Fallback | Public Gateways | `ipfs.io`, `cloudflare-ipfs.com` |
+
+---
+
+## 9. Wearable Telemetry Pipeline
+
+SynapseOS implements four production-grade pathways to ingest real-world health telemetry from consumer wearables:
+
+```mermaid
+flowchart TD
+    AW["Apple Watch Ultra 2 / Series 9/10"] --> HK["Apple HealthKit HKHealthStore"]
+    HK --> SC["iOS Shortcuts / Auto Export"]
+    PW["Google Pixel Watch / Galaxy Watch"] --> HC["Google Health Connect"]
+    HC --> AB["Android Bridge Jetpack WorkManager"]
+    HIST["Apple Health export.xml / Google Takeout"] --> PARSE["Client-Side Parser (HealthSyncPanel)"]
+
+    SC -->|HTTP POST| EP["/api/wearables/sync (FastAPI)"]
+    AB -->|HTTP POST| EP
+    PARSE -->|In-memory| UI["HealthSyncPanel UI"]
+
+    EP --> FHIR_W["HL7 FHIR R4 Bundle\nLOINC Codes"]
+    EP --> ANOM["Clinical Anomaly Engine"]
+    EP --> ABHA_L["ABDM Health Locker Linkage"]
+```
+
+| Telemetry Signal | LOINC Code | Clinical Use |
+| :--- | :--- | :--- |
+| Heart Rate (BPM) | 8867-4 | Resting HR, tachycardia detection |
+| SpO₂ (%) | 59408-5 | Hypoxia screening |
+| HRV (ms) | 80404-7 | Autonomic recovery / stress index |
+| Single-Lead ECG | 131344-0 | Atrial fibrillation screening |
+| Steps (daily) | 41950-7 | Physical activity adherence |
+| Sleep Duration (h) | 93832-4 | Sleep architecture analysis |
+| Blood Glucose (mg/dL) | 2339-0 | Diabetes monitoring |
+| Blood Pressure | 55284-4 | Hypertension tracking |
+
+---
+
+## 10. Multilingual Architecture
+
+SynapseOS natively supports **11 Indic languages + English** across both frontend UI and backend clinical responses.
+
+| Code | Language | Native Script | BCP-47 Speech |
+| :--- | :--- | :--- | :--- |
+| `en` | English | English | `en-US` |
+| `hi` | Hindi | हिन्दी | `hi-IN` |
+| `bn` | Bengali | বাংলা | `bn-IN` |
+| `ta` | Tamil | தமிழ் | `ta-IN` |
+| `te` | Telugu | తెలుగు | `te-IN` |
+| `mr` | Marathi | मराठी | `mr-IN` |
+| `gu` | Gujarati | ગુજરાતી | `gu-IN` |
+| `kn` | Kannada | ಕನ್ನಡ | `kn-IN` |
+| `ml` | Malayalam | മലയാളം | `ml-IN` |
+| `pa` | Punjabi | ਪੰਜਾਬੀ | `pa-IN` |
+| `or` | Odia | ଓଡ଼ିଆ | `or-IN` |
+
+**Translation architecture:**
+- **Frontend**: `LanguageContext` React Context + 11 locale files in `context/translations/locales/` + dynamic medical translations (`dynamicMedical.ts`, 236 KB)
+- **Backend**: `services/i18n_service.py` pre-translated clinical emergency strings in all 11 languages
+- **Voice AI**: BCP-47 speech codes mapped per language in `LANGUAGE_SPEECH_MAP` for VAPI STT configuration
+
+---
+
+## 11. Project Structure
+
+```
+Sanjeevni-OS/
+├── frontend/                         # Next.js 16 Application (App Router)
+│   ├── src/
+│   │   ├── app/                      # App Router pages & layouts
+│   │   │   ├── layout.tsx            # Root layout, LanguageProvider
+│   │   │   ├── orchestrator-agent/   # Full Orchestrator Dashboard page
+│   │   │   └── api/                  # Next.js API routes
+│   │   ├── components/
+│   │   │   ├── assistant/            # AI Assistant modal (Copilot mode)
+│   │   │   │   ├── hooks/            # useAssistantLogic (VAPI, sessions, LLM)
+│   │   │   │   └── components/       # ChatStream, VoiceOrb, PersonaSwitcher
+│   │   │   ├── orchestrator/         # 11 Orchestrator panel components
+│   │   │   │   ├── PatientVitalsPanel/
+│   │   │   │   ├── InteractiveBodyTwin/
+│   │   │   │   ├── ClinicalConditionsPanel/
+│   │   │   │   ├── SwarmIntelligencePanel/
+│   │   │   │   ├── VisualAnalyticsPanel/
+│   │   │   │   ├── WHODiseaseSurveillancePanel/
+│   │   │   │   ├── MedicalScanPanel/
+│   │   │   │   ├── BlockchainRecordsPanel/
+│   │   │   │   ├── HealthSyncPanel/
+│   │   │   │   ├── RuralHealthPanel/
+│   │   │   │   └── ActionHubExportModal.tsx
+│   │   │   ├── layout/               # Navigation, footer, modals
+│   │   │   └── ui/                   # Reusable UI primitives
+│   │   ├── context/
+│   │   │   ├── LanguageContext.tsx   # Global language state provider
+│   │   │   └── translations/         # 11 locale files + dynamic medical (236 KB)
+│   │   ├── data/mockHealthProfiles/  # 6 ABDM-format mock patient profiles
+│   │   └── lib/blockchain/           # contract.js, ipfs.js, crypto.js
+│   ├── Dockerfile                    # Node 20 Alpine multi-stage build
+│   └── next.config.ts                # Standalone output, URL rewrites
+│
+├── backend/                          # FastAPI Multi-Agent Core
+│   ├── app/
+│   │   ├── main.py                   # FastAPI entrypoint, CORS, lifespan warm-up
+│   │   ├── api/endpoints.py          # 30+ REST endpoints
+│   │   ├── agents/                   # 11 specialist agent modules
+│   │   │   ├── orchestrator.py       # Central DAG pipeline
+│   │   │   ├── scan_agent.py         # YOLOv8 + MONAI vision agents
+│   │   │   ├── drug_agent.py         # RxNav DDI checker
+│   │   │   ├── triage_agent.py       # ESI symptom triage
+│   │   │   ├── vaccination_agent.py  # UIP / U-WIN scheduler
+│   │   │   ├── outbreak_agent.py     # IDSP/WHO surveillance
+│   │   │   ├── preventive_health_agent.py
+│   │   │   ├── retrieval_agent.py    # Wikipedia + 23 WHO/ICMR guidelines
+│   │   │   ├── mental_health_agent.py
+│   │   │   ├── verification_agent.py
+│   │   │   └── appointment_agent.py
+│   │   ├── ml/
+│   │   │   ├── digital_twin.py       # 10-year organ trajectory simulation
+│   │   │   └── diagnostics.py        # Framingham, ADA, CKD, FIB-4 calculators
+│   │   ├── services/
+│   │   │   ├── llm_service.py        # Groq / OpenRouter unified async client
+│   │   │   ├── fhir_service.py       # HL7 FHIR R4 bundle builder
+│   │   │   ├── abdm_service.py       # ABHA ID generator + PM-JAY
+│   │   │   ├── i18n_service.py       # 11-language clinical translation
+│   │   │   ├── pdf_service.py        # ReportLab PDF generator
+│   │   │   └── whatsapp_service.py   # OpenWA webhook handler
+│   │   └── core/
+│   │       ├── config.py             # Pydantic Settings (env vars)
+│   │       ├── state.py              # SynapseOSState shared schema
+│   │       └── safety_router.py      # Deterministic crisis/emergency gate
+│   ├── Final.pt                      # Custom FractureNet YOLOv8 weights (22 MB)
+│   ├── requirements.txt
+│   └── Dockerfile
+│
+├── blockchain/contracts/
+│   ├── contracts/MedicalRecords.sol  # Health record registry smart contract
+│   ├── hardhat.config.js             # Localhost + Sepolia networks
+│   ├── scripts/                      # Deploy scripts
+│   └── test/                         # Hardhat Mocha tests
+│
+├── openwa/                           # WhatsApp Automation Gateway (Node.js)
+│   ├── runner.js                     # @open-wa/wa-automate session bridge
+│   └── Dockerfile
+│
+├── docs/                             # Technical documentation
+├── SVH-2026-Docs/                    # Hackathon architecture diagrams + PDF
+├── k8s/                              # 8 Kubernetes manifests
+├── Preview Images/                   # 12 numbered product screenshots
+├── docker-compose.yml                # Full local stack (5 services)
+├── .env.example                      # Environment template
+└── README.md
 ```
 
 ---
 
-### 6.2 Clinical Triage Endpoint
+## 12. API Reference
 
-```http
-POST /api/triage
-Content-Type: application/json
+All endpoints served at `http://localhost:8000/api`. Interactive docs at `http://localhost:8000/docs`.
 
-{
-  "symptoms": "Moderate sore throat and low-grade fever for 2 days, no respiratory distress"
-}
-```
+### Agent Swarm Endpoints
 
-**Response (`200 OK`)**:
-```json
-{
-  "urgency": "HOME_CARE",
-  "primary_assessment": "Upper respiratory viral syndrome",
-  "recommended_actions": [
-    "Hydration and oral antipyretics as needed",
-    "Monitor temperature twice daily",
-    "Consult physician if symptoms persist beyond 5 days"
-  ],
-  "red_flag_warnings": [
-    "Difficulty breathing or swallowing",
-    "Persistent high fever (>102°F)",
-    "Chest pain"
-  ]
-}
-```
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| `POST` | `/api/orchestrate` | Full DAG pipeline — intent → agents → synthesis |
+| `POST` | `/api/triage` | ESI Level 1-5 symptom triage |
+| `POST` | `/api/drugs/check` | NIH RxNav drug interaction check |
+| `POST` | `/api/scans/analyze` | YOLOv8 / MONAI / TrOCR medical image analysis |
+| `POST` | `/api/digital-twin/simulate` | 10-year multi-organ trajectory simulation |
+| `GET` | `/api/digital-twin/baseline` | Baseline organ color indices for 3D viewer |
+| `POST` | `/api/diagnostics/risk-score` | Framingham CVD, ADA Diabetes, CKD eGFR calculations |
 
----
+### Government Health & Records
 
-### 6.3 Drug Interaction Endpoint
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| `GET` | `/api/abdm/generate-id` | Generates 14-digit ABHA ID + PM-JAY profile |
+| `GET` | `/api/abdm/schemes` | Lists all active government health schemes |
+| `POST` | `/api/reports/generate-pdf` | Clinical PDF with blockchain QR (binary response) |
+| `GET` | `/api/fhir/bundle` | HL7 FHIR R4 patient bundle |
 
-```http
-POST /api/drugs/check
-Content-Type: application/json
+### Omnichannel & Emergency
 
-{
-  "query_or_meds": "Can I take aspirin while on warfarin therapy?"
-}
-```
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| `POST` | `/api/sos/dispatch` | 1-click Emergency SOS via WhatsApp |
+| `POST` | `/api/whatsapp/webhook` | OpenWA inbound webhook handler |
+| `POST` | `/api/whatsapp/simulate` | Simulate WhatsApp message for testing |
 
-**Response (`200 OK`)**:
-```json
-{
-  "interaction_detected": true,
-  "severity": "CRITICAL",
-  "drug_pair": ["Aspirin", "Warfarin"],
-  "mechanism": "Concurrent administration results in synergistic anticoagulation and platelet inhibition, significantly elevating severe gastrointestinal and systemic hemorrhage risk.",
-  "recommendation": "Avoid concurrent use without strict hematological supervision and INR monitoring."
-}
-```
+### Public Health
+
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| `GET` | `/api/vaccination/schedule` | Complete UIP age-milestone vaccine schedule |
+| `POST` | `/api/vaccination/uwin` | Generate U-WIN digital certificate |
+| `GET` | `/api/outbreak/district-risk` | District-level outbreak risk assessment |
+| `POST` | `/api/outbreak/broadcast` | Broadcast advisory via WhatsApp |
+| `GET` | `/api/preventive/topics` | Community health education topics |
+| `POST` | `/api/preventive/quiz` | Generate & evaluate health awareness quiz |
 
 ---
 
-### 6.4 Medical Scan Analysis Endpoint
+## 13. Environment Configuration
 
-```http
-POST /api/scans/analyze
-Content-Type: application/json
+Copy `.env.example` to `.env`. No secrets required for core offline operation — the platform runs deterministically without LLM keys.
 
-{
-  "image_type": "chest_xray",
-  "filename": "chest_xray_scan.jpg",
-  "image_base64": null
-}
-```
-
-**Response (`200 OK`)**:
-```json
-{
-  "image_type": "chest_xray",
-  "model_used": "FractureNet YOLOv8 / MONAI Ensemble",
-  "detections": [
-    {
-      "anomaly": "Rib Fracture",
-      "confidence": 0.89,
-      "bounding_box": {"x_min": 142, "y_min": 210, "x_max": 280, "y_max": 340}
-    }
-  ],
-  "radiologist_summary": "Radiograph displays cortical discontinuity along the posterior aspect of the 6th left rib consistent with non-displaced fracture. Lung fields remain clear without evident pneumothorax.",
-  "overlay_url": "/api/scans/overlay/res_89231.png"
-}
-```
+| Category | Variable | Required | Purpose |
+| :--- | :--- | :--- | :--- |
+| **LLM — Primary** | `GROQ_API_KEY` | Optional | Groq LLaMA-3.3-70B for live AI reasoning |
+| **LLM — Primary** | `GROQ_MODEL` | Optional | Default: `llama-3.3-70b-versatile` |
+| **LLM — Failover** | `OPENROUTER_API_KEY` | Optional | OpenRouter fallback for LLM calls |
+| **LLM — Failover** | `OPENROUTER_MODEL` | Optional | Default: `meta-llama/llama-3.3-70b-instruct` |
+| **LLM — Google** | `GEMINI_API_KEY` | Optional | Google Gemini (configured, not primary) |
+| **WhatsApp** | `OPENWA_URL` | Optional | OpenWA gateway URL |
+| **WhatsApp** | `OPENWA_API_KEY` | Optional | OpenWA authentication key |
+| **WhatsApp** | `SYNAPSEOS_WEBHOOK_URL` | Optional | Backend webhook for inbound messages |
+| **Blockchain** | `BLOCKCHAIN_RPC_URL` | Optional | EVM RPC (default: `http://127.0.0.1:8545`) |
+| **Blockchain** | `CONTRACT_ADDRESS` | Optional | Deployed `MedicalRecords.sol` address |
+| **Blockchain** | `DEPLOYER_PRIVATE_KEY` | Optional | Sepolia deployer account private key |
+| **Blockchain** | `SEPOLIA_RPC_URL` | Optional | Infura/Alchemy Sepolia endpoint |
+| **IPFS** | `PINATA_JWT` | Optional | Pinata API JWT for IPFS pinning |
 
 ---
 
-### 6.5 Digital Health Twin Simulation Endpoint
+## 14. Installation & Local Setup
 
-```http
-POST /api/digital-twin/simulate
-Content-Type: application/json
+### Prerequisites
 
-{
-  "age": 45,
-  "systolic_bp": 140,
-  "hba1c": 6.8,
-  "bmi": 28.4,
-  "smoking_status": true,
-  "exercise_hours_weekly": 1.5,
-  "alcohol_drinks_weekly": 4
-}
-```
+| Tool | Version | Purpose |
+| :--- | :--- | :--- |
+| Node.js | ≥20.x | Frontend (Next.js) + OpenWA |
+| Python | 3.11.x | Backend (FastAPI + ML) |
+| Docker + Compose | Latest | Full containerized stack |
+| Git | ≥2.40 | Repository cloning |
 
-**Response (`200 OK`)**:
-```json
-{
-  "baseline_scores": {
-    "heart": 68.2,
-    "kidneys": 82.0,
-    "liver": 88.5,
-    "pancreas": 71.0,
-    "lungs": 74.0,
-    "overall_health_score": 76.7
-  },
-  "ten_year_projections": [
-    {"year": 0, "heart": 68.2, "kidneys": 82.0, "liver": 88.5, "pancreas": 71.0, "lungs": 74.0},
-    {"year": 5, "heart": 59.4, "kidneys": 75.1, "liver": 84.0, "pancreas": 62.3, "lungs": 68.1},
-    {"year": 10, "heart": 48.0, "kidneys": 66.8, "liver": 78.2, "pancreas": 51.5, "lungs": 60.9}
-  ],
-  "interventions_suggested": [
-    "Blood pressure optimization targeting systolic < 120 mmHg",
-    "Smoking cessation protocol to decelerate pulmonary and vascular decline",
-    "Glycemic management to protect pancreatic beta-cell vitality"
-  ]
-}
-```
-
----
-
-### 6.6 Diagnostic Risk Engine Endpoint
-
-```http
-POST /api/diagnostics/risk-score
-Content-Type: application/json
-
-{
-  "age": 52,
-  "gender": "male",
-  "total_cholesterol": 220,
-  "hdl_cholesterol": 42,
-  "systolic_bp": 138,
-  "treatment_for_hypertension": true,
-  "smoker": false,
-  "fasting_blood_glucose": 115,
-  "bmi": 27.8,
-  "serum_creatinine": 1.1,
-  "ast_level": 32,
-  "alt_level": 36,
-  "platelet_count": 220
-}
-```
-
-**Response (`200 OK`)**:
-```json
-{
-  "framingham_cvd_10yr_risk_percent": 14.8,
-  "ada_diabetes_risk_score": 6.0,
-  "egfr_ckd_epi": 78.4,
-  "fib4_liver_fibrosis_index": 1.42,
-  "clinical_interpretations": {
-    "cvd": "Moderate 10-year risk profile; lifestyle and lipid management advised.",
-    "diabetes": "Elevated pre-diabetes risk category.",
-    "renal": "CKD Stage 2 (Mild GFR reduction).",
-    "liver": "FIB-4 < 1.45 indicates high negative predictive value for advanced fibrosis."
-  }
-}
-```
-
----
-
-### 6.7 Report Generation and Dispatch Endpoints
-
-- **`POST /api/reports/generate-pdf`**: Constructs a cryptographic PDF health record featuring embedded QR verification codes, patient demographics, triage history, and active medication matrices.
-- **`POST /api/sos/dispatch`**: Triggers immediate WhatsApp alert dispatches with patient GPS coordinates, blood group, and vital emergency telemetry.
-- **`GET /api/abdm/generate-id`**: Returns a standardized 14-digit ABHA mock profile and associated Ayushman Bharat scheme eligibility mappings.
-- **`GET /api/abdm/schemes`**: Lists available public healthcare welfare programs and statutory benefits.
-
----
-
-## 7. Smart Contract Architecture
-
-The decentralized records layer is anchored by the `MedicalRecords.sol` contract deployed on Ethereum-compatible networks (such as Polygon Amoy):
-
-```solidity
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
-
-contract MedicalRecords {
-    struct Record {
-        address owner;
-        bytes32 fileHash;   // SHA-256 digest of clinical document
-        string  cid;        // IPFS content identifier
-        uint256 timestamp;
-    }
-
-    mapping(bytes32 => Record) public records;
-    mapping(bytes32 => mapping(address => bool)) public access;
-
-    event RecordRegistered(bytes32 indexed recordId, address indexed owner, bytes32 fileHash, string cid);
-    event AccessGranted(bytes32 indexed recordId, address indexed grantee);
-    event AccessRevoked(bytes32 indexed recordId, address indexed grantee);
-
-    function registerRecord(bytes32 recordId, bytes32 fileHash, string calldata cid) external;
-    function grantAccess(bytes32 recordId, address grantee) external;
-    function revokeAccess(bytes32 recordId, address grantee) external;
-    function hasAccess(bytes32 recordId, address grantee) external view returns (bool);
-}
-```
-
-### Key Contract Guarantees:
-- **Immutability**: Once registered, record hashes and corresponding timestamps cannot be altered or overwritten.
-- **Privacy Preservation**: No identifiable patient health information (PHI) is stored on-chain. Only cryptographic digests (`bytes32`) and IPFS CIDs are recorded.
-- **Granular Access Delegation**: Record owners maintain absolute authorization control to grant or revoke provider read access.
-
----
-
-## 8. Installation and Local Setup
-
-### 8.1 Prerequisites
-
-- **Python**: Version 3.10 or higher
-- **Node.js**: Version 18.0.0 or higher
-- **npm** or **yarn**
-- **Git**
-
----
-
-### 8.2 Environment Configuration
-
-Create a root-level `.env` file or export the following variables:
+### Quick Start
 
 ```bash
-# General Configuration
-PROJECT_NAME="SynapseOS"
-VERSION="1.0.0"
-API_PREFIX="/api"
+# 1. Clone
+git clone https://github.com/Mausam5055/Sanjeevni-OS.git
+cd Sanjeevni-OS
 
-# Model Inference Keys
-GROQ_API_KEY="your_groq_api_key"
-GROQ_MODEL="llama-3.3-70b-versatile"
-GEMINI_API_KEY="your_google_gemini_api_key"
-OPENROUTER_API_KEY="your_openrouter_api_key"
-OPENROUTER_MODEL="meta-llama/llama-3.3-70b-instruct"
+# 2. Configure
+cp .env.example .env
 
-# Decentralized Storage & Blockchain
-PINATA_JWT="your_pinata_jwt_token"
-BLOCKCHAIN_RPC_URL="http://127.0.0.1:8545"
-CONTRACT_ADDRESS="0x5FbDB2315678afecb367f032d93F642f64180aa3"
+# 3. Backend
+cd backend
+pip install -r requirements.txt
+python -m uvicorn app.main:app --host 127.0.0.1 --port 8000 --reload
+# → http://127.0.0.1:8000/docs
 
-# Messaging Gateway
-OPENWA_URL="http://localhost:3000"
-OPENWA_API_KEY="your_openwa_api_key"
-```
+# 4. Frontend (new terminal)
+cd frontend
+npm install
+npm run dev
+# → http://localhost:3000
 
----
-
-### 8.3 Backend Initialization
-
-1. Open a terminal and navigate to the backend workspace:
-   ```bash
-   cd backend
-   ```
-
-2. Create and activate a Python virtual environment:
-   ```bash
-   # Windows (PowerShell)
-   python -m venv venv
-   .\venv\Scripts\Activate.ps1
-
-   # Linux / macOS
-   python3 -m venv venv
-   source venv/bin/activate
-   ```
-
-3. Install required Python packages:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. Launch the FastAPI development server:
-   ```bash
-   uvicorn backend.app.main:app --host 127.0.0.1 --port 8000 --reload
-   ```
-
-5. Access interactive API documentation at `http://127.0.0.1:8000/docs`.
-
----
-
-### 8.4 Frontend Initialization
-
-1. In a separate terminal, navigate to the frontend directory:
-   ```bash
-   cd frontend
-   ```
-
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Start the Next.js development server:
-   ```bash
-   npm run dev
-   ```
-
-4. Access the web dashboard at `http://localhost:3000`.
-
----
-
-### 8.5 Smart Contract Deployment
-
-1. Navigate to the blockchain contracts directory:
-   ```bash
-   cd blockchain/contracts
-   ```
-
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Spin up a local Ethereum development node:
-   ```bash
-   npx hardhat node
-   ```
-
-4. In a separate terminal window, deploy the smart contract:
-   ```bash
-   npx hardhat run scripts/deploy.js --network localhost
-   ```
-
----
-
-### 8.6 Multi-Container Docker Deployment
-
-To launch the complete platform (Frontend, Backend, OpenWA WhatsApp Gateway, Redis, and IPFS) with a single command:
-
-```bash
-# Build and run all services in detached mode
-docker compose up -d --build
-
-# Check status and logs
-docker compose ps
-docker compose logs -f
-```
-
-- **Frontend Application**: [`http://localhost:3000`](http://localhost:3000)
-- **Backend API & Swagger Docs**: [`http://localhost:8000/docs`](http://localhost:8000/docs)
-- **WhatsApp OpenWA Bridge**: [`http://localhost:8080`](http://localhost:8080)
-- **IPFS Gateway**: [`http://localhost:8081`](http://localhost:8081)
-
----
-
-### 8.7 Kubernetes (K8s) Production Deployment
-
-For enterprise high-availability deployment on AWS EKS, GCP GKE, Azure AKS, or on-premise clusters:
-
-```bash
-# 1. Apply namespace, ConfigMaps, and Secrets
-kubectl apply -f k8s/namespace.yaml
-kubectl apply -f k8s/configmap.yaml
-kubectl apply -f k8s/secrets.yaml
-
-# 2. Deploy microservices & Horizontal Pod Autoscalers
-kubectl apply -f k8s/backend-deployment.yaml
-kubectl apply -f k8s/frontend-deployment.yaml
-kubectl apply -f k8s/openwa-deployment.yaml
-kubectl apply -f k8s/ingress.yaml
-kubectl apply -f k8s/hpa.yaml
-```
-
-*(See detailed infrastructure specifications in [`docs/DOCKER_K8S_INFRASTRUCTURE.md`](./docs/DOCKER_K8S_INFRASTRUCTURE.md)).*
-
----
-
-## 9. Testing and Quality Assurance
-
-### 9.1 Comprehensive 45-Test Automated Suite
-
-Execute the complete multi-suite automated test matrix across all API endpoints, OpenWA messaging, ML risk models, and clinical agents:
-
-```bash
-# Run the entire 45-test suite
-python -m pytest backend/tests -v
-```
-
-The test suite validates:
-- **18 FastAPI Endpoints (`test_api_endpoints.py`)**: Full HTTP request/response validation across all clinical routes.
-- **Clinical ML & Specialist Agents (`test_clinical_ml_and_agents.py`)**: Framingham CVD, ADA Diabetes, CKD-EPI eGFR, FIB-4 Liver score, 10-year Digital Twin Trajectory, HL7 FHIR R4 & Wearable IoT Bundles, AI Council Verification, and Tele-MANAS.
-- **OpenWA WhatsApp Engine (`test_openwa_service.py`)**: Interactive Menu Flow (`1-6`), Numbered Commands, Medical Image & Scan Upload over WhatsApp, Emergency SOS Broadcast, and ABDM Schemes.
-- **Core Guardrails (`test_backend.py`)**: Deterministic safety routing, crisis interception, RxNav drug safety, 11+ Indian Regional Languages, and Blockchain PDF Generator.
-
-### 9.2 Smart Contract Verification Tests
-
-Execute the Hardhat contract validation suite:
-
-```bash
+# 5. (Optional) Blockchain
 cd blockchain/contracts
-npx hardhat test
+npm install
+npx hardhat node
+npx hardhat run scripts/deploy.js --network localhost
+
+# 6. (Optional) WhatsApp
+cd openwa
+npm install
+node runner.js
 ```
 
 ---
 
-## 10. Security, Privacy, and Compliance Framework
+## 15. Docker & Kubernetes Deployment
 
-1. **Zero Raw PHI On-Chain**:
-   - Only irreversible SHA-256 cryptographic digests of health records are submitted to public or private ledgers.
-2. **Deterministic Emergency Fallback**:
-   - The safety routing gate guarantees sub-5ms deterministic response times for life-critical conditions, preventing generative hallucination risks in acute care scenarios.
-3. **Defense-in-Depth Authentication**:
-   - Decoupled API keys, encrypted JWT transport, and address-based authorization tables in smart contracts enforce strict access segregation.
-4. **Data Standardization**:
-   - Native HL7 FHIR Release 4 and ABDM object schemas prevent vendor lock-in and enable cross-institutional EHR interoperability.
+### Docker Compose (Full Stack)
+
+```bash
+docker compose up --build          # Development
+docker compose -f docker-compose.prod.yml up --build -d  # Production
+```
+
+| Service | Image Base | Port | Health Check |
+| :--- | :--- | :--- | :--- |
+| `synapseos-frontend` | Node 20 Alpine | 3000 | Depends on backend |
+| `synapseos-backend` | Python 3.11 Slim | 8000 | `curl http://localhost:8000/` |
+| `synapseos-openwa` | Node 20 + Chromium | 8080 | — |
+| `synapseos-redis` | Redis 7 Alpine | 6379 | `redis-cli ping` |
+| `synapseos-ipfs` | Kubo latest | 5001, 8081 | — |
+
+### Kubernetes Deployment
+
+```bash
+kubectl apply -f k8s/namespace.yaml
+kubectl apply -f k8s/
+kubectl get pods -n synapseos
+```
+
+| Manifest | Description |
+| :--- | :--- |
+| `namespace.yaml` | Dedicated `synapseos` namespace |
+| `configmap.yaml` | Non-secret environment configuration |
+| `secrets.yaml` | Base64-encoded sensitive credentials |
+| `backend-deployment.yaml` | FastAPI deployment (2 replicas) + ClusterIP Service |
+| `frontend-deployment.yaml` | Next.js deployment (2 replicas) + ClusterIP Service |
+| `openwa-deployment.yaml` | OpenWA deployment + session PersistentVolumeClaim |
+| `ingress.yaml` | Nginx Ingress routing `/`, `/api/*`, `/whatsapp/*` |
+| `hpa.yaml` | HorizontalPodAutoscaler for backend and frontend |
 
 ---
 
-## 11. License
+## 16. Security Considerations
 
-SynapseOS is distributed under the **MIT License**. Refer to the `LICENSE` file for terms of distribution and reuse.
+| Area | Implementation | Status |
+| :--- | :--- | :--- |
+| **Deterministic Safety Gate** | Crisis/emergency regex patterns bypass all LLM calls | ✅ Implemented |
+| **Input Sanitization** | Text normalized to lowercase before pattern matching | ✅ Implemented |
+| **CORS Policy** | FastAPI CORSMiddleware (restrict origins in production) | ✅ Implemented |
+| **Non-Root Containers** | Frontend and backend Docker images run as `appuser` (UID 1000) | ✅ Implemented |
+| **Environment Variables** | All secrets via `.env` / Kubernetes Secrets — no hardcoded credentials | ✅ Implemented |
+| **Blockchain Access Control** | `msg.sender` ownership enforced in `MedicalRecords.sol` | ✅ Implemented |
+| **File Integrity** | SHA-256 hash computed client-side before on-chain commit | ✅ Implemented |
+| **IPFS Content Addressing** | CID-based retrieval — tampering is detectable | ✅ Implemented |
+| **API Key Failover** | Graceful deterministic fallback if all LLM API keys absent | ✅ Implemented |
+| **Medical Disclaimer** | Every AI clinical response includes a professional disclaimer | ✅ Implemented |
+| **No PII Persistence** | No user accounts, no database, no PII stored server-side | ✅ Implemented |
+
+### Responsible Disclosure
+
+If you discover a security vulnerability, please **do not** open a public GitHub issue. Open a private security advisory via the GitHub Security tab. Allow a minimum 72-hour disclosure window before any public disclosure.
+
+---
+
+## 17. Feature Documentation
+
+| Feature | Description | Key Technologies |
+| :--- | :--- | :--- |
+| **Clinical AI Copilot** | Floating assistant with 5 personas, markdown streaming, multi-persona context | FastAPI, Groq LLM, React |
+| **Live Voice AI Orb** | WebRTC voice session with animated orb, real-time transcript, 11-language STT | VAPI AI, React |
+| **3D Digital Health Twin** | Anatomical body with clickable hotspots, real-time organ vitality scores (0-100) | Python ML engine |
+| **10-Year Organ Simulation** | Multi-organ trajectory simulation with intervention scenario modeling | `ml/digital_twin.py` |
+| **FractureNet YOLOv8** | Genuine bone fracture detection on uploaded X-rays using `Final.pt` (22 MB) | Ultralytics YOLO |
+| **MONAI Chest Radiograph** | MONAI DenseNet-121 chest PA interpretation with Grad-CAM heatmap | MONAI framework |
+| **Drug Interaction Checker** | NIH RxNorm + 7 high-risk DDI pairs + CYP3A4 reasoning | NIH RxNav REST, Groq |
+| **UIP Vaccine Tracker** | Complete Indian UIP schedule (Birth → 16 years), U-WIN certificates | `agents/vaccination_agent.py` |
+| **WHO Epidemic Surveillance** | 194-country WHO SVG map, epidemic timeline, 8 priority pathogen cards | D3-Geo, react-simple-maps |
+| **District Outbreak EWS** | 10 Indian districts, surge velocity tracking, proactive WhatsApp advisory | `agents/outbreak_agent.py` |
+| **ABDM / ABHA Gateway** | 14-digit ABHA ID, PM-JAY coverage, QR health passport | `services/abdm_service.py` |
+| **HL7 FHIR R4 Export** | Compliant FHIR R4 bundles with NDHM identifiers and LOINC codes | `services/fhir_service.py` |
+| **Blockchain Health Passport** | SHA-256 integrity, IPFS upload via Pinata, on-chain registration, QR | `MedicalRecords.sol`, Ethers.js |
+| **WhatsApp Bot** | Menu-driven bot (commands 1-9): symptoms, meds, vaccines, SOS, outbreaks | OpenWA, whatsapp_service.py |
+| **Wearable Telemetry Bridge** | Apple Health XML / Google Takeout JSON ingestion, LOINC normalization | HealthSyncPanel, FHIR service |
+| **11-Language UI** | Complete UI translation for 11 Indic languages, switchable at runtime | LanguageContext, locale files |
+| **Orchestrator Dashboard** | 8-tab clinical command center with wheel + cursor drag scrolling | `orchestrator-agent/page.tsx` |
+| **Emergency SOS** | 1-click WhatsApp SOS with GPS coordinates, blood group, critical symptoms | `POST /api/sos/dispatch` |
+| **PDF Health Report** | Clinical PDF with vitals, medications, triage summary, verifiable blockchain QR | ReportLab, pdf_service.py |
+| **Preventive Health Hub** | ORS/hygiene/POSHAN guides, community health quizzes for ASHA workers | `agents/preventive_health_agent.py` |
+
+---
+
+## 18. Scalability & Future Improvements
+
+### Currently Implemented
+- ✅ 13 specialized autonomous agents with shared state schema
+- ✅ Docker Compose full-stack local deployment (5 services)
+- ✅ Kubernetes manifests with HPA for auto-scaling
+- ✅ Redis for session caching and event bus
+- ✅ IPFS decentralized storage with Pinata pinning
+- ✅ Ethereum Sepolia + local Hardhat dual-network support
+- ✅ Offline-first deterministic operation without API keys
+
+### Planned Future Improvements
+
+| Area | Improvement | Complexity |
+| :--- | :--- | :--- |
+| **LLM** | Fine-tuned Indic medical LLM (Ayush-LLM) for Hindi/Tamil clinical accuracy | High |
+| **Authentication** | Optional Supabase Auth for persistent cross-device health history | Medium |
+| **Database** | PostgreSQL for structured patient telemetry history | Medium |
+| **Blockchain** | ERC-721 Non-Fungible Health Records with ABDM-compliant metadata | High |
+| **RAG Pipeline** | ChromaDB/Qdrant vector store for persistent semantic memory | Medium |
+| **CI/CD** | GitHub Actions for automated testing + Docker build + K8s rollout | Medium |
+| **Monitoring** | OpenTelemetry + Grafana/Prometheus for agent latency tracing | Medium |
+| **Mobile App** | React Native companion for direct HealthKit / Health Connect native access | High |
+| **ABDM Production** | NHA institutional ABDM API access (requires HRN + DPA) | High |
+| **SMS Gateway** | Twilio / Textlocal for production 2G SMS delivery to rural feature phones | Low |
+| **Smart Contract** | Upgrade `MedicalRecords.sol` for multi-org hospital networks | High |
+
+---
+
+## 19. Contributing
+
+We welcome contributions from developers, healthcare professionals, and public health researchers.
+
+### Contribution Workflow
+
+1. **Understand the architecture**: Read the [System Architecture](#3-system-architecture) and [Agent Swarm](#4-agent-swarm--13-specialized-agents) sections thoroughly.
+
+2. **Select or create an issue**: Tag it with `backend`, `frontend`, `blockchain`, or `agents`.
+
+3. **Fork and branch**:
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+
+4. **Follow project conventions**:
+   - **Backend agents**: Implement as async functions accepting `SynapseOSState`, return updated state with `AgentTraceStep` appended to `state.trace`.
+   - **Frontend components**: Use TypeScript strict mode, Tailwind CSS utilities, and `LanguageContext` for user-facing strings.
+   - **Smart contracts**: Follow the `records` mapping pattern; add Hardhat tests for all new functions.
+
+5. **Test your changes**:
+   ```bash
+   cd backend && pytest tests/
+   cd frontend && npm run build
+   cd blockchain/contracts && npx hardhat test
+   ```
+
+6. **Open a pull request**: Describe the change, motivation, and link the relevant issue. Include screenshots for UI changes.
+
+---
+
+## 20. License
+
+The smart contract component (`blockchain/contracts/`) is licensed under **ISC**.
+
+The remainder of the repository is provided for the **ICDC Smart VIT Hackathon 2026**. If you wish to use, fork, or build upon this project beyond hackathon evaluation, please open an issue to discuss licensing terms with the maintainers.
+
+---
+
+<div align="center">
+
+---
+
+### Built with ❤️ for ICDC Smart VIT Hackathon 2026
+
+*SynapseOS — Autonomous AI Health for Every Indian*
+
+*13 Agents · 11 Languages · Blockchain-Verified · ABDM-Compliant*
+
+</div>
