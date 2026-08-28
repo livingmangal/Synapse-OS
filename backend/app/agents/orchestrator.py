@@ -14,6 +14,9 @@ from backend.app.agents.triage_agent import triage_agent_node
 from backend.app.agents.verification_agent import verification_agent_node
 from backend.app.agents.scan_agent import scan_agent_node
 from backend.app.agents.mental_health_agent import mental_health_node
+from backend.app.agents.vaccination_agent import vaccination_agent_node
+from backend.app.agents.preventive_health_agent import preventive_health_agent_node
+from backend.app.agents.outbreak_agent import outbreak_agent_node
 from backend.app.ml.digital_twin import compute_baseline_organ_scores, DigitalTwinInput
 from backend.app.services.llm_service import call_llm
 
@@ -22,7 +25,13 @@ def detect_intent(text: str) -> str:
     """Classifies user query intent."""
     text_lower = (text or "").lower()
     
-    if any(k in text_lower for k in ["xray", "x-ray", "fracture", "bone", "mri", "scan", "prescription", "report"]):
+    if any(k in text_lower for k in ["vaccin", "uip", "u-win", "immuniz", "polio", "bcg", "pentavalent", "booster dose", "child dose"]):
+        return "VACCINATION_SCHEDULE"
+    elif any(k in text_lower for k in ["outbreak", "epidemic", "dengue case", "malaria surge", "cholera", "nipah", "surveillance", "hotspot"]):
+        return "OUTBREAK_ALERT"
+    elif any(k in text_lower for k in ["ors", "prevent", "poshan", "nutrition", "breastfeed", "anemia", "clean water", "hygiene", "mosquito net", "awareness quiz"]):
+        return "PREVENTIVE_HEALTH"
+    elif any(k in text_lower for k in ["xray", "x-ray", "fracture", "bone", "mri", "scan", "prescription", "report"]):
         return "SCAN_ANALYSIS"
     elif any(k in text_lower for k in ["take with", "interact", "drug", "medicine", "pill", "paracetamol", "aspirin", "dosage", "ibuprofen"]):
         return "DRUG_SAFETY"
@@ -79,7 +88,16 @@ async def orchestrate_health_request(
     state.detected_intent = intent
 
     # 3. Dynamic Multi-Agent Execution based on Intent
-    if intent == "DRUG_SAFETY":
+    if intent == "VACCINATION_SCHEDULE":
+        await vaccination_agent_node(state)
+        await verification_agent_node(state)
+    elif intent == "PREVENTIVE_HEALTH":
+        await preventive_health_agent_node(state)
+        await verification_agent_node(state)
+    elif intent == "OUTBREAK_ALERT":
+        await outbreak_agent_node(state)
+        await verification_agent_node(state)
+    elif intent == "DRUG_SAFETY":
         await drug_agent_node(state)
         await triage_agent_node(state)
         await verification_agent_node(state)
@@ -107,14 +125,17 @@ async def orchestrate_health_request(
     # 4. Synthesize Final Consolidated Response via LLM (Groq / OpenRouter)
     synth_start = time.time()
     system_prompt = (
-        "You are the central Chief Medical AI Officer of SynapseOS. "
-        "Consolidate the findings from specialist agents (Triage, Drug Safety, Imaging, Mental Health, and AI Council) "
+        "You are the central Chief Medical AI Officer of Sanjeevni-OS / SynapseOS. "
+        "Consolidate the findings from specialist agents (Vaccination, Rural Preventive Health, Outbreak Alerts, Triage, Drug Safety, Imaging, Mental Health, and AI Council) "
         "into an elegant, highly clear, structured, compassionate, and actionable clinical summary. "
-        "Use markdown formatting with bold headings and bullet points. Never provide arbitrary diagnoses; provide safe triage guidance."
+        "Use markdown formatting with bold headings and bullet points. Never provide arbitrary diagnoses; provide safe public health & triage guidance."
     )
     
     agent_findings_context = f"""
 Patient Query: {message}
+Vaccination Status: {state.vaccination_data}
+Preventive Health Data: {state.preventive_data}
+Outbreak Surveillance: {state.outbreak_data}
 Triage Data: {state.triage_data}
 Drug Safety: {state.drug_check}
 Scan Analysis: {state.scan_analysis}
@@ -137,8 +158,27 @@ AI Council Verification: {state.verification}
     else:
         # Structured fallback if no LLM key configured
         parts = []
+        if state.vaccination_data:
+            v_data = state.vaccination_data
+            parts.append(f"**💉 UIP Vaccination Status:** Next Due: **{v_data.get('next_vaccine_due')}** ({v_data.get('next_due_date')})")
+            parts.append(f"• **National Immunization Progress:** {v_data.get('uip_compliance_pct', 100)}% UIP Milestones Completed")
+            parts.append(f"• **Registry Node:** {v_data.get('registry', 'U-WIN MoHFW')}")
+
+        if state.preventive_data and state.preventive_data.get("active_guide"):
+            p_guide = state.preventive_data["active_guide"]
+            parts.append(f"\n**🌿 Preventive Healthcare Directive: {p_guide.get('title')}**")
+            for step in p_guide.get("actionable_steps", [])[:3]:
+                parts.append(f"• {step}")
+            parts.append(f"⚠️ *Red Flags:* {p_guide.get('red_flags')}")
+
+        if state.outbreak_data and state.outbreak_data.get("data"):
+            o_data = state.outbreak_data["data"]
+            parts.append(f"\n**🚨 District Outbreak Alert ({o_data.get('district')}):** {o_data.get('risk_badge')}")
+            parts.append(f"• **Active Pathogen:** {o_data.get('primary_outbreak')} ({o_data.get('velocity_pct')})")
+            parts.append(f"• **Advisory:** {o_data.get('preventive_advisory')}")
+
         if state.triage_data:
-            parts.append(f"**Triage Assessment:** {state.triage_data.get('urgency_badge')}")
+            parts.append(f"\n**Triage Assessment:** {state.triage_data.get('urgency_badge')}")
             parts.append(f"{state.triage_data.get('recommended_action')}")
             if state.triage_data.get("recommended_specialist"):
                 parts.append(f"• **Recommended Care:** {state.triage_data['recommended_specialist']}")
@@ -164,7 +204,8 @@ AI Council Verification: {state.verification}
     state.suggested_actions = [
         "View 3D Digital Health Twin",
         "Generate Verifiable Health Passport (QR)",
-        "Find Empanelled Ayushman Bharat Hospital"
+        "Check Universal Immunization Schedule",
+        "View District Outbreak Early Warning"
     ]
 
     return state

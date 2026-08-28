@@ -13,14 +13,15 @@ import {
   Sun, 
   Zap, 
   Globe,
-  Watch
+  Watch,
+  Smartphone
 } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 
 interface OrchestratorSidebarProps {
   onOpenSOS?: () => void;
   activeTab?: string;
-  onTabChange?: (tab: 'overview' | 'swarm' | 'analytics' | 'hospital' | 'scan' | 'records' | 'sync') => void;
+  onTabChange?: (tab: 'overview' | 'swarm' | 'analytics' | 'hospital' | 'scan' | 'records' | 'sync' | 'rural') => void;
 }
 
 export default function OrchestratorSidebar({ 
@@ -34,6 +35,7 @@ export default function OrchestratorSidebar({
   const primaryNavItems = [
     { labelKey: 'tab_swarm', fallback: 'Swarm Intelligence', tab: 'swarm', icon: Zap, isTab: true },
     { labelKey: 'tab_overview', fallback: 'My Condition', tab: 'overview', icon: Layers, isTab: true },
+    { labelKey: 'tab_rural_health', fallback: 'Rural AI Healthcare', tab: 'rural', icon: Smartphone, isTab: true },
     { labelKey: 'tab_analytics', fallback: 'Visual Analytics', tab: 'analytics', icon: Activity, isTab: true },
     { labelKey: 'tab_hospital', fallback: 'WHO Surveillance & Map', tab: 'hospital', icon: Globe, isTab: true },
     { labelKey: 'tab_scan', fallback: 'Medical Scan AI', tab: 'scan', icon: Scan, isTab: true },

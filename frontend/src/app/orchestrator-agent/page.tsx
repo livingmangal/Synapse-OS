@@ -14,13 +14,14 @@ import WHODiseaseSurveillancePanel from '@/components/orchestrator/WHODiseaseSur
 import MedicalScanPanel from '@/components/orchestrator/MedicalScanPanel';
 import BlockchainRecordsPanel from '@/components/orchestrator/BlockchainRecordsPanel';
 import HealthSyncPanel from '@/components/orchestrator/HealthSyncPanel';
+import RuralHealthPanel from '@/components/orchestrator/RuralHealthPanel';
 import ActionHubExportModal from '@/components/orchestrator/ActionHubExportModal';
 
 import { PatientInfo, VitalsData, DetectedCondition } from '@/components/orchestrator/types';
 import { MOCK_HEALTH_PROFILES, MockHealthProfile } from '@/data/mockHealthProfiles';
 
 export default function OrchestratorAgentPage() {
-  const [activeTab, setActiveTab] = useState<'overview' | 'swarm' | 'analytics' | 'hospital' | 'scan' | 'records' | 'sync'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'swarm' | 'analytics' | 'hospital' | 'scan' | 'records' | 'sync' | 'rural'>('overview');
   const [isExportModalOpen, setIsExportModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -328,6 +329,11 @@ export default function OrchestratorAgentPage() {
                   onOpenExportModal={() => setIsExportModalOpen(true)}
                 />
               </div>
+            )}
+
+            {/* TAB: Rural & Semi-Urban AI Healthcare Hub (WhatsApp + 2G SMS + Health Literacy) */}
+            {activeTab === 'rural' && (
+              <RuralHealthPanel />
             )}
 
             {/* TAB 2: Multi-Agent Swarm Intelligence & DAG Execution Console */}

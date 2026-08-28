@@ -5,6 +5,7 @@ import DiseaseSelector from './DiseaseSelector';
 import SurveillanceMap from './SurveillanceMap';
 import TelemetryGraph from './TelemetryGraph';
 import ClinicalProtocols from './ClinicalProtocols';
+import DistrictOutbreakAlerts from './DistrictOutbreakAlerts';
 import { diseases } from './data';
 
 export default function WHODiseaseSurveillancePanel() {
@@ -64,14 +65,19 @@ export default function WHODiseaseSurveillancePanel() {
         />
       </div>
 
-      {/* 3. Deep-Dive Telemetry Analytics Canvas & Epidemic Wave Trajectory */}
+      {/* 3. Real-Time District Outbreak Early Warning & Push Alert System */}
+      <div style={{ width: '100%' }}>
+        <DistrictOutbreakAlerts />
+      </div>
+
+      {/* 4. Deep-Dive Telemetry Analytics Canvas & Epidemic Wave Trajectory */}
       <div style={{ width: '100%' }}>
         <TelemetryGraph
           activeHub={activeHub}
         />
       </div>
 
-      {/* 4. WHO Clinical Protocols & Precautions Matrix */}
+      {/* 5. WHO Clinical Protocols & Precautions Matrix */}
       <ClinicalProtocols
         activeDisease={activeDisease}
       />

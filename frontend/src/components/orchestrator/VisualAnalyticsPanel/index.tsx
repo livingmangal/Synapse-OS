@@ -170,7 +170,7 @@ export default function VisualAnalyticsPanel({
       width: '100%',
       maxWidth: '1600px',
       margin: '0 auto',
-      fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+      fontFamily: '"Times New Roman", Times, serif'
     }}>
       {/* 0. Telemetry Dataset & JSON Sync Ribbon */}
       <div style={{

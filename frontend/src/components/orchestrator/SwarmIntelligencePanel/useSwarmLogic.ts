@@ -22,33 +22,38 @@ export function useSwarmLogic(patient: PatientInfo) {
 
   const presets = [
     { 
+      category: 'Vaccination',
+      title: '💉 UIP 6-Week Infant Immunization', 
+      query: 'What vaccines are due for a 6-week old baby in India under the Universal Immunization Programme (UIP)?' 
+    },
+    { 
+      category: 'Preventive Health',
+      title: '🌿 Child Diarrhea & ORS Preparation', 
+      query: 'How to prepare WHO-standard ORS and Zinc at home for a child experiencing acute watery diarrhea and dehydration?' 
+    },
+    { 
+      category: 'Outbreak Alerts',
+      title: '🚨 Delhi Dengue Outbreak Early Warning', 
+      query: 'Check real-time Dengue outbreak surge status, containment zones, and preventive directives in Delhi NCR.' 
+    },
+    { 
       category: 'Pharmacology',
-      title: 'Warfarin & Ibuprofen Interaction', 
+      title: '💊 Warfarin & Ibuprofen Interaction', 
       query: 'Patient is on Warfarin 5mg daily. Experiences acute joint pain and fever; can they take Ibuprofen 400mg with Warfarin?' 
     },
     { 
       category: 'Emergency',
-      title: 'Acute Chest Pain & Dyspnea', 
+      title: '🚨 Acute Chest Pain & Dyspnea', 
       query: 'Severe crushing chest pain radiating to left arm and jaw with cold sweat, O2 saturation 92%, BP 145/95.' 
-    },
-    { 
-      category: 'Radiology',
-      title: 'Knee Osteoarthritis X-Ray Review', 
-      query: 'Review left knee radiograph indicating joint space narrowing, marginal osteophytes, and subchondral sclerosis.' 
-    },
-    { 
-      category: 'Mental Health',
-      title: 'Panic Attack & Acute Insomnia', 
-      query: 'Patient experiencing severe nocturnal panic attacks, persistent tachycardia (115 bpm), and severe sleep deprivation.' 
     }
   ];
 
   const dagNodes: DAGNode[] = [
     { id: 'safety_gate', name: 'Safety Gate', role: 'Deterministic Crisis Intercept', icon: ShieldCheck, status: result ? (result.safety_cleared ? 'completed' : 'warning') : loading ? 'running' : 'idle', latencyMs: 14 },
-    { id: 'intent_router', name: 'Intent Classifier', role: 'Embeddings / Zero-Shot', icon: GitBranch, status: result ? 'completed' : loading ? 'running' : 'idle', latencyMs: 38 },
-    { id: 'triage_agent', name: 'Clinical Triage', role: 'BioBERT / Med-PaLM-2', icon: Activity, status: result ? 'completed' : loading ? 'running' : 'idle', latencyMs: 412 },
+    { id: 'intent_router', name: 'Intent Classifier', role: 'Zero-Shot Multi-Domain Router', icon: GitBranch, status: result ? 'completed' : loading ? 'running' : 'idle', latencyMs: 38 },
+    { id: 'triage_agent', name: 'Clinical Triage', role: 'Symptom & Urgency Stratifier', icon: Activity, status: result ? 'completed' : loading ? 'running' : 'idle', latencyMs: 380 },
     { id: 'rxnav_agent', name: 'RxNav Safety', role: 'Drug-Drug Interaction Engine', icon: Pill, status: result ? 'completed' : loading ? 'running' : 'idle', latencyMs: 184 },
-    { id: 'council_agent', name: 'AI Council', role: 'Multi-Agent Consensus (3+ Nodes)', icon: Users, status: result ? 'completed' : loading ? 'running' : 'idle', latencyMs: 240 }
+    { id: 'council_agent', name: 'AI Council', role: '80%+ Accuracy Benchmark Auditor', icon: Users, status: result ? 'completed' : loading ? 'running' : 'idle', latencyMs: 240 }
   ];
 
   const handleExecuteSwarm = async (customQuery?: string) => {

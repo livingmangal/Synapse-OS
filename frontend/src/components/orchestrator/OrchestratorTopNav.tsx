@@ -13,6 +13,7 @@ import {
   Layers,
   Globe,
   Watch,
+  Smartphone,
   ChevronDown,
   ChevronLeft,
   ChevronRight,
@@ -23,8 +24,8 @@ import LanguageSelector from '@/components/ui/LanguageSelector';
 import { useLanguage } from '@/context/LanguageContext';
 
 interface TopNavProps {
-  activeTab: 'overview' | 'swarm' | 'analytics' | 'hospital' | 'scan' | 'records' | 'sync';
-  onTabChange: (tab: 'overview' | 'swarm' | 'analytics' | 'hospital' | 'scan' | 'records' | 'sync') => void;
+  activeTab: 'overview' | 'swarm' | 'analytics' | 'hospital' | 'scan' | 'records' | 'sync' | 'rural';
+  onTabChange: (tab: 'overview' | 'swarm' | 'analytics' | 'hospital' | 'scan' | 'records' | 'sync' | 'rural') => void;
   patient: PatientInfo;
   onOpenExportModal: () => void;
   searchQuery?: string;
@@ -53,6 +54,7 @@ export default function OrchestratorTopNav({
   const tabs = [
     { id: 'swarm', label: t('tab_swarm', 'Swarm Intelligence'), icon: Sparkles },
     { id: 'overview', label: t('tab_overview', 'My Condition'), icon: Layers },
+    { id: 'rural', label: t('tab_rural_health', 'Rural AI Healthcare'), icon: Smartphone },
     { id: 'analytics', label: t('tab_analytics', 'Visual Analytics'), icon: BarChart3 },
     { id: 'hospital', label: t('tab_hospital', 'WHO Surveillance & Map'), icon: WhoIcon },
     { id: 'scan', label: t('tab_scan', 'Medical Scan AI'), icon: Search },

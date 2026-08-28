@@ -51,7 +51,7 @@ export default function ClinicalConditionsPanel({
         gap: '20px',
         width: '380px',
         flexShrink: 0,
-        fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        fontFamily: '"Times New Roman", Times, serif'
       }}
     >
       {/* 1. Lungs & Pulmonary Function Card */}

@@ -19,7 +19,7 @@ export default function MedicalScanPanel() {
       width: '100%',
       maxWidth: '1600px',
       margin: '0 auto',
-      fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+      fontFamily: '"Times New Roman", Times, serif'
     }}>
       {/* Navigation & Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px' }}>

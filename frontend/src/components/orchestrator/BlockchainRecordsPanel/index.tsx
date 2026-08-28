@@ -5,6 +5,7 @@ import { Fingerprint, FileCheck2, Link as LinkIcon, ShieldCheck, Download, Check
 import { useBlockchainRecords, UseBlockchainRecordsProps } from './useBlockchainRecords';
 import AbhaGenerator from './AbhaGenerator';
 import RecordsList from './RecordsList';
+import VaccinationTracker from './VaccinationTracker';
 import { MOCK_HEALTH_PROFILES } from '@/data/mockHealthProfiles';
 import { useLanguage } from '@/context/LanguageContext';
 
@@ -262,6 +263,7 @@ export default function BlockchainRecordsPanel({
       }}>
         {[
           { id: 'abha', labelKey: 'tab_national_abha', defaultLabel: 'National ABHA ID', icon: Fingerprint },
+          { id: 'vaccination', labelKey: 'tab_vaccination_uwin', defaultLabel: '💉 Immunization & U-WIN', icon: ShieldCheck },
           { id: 'passport', labelKey: 'tab_qr_passport', defaultLabel: 'QR Health Passport', icon: FileCheck2 },
           { id: 'blockchain', labelKey: 'tab_onchain_records', defaultLabel: 'On-Chain Records', icon: LinkIcon },
           { id: 'verify', labelKey: 'tab_verify_integrity', defaultLabel: 'Verify Integrity', icon: ShieldCheck }
@@ -297,6 +299,10 @@ export default function BlockchainRecordsPanel({
       <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '24px', padding: '32px', boxShadow: '0 8px 24px rgba(0,0,0,0.03)' }}>
         
         {state.activeTab === 'abha' && <AbhaGenerator state={state} />}
+
+        {state.activeTab === 'vaccination' && (
+          <VaccinationTracker patientName={state.name} abhaId={state.abhaData?.abha_number || activeMatchedProfile.patient.abhaId} />
+        )}
         
         {state.activeTab === 'passport' && (
           <div>

@@ -178,7 +178,7 @@ export default function PatientVitalsPanel({
         gap: '16px',
         width: '340px',
         flexShrink: 0,
-        fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+        fontFamily: '"Times New Roman", Times, serif'
       }}
     >
       {/* Hidden File Input for Custom JSON Upload */}

@@ -40,7 +40,7 @@
 }
 
 .orch-root {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+  font-family: 'Times New Roman', Times, serif !important;
   color: var(--orch-text-primary) !important;
   background-color: var(--orch-bg) !important;
   -webkit-font-smoothing: antialiased;
@@ -58,9 +58,22 @@
   box-sizing: border-box !important;
 }
 
-.orch-root * {
+.orch-root,
+.orch-root *,
+.orch-root button,
+.orch-root input,
+.orch-root select,
+.orch-root textarea,
+.orch-root h1,
+.orch-root h2,
+.orch-root h3,
+.orch-root h4,
+.orch-root h5,
+.orch-root h6,
+.orch-root p,
+.orch-root span {
   box-sizing: border-box;
-  font-family: inherit;
+  font-family: 'Times New Roman', Times, serif !important;
 }
 
 /* Custom Scrollbars */

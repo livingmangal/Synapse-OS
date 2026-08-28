@@ -51,13 +51,16 @@ async def root():
             "Deterministic Safety Gate",
             "Orchestrator Agent",
             "Clinical Symptom Triage Agent",
+            "National Universal Immunization & U-WIN Vaccine Agent",
+            "Rural Preventive Healthcare & Community Education Agent",
+            "IDSP Epidemic Outbreak & Early Warning Agent",
             "Pharmacology & RxNav Drug Safety Agent",
             "MONAI Medical Scan & Vision Agent",
-            "AI Council & Evidence Grounding Agent",
+            "AI Council & Evidence Grounding Agent (80%+ Accuracy Benchmark)",
             "WHO/Tele-MANAS Mental Health Agent",
             "3D Digital Health Twin Simulation Engine",
             "Ayushman Bharat ABDM / ABHA Service",
-            "OpenWA Omnichannel Gateway"
+            "Omnichannel 2G SMS & OpenWA WhatsApp Gateway"
         ],
         "docs": "/docs"
     }

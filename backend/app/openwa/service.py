@@ -10,29 +10,62 @@ from backend.app.agents.orchestrator import orchestrate_health_request
 from backend.app.agents.drug_agent import evaluate_drug_safety
 from backend.app.agents.scan_agent import analyze_medical_image
 from backend.app.agents.appointment_agent import find_doctors_by_specialty
+from backend.app.agents.vaccination_agent import calculate_vaccination_schedule
+from backend.app.agents.preventive_health_agent import get_preventive_topics, generate_community_health_quiz
+from backend.app.agents.outbreak_agent import get_district_outbreak_risk
 from backend.app.services.abdm_service import generate_abha_id, check_ayushman_bharat_schemes
 
 logger = logging.getLogger(__name__)
 
 MAIN_MENU_TEXT = (
-    "🌿 *SYNAPSEOS OS — Clinical Health Assistant* 🌿\n"
-    "_Autonomous Multi-Agent Health Intelligence_\n\n"
+    "🌿 *SANJEEVNI-OS / SYNAPSEOS — Rural & Public Health AI* 🌿\n"
+    "_Multilingual Healthcare, Vaccination & Outbreak Intelligence_\n\n"
     "Welcome! How can I assist you today? Reply with a *number* or type your query:\n\n"
-    "1️⃣ *Symptom Triage* — Type `1` followed by your symptoms\n"
-    "    _e.g., 1 I have severe headache, fever and body ache_\n\n"
+    "1️⃣ *Symptom Triage* — Type `1` followed by symptoms\n"
+    "    _e.g., 1 High fever, shivering, and headache_\n\n"
     "2️⃣ *Drug Safety & RxNav* — Type `2` followed by medicines\n"
     "    _e.g., 2 Can I take Aspirin with Ibuprofen?_\n\n"
     "3️⃣ *Scan & Prescription AI* — Send any *X-ray or Prescription photo* 📷\n"
     "    _Supports Bone Fracture YOLOv8, Chest X-rays & TrOCR_\n\n"
     "4️⃣ *Mental Health (Tele-MANAS)* — Type `4` followed by how you feel\n"
-    "    _e.g., 4 I am feeling overwhelmed and cannot sleep_\n\n"
+    "    _e.g., 4 Feeling anxious and cannot sleep_\n\n"
     "5️⃣ *Find Empanelled Doctor* — Type `5` followed by specialty\n"
-    "    _e.g., 5 Cardiologist or 5 General Physician_\n\n"
-    "6️⃣ *ABHA Health ID & PM-JAY* — Type `6` to view benefits & schemes\n\n"
+    "    _e.g., 5 General Physician or 5 Pediatrician_\n\n"
+    "6️⃣ *ABHA Health ID & PM-JAY* — Type `6` for ₹5 Lakh health card\n\n"
+    "7️⃣ *Vaccination & UIP Schedule* — Type `7` followed by child age/DOB\n"
+    "    _e.g., 7 6 weeks or 7 pregnancy_\n\n"
+    "8️⃣ *District Outbreak Alerts* — Type `8` followed by district/state\n"
+    "    _e.g., 8 Delhi or 8 Patna or 8 Kerala_\n\n"
+    "9️⃣ *Rural Preventive Health & Quiz* — Type `9` for ORS/Nutrition/Hygiene\n\n"
     "🚨 *Emergency SOS* — Reply *SOS* for immediate emergency broadcast\n\n"
     "━━━━━━━━━━━━━━━━━━━━\n"
-    "_Tip: You can also text naturally in any language._"
+    "_Tip: You can also text in हिन्दी, বাংলা, தமிழ், తెలుగు, मराठी, etc._"
 )
+
+
+def detect_language_script(text: str) -> str:
+    """Detects Indian regional language script from unicode code points."""
+    for char in text:
+        cp = ord(char)
+        if 0x0900 <= cp <= 0x097F:
+            return "hi"  # Devanagari (Hindi/Marathi)
+        elif 0x0980 <= cp <= 0x09FF:
+            return "bn"  # Bengali / Assamese
+        elif 0x0B80 <= cp <= 0x0BFF:
+            return "ta"  # Tamil
+        elif 0x0C00 <= cp <= 0x0C7F:
+            return "te"  # Telugu
+        elif 0x0A80 <= cp <= 0x0AFF:
+            return "gu"  # Gujarati
+        elif 0x0C80 <= cp <= 0x0CFF:
+            return "kn"  # Kannada
+        elif 0x0D00 <= cp <= 0x0D7F:
+            return "ml"  # Malayalam
+        elif 0x0A00 <= cp <= 0x0A7F:
+            return "pa"  # Punjabi (Gurmukhi)
+        elif 0x0B00 <= cp <= 0x0B7F:
+            return "or"  # Odia
+    return "en"
 
 
 async def process_whatsapp_inbound_webhook(payload: Dict[str, Any]) -> Dict[str, Any]:
@@ -222,6 +255,90 @@ async def process_whatsapp_inbound_webhook(payload: Dict[str, Any]) -> Dict[str,
         reply_text = "\n".join(reply_parts)
         success = await send_whatsapp_message(to_jid=sender_jid, text=reply_text)
         return {"status": "processed", "type": "abha_info", "sender": sender_jid, "reply_dispatched": success}
+
+    # Option 7: Vaccination & UIP Schedule
+    if text_lower == "7" or text_lower.startswith("7 "):
+        param = message_text[2:].strip().lower() if text_lower.startswith("7 ") else ""
+        if "preg" in param:
+            v_res = calculate_vaccination_schedule(category="pregnant")
+            reply_parts = [
+                "💉 *MATERNAL VACCINATION SCHEDULE (UIP / U-WIN)* 💉\n",
+                "• *Protocol:* Universal Maternal Immunization Protection",
+                "• *Recommended Vaccines:*"
+            ]
+            for v in v_res.get("recommended_vaccines", []):
+                reply_parts.append(f"  ↳ *{v['name']}:* {v['protects_against']} ({v['route']})")
+            reply_parts.append(f"\n💡 *Guidance:* {v_res.get('guideline')}")
+        else:
+            # Parse weeks if given or default to 6 weeks
+            weeks = 6
+            if "birth" in param or "0" in param:
+                weeks = 0
+            elif "10" in param:
+                weeks = 10
+            elif "14" in param:
+                weeks = 14
+            elif "9" in param:
+                weeks = 40
+            
+            v_res = calculate_vaccination_schedule(age_in_weeks=weeks)
+            reply_parts = [
+                "💉 *UNIVERSAL IMMUNIZATION PROGRAMME (UIP)* 💉\n",
+                f"• *Progress:* {v_res.get('uip_compliance_pct')}% Milestones Covered",
+                f"• *Next Due:* *{v_res.get('next_vaccine_due')}*",
+                f"• *Status:* {v_res.get('next_due_date')}\n"
+            ]
+            if v_res.get("current_due"):
+                reply_parts.append("📋 *Due at this age:*")
+                for m in v_res["current_due"]:
+                    for v in m["vaccines"]:
+                        reply_parts.append(f"  • *{v['name']}:* {v['protects_against']}")
+            elif v_res.get("upcoming"):
+                next_m = v_res["upcoming"][0]
+                reply_parts.append(f"📋 *Upcoming Milestone ({next_m['milestone_label']}):*")
+                for v in next_m["vaccines"]:
+                    reply_parts.append(f"  • *{v['name']}:* {v['protects_against']}")
+
+            reply_parts.append("\n🏥 *Available free at all Anganwadis & Primary Health Centres.*")
+
+        reply_text = "\n".join(reply_parts)
+        success = await send_whatsapp_message(to_jid=sender_jid, text=reply_text)
+        return {"status": "processed", "type": "vaccination_schedule", "sender": sender_jid, "reply_dispatched": success}
+
+    # Option 8: District Outbreak Alerts
+    if text_lower == "8" or text_lower.startswith("8 "):
+        district_query = message_text[2:].strip() if text_lower.startswith("8 ") else "Delhi"
+        if not district_query:
+            district_query = "Delhi"
+        outbreak_res = get_district_outbreak_risk(district_query)["data"]
+        reply_parts = [
+            f"🚨 *DISTRICT OUTBREAK SURVEILLANCE ({outbreak_res['district']})* 🚨\n",
+            f"• *Active Outbreak:* {outbreak_res['primary_outbreak']}",
+            f"• *Risk Status:* {outbreak_res['risk_badge']}",
+            f"• *Weekly Cases:* {outbreak_res['weekly_cases']} ({outbreak_res['velocity_pct']})",
+            f"• *Transmission:* {outbreak_res['transmission']}\n",
+            f"📋 *Advisory:* {outbreak_res['preventive_advisory']}\n",
+            f"📞 *Helpdesk:* {outbreak_res['helpline']}"
+        ]
+        reply_text = "\n".join(reply_parts)
+        success = await send_whatsapp_message(to_jid=sender_jid, text=reply_text)
+        return {"status": "processed", "type": "outbreak_alert", "sender": sender_jid, "reply_dispatched": success}
+
+    # Option 9: Rural Preventive Health & Awareness Quiz
+    if text_lower == "9" or text_lower.startswith("9 "):
+        topics = get_preventive_topics()
+        reply_parts = [
+            "🌿 *RURAL PREVENTIVE HEALTHCARE GUIDES* 🌿\n",
+            "1. 💧 *ORS & Diarrhea Control:* Mix 1 packet in 1L clean water + Zinc 20mg for 14 days.",
+            "2. 🤱 *Poshan & Maternal Nutrition:* Daily IFA iron tablets + 6 months exclusive breastfeeding.",
+            "3. 🦟 *Vector Control (Dengue/Malaria):* Empty water coolers every Sunday; use mosquito nets.",
+            "4. 🧼 *Clean Water & Hygiene:* Boil water for 2 mins; 20-second handwashing before eating.",
+            "5. ❤️ *NCD Prevention:* Less than 5g salt daily, no tobacco, 30 min brisk walk.\n",
+            "_Reply '9 quiz' to take a 3-question awareness quiz & boost your health literacy score!_"
+        ]
+        reply_text = "\n".join(reply_parts)
+        success = await send_whatsapp_message(to_jid=sender_jid, text=reply_text)
+        return {"status": "processed", "type": "preventive_education", "sender": sender_jid, "reply_dispatched": success}
 
     # Stripped numbered prompt for Option 1 or 4
     if text_lower.startswith("1 "):

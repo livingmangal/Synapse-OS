@@ -34,6 +34,9 @@ class SynapseOSState(BaseModel):
     scan_analysis: Optional[Dict[str, Any]] = None
     digital_twin: Optional[Dict[str, Any]] = None
     logistics: Optional[Dict[str, Any]] = None
+    vaccination_data: Optional[Dict[str, Any]] = None
+    preventive_data: Optional[Dict[str, Any]] = None
+    outbreak_data: Optional[Dict[str, Any]] = None
     
     # Execution trace for UI visualization
     trace: List[AgentTraceStep] = Field(default_factory=list)

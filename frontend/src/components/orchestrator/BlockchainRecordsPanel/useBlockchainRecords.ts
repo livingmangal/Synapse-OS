@@ -24,7 +24,7 @@ function parseYearOfBirth(dob?: string, age?: number, fallbackYear: string = '20
 }
 
 export function useBlockchainRecords(props?: UseBlockchainRecordsProps) {
-  const [activeTab, setActiveTab] = useState<'abha' | 'passport' | 'blockchain' | 'verify'>('abha');
+  const [activeTab, setActiveTab] = useState<'abha' | 'passport' | 'vaccination' | 'blockchain' | 'verify'>('abha');
   
   // Active Profile ID tracking
   const [currentProfileId, setCurrentProfileId] = useState<string>(
