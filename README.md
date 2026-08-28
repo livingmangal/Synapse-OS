@@ -2,11 +2,11 @@
 
 <img src="./frontend/public/synapseos-icon.svg" alt="SynapseOS Logo" width="80" height="80" />
 
-# SynapseOS — AI-Powered Multi-Agent Health Platform
+# AI-Driven Public Health Chatbot for Disease Awareness
 
 **Open-Source · Multi-Agent Clinical AI · Hackathon Edition — ICDC Smart VIT 2026**
 
-*An autonomous health operating system powered by a swarm of 13 specialized AI agents, bridging the gap between everyday health tracking and complex clinical intelligence — with government ABDM compliance, blockchain-verified records, and multilingual accessibility for 650+ million rural citizens.*
+*A multilingual AI chatbot designed to educate rural and semi-urban populations about preventive healthcare, disease symptoms, and vaccination schedules. It integrates with government health databases and provides real-time alerts for outbreaks. Powered by a swarm of 13 specialized AI agents, it bridges the gap between everyday health tracking and complex clinical intelligence — with government ABDM compliance, blockchain-verified records, and multilingual accessibility for 650+ million rural citizens.*
 
 [![Next.js](https://img.shields.io/badge/Next.js-16.3.1-black?style=flat-square&logo=next.js)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-19.2-61DAFB?style=flat-square&logo=react&logoColor=black)](https://react.dev/)
