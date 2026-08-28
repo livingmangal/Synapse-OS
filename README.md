@@ -160,56 +160,58 @@ The following diagrams are official project artifacts from the `SVH-2026-Docs/` 
 ### 🥞 Five-Layer Architecture Overview
 
 ```mermaid
-flowchart LR
-    classDef client fill:#e0f2fe,stroke:#0284c7,color:#0f172a
-    classDef gateway fill:#f0fdf4,stroke:#16a34a,color:#0f172a
-    classDef swarm fill:#faf5ff,stroke:#9333ea,color:#0f172a
-    classDef storage fill:#fef2f2,stroke:#dc2626,color:#0f172a
-    classDef chain fill:#fff7ed,stroke:#ea580c,color:#0f172a
+flowchart TD
+    classDef client fill:#e0f2fe,stroke:#0284c7,stroke-width:2px,color:#0f172a
+    classDef api fill:#f0fdf4,stroke:#16a34a,stroke-width:2px,color:#0f172a
+    classDef core fill:#fef08a,stroke:#ca8a04,stroke-width:2px,color:#0f172a
+    classDef agent fill:#faf5ff,stroke:#9333ea,stroke-width:2px,color:#0f172a
+    classDef db fill:#fef2f2,stroke:#dc2626,stroke-width:2px,color:#0f172a
+    classDef web3 fill:#fff7ed,stroke:#ea580c,stroke-width:2px,color:#0f172a
 
-    subgraph L1["Layer 1 — Omnichannel Client (Next.js 16 / React 19)"]
-        WEB["Web Dashboard\n3D Body Twin + Analytics"]:::client
-        VOICE["Live Voice AI\nVAPI WebRTC Orb"]:::client
-        WA["WhatsApp Bot\nOpenWA Gateway"]:::client
-        SMS["2G SMS\n160-char Fallback"]:::client
+    %% Client Layer
+    subgraph Clients ["📱 Channel Layer"]
+        direction LR
+        WEB["🖥️ Next.js Web\n(3D Twin + Dashboard)"]:::client
+        VOICE["🎙️ VAPI WebRTC\n(Live Voice AI)"]:::client
+        WA["💬 OpenWA\n(WhatsApp & SMS)"]:::client
     end
 
-    subgraph L2["Layer 2 — Channel Adapter (FastAPI)"]
-        CORS["CORS Middleware"]:::gateway
-        SAFETY["Deterministic Safety Gate\nCrisis & Emergency Intercept"]:::gateway
-        I18N["11-Language i18n Engine"]:::gateway
-        FHIR["HL7 FHIR R4 Serializer"]:::gateway
+    %% API Layer
+    API["⚙️ FastAPI Channel Adapter\n(CORS, i18n, FHIR R4)"]:::api
+    SAFETY{"🛡️ Deterministic\nSafety Gate"}:::api
+
+    %% Core
+    ORCH{"🧠 Orchestrator Agent\n(Groq LLaMA 3.3 70B)"}:::core
+
+    %% Agent Swarm
+    subgraph Swarm ["🤖 Specialist Agent Swarm (13 Models)"]
+        direction LR
+        TRIAGE["Symptom Triage\n(ESI L1-L5)"]:::agent
+        SCAN["Medical Scan\n(MONAI + YOLOv8)"]:::agent
+        OUTBREAK["Outbreak EWS\n(WHO + IDSP)"]:::agent
+        VAX["UIP Vaccine\n(U-WIN Tracker)"]:::agent
+        TWIN["Digital Health Twin\n(10-Year Sim)"]:::agent
+        ABDM["ABHA Gateway\n(PM-JAY)"]:::agent
     end
 
-    subgraph L3["Layer 3 — Orchestrator Agent DAG"]
-        INTENT["Intent Classifier"]:::swarm
-        ROUTER["Agent Router"]:::swarm
-        COUNCIL["AI Council (2nd Opinion)"]:::swarm
-        LLM["LLM Brains\nGroq LLaMA-3.3-70B / OpenRouter"]:::swarm
+    %% Data & Blockchain
+    subgraph Data ["💾 Persistence & Blockchain"]
+        direction LR
+        REDIS[("⚡ Redis Cache\n(Session & DAG)")]:::db
+        IPFS[("📦 IPFS / Kubo\n(Pinata)")]:::web3
+        CHAIN{{"⛓️ Ethereum / Sepolia\n(MedicalRecords.sol)"}}:::web3
     end
 
-    subgraph L4["Layer 4 — Specialist Agent Swarm"]
-        TRIAGE["Symptom Triage\nESI L1-L5"]:::swarm
-        DRUG["Drug Safety\nNIH RxNav"]:::swarm
-        SCAN["Medical Scan AI\nYOLOv8 + MONAI"]:::swarm
-        VAX["UIP Vaccination\nU-WIN Tracker"]:::swarm
-        OUTBREAK["Outbreak EWS\nWHO + IDSP"]:::swarm
-        PREV["Preventive Health\nCommunity Education"]:::swarm
-        MENTAL["Tele-MANAS\nMental Health"]:::swarm
-        TWIN["Digital Health Twin\n10-Year Simulation"]:::swarm
-        ABDM_A["ABDM Gateway\nABHA ID + PM-JAY"]:::swarm
-        PDF["Report Generator\nPDF + QR Passport"]:::swarm
-    end
-
-    subgraph L5["Layer 5 — Data & Verification"]
-        REDIS["Redis Cache\nSession + Task Queue"]:::storage
-        IPFS_N["IPFS Node\nKubo + Pinata"]:::storage
-        CHAIN["Ethereum / Sepolia\nMedicalRecords.sol"]:::chain
-        WIKI["Wikipedia Medical REST"]:::storage
-        RXNAV["NIH RxNav API"]:::storage
-    end
-
-    L1 --> L2 --> L3 --> L4 --> L5
+    %% Flow
+    WEB & VOICE & WA --> API
+    API --> SAFETY
+    SAFETY -- "Safe" --> ORCH
+    SAFETY -. "Emergency Intercept" .-> WEB
+    ORCH <--> Swarm
+    
+    Swarm --> REDIS
+    Swarm --> IPFS
+    IPFS --> CHAIN
 ```
 
 ### 🔑 Authentication & Session Flow
