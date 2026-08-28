@@ -160,7 +160,7 @@ The following diagrams are official project artifacts from the `SVH-2026-Docs/` 
 ### 🥞 Five-Layer Architecture Overview
 
 ```mermaid
-flowchart TD
+flowchart LR
     classDef client fill:#0f172a,stroke:#3b82f6,stroke-width:2px,color:#ffffff
     classDef api fill:#2e1065,stroke:#8b5cf6,stroke-width:2px,color:#ffffff
     classDef core fill:#451a03,stroke:#f59e0b,stroke-width:2px,color:#ffffff
@@ -168,50 +168,45 @@ flowchart TD
     classDef db fill:#083344,stroke:#06b6d4,stroke-width:2px,color:#ffffff
     classDef web3 fill:#450a0a,stroke:#ef4444,stroke-width:2px,color:#ffffff
 
-    %% Client Layer
-    subgraph Clients ["📱 Channel Layer"]
-        direction LR
-        WEB["🖥️ Next.js Web\n(3D Twin + Dashboard)"]:::client
-        VOICE["🎙️ VAPI WebRTC\n(Live Voice AI)"]:::client
-        WA["💬 OpenWA\n(WhatsApp & SMS)"]:::client
+    subgraph Clients ["📱 1. Channels"]
+        direction TB
+        WEB["🖥️ Web Dashboard"]:::client
+        VOICE["🎙️ Live Voice AI"]:::client
+        WA["💬 WhatsApp / SMS"]:::client
     end
 
-    %% API Layer
-    API["⚙️ FastAPI Channel Adapter\n(CORS, i18n, FHIR R4)"]:::api
-    SAFETY{"🛡️ Deterministic\nSafety Gate"}:::api
-
-    %% Core
-    ORCH{"🧠 Orchestrator Agent\n(Groq LLaMA 3.3 70B)"}:::core
-
-    %% Agent Swarm
-    subgraph Swarm ["🤖 Specialist Agent Swarm (13 Models)"]
-        direction LR
-        TRIAGE["Symptom Triage\n(ESI L1-L5)"]:::agent
-        SCAN["Medical Scan\n(MONAI + YOLOv8)"]:::agent
-        OUTBREAK["Outbreak EWS\n(WHO + IDSP)"]:::agent
-        VAX["UIP Vaccine\n(U-WIN Tracker)"]:::agent
-        TWIN["Digital Health Twin\n(10-Year Sim)"]:::agent
-        ABDM["ABHA Gateway\n(PM-JAY)"]:::agent
+    subgraph API ["⚙️ 2. Gateway"]
+        direction TB
+        SAFETY{"🛡️ Safety Gate"}:::api
+        I18N["🌐 11-Lang i18n"]:::api
+        FHIR["🏥 FHIR R4"]:::api
     end
 
-    %% Data & Blockchain
-    subgraph Data ["💾 Persistence & Blockchain"]
-        direction LR
-        REDIS[("⚡ Redis Cache\n(Session & DAG)")]:::db
-        IPFS[("📦 IPFS / Kubo\n(Pinata)")]:::web3
-        CHAIN{{"⛓️ Ethereum / Sepolia\n(MedicalRecords.sol)"}}:::web3
+    subgraph Core ["🧠 3. Orchestrator"]
+        ORCH{"Groq LLaMA-70B\nAgent Router"}:::core
     end
 
-    %% Flow
-    WEB & VOICE & WA --> API
-    API --> SAFETY
-    SAFETY -- "Safe" --> ORCH
-    SAFETY -. "Emergency Intercept" .-> WEB
-    ORCH <--> Swarm
-    
-    Swarm --> REDIS
-    Swarm --> IPFS
-    IPFS --> CHAIN
+    subgraph Swarm ["🤖 4. Agent Swarm"]
+        direction TB
+        TRIAGE["Symptom Triage"]:::agent
+        SCAN["Medical Scan"]:::agent
+        OUTBREAK["Outbreak EWS"]:::agent
+        VAX["UIP Vaccine"]:::agent
+        TWIN["Digital Twin"]:::agent
+        ABDM["ABHA Gateway"]:::agent
+    end
+
+    subgraph Data ["💾 5. Data & Chain"]
+        direction TB
+        REDIS[("⚡ Redis Cache")]:::db
+        IPFS[("📦 IPFS Pinata")]:::web3
+        CHAIN{{"⛓️ Sepolia Chain"}}:::web3
+    end
+
+    Clients --> API
+    API --> Core
+    Core <--> Swarm
+    Swarm --> Data
 ```
 
 ### 🔑 Authentication & Session Flow
