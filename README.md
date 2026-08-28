@@ -272,85 +272,85 @@ All 13 agents share a common `SynapseOSState` Pydantic schema and contribute str
 
 | Technology | Version | Purpose |
 | :--- | :--- | :--- |
-| **Next.js** | 16.3.1 | React SSR / App Router framework, standalone Docker output |
-| **React** | 19.2.8 | UI component model, hooks, context providers |
-| **TypeScript** | 5.x | Type safety across the entire frontend codebase |
-| **Tailwind CSS** | 4.x | Utility-first styling, design tokens, responsive layout |
-| **Lenis** | 1.3.26 | Smooth scroll library with `data-lenis-prevent` on orchestrator panels |
-| **D3-Geo / D3-Scale** | 3.x / 4.x | WHO epidemic global SVG map with outbreak bubble overlays |
-| **React-Simple-Maps** | 3.0.0 | Geographic choropleth maps for WHO Surveillance panel |
-| **TopoJSON Client** | 3.1.0 | Decodes world atlas boundary data for map rendering |
-| **World Atlas** | 2.0.2 | Static GeoJSON data for the 194-member WHO map |
-| **Lucide React** | 1.31.0 | Consistent medical and UI iconography |
-| **Ethers.js** | 6.17.0 | Frontend blockchain integration for `MedicalRecords.sol` |
-| **VAPI AI Web** | 2.6.3 | WebRTC Voice AI SDK — STT → LLM → TTS real-time session |
-| **clsx / tailwind-merge** | latest | Conditional class composition across component variants |
+| ![Next.js](https://img.shields.io/badge/Next.js-black?logo=next.js&style=flat) **Next.js** | 16.3.1 | React SSR / App Router framework, standalone Docker output |
+| ![React](https://img.shields.io/badge/React-61DAFB?logo=react&logoColor=black&style=flat) **React** | 19.2.8 | UI component model, hooks, context providers |
+| ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white&style=flat) **TypeScript** | 5.x | Type safety across the entire frontend codebase |
+| ![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-06B6D4?logo=tailwindcss&logoColor=white&style=flat) **Tailwind CSS** | 4.x | Utility-first styling, design tokens, responsive layout |
+| ![Lenis](https://img.shields.io/badge/Lenis-475569?style=flat) **Lenis** | 1.3.26 | Smooth scroll library with `data-lenis-prevent` on orchestrator panels |
+| ![D3-Geo / D3-Scale](https://img.shields.io/badge/D3--Geo%20/%20D3--Scale-475569?style=flat) **D3-Geo / D3-Scale** | 3.x / 4.x | WHO epidemic global SVG map with outbreak bubble overlays |
+| ![React-Simple-Maps](https://img.shields.io/badge/React--Simple--Maps-475569?style=flat) **React-Simple-Maps** | 3.0.0 | Geographic choropleth maps for WHO Surveillance panel |
+| ![TopoJSON Client](https://img.shields.io/badge/TopoJSON%20Client-475569?style=flat) **TopoJSON Client** | 3.1.0 | Decodes world atlas boundary data for map rendering |
+| ![World Atlas](https://img.shields.io/badge/World%20Atlas-475569?style=flat) **World Atlas** | 2.0.2 | Static GeoJSON data for the 194-member WHO map |
+| ![Lucide React](https://img.shields.io/badge/Lucide%20React-F472B6?logo=lucide&logoColor=white&style=flat) **Lucide React** | 1.31.0 | Consistent medical and UI iconography |
+| ![Ethers.js](https://img.shields.io/badge/Ethers.js-764ABC?style=flat) **Ethers.js** | 6.17.0 | Frontend blockchain integration for `MedicalRecords.sol` |
+| ![VAPI AI Web](https://img.shields.io/badge/VAPI%20AI%20Web-16C4B0?style=flat) **VAPI AI Web** | 2.6.3 | WebRTC Voice AI SDK — STT → LLM → TTS real-time session |
+| ![clsx / tailwind-merge](https://img.shields.io/badge/clsx%20/%20tailwind--merge-475569?style=flat) **clsx / tailwind-merge** | latest | Conditional class composition across component variants |
 
 ### ⚙️ 5.2 Backend & APIs
 
 | Technology | Version | Purpose |
 | :--- | :--- | :--- |
-| **FastAPI** | ≥0.110 | Async REST API framework, 30+ endpoints, OpenAPI at `/docs` |
-| **Uvicorn** | ≥0.28 | ASGI production server, 4-worker multi-process runtime |
-| **Pydantic** | v2 | `SynapseOSState`, `DigitalTwinInput`, all request/response schemas |
-| **HTTPX** | ≥0.27 | Async HTTP client for Groq, OpenRouter, NIH RxNav, Wikipedia |
-| **Pillow** | ≥10.2 | Decodes base64 medical scan uploads before YOLOv8 inference |
-| **ReportLab** | ≥4.1 | Clinical PDF health summary with QR codes |
-| **QRCode** | ≥7.4 | Blockchain-linked ABHA health passport QR embedded in PDFs |
-| **Python-dotenv** | ≥1.0 | Reads `.env` for API keys, blockchain RPC, IPFS config |
-| **Ultralytics YOLO** | external | Loads `Final.pt` FractureNet weights for bone fracture detection |
-| **Pytest** | ≥8.0 | Backend unit and integration tests in `backend/tests/` |
-| **OpenWA / wa-automate** | 4.70.0 | Node.js bridge translating WhatsApp messages to FastAPI webhook |
+| ![FastAPI](https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white&style=flat) **FastAPI** | ≥0.110 | Async REST API framework, 30+ endpoints, OpenAPI at `/docs` |
+| ![Uvicorn](https://img.shields.io/badge/Uvicorn-499848?logo=gunicorn&logoColor=white&style=flat) **Uvicorn** | ≥0.28 | ASGI production server, 4-worker multi-process runtime |
+| ![Pydantic](https://img.shields.io/badge/Pydantic-E92063?logo=pydantic&logoColor=white&style=flat) **Pydantic** | v2 | `SynapseOSState`, `DigitalTwinInput`, all request/response schemas |
+| ![HTTPX](https://img.shields.io/badge/HTTPX-475569?style=flat) **HTTPX** | ≥0.27 | Async HTTP client for Groq, OpenRouter, NIH RxNav, Wikipedia |
+| ![Pillow](https://img.shields.io/badge/Pillow-475569?style=flat) **Pillow** | ≥10.2 | Decodes base64 medical scan uploads before YOLOv8 inference |
+| ![ReportLab](https://img.shields.io/badge/ReportLab-475569?style=flat) **ReportLab** | ≥4.1 | Clinical PDF health summary with QR codes |
+| ![QRCode](https://img.shields.io/badge/QRCode-475569?style=flat) **QRCode** | ≥7.4 | Blockchain-linked ABHA health passport QR embedded in PDFs |
+| ![Python-dotenv](https://img.shields.io/badge/Python--dotenv-3776AB?logo=python&logoColor=white&style=flat) **Python-dotenv** | ≥1.0 | Reads `.env` for API keys, blockchain RPC, IPFS config |
+| ![Ultralytics YOLO](https://img.shields.io/badge/Ultralytics%20YOLO-475569?style=flat) **Ultralytics YOLO** | external | Loads `Final.pt` FractureNet weights for bone fracture detection |
+| ![Pytest](https://img.shields.io/badge/Pytest-0A9EDC?logo=pytest&logoColor=white&style=flat) **Pytest** | ≥8.0 | Backend unit and integration tests in `backend/tests/` |
+| ![OpenWA / wa-automate](https://img.shields.io/badge/OpenWA%20/%20wa--automate-25D366?logo=whatsapp&logoColor=white&style=flat) **OpenWA / wa-automate** | 4.70.0 | Node.js bridge translating WhatsApp messages to FastAPI webhook |
 
 ### 🧠 5.3 AI / ML & LLM Layer
 
 | Model / Service | Provider | Role |
 | :--- | :--- | :--- |
-| **LLaMA 3.3-70B Versatile** | Groq | Primary LLM reasoning across all clinical agents |
-| **LLaMA 3.3-70B Instruct** | OpenRouter | Automatic failover if Groq unavailable or rate-limited |
-| **Gemini API** | Google | Optional integration (`GEMINI_API_KEY` configured) |
-| **FractureNet YOLOv8** | Custom (22MB) | Genuine bone fracture detection (`Final.pt`, `conf=0.15`) |
-| **MONAI DenseNet-121** | MONAI | Chest radiograph analysis with Grad-CAM localization |
-| **VAPI AI** | Vapi | WebRTC voice pipeline: STT → LLM → TTS real-time |
-| **Wikipedia Medical REST** | Wikimedia | Knowledge retrieval, no auth required |
-| **NIH RxNav REST** | NIH NLM | Drug name normalization and interaction lookup |
+| ![LLaMA 3.3-70B Versatile](https://img.shields.io/badge/LLaMA%203.3--70B%20Versatile-047857?logo=meta&logoColor=white&style=flat) **LLaMA 3.3-70B Versatile** | Groq | Primary LLM reasoning across all clinical agents |
+| ![LLaMA 3.3-70B Instruct](https://img.shields.io/badge/LLaMA%203.3--70B%20Instruct-047857?logo=meta&logoColor=white&style=flat) **LLaMA 3.3-70B Instruct** | OpenRouter | Automatic failover if Groq unavailable or rate-limited |
+| ![Gemini API](https://img.shields.io/badge/Gemini%20API-8E75B2?logo=google-gemini&logoColor=white&style=flat) **Gemini API** | Google | Optional integration (`GEMINI_API_KEY` configured) |
+| ![FractureNet YOLOv8](https://img.shields.io/badge/FractureNet%20YOLOv8-475569?style=flat) **FractureNet YOLOv8** | Custom (22MB) | Genuine bone fracture detection (`Final.pt`, `conf=0.15`) |
+| ![MONAI DenseNet-121](https://img.shields.io/badge/MONAI%20DenseNet--121-475569?style=flat) **MONAI DenseNet-121** | MONAI | Chest radiograph analysis with Grad-CAM localization |
+| ![VAPI AI](https://img.shields.io/badge/VAPI%20AI-475569?style=flat) **VAPI AI** | Vapi | WebRTC voice pipeline: STT → LLM → TTS real-time |
+| ![Wikipedia Medical REST](https://img.shields.io/badge/Wikipedia%20Medical%20REST-000000?logo=wikipedia&logoColor=white&style=flat) **Wikipedia Medical REST** | Wikimedia | Knowledge retrieval, no auth required |
+| ![NIH RxNav REST](https://img.shields.io/badge/NIH%20RxNav%20REST-475569?style=flat) **NIH RxNav REST** | NIH NLM | Drug name normalization and interaction lookup |
 
 ### ⛓️ 5.4 Blockchain & Web3
 
 | Technology | Role |
 | :--- | :--- |
-| **Solidity 0.8.20** | `MedicalRecords.sol` — owner-gated health record registry |
-| **Hardhat 3.x** | EVM development framework + Sepolia testnet deploy scripts |
-| **Ethers.js 6.x** | Frontend contract interaction, auto-detects local/Sepolia |
-| **Sepolia Testnet** | Ethereum EVM test network for staging deployment |
-| **IPFS / Kubo** | Self-hosted IPFS node in Docker (ports 5001 API + 8081 gateway) |
-| **Pinata** | IPFS pinning service via JWT authentication |
-| **SHA-256 hashing** | Client-side file integrity hash before on-chain commit |
+| ![Solidity 0.8.20](https://img.shields.io/badge/Solidity%200.8.20-363636?logo=solidity&logoColor=white&style=flat) **Solidity 0.8.20** | `MedicalRecords.sol` — owner-gated health record registry |
+| ![Hardhat 3.x](https://img.shields.io/badge/Hardhat%203.x-F7DF1E?logo=ethereum&logoColor=black&style=flat) **Hardhat 3.x** | EVM development framework + Sepolia testnet deploy scripts |
+| ![Ethers.js 6.x](https://img.shields.io/badge/Ethers.js%206.x-475569?style=flat) **Ethers.js 6.x** | Frontend contract interaction, auto-detects local/Sepolia |
+| ![Sepolia Testnet](https://img.shields.io/badge/Sepolia%20Testnet-475569?style=flat) **Sepolia Testnet** | Ethereum EVM test network for staging deployment |
+| ![IPFS / Kubo](https://img.shields.io/badge/IPFS%20/%20Kubo-65C2CB?logo=ipfs&logoColor=white&style=flat) **IPFS / Kubo** | Self-hosted IPFS node in Docker (ports 5001 API + 8081 gateway) |
+| ![Pinata](https://img.shields.io/badge/Pinata-7F2BCE?style=flat) **Pinata** | IPFS pinning service via JWT authentication |
+| ![SHA-256 hashing](https://img.shields.io/badge/SHA--256%20hashing-475569?style=flat) **SHA-256 hashing** | Client-side file integrity hash before on-chain commit |
 
 ### 🏗️ 5.5 Infrastructure & DevOps
 
 | Component | Technology | Responsibility |
 | :--- | :--- | :--- |
-| **Frontend Container** | Node 20 Alpine (multi-stage) | Next.js standalone build, non-root user, port 3000 |
-| **Backend Container** | Python 3.11 Slim | FastAPI + ML, 4-worker Uvicorn, health check on `/` |
-| **OpenWA Container** | Node 20 Bullseye + Chromium | Headless Chrome for WhatsApp Web session, port 8080 |
-| **Redis** | Redis 7 Alpine | In-memory session cache, task queue, pub/sub event bus |
-| **IPFS Node** | Kubo (latest) | Self-hosted decentralized storage |
-| **Docker Compose** | v3.8 | Local full-stack orchestration with health checks |
-| **Kubernetes** | 8 manifests in `k8s/` | Namespace, ConfigMap, Secrets, Deployments, Ingress, HPA |
+| ![Frontend Container](https://img.shields.io/badge/Frontend%20Container-339933?logo=node.js&logoColor=white&style=flat) **Frontend Container** | Node 20 Alpine (multi-stage) | Next.js standalone build, non-root user, port 3000 |
+| ![Backend Container](https://img.shields.io/badge/Backend%20Container-3776AB?logo=python&logoColor=white&style=flat) **Backend Container** | Python 3.11 Slim | FastAPI + ML, 4-worker Uvicorn, health check on `/` |
+| ![OpenWA Container](https://img.shields.io/badge/OpenWA%20Container-339933?logo=node.js&logoColor=white&style=flat) **OpenWA Container** | Node 20 Bullseye + Chromium | Headless Chrome for WhatsApp Web session, port 8080 |
+| ![Redis](https://img.shields.io/badge/Redis-DC382D?logo=redis&logoColor=white&style=flat) **Redis** | Redis 7 Alpine | In-memory session cache, task queue, pub/sub event bus |
+| ![IPFS Node](https://img.shields.io/badge/IPFS%20Node-475569?style=flat) **IPFS Node** | Kubo (latest) | Self-hosted decentralized storage |
+| ![Docker Compose](https://img.shields.io/badge/Docker%20Compose-2496ED?logo=docker&logoColor=white&style=flat) **Docker Compose** | v3.8 | Local full-stack orchestration with health checks |
+| ![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?logo=kubernetes&logoColor=white&style=flat) **Kubernetes** | 8 manifests in `k8s/` | Namespace, ConfigMap, Secrets, Deployments, Ingress, HPA |
 
 ### 🔗 5.6 Third-Party Services & External APIs
 
 | Provider / Service | Category | Integration Point |
 | :--- | :--- | :--- |
-| **Groq** | LLM Inference | `services/llm_service.py` |
-| **OpenRouter** | LLM Failover | `services/llm_service.py` |
-| **Pinata** | IPFS Pinning | `frontend/src/lib/blockchain/ipfs.js` |
-| **NIH RxNav** | Drug Database | `agents/drug_agent.py` |
-| **Wikipedia Medical REST** | Knowledge Base | `agents/retrieval_agent.py` |
-| **VAPI AI** | Voice AI | `hooks/useAssistantLogic.ts` |
-| **WHO GHO / disease.sh** | Epidemiology Data | `agents/outbreak_agent.py` |
-| **Alchemy / Infura** | RPC Provider | `hardhat.config.js` |
+| ![Groq](https://img.shields.io/badge/Groq-FF6B35?style=flat) **Groq** | LLM Inference | `services/llm_service.py` |
+| ![OpenRouter](https://img.shields.io/badge/OpenRouter-3B82F6?style=flat) **OpenRouter** | LLM Failover | `services/llm_service.py` |
+| ![Pinata](https://img.shields.io/badge/Pinata-7F2BCE?style=flat) **Pinata** | IPFS Pinning | `frontend/src/lib/blockchain/ipfs.js` |
+| ![NIH RxNav](https://img.shields.io/badge/NIH%20RxNav-475569?style=flat) **NIH RxNav** | Drug Database | `agents/drug_agent.py` |
+| ![Wikipedia Medical REST](https://img.shields.io/badge/Wikipedia%20Medical%20REST-000000?logo=wikipedia&logoColor=white&style=flat) **Wikipedia Medical REST** | Knowledge Base | `agents/retrieval_agent.py` |
+| ![VAPI AI](https://img.shields.io/badge/VAPI%20AI-475569?style=flat) **VAPI AI** | Voice AI | `hooks/useAssistantLogic.ts` |
+| ![WHO GHO / disease.sh](https://img.shields.io/badge/WHO%20GHO%20/%20disease.sh-475569?style=flat) **WHO GHO / disease.sh** | Epidemiology Data | `agents/outbreak_agent.py` |
+| ![Alchemy / Infura](https://img.shields.io/badge/Alchemy%20/%20Infura-363636?logo=ethereum&logoColor=white&style=flat) **Alchemy / Infura** | RPC Provider | `hardhat.config.js` |
 
 ---
 
