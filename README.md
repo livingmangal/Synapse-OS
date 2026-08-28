@@ -53,7 +53,8 @@
 | 📖 | **Feature Documentation** | List of all 21 core features and capabilities | [Go to section](#17-feature-documentation) |
 | 📈 | **Scalability & Future Improvements** | Planned enhancements and production roadmap | [Go to section](#18-scalability--future-improvements) |
 | 🤝 | **Contributing** | Guidelines for contributing to the repository | [Go to section](#19-contributing) |
-| 📜 | **License** | Open-source licensing and hackathon usage terms | [Go to section](#20-license) |
+| 🌟 | **Contributors & Activity** | GitHub contributor mosaic and repository analytics | [Go to section](#20-contributors--activity) |
+| 📜 | **License** | Open-source licensing and hackathon usage terms | [Go to section](#21-license) |
 
 
 ## 📸 Product & Interface Showcase
@@ -919,7 +920,33 @@ We welcome contributions from developers, healthcare professionals, and public h
 
 ---
 
-## 📜 20. License
+## 🌟 20. Contributors & Activity
+
+<div align="center">
+
+### 🏆 Top Contributors
+
+<a href="https://github.com/Mausam5055/Sanjeevni-OS/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Mausam5055/Sanjeevni-OS&max=24&columns=8" alt="Contributors Mosaic" />
+</a>
+
+### 📊 Repository Analytics
+
+<a href="https://github.com/Mausam5055/Sanjeevni-OS/network/dependencies">
+  <img src="https://github-readme-stats.vercel.app/api?username=Mausam5055&repo=Sanjeevni-OS&show_icons=true&theme=tokyonight&hide_border=true&include_all_commits=true&count_private=true" alt="Repo Stats" />
+</a>
+<br/>
+<a href="https://github.com/Mausam5055/Sanjeevni-OS/commits/main">
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Mausam5055&repo=Sanjeevni-OS&layout=compact&theme=tokyonight&hide_border=true" alt="Top Languages" />
+</a>
+
+*Thank you to everyone who has contributed to making SynapseOS a reality!*
+
+</div>
+
+---
+
+## 📜 21. License
 
 The smart contract component (`blockchain/contracts/`) is licensed under **ISC**.
 
