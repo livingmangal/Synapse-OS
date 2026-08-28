@@ -1,5 +1,10 @@
 # 🚀 SynapseOS — Setup & Execution Guide
 
+[![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=flat-square&logo=python)](https://python.org)
+[![Node.js](https://img.shields.io/badge/Node.js-18.x-339933?style=flat-square&logo=node.js)](https://nodejs.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.110+-009688?style=flat-square&logo=fastapi)](https://fastapi.tiangolo.com/)
+[![Next.js](https://img.shields.io/badge/Next.js-16.3.1-black?style=flat-square&logo=next.js)](https://nextjs.org/)
+
 This guide provides a step-by-step walkthrough to install dependencies and run both the **FastAPI Multi-Agent Backend** and the **Next.js Frontend** for SynapseOS.
 
 ---
@@ -7,9 +12,12 @@ This guide provides a step-by-step walkthrough to install dependencies and run b
 ## 📋 Prerequisites
 
 Ensure you have the following installed on your machine:
-- **Python**: `3.10` or higher (`python --version`)
-- **Node.js**: `18.x` or higher (`node -v`)
-- **Git**: (`git --version`)
+
+| Software | Minimum Version | Check Command |
+| :--- | :--- | :--- |
+| **Python** | `3.10` or higher | `python --version` |
+| **Node.js**| `18.x` or higher | `node -v` |
+| **Git** | `Latest` | `git --version` |
 
 ---
 
@@ -71,9 +79,12 @@ npm run dev
 
 ### Step 4: Access the Application
 Open your browser and navigate to:
-- **Main Portal & Assistant**: [http://localhost:3000](http://localhost:3000)
-- **3D Interactive Body Explorer**: [http://localhost:3000/vibrant](http://localhost:3000/vibrant)
-- **ABHA & Health Records**: [http://localhost:3000/records](http://localhost:3000/records)
+
+| Interface | URL |
+| :--- | :--- |
+| **Main Portal & Assistant** | [http://localhost:3000](http://localhost:3000) |
+| **3D Interactive Body Explorer**| [http://localhost:3000/vibrant](http://localhost:3000/vibrant) |
+| **ABHA & Health Records** | [http://localhost:3000/records](http://localhost:3000/records) |
 
 ---
 
@@ -115,3 +126,10 @@ python -m pip install ultralytics
 | **Digital Health Twin** | `POST /api/digital-twin/simulate`| Physiological organ vitality engine |
 | **WhatsApp Webhook** | `POST /api/whatsapp/webhook` | Multi-channel prescription parser |
 | **ABDM / ABHA Vault** | `POST /api/abha/verify` | Polygon blockchain cryptographic seal |
+
+---
+<div align="center">
+
+### 🔹 built with love by TEAM, AC-DC FOR SMART VIThackathon(SVH)-2026
+
+</div>

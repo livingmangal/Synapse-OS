@@ -4,7 +4,7 @@
 
 # AI-Driven Public Health Chatbot for Disease Awareness
 
-**Open-Source · Multi-Agent Clinical AI · Hackathon Edition — ICDC Smart VIT 2026**
+**Open-Source · Multi-Agent Clinical AI · Hackathon Edition — SMART VIThackathon(SVH)-2026**
 
 *A multilingual AI chatbot designed to educate rural and semi-urban populations about preventive healthcare, disease symptoms, and vaccination schedules. It integrates with government health databases and provides real-time alerts for outbreaks. Powered by a swarm of 13 specialized AI agents, it bridges the gap between everyday health tracking and complex clinical intelligence — with government ABDM compliance, blockchain-verified records, and multilingual accessibility for 650+ million rural citizens.*
 
@@ -33,7 +33,7 @@
 | Icon | Section | Description | Link |
 | :---: | :--- | :--- | :--- |
 | 📸 | **Product & Interface Showcase** | Visual gallery of the SynapseOS platform | [Go to section](#-product--interface-showcase) |
-| 🎯 | **Hackathon Problem Statement** | Alignment with ICDC Smart VIT 2026 goals | [Go to section](#-hackathon-problem-statement--solution-mapping) |
+| 🎯 | **Hackathon Problem Statement** | Alignment with SMART VIThackathon(SVH)-2026 goals | [Go to section](#-hackathon-problem-statement--solution-mapping) |
 | 📝 | **Executive Summary** | High-level overview of the health platform | [Go to section](#1-executive-summary) |
 | 🏗️ | **Official Architecture Diagrams** | System flows and user journey maps | [Go to section](#2-official-architecture-diagrams) |
 | 🏛️ | **System Architecture** | N-tier omnichannel and microservices design | [Go to section](#3-system-architecture) |
@@ -115,7 +115,7 @@
 
 ## 📝 1. Executive Summary
 
-SynapseOS is an open-source, production-grade **multi-agent health operating system** built for the ICDC Smart VIT Hackathon 2026. It deploys a swarm of 13 specialized autonomous AI agents — each independently testable and hot-swappable — coordinated by a central Orchestrator DAG (Directed Acyclic Graph) pipeline.
+SynapseOS is an open-source, production-grade **multi-agent health operating system** built for the SMART VIThackathon(SVH)-2026. It deploys a swarm of 13 specialized autonomous AI agents — each independently testable and hot-swappable — coordinated by a central Orchestrator DAG (Directed Acyclic Graph) pipeline.
 
 **The platform solves India's three critical digital healthcare failures:**
 
@@ -923,7 +923,7 @@ We welcome contributions from developers, healthcare professionals, and public h
 
 The smart contract component (`blockchain/contracts/`) is licensed under **ISC**.
 
-The remainder of the repository is provided for the **ICDC Smart VIT Hackathon 2026**. If you wish to use, fork, or build upon this project beyond hackathon evaluation, please open an issue to discuss licensing terms with the maintainers.
+The remainder of the repository is provided for the **SMART VIThackathon(SVH)-2026**. If you wish to use, fork, or build upon this project beyond hackathon evaluation, please open an issue to discuss licensing terms with the maintainers.
 
 ---
 
@@ -931,7 +931,7 @@ The remainder of the repository is provided for the **ICDC Smart VIT Hackathon 2
 
 ---
 
-### 🔹 Built with ❤️ for ICDC Smart VIT Hackathon 2026
+### 🔹 built with love by   TEAM, AC-DC FOR SMART VIThackathon(SVH)-2026
 
 *SynapseOS — Autonomous AI Health for Every Indian*
 

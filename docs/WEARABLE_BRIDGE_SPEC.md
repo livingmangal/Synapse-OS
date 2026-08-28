@@ -192,3 +192,10 @@ suspend fun syncVitalsToSynapseOS() {
 | **Step Count** | `41950-7` | `http://loinc.org` | Number of steps in 24 hour Measured |
 | **Sleep Duration** | `93832-4` | `http://loinc.org` | Sleep duration |
 | **ECG Rhythm** | `11524-6` | `http://loinc.org` | EKG study (Single Lead I interpretation) |
+
+---
+<div align="center">
+
+### 🔹 built with love by TEAM, AC-DC FOR SMART VIThackathon(SVH)-2026
+
+</div>

@@ -1,5 +1,8 @@
 # 🐳 SynapseOS: Production Containerization & Cloud Orchestration Architecture
 
+[![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?style=flat-square&logo=docker)](https://docker.com)
+[![Kubernetes](https://img.shields.io/badge/Kubernetes-Manifests-326CE5?style=flat-square&logo=kubernetes)](https://kubernetes.io)
+
 This document provides a comprehensive technical blueprint for containerizing, orchestrating, and scaling the **SynapseOS / Sanjeevni AI Health Operating System** across Docker, Docker Compose, Kubernetes (K8s), and cloud-native infrastructure.
 
 ---
@@ -113,3 +116,10 @@ As the platform scales to national-scale deployments (e.g. millions of rural use
 
 ### 5. **HIPAA & ABDM Compliant Vault Management**
 - HashiCorp Vault integration for dynamic key rotation of ABDM ABHA private keys, Google Gemini API tokens, and Meta WhatsApp Cloud secrets.
+
+---
+<div align="center">
+
+### 🔹 built with love by TEAM, AC-DC FOR SMART VIThackathon(SVH)-2026
+
+</div>

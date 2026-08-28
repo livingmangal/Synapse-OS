@@ -1,6 +1,11 @@
-# 🐍 SynapseOS — Backend API & Architecture Guide
+# 🐍 SynapseOS — Backend API & Architecture
 
-Comprehensive developer guide for setting up, running, testing, and extending the **SynapseOS Multi-Agent FastAPI Backend**.
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.110+-009688?style=flat-square&logo=fastapi)](https://fastapi.tiangolo.com/)
+[![Python](https://img.shields.io/badge/Python-3.11-3776AB?style=flat-square&logo=python)](https://python.org)
+[![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?style=flat-square&logo=docker)](https://docker.com)
+[![Pydantic](https://img.shields.io/badge/Pydantic-E92063?style=flat-square&logo=pydantic&logoColor=white)](https://pydantic.dev)
+
+Comprehensive developer guide for setting up, running, testing, and extending the **SynapseOS Multi-Agent FastAPI Backend** for the SMART VIThackathon(SVH)-2026.
 
 ---
 
@@ -27,9 +32,11 @@ python -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8000 --reload
 
 ## 🔗 Documentation & Interactive Endpoints
 
-- **Root Health Check**: [`http://127.0.0.1:8000/`](http://127.0.0.1:8000/)
-- **Interactive Swagger UI**: [`http://127.0.0.1:8000/docs`](http://127.0.0.1:8000/docs)
-- **ReDoc API Documentation**: [`http://127.0.0.1:8000/redoc`](http://127.0.0.1:8000/redoc)
+| Resource | URL | Description |
+| :--- | :--- | :--- |
+| **Root Health Check** | [`http://127.0.0.1:8000/`](http://127.0.0.1:8000/) | Verify API status |
+| **Interactive Swagger UI** | [`http://127.0.0.1:8000/docs`](http://127.0.0.1:8000/docs) | Test API endpoints live |
+| **ReDoc API Documentation** | [`http://127.0.0.1:8000/redoc`](http://127.0.0.1:8000/redoc) | Detailed schema reference |
 
 ---
 
@@ -90,3 +97,10 @@ backend/
 ├── Final.pt               # FractureNet YOLOv8 bone fracture model weights
 └── requirements.txt       # Python dependencies
 ```
+
+---
+<div align="center">
+
+### 🔹 built with love by TEAM, AC-DC FOR SMART VIThackathon(SVH)-2026
+
+</div>

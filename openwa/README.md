@@ -1,20 +1,27 @@
 # 📱 SynapseOS — OpenWA WhatsApp Omnichannel Gateway
 
+[![Node.js](https://img.shields.io/badge/Node.js-20.x-339933?style=flat-square&logo=node.js)](https://nodejs.org/)
+[![WhatsApp](https://img.shields.io/badge/WhatsApp-Cloud_API-25D366?style=flat-square&logo=whatsapp)](https://business.whatsapp.com/)
+[![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?style=flat-square&logo=docker)](https://docker.com)
+
 A standalone, modular gateway bridging **WhatsApp** to the **SynapseOS Multi-Agent Clinical Operating System**.
 
 ---
 
 ## 🌟 Overview
 
-The OpenWA integration allows patients and doctors to interact with SynapseOS directly through WhatsApp:
-- **Interactive Menu Flow**: Automated response to greetings (`hi`, `hello`, `menu`, `help`, `start`).
-- **Clinical Triage Swarm**: Immediate urgency classification (**🔴 Emergency**, **🟡 Doctor Consult**, **🟢 Home Care**).
-- **NIH RxNav Drug Safety**: Cross-checks medications for dangerous interactions and flags safe alternatives.
-- **Medical Vision AI**: Instant analysis of bone fractures (YOLOv8), chest radiographs (MONAI), and prescriptions (TrOCR) when photos are sent via chat.
-- **Tele-MANAS Counseling**: Grounded mental health coping strategies and 24/7 hotline integration (`14416`).
-- **Doctor Appointments**: Empanelled PM-JAY doctor search and digital calendar booking.
-- **ABDM ABHA Passport**: National Health ID and Ayushman Bharat benefits overview.
-- **Emergency SOS**: 1-click GPS broadcast and emergency services coordination (`112`, `108`).
+The OpenWA integration allows patients and doctors to interact with SynapseOS directly through WhatsApp. By bridging the world's most popular messaging app to our clinical AI, we ensure maximum accessibility for rural populations.
+
+| Capability | Description |
+| :--- | :--- |
+| **Interactive Menu Flow** | Automated response to greetings (`hi`, `hello`, `menu`, `help`, `start`). |
+| **Clinical Triage Swarm** | Immediate urgency classification (**🔴 Emergency**, **🟡 Doctor Consult**, **🟢 Home Care**). |
+| **NIH RxNav Drug Safety** | Cross-checks medications for dangerous interactions and flags safe alternatives. |
+| **Medical Vision AI** | Instant analysis of bone fractures (YOLOv8), chest radiographs (MONAI), and prescriptions (TrOCR) when photos are sent via chat. |
+| **Tele-MANAS Counseling** | Grounded mental health coping strategies and 24/7 hotline integration (`14416`). |
+| **Doctor Appointments** | Empanelled PM-JAY doctor search and digital calendar booking. |
+| **ABDM ABHA Passport** | National Health ID and Ayushman Bharat benefits overview. |
+| **Emergency SOS** | 1-click GPS broadcast and emergency services coordination (`112`, `108`). |
 
 ---
 
@@ -75,3 +82,10 @@ curl -X POST http://127.0.0.1:8000/api/whatsapp/simulate \
 | `5 <specialty>` | Finds nearby empanelled doctors | `5 Cardiologist` |
 | `6` | Retrieves ABHA ID and PM-JAY schemes | `6` |
 | `SOS` | Activates immediate emergency alert | `SOS` |
+
+---
+<div align="center">
+
+### 🔹 built with love by TEAM, AC-DC FOR SMART VIThackathon(SVH)-2026
+
+</div>
