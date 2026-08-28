@@ -2,11 +2,13 @@ import { MockHealthProfile } from './types';
 
 export const mausamKarProfile: MockHealthProfile = {
   profileId: 'mausam_kar_verified_abha',
+  isAdmin: true,
+  role: 'National Epidemic Surveillance Administrator (Admin)',
   title: 'Mausam Kar (Verified ABHA Profile)',
   subtitle: 'ABHA: 91-7294-8102-5309 • PM-JAY Verified • Optimal Vitals',
   jsonPath: '/data/mockHealthData/mausam_kar_abha_profile.json',
   badge: {
-    label: 'ABDM Verified Citizen',
+    label: 'ABDM Admin / Epidemiologist',
     color: '#0284c7',
     bg: '#e0f2fe',
     border: '#bae6fd'

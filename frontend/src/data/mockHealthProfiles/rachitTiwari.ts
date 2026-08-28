@@ -2,6 +2,8 @@ import { MockHealthProfile } from './types';
 
 export const rachitTiwariProfile: MockHealthProfile = {
   profileId: 'rachit_tiwari_verified_abha',
+  isAdmin: false,
+  role: 'Verified ABDM Citizen / Patient',
   title: 'Rachit Tiwari (Verified ABHA Profile)',
   subtitle: 'ABHA: 91-8842-1920-7463 • PM-JAY Verified • Optimal Vitals',
   jsonPath: '/data/mockHealthData/rachit_tiwari_abha_profile.json',

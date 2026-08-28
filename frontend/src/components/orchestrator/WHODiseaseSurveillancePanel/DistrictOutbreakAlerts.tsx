@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
-import { ShieldAlert, AlertTriangle, Send, CheckCircle2, Phone, MapPin, Activity, Radio, Users, Sparkles, MessageSquare } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { ShieldAlert, AlertTriangle, Send, CheckCircle2, Phone, MapPin, Activity, Radio, Users, Sparkles, MessageSquare, Lock, ShieldCheck, Info, X } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
+import { MOCK_HEALTH_PROFILES, MockHealthProfile, mausamKarProfile } from '@/data/mockHealthProfiles';
 
 interface DistrictSurveillanceItem {
   id: string;
@@ -125,10 +126,46 @@ export default function DistrictOutbreakAlerts() {
   const [selectedDistrictId, setSelectedDistrictId] = useState<string>('delhi');
   const [isBroadcasting, setIsBroadcasting] = useState<boolean>(false);
   const [broadcastResult, setBroadcastResult] = useState<any>(null);
+  const [showAdminNoticeModal, setShowAdminNoticeModal] = useState<boolean>(false);
+
+  // Active Profile & Admin Verification State
+  const [activeProfileId, setActiveProfileId] = useState<string>('mausam_kar_verified_abha');
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const stored = localStorage.getItem('synapseos_selected_profile_id');
+        if (stored) {
+          setActiveProfileId(stored);
+        }
+      } catch (err) {
+        // localStorage not available
+      }
+
+      const handleProfileChange = (e: any) => {
+        if (e.detail?.profileId) {
+          setActiveProfileId(e.detail.profileId);
+          setBroadcastResult(null);
+        }
+      };
+
+      window.addEventListener('synapseos-profile-switch', handleProfileChange);
+      return () => window.removeEventListener('synapseos-profile-switch', handleProfileChange);
+    }
+  }, []);
+
+  const activeProfile = MOCK_HEALTH_PROFILES.find(p => p.profileId === activeProfileId) || mausamKarProfile;
+  // Admin is strictly Mausam Kar (or profile where isAdmin is true)
+  const isAdmin = activeProfile.isAdmin === true || activeProfile.profileId === 'mausam_kar_verified_abha';
 
   const activeDistrict = DISTRICT_DATABASE.find(d => d.id === selectedDistrictId) || DISTRICT_DATABASE[0];
 
   const handleBroadcastAlert = () => {
+    if (!isAdmin) {
+      setShowAdminNoticeModal(true);
+      return;
+    }
+
     setIsBroadcasting(true);
     setBroadcastResult(null);
 
@@ -140,6 +177,7 @@ export default function DistrictOutbreakAlerts() {
         channel: 'WhatsApp & 2G SMS Dual Broadcast',
         district: activeDistrict.district,
         pathogen: activeDistrict.primaryOutbreak,
+        authorizedAdmin: activeProfile.patient.name,
         status: 'DELIVERED_TO_COMMUNITY_ASHA_NETWORK'
       });
     }, 1000);
@@ -150,12 +188,11 @@ export default function DistrictOutbreakAlerts() {
       background: '#ffffff',
       borderRadius: '24px',
       border: '1.5px solid #bae6fd',
-      padding: '28px',
-      boxShadow: '0 4px 20px rgba(2, 132, 199, 0.05)',
+      padding: '26px 30px',
+      boxShadow: '0 8px 32px rgba(2, 132, 199, 0.05), 0 2px 8px rgba(219, 39, 119, 0.03)',
       display: 'flex',
       flexDirection: 'column',
-      gap: '20px',
-      fontFamily: '"Times New Roman", Times, serif'
+      gap: '22px'
     }}>
       
       {/* Header Banner */}
@@ -165,70 +202,146 @@ export default function DistrictOutbreakAlerts() {
         alignItems: 'center',
         flexWrap: 'wrap',
         gap: '16px',
-        borderBottom: '1px solid #fee2e2',
-        paddingBottom: '18px'
+        borderBottom: '1px solid #f1f5f9',
+        paddingBottom: '20px'
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
           <div style={{
-            width: '42px',
-            height: '42px',
+            width: '44px',
+            height: '44px',
             borderRadius: '12px',
-            background: '#fef2f2',
-            border: '1.5px solid #fecaca',
+            background: 'linear-gradient(135deg, #e0f2fe 0%, #fce7f3 100%)',
+            border: '1.5px solid #bae6fd',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: '#dc2626'
+            color: '#0284c7',
+            boxShadow: '0 2px 10px rgba(2, 132, 199, 0.12)'
           }}>
-            <Radio size={22} />
+            <Radio size={22} color="#0284c7" />
           </div>
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <h3 style={{ margin: 0, fontSize: '18px', fontWeight: 900, color: '#991b1b' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+              <h3 style={{ margin: 0, fontSize: '19px', fontWeight: 900, color: '#0f172a', letterSpacing: '-0.01em' }}>
                 {t('idsp_outbreak_title', 'Real-Time District Outbreak Early Warning & Push Alert System')}
               </h3>
               <span style={{
                 fontSize: '10px',
                 fontWeight: 800,
-                padding: '2px 8px',
-                borderRadius: '6px',
-                background: '#fee2e2',
-                color: '#b91c1c',
-                border: '1px solid #fca5a5'
+                padding: '3px 9px',
+                borderRadius: '999px',
+                background: 'linear-gradient(135deg, #fce7f3 0%, #fdf2f8 100%)',
+                color: '#db2777',
+                border: '1px solid #fbcfe8',
+                textTransform: 'uppercase',
+                letterSpacing: '0.04em'
               }}>
                 NCDC / IDSP Live Feed
               </span>
             </div>
-            <span style={{ fontSize: '12px', color: '#64748b' }}>
+            <span style={{ fontSize: '12.5px', color: '#475569', fontWeight: 500, marginTop: '3px', display: 'block' }}>
               Integrated Disease Surveillance Programme (MoHFW) • Proactive Community WhatsApp & SMS Advisories
             </span>
           </div>
         </div>
 
-        {/* 1-Click Broadcast Button */}
-        <button
-          onClick={handleBroadcastAlert}
-          disabled={isBroadcasting}
-          style={{
-            padding: '11px 22px',
-            borderRadius: '12px',
-            background: '#dc2626',
-            color: '#ffffff',
-            border: 'none',
-            fontWeight: 800,
-            fontSize: '13px',
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '8px',
-            boxShadow: '0 4px 14px rgba(220, 38, 38, 0.35)',
-            transition: 'all 0.15s ease'
-          }}
-        >
-          <Send size={15} />
-          {isBroadcasting ? 'Broadcasting to Community...' : `Broadcast Outbreak Alert (${activeDistrict.district.split(' ')[0]})`}
-        </button>
+        {/* 1-Click Broadcast Button (Role-Based Admin Gated) */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          {isAdmin ? (
+            <button
+              onClick={handleBroadcastAlert}
+              disabled={isBroadcasting}
+              style={{
+                padding: '11px 22px',
+                borderRadius: '12px',
+                background: 'linear-gradient(135deg, #0284c7 0%, #db2777 100%)',
+                color: '#ffffff',
+                border: 'none',
+                fontWeight: 800,
+                fontSize: '13px',
+                cursor: isBroadcasting ? 'not-allowed' : 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                boxShadow: '0 4px 18px rgba(219, 39, 119, 0.28)',
+                transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
+                opacity: isBroadcasting ? 0.8 : 1
+              }}
+            >
+              <Send size={15} />
+              <span>{isBroadcasting ? 'Broadcasting Push Advisory...' : `Broadcast Outbreak Alert (${activeDistrict.district.split(' ')[0]})`}</span>
+              <span style={{
+                fontSize: '9.5px',
+                fontWeight: 900,
+                background: 'rgba(255, 255, 255, 0.25)',
+                padding: '2px 6px',
+                borderRadius: '4px',
+                letterSpacing: '0.04em'
+              }}>
+                ADMIN
+              </span>
+            </button>
+          ) : (
+            <button
+              onClick={handleBroadcastAlert}
+              style={{
+                padding: '10px 18px',
+                borderRadius: '12px',
+                background: '#f8fafc',
+                color: '#64748b',
+                border: '1px solid #e2e8f0',
+                fontWeight: 700,
+                fontSize: '12.5px',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                transition: 'all 0.15s ease'
+              }}
+              title="Broadcast functionality is restricted to Admin (Mausam Kar)"
+            >
+              <Lock size={14} color="#94a3b8" />
+              <span>Broadcast Outbreak Alert</span>
+              <span style={{
+                fontSize: '9.5px',
+                fontWeight: 800,
+                background: '#f1f5f9',
+                border: '1px solid #cbd5e1',
+                color: '#64748b',
+                padding: '2px 7px',
+                borderRadius: '4px'
+              }}>
+                Admin Access Required
+              </span>
+            </button>
+          )}
+        </div>
       </div>
+
+      {/* Non-Admin Security Notice Banner (When viewing as Rachit or non-admin) */}
+      {!isAdmin && (
+        <div style={{
+          background: 'linear-gradient(135deg, #f0f9ff 0%, #fdf2f8 100%)',
+          borderRadius: '14px',
+          border: '1px solid #bae6fd',
+          padding: '10px 16px',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: '8px'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <Info size={16} color="#0284c7" />
+            <span style={{ fontSize: '12px', color: '#334155', fontWeight: 600 }}>
+              Viewing in Read-Only Telemetry Mode as <b>{activeProfile.patient.name}</b> ({activeProfile.role || 'Patient Profile'}).
+            </span>
+          </div>
+          <span style={{ fontSize: '11px', color: '#db2777', fontWeight: 700 }}>
+            🔒 Public 2G SMS/WhatsApp broadcasting restricted to Admin (Mausam Kar)
+          </span>
+        </div>
+      )}
 
       {/* District Pill Selector */}
       <div style={{ display: 'flex', gap: '8px', overflowX: 'auto', paddingBottom: '4px' }}>
@@ -244,28 +357,34 @@ export default function DistrictOutbreakAlerts() {
                 setBroadcastResult(null);
               }}
               style={{
-                padding: '10px 16px',
+                padding: '9px 16px',
                 borderRadius: '12px',
-                background: isSelected ? '#dc2626' : '#f8fafc',
+                background: isSelected ? 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)' : '#ffffff',
                 color: isSelected ? '#ffffff' : '#334155',
-                border: isSelected ? '1.5px solid #b91c1c' : '1px solid #e2e8f0',
-                fontWeight: isSelected ? 800 : 700,
-                fontSize: '12px',
+                border: isSelected ? '1px solid #0284c7' : '1px solid #e2e8f0',
+                fontWeight: isSelected ? 800 : 600,
+                fontSize: '12.5px',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '8px',
                 whiteSpace: 'nowrap',
+                boxShadow: isSelected ? '0 4px 14px rgba(2, 132, 199, 0.25)' : '0 1px 3px rgba(0,0,0,0.02)',
                 transition: 'all 0.15s ease'
               }}
             >
               <span>{d.district}</span>
               <span style={{
                 fontSize: '9.5px',
-                padding: '2px 6px',
-                borderRadius: '4px',
-                background: isSelected ? 'rgba(255,255,255,0.2)' : isHigh ? '#fee2e2' : '#fef3c7',
-                color: isSelected ? '#ffffff' : isHigh ? '#dc2626' : '#b45309',
+                padding: '2px 7px',
+                borderRadius: '999px',
+                background: isSelected 
+                  ? (isHigh ? 'rgba(219, 39, 119, 0.35)' : 'rgba(255, 255, 255, 0.25)')
+                  : (isHigh ? '#fdf2f8' : '#f0f9ff'),
+                color: isSelected ? '#ffffff' : (isHigh ? '#db2777' : '#0284c7'),
+                border: isSelected 
+                  ? '1px solid rgba(255,255,255,0.3)' 
+                  : (isHigh ? '1px solid #fbcfe8' : '1px solid #bae6fd'),
                 fontWeight: 800
               }}>
                 {isHigh ? 'HIGH' : 'WATCH'}
@@ -275,66 +394,100 @@ export default function DistrictOutbreakAlerts() {
         })}
       </div>
 
-      {/* Outbreak Metrics Grid */}
+      {/* Outbreak Metrics Grid in Bluish & Pinkish Theme */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '14px' }}>
-        <div style={{ background: '#f8fafc', padding: '16px', borderRadius: '14px', border: '1px solid #e2e8f0' }}>
-          <div style={{ fontSize: '11px', color: '#64748b', marginBottom: '4px' }}>Active Outbreak Pathogen</div>
-          <div style={{ fontSize: '15px', fontWeight: 900, color: '#0f172a' }}>{activeDistrict.primaryOutbreak}</div>
-          <div style={{ fontSize: '11px', color: '#0284c7', marginTop: '2px' }}>Strain: {activeDistrict.pathogen}</div>
+        <div style={{
+          background: 'linear-gradient(135deg, #f0f9ff 0%, #ffffff 100%)',
+          padding: '16px 18px',
+          borderRadius: '16px',
+          border: '1.2px solid #bae6fd',
+          boxShadow: '0 2px 8px rgba(2, 132, 199, 0.04)'
+        }}>
+          <div style={{ fontSize: '10.5px', fontWeight: 800, color: '#0284c7', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '4px' }}>
+            Active Outbreak Pathogen
+          </div>
+          <div style={{ fontSize: '15.5px', fontWeight: 900, color: '#0f172a' }}>{activeDistrict.primaryOutbreak}</div>
+          <div style={{ fontSize: '11.5px', color: '#0369a1', fontWeight: 600, marginTop: '2px' }}>Strain: {activeDistrict.pathogen}</div>
         </div>
 
-        <div style={{ background: '#fef2f2', padding: '16px', borderRadius: '14px', border: '1px solid #fecaca' }}>
-          <div style={{ fontSize: '11px', color: '#991b1b', marginBottom: '4px' }}>Epidemiological Risk Status</div>
-          <div style={{ fontSize: '15px', fontWeight: 900, color: '#dc2626' }}>{activeDistrict.riskBadge}</div>
-          <div style={{ fontSize: '11px', color: '#b91c1c', marginTop: '2px' }}>Velocity: <b>{activeDistrict.velocityPct}</b></div>
+        <div style={{
+          background: 'linear-gradient(135deg, #fdf2f8 0%, #ffffff 100%)',
+          padding: '16px 18px',
+          borderRadius: '16px',
+          border: '1.2px solid #fbcfe8',
+          boxShadow: '0 2px 8px rgba(219, 39, 119, 0.04)'
+        }}>
+          <div style={{ fontSize: '10.5px', fontWeight: 800, color: '#db2777', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '4px' }}>
+            Epidemiological Risk Status
+          </div>
+          <div style={{ fontSize: '15.5px', fontWeight: 900, color: '#be185d' }}>{activeDistrict.riskBadge}</div>
+          <div style={{ fontSize: '11.5px', color: '#9d174d', fontWeight: 600, marginTop: '2px' }}>Velocity: {activeDistrict.velocityPct}</div>
         </div>
 
-        <div style={{ background: '#f8fafc', padding: '16px', borderRadius: '14px', border: '1px solid #e2e8f0' }}>
-          <div style={{ fontSize: '11px', color: '#64748b', marginBottom: '4px' }}>Weekly Active Cases</div>
-          <div style={{ fontSize: '18px', fontWeight: 900, color: '#0f172a' }}>{activeDistrict.weeklyCases}</div>
-          <div style={{ fontSize: '11px', color: '#64748b', marginTop: '2px' }}>{activeDistrict.hotspotsCount} Active Containment Clusters</div>
+        <div style={{
+          background: 'linear-gradient(135deg, #f0f9ff 0%, #ffffff 100%)',
+          padding: '16px 18px',
+          borderRadius: '16px',
+          border: '1.2px solid #bae6fd',
+          boxShadow: '0 2px 8px rgba(2, 132, 199, 0.04)'
+        }}>
+          <div style={{ fontSize: '10.5px', fontWeight: 800, color: '#0284c7', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '4px' }}>
+            Weekly Active Cases
+          </div>
+          <div style={{ fontSize: '19px', fontWeight: 900, color: '#0f172a' }}>{activeDistrict.weeklyCases}</div>
+          <div style={{ fontSize: '11.5px', color: '#475569', fontWeight: 500, marginTop: '2px' }}>{activeDistrict.hotspotsCount} Active Containment Clusters</div>
         </div>
 
-        <div style={{ background: '#f8fafc', padding: '16px', borderRadius: '14px', border: '1px solid #e2e8f0' }}>
-          <div style={{ fontSize: '11px', color: '#64748b', marginBottom: '4px' }}>District Helpline</div>
-          <div style={{ fontSize: '13px', fontWeight: 900, color: '#059669' }}>{activeDistrict.helpline}</div>
-          <div style={{ fontSize: '11px', color: '#64748b', marginTop: '2px' }}>National Toll-Free: 1075 / 112</div>
+        <div style={{
+          background: 'linear-gradient(135deg, #fdf2f8 0%, #ffffff 100%)',
+          padding: '16px 18px',
+          borderRadius: '16px',
+          border: '1.2px solid #fbcfe8',
+          boxShadow: '0 2px 8px rgba(219, 39, 119, 0.04)'
+        }}>
+          <div style={{ fontSize: '10.5px', fontWeight: 800, color: '#db2777', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '4px' }}>
+            District Helpline
+          </div>
+          <div style={{ fontSize: '13px', fontWeight: 900, color: '#db2777' }}>{activeDistrict.helpline}</div>
+          <div style={{ fontSize: '11.5px', color: '#64748b', fontWeight: 500, marginTop: '2px' }}>National Toll-Free: 1075 / 112</div>
         </div>
       </div>
 
-      {/* Directive & Hotspots Box */}
+      {/* Directive & Hotspots Box in Luminous Bluish-Pinkish Gradient */}
       <div style={{
-        background: '#fffbeb',
-        borderRadius: '16px',
-        border: '1.5px solid #fde68a',
-        padding: '20px',
+        background: 'linear-gradient(135deg, #f0f9ff 0%, #fdf2f8 50%, #e0f2fe 100%)',
+        borderRadius: '18px',
+        border: '1.5px solid #bae6fd',
+        padding: '20px 24px',
         display: 'flex',
         flexDirection: 'column',
-        gap: '10px'
+        gap: '10px',
+        boxShadow: '0 2px 12px rgba(2, 132, 199, 0.04)'
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <AlertTriangle size={18} color="#b45309" />
-          <span style={{ fontSize: '14px', fontWeight: 800, color: '#92400e' }}>
+          <AlertTriangle size={18} color="#0284c7" />
+          <span style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a' }}>
             Actionable Public Health Directive for {activeDistrict.district} ({activeDistrict.state}):
           </span>
         </div>
-        <p style={{ margin: 0, fontSize: '13px', color: '#78350f', lineHeight: 1.5 }}>
+        <p style={{ margin: 0, fontSize: '13px', color: '#334155', lineHeight: 1.6, fontWeight: 500 }}>
           {activeDistrict.preventiveAdvisory}
         </p>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', marginTop: '4px' }}>
-          <span style={{ fontSize: '11.5px', fontWeight: 800, color: '#92400e' }}>High-Surge Localities:</span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', marginTop: '2px' }}>
+          <span style={{ fontSize: '11px', fontWeight: 800, color: '#db2777', textTransform: 'uppercase', letterSpacing: '0.04em' }}>High-Surge Localities:</span>
           {activeDistrict.affectedZones.map((zone, idx) => (
             <span
               key={idx}
               style={{
-                fontSize: '11px',
+                fontSize: '11.5px',
                 fontWeight: 700,
-                padding: '3px 8px',
-                borderRadius: '6px',
+                padding: '4px 10px',
+                borderRadius: '8px',
                 background: '#ffffff',
-                border: '1px solid #fcd34d',
-                color: '#b45309'
+                border: '1px solid #fbcfe8',
+                color: '#db2777',
+                boxShadow: '0 2px 6px rgba(219, 39, 119, 0.08)'
               }}
             >
               📍 {zone}
@@ -346,37 +499,149 @@ export default function DistrictOutbreakAlerts() {
       {/* Broadcast Delivery Confirmation Toast */}
       {broadcastResult && (
         <div style={{
-          background: '#f0fdf4',
-          borderRadius: '14px',
+          background: 'linear-gradient(135deg, #f0fdf4 0%, #fdf2f8 100%)',
+          borderRadius: '16px',
           border: '1.5px solid #86efac',
-          padding: '16px 20px',
+          padding: '18px 22px',
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
           flexWrap: 'wrap',
-          gap: '12px'
+          gap: '12px',
+          boxShadow: '0 4px 16px rgba(22, 163, 74, 0.08)'
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <CheckCircle2 size={20} color="#16a34a" />
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <CheckCircle2 size={22} color="#16a34a" />
             <div>
-              <div style={{ fontSize: '13px', fontWeight: 800, color: '#14532d' }}>
+              <div style={{ fontSize: '13.5px', fontWeight: 800, color: '#14532d' }}>
                 Outbreak Alert Successfully Broadcasted ({broadcastResult.dispatchedAt})
               </div>
-              <div style={{ fontSize: '11.5px', color: '#166534' }}>
-                Delivered to <b>{broadcastResult.totalRecipients}</b> registered community members & ASHA workers in {broadcastResult.district} via WhatsApp and 2G SMS.
+              <div style={{ fontSize: '12px', color: '#166534', marginTop: '2px' }}>
+                Dispatched by <b>{broadcastResult.authorizedAdmin}</b> (Admin) • Delivered to <b>{broadcastResult.totalRecipients}</b> registered community members & ASHA workers in {broadcastResult.district} via WhatsApp and 2G SMS.
               </div>
             </div>
           </div>
           <span style={{
             fontSize: '11px',
             fontWeight: 800,
-            padding: '4px 10px',
-            borderRadius: '6px',
+            padding: '5px 12px',
+            borderRadius: '8px',
             background: '#dcfce7',
-            color: '#15803d'
+            color: '#15803d',
+            border: '1px solid #86efac'
           }}>
             ✓ Broadcast Confirmed
           </span>
+        </div>
+      )}
+
+      {/* Admin Access Restriction Notice Modal */}
+      {showAdminNoticeModal && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'rgba(15, 23, 42, 0.65)',
+          backdropFilter: 'blur(6px)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 9999,
+          padding: '20px'
+        }}>
+          <div style={{
+            background: '#ffffff',
+            borderRadius: '24px',
+            border: '1.5px solid #bae6fd',
+            maxWidth: '500px',
+            width: '100%',
+            padding: '28px',
+            boxShadow: '0 20px 50px rgba(0,0,0,0.25)',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '18px',
+            position: 'relative'
+          }}>
+            <button
+              onClick={() => setShowAdminNoticeModal(false)}
+              style={{
+                position: 'absolute',
+                top: '18px',
+                right: '18px',
+                background: '#f1f5f9',
+                border: 'none',
+                borderRadius: '8px',
+                padding: '6px',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#64748b'
+              }}
+            >
+              <X size={16} />
+            </button>
+
+            <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+              <div style={{
+                width: '46px',
+                height: '46px',
+                borderRadius: '14px',
+                background: 'linear-gradient(135deg, #fce7f3 0%, #fdf2f8 100%)',
+                border: '1.5px solid #fbcfe8',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#db2777'
+              }}>
+                <Lock size={22} color="#db2777" />
+              </div>
+              <div>
+                <h4 style={{ margin: 0, fontSize: '17px', fontWeight: 900, color: '#0f172a' }}>
+                  Admin Authorization Required
+                </h4>
+                <span style={{ fontSize: '12px', color: '#64748b' }}>
+                  Access Restricted • National Epidemic Warning Protocol
+                </span>
+              </div>
+            </div>
+
+            <div style={{
+              background: '#f8fafc',
+              borderRadius: '14px',
+              border: '1px solid #e2e8f0',
+              padding: '14px 16px',
+              fontSize: '12.5px',
+              color: '#334155',
+              lineHeight: 1.6
+            }}>
+              Outbreak push-broadcasting to multi-channel 2G GSM SMS & WhatsApp community networks is privileged to prevent unauthorized or unintended public panic.
+              <br /><br />
+              <b>Current Active User:</b> {activeProfile.patient.name} ({activeProfile.patient.abhaId})<br />
+              <b>Authorized Admin:</b> Mausam Kar (National IDSP Epidemiologist)
+            </div>
+
+            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px' }}>
+              <button
+                onClick={() => setShowAdminNoticeModal(false)}
+                style={{
+                  padding: '9px 18px',
+                  borderRadius: '10px',
+                  background: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
+                  color: '#ffffff',
+                  border: 'none',
+                  fontWeight: 800,
+                  fontSize: '12.5px',
+                  cursor: 'pointer',
+                  boxShadow: '0 2px 8px rgba(2, 132, 199, 0.2)'
+                }}
+              >
+                Acknowledge & Close
+              </button>
+            </div>
+          </div>
         </div>
       )}
 

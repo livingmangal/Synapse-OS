@@ -1,16 +1,23 @@
 import React from 'react';
-import { Persona } from '../types';
+import { Persona, SupportedLanguage } from '../types';
+import { getTranslation } from '../translations';
 
 interface PersonaSwitcherProps {
   assistantPersona: Persona;
   onPersonaChange: (persona: Persona) => void;
+  selectedLanguage?: SupportedLanguage;
 }
 
-export default function PersonaSwitcher({ assistantPersona, onPersonaChange }: PersonaSwitcherProps) {
+export default function PersonaSwitcher({ 
+  assistantPersona, 
+  onPersonaChange,
+  selectedLanguage = 'en'
+}: PersonaSwitcherProps) {
+  const t = getTranslation(selectedLanguage);
   const personas: Array<{ id: Persona; label: string; icon: string; title: string }> = [
-    { id: 'copilot', label: 'Clinical Copilot', icon: '🏥', title: 'General healthcare & multi-agent assistance' },
-    { id: 'triage', label: 'Triage Specialist', icon: '🩺', title: 'Emergency triage & symptom assessment' },
-    { id: 'nutrition', label: 'Metabolic & Nutrition', icon: '🥗', title: 'Macronutrients, diet & wellness planning' }
+    { id: 'copilot', label: t.personas.copilot.label, icon: '🏥', title: t.personas.copilot.full },
+    { id: 'triage', label: t.personas.triage.label, icon: '🩺', title: t.personas.triage.full },
+    { id: 'nutrition', label: t.personas.nutrition.label, icon: '🥗', title: t.personas.nutrition.full }
   ];
 
   return (

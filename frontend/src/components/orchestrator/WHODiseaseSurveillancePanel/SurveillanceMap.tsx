@@ -28,10 +28,14 @@ import {
   Biohazard,
   Flame,
   ChevronDown,
-  RefreshCw
+  RefreshCw,
+  Lock,
+  X,
+  CheckCircle2
 } from 'lucide-react';
 import { DiseaseProfile, RegionalHub } from './types';
 import { useLanguage } from '@/context/LanguageContext';
+import { MOCK_HEALTH_PROFILES, MockHealthProfile, mausamKarProfile } from '@/data/mockHealthProfiles';
 
 const GEO_URL = '/data/world-110m.json';
 
@@ -152,27 +156,85 @@ export default function SurveillanceMap({
 
   const timelineDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
+  // Active Profile & Admin Verification State for Regional Dispatch Alert
+  const [activeProfileId, setActiveProfileId] = useState<string>('mausam_kar_verified_abha');
+  const [isDispatching, setIsDispatching] = useState<boolean>(false);
+  const [dispatchResult, setDispatchResult] = useState<any>(null);
+  const [showAdminNoticeModal, setShowAdminNoticeModal] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const stored = localStorage.getItem('synapseos_selected_profile_id');
+        if (stored) {
+          setActiveProfileId(stored);
+        }
+      } catch (err) {
+        // localStorage not available
+      }
+
+      const handleProfileChange = (e: any) => {
+        if (e.detail?.profileId) {
+          setActiveProfileId(e.detail.profileId);
+          setDispatchResult(null);
+        }
+      };
+
+      window.addEventListener('synapseos-profile-switch', handleProfileChange);
+      return () => window.removeEventListener('synapseos-profile-switch', handleProfileChange);
+    }
+  }, []);
+
+  const activeProfile = MOCK_HEALTH_PROFILES.find(p => p.profileId === activeProfileId) || mausamKarProfile;
+  const isAdmin = activeProfile.isAdmin === true || activeProfile.profileId === 'mausam_kar_verified_abha';
+
+  const handleExportData = () => {
+    if (!selectedHub) return;
+    const payload = {
+      exportType: 'SYNAPSEOS_WHO_GIS_TELEMETRY',
+      timestamp: new Date().toISOString(),
+      disease: activeDisease,
+      selectedHub: selectedHub,
+      mapScope: mapScope,
+      activeLayers: activeLayers
+    };
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `synapseos_gis_${selectedHub.id}_telemetry.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const handleDispatchAlert = () => {
+    if (!isAdmin) {
+      setShowAdminNoticeModal(true);
+      return;
+    }
+
+    if (!selectedHub) return;
+    setIsDispatching(true);
+    setDispatchResult(null);
+
+    setTimeout(() => {
+      setIsDispatching(false);
+      setDispatchResult({
+        dispatchedAt: new Date().toLocaleTimeString(),
+        hub: selectedHub.name,
+        disease: activeDisease.name,
+        admin: activeProfile.patient.name,
+        activeCases: selectedHub.activeCases,
+        icuLoad: selectedHub.icuOccupancy
+      });
+    }, 800);
+  };
+
   const filteredDiseases = diseases.filter(d => 
     d.name.toLowerCase().includes(virusSearch.toLowerCase()) || 
     d.shortName.toLowerCase().includes(virusSearch.toLowerCase()) ||
     d.category.toLowerCase().includes(virusSearch.toLowerCase())
   );
-
-  const handleExportData = () => {
-    const dataStr = JSON.stringify({
-      disease: activeDisease.name,
-      scope: mapScope,
-      timestamp: new Date().toISOString(),
-      hubs: activeHubList
-    }, null, 2);
-    const blob = new Blob([dataStr], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `${activeDisease.id}_surveillance_telemetry.json`;
-    a.click();
-    URL.revokeObjectURL(url);
-  };
 
   return (
     <div style={{
@@ -968,87 +1030,290 @@ export default function SurveillanceMap({
         </div>
       </div>
 
-      {/* 3. Selected Node Deep-Dive Inspector Ribbon */}
+      {/* 3. Selected Node Deep-Dive Inspector Ribbon in Bluish-Pinkish Theme */}
       {selectedHub && !isFullscreen && (
         <div style={{
-          background: '#f8fafc',
-          borderRadius: '16px',
-          border: '1px solid #e2e8f0',
-          padding: '14px 18px',
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+          display: 'flex',
+          flexDirection: 'column',
           gap: '12px',
-          alignItems: 'center'
+          marginTop: '4px'
         }}>
-          <div>
-            <div style={{ fontSize: '9.5px', fontWeight: 800, color: '#64748b', textTransform: 'uppercase' }}>
-              SELECTED HUB TELEMETRY
+          <div style={{
+            background: 'linear-gradient(135deg, #f0f9ff 0%, #ffffff 50%, #fdf2f8 100%)',
+            borderRadius: '16px',
+            border: '1.2px solid #bae6fd',
+            padding: '14px 20px',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+            gap: '14px',
+            alignItems: 'center',
+            boxShadow: '0 4px 16px rgba(2, 132, 199, 0.04)'
+          }}>
+            <div>
+              <div style={{ fontSize: '10px', fontWeight: 800, color: '#0284c7', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                SELECTED HUB TELEMETRY
+              </div>
+              <div style={{ fontSize: '14.5px', fontWeight: 900, color: '#0f172a', display: 'flex', alignItems: 'center', gap: '6px', marginTop: '2px' }}>
+                <span>{selectedHub.name}</span>
+                <span style={{ fontSize: '11px', color: '#0284c7', fontWeight: 700 }}>({selectedHub.trend})</span>
+              </div>
             </div>
-            <div style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a', display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <span>{selectedHub.name}</span>
-              <span style={{ fontSize: '11px', color: '#0284c7', fontWeight: 700 }}>({selectedHub.trend})</span>
+
+            <div style={{ display: 'flex', gap: '16px' }}>
+              <div>
+                <div style={{ fontSize: '10px', color: '#64748b', fontWeight: 700, textTransform: 'uppercase' }}>Active Cases</div>
+                <div style={{ fontSize: '14px', fontWeight: 900, color: '#0284c7' }}>{selectedHub.activeCases}</div>
+              </div>
+              <div>
+                <div style={{ fontSize: '10px', color: '#64748b', fontWeight: 700, textTransform: 'uppercase' }}>Total Deaths</div>
+                <div style={{ fontSize: '14px', fontWeight: 900, color: '#db2777' }}>
+                  {selectedHub.deathsCount || 'N/A'}
+                </div>
+              </div>
+              <div>
+                <div style={{ fontSize: '10px', color: '#64748b', fontWeight: 700, textTransform: 'uppercase' }}>ICU Load</div>
+                <div style={{ fontSize: '14px', fontWeight: 900, color: selectedHub.icuOccupancy > 65 ? '#db2777' : '#0284c7' }}>
+                  {selectedHub.icuOccupancy}%
+                </div>
+              </div>
+            </div>
+
+            <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end', alignItems: 'center', flexWrap: 'wrap' }}>
+              <button
+                onClick={handleExportData}
+                style={{
+                  padding: '7px 14px',
+                  borderRadius: '10px',
+                  background: '#ffffff',
+                  border: '1px solid #bae6fd',
+                  fontSize: '11.5px',
+                  fontWeight: 700,
+                  color: '#0284c7',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  cursor: 'pointer',
+                  boxShadow: '0 1px 3px rgba(0,0,0,0.02)',
+                  transition: 'all 0.15s ease'
+                }}
+              >
+                <Download size={13} color="#0284c7" />
+                <span>Export GIS JSON</span>
+              </button>
+
+              {isAdmin ? (
+                <button
+                  onClick={handleDispatchAlert}
+                  disabled={isDispatching}
+                  style={{
+                    padding: '7px 16px',
+                    borderRadius: '10px',
+                    background: 'linear-gradient(135deg, #0284c7 0%, #db2777 100%)',
+                    border: 'none',
+                    fontSize: '11.5px',
+                    fontWeight: 800,
+                    color: '#ffffff',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    cursor: isDispatching ? 'not-allowed' : 'pointer',
+                    boxShadow: '0 3px 12px rgba(219, 39, 119, 0.28)',
+                    transition: 'all 0.15s ease',
+                    opacity: isDispatching ? 0.8 : 1
+                  }}
+                >
+                  <ShieldAlert size={13} />
+                  <span>{isDispatching ? 'Dispatching...' : 'Dispatch Alert'}</span>
+                  <span style={{
+                    fontSize: '9px',
+                    fontWeight: 900,
+                    background: 'rgba(255, 255, 255, 0.25)',
+                    padding: '1px 5px',
+                    borderRadius: '4px',
+                    letterSpacing: '0.04em'
+                  }}>
+                    ADMIN
+                  </span>
+                </button>
+              ) : (
+                <button
+                  onClick={handleDispatchAlert}
+                  style={{
+                    padding: '7px 14px',
+                    borderRadius: '10px',
+                    background: '#f8fafc',
+                    border: '1px solid #e2e8f0',
+                    fontSize: '11.5px',
+                    fontWeight: 700,
+                    color: '#64748b',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    cursor: 'pointer',
+                    transition: 'all 0.15s ease'
+                  }}
+                  title="Dispatching regional alerts is restricted to Admin (Mausam Kar)"
+                >
+                  <Lock size={12} color="#94a3b8" />
+                  <span>Dispatch Alert</span>
+                  <span style={{
+                    fontSize: '9px',
+                    fontWeight: 800,
+                    background: '#f1f5f9',
+                    border: '1px solid #cbd5e1',
+                    color: '#64748b',
+                    padding: '1px 5px',
+                    borderRadius: '4px'
+                  }}>
+                    Admin Only
+                  </span>
+                </button>
+              )}
             </div>
           </div>
 
-          <div style={{ display: 'flex', gap: '14px' }}>
-            <div>
-              <div style={{ fontSize: '9.5px', color: '#64748b' }}>Active Cases</div>
-              <div style={{ fontSize: '13px', fontWeight: 800, color: '#0284c7' }}>{selectedHub.activeCases}</div>
-            </div>
-            <div>
-              <div style={{ fontSize: '9.5px', color: '#64748b' }}>Total Deaths</div>
-              <div style={{ fontSize: '13px', fontWeight: 800, color: '#ef4444' }}>
-                {selectedHub.deathsCount || 'N/A'}
+          {/* Dispatch Confirmation Toast */}
+          {dispatchResult && (
+            <div style={{
+              background: 'linear-gradient(135deg, #f0fdf4 0%, #fdf2f8 100%)',
+              borderRadius: '14px',
+              border: '1px solid #86efac',
+              padding: '12px 18px',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              flexWrap: 'wrap',
+              gap: '10px',
+              boxShadow: '0 2px 10px rgba(22, 163, 74, 0.08)'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <CheckCircle2 size={18} color="#16a34a" />
+                <div style={{ fontSize: '12.5px', color: '#14532d', fontWeight: 600 }}>
+                  🚨 <b>Emergency Epidemiology Alert Dispatched ({dispatchResult.dispatchedAt}):</b> Telemetry for <b>{dispatchResult.hub}</b> ({dispatchResult.disease}) transmitted to Emergency Operations Center by Authorized Admin <b>{dispatchResult.admin}</b>.
+                </div>
               </div>
+              <span style={{
+                fontSize: '10.5px',
+                fontWeight: 800,
+                padding: '3px 9px',
+                borderRadius: '6px',
+                background: '#dcfce7',
+                color: '#15803d',
+                border: '1px solid #86efac'
+              }}>
+                ✓ Dispatch Active
+              </span>
             </div>
-            <div>
-              <div style={{ fontSize: '9.5px', color: '#64748b' }}>ICU Load</div>
-              <div style={{ fontSize: '13px', fontWeight: 800, color: selectedHub.icuOccupancy > 65 ? '#ef4444' : '#0284c7' }}>
-                {selectedHub.icuOccupancy}%
-              </div>
-            </div>
-          </div>
+          )}
+        </div>
+      )}
 
-          <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
+      {/* Admin Access Restriction Notice Modal for Map Dispatch */}
+      {showAdminNoticeModal && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'rgba(15, 23, 42, 0.65)',
+          backdropFilter: 'blur(6px)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 9999,
+          padding: '20px'
+        }}>
+          <div style={{
+            background: '#ffffff',
+            borderRadius: '24px',
+            border: '1.5px solid #bae6fd',
+            maxWidth: '500px',
+            width: '100%',
+            padding: '28px',
+            boxShadow: '0 20px 50px rgba(0,0,0,0.25)',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '18px',
+            position: 'relative'
+          }}>
             <button
-              onClick={handleExportData}
+              onClick={() => setShowAdminNoticeModal(false)}
               style={{
-                padding: '6px 12px',
-                borderRadius: '8px',
-                background: '#ffffff',
-                border: '1px solid #cbd5e1',
-                fontSize: '11px',
-                fontWeight: 700,
-                color: '#334155',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '5px',
-                cursor: 'pointer'
-              }}
-            >
-              <Download size={12} color="#0284c7" />
-              <span>Export GIS JSON</span>
-            </button>
-            <button
-              onClick={() => alert(`Connecting with Emergency Epidemiology Center for ${selectedHub.name}...`)}
-              style={{
-                padding: '6px 14px',
-                borderRadius: '8px',
-                background: '#0284c7',
+                position: 'absolute',
+                top: '18px',
+                right: '18px',
+                background: '#f1f5f9',
                 border: 'none',
-                fontSize: '11px',
-                fontWeight: 700,
-                color: '#ffffff',
+                borderRadius: '8px',
+                padding: '6px',
+                cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '5px',
-                cursor: 'pointer',
-                boxShadow: '0 2px 8px rgba(2,132,199,0.3)'
+                justifyContent: 'center',
+                color: '#64748b'
               }}
             >
-              <ShieldAlert size={12} />
-              <span>Dispatch Alert</span>
+              <X size={16} />
             </button>
+
+            <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+              <div style={{
+                width: '46px',
+                height: '46px',
+                borderRadius: '14px',
+                background: 'linear-gradient(135deg, #fce7f3 0%, #fdf2f8 100%)',
+                border: '1.5px solid #fbcfe8',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#db2777'
+              }}>
+                <Lock size={22} color="#db2777" />
+              </div>
+              <div>
+                <h4 style={{ margin: 0, fontSize: '17px', fontWeight: 900, color: '#0f172a' }}>
+                  Admin Authorization Required
+                </h4>
+                <span style={{ fontSize: '12px', color: '#64748b' }}>
+                  Access Restricted • Regional Epidemic Dispatch Protocol
+                </span>
+              </div>
+            </div>
+
+            <div style={{
+              background: '#f8fafc',
+              borderRadius: '14px',
+              border: '1px solid #e2e8f0',
+              padding: '14px 16px',
+              fontSize: '12.5px',
+              color: '#334155',
+              lineHeight: 1.6
+            }}>
+              Dispatching regional outbreak alerts and emergency response teams for <b>{selectedHub?.name}</b> is strictly restricted to prevent unauthorized crisis triggers.
+              <br /><br />
+              <b>Current Active User:</b> {activeProfile.patient.name} ({activeProfile.patient.abhaId})<br />
+              <b>Authorized Administrator:</b> Mausam Kar (National IDSP Epidemiologist)
+            </div>
+
+            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px' }}>
+              <button
+                onClick={() => setShowAdminNoticeModal(false)}
+                style={{
+                  padding: '9px 18px',
+                  borderRadius: '10px',
+                  background: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
+                  color: '#ffffff',
+                  border: 'none',
+                  fontWeight: 800,
+                  fontSize: '12.5px',
+                  cursor: 'pointer',
+                  boxShadow: '0 2px 8px rgba(2, 132, 199, 0.2)'
+                }}
+              >
+                Acknowledge & Close
+              </button>
+            </div>
           </div>
         </div>
       )}

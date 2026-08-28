@@ -14,7 +14,8 @@ import {
   VoiceModeOverlay,
   WhatsAppBridgeModal,
   ChatHistoryDrawer,
-  SettingsDrawer
+  SettingsDrawer,
+  FullScreenWorkspace
 } from './assistant';
 
 export default function SynapseOSAssistantModal() {
@@ -33,6 +34,10 @@ export default function SynapseOSAssistantModal() {
     handleLanguageChange,
     geminiApiKey,
     setGeminiApiKey,
+    groqApiKey,
+    setGroqApiKey,
+    activeProfileId,
+    handleSelectProfile,
     showKeyText,
     setShowKeyText,
     vapiPublicKey,
@@ -111,135 +116,209 @@ export default function SynapseOSAssistantModal() {
         onToggle={() => setIsOpen(!isOpen)}
       />
 
-      {/* Main Assistant Modal Window */}
+      {/* Main Assistant Window (Fullscreen Cockpit vs. Compact Floating Modal) */}
       {isOpen && (
-        <div className={`synapseos-modal-window synapseos-root ${isFullscreen ? 'synapseos-modal-fullscreen' : ''}`} data-lenis-prevent="true">
-          
-          {/* Header Bar */}
-          <AssistantHeader
-            persona={assistantPersona}
-            activeTab={activeTab}
-            waConnected={waConnected}
-            isFullscreen={isFullscreen}
-            onTabChange={setActiveTab}
-            onToggleFullscreen={() => setIsFullscreen(prev => !prev)}
+        isFullscreen ? (
+          /* FULLSCREEN MEDICAL AI WORKSPACE (4-ZONE STRUCTURED GRID) */
+          <FullScreenWorkspace
+            activeProfileId={activeProfileId}
+            onSelectProfile={handleSelectProfile}
+            assistantPersona={assistantPersona}
+            onPersonaChange={handlePersonaChange}
+            selectedModel={selectedModel}
+            setSelectedModel={setSelectedModel}
+            selectedLanguage={selectedLanguage}
+            onLanguageChange={handleLanguageChange}
+            messages={messages}
+            loading={loading}
+            copiedId={copiedId}
+            messagesEndRef={messagesEndRef}
+            inputRef={inputRef}
+            input={input}
+            setInput={setInput}
+            isListening={isListening}
+            callActive={callActive}
+            isVoiceMode={isVoiceMode}
+            voiceState={voiceState}
+            liveTranscript={liveTranscript}
+            aiSpeechText={aiSpeechText}
+            isMuted={isMuted}
+            toggleMute={toggleMute}
+            exitVoiceMode={exitVoiceMode}
+            onSend={handleSend}
+            onToggleVoice={startVoiceMode}
+            onCopy={handleCopy}
             onNewChat={startNewChat}
             onClose={() => setIsOpen(false)}
+            onToggleFullscreen={() => setIsFullscreen(false)}
+            sessions={sessions}
+            currentSessionId={currentSessionId}
+            onSelectSession={selectSession}
+            onDeleteSession={deleteSession}
+            geminiApiKey={geminiApiKey}
+            setGeminiApiKey={setGeminiApiKey}
+            groqApiKey={groqApiKey}
+            setGroqApiKey={setGroqApiKey}
+            showKeyText={showKeyText}
+            setShowKeyText={setShowKeyText}
+            vapiPublicKey={vapiPublicKey}
+            setVapiPublicKey={setVapiPublicKey}
+            vapiAssistantId={vapiAssistantId}
+            setVapiAssistantId={setVapiAssistantId}
+            backendUrl={backendUrl}
+            setBackendUrl={setBackendUrl}
+            saveCredentials={saveCredentials}
+            waPhoneNumber={waPhoneNumber}
+            setWaPhoneNumber={setWaPhoneNumber}
+            waConnected={waConnected}
+            waMetaToken={waMetaToken}
+            setWaMetaToken={setWaMetaToken}
+            waWebhookUrl={waWebhookUrl}
+            setWaWebhookUrl={setWaWebhookUrl}
+            waAutoSyncReports={waAutoSyncReports}
+            setWaAutoSyncReports={setWaAutoSyncReports}
+            waDailyReminders={waDailyReminders}
+            setWaDailyReminders={setWaDailyReminders}
+            handleSaveWhatsApp={handleSaveWhatsApp}
+            handleSimulateWhatsAppMessage={handleSimulateWhatsAppMessage}
+            setMessages={setMessages}
           />
-
-          <div className="synapseos-modal-inner">
-            {/* Persona Switcher Bar */}
-            <PersonaSwitcher
-              assistantPersona={assistantPersona}
-              onPersonaChange={handlePersonaChange}
-            />
-
-          {/* Live AI Voice Mode Overlay (ChatGPT style central orb & voice dialogue) */}
-          {isVoiceMode ? (
-            <VoiceModeOverlay
+        ) : (
+          /* COMPACT FLOATING MODAL WINDOW */
+          <div className="synapseos-modal-window synapseos-root" data-lenis-prevent="true">
+            
+            {/* Header Bar */}
+            <AssistantHeader
               persona={assistantPersona}
-              voiceState={voiceState}
-              transcript={liveTranscript}
-              aiResponseText={aiSpeechText}
-              isMuted={isMuted}
-              onToggleMute={toggleMute}
-              onExitVoice={exitVoiceMode}
-            />
-          ) : activeTab === 'whatsapp' ? (
-            /* View Tab 1: WhatsApp Multi-Channel Bridge */
-            <WhatsAppBridgeModal
-              waPhoneNumber={waPhoneNumber}
-              setWaPhoneNumber={setWaPhoneNumber}
+              activeTab={activeTab}
               waConnected={waConnected}
-              waMetaToken={waMetaToken}
-              setWaMetaToken={setWaMetaToken}
-              waWebhookUrl={waWebhookUrl}
-              setWaWebhookUrl={setWaWebhookUrl}
-              waAutoSyncReports={waAutoSyncReports}
-              setWaAutoSyncReports={setWaAutoSyncReports}
-              waDailyReminders={waDailyReminders}
-              setWaDailyReminders={setWaDailyReminders}
-              onSaveWhatsApp={handleSaveWhatsApp}
-              onSimulateInbound={handleSimulateWhatsAppMessage}
-            />
-          ) : activeTab === 'history' ? (
-            /* View Tab 2: Chat History Sessions Drawer */
-            <ChatHistoryDrawer
-              sessions={sessions}
-              currentSessionId={currentSessionId}
-              onSelectSession={selectSession}
-              onDeleteSession={deleteSession}
-              onNewChat={startNewChat}
-              onReturnToChat={() => setActiveTab('chat')}
-            />
-          ) : activeTab === 'settings' ? (
-            /* View Tab 3: Model & API Settings Drawer */
-            <SettingsDrawer
-              assistantPersona={assistantPersona}
-              onPersonaChange={handlePersonaChange}
+              isFullscreen={false}
+              activeProfileId={activeProfileId}
               selectedModel={selectedModel}
-              setSelectedModel={setSelectedModel}
+              onTabChange={setActiveTab}
+              onToggleFullscreen={() => setIsFullscreen(true)}
+              onNewChat={startNewChat}
+              onClose={() => setIsOpen(false)}
               selectedLanguage={selectedLanguage}
-              onLanguageChange={handleLanguageChange}
-              geminiApiKey={geminiApiKey}
-              setGeminiApiKey={setGeminiApiKey}
-              showKeyText={showKeyText}
-              setShowKeyText={setShowKeyText}
-              vapiPublicKey={vapiPublicKey}
-              setVapiPublicKey={setVapiPublicKey}
-              vapiAssistantId={vapiAssistantId}
-              setVapiAssistantId={setVapiAssistantId}
-              backendUrl={backendUrl}
-              setBackendUrl={setBackendUrl}
-              onSaveCredentials={saveCredentials}
-              onClearHistory={() => {
-                setMessages([]);
-                setActiveTab('chat');
-              }}
             />
-          ) : (
-            /* View Tab 4: Active Chat & Welcome Stream */
-            <>
-              <div 
-                data-lenis-prevent="true"
-                className="synapseos-custom-scroll"
-                onWheel={(e) => e.stopPropagation()}
-                style={{ flex: 1, overflowY: 'auto', padding: '16px 18px', display: 'flex', flexDirection: 'column' }}
-              >
-                {messages.length === 0 ? (
-                  <OrbWelcome
+
+            <div className="synapseos-modal-inner">
+              {/* Persona Switcher Bar */}
+              <PersonaSwitcher
+                assistantPersona={assistantPersona}
+                onPersonaChange={handlePersonaChange}
+                selectedLanguage={selectedLanguage}
+              />
+
+              {/* Live AI Voice Mode Overlay */}
+              {isVoiceMode ? (
+                <VoiceModeOverlay
+                  persona={assistantPersona}
+                  voiceState={voiceState}
+                  transcript={liveTranscript}
+                  aiResponseText={aiSpeechText}
+                  isMuted={isMuted}
+                  onToggleMute={toggleMute}
+                  onExitVoice={exitVoiceMode}
+                />
+              ) : activeTab === 'whatsapp' ? (
+                /* View Tab 1: WhatsApp Multi-Channel Bridge */
+                <WhatsAppBridgeModal
+                  waPhoneNumber={waPhoneNumber}
+                  setWaPhoneNumber={setWaPhoneNumber}
+                  waConnected={waConnected}
+                  waMetaToken={waMetaToken}
+                  setWaMetaToken={setWaMetaToken}
+                  waWebhookUrl={waWebhookUrl}
+                  setWaWebhookUrl={setWaWebhookUrl}
+                  waAutoSyncReports={waAutoSyncReports}
+                  setWaAutoSyncReports={setWaAutoSyncReports}
+                  waDailyReminders={waDailyReminders}
+                  setWaDailyReminders={setWaDailyReminders}
+                  onSaveWhatsApp={handleSaveWhatsApp}
+                  onSimulateInbound={handleSimulateWhatsAppMessage}
+                />
+              ) : activeTab === 'history' ? (
+                /* View Tab 2: Chat History Sessions Drawer */
+                <ChatHistoryDrawer
+                  sessions={sessions}
+                  currentSessionId={currentSessionId}
+                  onSelectSession={selectSession}
+                  onDeleteSession={deleteSession}
+                  onNewChat={startNewChat}
+                  onReturnToChat={() => setActiveTab('chat')}
+                />
+              ) : activeTab === 'settings' ? (
+                /* View Tab 3: Model & API Settings Drawer */
+                <SettingsDrawer
+                  assistantPersona={assistantPersona}
+                  onPersonaChange={handlePersonaChange}
+                  selectedModel={selectedModel}
+                  setSelectedModel={setSelectedModel}
+                  selectedLanguage={selectedLanguage}
+                  onLanguageChange={handleLanguageChange}
+                  geminiApiKey={geminiApiKey}
+                  setGeminiApiKey={setGeminiApiKey}
+                  groqApiKey={groqApiKey}
+                  setGroqApiKey={setGroqApiKey}
+                  showKeyText={showKeyText}
+                  setShowKeyText={setShowKeyText}
+                  vapiPublicKey={vapiPublicKey}
+                  setVapiPublicKey={setVapiPublicKey}
+                  vapiAssistantId={vapiAssistantId}
+                  setVapiAssistantId={setVapiAssistantId}
+                  backendUrl={backendUrl}
+                  setBackendUrl={setBackendUrl}
+                  onSaveCredentials={saveCredentials}
+                  onClearHistory={() => {
+                    setMessages([]);
+                    setActiveTab('chat');
+                  }}
+                />
+              ) : (
+                /* View Tab 4: Active Chat & Welcome Stream */
+                <>
+                  <div 
+                    data-lenis-prevent="true"
+                    className="synapseos-custom-scroll"
+                    onWheel={(e) => e.stopPropagation()}
+                    style={{ flex: 1, overflowY: 'auto', padding: '16px 18px', display: 'flex', flexDirection: 'column' }}
+                  >
+                    {messages.length === 0 ? (
+                      <OrbWelcome
+                        assistantPersona={assistantPersona}
+                        onSendChip={handleSend}
+                        onToggleVoice={startVoiceMode}
+                      />
+                    ) : (
+                      <ChatStream
+                        messages={messages}
+                        loading={loading}
+                        copiedId={copiedId}
+                        messagesEndRef={messagesEndRef}
+                        onCopy={handleCopy}
+                        onSendChip={handleSend}
+                      />
+                    )}
+                  </div>
+
+                  {/* Bottom Capsule Input Bar */}
+                  <ChatInputBar
+                    input={input}
+                    setInput={setInput}
+                    loading={loading}
+                    isListening={isListening}
+                    callActive={callActive}
                     assistantPersona={assistantPersona}
-                    onSendChip={handleSend}
+                    inputRef={inputRef}
+                    onSend={handleSend}
                     onToggleVoice={startVoiceMode}
                   />
-                ) : (
-                  <ChatStream
-                    messages={messages}
-                    loading={loading}
-                    copiedId={copiedId}
-                    messagesEndRef={messagesEndRef}
-                    onCopy={handleCopy}
-                    onSendChip={handleSend}
-                  />
-                )}
-              </div>
-
-              {/* Bottom Capsule Input Bar */}
-              <ChatInputBar
-                input={input}
-                setInput={setInput}
-                loading={loading}
-                isListening={isListening}
-                callActive={callActive}
-                assistantPersona={assistantPersona}
-                inputRef={inputRef}
-                onSend={handleSend}
-                onToggleVoice={startVoiceMode}
-              />
-            </>
-          )}
+                </>
+              )}
+            </div>
           </div>
-        </div>
+        )
       )}
     </>
   );

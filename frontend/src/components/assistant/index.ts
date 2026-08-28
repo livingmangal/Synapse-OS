@@ -10,5 +10,7 @@ export { default as VoiceModeOverlay } from './components/VoiceModeOverlay';
 export { default as WhatsAppBridgeModal } from './components/WhatsAppBridgeModal';
 export { default as ChatHistoryDrawer } from './components/ChatHistoryDrawer';
 export { default as SettingsDrawer } from './components/SettingsDrawer';
+export { default as FullScreenOrchestratorDock } from './components/FullScreenOrchestratorDock';
+export { default as FullScreenWorkspace } from './components/FullScreenWorkspace';
 export { default as MarkdownRenderer } from './components/MarkdownRenderer';
 export * from './components/VisualWidgets';

@@ -1,6 +1,12 @@
-export type Persona = 'copilot' | 'triage' | 'nutrition';
+export type Persona = 'copilot' | 'triage' | 'nutrition' | 'orchestrator';
 export type ActiveTab = 'chat' | 'history' | 'settings' | 'whatsapp';
-export type ModelChoice = 'gemini-1.5-flash' | 'gemini-1.5-pro' | 'gemini-2.0-flash';
+export type ModelChoice = 
+  | 'groq-llama-3.3-70b' 
+  | 'groq-llama-3.1-8b' 
+  | 'groq-mixtral' 
+  | 'gemini-1.5-flash' 
+  | 'gemini-1.5-pro' 
+  | 'gemini-2.0-flash';
 export type VoiceState = 'connecting' | 'listening' | 'thinking' | 'speaking' | 'muted';
 export type SupportedLanguage = 'en' | 'hi' | 'bn' | 'ta' | 'te' | 'mr' | 'gu' | 'kn' | 'ml' | 'pa' | 'or';
 
@@ -24,7 +30,7 @@ export interface Message {
   text: string;
   timestamp: string;
   channel?: 'web' | 'whatsapp' | 'voice';
-  visualType?: 'triage' | 'nutrition' | 'records' | 'whatsapp' | 'general';
+  visualType?: 'triage' | 'nutrition' | 'records' | 'whatsapp' | 'swarm' | 'vitals' | 'scan' | 'outbreak' | 'ehr' | 'vaccination' | 'rural_sms' | 'general';
   visualData?: any;
   followUps?: string[];
   trace?: TraceItem[];

@@ -32,10 +32,24 @@
   40% { transform: scale(1); opacity: 1; }
 }
 
-.synapseos-root * {
+.synapseos-root,
+.synapseos-root *,
+.synapseos-modal-window,
+.synapseos-modal-window *,
+.synapseos-header,
+.synapseos-header *,
+.synapseos-persona-bar,
+.synapseos-persona-bar *,
+.synapseos-fullscreen-inbox,
+.synapseos-fullscreen-inbox *,
+.synapseos-fullscreen-dossier,
+.synapseos-fullscreen-dossier *,
+.synapseos-chat-stream,
+.synapseos-chat-stream * {
   box-sizing: border-box !important;
   margin: 0;
   padding: 0;
+  font-family: "Times New Roman", Times, "Noto Serif", serif !important;
 }
 
 /* Aesthetic Thin Scrollbar */
@@ -148,11 +162,22 @@
 }
 
 .synapseos-modal-fullscreen .synapseos-modal-inner {
-  max-width: 880px !important;
+  max-width: 100% !important;
   width: 100% !important;
-  margin: 0 auto !important;
+  margin: 0 !important;
   height: 100% !important;
-  padding: 0 20px !important;
+  padding: 0 !important;
+  flex-direction: row !important;
+}
+
+.synapseos-fullscreen-chat-pane {
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 1 0% !important;
+  min-width: 0 !important;
+  height: 100% !important;
+  position: relative !important;
+  background: #ffffff !important;
 }
 
 /* Header */
@@ -174,15 +199,15 @@
 }
 
 .synapseos-modal-fullscreen .synapseos-header {
-  padding: 16px 28px !important;
-  border-bottom: 1px solid rgba(16, 185, 129, 0.16) !important;
-  background: rgba(255, 255, 255, 0.96) !important;
+  padding: 14px 24px !important;
+  border-bottom: 1.5px solid #bae6fd !important;
+  background: linear-gradient(135deg, #f0f9ff 0%, #ffffff 50%, #fdf2f8 100%) !important;
   backdrop-filter: blur(16px) !important;
 }
 
 .synapseos-modal-fullscreen .synapseos-header-inner {
-  max-width: 1080px !important;
-  margin: 0 auto !important;
+  max-width: 100% !important;
+  margin: 0 !important;
 }
 
 .synapseos-header-left {
@@ -910,3 +935,22 @@
   margin: 0 auto !important;
   border-radius: 24px 24px 0 0 !important;
 }
+
+/* Desktop Responsiveness for Multi-Column Clinical Cockpit */
+@media (max-width: 1200px) {
+  .synapseos-fullscreen-dossier {
+    width: 280px !important;
+    min-width: 280px !important;
+  }
+}
+
+@media (max-width: 992px) {
+  .synapseos-fullscreen-inbox {
+    width: 220px !important;
+    min-width: 220px !important;
+  }
+  .synapseos-fullscreen-dossier {
+    display: none !important;
+  }
+}
+

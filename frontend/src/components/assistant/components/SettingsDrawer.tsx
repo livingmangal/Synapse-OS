@@ -24,6 +24,8 @@ interface SettingsDrawerProps {
   onLanguageChange: (lang: SupportedLanguage) => void;
   geminiApiKey: string;
   setGeminiApiKey: (key: string) => void;
+  groqApiKey?: string;
+  setGroqApiKey?: (key: string) => void;
   showKeyText: boolean;
   setShowKeyText: (val: boolean) => void;
   vapiPublicKey: string;
@@ -45,6 +47,8 @@ export default function SettingsDrawer({
   onLanguageChange,
   geminiApiKey,
   setGeminiApiKey,
+  groqApiKey = '',
+  setGroqApiKey = () => {},
   showKeyText,
   setShowKeyText,
   vapiPublicKey,
@@ -158,16 +162,18 @@ export default function SettingsDrawer({
           </div>
         </div>
 
-        {/* 3. REASONING ENGINE MODEL */}
+        {/* 3. REASONING ENGINE MODEL (Groq & Gemini) */}
         <div style={{ padding: '12px', borderRadius: '14px', background: '#f8fafc', border: '1px solid #e2e8f0' }}>
           <label style={{ display: 'block', fontSize: '11px', fontWeight: 700, color: '#334155', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '8px' }}>
-            3. Gemini Reasoning Model
+            3. AI Reasoning Engine Model
           </label>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
             {[
-              { id: 'gemini-1.5-flash', name: '⚡ Gemini 1.5 Flash', badge: 'Fastest Response • Recommended' },
-              { id: 'gemini-1.5-pro', name: '🧠 Gemini 1.5 Pro', badge: 'Deep Clinical Diagnostics' },
-              { id: 'gemini-2.0-flash', name: '🚀 Gemini 2.0 Flash', badge: 'Next-Gen Multimodal' }
+              { id: 'groq-llama-3.3-70b', name: '⚡ Groq LLaMA 3.3 70B', badge: 'Ultra-Fast LPUs • Recommended' },
+              { id: 'groq-llama-3.1-8b', name: '🚀 Groq LLaMA 3.1 8B', badge: 'Sub-100ms Instant Telemetry' },
+              { id: 'gemini-1.5-flash', name: '⚡ Gemini 1.5 Flash', badge: 'Fast Multimodal Clinical' },
+              { id: 'gemini-1.5-pro', name: '🧠 Gemini 1.5 Pro', badge: 'Deep Longitudinal Diagnostics' },
+              { id: 'gemini-2.0-flash', name: '✨ Gemini 2.0 Flash', badge: 'Next-Gen Multimodal' }
             ].map(m => (
               <div
                 key={m.id}
@@ -178,7 +184,7 @@ export default function SettingsDrawer({
                   justifyContent: 'space-between',
                   padding: '7px 10px',
                   borderRadius: '10px',
-                  border: selectedModel === m.id ? '1.5px solid #10b981' : '1px solid #e2e8f0',
+                  border: selectedModel === m.id ? '1.5px solid #0284c7' : '1px solid #e2e8f0',
                   background: selectedModel === m.id ? '#ffffff' : 'transparent',
                   cursor: 'pointer'
                 }}
@@ -191,18 +197,52 @@ export default function SettingsDrawer({
                   type="radio" 
                   checked={selectedModel === m.id} 
                   onChange={() => setSelectedModel(m.id as ModelChoice)}
-                  style={{ accentColor: '#10b981' }}
+                  style={{ accentColor: '#0284c7' }}
                 />
               </div>
             ))}
           </div>
         </div>
 
-        {/* 4. GOOGLE GEMINI API KEY SETUP */}
+        {/* 4. GROQ API KEY SETUP */}
+        <div style={{ padding: '12px', borderRadius: '14px', background: '#f8fafc', border: '1px solid #bae6fd' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+            <label style={{ fontSize: '11px', fontWeight: 700, color: '#0369a1', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+              4. Groq LPU API Key (Recommended)
+            </label>
+            <span style={{ fontSize: '10.5px', color: groqApiKey ? '#15803d' : '#0284c7', fontWeight: 600 }}>
+              {groqApiKey ? '● Configured' : '○ Built-in / Custom'}
+            </span>
+          </div>
+          
+          <div style={{ position: 'relative', marginTop: '6px' }}>
+            <input
+              type={showKeyText ? "text" : "password"}
+              placeholder="gsk_..."
+              value={groqApiKey}
+              onChange={(e) => setGroqApiKey(e.target.value)}
+              style={{
+                width: '100%',
+                padding: '9px 40px 9px 12px',
+                borderRadius: '10px',
+                background: '#ffffff',
+                border: '1px solid #bae6fd',
+                fontSize: '12px',
+                color: '#0f172a',
+                outline: 'none'
+              }}
+            />
+          </div>
+          <div style={{ marginTop: '8px', padding: '8px 10px', borderRadius: '8px', background: '#f0f9ff', border: '1px solid #bae6fd', fontSize: '11px', color: '#0369a1', lineHeight: 1.4 }}>
+            ⚡ Get free Groq API key at <a href="https://console.groq.com/keys" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'underline', fontWeight: 600, color: '#0284c7' }}>console.groq.com/keys</a> for high-speed multi-agent inference.
+          </div>
+        </div>
+
+        {/* 5. GOOGLE GEMINI API KEY SETUP */}
         <div style={{ padding: '12px', borderRadius: '14px', background: '#f8fafc', border: '1px solid #e2e8f0' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
             <label style={{ fontSize: '11px', fontWeight: 700, color: '#334155', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-              4. Google Gemini API Key
+              5. Google Gemini API Key
             </label>
             <span style={{ fontSize: '10.5px', color: geminiApiKey ? '#15803d' : '#d97706', fontWeight: 600 }}>
               {geminiApiKey ? '● Configured' : '○ Not Configured'}

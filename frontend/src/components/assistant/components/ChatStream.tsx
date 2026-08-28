@@ -6,6 +6,13 @@ import {
   NutritionVisualWidget,
   WhatsAppVisualWidget,
   RecordsVisualWidget,
+  SwarmVisualWidget,
+  VitalsVisualWidget,
+  ScanVisualWidget,
+  OutbreakVisualWidget,
+  EHRVisualWidget,
+  VaccinationVisualWidget,
+  RuralSMSVisualWidget,
   NeuralTraceWidget
 } from './VisualWidgets';
 
@@ -47,23 +54,19 @@ export default function ChatStream({
             }}
           >
             {m.sender === 'assistant' && (
-              <div style={{
-                width: '28px',
-                height: '28px',
-                borderRadius: '50%',
-                background: 'linear-gradient(135deg, #34d399 0%, #059669 100%)',
-                color: '#ffffff',
-                fontSize: '11px',
-                fontWeight: 'bold',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                flexShrink: 0,
-                marginTop: '2px',
-                boxShadow: '0 2px 6px rgba(5, 150, 105, 0.25)'
-              }}>
-                Ai
-              </div>
+              <img 
+                src="/synapseos-icon.svg" 
+                alt="Sanjeevni AI" 
+                style={{
+                  width: '28px',
+                  height: '28px',
+                  borderRadius: '7px',
+                  objectFit: 'contain',
+                  flexShrink: 0,
+                  marginTop: '2px',
+                  boxShadow: '0 2px 6px rgba(2, 132, 199, 0.15)'
+                }}
+              />
             )}
 
             {m.sender === 'whatsapp' && (
@@ -108,6 +111,13 @@ export default function ChatStream({
               {m.visualType === 'nutrition' && <NutritionVisualWidget visualData={m.visualData} />}
               {m.visualType === 'whatsapp' && <WhatsAppVisualWidget visualData={m.visualData} />}
               {m.visualType === 'records' && <RecordsVisualWidget visualData={m.visualData} />}
+              {m.visualType === 'swarm' && <SwarmVisualWidget visualData={m.visualData} />}
+              {m.visualType === 'vitals' && <VitalsVisualWidget visualData={m.visualData} />}
+              {m.visualType === 'scan' && <ScanVisualWidget visualData={m.visualData} />}
+              {m.visualType === 'outbreak' && <OutbreakVisualWidget visualData={m.visualData} />}
+              {m.visualType === 'ehr' && <EHRVisualWidget visualData={m.visualData} />}
+              {m.visualType === 'vaccination' && <VaccinationVisualWidget visualData={m.visualData} />}
+              {m.visualType === 'rural_sms' && <RuralSMSVisualWidget visualData={m.visualData} />}
 
               {/* Neural Sub-Agent Trace */}
               <NeuralTraceWidget trace={m.trace} />
@@ -186,21 +196,18 @@ export default function ChatStream({
       {/* Animated Typing Indicator */}
       {loading && (
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px', justifyContent: 'flex-start' }}>
-          <div style={{
-            width: '28px',
-            height: '28px',
-            borderRadius: '50%',
-            background: 'linear-gradient(135deg, #34d399 0%, #059669 100%)',
-            color: '#ffffff',
-            fontSize: '11px',
-            fontWeight: 'bold',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexShrink: 0
-          }}>
-            Ai
-          </div>
+          <img 
+            src="/synapseos-icon.svg" 
+            alt="Sanjeevni AI" 
+            style={{
+              width: '28px',
+              height: '28px',
+              borderRadius: '7px',
+              objectFit: 'contain',
+              flexShrink: 0,
+              boxShadow: '0 2px 6px rgba(2, 132, 199, 0.15)'
+            }}
+          />
           <div style={{
             padding: '12px 16px',
             borderRadius: '18px',

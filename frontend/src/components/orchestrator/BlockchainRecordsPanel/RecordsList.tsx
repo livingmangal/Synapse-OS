@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { ShieldCheck, CheckCircle2, UploadCloud, AlertTriangle } from 'lucide-react';
+import { ShieldCheck, CheckCircle2, Upload, AlertTriangle } from 'lucide-react';
 import { hashFile, hashBuffer, generateRecordId } from '@/lib/blockchain/crypto';
 import { uploadFile, fetchFile } from '@/lib/blockchain/ipfs';
 import { registerRecord, getRecord, getSigner } from '@/lib/blockchain/contract';
@@ -136,7 +136,7 @@ export default function RecordsList({ state }: { state: any }) {
                   gap: '8px'
                 }}
               >
-                <UploadCloud size={16} />
+                <Upload size={16} />
                 {uploading ? uploadStep : translateText('Hash & Register')}
               </button>
             </div>

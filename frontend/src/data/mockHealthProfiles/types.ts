@@ -37,6 +37,8 @@ export interface VisualAnalyticsData {
 
 export interface MockHealthProfile {
   profileId: string;
+  isAdmin?: boolean;
+  role?: string;
   title: string;
   subtitle: string;
   jsonPath: string;
