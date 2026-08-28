@@ -53,8 +53,7 @@
 | 📖 | **Feature Documentation** | List of all 21 core features and capabilities | [Go to section](#17-feature-documentation) |
 | 📈 | **Scalability & Future Improvements** | Planned enhancements and production roadmap | [Go to section](#18-scalability--future-improvements) |
 | 🤝 | **Contributing** | Guidelines for contributing to the repository | [Go to section](#19-contributing) |
-| 🌟 | **Contributors & Activity** | GitHub contributor mosaic and repository analytics | [Go to section](#20-contributors--activity) |
-| 📜 | **License** | Open-source licensing and hackathon usage terms | [Go to section](#21-license) |
+| 📜 | **License** | Open-source licensing and hackathon usage terms | [Go to section](#20-license) |
 
 
 ## 📸 Product & Interface Showcase
@@ -920,27 +919,7 @@ We welcome contributions from developers, healthcare professionals, and public h
 
 ---
 
-## 🌟 20. Contributors & Activity
-
-<div align="center">
-
-### 🏆 Top Contributors
-
-[![Contributors Mosaic](https://contrib.rocks/image?repo=Mausam5055/Synapse-OS&max=24&columns=8)](https://github.com/Mausam5055/Synapse-OS/graphs/contributors)
-
-### 📊 Repository Analytics
-
-[![Repo Stats](https://github-readme-stats.vercel.app/api?username=Mausam5055&repo=Synapse-OS&show_icons=true&theme=tokyonight&hide_border=true&include_all_commits=true&count_private=true)](https://github.com/Mausam5055/Synapse-OS/network/dependencies)
-<br/>
-[![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=Mausam5055&repo=Synapse-OS&layout=compact&theme=tokyonight&hide_border=true)](https://github.com/Mausam5055/Synapse-OS/commits/main)
-
-*Thank you to everyone who has contributed to making SynapseOS a reality!*
-
-</div>
-
----
-
-## 📜 21. License
+## 📜 20. License
 
 The smart contract component (`blockchain/contracts/`) is licensed under **ISC**.
 
