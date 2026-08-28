@@ -30,30 +30,30 @@
 
 ## 📑 Table of Contents
 
-| Icon | Section | Link |
-| :---: | :--- | :--- |
-| 📸 | **Product & Interface Showcase** | [Go to section](#-product--interface-showcase) |
-| 🎯 | **Hackathon Problem Statement** | [Go to section](#-hackathon-problem-statement--solution-mapping) |
-| 📝 | **Executive Summary** | [Go to section](#1-executive-summary) |
-| 🏗️ | **Official Architecture Diagrams** | [Go to section](#2-official-architecture-diagrams) |
-| 🏛️ | **System Architecture** | [Go to section](#3-system-architecture) |
-| 🤖 | **Agent Swarm: 13 Specialized Agents** | [Go to section](#4-agent-swarm--13-specialized-agents) |
-| 💻 | **Technology Stack** | [Go to section](#5-technology-stack) |
-| 🔄 | **Application Workflow** | [Go to section](#6-application-workflow) |
-| 🌊 | **Data Flow** | [Go to section](#7-data-flow) |
-| 🔗 | **Blockchain Architecture** | [Go to section](#8-blockchain-architecture) |
-| ⌚ | **Wearable Telemetry Pipeline** | [Go to section](#9-wearable-telemetry-pipeline) |
-| 🌐 | **Multilingual Architecture** | [Go to section](#10-multilingual-architecture) |
-| 📁 | **Project Structure** | [Go to section](#11-project-structure) |
-| 🔌 | **API Reference** | [Go to section](#12-api-reference) |
-| ⚙️ | **Environment Configuration** | [Go to section](#13-environment-configuration) |
-| 🚀 | **Installation & Local Setup** | [Go to section](#14-installation--local-setup) |
-| 🐳 | **Docker & Kubernetes Deployment** | [Go to section](#15-docker--kubernetes-deployment) |
-| 🔒 | **Security Considerations** | [Go to section](#16-security-considerations) |
-| 📖 | **Feature Documentation** | [Go to section](#17-feature-documentation) |
-| 📈 | **Scalability & Future Improvements** | [Go to section](#18-scalability--future-improvements) |
-| 🤝 | **Contributing** | [Go to section](#19-contributing) |
-| 📜 | **License** | [Go to section](#20-license) |
+| Icon | Section | Description | Link |
+| :---: | :--- | :--- | :--- |
+| 📸 | **Product & Interface Showcase** | Visual gallery of the SynapseOS platform | [Go to section](#-product--interface-showcase) |
+| 🎯 | **Hackathon Problem Statement** | Alignment with ICDC Smart VIT 2026 goals | [Go to section](#-hackathon-problem-statement--solution-mapping) |
+| 📝 | **Executive Summary** | High-level overview of the health platform | [Go to section](#1-executive-summary) |
+| 🏗️ | **Official Architecture Diagrams** | System flows and user journey maps | [Go to section](#2-official-architecture-diagrams) |
+| 🏛️ | **System Architecture** | N-tier omnichannel and microservices design | [Go to section](#3-system-architecture) |
+| 🤖 | **Agent Swarm: 13 Specialized Agents** | Deep dive into the clinical AI swarm | [Go to section](#4-agent-swarm--13-specialized-agents) |
+| 💻 | **Technology Stack** | Frameworks, ML models, and infrastructure used | [Go to section](#5-technology-stack) |
+| 🔄 | **Application Workflow** | End-to-end request pipeline and intent routing | [Go to section](#6-application-workflow) |
+| 🌊 | **Data Flow** | Shared state management and blockchain anchoring | [Go to section](#7-data-flow) |
+| 🔗 | **Blockchain Architecture** | Tamper-proof medical records on Sepolia | [Go to section](#8-blockchain-architecture) |
+| ⌚ | **Wearable Telemetry Pipeline** | Apple Health & Google Fit ingestion pathways | [Go to section](#9-wearable-telemetry-pipeline) |
+| 🌐 | **Multilingual Architecture** | 11 Indic language translation engine details | [Go to section](#10-multilingual-architecture) |
+| 📁 | **Project Structure** | Directory layout and component responsibilities | [Go to section](#11-project-structure) |
+| 🔌 | **API Reference** | Core endpoints for agents and omnichannel services | [Go to section](#12-api-reference) |
+| ⚙️ | **Environment Configuration** | Required environment variables and API keys | [Go to section](#13-environment-configuration) |
+| 🚀 | **Installation & Local Setup** | Step-by-step guide to running the platform locally | [Go to section](#14-installation--local-setup) |
+| 🐳 | **Docker & Kubernetes Deployment** | Containerization and cluster auto-scaling | [Go to section](#15-docker--kubernetes-deployment) |
+| 🔒 | **Security Considerations** | Deterministic safety gates and data privacy | [Go to section](#16-security-considerations) |
+| 📖 | **Feature Documentation** | List of all 21 core features and capabilities | [Go to section](#17-feature-documentation) |
+| 📈 | **Scalability & Future Improvements** | Planned enhancements and production roadmap | [Go to section](#18-scalability--future-improvements) |
+| 🤝 | **Contributing** | Guidelines for contributing to the repository | [Go to section](#19-contributing) |
+| 📜 | **License** | Open-source licensing and hackathon usage terms | [Go to section](#20-license) |
 
 
 ## 📸 Product & Interface Showcase
