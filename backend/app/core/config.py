@@ -30,8 +30,14 @@ class Settings(BaseModel):
     OPENWA_URL: str = os.getenv("OPENWA_URL", "http://localhost:3000")
     OPENWA_API_KEY: str = os.getenv("OPENWA_API_KEY", "")
     
-    # Blockchain / IPFS settings
+    # Twilio SMS Settings
+    TWILIO_ACCOUNT_SID: str = os.getenv("TWILIO_ACCOUNT_SID", "")
+    TWILIO_AUTH_TOKEN: str = os.getenv("TWILIO_AUTH_TOKEN", "")
+    TWILIO_PHONE_NUMBER: str = os.getenv("TWILIO_PHONE_NUMBER", "")
+
+    # Blockchain / IPFS (Pinata) settings
     PINATA_JWT: str = os.getenv("PINATA_JWT", "")
+    PINATA_GATEWAY_URL: str = os.getenv("PINATA_GATEWAY_URL", "https://gateway.pinata.cloud/ipfs")
     BLOCKCHAIN_RPC_URL: str = os.getenv("BLOCKCHAIN_RPC_URL", "http://127.0.0.1:8545")
     CONTRACT_ADDRESS: str = os.getenv("CONTRACT_ADDRESS", "")
 

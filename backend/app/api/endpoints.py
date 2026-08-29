@@ -3,7 +3,7 @@ SynapseOS — api/endpoints.py
 Unified FastAPI API endpoints for SynapseOS.
 """
 
-from fastapi import APIRouter, HTTPException, Response, Query
+from fastapi import APIRouter, HTTPException, Response, Query, Form, UploadFile, File
 from pydantic import BaseModel, Field
 from typing import Dict, Any, List, Optional
 from backend.app.core.config import settings
@@ -17,6 +17,18 @@ from backend.app.ml.diagnostics import DiagnosticRiskRequest, calculate_clinical
 from backend.app.services.abdm_service import generate_abha_id, check_ayushman_bharat_schemes
 from backend.app.services.pdf_service import generate_health_summary_pdf
 from backend.app.services.whatsapp_service import process_whatsapp_inbound_webhook, trigger_emergency_sos_whatsapp
+from backend.app.services.sms_service import (
+    process_sms_inbound_webhook,
+    send_outbound_sms,
+    generate_twiml_response,
+    format_sms_text,
+    SMS_MAIN_MENU
+)
+from backend.app.services.pinata_service import (
+    upload_json_to_ipfs,
+    upload_file_to_ipfs,
+    get_ipfs_gateway_url
+)
 from backend.app.services.fhir_service import build_fhir_r4_bundle, build_wearable_fhir_bundle
 from backend.app.agents.retrieval_agent import hybrid_retrieve_clinical_context
 from backend.app.services.i18n_service import translate_clinical_message
@@ -772,12 +784,47 @@ async def broadcast_outbreak_advisory_endpoint(req: OutbreakBroadcastRequest):
 
 
 # ==========================================
-# 4. Omnichannel 2G SMS Gateway & Simulator
+# 4. Omnichannel 2G SMS Gateway & Twilio / IPFS Engine
 # ==========================================
 
 class SMSInboundRequest(BaseModel):
-    sender: str = Field(default="+919876543210", example="+919876543210")
-    message: str = Field(default="1 I have severe headache and fever", example="1 I have severe headache and fever")
+    sender: str = Field(default="+919876543210", json_schema_extra={"example": "+919876543210"})
+    message: str = Field(default="1 I have severe headache and fever", json_schema_extra={"example": "1 I have severe headache and fever"})
+
+
+class SMSSendRequest(BaseModel):
+    to_number: str = Field(..., json_schema_extra={"example": "+919876543210"})
+    message: str = Field(..., json_schema_extra={"example": "Your Sanjeevni PHC appointment is confirmed for today at 3:30 PM."})
+
+
+class IPFSPinJSONRequest(BaseModel):
+    record_name: str = Field(default="clinical_record.json", json_schema_extra={"example": "triage_summary.json"})
+    data: Dict[str, Any] = Field(..., json_schema_extra={"example": {"patient_id": "PAT-91", "urgency": "MODERATE"}})
+
+
+@router.post("/sms/webhook", tags=["Omnichannel 2G SMS"])
+async def twilio_sms_inbound_webhook(
+    From: str = Form(default=""),
+    Body: str = Form(default=""),
+    To: Optional[str] = Form(default=None),
+    MessageSid: Optional[str] = Form(default=None)
+):
+    """
+    Official Twilio Inbound Webhook.
+    Accepts application/x-www-form-urlencoded Twilio payload, runs multi-agent clinical triage,
+    pins clinical reports to Pinata IPFS, and returns standard XML TwiML <Response><Message>...</Message></Response>.
+    """
+    sender = From or "+919876543210"
+    result = await process_sms_inbound_webhook(from_number=sender, body=Body)
+    return Response(content=result["twiml"], media_type="application/xml")
+
+
+@router.post("/sms/send", tags=["Omnichannel 2G SMS"])
+async def send_outbound_sms_endpoint(req: SMSSendRequest):
+    """
+    Dispatches an outbound SMS to a patient via Twilio REST API (with zero-config simulation fallback).
+    """
+    return await send_outbound_sms(to_number=req.to_number, message=req.message)
 
 
 @router.post("/sms/inbound", tags=["Omnichannel 2G SMS"])
@@ -785,57 +832,40 @@ class SMSInboundRequest(BaseModel):
 async def sms_gateway_endpoint(req: SMSInboundRequest):
     """
     Processes 2G plain-text SMS messages for basic keypad phone users in rural areas.
-    Returns plain-text concise responses without Markdown syntax.
+    Returns plain-text concise responses, IPFS CIDs, and transmission metadata.
     """
-    msg_raw = req.message.strip()
-    msg_lower = msg_raw.lower()
-
-    # Route based on keywords
-    if msg_lower in ("help", "menu", "info", "hi", "hello"):
-        reply_sms = (
-            "SANJEEVNI-OS HEALTH SMS:\n"
-            "Reply with:\n"
-            "1 <symptoms> for Triage\n"
-            "2 <medicines> for Drug Safety\n"
-            "7 <age> for Vaccine Schedule\n"
-            "8 <district> for Outbreak Alert\n"
-            "9 for ORS & Hygiene Tips\n"
-            "SOS for Emergency"
-        )
-    elif msg_lower.startswith("7") or "vaccin" in msg_lower:
-        age_str = msg_raw[1:].strip() if msg_lower.startswith("7") else msg_raw
-        weeks = 6
-        if "birth" in age_str.lower() or "0" in age_str:
-            weeks = 0
-        elif "10" in age_str:
-            weeks = 10
-        elif "14" in age_str:
-            weeks = 14
-        v_data = calculate_vaccination_schedule(age_in_weeks=weeks)
-        reply_sms = f"SANJEEVNI VACCINE: UIP Next Due: {v_data['next_vaccine_due']} ({v_data['next_due_date']}). Available FREE at nearest Anganwadi/PHC. Helpline: 1075."
-    elif msg_lower.startswith("8") or "outbreak" in msg_lower:
-        dist_query = msg_raw[1:].strip() if msg_lower.startswith("8") else "Delhi"
-        o_data = get_district_outbreak_risk(dist_query)["data"]
-        reply_sms = f"OUTBREAK ALERT ({o_data['district']}): {o_data['primary_outbreak']} - {o_data['risk_badge']}. {o_data['preventive_advisory'][:100]}... Helpline: {o_data['helpline']}."
-    elif msg_lower.startswith("9") or "ors" in msg_lower:
-        reply_sms = "PREVENTIVE HEALTH (ORS): Mix 1 full ORS packet in 1L clean boiled water. Give sips after loose stools. Give Zinc 20mg daily for 14 days. If lethargic, visit PHC."
-    elif "sos" in msg_lower or "emergency" in msg_lower:
-        reply_sms = "EMERGENCY ALERT: Call National Emergency 112 or Ambulance 108 immediately. Tele-MANAS Mental Helpline: 14416."
-    else:
-        # Call orchestrator
-        agent_res = await orchestrate_health_request(message=msg_raw, channel="sms", user_id=req.sender)
-        clean_text = agent_res.final_response.replace("*", "").replace("#", "").replace("_", "")
-        # Truncate to concise SMS format
-        reply_sms = f"SANJEEVNI HEALTH: {clean_text[:280]}... Consult PHC doctor for confirmation."
+    res = await process_sms_inbound_webhook(from_number=req.sender, body=req.message)
+    reply_sms = res.get("reply", "")
 
     return {
         "status": "DELIVERED",
         "protocol": "GSM_SMS_GATEWAY",
         "sender": req.sender,
+        "type": res.get("type", "general"),
+        "ipfs_cid": res.get("ipfs_cid"),
+        "ipfs_url": res.get("ipfs_url"),
         "character_count": len(reply_sms),
         "sms_parts": 1 if len(reply_sms) <= 160 else 2,
-        "reply_text": reply_sms
+        "reply_text": reply_sms,
+        "twiml": res.get("twiml")
     }
+
+
+@router.post("/ipfs/pin-json", tags=["Decentralized IPFS (Pinata)"])
+async def ipfs_pin_json_endpoint(req: IPFSPinJSONRequest):
+    """Pins arbitrary structured health data / FHIR records to IPFS via Pinata."""
+    return await upload_json_to_ipfs(data=req.data, record_name=req.record_name)
+
+
+@router.post("/ipfs/pin-file", tags=["Decentralized IPFS (Pinata)"])
+async def ipfs_pin_file_endpoint(file: UploadFile = File(...)):
+    """Pins raw medical file bytes (PDFs, Scans, Labs) to IPFS via Pinata."""
+    file_bytes = await file.read()
+    return await upload_file_to_ipfs(
+        file_bytes=file_bytes,
+        filename=file.filename or "medical_document.pdf",
+        content_type=file.content_type or "application/pdf"
+    )
 
 
 # ==========================================
