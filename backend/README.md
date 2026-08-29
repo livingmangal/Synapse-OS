@@ -58,6 +58,10 @@ python -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8000 --reload
 | `/api/whatsapp/webhook` | `GET` | Omnichannel | Official Meta Webhook verification challenge handshake. |
 | `/api/whatsapp/webhook` | `POST` | Omnichannel | Official Meta WhatsApp Cloud API inbound webhook handler. |
 | `/api/whatsapp/simulate` | `POST` | Omnichannel | Instant simulation testing of WhatsApp messages and scan uploads. |
+| `/api/sms/webhook` | `POST` | Omnichannel 2G SMS | Twilio 2-way inbound SMS webhook with XML TwiML responses. |
+| `/api/sms/send` | `POST` | Omnichannel 2G SMS | Dispatches outbound SMS messages via Twilio REST API. |
+| `/api/sms/inbound` | `POST` | Omnichannel 2G SMS | 2G Plain-Text SMS parser for basic keypad phones. |
+| `/api/ipfs/pin-json` | `POST` | Decentralized IPFS | Pins clinical summaries & FHIR records to Pinata IPFS. |
 | `/api/fhir/bundle` | `GET` | EHR & FHIR R4 | Generates official HL7 FHIR R4 Bundle (Patient, Observation, Condition). |
 | `/api/retrieval/search` | `GET` | Hybrid RAG | Searches WHO/ICMR 23-guideline corpus and Wikipedia medical REST API. |
 | `/api/appointments/doctors` | `GET` | Logistics | Lists available PM-JAY empanelled doctors by specialty. |
@@ -68,15 +72,16 @@ python -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8000 --reload
 
 ## 🧪 Running the Test Suite
 
-SynapseOS comes with a **45-test comprehensive test suite** covering all API endpoints, Meta WhatsApp messaging & multilingual onboarding, ML risk models, and clinical agents:
+SynapseOS comes with a **55-test comprehensive test suite** covering all API endpoints, Meta WhatsApp Cloud API, 2-Way SMS Gateway with Twilio, Pinata IPFS Decentralized Storage, ML risk models, and clinical agents:
 
 ```powershell
-# Run the entire test suite
+# Run the entire test suite (55 tests)
 python -m pytest backend/tests -v
 
 # Run specific test suites
+python -m pytest backend/tests/test_sms_and_pinata_service.py -v
+python -m pytest backend/tests/test_whatsapp_service.py -v
 python -m pytest backend/tests/test_api_endpoints.py -v
-python -m pytest backend/tests/test_openwa_service.py -v
 python -m pytest backend/tests/test_clinical_ml_and_agents.py -v
 ```
 
@@ -91,9 +96,9 @@ backend/
 │   ├── api/               # FastAPI route definitions (endpoints.py)
 │   ├── core/              # Config, State Graph, Session Manager & Safety Gate
 │   ├── ml/                # Diagnostics ML & 10-Year Digital Twin Trajectory
-│   ├── services/          # Meta WhatsApp Client/Service, FHIR R4, ABDM, PDF & i18n
+│   ├── services/          # SMS (Twilio), Pinata IPFS, Meta WhatsApp, FHIR R4, ABDM, PDF & i18n
 │   └── main.py            # FastAPI Application entrypoint & CORS middleware
-├── tests/                 # Full 45-test suite
+├── tests/                 # Full 55-test suite (test_sms_and_pinata_service.py, etc.)
 ├── Final.pt               # FractureNet YOLOv8 bone fracture model weights
 └── requirements.txt       # Python dependencies
 ```

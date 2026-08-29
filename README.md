@@ -53,16 +53,17 @@
 | 🔗 | **Blockchain Architecture** | Tamper-proof medical records on Sepolia | [Go to section](#8-blockchain-architecture) |
 | ⌚ | **Wearable Telemetry Pipeline** | Apple Health & Google Fit ingestion pathways | [Go to section](#9-wearable-telemetry-pipeline) |
 | 🌐 | **Multilingual Architecture** | 11 Indic language translation engine details | [Go to section](#10-multilingual-architecture) |
-| 📁 | **Project Structure** | Directory layout and component responsibilities | [Go to section](#11-project-structure) |
-| 🔌 | **API Reference** | Core endpoints for agents and omnichannel services | [Go to section](#12-api-reference) |
-| ⚙️ | **Environment Configuration** | Required environment variables and API keys | [Go to section](#13-environment-configuration) |
-| 🚀 | **Installation & Local Setup** | Step-by-step guide to running the platform locally | [Go to section](#14-installation--local-setup) |
-| 🐳 | **Docker & Kubernetes Deployment** | Containerization and cluster auto-scaling | [Go to section](#15-docker--kubernetes-deployment) |
-| 🔒 | **Security Considerations** | Deterministic safety gates and data privacy | [Go to section](#16-security-considerations) |
-| 📖 | **Feature Documentation** | List of all 21 core features and capabilities | [Go to section](#17-feature-documentation) |
-| 📈 | **Scalability & Future Improvements** | Planned enhancements and production roadmap | [Go to section](#18-scalability--future-improvements) |
-| 🤝 | **Contributing** | Guidelines for contributing to the repository | [Go to section](#19-contributing) |
-| 📜 | **License** | Open-source licensing and hackathon usage terms | [Go to section](#20-license) |
+| 📱 | **Omnichannel 2-Way SMS Gateway** | Twilio SMS & Pinata IPFS decentralized records | [Go to section](#-11-omnichannel-2-way-sms-gateway--twilio--pinata-ipfs-architecture) |
+| 📁 | **Project Structure** | Directory layout and component responsibilities | [Go to section](#-12-project-structure) |
+| 🔌 | **API Reference** | Core endpoints for agents and omnichannel services | [Go to section](#-13-api-reference) |
+| ⚙️ | **Environment Configuration** | Required environment variables and API keys | [Go to section](#️-14-environment-configuration) |
+| 🚀 | **Installation & Local Setup** | Step-by-step guide to running the platform locally | [Go to section](#-15-installation--local-setup) |
+| 🐳 | **Docker & Kubernetes Deployment** | Containerization and cluster auto-scaling | [Go to section](#-16-docker--kubernetes-deployment) |
+| 🔒 | **Security Considerations** | Deterministic safety gates and data privacy | [Go to section](#-17-security-considerations) |
+| 📖 | **Feature Documentation** | List of all 21 core features and capabilities | [Go to section](#-18-feature-documentation) |
+| 📈 | **Scalability & Future Improvements** | Planned enhancements and production roadmap | [Go to section](#-19-scalability--future-improvements) |
+| 🤝 | **Contributing** | Guidelines for contributing to the repository | [Go to section](#-20-contributing) |
+| 📜 | **License** | Open-source licensing and hackathon usage terms | [Go to section](#-21-license) |
 
 
 ## 📸 Product & Interface Showcase
@@ -354,7 +355,8 @@ All 13 agents share a common `SynapseOSState` Pydantic schema and contribute str
 | :--- | :--- | :--- |
 | ![Groq](https://img.shields.io/badge/Groq-FF6B35?style=flat) **Groq** | LLM Inference | `services/llm_service.py` |
 | ![OpenRouter](https://img.shields.io/badge/OpenRouter-3B82F6?style=flat) **OpenRouter** | LLM Failover | `services/llm_service.py` |
-| ![Pinata](https://img.shields.io/badge/Pinata-7F2BCE?style=flat) **Pinata** | IPFS Pinning | `frontend/src/lib/blockchain/ipfs.js` |
+| ![Twilio](https://img.shields.io/badge/Twilio-F22F46?style=flat&logo=twilio&logoColor=white) **Twilio SMS** | 2-Way SMS & TwiML | `services/sms_service.py` |
+| ![Pinata](https://img.shields.io/badge/Pinata-7F2BCE?style=flat) **Pinata** | IPFS Pinning | `services/pinata_service.py` & `frontend/src/lib/blockchain/ipfs.js` |
 | ![NIH RxNav](https://img.shields.io/badge/NIH%20RxNav-475569?style=flat) **NIH RxNav** | Drug Database | `agents/drug_agent.py` |
 | ![Wikipedia Medical REST](https://img.shields.io/badge/Wikipedia%20Medical%20REST-000000?logo=wikipedia&logoColor=white&style=flat) **Wikipedia Medical REST** | Knowledge Base | `agents/retrieval_agent.py` |
 | ![VAPI AI](https://img.shields.io/badge/VAPI%20AI-475569?style=flat) **VAPI AI** | Voice AI | `hooks/useAssistantLogic.ts` |
@@ -575,7 +577,68 @@ SynapseOS natively supports **11 Indic languages + English** across both fronten
 
 ---
 
-## 📁 11. Project Structure
+## 📱 11. Omnichannel 2-Way SMS Gateway & Twilio / Pinata IPFS Architecture
+
+SynapseOS provides a complete **2-way conversational SMS engine** designed specifically for **2G feature phones and low-bandwidth rural populations**, fully integrated with **Twilio** and **Pinata IPFS decentralized medical record storage**.
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Patient as 📱 Patient (2G Keypad / Feature Phone)
+    participant SMS as 🛰️ SMS Gateway (Twilio / Android Gateway)
+    participant API as 🐍 FastAPI Backend (/api/sms/webhook)
+    participant Swarm as 🤖 Multi-Agent Clinical Swarm
+    participant Pinata as 📦 Pinata IPFS Cloud
+
+    Patient->>SMS: Sends SMS ("Can I take Aspirin with Warfarin?" or "1 Fever & Cough")
+    SMS->>API: HTTP POST application/x-www-form-urlencoded (From, Body)
+    API->>Swarm: Automatic Zero-Selection Natural Intent Classifier
+    
+    alt Emergency / SOS Keyword
+        Swarm-->>API: Deterministic Red-Alert Intercept (Call 108 / Ambulance)
+    else Symptom Triage / Diagnosis
+        Swarm->>Swarm: ESI Clinical Risk & Protocol Assessment
+        Swarm->>Pinata: Upload Triage Summary & FHIR Bundle to IPFS
+        Pinata-->>Swarm: Returns IPFS CID (e.g. QmXyZ...)
+    else Drug Safety Check
+        Swarm->>Swarm: NIH RxNav DDI Screening
+    end
+
+    API->>SMS: Returns Instant XML TwiML <Response><Message>
+    SMS-->>Patient: 📨 Plain-Text SMS + Decentralized IPFS Medical Record URL
+```
+
+### 🌟 Key Capabilities
+
+1. **Zero-Mode Natural Intent Tracking:**
+   * Patients **do not need to select menu numbers**. They can text free-form natural language queries (e.g., *"severe headache since morning"*, *"is combiflam safe with dolo?"*, *"baby vaccine at 6 weeks"*, *"dengue cases in Delhi"*).
+   * The multi-agent orchestrator automatically classifies the intent (`SYMPTOM_TRIAGE`, `DRUG_SAFETY`, `VACCINATION_SCHEDULE`, `OUTBREAK_ALERT`, `MENTAL_HEALTH`, `EMERGENCY_SOS`) and generates customized clinical advice.
+
+2. **Interactive Guided Menus (`hi` / `menu`):**
+   * Texting **`hi`**, **`hello`**, **`menu`**, or **`start`** returns an easy-to-use numbered menu:
+     ```text
+     Sanjeevni AI Health Assistant:
+     1. Symptom Triage & Diagnosis
+     2. Drug Interaction & Safety Check
+     3. Disease & Outbreak Alert
+     4. UIP Vaccination Schedule
+     5. Book Teleconsult / PHC
+     Reply with a number + query, or describe symptoms directly. (Text 'SOS' for Emergency)
+     ```
+
+3. **Decentralized Pinata IPFS Records over Plain SMS:**
+   * Standard 2G SMS cannot carry heavy PDFs or medical scans.
+   * When a clinical diagnosis or triage summary is generated, Sanjeevni automatically pins the full JSON/PDF record to **Pinata IPFS** and sends a short gateway URL (`https://gateway.pinata.cloud/ipfs/Qm...`) directly in the SMS reply!
+   * Built-in **zero-config local simulation fallback** enables offline testing without an active Pinata JWT.
+
+4. **100% Free Trial Setup (Twilio — No Credit Card Required):**
+   * Twilio provides **$15 in free trial balance** on signup without asking for credit card details.
+   * Gives **~1,750 free SMS messages** ($1.15/month virtual number + $0.0079/SMS), ideal for hackathon demonstrations and trial deployments.
+   * Also supports self-hosted **Android SMS Gateways** (Termux / Android SMS Gateway app) using any spare phone with an unlimited SIM SMS pack.
+
+---
+
+## 📁 12. Project Structure
 
 ```
 Sanjeevni-OS/
@@ -690,7 +753,7 @@ All endpoints served at `http://localhost:8000/api`. Interactive docs at `http:/
 | `POST` | `/api/reports/generate-pdf` | Clinical PDF with blockchain QR (binary response) |
 | `GET` | `/api/fhir/bundle` | HL7 FHIR R4 patient bundle |
 
-### 📱 Omnichannel & Emergency (Meta WhatsApp Cloud API & 2G SMS)
+### 📱 Omnichannel & Emergency (Meta WhatsApp Cloud API, 2G SMS & Pinata IPFS)
 
 | Method | Endpoint | Description |
 | :--- | :--- | :--- |
@@ -698,7 +761,12 @@ All endpoints served at `http://localhost:8000/api`. Interactive docs at `http:/
 | `GET` | `/api/whatsapp/webhook` | Meta Webhook verification handshake (`hub.challenge`) |
 | `POST` | `/api/whatsapp/webhook` | Meta Official WhatsApp Cloud API inbound webhook |
 | `POST` | `/api/whatsapp/simulate` | Simulate incoming Meta WhatsApp message/scan |
-| `POST` | `/api/sms/inbound` | 2G Plain-Text SMS gateway for feature phones |
+| `POST` | `/api/sms/webhook` | Official Twilio 2-Way Inbound SMS webhook (TwiML XML response) |
+| `POST` | `/api/sms/send` | Dispatches outbound SMS messages via Twilio REST API |
+| `POST` | `/api/sms/inbound` | 2G Plain-Text SMS gateway for basic keypad feature phones |
+| `POST` | `/api/sms/simulate` | Interactive developer simulation for inbound SMS triage |
+| `POST` | `/api/ipfs/pin-json` | Decentralized IPFS pinning for FHIR records & triage summaries |
+| `POST` | `/api/ipfs/pin-file` | Decentralized IPFS pinning for raw clinical PDFs & radiography |
 
 ### 🏥 Public Health
 
@@ -724,6 +792,11 @@ Copy `.env.example` to `.env`. No secrets required for core offline operation �
 | **Meta WhatsApp** | `WHATSAPP_BUSINESS_ACCOUNT_ID` | Optional | Meta WhatsApp Business Account ID |
 | **Meta WhatsApp** | `WHATSAPP_WEBHOOK_VERIFY_TOKEN`| Optional | Secret token for webhook verification (default: `sanjeevni_secret_token_123`) |
 | **Meta WhatsApp** | `WHATSAPP_API_VERSION` | Optional | Graph API version (default: `v20.0`) |
+| **Twilio SMS** | `TWILIO_ACCOUNT_SID` | Optional | Twilio Account SID ($15 Free Trial — No Credit Card) |
+| **Twilio SMS** | `TWILIO_AUTH_TOKEN` | Optional | Twilio Auth Token |
+| **Twilio SMS** | `TWILIO_PHONE_NUMBER` | Optional | Twilio virtual phone number for 2-way SMS |
+| **IPFS / Blockchain**| `PINATA_JWT` | Optional | Pinata API JWT for IPFS pinning |
+| **IPFS / Blockchain**| `PINATA_GATEWAY_URL` | Optional | Pinata Gateway URL (default: `https://gateway.pinata.cloud/ipfs`) |
 | **LLM — Primary** | `GROQ_API_KEY` | Optional | Groq LLaMA-3.3-70B for live AI reasoning |
 | **LLM — Primary** | `GROQ_MODEL` | Optional | Default: `llama-3.3-70b-versatile` |
 | **LLM — Failover** | `OPENROUTER_API_KEY` | Optional | OpenRouter fallback for LLM calls |
@@ -733,7 +806,6 @@ Copy `.env.example` to `.env`. No secrets required for core offline operation �
 | **Blockchain** | `CONTRACT_ADDRESS` | Optional | Deployed `MedicalRecords.sol` address |
 | **Blockchain** | `DEPLOYER_PRIVATE_KEY` | Optional | Sepolia deployer account private key |
 | **Blockchain** | `SEPOLIA_RPC_URL` | Optional | Infura/Alchemy Sepolia endpoint |
-| **IPFS** | `PINATA_JWT` | Optional | Pinata API JWT for IPFS pinning |
 
 ---
 
