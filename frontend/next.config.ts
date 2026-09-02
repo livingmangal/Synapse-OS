@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: 'standalone',
+  output: process.env.VERCEL ? undefined : 'standalone',
   async rewrites() {
     return [
       { source: '/conocenos', destination: '/about-us' },
