@@ -2,7 +2,7 @@ import os
 from pydantic import BaseModel
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(override=True)  # reloaded with Groq key
 
 class Settings(BaseModel):
     PROJECT_NAME: str = "SynapseOS"
@@ -11,7 +11,7 @@ class Settings(BaseModel):
     
     # LLM API Keys & Model Configurations
     GROQ_API_KEY: str = os.getenv("GROQ_API_KEY", "")
-    GROQ_MODEL: str = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
+    GROQ_MODEL: str = os.getenv("GROQ_MODEL", "qwen/qwen3.8-27b")
     
     OPENROUTER_API_KEY: str = os.getenv("OPENROUTER_API_KEY", "")
     OPENROUTER_MODEL: str = os.getenv("OPENROUTER_MODEL", "meta-llama/llama-3.3-70b-instruct")
@@ -26,9 +26,7 @@ class Settings(BaseModel):
     WHATSAPP_WEBHOOK_VERIFY_TOKEN: str = os.getenv("WHATSAPP_WEBHOOK_VERIFY_TOKEN", "sanjeevni_secret_token_123")
     WHATSAPP_API_VERSION: str = os.getenv("WHATSAPP_API_VERSION", "v20.0")
 
-    # OpenWA / WhatsApp fallback settings
-    OPENWA_URL: str = os.getenv("OPENWA_URL", "http://localhost:3000")
-    OPENWA_API_KEY: str = os.getenv("OPENWA_API_KEY", "")
+
     
     # Twilio SMS Settings
     TWILIO_ACCOUNT_SID: str = os.getenv("TWILIO_ACCOUNT_SID", "")

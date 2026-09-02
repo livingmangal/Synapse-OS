@@ -57,6 +57,7 @@ venv/
 .venv/
 .pytest_cache/
 
-# Archives
+# Archives & Binaries
 *.rar
-
+ngrok.exe
+*.exe

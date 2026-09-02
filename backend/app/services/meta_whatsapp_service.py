@@ -288,11 +288,99 @@ def detect_language_script(text: str) -> str:
             return "or"  # Odia
     return "en"
 
+import re
 
-def format_response_for_whatsapp(text: str) -> str:
+
+def format_compact_whatsapp_card(text: str) -> str:
+    """
+    Transforms verbose multi-agent diagnostic audit into a punchy, mobile-optimized WhatsApp card.
+    Extracts: Triage Badge, Suspected Condition, Top 3 Actions, Red Flags, and Quick Shortcuts.
+    """
+    if not text or len(text.strip()) < 180:
+        return format_response_for_whatsapp(text, compact=False)
+
+    # 1. Determine Triage Status Badge
+    badge = "🟡 *SANJEEVNI CLINICAL ASSESSMENT*"
+    if "🔴" in text or ("emergency" in text.lower() and "immediate emergency" in text.lower()):
+        badge = "🔴 *SANJEEVNI EMERGENCY TRIAGE — CRITICAL*"
+    elif "🟢" in text or ("home care" in text.lower() and "doctor consultation needed" not in text.lower()):
+        badge = "🟢 *SANJEEVNI HOME CARE & MONITORING*"
+    elif "🟡" in text or "doctor consult" in text.lower():
+        badge = "🟡 *SANJEEVNI DOCTOR CONSULTATION RECOMMENDED*"
+
+    lines = [f"{badge}\n━━━━━━━━━━━━━━━━━━━━"]
+
+    # 2. Extract Primary Assessment / Suspected Condition
+    assess_match = re.search(r'(?:Executive Clinical Assessment|Assessment|Findings)[^\n]*\n+([^\n]+)', text, re.IGNORECASE)
+    if assess_match:
+        condition = assess_match.group(1).strip().replace("*", "")
+        if len(condition) > 160:
+            condition = condition[:157] + "..."
+        lines.append(f"• *Assessment:* {condition}")
+    else:
+        lines.append("• *Assessment:* Multi-agent clinical audit completed by AI Council.")
+
+    # Extract Council confidence
+    conf_match = re.search(r'Confidence:\*?\s*([0-9]+%|\w+)', text, re.IGNORECASE)
+    if conf_match:
+        lines.append(f"• *Council Consensus:* {conf_match.group(1)} Confidence")
+
+    # 3. Extract Immediate Action Items
+    actions = []
+    action_match = re.search(r'(?:Immediate Action Plan|Action Plan|Recommended Action)[^\n]*\n+([^\n]+)', text, re.IGNORECASE)
+    if action_match:
+        act_line = action_match.group(1).strip().replace("*", "")
+        if len(act_line) > 8 and not act_line.startswith("---"):
+            actions.append(act_line)
+
+    bullet_items = re.findall(r'\*\s+\*?([A-Za-z\s]+)[:\-]\*?\s*([^\n]+)', text)
+    for title, desc in bullet_items:
+        clean_title = title.strip().lower()
+        if any(k in clean_title for k in ["hydration", "rest", "temperature", "fluid", "monitoring", "medication", "seek"]):
+            actions.append(f"{title.strip()}: {desc.strip()[:80]}")
+            if len(actions) >= 3:
+                break
+
+    if actions:
+        lines.append("\n📋 *Immediate Actions:*")
+        for i, act in enumerate(actions[:3], 1):
+            lines.append(f"{i}. {act}")
+    else:
+        lines.append("\n📋 *Immediate Actions:*\n1. Schedule consultation with a Primary Care Physician within 24h.\n2. Maintain complete rest and active hydration.")
+
+    # 4. Extract Top Red Flags
+    red_flags = []
+    for title, desc in bullet_items:
+        clean_title = title.strip().lower()
+        if any(k in clean_title for k in ["respiratory", "breath", "chest", "oxygen", "spo2", "neurological", "escalation", "fever"]):
+            red_flags.append(f"{title.strip()}: {desc.strip()[:70]}")
+            if len(red_flags) >= 2:
+                break
+
+    if red_flags:
+        lines.append("\n🚨 *Seek Emergency Care / Call 108 If:*")
+        for rf in red_flags:
+            lines.append(f"• {rf}")
+    else:
+        lines.append("\n🚨 *Seek Emergency Care If:*\n• Shortness of breath or SpO2 drops below 92%\n• Severe chest pain or persistent fever > 103°F")
+
+    # 5. Interactive Quick Action Buttons / Shortcuts
+    lines.append("\n━━━━━━━━━━━━━━━━━━━━")
+    lines.append("👉 *Quick Shortcuts:*")
+    lines.append("• Reply *5* to find PM-JAY doctors & book slot")
+    lines.append("• Reply *sos* for instant emergency ambulance")
+    lines.append("• Reply *full* for the complete clinical report")
+    lines.append("\n_🌿 Powered by Sanjeevni-OS Multi-Agent Swarm_")
+
+    return "\n".join(lines)
+
+
+def format_response_for_whatsapp(text: str, compact: bool = True) -> str:
     """Formats markdown response cleanly for WhatsApp client rendering."""
     if not text:
         return "Thank you for consulting Sanjeevni-OS. Please monitor your health and consult a physician if needed."
+    if compact and len(text.strip()) > 280:
+        return format_compact_whatsapp_card(text)
     formatted = text.strip()
     formatted = formatted.replace("### ", "• *").replace("## ", "*").replace("# ", "*")
     if not formatted.endswith("\n\n_🌿 Powered by Sanjeevni-OS Multi-Agent Swarm_"):
@@ -509,6 +597,29 @@ async def process_whatsapp_inbound_webhook(payload: Dict[str, Any]) -> Dict[str,
                 "dispatch": dispatch_res,
                 "reply_dispatched": dispatch_res
             }
+
+    # 7b. Full Diagnostic Report Request ("full", "report", "details")
+    if text_lower in ("full", "report", "details", "full report", "detailed report", "audit"):
+        last_report = session["context"].get("last_full_report")
+        if last_report:
+            clean_full = last_report.strip().replace("### ", "• *").replace("## ", "*").replace("# ", "*")
+            if not clean_full.endswith("\n\n_🌿 Powered by Sanjeevni-OS Multi-Agent Swarm_"):
+                clean_full += "\n\n_🌿 Powered by Sanjeevni-OS Multi-Agent Swarm_"
+            dispatch_res = await send_whatsapp_message(to_phone=sender_phone, text=clean_full)
+            return {
+                "status": "processed",
+                "type": "full_report_dispatched",
+                "sender": sender_phone,
+                "dispatch": dispatch_res,
+                "reply_dispatched": dispatch_res
+            }
+        else:
+            no_rep = (
+                "ℹ️ *No previous diagnostic report found in this session.*\n\n"
+                "Please describe your symptoms or text `1 <symptoms>` (e.g. `1 High fever, headache and dry cough`) to start an AI clinical triage!"
+            )
+            dispatch_res = await send_whatsapp_message(to_phone=sender_phone, text=no_rep)
+            return {"status": "processed", "type": "no_prior_report", "dispatch": dispatch_res, "reply_dispatched": dispatch_res}
 
     # 8. Emergency SOS Trigger
     if text_lower in ("sos", "emergency", "112", "108", "save me", "help me"):
@@ -780,14 +891,35 @@ async def process_whatsapp_inbound_webhook(payload: Dict[str, Any]) -> Dict[str,
     else:
         clean_text = message_text
 
-    # Execute Swarm Orchestrator
-    agent_result = await orchestrate_health_request(
-        message=clean_text,
-        channel="whatsapp",
-        user_id=sender_phone
-    )
+    # Execute Swarm Orchestrator with Clinical Fail-Safe Protection
+    try:
+        agent_result = await orchestrate_health_request(
+            message=clean_text,
+            channel="whatsapp",
+            user_id=sender_phone
+        )
+        session["context"]["last_full_report"] = agent_result.final_response
+        response_text = format_response_for_whatsapp(agent_result.final_response, compact=True)
+        trace_steps = len(agent_result.trace)
+        intent = agent_result.detected_intent
+    except Exception as exc:
+        logger.error(f"[WhatsApp Swarm Exception] Fallback triggered: {exc}", exc_info=True)
+        response_text = (
+            "⚠️ *SANJEEVNI-OS — CLINICAL ASSISTANT NOTICE*\n\n"
+            "We encountered a temporary processing delay with our live clinical reasoning nodes. Your symptom query has been safely recorded.\n\n"
+            "🚨 *Immediate Emergency Guidance:*\n"
+            "If you or the patient are experiencing severe acute symptoms (such as intense chest pain, sudden difficulty breathing, persistent high fever, or loss of consciousness):\n"
+            "• 📞 Call *112* (National Emergency Helpline) or *108* (Ambulance) immediately.\n"
+            "• 🧠 Mental Health Crisis: Call *14416* (Tele-MANAS 24x7 Toll-Free).\n\n"
+            "📋 *Offline Menu Options:*\n"
+            "• Reply *menu* to view offline guides, doctor directory, and vaccination schedules.\n"
+            "• Reply *sos* for instant emergency contact dispatch.\n"
+            "• Reply *2 <medicine name>* to verify drug interactions.\n\n"
+            "_🌿 Sanjeevni-OS Active Medical Protection_"
+        )
+        trace_steps = 0
+        intent = "fallback_emergency_advisory"
 
-    response_text = format_response_for_whatsapp(agent_result.final_response)
     dispatch_res = await send_whatsapp_message(to_phone=sender_phone, text=response_text)
 
     return {
@@ -795,8 +927,8 @@ async def process_whatsapp_inbound_webhook(payload: Dict[str, Any]) -> Dict[str,
         "sender": sender_phone,
         "dispatch": dispatch_res,
         "reply_dispatched": dispatch_res,
-        "agent_trace_steps": len(agent_result.trace),
-        "intent": agent_result.detected_intent
+        "agent_trace_steps": trace_steps,
+        "intent": intent
     }
 
 

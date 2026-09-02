@@ -51,6 +51,13 @@ from backend.app.agents.appointment_agent import (
     find_doctors_by_specialty,
     book_appointment_slot
 )
+from backend.app.core.session_manager import session_manager
+from backend.app.services.meta_whatsapp_service import (
+    LOCALIZED_MENUS,
+    LANGUAGE_SELECTION_MENU,
+    format_compact_whatsapp_card,
+    format_response_for_whatsapp
+)
 
 router = APIRouter()
 
@@ -280,6 +287,132 @@ async def whatsapp_simulate_endpoint(req: WhatsAppSimulateRequest):
         }
 
     return await process_whatsapp_inbound_webhook(payload)
+
+
+SUPPORTED_LANGUAGES = [
+    {"code": "en", "name": "English", "native_name": "English", "command": "1"},
+    {"code": "hi", "name": "Hindi", "native_name": "हिन्दी", "command": "2"},
+    {"code": "bn", "name": "Bengali", "native_name": "বাংলা", "command": "3"},
+    {"code": "ta", "name": "Tamil", "native_name": "தமிழ்", "command": "4"},
+    {"code": "te", "name": "Telugu", "native_name": "తెలుగు", "command": "5"},
+    {"code": "mr", "name": "Marathi", "native_name": "मराठी", "command": "6"},
+    {"code": "gu", "name": "Gujarati", "native_name": "ગુજરાતી", "command": "7"},
+    {"code": "kn", "name": "Kannada", "native_name": "ಕನ್ನಡ", "command": "8"},
+    {"code": "ml", "name": "Malayalam", "native_name": "മലയാളം", "command": "9"},
+    {"code": "pa", "name": "Punjabi", "native_name": "ਪੰਜਾਬੀ", "command": "10"},
+    {"code": "or", "name": "Odia", "native_name": "ଓଡ଼ିଆ", "command": "11"}
+]
+
+
+class WhatsAppQuickReplyRequest(BaseModel):
+    message: str = Field(default="1 I have severe fever and dry cough", example="1 I have severe fever and dry cough")
+    sender_phone: str = Field(default="917060002293", example="917060002293")
+    compact: bool = Field(default=True, description="When True, returns compact mobile-optimized card (< 250 words)")
+    lang: Optional[str] = Field(default=None, description="Language code e.g. en, hi, bn, ta, te")
+
+
+class SetLanguageRequest(BaseModel):
+    sender_phone: str = Field(default="917060002293", example="917060002293")
+    language: str = Field(default="hi", example="hi", description="Language code: en, hi, bn, ta, te, mr, gu, kn, ml, pa, or")
+
+
+@router.post("/whatsapp/quick-reply", tags=["Omnichannel"])
+async def whatsapp_quick_reply_endpoint(req: WhatsAppQuickReplyRequest):
+    """
+    Dedicated quick-response endpoint for WhatsApp interactions.
+    Returns a punchy, mobile-optimized card response with status badges, immediate action steps, and quick shortcuts.
+    """
+    clean_phone = req.sender_phone.replace("+", "").replace("@c.us", "").strip()
+    session = session_manager.get_session(clean_phone)
+    if req.lang:
+        session["context"]["lang"] = req.lang
+
+    # Route through simulate payload
+    sim_req = WhatsAppSimulateRequest(
+        message=req.message,
+        sender_phone=clean_phone,
+        message_type="text"
+    )
+    result = await whatsapp_simulate_endpoint(sim_req)
+
+    # Extract clean text and quick replies
+    last_report = session["context"].get("last_full_report") or ""
+    current_lang = session["context"].get("lang", "en")
+
+    return {
+        "status": "success",
+        "sender_phone": clean_phone,
+        "language": current_lang,
+        "compact": req.compact,
+        "formatted_card": format_compact_whatsapp_card(last_report) if req.compact and last_report else format_response_for_whatsapp(last_report, compact=False),
+        "full_report": last_report,
+        "suggested_quick_replies": [
+            {"code": "5", "label": "Find Doctors (PM-JAY)"},
+            {"code": "sos", "label": "Emergency Ambulance (108)"},
+            {"code": "menu", "label": "Main Service Menu"},
+            {"code": "full", "label": "Read Complete Audit"}
+        ],
+        "execution_summary": result
+    }
+
+
+@router.get("/whatsapp/languages", tags=["Omnichannel"])
+async def get_whatsapp_languages_endpoint():
+    """
+    Returns the complete list of 11 Indian regional languages supported by the WhatsApp bot.
+    Includes numerical selector codes (1-11) for quick keypad replies.
+    """
+    return {
+        "total_supported": len(SUPPORTED_LANGUAGES),
+        "languages": SUPPORTED_LANGUAGES,
+        "onboarding_menu_text": LANGUAGE_SELECTION_MENU,
+        "hint": "On WhatsApp, text 'lang' or 'language' at any time to trigger this selector."
+    }
+
+
+@router.post("/whatsapp/set-language", tags=["Omnichannel"])
+async def set_whatsapp_language_endpoint(req: SetLanguageRequest):
+    """
+    Sets a user's preferred language in the session manager and returns the localized menu.
+    """
+    clean_phone = req.sender_phone.replace("+", "").replace("@c.us", "").strip()
+    lang_code = req.language.lower().strip()
+
+    valid_codes = [l["code"] for l in SUPPORTED_LANGUAGES]
+    if lang_code not in valid_codes:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Unsupported language '{lang_code}'. Valid codes: {', '.join(valid_codes)}"
+        )
+
+    session = session_manager.get_session(clean_phone)
+    session["context"]["lang"] = lang_code
+    session_manager.reset_flow(clean_phone)
+
+    localized_menu = LOCALIZED_MENUS.get(lang_code, LOCALIZED_MENUS["en"])
+    return {
+        "status": "language_updated",
+        "sender_phone": clean_phone,
+        "selected_language": lang_code,
+        "menu_text": localized_menu
+    }
+
+
+@router.get("/whatsapp/menu", tags=["Omnichannel"])
+async def get_whatsapp_menu_endpoint(lang: str = Query("en", description="Language code: en, hi, bn, ta, te, mr, gu, kn, ml, pa, or")):
+    """
+    Returns the localized WhatsApp service menu in any of the 11 supported languages.
+    """
+    lang_code = lang.lower().strip()
+    menu = LOCALIZED_MENUS.get(lang_code)
+    if not menu:
+        menu = LOCALIZED_MENUS["en"]
+
+    return {
+        "language": lang_code,
+        "menu": menu,
+        "hint": "Send 'hi', 'hello', or 'menu' on WhatsApp to see this directly in chat."
+    }
 
 
 @router.get("/fhir/bundle", tags=["EHR & FHIR R4"])

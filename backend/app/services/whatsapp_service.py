@@ -1,6 +1,6 @@
 """
 SynapseOS — services/whatsapp_service.py
-Backward-compatible proxy re-exporting from dedicated openwa package (backend/app/openwa).
+Unified facade re-exporting official Meta WhatsApp Cloud API services and handlers.
 """
 
 from backend.app.services.meta_whatsapp_service import (
