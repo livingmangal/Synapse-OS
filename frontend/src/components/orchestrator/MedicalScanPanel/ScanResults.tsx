@@ -1,9 +1,14 @@
 import React from 'react';
 import { CheckCircle2, Info } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
+import PrescriptionOCRView from './PrescriptionOCRView';
 
 export default function ScanResults({ state }: { state: any }) {
   const { translateText } = useLanguage();
+
+  if (state.modality === 'prescription') {
+    return <PrescriptionOCRView state={state} />;
+  }
 
   return (
     <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '24px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px', boxShadow: '0 4px 16px rgba(0,0,0,0.02)' }}>
@@ -31,6 +36,36 @@ export default function ScanResults({ state }: { state: any }) {
           {translateText(state.scanResult?.plain_english_explanation || 'Processing plain-language summary...')}
         </p>
       </div>
+
+      {/* Remote YOLOv8 Visualizations from Hugging Face Space */}
+      {(state.scanResult?.remote_result_image || state.scanResult?.remote_gradcam_image) && (
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '12px' }}>
+          {state.scanResult.remote_result_image && (
+            <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '14px', padding: '12px' }}>
+              <div style={{ fontSize: '11px', fontWeight: 800, color: '#2563eb', textTransform: 'uppercase', marginBottom: '8px' }}>
+                🎯 {translateText('YOLOv8 Anomaly Localization')}
+              </div>
+              <img
+                src={state.scanResult.remote_result_image}
+                alt="YOLOv8 Detection"
+                style={{ width: '100%', borderRadius: '8px', objectFit: 'contain', maxHeight: '240px', background: '#000000' }}
+              />
+            </div>
+          )}
+          {state.scanResult.remote_gradcam_image && (
+            <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '14px', padding: '12px' }}>
+              <div style={{ fontSize: '11px', fontWeight: 800, color: '#db2777', textTransform: 'uppercase', marginBottom: '8px' }}>
+                🔥 {translateText('Grad-CAM Attention Heatmap')}
+              </div>
+              <img
+                src={state.scanResult.remote_gradcam_image}
+                alt="Grad-CAM Activation"
+                style={{ width: '100%', borderRadius: '8px', objectFit: 'contain', maxHeight: '240px', background: '#000000' }}
+              />
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Clinical Observations */}
       <div>

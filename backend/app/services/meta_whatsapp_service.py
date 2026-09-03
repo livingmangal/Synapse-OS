@@ -10,6 +10,7 @@ from typing import Dict, Any, Optional, List
 
 from backend.app.services.meta_whatsapp_client import (
     send_whatsapp_message,
+    send_whatsapp_image,
     send_whatsapp_interactive_buttons,
     download_meta_media
 )
@@ -658,6 +659,38 @@ async def process_whatsapp_inbound_webhook(payload: Dict[str, Any]) -> Dict[str,
         else:
             img_type = "bone_fracture"
 
+        if img_type == "prescription":
+            try:
+                from backend.app.services.prescription_ocr_service import (
+                    validate_image_bytes,
+                    normalize_and_resize_image,
+                    run_prescription_ocr,
+                    interpret_prescription,
+                    format_prescription_for_whatsapp
+                )
+                if image_base64:
+                    clean_b64 = image_base64.split(",")[-1] if "," in image_base64 else image_base64
+                    raw_bytes = base64.b64decode(clean_b64)
+                    valid, err_code, err_msg, pil_img = validate_image_bytes(raw_bytes)
+                    if valid and pil_img:
+                        data_url = normalize_and_resize_image(pil_img)
+                        ok, err_obj, ocr_data = await run_prescription_ocr(data_url)
+                        if ok and ocr_data:
+                            # Run downstream Groq clinical interpretation & triage
+                            interp = await interpret_prescription(ocr_data=ocr_data, lang=user_lang or "en")
+                            reply_text = format_prescription_for_whatsapp(ocr_data=ocr_data, interpretation=interp)
+                            dispatch_res = await send_whatsapp_message(to_phone=sender_phone, text=reply_text)
+                            return {
+                                "status": "processed",
+                                "type": "prescription_ocr_interpretation",
+                                "sender": sender_phone,
+                                "dispatch": dispatch_res,
+                                "reply_dispatched": dispatch_res,
+                                "scan_summary": interp.get("likely_condition", "Prescription Interpreted")
+                            }
+            except Exception as e:
+                logger.error(f"[WhatsApp Prescription OCR/Triage Error] {e}")
+
         scan_result = analyze_medical_image(
             image_type=img_type,
             filename="whatsapp_meta_scan.jpg",
@@ -675,17 +708,45 @@ async def process_whatsapp_inbound_webhook(payload: Dict[str, Any]) -> Dict[str,
             box_str,
             f"\n📋 *Clinical Interpretation:*\n{scan_result.get('plain_english_explanation', '')}",
             f"\n💡 *Recommended Next Step:*\n{scan_result.get('recommended_clinical_action', 'Consult a registered orthopedic surgeon.')}",
-            "\n_⚠️ AI screening support only. Always verify with a certified radiologist._"
         ]
+        if scan_result.get("remote_result_image"):
+            reply_parts.append(f"\n🖼️ *YOLOv8 Detection Overlay:*\n{scan_result['remote_result_image']}")
+        if scan_result.get("remote_gradcam_image"):
+            reply_parts.append(f"\n🔥 *Grad-CAM Attention Map:*\n{scan_result['remote_gradcam_image']}")
+
+        reply_parts.append("\n_⚠️ AI screening support only. Always verify with a certified radiologist._")
 
         reply_text = strip_markdown_to_plain_text("\n".join(reply_parts))
         dispatch_res = await send_whatsapp_message(to_phone=sender_phone, text=reply_text)
+
+        # Dispatch the actual annotated YOLOv8 JPG and Grad-CAM JPG straight into the chat bubble
+        result_img_url = scan_result.get("remote_result_image")
+        gradcam_img_url = scan_result.get("remote_gradcam_image")
+        image_dispatches = []
+
+        if result_img_url:
+            img_res = await send_whatsapp_image(
+                to_phone=sender_phone,
+                image_url=result_img_url,
+                caption="🎯 FractureNet YOLOv8: Anomaly Localization Overlay"
+            )
+            image_dispatches.append({"type": "yolo_overlay", "result": img_res})
+
+        if gradcam_img_url:
+            cam_res = await send_whatsapp_image(
+                to_phone=sender_phone,
+                image_url=gradcam_img_url,
+                caption="🔥 Grad-CAM: Neural Attention Heatmap"
+            )
+            image_dispatches.append({"type": "gradcam_heatmap", "result": cam_res})
+
         return {
             "status": "processed",
             "type": "medical_image",
             "sender": sender_phone,
             "dispatch": dispatch_res,
             "reply_dispatched": dispatch_res,
+            "images_dispatched": image_dispatches,
             "scan_summary": scan_result.get("ai_diagnosis_summary")
         }
 
