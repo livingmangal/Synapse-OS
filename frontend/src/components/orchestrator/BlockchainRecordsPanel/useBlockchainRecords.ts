@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { getSigner, isContractReady, getDeployedNetwork } from '@/lib/blockchain/contract';
+import { fetchBlockchainRecords, BlockchainRecord } from '@/lib/supabase';
 import { PatientInfo } from '../types';
 import { MockHealthProfile, MOCK_HEALTH_PROFILES } from '@/data/mockHealthProfiles';
 
@@ -59,6 +60,36 @@ export function useBlockchainRecords(props?: UseBlockchainRecordsProps) {
   const [verifyCid, setVerifyCid] = useState('');
   const [verifyResult, setVerifyResult] = useState<any>(null);
 
+  // Refresh records from Supabase
+  const loadSupabaseRecords = useCallback(async (profileId: string, abhaId?: string, fallbackRecords?: any[]) => {
+    try {
+      const dbRecords = await fetchBlockchainRecords(profileId, abhaId);
+      if (dbRecords && dbRecords.length > 0) {
+        // Normalize fields for UI display
+        const normalized = dbRecords.map((r: BlockchainRecord) => ({
+          id: r.id,
+          profile_id: r.profile_id,
+          patient: r.patient_name,
+          abha: r.abha_number,
+          hash: r.tx_hash,
+          cid: r.cid,
+          type: r.record_type,
+          timestamp: r.timestamp_raw,
+          facility: r.facility,
+          verified: r.verified !== false
+        }));
+        setRecords(normalized);
+        return;
+      }
+    } catch (err) {
+      console.warn('Error loading records from Supabase:', err);
+    }
+
+    if (fallbackRecords) {
+      setRecords(fallbackRecords);
+    }
+  }, []);
+
   // Synchronize with selected patient profile
   const applyProfileData = useCallback((profileId: string, customRegistry?: any[]) => {
     const regList = customRegistry || registry;
@@ -98,9 +129,10 @@ export function useBlockchainRecords(props?: UseBlockchainRecordsProps) {
       device: matchedCitizen?.device || matchedMock.device?.name || 'Wearable HealthKit Synced'
     });
 
-    const citizenRecords = matchedCitizen?.blockchainRecords || [
+    const citizenFallbackRecords = matchedCitizen?.blockchainRecords || [
       {
         id: `REC-0x${Math.floor(1000 + Math.random() * 9000)}-${citizenName.slice(0, 2).toUpperCase()}`,
+        profile_id: profileId,
         patient: citizenName,
         abha: citizenAbha,
         hash: '8f4e2b81239c09a8e74b321098ef69c1a76d8e209841af09',
@@ -112,8 +144,9 @@ export function useBlockchainRecords(props?: UseBlockchainRecordsProps) {
       }
     ];
 
-    setRecords(citizenRecords);
-  }, [registry, props?.patient]);
+    // Load persistent records from Supabase
+    loadSupabaseRecords(profileId, citizenAbha, citizenFallbackRecords);
+  }, [registry, props?.patient, loadSupabaseRecords]);
 
   // Load ABDM Registry JSON & setup wallet listeners on mount
   useEffect(() => {
@@ -365,6 +398,7 @@ export function useBlockchainRecords(props?: UseBlockchainRecordsProps) {
     handleDownloadPdf,
     handleVerify,
     walletAddress, walletMode, contractOk, networkName, connecting, walletError,
-    connectBurner, connectMetaMask
+    connectBurner, connectMetaMask,
+    refreshRecords: () => loadSupabaseRecords(currentProfileId, abhaData?.abha_number)
   };
 }
