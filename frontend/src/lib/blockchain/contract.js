@@ -45,7 +45,29 @@ export async function getContractAddress() {
 
 export async function getDeployedNetwork() {
   const data = await loadDeployedData();
-  return data?.network || "localhost";
+  return data?.network || "sepolia";
+}
+
+/**
+ * Robust helper to locate MetaMask in multi-wallet browser environments.
+ */
+export function getMetaMaskProvider() {
+  if (typeof window === "undefined" || !window.ethereum) {
+    return null;
+  }
+
+  // Handle multi-wallet setups (e.g. MetaMask + Phantom + Coinbase)
+  if (Array.isArray(window.ethereum.providers)) {
+    const mm = window.ethereum.providers.find(
+      (p) => p.isMetaMask && !p.isPhantom && !p.isBraveWallet
+    );
+    if (mm) return mm;
+    const fallbackMm = window.ethereum.providers.find((p) => p.isMetaMask);
+    if (fallbackMm) return fallbackMm;
+    return window.ethereum.providers[0];
+  }
+
+  return window.ethereum;
 }
 
 /**
@@ -56,15 +78,7 @@ export async function getProvider() {
 
   // If deployed on Sepolia
   if (network === "sepolia") {
-    if (typeof window !== "undefined" && window.ethereum) {
-      try {
-        const bp = new ethers.BrowserProvider(window.ethereum);
-        return bp;
-      } catch (e) {
-        console.warn("MetaMask provider failed, falling back to public Sepolia RPC", e);
-      }
-    }
-    // Fallback to public Sepolia JsonRpcProvider
+    // For reliable background reads, use reliable public/Alchemy Sepolia RPC first
     return new ethers.JsonRpcProvider(SEPOLIA_RPC_URLS[0]);
   }
 
@@ -76,8 +90,9 @@ export async function getProvider() {
  * Get a browser wallet provider (MetaMask).
  */
 export function getBrowserProvider() {
-  if (typeof window !== "undefined" && window.ethereum) {
-    return new ethers.BrowserProvider(window.ethereum);
+  const eth = getMetaMaskProvider();
+  if (eth) {
+    return new ethers.BrowserProvider(eth);
   }
   return null;
 }
@@ -88,56 +103,77 @@ export function getBrowserProvider() {
  */
 export async function getSigner(mode = "burner") {
   if (mode === "metamask") {
-    if (typeof window === "undefined" || !window.ethereum) {
-      throw new Error("MetaMask not found in browser.");
+    const eth = getMetaMaskProvider();
+    if (!eth) {
+      throw new Error("MetaMask extension not found. Please install the MetaMask browser extension.");
     }
 
     // Request account access
-    await window.ethereum.request({ method: "eth_requestAccounts" });
+    let accounts = [];
+    try {
+      accounts = await eth.request({ method: "eth_requestAccounts" });
+    } catch (reqErr) {
+      if (reqErr.code === -32002) {
+        throw new Error("MetaMask connection request already pending. Please click your MetaMask extension popup to approve.");
+      }
+      if (reqErr.code === 4001) {
+        throw new Error("MetaMask connection request was rejected.");
+      }
+      throw reqErr;
+    }
+
+    if (!accounts || accounts.length === 0) {
+      throw new Error("No authorized accounts found in MetaMask.");
+    }
 
     // Auto-switch to Sepolia if the contract is deployed there
     const network = await getDeployedNetwork();
     if (network === "sepolia") {
-      const currentChainId = await window.ethereum.request({ method: "eth_chainId" });
-      if (currentChainId !== "0xaa36a7") {
-        try {
-          await window.ethereum.request({
-            method: "wallet_switchEthereumChain",
-            params: [{ chainId: "0xaa36a7" }],
-          });
-        } catch (switchError) {
-          if (switchError.code === 4902) {
-            // Sepolia not added to MetaMask yet — add it
-            await window.ethereum.request({
-              method: "wallet_addEthereumChain",
-              params: [
-                {
-                  chainId: "0xaa36a7",
-                  chainName: "Sepolia Test Network",
-                  nativeCurrency: { name: "Sepolia ETH", symbol: "ETH", decimals: 18 },
-                  rpcUrls: ["https://ethereum-sepolia-rpc.publicnode.com"],
-                  blockExplorerUrls: ["https://sepolia.etherscan.io"],
-                },
-              ],
+      try {
+        const currentChainId = await eth.request({ method: "eth_chainId" });
+        if (currentChainId !== "0xaa36a7" && currentChainId !== 11155111 && currentChainId !== "11155111") {
+          try {
+            await eth.request({
+              method: "wallet_switchEthereumChain",
+              params: [{ chainId: "0xaa36a7" }],
             });
-          } else {
-            throw new Error(
-              "Please switch MetaMask to the Sepolia network manually and try again."
-            );
+          } catch (switchError) {
+            if (switchError.code === 4902 || switchError.data?.originalError?.code === 4902) {
+              // Sepolia not added to MetaMask yet — add it
+              await eth.request({
+                method: "wallet_addEthereumChain",
+                params: [
+                  {
+                    chainId: "0xaa36a7",
+                    chainName: "Sepolia Test Network",
+                    nativeCurrency: { name: "Sepolia ETH", symbol: "ETH", decimals: 18 },
+                    rpcUrls: [
+                      "https://eth-sepolia.g.alchemy.com/v2/alch_VGvYx5M5Cq1o5DF6SYfEz",
+                      "https://ethereum-sepolia-rpc.publicnode.com",
+                      "https://rpc.sepolia.org"
+                    ],
+                    blockExplorerUrls: ["https://sepolia.etherscan.io"],
+                  },
+                ],
+              });
+            } else if (switchError.code !== 4001) {
+              console.warn("Could not auto-switch network:", switchError);
+            }
           }
         }
+      } catch (chainErr) {
+        console.warn("Chain ID verification notice:", chainErr);
       }
     }
 
-    // Create a FRESH provider after network switch
-    const freshProvider = new ethers.BrowserProvider(window.ethereum);
+    // Create a FRESH provider after network/account handshake
+    const freshProvider = new ethers.BrowserProvider(eth);
     return await freshProvider.getSigner();
   }
 
   // Burner wallet (Hardhat account #0)
   const network = await getDeployedNetwork();
   if (network === "sepolia") {
-    // If user has MetaMask connected, prefer MetaMask
     const bp = getBrowserProvider();
     if (bp) {
       try {

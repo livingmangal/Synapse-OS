@@ -180,70 +180,100 @@ export default function BlockchainRecordsPanel({
             {t('records_subtitle', 'ABDM Integration • Cryptographic Verification • Decentralized Registry')}
           </p>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
           {state.walletError && (
-            <span style={{ fontSize: '11px', color: '#e11d48', fontWeight: 600 }}>{state.walletError}</span>
+            <span style={{ 
+              fontSize: '11px', 
+              color: '#e11d48', 
+              fontWeight: 600, 
+              background: '#fff1f2', 
+              padding: '4px 10px', 
+              borderRadius: '8px', 
+              border: '1px solid #fecdd3',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '4px'
+            }}>
+              <AlertCircle size={12} />
+              {state.walletError}
+            </span>
           )}
           
           <button
             onClick={state.connectBurner}
             disabled={state.connecting}
+            title="Use built-in local simulation burner wallet"
             style={{
               padding: '6px 14px',
               borderRadius: '9999px',
               background: state.walletMode === 'burner' && state.walletAddress ? '#f1f5f9' : '#ffffff',
-              border: '1px solid #cbd5e1',
-              color: '#334155',
+              border: state.walletMode === 'burner' && state.walletAddress ? '1.5px solid #64748b' : '1px solid #cbd5e1',
+              color: state.walletMode === 'burner' && state.walletAddress ? '#0f172a' : '#64748b',
               fontSize: '11px',
               fontWeight: 700,
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
-              gap: '6px'
+              gap: '6px',
+              transition: 'all 0.15s ease'
             }}
           >
             <Wallet size={12} />
-            Burner
+            Burner {state.walletMode === 'burner' && state.walletAddress ? '✓' : ''}
           </button>
           
           <button
             onClick={state.connectMetaMask}
             disabled={state.connecting}
+            title="Connect your browser MetaMask wallet"
             style={{
               padding: '6px 14px',
               borderRadius: '9999px',
-              background: state.walletMode === 'metamask' && state.walletAddress ? '#f1f5f9' : '#ffffff',
-              border: '1px solid #cbd5e1',
-              color: '#f5841f',
+              background: state.walletMode === 'metamask' && state.walletAddress ? '#fff7ed' : '#ffffff',
+              border: state.walletMode === 'metamask' && state.walletAddress ? '1.5px solid #f97316' : '1px solid #cbd5e1',
+              color: state.walletMode === 'metamask' && state.walletAddress ? '#ea580c' : '#f5841f',
               fontSize: '11px',
-              fontWeight: 700,
+              fontWeight: 800,
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
-              gap: '6px'
+              gap: '6px',
+              boxShadow: state.walletMode === 'metamask' && state.walletAddress ? '0 0 10px rgba(249, 115, 22, 0.2)' : 'none',
+              transition: 'all 0.15s ease'
             }}
           >
-            🦊 MetaMask
+            🦊 MetaMask {state.walletMode === 'metamask' && state.walletAddress ? '✓' : ''}
           </button>
 
           <span style={{ 
             padding: '6px 14px', 
             borderRadius: '9999px', 
-            background: state.contractOk ? '#ecfdf5' : '#fef2f2', 
-            border: `1px solid ${state.contractOk ? '#a7f3d0' : '#fecaca'}`, 
-            color: state.contractOk ? '#059669' : '#ef4444', 
+            background: state.contractOk ? '#ecfdf5' : '#eff6ff', 
+            border: `1px solid ${state.contractOk ? '#a7f3d0' : '#bfdbfe'}`, 
+            color: state.contractOk ? '#059669' : '#2563eb', 
             fontSize: '11px', 
             fontWeight: 800,
             display: 'flex',
             alignItems: 'center',
             gap: '6px'
           }}>
-            {state.contractOk ? <CheckCircle2 size={12} /> : <AlertCircle size={12} />}
-            {state.contractOk ? 'Hardhat Ready' : 'Node Offline'}
+            {state.contractOk ? <CheckCircle2 size={12} /> : <Zap size={12} />}
+            {state.networkName === 'sepolia' 
+              ? (state.contractOk ? 'Sepolia Testnet Active' : 'Sepolia RPC Ready') 
+              : (state.contractOk ? 'Hardhat Ready' : 'Node Offline')}
           </span>
           
           {state.walletAddress && (
-            <span style={{ fontSize: '11px', color: '#64748b', fontWeight: 600, fontFamily: 'monospace' }}>
+            <span style={{ 
+              fontSize: '11px', 
+              color: '#334155', 
+              fontWeight: 700, 
+              fontFamily: 'monospace',
+              background: '#f8fafc',
+              padding: '4px 8px',
+              borderRadius: '6px',
+              border: '1px solid #e2e8f0'
+            }}>
               {state.walletAddress.slice(0, 6)}...{state.walletAddress.slice(-4)}
             </span>
           )}

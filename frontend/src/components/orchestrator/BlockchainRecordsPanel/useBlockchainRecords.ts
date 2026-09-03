@@ -48,7 +48,7 @@ export function useBlockchainRecords(props?: UseBlockchainRecordsProps) {
   const [walletAddress, setWalletAddress] = useState<string | null>(null);
   const [walletMode, setWalletMode] = useState<'burner' | 'metamask'>('burner');
   const [contractOk, setContractOk] = useState(false);
-  const [networkName, setNetworkName] = useState('localhost');
+  const [networkName, setNetworkName] = useState('sepolia');
   const [connecting, setConnecting] = useState(false);
   const [walletError, setWalletError] = useState<string | null>(null);
 
@@ -115,11 +115,40 @@ export function useBlockchainRecords(props?: UseBlockchainRecordsProps) {
     setRecords(citizenRecords);
   }, [registry, props?.patient]);
 
-  // Load ABDM Registry JSON on mount
+  // Load ABDM Registry JSON & setup wallet listeners on mount
   useEffect(() => {
     isContractReady().then(setContractOk).catch(() => setContractOk(false));
-    getDeployedNetwork().then(setNetworkName).catch(() => setNetworkName('localhost'));
+    getDeployedNetwork().then(setNetworkName).catch(() => setNetworkName('sepolia'));
     connectBurner();
+
+    // Setup MetaMask listeners if available
+    const eth = (typeof window !== 'undefined' && (window as any).ethereum);
+    if (eth && typeof eth.on === 'function') {
+      const handleAccountsChanged = (accounts: string[]) => {
+        if (accounts && accounts.length > 0) {
+          setWalletAddress(accounts[0]);
+          setWalletMode('metamask');
+          setWalletError(null);
+        } else {
+          // Disconnected
+          connectBurner();
+        }
+      };
+
+      const handleChainChanged = () => {
+        isContractReady().then(setContractOk).catch(() => setContractOk(false));
+      };
+
+      eth.on('accountsChanged', handleAccountsChanged);
+      eth.on('chainChanged', handleChainChanged);
+
+      return () => {
+        if (typeof eth.removeListener === 'function') {
+          eth.removeListener('accountsChanged', handleAccountsChanged);
+          eth.removeListener('chainChanged', handleChainChanged);
+        }
+      };
+    }
 
     // Fetch abha_registry.json
     fetch('/data/mockHealthData/abha_registry.json')
@@ -132,13 +161,12 @@ export function useBlockchainRecords(props?: UseBlockchainRecordsProps) {
         }
       })
       .catch(() => {
-        // Fallback to local profile definitions
         const initialId = props?.selectedProfileId || props?.activeProfile?.profileId || 'mausam_kar_verified_abha';
         applyProfileData(initialId);
       });
   }, []);
 
-  // Listen for external profile switches (e.g. from My Condition or Top Nav)
+  // Listen for external profile switches
   useEffect(() => {
     if (props?.selectedProfileId && props.selectedProfileId !== currentProfileId) {
       setCurrentProfileId(props.selectedProfileId);
@@ -183,6 +211,8 @@ export function useBlockchainRecords(props?: UseBlockchainRecordsProps) {
       const addr = await signer.getAddress();
       setWalletAddress(addr);
       setWalletMode('burner');
+      const ready = await isContractReady();
+      setContractOk(ready);
     } catch (err: any) {
       if (networkName !== 'sepolia') {
         setWalletError('Cannot connect to local Hardhat node. Is it running?');
@@ -198,45 +228,15 @@ export function useBlockchainRecords(props?: UseBlockchainRecordsProps) {
     setConnecting(true);
     setWalletError(null);
     try {
-      if (!(window as any).ethereum) {
-        throw new Error('MetaMask extension not found. Please install the MetaMask browser extension.');
-      }
-      
-      if (networkName === 'sepolia') {
-        const chainId = await (window as any).ethereum.request({ method: 'eth_chainId' });
-        if (chainId !== '0xaa36a7') {
-          try {
-            await (window as any).ethereum.request({
-              method: 'wallet_switchEthereumChain',
-              params: [{ chainId: '0xaa36a7' }],
-            });
-          } catch (switchErr: any) {
-            if (switchErr.code === 4902) {
-              await (window as any).ethereum.request({
-                method: 'wallet_addEthereumChain',
-                params: [{
-                  chainId: '0xaa36a7',
-                  chainName: 'Sepolia Test Network',
-                  nativeCurrency: { name: 'Sepolia ETH', symbol: 'ETH', decimals: 18 },
-                  rpcUrls: ['https://ethereum-sepolia-rpc.publicnode.com'],
-                  blockExplorerUrls: ['https://sepolia.etherscan.io'],
-                }],
-              });
-            } else {
-              throw new Error('Please switch MetaMask to Sepolia network.');
-            }
-          }
-        }
-      }
-
       const signer = await getSigner('metamask');
       const addr = await signer.getAddress();
       setWalletAddress(addr);
       setWalletMode('metamask');
+      const ready = await isContractReady();
+      setContractOk(ready);
     } catch (err: any) {
       const msg = err.message || 'MetaMask connection failed';
       setWalletError(msg);
-      alert('MetaMask Error: ' + msg);
     } finally {
       setConnecting(false);
     }
