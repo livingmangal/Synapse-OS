@@ -37,6 +37,36 @@ export default function ScanResults({ state }: { state: any }) {
         </p>
       </div>
 
+      {/* Remote YOLOv8 Visualizations from Hugging Face Space */}
+      {(state.scanResult?.remote_result_image || state.scanResult?.remote_gradcam_image) && (
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '12px' }}>
+          {state.scanResult.remote_result_image && (
+            <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '14px', padding: '12px' }}>
+              <div style={{ fontSize: '11px', fontWeight: 800, color: '#2563eb', textTransform: 'uppercase', marginBottom: '8px' }}>
+                🎯 {translateText('YOLOv8 Anomaly Localization')}
+              </div>
+              <img
+                src={state.scanResult.remote_result_image}
+                alt="YOLOv8 Detection"
+                style={{ width: '100%', borderRadius: '8px', objectFit: 'contain', maxHeight: '240px', background: '#000000' }}
+              />
+            </div>
+          )}
+          {state.scanResult.remote_gradcam_image && (
+            <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '14px', padding: '12px' }}>
+              <div style={{ fontSize: '11px', fontWeight: 800, color: '#db2777', textTransform: 'uppercase', marginBottom: '8px' }}>
+                🔥 {translateText('Grad-CAM Attention Heatmap')}
+              </div>
+              <img
+                src={state.scanResult.remote_gradcam_image}
+                alt="Grad-CAM Activation"
+                style={{ width: '100%', borderRadius: '8px', objectFit: 'contain', maxHeight: '240px', background: '#000000' }}
+              />
+            </div>
+          )}
+        </div>
+      )}
+
       {/* Clinical Observations */}
       <div>
         <div style={{ fontSize: '11px', fontWeight: 800, color: '#64748b', textTransform: 'uppercase', marginBottom: '10px', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
