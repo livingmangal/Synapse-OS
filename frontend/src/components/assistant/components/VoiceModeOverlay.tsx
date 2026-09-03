@@ -23,17 +23,17 @@ export default function VoiceModeOverlay({
   const getStatusBadge = () => {
     switch (voiceState) {
       case 'connecting':
-        return { text: '⚡ Connecting Neural Voice...', color: '#d97706', bg: '#fef3c7' };
+        return { text: '⚡ Connecting Vapi Neural Voice...', color: '#d97706', bg: '#fef3c7' };
       case 'listening':
-        return { text: '🟢 Listening to you...', color: '#15803d', bg: '#dcfce7' };
+        return { text: '🟢 Vapi Listening...', color: '#15803d', bg: '#dcfce7' };
       case 'thinking':
-        return { text: '🧠 Gemini AI Reasoning...', color: '#0284c7', bg: '#e0f2fe' };
+        return { text: '🧠 Groq Clinical AI Reasoning...', color: '#0284c7', bg: '#e0f2fe' };
       case 'speaking':
-        return { text: '🔊 SynapseOS AI Speaking...', color: '#059669', bg: '#ecfdf5' };
+        return { text: '🔊 Vapi Neural Speaking...', color: '#059669', bg: '#ecfdf5' };
       case 'muted':
         return { text: '🎙️ Microphone Muted', color: '#dc2626', bg: '#fee2e2' };
       default:
-        return { text: '🟢 Ready', color: '#15803d', bg: '#dcfce7' };
+        return { text: '🟢 Vapi Voice Active', color: '#15803d', bg: '#dcfce7' };
     }
   };
 
@@ -47,7 +47,7 @@ export default function VoiceModeOverlay({
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#10b981', boxShadow: '0 0 10px #10b981' }} />
           <span style={{ fontSize: '13px', fontWeight: 700, color: '#0f172a' }}>
-            SynapseOS Live Voice
+            SynapseOS Live Voice (Vapi AI)
           </span>
         </div>
 
