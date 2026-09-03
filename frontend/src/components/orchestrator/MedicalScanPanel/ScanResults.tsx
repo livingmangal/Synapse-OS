@@ -1,9 +1,14 @@
 import React from 'react';
 import { CheckCircle2, Info } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
+import PrescriptionOCRView from './PrescriptionOCRView';
 
 export default function ScanResults({ state }: { state: any }) {
   const { translateText } = useLanguage();
+
+  if (state.modality === 'prescription') {
+    return <PrescriptionOCRView state={state} />;
+  }
 
   return (
     <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '24px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px', boxShadow: '0 4px 16px rgba(0,0,0,0.02)' }}>
