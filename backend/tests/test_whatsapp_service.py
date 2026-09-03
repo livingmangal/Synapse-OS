@@ -231,25 +231,26 @@ Your reported symptoms—**fever, headache, and continuous vomiting**—constitu
 """
     card = format_compact_whatsapp_card(sample_emergency_audit)
 
-    # 1. Verify No markdown heading leak
-    assert "### 🩺 Triage & Outbreak Assessment" not in card
-    assert "• *Assessment:* ###" not in card
+    # 1. Verify No markdown heading leak and NO markdown syntax
+    assert "###" not in card
+    assert "*" not in card
+    assert "_" not in card
 
-    # 2. Verify Diagnosis extraction
-    assert "🩺 *Suspected Diagnosis:*" in card
+    # 2. Verify Diagnosis extraction (Normal plain text)
+    assert "🩺 Suspected Diagnosis:" in card
     assert any(term in card for term in ["Meningitis", "Encephalitis"])
 
     # 3. Verify Council consensus percentage
     assert "98%" in card
 
     # 4. Verify Indian Medication guidance with safety protocol
-    assert "💊 *Medications & Relief (India):*" in card
+    assert "💊 Medications & Relief (India):" in card
     assert "Withhold self-medication" in card
 
-    # 5. Verify Quick Shortcuts
-    assert "Reply *5*" in card
-    assert "Reply *sos*" in card
-    assert "Reply *full*" in card
+    # 5. Verify Quick Shortcuts in normal text
+    assert "Reply 5" in card
+    assert "Reply sos" in card
+    assert "Reply full" in card
 
     # 6. Verify Compact length (does not overflow chat)
     assert len(card) < 1150
@@ -258,9 +259,10 @@ Your reported symptoms—**fever, headache, and continuous vomiting**—constitu
 def test_compact_whatsapp_card_homecare_indian_meds_and_instructions():
     """
     Verifies that for home care / mild illness, the short card includes:
-    1. Clean diagnosis.
-    2. Indian OTC medicines (Dolo 650, Electral ORS) with specific eating/dosing instructions.
-    3. Compact length.
+    1. Clean normal text without markdown syntax (*, _, #).
+    2. Real diagnosis.
+    3. Indian OTC medicines (Dolo 650, Electral ORS) with specific eating/dosing instructions.
+    4. Compact length.
     """
     sample_homecare_audit = """**🌿 Clinical Assessment & Care Guidance**
 
@@ -281,18 +283,53 @@ Your reported symptoms of runny nose, mild sore throat, and low-grade fever are 
 """
     card = format_compact_whatsapp_card(sample_homecare_audit)
 
-    # 1. Verify Status & Diagnosis
-    assert "🟢 *SANJEEVNI HOME CARE & MONITORING*" in card
-    assert "🩺 *Suspected Diagnosis:* Acute Upper Respiratory Viral Infection" in card
+    # 1. Verify Status & Diagnosis in clean normal text (no markdown)
+    assert "*" not in card
+    assert "_" not in card
+    assert "🟢 SANJEEVNI HOME CARE & MONITORING" in card
+    assert "🩺 Suspected Diagnosis: Acute Upper Respiratory Viral Infection" in card
 
     # 2. Verify Indian Medications & Administration (how to eat/take)
-    assert "💊 *Medications & Relief (India):*" in card
+    assert "💊 Medications & Relief (India):" in card
     assert "Dolo 650" in card
     assert "after meals" in card or "after food" in card
     assert "Electral ORS" in card
 
     # 3. Verify Shortcuts and length
-    assert "Reply *5*" in card
-    assert "Reply *full*" in card
+    assert "Reply 5" in card
+    assert "Reply full" in card
     assert len(card) < 1150
+
+
+def test_compact_whatsapp_card_from_plain_unformatted_input():
+    """
+    Verifies that format_compact_whatsapp_card gracefully parses normal plain text
+    without any markdown formatting and outputs clean normal text.
+    """
+    plain_input = """SANJEEVNI EMERGENCY CLINICAL ASSESSMENT
+Patient Status: EMERGENCY CARE (IMMEDIATE)
+Council Confidence: 99% Consensus
+
+Executive Summary:
+The patient has acute fever, severe persistent headache, and recurrent vomiting, representing a critical presentation.
+
+Risk Profile: High risk for Meningitis or Acute Neurological Infection.
+
+Immediate Action Plan:
+1. Seek Emergency Care Now: Transport patient immediately to hospital emergency.
+2. Do not self-medicate: Strictly avoid oral painkillers or anti-emetics before physician assessment.
+"""
+    card = format_compact_whatsapp_card(plain_input)
+    assert "*" not in card
+    assert "_" not in card
+    assert "#" not in card
+    assert "🔴 SANJEEVNI EMERGENCY TRIAGE — CRITICAL" in card
+    assert "🩺 Suspected Diagnosis:" in card
+    assert any(term in card for term in ["Meningitis", "Neurological"])
+    assert "💊 Medications & Relief (India):" in card
+    assert "Withhold self-medication" in card
+    assert "Reply 5" in card
+    assert "Reply full" in card
+    assert len(card) < 1150
+
 
