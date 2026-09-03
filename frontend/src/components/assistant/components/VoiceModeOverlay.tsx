@@ -23,17 +23,17 @@ export default function VoiceModeOverlay({
   const getStatusBadge = () => {
     switch (voiceState) {
       case 'connecting':
-        return { text: '⚡ Connecting Vapi Neural Voice...', color: '#d97706', bg: '#fef3c7' };
+        return { text: '⚡ Connecting Vapi...', color: '#d97706', bg: '#fef3c7' };
       case 'listening':
-        return { text: '🟢 Vapi Listening...', color: '#15803d', bg: '#dcfce7' };
+        return { text: '🟢 Listening...', color: '#15803d', bg: '#dcfce7' };
       case 'thinking':
-        return { text: '🧠 Groq Clinical AI Reasoning...', color: '#0284c7', bg: '#e0f2fe' };
+        return { text: '🧠 Groq AI Reasoning...', color: '#0284c7', bg: '#e0f2fe' };
       case 'speaking':
-        return { text: '🔊 Vapi Neural Speaking...', color: '#059669', bg: '#ecfdf5' };
+        return { text: '🔊 Vapi Speaking...', color: '#059669', bg: '#ecfdf5' };
       case 'muted':
-        return { text: '🎙️ Microphone Muted', color: '#dc2626', bg: '#fee2e2' };
+        return { text: '🎙️ Muted', color: '#dc2626', bg: '#fee2e2' };
       default:
-        return { text: '🟢 Vapi Voice Active', color: '#15803d', bg: '#dcfce7' };
+        return { text: '🟢 Vapi Active', color: '#15803d', bg: '#dcfce7' };
     }
   };
 
@@ -43,25 +43,27 @@ export default function VoiceModeOverlay({
     <div className="synapseos-voice-overlay synapseos-root">
       
       {/* Top Header Controls in Voice Mode */}
-      <div style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#10b981', boxShadow: '0 0 10px #10b981' }} />
-          <span style={{ fontSize: '13px', fontWeight: 700, color: '#0f172a' }}>
-            SynapseOS Live Voice (Vapi AI)
+      <div style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px', flexWrap: 'nowrap' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', minWidth: 0, flexShrink: 0 }}>
+          <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#10b981', boxShadow: '0 0 8px #10b981', flexShrink: 0 }} />
+          <span style={{ fontSize: '12px', fontWeight: 700, color: '#0f172a', whiteSpace: 'nowrap' }}>
+            Live Voice (Vapi)
           </span>
         </div>
 
         {/* Status Pill */}
         <div style={{
-          padding: '4px 12px',
+          padding: '4px 10px',
           borderRadius: '20px',
           background: status.bg,
           color: status.color,
-          fontSize: '11px',
+          fontSize: '10.5px',
           fontWeight: 700,
           display: 'flex',
           alignItems: 'center',
-          gap: '6px',
+          gap: '5px',
+          whiteSpace: 'nowrap',
+          flexShrink: 0,
           transition: 'all 0.3s'
         }}>
           {status.text}
@@ -71,8 +73,8 @@ export default function VoiceModeOverlay({
         <button
           onClick={onExitVoice}
           style={{
-            width: '32px',
-            height: '32px',
+            width: '28px',
+            height: '28px',
             borderRadius: '50%',
             background: 'rgba(255, 255, 255, 0.9)',
             border: '1px solid rgba(0, 0, 0, 0.08)',
@@ -81,11 +83,12 @@ export default function VoiceModeOverlay({
             alignItems: 'center',
             justifyContent: 'center',
             cursor: 'pointer',
+            flexShrink: 0,
             transition: 'all 0.2s'
           }}
           title="Exit Voice Mode"
         >
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <line x1="18" y1="6" x2="6" y2="18"></line>
             <line x1="6" y1="6" x2="18" y2="18"></line>
           </svg>
