@@ -1,6 +1,8 @@
 export type Persona = 'copilot' | 'triage' | 'nutrition' | 'orchestrator';
 export type ActiveTab = 'chat' | 'history' | 'settings' | 'whatsapp';
 export type ModelChoice = 
+  | 'groq-qwen-27b'
+  | 'groq-gpt-oss-120b'
   | 'groq-llama-3.3-70b' 
   | 'groq-llama-3.1-8b' 
   | 'groq-mixtral' 

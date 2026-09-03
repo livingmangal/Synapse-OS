@@ -728,6 +728,8 @@ export function getTranslation(lang: SupportedLanguage = 'en'): AssistantDiction
 }
 
 export function getLocalizedDefaultSessions(patient: MockHealthProfile, lang: SupportedLanguage = 'en'): ChatSession[] {
+  // Always return empty sessions so that chat opens clean with Clinical Copilot awaiting real-time interaction
+  return [];
   const pName = patient?.patient?.name || 'Mausam Kar';
   const pAbha = patient?.patient?.abhaId || '91-7294-8102-5309';
   const hr = patient?.vitals?.currentHeartRate || 74;

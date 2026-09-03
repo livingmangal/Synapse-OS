@@ -136,6 +136,13 @@
   transform: scale(0.94) !important;
 }
 
+/* Hide on mobile screens */
+@media (max-width: 768px) {
+  .synapseos-trigger-pill {
+    display: none !important;
+  }
+}
+
 /* Main Modal Window - 100% Opaque & Solid Layering */
 .synapseos-modal-window {
   position: fixed !important;

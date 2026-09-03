@@ -146,7 +146,7 @@ export default function SynapseOSAssistantModal() {
             toggleMute={toggleMute}
             exitVoiceMode={exitVoiceMode}
             onSend={handleSend}
-            onToggleVoice={startVoiceMode}
+            onToggleVoice={toggleVoiceCall}
             onCopy={handleCopy}
             onNewChat={startNewChat}
             onClose={() => setIsOpen(false)}
@@ -288,7 +288,7 @@ export default function SynapseOSAssistantModal() {
                       <OrbWelcome
                         assistantPersona={assistantPersona}
                         onSendChip={handleSend}
-                        onToggleVoice={startVoiceMode}
+                        onToggleVoice={toggleVoiceCall}
                       />
                     ) : (
                       <ChatStream
@@ -312,7 +312,7 @@ export default function SynapseOSAssistantModal() {
                     assistantPersona={assistantPersona}
                     inputRef={inputRef}
                     onSend={handleSend}
-                    onToggleVoice={startVoiceMode}
+                    onToggleVoice={toggleVoiceCall}
                   />
                 </>
               )}

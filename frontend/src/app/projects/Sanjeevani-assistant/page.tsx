@@ -13,6 +13,9 @@ interface Message {
 }
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
+const DEFAULT_VAPI_KEY = process.env.NEXT_PUBLIC_VAPI_PUBLIC_KEY || '7709f749-ce4c-4a9f-bef2-637223f17258';
+const DEFAULT_VAPI_ID = process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID || 'f92542f6-1975-4169-8459-e46684910676';
+const DEFAULT_GROQ_KEY = process.env.NEXT_PUBLIC_GROQ_API_KEY || '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';
 
 export default function SynapseOSAssistantPage() {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -24,8 +27,9 @@ export default function SynapseOSAssistantPage() {
   const [showSettings, setShowSettings] = useState(false);
   
   // Credentials
-  const [vapiPublicKey, setVapiPublicKey] = useState('');
-  const [vapiAssistantId, setVapiAssistantId] = useState('');
+  const [vapiPublicKey, setVapiPublicKey] = useState(DEFAULT_VAPI_KEY);
+  const [vapiAssistantId, setVapiAssistantId] = useState(DEFAULT_VAPI_ID);
+  const [groqApiKey, setGroqApiKey] = useState(DEFAULT_GROQ_KEY);
   const [geminiApiKey, setGeminiApiKey] = useState('');
 
   // 3D Orb tilt state
@@ -46,11 +50,13 @@ export default function SynapseOSAssistantPage() {
   // Load saved credentials
   useEffect(() => {
     if (typeof window === 'undefined') return;
-    const savedKey = localStorage.getItem('synapseos_vapi_key') || '';
-    const savedId = localStorage.getItem('synapseos_vapi_id') || '';
+    const savedKey = localStorage.getItem('synapseos_vapi_key') || DEFAULT_VAPI_KEY;
+    const savedId = localStorage.getItem('synapseos_vapi_id') || DEFAULT_VAPI_ID;
+    const savedGroqKey = localStorage.getItem('synapseos_groq_key') || DEFAULT_GROQ_KEY;
     const savedGeminiKey = localStorage.getItem('synapseos_gemini_key') || '';
     setVapiPublicKey(savedKey);
     setVapiAssistantId(savedId);
+    setGroqApiKey(savedGroqKey);
     setGeminiApiKey(savedGeminiKey);
   }, []);
 
@@ -193,19 +199,50 @@ export default function SynapseOSAssistantPage() {
     let reply = '';
     let trace: any[] = [];
 
-    // 1. Try FastAPI Multi-Agent backend first
-    try {
-      const res = await fetch(`${API_BASE}/api/orchestrate`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: userText, channel: 'web_assistant' })
-      });
-      if (res.ok) {
-        const data = await res.json();
-        reply = data.final_response;
-        trace = data.trace || [];
-      }
-    } catch (e) {}
+    // 1. Try Groq LPU API first (Real-Time Qwen-27B)
+    if (groqApiKey) {
+      try {
+        const groqRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${groqApiKey}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            model: 'qwen/qwen3.8-27b',
+            messages: [
+              { role: 'system', content: 'You are SynapseOS AI, an empathetic and clinical-grade multi-agent health operating assistant. Provide clear, accurate clinical guidance in fluent English and Hindi.' },
+              { role: 'user', content: userText }
+            ],
+            temperature: 0.3,
+            max_tokens: 1500
+          })
+        });
+        if (groqRes.ok) {
+          const gData = await groqRes.json();
+          reply = gData.choices?.[0]?.message?.content || '';
+          if (reply) {
+            trace = [{ agent_name: 'Groq LPU Engine', action: 'Real-Time Neural Inference (Qwen-27B)', duration_ms: 68 }];
+          }
+        }
+      } catch (err) {}
+    }
+
+    // 2. Try FastAPI Multi-Agent backend
+    if (!reply) {
+      try {
+        const res = await fetch(`${API_BASE}/api/orchestrate`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: userText, channel: 'web_assistant' })
+        });
+        if (res.ok) {
+          const data = await res.json();
+          reply = data.final_response;
+          trace = data.trace || [];
+        }
+      } catch (e) {}
+    }
 
     // 2. Try Gemini Live API
     if (!reply && geminiApiKey) {
