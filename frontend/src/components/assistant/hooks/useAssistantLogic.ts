@@ -83,7 +83,6 @@ export function useAssistantLogic() {
   const [vapi, setVapi] = useState<any>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const recognitionRef = useRef<any>(null);
 
   // Load saved credentials & chat sessions from localStorage
   useEffect(() => {
@@ -315,181 +314,26 @@ export function useAssistantLogic() {
     setTimeout(() => setCopiedId(null), 2000);
   };
 
-  // Clean markdown to plain text for speech synthesis
-  const cleanMarkdownForSpeech = (text: string) => {
-    return text
-      .replace(/\*\*(.*?)\*\*/g, '$1')
-      .replace(/[•\-\*]/g, '')
-      .replace(/#/g, '')
-      .replace(/\[(.*?)\]\(.*?\)/g, '$1')
-      .trim();
-  };
-
-  // Speak AI response with Web Speech Synthesis in selected language
-  const speakAIResponse = (text: string, onDone?: () => void) => {
-    if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
-      if (onDone) onDone();
-      return;
-    }
-
-    window.speechSynthesis.cancel();
-    const cleanText = cleanMarkdownForSpeech(text);
-    setAiSpeechText(cleanText);
-    setVoiceState('speaking');
-
-    const utterance = new SpeechSynthesisUtterance(cleanText);
-    const langInfo = LANGUAGE_SPEECH_MAP[selectedLanguage] || LANGUAGE_SPEECH_MAP.en;
-    utterance.lang = langInfo.speechCode;
-    utterance.rate = 1.0;
-    utterance.pitch = 1.0;
-
-    const voices = window.speechSynthesis.getVoices();
-    const targetVoice = voices.find(v => v.lang.toLowerCase().startsWith(selectedLanguage));
-    if (targetVoice) utterance.voice = targetVoice;
-
-    utterance.onend = () => {
-      setVoiceState('listening');
-      setLiveTranscript('');
-      if (onDone) onDone();
-    };
-
-    utterance.onerror = () => {
-      setVoiceState('listening');
-      if (onDone) onDone();
-    };
-
-    window.speechSynthesis.speak(utterance);
-  };
-
-  // Start Live Speech Recognition in Voice Mode with selected language code
-  const startContinuousListening = () => {
-    if (typeof window === 'undefined') return;
-    if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) return;
-
-    try {
-      if (recognitionRef.current) {
-        try { recognitionRef.current.stop(); } catch (e) {}
-      }
-
-      const SpeechRec = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-      const recognition = new SpeechRec();
-      
-      const langInfo = LANGUAGE_SPEECH_MAP[selectedLanguage] || LANGUAGE_SPEECH_MAP.en;
-      recognition.lang = langInfo.speechCode;
-      recognition.continuous = true;
-      recognition.interimResults = true;
-      recognitionRef.current = recognition;
-
-      recognition.onstart = () => {
-        setVoiceState('listening');
-      };
-
-      recognition.onresult = (event: any) => {
-        let interim = '';
-        let final = '';
-
-        for (let i = event.resultIndex; i < event.results.length; ++i) {
-          if (event.results[i].isFinal) {
-            final += event.results[i][0].transcript;
-          } else {
-            interim += event.results[i][0].transcript;
-          }
-        }
-
-        const currentText = final || interim;
-        setLiveTranscript(currentText);
-
-        if (final && final.trim().length > 1) {
-          try { recognition.stop(); } catch (e) {}
-          handleVoiceQuery(final.trim());
-        }
-      };
-
-      recognition.onerror = (e: any) => {
-        if (isVoiceMode && !isMuted) {
-          setTimeout(() => {
-            try { recognition.start(); } catch (err) {}
-          }, 800);
-        }
-      };
-
-      recognition.onend = () => {
-        if (isVoiceMode && !isMuted && voiceState === 'listening') {
-          try { recognition.start(); } catch (err) {}
-        }
-      };
-
-      recognition.start();
-    } catch (err) {
-      console.error('Speech recognition error:', err);
-    }
-  };
-
-  // Get localized voice greeting
-  const getVoiceGreeting = () => {
-    switch (selectedLanguage) {
-      case 'hi':
-        if (assistantPersona === 'triage') return "नमस्ते! मैं आपका क्लिनिकल ट्राइएज सहायक हूँ। कृपया अपने लक्षणों के बारे में बताएं।";
-        if (assistantPersona === 'nutrition') return "नमस्ते! मैं आपका न्यूट्रिशन विशेषज्ञ हूँ। अपने खान-पान और स्वास्थ्य लक्ष्यों के बारे में बताएं।";
-        return "नमस्ते! मैं संजीवनी एआई हूँ। मैं सुन रहा हूँ, आज मैं आपकी सेहत में क्या मदद कर सकता हूँ?";
-      case 'bn':
-        if (assistantPersona === 'triage') return "নমস্কার! আমি আপনার ক্লিনিকাল ট্রায়াজ বিশেষজ্ঞ। আপনার লক্ষণগুলি বর্ণনা করুন।";
-        if (assistantPersona === 'nutrition') return "নমস্কার! আমি আপনার পুষ্টি বিশেষজ্ঞ। আপনার স্বাস্থ্য লক্ষ্যগুলি জানান।";
-        return "নমস্কার! আমি সঞ্জীবনী এআই। বলুন, আজ আপনার স্বাস্থ্যের জন্য কীভাবে সাহায্য করতে পারি?";
-      default:
-        if (assistantPersona === 'triage') return "Hello, I am your Clinical Triage Specialist. Please describe any symptoms you are experiencing.";
-        if (assistantPersona === 'nutrition') return "Hello, I am your Nutrition Specialist. Tell me your dietary or metabolic goals.";
-        return "Hello, I am SynapseOS AI. I'm listening, how can I help you today?";
-    }
-  };
-
-  // Start Live AI Voice Mode
-  const startVoiceMode = () => {
-    setIsVoiceMode(true);
-    setVoiceState('connecting');
-    setLiveTranscript('');
-    setAiSpeechText('');
-    setIsMuted(false);
-
-    const welcomeText = getVoiceGreeting();
-
-    setTimeout(() => {
-      speakAIResponse(welcomeText, () => {
-        startContinuousListening();
-      });
-    }, 300);
-  };
-
   // Exit Voice Mode
   const exitVoiceMode = () => {
+    if (vapi) {
+      try { vapi.stop(); } catch (e) {}
+    }
+    setCallActive(false);
     setIsVoiceMode(false);
-    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-    }
-    if (recognitionRef.current) {
-      try { recognitionRef.current.stop(); } catch (e) {}
-      recognitionRef.current = null;
-    }
     setVoiceState('listening');
     setLiveTranscript('');
     setAiSpeechText('');
   };
 
-  // Toggle Mute in Voice Mode
+  // Toggle Mute in Voice Mode via Vapi Web SDK
   const toggleMute = () => {
-    if (isMuted) {
-      setIsMuted(false);
-      startContinuousListening();
-    } else {
-      setIsMuted(true);
-      setVoiceState('muted');
-      if (recognitionRef.current) {
-        try { recognitionRef.current.stop(); } catch (e) {}
-      }
-      if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-      }
+    const nextMuted = !isMuted;
+    setIsMuted(nextMuted);
+    if (vapi && typeof vapi.setMuted === 'function') {
+      try { vapi.setMuted(nextMuted); } catch (e) {}
     }
+    setVoiceState(nextMuted ? 'muted' : 'listening');
   };
 
   // Build System Instruction with Multilingual Directive & Active Patient Context
@@ -612,207 +456,175 @@ Always leverage this patient's live clinical context in your answers. Provide st
     return null;
   };
 
-  // Handle Query from Live Voice Mode
-  const handleVoiceQuery = async (queryText: string) => {
-    setVoiceState('thinking');
-    
-    const userMsg: Message = {
-      id: `user-${Date.now()}`,
-      sender: 'user',
-      text: queryText,
-      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-      channel: 'voice'
-    };
-    const nextMessages = [...messages, userMsg];
-    setMessages(nextMessages);
-
-    let reply = '';
-    let visualType: any = 'general';
-    let visualData: any = null;
-
-    // 1. Real-time Groq API
-    reply = await queryGroqLLM(queryText, selectedModel, true, messages) || '';
-
-    // 2. Try Gemini API
-    if (!reply && geminiApiKey) {
-      try {
-        const systemInstructionText = buildSystemInstruction(true);
-        const response = await fetch(
-          `https://generativelanguage.googleapis.com/v1beta/models/${selectedModel}:generateContent?key=${geminiApiKey}`,
-          {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              contents: [{ role: 'user', parts: [{ text: queryText }] }],
-              systemInstruction: { parts: [{ text: systemInstructionText }] }
-            })
-          }
-        );
-        const data = await response.json();
-        if (data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
-          reply = data.candidates[0].content.parts[0].text;
-        }
-      } catch (err) {}
-    }
-
-    // 3. Fallback response
+  // Build Fine-Tuned System Prompt for Vapi Real-Time Voice Assistant
+  const buildVoiceSystemPrompt = () => {
     const activePatient = MOCK_HEALTH_PROFILES.find(p => p.profileId === activeProfileId) || mausamKarProfile;
-    if (!reply) {
-      reply = `I processed your inquiry for ${activePatient.patient.name}. Heart Rate: ${activePatient.vitals.currentHeartRate} BPM, SpO2: ${activePatient.vitals.spo2}%. All clinical telemetry verified.`;
-      visualType = 'vitals';
-      visualData = {
-        patientName: activePatient.patient.name,
-        device: activePatient.device?.name || 'Apple Watch Ultra 2',
-        hr: `${activePatient.vitals.currentHeartRate} BPM`,
-        spo2: `${activePatient.vitals.spo2}%`,
-        bp: activePatient.vitals.bloodPressure || '118/76',
-        glucose: `${activePatient.vitals.bloodGlucose || 92} mg/dL`
-      };
-    }
+    const langDirective = selectedLanguage === 'hi'
+      ? 'Speak fluently and conversationally in Hindi (हिन्दी) or Hinglish as preferred by the patient. Keep responses natural and culturally empathetic.'
+      : 'Speak fluently in natural, clear, and professional English.';
 
-    const aiMsg: Message = {
-      id: `ai-${Date.now()}`,
-      sender: 'assistant',
-      text: reply,
-      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-      channel: 'voice',
-      visualType,
-      visualData
-    };
-    const finalMessages = [...nextMessages, aiMsg];
-    setMessages(finalMessages);
+    return `You are Sanjeevni-OS Clinical Voice AI, the real-time voice intelligence for India's Next-Generation Multi-Agent Health Operating System.
+You are having an interactive voice conversation with the patient in real time.
 
-    speakAIResponse(reply, () => {
-      if (isVoiceMode && !isMuted) {
-        startContinuousListening();
-      }
-    });
+CORE VOICE DIRECTIVES:
+1. Speak in a warm, authoritative, calm, and reassuring clinical tone.
+2. Keep each response concise (1 to 3 natural spoken sentences). Do NOT read out markdown headers, bullets, or asterisks.
+3. ${langDirective}
+
+PLATFORM ARCHITECTURE & WEBSITE KNOWLEDGE:
+• Sanjeevni-OS / SynapseOS is an autonomous healthcare operating system integrating ABDM/ABHA electronic health records, 5-Agent Swarm Intelligence consensus (Triage, Drug Safety, Mental Health, Verification, Biometrics), 3D Digital Organ Twin simulation, MONAI medical imaging AI, WHO & IDSP epidemic outbreak monitoring, U-WIN universal immunization tracking, and 2G GSM zero-bandwidth SMS triage.
+
+ACTIVE CITIZEN DOSSIER:
+• Name: ${activePatient.patient.name}
+• ABHA ID: ${activePatient.patient.abhaId}
+• Age / Gender: ${activePatient.patient.age} years / ${activePatient.patient.gender}
+• Real-Time Vitals: Heart Rate ${activePatient.vitals.currentHeartRate} BPM (Resting: ${activePatient.vitals.restingHeartRate} BPM), Oxygen Saturation (SpO2) ${activePatient.vitals.spo2}%, Blood Pressure ${activePatient.vitals.bloodPressure || '118/76'} mmHg, Blood Glucose ${activePatient.vitals.bloodGlucose || 92} mg/dL.
+• Persona Specialization: ${assistantPersona === 'triage' ? 'Clinical Symptom Triage Specialist (assess symptoms, detect red-flags, recommend home care vs immediate doctor consultation)' : assistantPersona === 'nutrition' ? 'Metabolic & Clinical Nutritionist (daily macro targets, hydration, micronutrients)' : 'Comprehensive Clinical Copilot'}.
+
+Reference the patient's vitals when relevant. If symptoms suggest an emergency (e.g. chest pain, breathing difficulty, severe trauma), prioritize patient safety and direct them to call 108 or visit emergency care immediately.`;
   };
 
-  // Toggle Voice Call / Voice Mode (Powered by Vapi AI WebRTC)
+  // Toggle Voice Call / Voice Mode (Powered ALWAYS and ONLY by Vapi AI WebRTC)
   const toggleVoiceCall = async () => {
     if (callActive || isVoiceMode) {
       if (vapi) {
         try { vapi.stop(); } catch (err) {}
       }
       setCallActive(false);
-      exitVoiceMode();
+      setIsVoiceMode(false);
+      setVoiceState('listening');
       return;
     }
 
     const pubKey = vapiPublicKey || DEFAULT_VAPI_KEY;
     const asstId = vapiAssistantId || DEFAULT_VAPI_ID;
 
-    if (pubKey && asstId) {
-      try {
-        setConnecting(true);
+    if (!pubKey || !asstId) {
+      alert('Vapi Public Key and Assistant ID are required. Please configure them in settings.');
+      return;
+    }
+
+    try {
+      setConnecting(true);
+      setIsVoiceMode(true);
+      setVoiceState('connecting');
+      setLiveTranscript('');
+      setAiSpeechText('');
+
+      const vapiInstance = new Vapi(pubKey);
+      setVapi(vapiInstance);
+
+      vapiInstance.on('call-start', () => {
+        setConnecting(false);
+        setCallActive(true);
         setIsVoiceMode(true);
-        setVoiceState('connecting');
-        setLiveTranscript('');
-        setAiSpeechText('');
+        setVoiceState('listening');
+      });
 
-        const vapiInstance = new Vapi(pubKey);
-        setVapi(vapiInstance);
+      vapiInstance.on('call-end', () => {
+        setCallActive(false);
+        setIsVoiceMode(false);
+        setVoiceState('listening');
+      });
 
-        vapiInstance.on('call-start', () => {
-          setConnecting(false);
-          setCallActive(true);
-          setIsVoiceMode(true);
-          setVoiceState('listening');
-        });
+      vapiInstance.on('speech-start', () => {
+        setVoiceState('speaking');
+      });
 
-        vapiInstance.on('call-end', () => {
-          setCallActive(false);
-          setIsVoiceMode(false);
-          setVoiceState('listening');
-        });
+      vapiInstance.on('speech-end', () => {
+        setVoiceState('listening');
+      });
 
-        vapiInstance.on('speech-start', () => {
-          setVoiceState('speaking');
-        });
-
-        vapiInstance.on('speech-end', () => {
-          setVoiceState('listening');
-        });
-
-        vapiInstance.on('message', (message: any) => {
-          if (message.type === 'transcript') {
-            if (message.transcriptType === 'partial') {
-              setLiveTranscript(message.transcript);
-            } else if (message.transcriptType === 'final') {
-              setLiveTranscript(message.transcript);
-              const sender = message.role === 'user' ? 'user' : 'assistant';
-              if (sender === 'assistant') {
-                setAiSpeechText(message.transcript);
-              }
-              const newMsg: Message = {
-                id: `vapi-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`,
-                sender,
-                text: message.transcript,
-                timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-                channel: 'voice'
-              };
-              setMessages(prev => {
-                const updated = [...prev, newMsg];
-                const activeId = currentSessionId || `session-${Date.now()}`;
-                if (!currentSessionId) setCurrentSessionId(activeId);
-                const sessionTitle = (updated[0]?.text || 'Voice Consultation').slice(0, 30);
-                const existingIdx = sessions.findIndex(s => s.id === activeId);
-                let updatedSessions: ChatSession[];
-                if (existingIdx >= 0) {
-                  updatedSessions = [...sessions];
-                  updatedSessions[existingIdx] = {
-                    ...updatedSessions[existingIdx],
-                    messages: updated,
-                    persona: assistantPersona
-                  };
-                } else {
-                  updatedSessions = [
-                    {
-                      id: activeId,
-                      title: sessionTitle,
-                      createdAt: new Date().toLocaleDateString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }),
-                      persona: assistantPersona,
-                      messages: updated
-                    },
-                    ...sessions
-                  ];
-                }
-                syncSessionsToStorage(updatedSessions);
-                return updated;
-              });
+      vapiInstance.on('message', (message: any) => {
+        if (message.type === 'transcript') {
+          if (message.transcriptType === 'partial') {
+            setLiveTranscript(message.transcript);
+          } else if (message.transcriptType === 'final') {
+            setLiveTranscript(message.transcript);
+            const sender = message.role === 'user' ? 'user' : 'assistant';
+            if (sender === 'assistant') {
+              setAiSpeechText(message.transcript);
             }
+            const newMsg: Message = {
+              id: `vapi-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`,
+              sender,
+              text: message.transcript,
+              timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+              channel: 'voice'
+            };
+            setMessages(prev => {
+              const updated = [...prev, newMsg];
+              const activeId = currentSessionId || `session-${Date.now()}`;
+              if (!currentSessionId) setCurrentSessionId(activeId);
+              const sessionTitle = (updated[0]?.text || 'Voice Consultation').slice(0, 30);
+              const existingIdx = sessions.findIndex(s => s.id === activeId);
+              let updatedSessions: ChatSession[];
+              if (existingIdx >= 0) {
+                updatedSessions = [...sessions];
+                updatedSessions[existingIdx] = {
+                  ...updatedSessions[existingIdx],
+                  messages: updated,
+                  persona: assistantPersona
+                };
+              } else {
+                updatedSessions = [
+                  {
+                    id: activeId,
+                    title: sessionTitle,
+                    createdAt: new Date().toLocaleDateString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }),
+                    persona: assistantPersona,
+                    messages: updated
+                  },
+                  ...sessions
+                ];
+              }
+              syncSessionsToStorage(updatedSessions);
+              return updated;
+            });
           }
-        });
+        }
+      });
 
-        vapiInstance.on('error', (err: any) => {
-          console.warn('Vapi error event:', err);
-          setConnecting(false);
-          setCallActive(false);
-        });
-
-        const activePatient = MOCK_HEALTH_PROFILES.find(p => p.profileId === activeProfileId) || mausamKarProfile;
-        const langName = selectedLanguage === 'hi' ? 'Hindi (हिन्दी)' : 'English';
-
-        // Connect Vapi with assistant ID & clinical variable overrides
-        await vapiInstance.start(asstId, {
-          variableValues: {
-            language: langName,
-            patient_name: activePatient.patient.name,
-            patient_abha: activePatient.patient.abhaId,
-            current_heart_rate: String(activePatient.vitals.currentHeartRate),
-            current_spo2: String(activePatient.vitals.spo2),
-            persona: assistantPersona
-          }
-        });
-      } catch (err) {
-        console.warn('Vapi Start failed, falling back to neural speech synthesis:', err);
+      vapiInstance.on('error', (err: any) => {
+        console.warn('Vapi error event:', err);
         setConnecting(false);
         setCallActive(false);
-        startVoiceMode();
-      }
-    } else {
-      startVoiceMode();
+      });
+
+      const activePatient = MOCK_HEALTH_PROFILES.find(p => p.profileId === activeProfileId) || mausamKarProfile;
+      const firstGreeting = selectedLanguage === 'hi'
+        ? (assistantPersona === 'triage'
+            ? 'नमस्ते! मैं संजीवनी ट्राइएज वॉइस असिस्टेंट हूँ। कृपया अपने लक्षणों के बारे में बताएं।'
+            : assistantPersona === 'nutrition'
+            ? 'नमस्ते! मैं संजीवनी न्यूट्रिशन वॉइस असिस्टेंट हूँ। अपने खान-पान और स्वास्थ्य लक्ष्यों के बारे में बताएं।'
+            : `नमस्ते ${activePatient.patient.name}! मैं संजीवनी एआई क्लिनिकल वॉइस असिस्टेंट हूँ। मैं सुन रहा हूँ, आपकी क्या मदद कर सकता हूँ?`)
+        : (assistantPersona === 'triage'
+            ? 'Hello! I am your Sanjeevni OS Triage Specialist. Please describe any symptoms you are experiencing.'
+            : assistantPersona === 'nutrition'
+            ? 'Hello! I am your Sanjeevni OS Nutrition Specialist. Tell me your dietary or metabolic goals.'
+            : `Hello ${activePatient.patient.name}! I am Sanjeevni OS Clinical Voice Assistant. How can I assist with your health today?`);
+
+      const voiceSystemPrompt = buildVoiceSystemPrompt();
+
+      // Start Vapi call fine-tuned with website context, patient dossier, and Groq reasoning
+      await vapiInstance.start(asstId, {
+        firstMessage: firstGreeting,
+        model: {
+          provider: 'groq',
+          model: 'llama-3.3-70b-versatile',
+          messages: [
+            {
+              role: 'system',
+              content: voiceSystemPrompt
+            }
+          ]
+        }
+      });
+    } catch (err) {
+      console.error('Vapi connection error:', err);
+      setConnecting(false);
+      setCallActive(false);
+      setIsVoiceMode(false);
     }
   };
 
@@ -1100,7 +912,7 @@ Always leverage this patient's live clinical context in your answers. Provide st
     liveTranscript,
     aiSpeechText,
     isMuted,
-    startVoiceMode,
+    startVoiceMode: toggleVoiceCall,
     exitVoiceMode,
     toggleMute,
     toggleVoiceCall,

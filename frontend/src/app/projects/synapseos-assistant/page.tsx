@@ -140,43 +140,31 @@ export default function SynapseOSAssistantPage() {
           if (volumeInterval.current) clearInterval(volumeInterval.current);
         });
 
-        await vapiInstance.start(vapiAssistantId);
+        const voiceSystemPrompt = `You are Sanjeevni-OS Clinical Voice AI, the real-time voice intelligence for India's Next-Generation Multi-Agent Health Operating System.
+You are having an interactive voice conversation with the patient in real time.
+Speak in a warm, authoritative, calm, and reassuring clinical tone.
+Keep each response concise (1 to 3 natural spoken sentences).
+Support both Hindi and English fluently.
+Provide evidence-based health guidance and reference patient vitals when relevant.`;
+
+        await vapiInstance.start(vapiAssistantId, {
+          firstMessage: 'Namaste! Hello! I am Sanjeevni OS Clinical Voice Assistant. How can I help you today?',
+          model: {
+            provider: 'groq',
+            model: 'llama-3.3-70b-versatile',
+            messages: [
+              {
+                role: 'system',
+                content: voiceSystemPrompt
+              }
+            ]
+          }
+        });
       } catch (err) {
         console.error('Vapi Dial Error:', err);
         setConnecting(false);
         setCallActive(false);
       }
-    } else {
-      // Browser Speech Recognition
-      toggleBrowserMic();
-    }
-  };
-
-  const toggleBrowserMic = () => {
-    if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-      alert('Speech recognition is not supported in this browser. Please use Chrome/Edge or type your query.');
-      return;
-    }
-
-    const SpeechRec = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-    const recognition = new SpeechRec();
-    recognition.lang = 'en-IN';
-    recognition.continuous = false;
-    recognition.interimResults = false;
-
-    if (!isListening) {
-      setIsListening(true);
-      recognition.start();
-      recognition.onresult = (event: any) => {
-        const transcript = event.results[0][0].transcript;
-        setTextInput(transcript);
-        setIsListening(false);
-        handleSendCommand(transcript);
-      };
-      recognition.onerror = () => setIsListening(false);
-      recognition.onend = () => setIsListening(false);
-    } else {
-      setIsListening(false);
     }
   };
 
