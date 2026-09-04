@@ -121,19 +121,57 @@ export async function fetchSimulated(cid) {
   return bytes.buffer;
 }
 
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
+
 /**
- * Smart upload — uses Pinata if JWT is available, else simulates.
+ * Smart upload — first routes through backend Pinata proxy for guaranteed cloud pinning,
+ * then falls back to direct browser Pinata API, and finally to local simulation if offline.
  * @param {File} file
- * @returns {Promise<{cid: string, simulated: boolean}>}
+ * @returns {Promise<{cid: string, simulated: boolean, gateway_url?: string}>}
  */
 export async function uploadFile(file) {
+  // 1. Preferred Route: Backend Pinata API (bypasses browser CORS & guarantees Pinata upload)
+  try {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const res = await fetch(`${API_BASE}/api/ipfs/pin-file`, {
+      method: "POST",
+      body: formData,
+    });
+
+    if (res.ok) {
+      const data = await res.json();
+      if (data.cid) {
+        return {
+          cid: data.cid,
+          simulated: data.simulated === true,
+          gateway_url: data.gateway_url || `${PINATA_GATEWAY}/${data.cid}`
+        };
+      }
+    }
+  } catch (backendErr) {
+    console.warn("Backend IPFS pinning unavailable, attempting direct browser Pinata upload:", backendErr);
+  }
+
+  // 2. Secondary Route: Direct browser upload using NEXT_PUBLIC_PINATA_JWT
   const jwt = process.env.NEXT_PUBLIC_PINATA_JWT;
   if (jwt) {
-    const cid = await uploadToPinata(file, jwt);
-    return { cid, simulated: false };
+    try {
+      const cid = await uploadToPinata(file, jwt);
+      return { 
+        cid, 
+        simulated: false,
+        gateway_url: `${PINATA_GATEWAY}/${cid}`
+      };
+    } catch (directErr) {
+      console.warn("Direct browser Pinata upload failed, falling back to local simulation:", directErr);
+    }
   }
+
+  // 3. Fallback Route: Local simulated storage (offline only)
   const cid = await uploadSimulated(file);
-  return { cid, simulated: true };
+  return { cid, simulated: true, gateway_url: `${PINATA_GATEWAY}/${cid}` };
 }
 
 /**
@@ -150,3 +188,4 @@ export async function fetchFile(cid) {
   }
   return await fetchFromIPFS(cid);
 }
+
