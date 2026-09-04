@@ -54,7 +54,7 @@ export default function Header() {
               href="/orchestrator-agent?tab=hospital"
               className="text-pink-600 font-bold hover:text-pink-800 transition-colors flex items-center gap-1"
             >
-              <span>🗺️</span> Outbreak Map
+              <span>🗺️</span> {t('nav_outbreak_map', 'Outbreak Map')}
             </Link>
             <Link
               href="/projects"
@@ -90,7 +90,7 @@ export default function Header() {
               className="flex items-center space-x-2 text-xs font-semibold tracking-widest uppercase px-4 py-2 bg-black text-white rounded-full hover:bg-black/80 transition-all cursor-pointer"
               aria-label="Open Navigation Menu"
             >
-              <span>Menu</span>
+              <span>{t('nav_menu', 'Menu')}</span>
               <svg
                 width="14"
                 height="14"

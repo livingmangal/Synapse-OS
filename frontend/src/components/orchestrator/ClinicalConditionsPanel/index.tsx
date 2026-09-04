@@ -102,7 +102,7 @@ export default function ClinicalConditionsPanel({
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', fontWeight: 800, color: '#0f172a' }}>
             <FileText size={14} color="#db2777" />
-            <span>{translateText(`${lungsCondition?.specialty || 'Pulmonology'} & Critical Care Evaluation`)}</span>
+            <span>{translateText(lungsCondition?.specialty ? `${lungsCondition.specialty} Evaluation` : 'Pulmonology & Critical Care Evaluation')}</span>
           </div>
           <p style={{ fontSize: '11px', color: '#64748b', margin: '6px 0 12px 0', lineHeight: 1.45 }}>
             {translateText(lungsCondition?.notes || 'Comprehensive respiratory evaluation. Results show stable lung capacity and normal oxygen delivery.')}
@@ -270,11 +270,11 @@ export default function ClinicalConditionsPanel({
             marginBottom: '16px',
             padding: '0 4px'
           }}>
-            <span>Sep 2</span>
-            <span>Sep 9</span>
-            <span>Sep 16</span>
-            <span>Sep 23</span>
-            <span>Sep 30</span>
+            <span>{translateText('Sep 2')}</span>
+            <span>{translateText('Sep 9')}</span>
+            <span>{translateText('Sep 16')}</span>
+            <span>{translateText('Sep 23')}</span>
+            <span>{translateText('Sep 30')}</span>
           </div>
         </div>
 

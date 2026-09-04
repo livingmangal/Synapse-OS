@@ -597,7 +597,7 @@ export default function HealthSyncPanel({
                 </div>
                 <div style={{ fontSize: '11px', color: '#64748b' }}>{dev.model} • {dev.firmware}</div>
                 <div style={{ fontSize: '10.5px', color: '#10b981', fontWeight: 700, marginTop: '2px' }}>
-                  {translateText(`● Live Sync (${dev.lastSynced})`)}
+                  ● {translateText('Live Sync')} ({translateText(dev.lastSynced)})
                 </div>
               </div>
             </div>
@@ -641,7 +641,7 @@ export default function HealthSyncPanel({
                 {t('vitals_ecg', 'Single-Lead ECG Rhythm Strip')}
               </h3>
               <div style={{ fontSize: '11px', color: '#64748b' }}>
-                Apple Watch Ultra 2 • Lead I ECG Waveform (25 mm/s • 10 mm/mV)
+                {translateText('Apple Watch Ultra 2 • Lead I ECG Waveform (25 mm/s • 10 mm/mV)')}
               </div>
             </div>
           </div>
@@ -656,7 +656,7 @@ export default function HealthSyncPanel({
               padding: '4px 12px',
               borderRadius: '999px'
             }}>
-              {ecgClassificationText}
+              {translateText(ecgClassificationText)}
             </span>
             <button
               onClick={() => setIsPlayingEcg(!isPlayingEcg)}
@@ -675,7 +675,7 @@ export default function HealthSyncPanel({
               }}
             >
               {isPlayingEcg ? <Pause size={13} /> : <Play size={13} />}
-              <span>{isPlayingEcg ? 'Pause Sweep' : 'Play Sweep'}</span>
+              <span>{isPlayingEcg ? translateText('Pause Sweep') : translateText('Play Sweep')}</span>
             </button>
           </div>
         </div>
@@ -717,7 +717,7 @@ export default function HealthSyncPanel({
             {wearableVitals.steps.toLocaleString()}
           </div>
           <div style={{ fontSize: '11px', color: '#64748b' }}>
-            Goal: {wearableVitals.stepGoal.toLocaleString()} steps ({Math.round((wearableVitals.steps / wearableVitals.stepGoal) * 100)}%)
+            {translateText('Goal:')} {wearableVitals.stepGoal.toLocaleString()} {translateText('steps')} ({Math.round((wearableVitals.steps / wearableVitals.stepGoal) * 100)}%)
           </div>
           <div style={{ width: '100%', height: '6px', background: '#f1f5f9', borderRadius: '999px', marginTop: '10px', overflow: 'hidden' }}>
             <div style={{ width: `${(wearableVitals.steps / wearableVitals.stepGoal) * 100}%`, height: '100%', background: '#db2777', borderRadius: '999px' }} />
@@ -740,10 +740,10 @@ export default function HealthSyncPanel({
             {wearableVitals.spo2}%
           </div>
           <div style={{ fontSize: '11px', color: '#16a34a', fontWeight: 700 }}>
-            ● Normal (Optimum 95-100%)
+            ● {translateText('Normal (Optimum 95-100%)')}
           </div>
           <div style={{ fontSize: '10px', color: '#94a3b8', marginTop: '6px' }}>
-            Continuous wrist photoplethysmography
+            {translateText('Continuous wrist photoplethysmography')}
           </div>
         </div>
 
@@ -756,17 +756,17 @@ export default function HealthSyncPanel({
           boxShadow: '0 2px 8px rgba(0,0,0,0.02)'
         }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <span style={{ fontSize: '11px', fontWeight: 700, color: '#64748b' }}>Heart Rate Variability (HRV)</span>
+            <span style={{ fontSize: '11px', fontWeight: 700, color: '#64748b' }}>{translateText('Heart Rate Variability (HRV)')}</span>
             <Activity size={16} color="#8b5cf6" />
           </div>
           <div style={{ fontSize: '24px', fontWeight: 900, color: '#0f172a', margin: '8px 0 2px 0' }}>
             {wearableVitals.hrvMs} <span style={{ fontSize: '14px', fontWeight: 600 }}>ms</span>
           </div>
           <div style={{ fontSize: '11px', color: '#64748b' }}>
-            Resting HR: <b style={{ color: '#0f172a' }}>{wearableVitals.restingHeartRate} BPM</b>
+            {translateText('Resting HR:')} <b style={{ color: '#0f172a' }}>{wearableVitals.restingHeartRate} BPM</b>
           </div>
           <div style={{ fontSize: '10px', color: '#8b5cf6', fontWeight: 700, marginTop: '6px' }}>
-            High Autonomic Recovery
+            {translateText('High Autonomic Recovery')}
           </div>
         </div>
 
@@ -786,10 +786,10 @@ export default function HealthSyncPanel({
             {wearableVitals.sleepDuration}
           </div>
           <div style={{ fontSize: '11px', color: '#64748b' }}>
-            Deep: <b style={{ color: '#0f172a' }}>{wearableVitals.sleepStages.deep}</b> • REM: <b style={{ color: '#0f172a' }}>{wearableVitals.sleepStages.rem}</b>
+            {translateText('Deep:')} <b style={{ color: '#0f172a' }}>{wearableVitals.sleepStages.deep}</b> • {translateText('REM:')} <b style={{ color: '#0f172a' }}>{wearableVitals.sleepStages.rem}</b>
           </div>
           <div style={{ fontSize: '10px', color: '#16a34a', fontWeight: 700, marginTop: '6px' }}>
-            Sleep Score: {wearableVitals.sleepScore}/100 (Restorative)
+            {translateText('Sleep Score:')} {wearableVitals.sleepScore}/100 ({translateText('Restorative')})
           </div>
         </div>
       </div>
@@ -816,17 +816,17 @@ export default function HealthSyncPanel({
                 textTransform: 'uppercase',
                 letterSpacing: '0.04em'
               }}>
-                Telemetry Data Ingestion Engine
+                {translateText('Telemetry Data Ingestion Engine')}
               </span>
               <span style={{ fontSize: '11px', fontWeight: 700, color: '#10b981', background: '#ecfdf5', padding: '2px 8px', borderRadius: '999px' }}>
-                🔒 Local Client-Side Parsing
+                🔒 {translateText('Local Client-Side Parsing')}
               </span>
             </div>
             <h3 style={{ fontSize: '16px', fontWeight: 800, color: '#0f172a', margin: '4px 0 0 0' }}>
               {t('import_export_xml', 'Import Wearable Data & Pre-Loaded Clinical Datasets')}
             </h3>
             <p style={{ fontSize: '12px', color: '#64748b', margin: '2px 0 0 0' }}>
-              Select from 6 standardized clinical patient mock JSON datasets, or upload your personal Apple Health <code style={{ background: '#f1f5f9', padding: '1px 5px', borderRadius: '4px' }}>export.xml</code> / Google Takeout JSON.
+              {translateText('Select from 6 standardized clinical patient mock JSON datasets, or upload your personal Apple Health export.xml / Google Takeout JSON.')}
             </p>
           </div>
 
@@ -851,7 +851,7 @@ export default function HealthSyncPanel({
               }}
             >
               <Zap size={14} />
-              <span>Select Datasets (6 Profiles)</span>
+              <span>{translateText('Select Datasets (6 Profiles)')}</span>
             </button>
             <button
               onClick={() => setImporterMode('upload')}
@@ -872,7 +872,7 @@ export default function HealthSyncPanel({
               }}
             >
               <Upload size={14} />
-              <span>Upload Custom File</span>
+              <span>{translateText('Upload Custom File')}</span>
             </button>
           </div>
         </div>
@@ -915,7 +915,7 @@ export default function HealthSyncPanel({
                         color: profile.badge.color,
                         border: `1px solid ${profile.badge.border}`
                       }}>
-                        {profile.badge.label}
+                        {translateText(profile.badge.label)}
                       </span>
                       {isSelected ? (
                         <span style={{
@@ -929,11 +929,11 @@ export default function HealthSyncPanel({
                           alignItems: 'center',
                           gap: '4px'
                         }}>
-                          ● ACTIVE DATASET
+                          ● {translateText('ACTIVE DATASET')}
                         </span>
                       ) : (
                         <span style={{ fontSize: '10.5px', color: '#64748b', fontWeight: 600 }}>
-                          {profile.observationCount.toLocaleString()} Records
+                          {profile.observationCount.toLocaleString()} {translateText('Records')}
                         </span>
                       )}
                     </div>
@@ -946,13 +946,13 @@ export default function HealthSyncPanel({
                         color: isSelected ? '#0284c7' : '#0f172a',
                         margin: 0
                       }}>
-                        {profile.title}
+                        {translateText(profile.title)}
                       </h4>
                       <div style={{ fontSize: '11px', color: '#64748b', marginTop: '2px' }}>
-                        Patient: <b style={{ color: '#334155' }}>{profile.patient.name}</b> ({profile.patient.age}y {profile.patient.gender}) • <span style={{ color: '#0284c7' }}>{profile.device.name}</span>
+                        {translateText('Patient:')} <b style={{ color: '#334155' }}>{profile.patient.name}</b> ({profile.patient.age}{translateText('y')} {translateText(profile.patient.gender)}) • <span style={{ color: '#0284c7' }}>{translateText(profile.device.name)}</span>
                       </div>
                       <div style={{ fontSize: '11px', color: '#475569', marginTop: '3px' }}>
-                        {profile.subtitle}
+                        {translateText(profile.subtitle)}
                       </div>
                     </div>
 
@@ -1005,7 +1005,7 @@ export default function HealthSyncPanel({
                         }}
                       >
                         <Download size={12} color="#0284c7" />
-                        <span>Download JSON</span>
+                        <span>{translateText('Download JSON')}</span>
                       </button>
 
                       <button
@@ -1021,7 +1021,7 @@ export default function HealthSyncPanel({
                           cursor: 'pointer'
                         }}
                       >
-                        {isSelected ? '✓ Ingested' : 'Load Dataset'}
+                        {isSelected ? `✓ ${translateText('Ingested')}` : translateText('Load Dataset')}
                       </button>
                     </div>
                   </div>

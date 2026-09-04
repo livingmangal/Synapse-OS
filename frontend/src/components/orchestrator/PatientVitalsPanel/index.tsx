@@ -465,7 +465,7 @@ export default function PatientVitalsPanel({
               {patient.name}
             </h2>
             <div style={{ fontSize: '11px', color: '#64748b', marginBottom: '2px' }}>
-              {translateText('DOB:')} <strong style={{ color: '#334155' }}>{patient.dob}</strong>
+              {translateText('DOB:')} <strong style={{ color: '#334155' }}>{translateText(patient.dob)}</strong>
             </div>
             <div style={{ fontSize: '11px', color: '#64748b' }}>
               {translateText('Gender:')} <strong style={{ color: '#334155' }}>{translateText(patient.gender)}</strong> • {translateText('Blood:')} <strong style={{ color: '#0284c7' }}>{patient.bloodType}</strong>
@@ -750,7 +750,7 @@ export default function PatientVitalsPanel({
 
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '10px' }}>
                 <span style={{ fontSize: '10px', color: '#64748b', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                  <Clock size={11} /> {doc.availableSlot}
+                  <Clock size={11} /> {translateText(doc.availableSlot)}
                 </span>
                 <button
                   onClick={() => handleBooking(doc)}

@@ -73,11 +73,11 @@ export default function BlockchainRecordsPanel({
                 color: activeMatchedProfile.badge.color,
                 border: `1px solid ${activeMatchedProfile.badge.border}`
               }}>
-                {activeMatchedProfile.badge.label}
+                {translateText(activeMatchedProfile.badge.label)}
               </span>
             </div>
             <div style={{ fontSize: '11px', color: '#64748b' }}>
-              ABHA: <b style={{ color: '#0f172a' }}>{state.abhaData?.abha_number || activeMatchedProfile.patient.abhaId}</b> • DOB: <b>{state.dob || activeMatchedProfile.patient.dob || '2002'}</b> • YOB: <b>{state.yearOfBirth}</b>
+              ABHA: <b style={{ color: '#0f172a' }}>{state.abhaData?.abha_number || activeMatchedProfile.patient.abhaId}</b> • {translateText('DOB:')} <b>{translateText(state.dob || activeMatchedProfile.patient.dob || '2002')}</b> • {translateText('YOB:')} <b>{state.yearOfBirth}</b>
             </div>
           </div>
         </div>
@@ -259,8 +259,8 @@ export default function BlockchainRecordsPanel({
           }}>
             {state.contractOk ? <CheckCircle2 size={12} /> : <Zap size={12} />}
             {state.networkName === 'sepolia' 
-              ? (state.contractOk ? 'Sepolia Testnet Active' : 'Sepolia RPC Ready') 
-              : (state.contractOk ? 'Hardhat Ready' : 'Node Offline')}
+              ? (state.contractOk ? translateText('Sepolia Testnet Active') : translateText('Sepolia RPC Ready')) 
+              : (state.contractOk ? translateText('Hardhat Ready') : translateText('Node Offline'))}
           </span>
           
           {state.walletAddress && (
@@ -293,12 +293,12 @@ export default function BlockchainRecordsPanel({
       }}>
         {[
           { id: 'abha', labelKey: 'tab_national_abha', defaultLabel: 'National ABHA ID', icon: Fingerprint },
-          { id: 'vaccination', labelKey: 'tab_vaccination_uwin', defaultLabel: '💉 Immunization & U-WIN', icon: ShieldCheck },
+          { id: 'vaccination', labelKey: 'tab_vaccination_uwin', defaultLabel: translateText('💉 Immunization & U-WIN'), icon: ShieldCheck },
           { id: 'passport', labelKey: 'tab_qr_passport', defaultLabel: 'QR Health Passport', icon: FileCheck2 },
           { id: 'blockchain', labelKey: 'tab_onchain_records', defaultLabel: 'On-Chain Records', icon: LinkIcon },
           { id: 'verify', labelKey: 'tab_verify_integrity', defaultLabel: 'Verify Integrity', icon: ShieldCheck }
         ].map(item => {
-          const label = t(item.labelKey, item.defaultLabel);
+          const label = t(item.labelKey, translateText(item.defaultLabel));
           return (
             <button
               key={item.id}

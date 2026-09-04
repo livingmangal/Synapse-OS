@@ -1,6 +1,11 @@
+'use client';
+
 import React from 'react';
+import { useLanguage } from '@/context/LanguageContext';
 
 export function AgenticStackDiagramSection() {
+  const { t } = useLanguage();
+
   return (
     <div className="mod-scroll__terms follow__wrap bg-dark-agentic">
       {/* Left Column: Light Aqua Blue Rounded Container Card */}
@@ -8,13 +13,13 @@ export function AgenticStackDiagramSection() {
         <div className="livekit-aqua-container">
           <div className="livekit-kicker">
             <span className="livekit-kicker-dot" />
-            DEVELOPER PLATFORM
+            {t('stack_kicker', 'DEVELOPER PLATFORM')}
           </div>
 
           <h2 className="livekit-title">
-            The <span className="accent-cyan">complete</span> stack for
+            {t('stack_title_prefix', 'The complete stack for')}
             <br />
-            Clinical AI
+            <span className="accent-cyan">{t('stack_title_suffix', 'Clinical AI')}</span>
           </h2>
 
           <div className="livekit-feature-list">
@@ -35,7 +40,7 @@ export function AgenticStackDiagramSection() {
                   <polyline points="8 6 2 12 8 18" />
                 </svg>
               </div>
-              <span>Open source multi-agent framework to build and test clinical workflows</span>
+              <span>{t('stack_feat_1', 'Open source multi-agent framework to build and test clinical workflows')}</span>
             </div>
 
             {/* Item 2: Inference Gateway */}
@@ -55,7 +60,7 @@ export function AgenticStackDiagramSection() {
                   <path d="M12 6v6l4 2" />
                 </svg>
               </div>
-              <span>Inference gateway to access OCR, Diagnostic LLM, and STT models</span>
+              <span>{t('stack_feat_2', 'Inference gateway to access OCR, Diagnostic LLM, and STT models')}</span>
             </div>
 
             {/* Item 3: Cloud & Privacy */}
@@ -74,7 +79,7 @@ export function AgenticStackDiagramSection() {
                   <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9z" />
                 </svg>
               </div>
-              <span>Polygon zkPoS testnet and IPFS encrypted health record vault</span>
+              <span>{t('stack_feat_3', 'Polygon zkPoS testnet and IPFS encrypted health record vault')}</span>
             </div>
 
             {/* Item 4: Telephony & Channels */}
@@ -93,7 +98,7 @@ export function AgenticStackDiagramSection() {
                   <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
                 </svg>
               </div>
-              <span>WhatsApp, Telegram, SIP telephony, and real-time WebRTC audio streams</span>
+              <span>{t('stack_feat_4', 'WhatsApp, Telegram, SIP telephony, and real-time WebRTC audio streams')}</span>
             </div>
 
             {/* Item 5: Observability & Forecasting */}
@@ -114,12 +119,12 @@ export function AgenticStackDiagramSection() {
                   <line x1="6" y1="20" x2="6" y2="14" />
                 </svg>
               </div>
-              <span>Full-stack spatio-temporal GNN disease mapping and epidemic forecasts</span>
+              <span>{t('stack_feat_5', 'Full-stack spatio-temporal GNN disease mapping and epidemic forecasts')}</span>
             </div>
           </div>
 
           <a href="#agents" className="livekit-cta-btn">
-            <span>Explore the SynapseOS Platform</span>
+            <span>{t('stack_cta', 'Explore the SynapseOS Platform')}</span>
             <span className="livekit-cta-arrow">→</span>
           </a>
         </div>
@@ -322,7 +327,7 @@ export function AgenticStackDiagramSection() {
               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
               <circle cx="12" cy="7" r="4" />
             </svg>
-            <div className="iso-tile-tooltip">Patient Ingestion</div>
+            <div className="iso-tile-tooltip">{t('diag_patient_ingestion', 'Patient Ingestion')}</div>
           </div>
 
           {/* 5. I/O Multimodal Ingestion Stack */}
@@ -413,7 +418,7 @@ export function AgenticStackDiagramSection() {
               <span className="iso-wave-bar" />
             </div>
             <span style={{ fontFamily: 'var(--f-mono, monospace)', fontSize: '0.68rem', color: '#e2e8f0' }}>
-              Clinical Normalizer
+              {t('diag_clinical_normalizer', 'Clinical Normalizer')}
             </span>
           </div>
 
@@ -426,7 +431,7 @@ export function AgenticStackDiagramSection() {
               <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67" />
             </svg>
             <span style={{ fontFamily: 'var(--f-mono, monospace)', fontSize: '0.68rem', color: '#e2e8f0' }}>
-              Triage Router &amp; Turn Detection
+              {t('diag_triage_router', 'Triage Router & Turn Detection')}
             </span>
           </div>
 
@@ -528,7 +533,7 @@ export function AgenticStackDiagramSection() {
               <line x1="6" x2="6.01" y1="6" y2="6" />
               <line x1="6" x2="6.01" y1="18" y2="18" />
             </svg>
-            <div className="iso-tile-tooltip">Polygon PoS &amp; IPFS</div>
+            <div className="iso-tile-tooltip">{t('diag_polygon_ipfs', 'Polygon PoS & IPFS')}</div>
           </div>
 
           {/* 15. SynapseOS Cloud & World Telemetry Node */}
@@ -536,17 +541,17 @@ export function AgenticStackDiagramSection() {
             <div className="telemetry-map-layer" />
             <div className="cloud-server-pill">
               <span className="cloud-server-pill-dot" />
-              <span>Media Stream Engine</span>
+              <span>{t('diag_media_stream', 'Media Stream Engine')}</span>
             </div>
             <div className="cloud-server-pill">
               <span
                 className="cloud-server-pill-dot"
                 style={{ background: '#10b981', boxShadow: '0 0 6px #10b981' }}
               />
-              <span>Agent Swarm Orchestrator</span>
+              <span>{t('diag_swarm_orchestrator', 'Agent Swarm Orchestrator')}</span>
             </div>
             <div className="iso-tile-badge" style={{ top: '-2px', left: '10px' }}>
-              SynapseOS Cloud
+              {t('diag_synapse_cloud', 'SynapseOS Cloud')}
             </div>
           </div>
         </div>

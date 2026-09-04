@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { projectNavItems, legalNavItems } from '@/data/navigation';
 import { siteConfig } from '@/data/siteConfig';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface NavigationMenuProps {
   isOpen: boolean;
@@ -18,6 +19,7 @@ export default function NavigationMenu({
   onOpenContact,
 }: NavigationMenuProps) {
   const [hoveredProject, setHoveredProject] = useState<string | null>(null);
+  const { t } = useLanguage();
 
   if (!isOpen) return null;
 
@@ -37,7 +39,7 @@ export default function NavigationMenu({
           className="flex items-center space-x-2 text-xs uppercase tracking-widest px-4 py-2 border border-[#ECE4DA]/30 rounded-full hover:bg-[#ECE4DA] hover:text-black transition-all cursor-pointer"
           aria-label="Close Menu"
         >
-          <span>Close</span>
+          <span>{t('nav_close', 'Close')}</span>
           <svg
             width="14"
             height="14"
@@ -63,16 +65,16 @@ export default function NavigationMenu({
             onClick={onClose}
             className="text-3xl md:text-5xl lg:text-6xl font-serif hover:text-white/70 transition-colors uppercase"
           >
-            01. Home
+            01. {t('nav_home', 'Home')}
           </Link>
           <Link
             href="/orchestrator-agent?tab=hospital"
             onClick={onClose}
             className="text-3xl md:text-5xl lg:text-6xl font-serif text-pink-400 hover:text-pink-300 transition-colors uppercase flex items-center gap-3"
           >
-            <span>02. Outbreak Map</span>
+            <span>02. {t('nav_outbreak_map', 'Outbreak Map')}</span>
             <span className="text-xs bg-pink-500 text-white font-sans px-3 py-1 rounded-full font-bold">
-              Live GIS
+              {t('nav_live_gis', 'Live GIS')}
             </span>
           </Link>
           <div className="flex flex-col space-y-2">
@@ -81,7 +83,7 @@ export default function NavigationMenu({
               onClick={onClose}
               className="text-3xl md:text-5xl lg:text-6xl font-serif hover:text-white/70 transition-colors uppercase"
             >
-              03. Orchestrator OS
+              03. {t('nav_orchestrator', 'Orchestrator OS')}
             </Link>
             {/* Sub-projects list */}
             <div className="pl-6 md:pl-12 flex flex-col space-y-2 pt-2 border-l border-[#ECE4DA]/20">
@@ -109,13 +111,13 @@ export default function NavigationMenu({
             onClick={onClose}
             className="text-3xl md:text-5xl lg:text-6xl font-serif hover:text-white/70 transition-colors uppercase"
           >
-            03. About Us
+            03. {t('nav_about', 'About Us')}
           </Link>
           <button
             onClick={onOpenContact}
             className="text-left text-3xl md:text-5xl lg:text-6xl font-serif hover:text-white/70 transition-colors uppercase cursor-pointer"
           >
-            04. Contact
+            04. {t('nav_contact', 'Contact')}
           </button>
         </div>
 
@@ -123,7 +125,7 @@ export default function NavigationMenu({
         <div className="lg:col-span-5 flex flex-col justify-between border-t lg:border-t-0 lg:border-l border-[#ECE4DA]/15 pt-8 lg:pt-0 lg:pl-12">
           <div className="space-y-6">
             <p className="text-xs uppercase tracking-widest text-[#ECE4DA]/60">
-              Inquiries & Viewings
+              {t('nav_inquiries', 'Inquiries & Viewings')}
             </p>
             <div>
               <a
@@ -142,7 +144,7 @@ export default function NavigationMenu({
 
           <div className="pt-8">
             <p className="text-xs uppercase tracking-widest text-[#ECE4DA]/60 mb-3">
-              Follow Us
+              {t('nav_follow_us', 'Follow Us')}
             </p>
             <div className="flex space-x-4">
               <a
@@ -160,7 +162,7 @@ export default function NavigationMenu({
 
       {/* Bottom Bar: Legal */}
       <div className="flex flex-wrap items-center justify-between gap-4 border-t border-[#ECE4DA]/15 pt-6 text-xs text-[#ECE4DA]/60">
-        <p>© {new Date().getFullYear()} Normal is Boring. All rights reserved.</p>
+        <p>© {new Date().getFullYear()} Normal is Boring. {t('nav_all_rights', 'All rights reserved.')}</p>
         <div className="flex space-x-6">
           {legalNavItems.map((item) => (
             <Link

@@ -1,6 +1,11 @@
+'use client';
+
 import React from 'react';
+import { useLanguage } from '@/context/LanguageContext';
 
 export function UniversalFooter() {
+  const { t } = useLanguage();
+
   return (
     <footer
       className="synapseos-universal-footer relative w-full overflow-hidden"
@@ -124,12 +129,11 @@ export function UniversalFooter() {
                 letterSpacing: '-0.02em',
               }}
             >
-              Your smart AI Health Platform
+              {t('footer_title', 'Your smart AI Health Platform')}
             </h2>
 
             <p style={{ fontSize: '0.925rem', color: '#524b44', lineHeight: 1.6, maxWidth: '420px', margin: '0 0 1.75rem 0' }}>
-              SynapseOS brings multi-agent triage, medical vision, real-time vitals, and clinical intelligence into
-              one beautiful, live ecosystem beside your original clinical workflow.
+              {t('footer_desc', 'SynapseOS brings multi-agent triage, medical vision, real-time vitals, and clinical intelligence into one beautiful, live ecosystem beside your original clinical workflow.')}
             </p>
 
           </div>
@@ -137,18 +141,18 @@ export function UniversalFooter() {
           {/* Column 2: Menu */}
           <div>
             <h3 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#111', margin: '0 0 1.25rem 0', letterSpacing: '-0.01em' }}>
-              Menu
+              {t('footer_menu', 'Menu')}
             </h3>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.85rem', fontSize: '0.875rem' }}>
               <li>
                 <a href="/" style={{ color: '#4a443d', textDecoration: 'none', fontWeight: 500 }}>
-                  Home
+                  {t('nav_home', 'Home')}
                 </a>
               </li>
 
               <li>
                 <a href="/about-us" style={{ color: '#4a443d', textDecoration: 'none', fontWeight: 500 }}>
-                  About Us
+                  {t('nav_about_us', 'About Us')}
                 </a>
               </li>
             </ul>
@@ -157,27 +161,27 @@ export function UniversalFooter() {
           {/* Column 3: Navigation */}
           <div>
             <h3 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#111', margin: '0 0 1.25rem 0', letterSpacing: '-0.01em' }}>
-              Navigation
+              {t('footer_nav', 'Navigation')}
             </h3>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.85rem', fontSize: '0.875rem' }}>
               <li>
                 <a href="mailto:hello@synapseos.com" style={{ color: '#4a443d', textDecoration: 'none', fontWeight: 500 }}>
-                  Contact
+                  {t('nav_inquiries', 'Contact')}
                 </a>
               </li>
               <li>
                 <a href="/privacy-policy" style={{ color: '#4a443d', textDecoration: 'none', fontWeight: 500 }}>
-                  Privacy policy
+                  {t('footer_privacy', 'Privacy policy')}
                 </a>
               </li>
               <li>
                 <a href="/legal-notice" style={{ color: '#4a443d', textDecoration: 'none', fontWeight: 500 }}>
-                  Legal notice
+                  {t('footer_legal', 'Legal notice')}
                 </a>
               </li>
               <li>
                 <a href="/cookie-policy" style={{ color: '#4a443d', textDecoration: 'none', fontWeight: 500 }}>
-                  Cookie policy
+                  {t('footer_cookie', 'Cookie policy')}
                 </a>
               </li>
             </ul>
@@ -186,37 +190,37 @@ export function UniversalFooter() {
           {/* Column 4: Platform Features */}
           <div>
             <h3 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#111', margin: '0 0 1.25rem 0', letterSpacing: '-0.01em' }}>
-              Platform Features
+              {t('footer_platform_features', 'Platform Features')}
             </h3>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.85rem', fontSize: '0.875rem' }}>
               <li>
                 <a href="/orchestrator-agent?tab=swarm" style={{ color: '#4a443d', textDecoration: 'none', fontWeight: 500 }}>
-                  Multi-Agent Swarm
+                  {t('feat_1_title', 'Multi-Agent Swarm')}
                 </a>
               </li>
               <li>
                 <a href="/orchestrator-agent?tab=scan" style={{ color: '#4a443d', textDecoration: 'none', fontWeight: 500 }}>
-                  Medical Scan AI
+                  {t('feat_2_title', 'Medical Scan AI')}
                 </a>
               </li>
               <li>
                 <a href="/orchestrator-agent" style={{ color: '#4a443d', textDecoration: 'none', fontWeight: 500 }}>
-                  Symptom Triage Agent
+                  {t('footer_triage_agent', 'Symptom Triage Agent')}
                 </a>
               </li>
               <li>
                 <a href="/vibrant" style={{ color: '#4a443d', textDecoration: 'none', fontWeight: 500 }}>
-                  3D Body Explorer
+                  {t('footer_3d_explorer', '3D Body Explorer')}
                 </a>
               </li>
               <li>
                 <a href="/orchestrator-agent?tab=records" style={{ color: '#4a443d', textDecoration: 'none', fontWeight: 500 }}>
-                  ABHA &amp; Blockchain
+                  {t('feat_5_title', 'Blockchain Records & ABHA')}
                 </a>
               </li>
               <li>
                 <a href="/orchestrator-agent?tab=hospital" style={{ color: '#4a443d', textDecoration: 'none', fontWeight: 500 }}>
-                  WHO Disease Radar
+                  {t('feat_6_title', 'WHO Disease Surveillance')}
                 </a>
               </li>
             </ul>
