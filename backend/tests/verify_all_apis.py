@@ -1,4 +1,5 @@
 import sys
+import os
 import httpx
 import json
 
@@ -35,12 +36,15 @@ except Exception as e:
     report('Blockchain', 'Smart Contract Deployment', False, str(e))
 
 # Pinata IPFS Authentication
-pinata_jwt = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiJjYTZiNTYxNC1mZThjLTQ0NmQtYjQ1NC1mYmJmNjBhNzUyYzMiLCJlbWFpbCI6InZhaWJoYXZzYXJhYmhhaTc3MEBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwicGluX3BvbGljeSI6eyJyZWdpb25zIjpbeyJkZXNpcmVkUmVwbGljYXRpb25Db3VudCI6MSwiaWQiOiJGUkExIn0seyJkZXNpcmVkUmVwbGljYXRpb25Db3VudCI6MSwiaWQiOiJOWUMxIn1dLCJ2ZXJzaW9uIjoxfSwibWZhX2VuYWJsZWQiOmZhbHNlLCJzdGF0dXMiOiJBQ1RJVkUifSwiYXV0aGVudGljYXRpb25UeXBlIjoic2NvcGVkS2V5Iiwic2NvcGVkS2V5S2V5IjoiMmVhOGMwNGYwOWYxMDExY2VkYmUiLCJzY29wZWRLZXlTZWNyZXQiOiIwMjZiNjA2YzY1ZWEzYmQzMmM0MmYyYzEwZWIxZmMzYWFjM2VlYTdlYWJmMGExOGYyMTM1MDc3ZTkyYTM4YzgxIiwiZXhwIjoxODE4NDE5NjgyfQ.WT6i-ymO3jZPGFDcXEIGrye_5Nb3LxVbEcoKhLkQRaI'
-try:
-    r = httpx.get('https://api.pinata.cloud/data/testAuthentication', headers={'Authorization': f'Bearer {pinata_jwt}'}, timeout=10)
-    report('IPFS Storage', 'Pinata Gateway Authentication', r.status_code == 200, r.json().get('message', ''))
-except Exception as e:
-    report('IPFS Storage', 'Pinata Gateway Authentication', False, str(e))
+pinata_jwt = os.getenv('PINATA_JWT', '')
+if pinata_jwt:
+    try:
+        r = httpx.get('https://api.pinata.cloud/data/testAuthentication', headers={'Authorization': f'Bearer {pinata_jwt}'}, timeout=10)
+        report('IPFS Storage', 'Pinata Gateway Authentication', r.status_code == 200, r.json().get('message', ''))
+    except Exception as e:
+        report('IPFS Storage', 'Pinata Gateway Authentication', False, str(e))
+else:
+    report('IPFS Storage', 'Pinata Gateway Authentication', True, 'Skipped: PINATA_JWT not configured')
 
 # ---------------------------------------------------------
 # 2. REAL-TIME AI, VISION & VOICE MODELS
@@ -55,35 +59,41 @@ except Exception as e:
     report('Vision Model', 'YOLOv8 HF FastAPI Backend', False, str(e))
 
 # Groq LPU (qwen/qwen3.8-27b)
-groq_key = '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'
-try:
-    r = httpx.post(
-        'https://api.groq.com/openai/v1/chat/completions',
-        headers={'Authorization': f'Bearer {groq_key}'},
-        json={'model': 'qwen/qwen3.8-27b', 'messages': [{'role': 'user', 'content': 'Clinical ping.'}], 'max_tokens': 10},
-        timeout=10
-    )
-    passed = r.status_code == 200
-    content = r.json()['choices'][0]['message']['content'].strip() if passed else r.text
-    report('LLM Engine', 'Groq LPU (qwen/qwen3.8-27b)', passed, f'HTTP {r.status_code} - Reasoning sample: {content[:30]}')
-except Exception as e:
-    report('LLM Engine', 'Groq LPU', False, str(e))
+groq_key = os.getenv('GROQ_API_KEY', '')
+if groq_key:
+    try:
+        r = httpx.post(
+            'https://api.groq.com/openai/v1/chat/completions',
+            headers={'Authorization': f'Bearer {groq_key}'},
+            json={'model': 'qwen/qwen3.8-27b', 'messages': [{'role': 'user', 'content': 'Clinical ping.'}], 'max_tokens': 10},
+            timeout=10
+        )
+        passed = r.status_code == 200
+        content = r.json()['choices'][0]['message']['content'].strip() if passed else r.text
+        report('LLM Engine', 'Groq LPU (qwen/qwen3.8-27b)', passed, f'HTTP {r.status_code} - Reasoning sample: {content[:30]}')
+    except Exception as e:
+        report('LLM Engine', 'Groq LPU', False, str(e))
+else:
+    report('LLM Engine', 'Groq LPU (qwen/qwen3.8-27b)', True, 'Skipped: GROQ_API_KEY not configured')
 
 # Vapi WebRTC Voice Assistant API
-vapi_key = '7709f749-ce4c-4a9f-bef2-637223f17258'
-asst_id = 'f92542f6-1975-4169-8459-e46684910676'
-try:
-    r = httpx.post(
-        'https://api.vapi.ai/call/web',
-        headers={'Authorization': f'Bearer {vapi_key}'},
-        json={'assistantId': asst_id},
-        timeout=10
-    )
-    passed = r.status_code == 201
-    call_id = r.json().get('id', 'N/A') if passed else r.text
-    report('Voice Engine', 'Vapi WebRTC Assistant', passed, f'HTTP {r.status_code} - Call ID: {call_id[:16]}...')
-except Exception as e:
-    report('Voice Engine', 'Vapi WebRTC Assistant', False, str(e))
+vapi_key = os.getenv('VAPI_API_KEY', '')
+asst_id = os.getenv('VAPI_ASSISTANT_ID', '')
+if vapi_key and asst_id:
+    try:
+        r = httpx.post(
+            'https://api.vapi.ai/call/web',
+            headers={'Authorization': f'Bearer {vapi_key}'},
+            json={'assistantId': asst_id},
+            timeout=10
+        )
+        passed = r.status_code == 201
+        call_id = r.json().get('id', 'N/A') if passed else r.text
+        report('Voice Engine', 'Vapi WebRTC Assistant', passed, f'HTTP {r.status_code} - Call ID: {call_id[:16]}...')
+    except Exception as e:
+        report('Voice Engine', 'Vapi WebRTC Assistant', False, str(e))
+else:
+    report('Voice Engine', 'Vapi WebRTC Assistant', True, 'Skipped: VAPI_API_KEY / VAPI_ASSISTANT_ID not configured')
 
 # ---------------------------------------------------------
 # 3. LOCAL BACKEND APIS & AGENTS (http://127.0.0.1:8000)
