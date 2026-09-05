@@ -1,3 +1,16 @@
+@import "tailwindcss";
+
+/* Timeline Steps Gradient from MERN Auth */
+.steps-gradient {
+  background: linear-gradient(
+    180deg,
+    transparent 0,
+    #00002f26 10%,
+    #00002f26 90%,
+    transparent 100%
+  );
+}
+
 /* Global Reset & Base Styles */
 html, body {
   margin: 0;
@@ -7,6 +20,75 @@ html, body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* ============================================================
+   GLOBAL: Prevent text I-beam cursor on all static elements
+   The legacy WP theme has no cursor:default, so every text
+   node shows the typing "|" cursor when hovered. Fix globally.
+   ============================================================ */
+body * {
+  cursor: default;
+}
+
+/* Re-allow pointer cursor on interactive elements */
+a,
+button,
+[role="button"],
+label,
+select,
+summary,
+[tabindex]:not([tabindex="-1"]),
+.cursor-pointer,
+[onClick],
+[onclick] {
+  cursor: pointer !important;
+}
+
+/* Re-allow text cursor only inside actual input/editable areas */
+input,
+textarea,
+[contenteditable="true"],
+[contenteditable=""],
+.selectable,
+.auth-root input,
+.auth-root textarea {
+  cursor: text !important;
+  user-select: text !important;
+  -webkit-user-select: text !important;
+}
+
+/* Prevent accidental text selection on static UI */
+body {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* Allow selection in data/content areas */
+input,
+textarea,
+[contenteditable],
+pre,
+code,
+.selectable,
+.text-selectable {
+  user-select: text !important;
+  -webkit-user-select: text !important;
+}
+
+/* Cursor: not-allowed for disabled elements */
+button:disabled,
+input:disabled,
+select:disabled,
+textarea:disabled {
+  cursor: not-allowed !important;
+}
+
+/* Resize cursor for resizable */
+[class*="resize"] {
+  cursor: col-resize !important;
 }
 
 /* Modern Thin Smooth Custom Scrollbar */
@@ -37,23 +119,56 @@ html, body {
 /* Prevent template mouse / loader elements from blocking interactions */
 #mouse,
 .transition,
-#page-loader,
-#video-splash,
-.animated-splash-page {
+#page-loader {
   pointer-events: none !important;
 }
 
-/* Hide legacy animation overlays on internal clinical agent applications */
+/* Ensure video splash and its skip button are fully interactive */
+#video-splash,
+.animated-splash-page {
+  pointer-events: auto;
+}
+
+#video-splash.hide-splash,
+.animated-splash-page.hide-splash {
+  display: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+  z-index: -9999 !important;
+}
+
+#splash-skip-btn {
+  pointer-events: auto !important;
+  cursor: pointer !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  z-index: 999999 !important;
+}
+
+/* Hide legacy animation overlays on internal clinical agent applications and auth pages */
 body:has(.orch-root) #video-splash,
+body:has(.auth-root) #video-splash,
 body:has(.orch-root) #page-loader,
+body:has(.auth-root) #page-loader,
 body:has(.orch-root) .animated-splash-page,
+body:has(.auth-root) .animated-splash-page,
 body:has(.orch-root) .transition,
+body:has(.auth-root) .transition,
 body:has(.orch-root) #mouse,
-body:has(.orch-root) header,
+body:has(.auth-root) #mouse,
+body:has(.orch-root) header:not(.orch-header),
+body:has(.auth-root) header:not(.orch-header),
+body:has(.orch-root) .header.wrapper,
+body:has(.auth-root) .header.wrapper,
 body:has(.orch-root) .header__menu,
+body:has(.auth-root) .header__menu,
 body:has(.orch-root) #wrap-modals,
+body:has(.auth-root) #wrap-modals,
 body:has(.orch-root) .modal,
-body:has(.orch-root) .grid.wrapper {
+body:has(.auth-root) .modal,
+body:has(.orch-root) .grid.wrapper,
+body:has(.auth-root) .grid.wrapper {
   display: none !important;
   visibility: hidden !important;
   opacity: 0 !important;
@@ -61,8 +176,18 @@ body:has(.orch-root) .grid.wrapper {
   z-index: -99999 !important;
 }
 
+.orch-header {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  z-index: 100 !important;
+}
+
 body:has(.orch-root) #smooth-wrapper,
-body:has(.orch-root) #smooth-content {
+body:has(.auth-root) #smooth-wrapper,
+body:has(.orch-root) #smooth-content,
+body:has(.auth-root) #smooth-content {
   position: static !important;
   transform: none !important;
   opacity: 1 !important;
@@ -70,3 +195,204 @@ body:has(.orch-root) #smooth-content {
   display: block !important;
   pointer-events: auto !important;
 }
+
+/* ==========================================================================
+   AUTH PAGES FULL ISOLATION SHIELD (Overrides legacy theme button { all: unset })
+   ========================================================================== */
+.auth-root,
+.auth-root * {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+  box-sizing: border-box !important;
+}
+
+.auth-root h1 {
+  all: revert !important;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  font-size: 30px !important;
+  line-height: 38px !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.02em !important;
+  color: #111827 !important;
+  margin: 0 0 8px 0 !important;
+  padding: 0 !important;
+  display: block !important;
+}
+
+.auth-root p {
+  all: revert !important;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  font-size: 14px !important;
+  line-height: 20px !important;
+  color: #6b7280 !important;
+  margin: 0 0 24px 0 !important;
+  padding: 0 !important;
+  display: block !important;
+}
+
+.auth-root input {
+  all: revert !important;
+  display: block !important;
+  width: 100% !important;
+  height: 48px !important;
+  min-height: 48px !important;
+  padding: 0 16px !important;
+  font-size: 15px !important;
+  line-height: 48px !important;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  color: #111827 !important;
+  background-color: #f3f4f6 !important;
+  border: 1px solid #e5e7eb !important;
+  border-radius: 8px !important;
+  outline: none !important;
+  box-sizing: border-box !important;
+  box-shadow: none !important;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  margin: 0 !important;
+  transition: all 0.2s ease !important;
+}
+
+.auth-root input:focus {
+  border-color: #7e57c2 !important;
+  background-color: #ffffff !important;
+  box-shadow: 0 0 0 2px rgba(126, 87, 194, 0.25) !important;
+}
+
+.auth-root input::placeholder {
+  color: #9ca3af !important;
+  font-size: 14px !important;
+  line-height: normal !important;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+}
+
+/* Primary Action Buttons — ONLY target explicit form action buttons, not icon/dot buttons */
+/* Use .auth-btn-primary class on submit buttons, and button[type="submit"] in forms */
+.auth-root button[type="submit"],
+.auth-root .auth-btn-primary {
+  all: revert !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  height: 48px !important;
+  min-height: 48px !important;
+  padding: 0 24px !important;
+  background-color: #7e57c2 !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: 8px !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  cursor: pointer !important;
+  text-align: center !important;
+  box-shadow: 0 1px 3px rgba(126, 87, 194, 0.2) !important;
+  transition: background-color 0.15s ease, transform 0.1s ease !important;
+  margin: 0 !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  box-sizing: border-box !important;
+}
+
+.auth-root button[type="submit"]:hover,
+.auth-root .auth-btn-primary:hover {
+  background-color: #6847a3 !important;
+}
+
+.auth-root button[type="submit"]:disabled,
+.auth-root .auth-btn-primary:disabled {
+  opacity: 0.65 !important;
+  cursor: not-allowed !important;
+}
+
+/* Bare buttons (carousel dots, icon-only) — reset to neutral, don't inherit purple */
+.auth-root button[type="button"]:not(.btn-secondary):not(.social-btn):not(.auth-btn-primary) {
+  all: revert !important;
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  cursor: pointer !important;
+  font-family: inherit !important;
+  user-select: none !important;
+}
+
+/* Secondary outline buttons (Google, Apple, cancel, etc.) */
+.auth-root button.btn-secondary,
+.auth-root button.social-btn {
+  all: revert !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 50% !important;
+  height: 48px !important;
+  min-height: 48px !important;
+  padding: 0 16px !important;
+  background-color: #ffffff !important;
+  border: 1px solid #d1d5db !important;
+  border-radius: 8px !important;
+  color: #374151 !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  cursor: pointer !important;
+  box-sizing: border-box !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease !important;
+  user-select: none !important;
+}
+
+.auth-root button.btn-secondary:hover,
+.auth-root button.social-btn:hover {
+  background-color: #f9fafb !important;
+  border-color: #9ca3af !important;
+  color: #111827 !important;
+}
+
+.auth-root a {
+  all: revert !important;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+}
+
+/* Links inside the right form panel — purple */
+.auth-root .auth-form-panel a {
+  color: #7e57c2 !important;
+}
+
+.auth-root .auth-form-panel a:hover {
+  text-decoration: underline !important;
+}
+
+/* Links on the dark left image panel — force white */
+.auth-root .auth-left-panel a,
+.auth-root .auth-left-link {
+  color: rgba(255, 255, 255, 0.88) !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border-radius: 9999px !important;
+  padding: 6px 16px !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  transition: all 0.2s ease !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+.auth-root .auth-left-panel a:hover,
+.auth-root .auth-left-link:hover {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.2) !important;
+  text-decoration: none !important;
+}
+
+/* Hide floating assistant trigger button on auth pages */
+body:has(.auth-root) .synapseos-trigger-pill {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+

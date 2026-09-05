@@ -15,6 +15,17 @@ export default function LegacyThemeShell({ children }: { children: React.ReactNo
     pathname?.includes('/vibrant') ||
     pathname?.includes('/interactive-body');
 
+  // Standalone Auth & Session Management pages
+  const isAuthApp =
+    pathname?.includes('/login') ||
+    pathname?.includes('/signup') ||
+    pathname?.includes('/verify-mfa') ||
+    pathname?.includes('/security') ||
+    pathname?.includes('/sessions') ||
+    pathname?.includes('/confirm-account') ||
+    pathname?.includes('/forgot-password') ||
+    pathname?.includes('/reset-password');
+
   const isNoLoaderPage = 
     pathname?.includes('/legal-notice') ||
     pathname?.includes('/privacy-policy') ||
@@ -28,6 +39,41 @@ export default function LegacyThemeShell({ children }: { children: React.ReactNo
     );
   }
 
+  if (isAuthApp) {
+    return (
+      <div style={{ width: '100%', minHeight: '100vh', background: '#f8fafc' }}>
+        {children}
+      </div>
+    );
+  }
+
+
+  const handleSkipSplash = (e?: React.MouseEvent) => {
+    if (e) {
+      e.stopPropagation();
+      e.preventDefault();
+    }
+    const splash = document.getElementById('video-splash');
+    if (splash) {
+      splash.classList.add('hide-splash');
+      splash.style.display = 'none';
+      splash.style.opacity = '0';
+      splash.style.pointerEvents = 'none';
+    }
+    document.body.classList.remove('video-splash-active');
+    document.documentElement.classList.remove('overflow-hidden');
+    
+    // Stop playing background videos
+    const vDesktop = document.getElementById('splash-video-desktop') as HTMLVideoElement | null;
+    const vMobile = document.getElementById('splash-video-mobile') as HTMLVideoElement | null;
+    try { vDesktop?.pause(); } catch (_) {}
+    try { vMobile?.pause(); } catch (_) {}
+
+    // Trigger page animations if available
+    if (typeof (window as any).init === 'function') {
+      try { (window as any).init(); } catch (_) {}
+    }
+  };
 
   return (
     <>
@@ -43,7 +89,13 @@ export default function LegacyThemeShell({ children }: { children: React.ReactNo
 
       {/* Hunter Healthcare Video Splash (Homepage Welcome Loader) */}
       {!isNoLoaderPage && (
-        <section className="animated-splash-page" id="video-splash" suppressHydrationWarning>
+        <section 
+          className="animated-splash-page" 
+          id="video-splash" 
+          suppressHydrationWarning
+          onClick={handleSkipSplash}
+          style={{ cursor: 'pointer' }}
+        >
           <video
             id="splash-video-desktop"
             className="splash-video-desktop animated-splash-page__video"
@@ -64,8 +116,54 @@ export default function LegacyThemeShell({ children }: { children: React.ReactNo
           >
             <source src="/videos/hunter_splash_tall.mp4" type="video/mp4" />
           </video>
-          <button id="splash-skip-btn" className="splash-skip-btn" type="button" aria-label="Skip intro">
-            Skip
+          <button 
+            id="splash-skip-btn" 
+            className="splash-skip-btn" 
+            type="button" 
+            aria-label="Skip intro"
+            onClick={handleSkipSplash}
+            style={{
+              position: 'absolute',
+              top: '28px',
+              right: '28px',
+              zIndex: 999999,
+              padding: '10px 24px',
+              borderRadius: '9999px',
+              background: 'rgba(255, 255, 255, 0.92)',
+              backdropFilter: 'blur(16px)',
+              WebkitBackdropFilter: 'blur(16px)',
+              border: '1px solid rgba(0, 0, 0, 0.15)',
+              color: '#0f172a',
+              fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+              fontSize: '13px',
+              fontWeight: 800,
+              letterSpacing: '0.08em',
+              textTransform: 'uppercase',
+              cursor: 'pointer',
+              pointerEvents: 'auto',
+              userSelect: 'none',
+              WebkitUserSelect: 'none',
+              boxShadow: '0 4px 20px rgba(0, 0, 0, 0.15)',
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '6px',
+              lineHeight: 1,
+              transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = '#ffffff';
+              e.currentTarget.style.transform = 'scale(1.06)';
+              e.currentTarget.style.boxShadow = '0 6px 24px rgba(0, 0, 0, 0.22)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.92)';
+              e.currentTarget.style.transform = 'scale(1)';
+              e.currentTarget.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.15)';
+            }}
+          >
+            <span>SKIP</span>
+            <span style={{ fontSize: '15px', fontWeight: 900 }}>&rarr;</span>
           </button>
         </section>
       )}

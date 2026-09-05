@@ -87,6 +87,28 @@
   font-family: var(--f-izmir), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
+/* ==========================================================================
+   CURSOR FIX: Prevent I-beam text cursor on all static text elements.
+   The WP reset (button { all: unset }) strips cursors but doesn't re-set
+   cursor: default on body text, causing the typing "|" line to appear everywhere.
+   ========================================================================== */
+h1, h2, h3, h4, h5, h6,
+p, li, span, div, section, article,
+header, footer, nav, aside, main,
+figure, figcaption, blockquote,
+label {
+  cursor: default !important;
+}
+
+a, button, [role="button"], summary, select,
+[tabindex]:not([tabindex="-1"]) {
+  cursor: pointer !important;
+}
+
+input, textarea, [contenteditable] {
+  cursor: text !important;
+}
+
 /* Lenis smooth scrolling rules */
 html.lenis, html.lenis body {
   height: auto;

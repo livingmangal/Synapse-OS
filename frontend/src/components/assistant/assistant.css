@@ -115,21 +115,22 @@
   z-index: 2147483647 !important;
   width: 58px !important;
   height: 58px !important;
-  border-radius: 50% !important;
-  background: #ffffff !important;
-  border: 1.5px solid #10b981 !important;
-  box-shadow: 0 10px 30px rgba(16, 185, 129, 0.35), 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+  border-radius: 14px !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.22), 0 3px 10px rgba(0, 0, 0, 0.12) !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
   cursor: pointer !important;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
   outline: none !important;
+  padding: 0 !important;
 }
 
 .synapseos-trigger-pill:hover {
-  transform: scale(1.08) !important;
-  box-shadow: 0 14px 40px rgba(16, 185, 129, 0.45) !important;
+  transform: scale(1.08) translateY(-2px) !important;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.28), 0 6px 16px rgba(16, 185, 129, 0.25) !important;
 }
 
 .synapseos-trigger-pill:active {

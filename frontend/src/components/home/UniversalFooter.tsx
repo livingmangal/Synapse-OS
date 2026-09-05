@@ -83,32 +83,18 @@ export function UniversalFooter() {
           {/* Column 1: Brand Information & CTA */}
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.25rem' }}>
-              <div
+              <img
+                src="/synapseos-icon.svg"
+                alt="SynapseOS"
                 style={{
                   width: '40px',
                   height: '40px',
-                  borderRadius: '14px',
-                  backgroundColor: '#000',
-                  color: '#fff',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  boxShadow: '0 4px 12px rgba(0,0,0,0.12)',
+                  borderRadius: '10px',
+                  objectFit: 'contain',
+                  display: 'block',
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.14)',
                 }}
-              >
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
-                </svg>
-              </div>
+              />
               <span style={{ fontWeight: 700, fontSize: '1.15rem', color: '#111', letterSpacing: '-0.02em' }}>
                 SynapseOS
               </span>

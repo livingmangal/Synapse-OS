@@ -17,15 +17,18 @@ import {
   ChevronDown,
   ChevronLeft,
   ChevronRight,
-  Check
+  Check,
+  ShieldCheck,
+  LogOut
 } from 'lucide-react';
 import { PatientInfo } from './types';
 import LanguageSelector from '@/components/ui/LanguageSelector';
 import { useLanguage } from '@/context/LanguageContext';
+import { useAuth } from '@/context/AuthContext';
 
 interface TopNavProps {
-  activeTab: 'overview' | 'swarm' | 'analytics' | 'hospital' | 'scan' | 'records' | 'sync' | 'rural';
-  onTabChange: (tab: 'overview' | 'swarm' | 'analytics' | 'hospital' | 'scan' | 'records' | 'sync' | 'rural') => void;
+  activeTab: 'overview' | 'swarm' | 'analytics' | 'hospital' | 'scan' | 'records' | 'sync' | 'rural' | 'security';
+  onTabChange: (tab: 'overview' | 'swarm' | 'analytics' | 'hospital' | 'scan' | 'records' | 'sync' | 'rural' | 'security') => void;
   patient: PatientInfo;
   onOpenExportModal: () => void;
   searchQuery?: string;
@@ -41,6 +44,8 @@ export default function OrchestratorTopNav({
   onSearchChange
 }: TopNavProps) {
   const { t } = useLanguage();
+  const { logout, user } = useAuth();
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
   const [isMoreOpen, setIsMoreOpen] = useState(false);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
@@ -59,7 +64,8 @@ export default function OrchestratorTopNav({
     { id: 'hospital', label: t('tab_hospital', 'WHO Surveillance & Map'), icon: WhoIcon },
     { id: 'scan', label: t('tab_scan', 'Medical Scan AI'), icon: Search },
     { id: 'records', label: t('tab_records', 'ABHA & Records'), icon: Building2 },
-    { id: 'sync', label: t('tab_health_sync', 'Google & Apple Health'), icon: Watch }
+    { id: 'sync', label: t('tab_health_sync', 'Google & Apple Health'), icon: Watch },
+    { id: 'security', label: t('tab_security', '2FA & Sessions'), icon: ShieldCheck }
   ];
 
   const checkScroll = () => {
@@ -93,8 +99,19 @@ export default function OrchestratorTopNav({
     }
   };
 
+  const handleLogout = async () => {
+    setIsLoggingOut(true);
+    try {
+      await logout();
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setIsLoggingOut(false);
+    }
+  };
+
   return (
-    <header style={{
+    <header className="orch-header" style={{
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
@@ -467,13 +484,54 @@ export default function OrchestratorTopNav({
           )}
           <div style={{ whiteSpace: 'nowrap' }}>
             <div style={{ fontSize: '11px', fontWeight: 800, color: '#0f172a', lineHeight: 1.2 }}>
-              {patient.name}
+              {user?.name || patient.name}
             </div>
             <div style={{ fontSize: '9px', color: '#64748b', lineHeight: 1.2 }}>
               ABHA: <span style={{ fontWeight: 800, color: '#0284c7' }}>{patient.abhaId}</span>
             </div>
           </div>
         </div>
+
+        {/* Sign Out Action Button */}
+        <button
+          onClick={handleLogout}
+          disabled={isLoggingOut}
+          title="Sign out of Sanjeevni OS"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '5px',
+            padding: '5px 12px',
+            height: '32px',
+            background: '#fef2f2',
+            border: '1px solid #fecaca',
+            borderRadius: '9999px',
+            fontSize: '11px',
+            fontWeight: 800,
+            color: '#dc2626',
+            cursor: isLoggingOut ? 'not-allowed' : 'pointer',
+            whiteSpace: 'nowrap',
+            flexShrink: 0,
+            boxShadow: '0 2px 6px rgba(220, 38, 38, 0.08)',
+            transition: 'all 0.15s ease',
+            marginLeft: '4px'
+          }}
+          onMouseEnter={(e) => {
+            if (!isLoggingOut) {
+              e.currentTarget.style.background = '#fee2e2';
+              e.currentTarget.style.borderColor = '#f87171';
+            }
+          }}
+          onMouseLeave={(e) => {
+            if (!isLoggingOut) {
+              e.currentTarget.style.background = '#fef2f2';
+              e.currentTarget.style.borderColor = '#fecaca';
+            }
+          }}
+        >
+          <LogOut size={12} color="#dc2626" />
+          <span>{isLoggingOut ? 'Signing Out...' : 'Sign Out'}</span>
+        </button>
       </div>
     </header>
   );

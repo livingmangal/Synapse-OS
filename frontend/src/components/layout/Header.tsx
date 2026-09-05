@@ -1,17 +1,20 @@
-'use client';
-
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import NavigationMenu from './NavigationMenu';
 import ContactModal from '../ui/ContactModal';
 import LanguageSelector from '../ui/LanguageSelector';
 import { useLanguage } from '@/context/LanguageContext';
+import { useAuth } from '@/context/AuthContext';
+import { ShieldCheck, User, LogIn } from 'lucide-react';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isContactOpen, setIsContactOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { t } = useLanguage();
+  const router = useRouter();
+  const { user, isAuthenticated } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,6 +28,15 @@ export default function Header() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const handleProtectedAction = (e: React.MouseEvent, target: string) => {
+    e.preventDefault();
+    if (isAuthenticated) {
+      router.push(target);
+    } else {
+      router.push(`/login?redirect=${encodeURIComponent(target)}`);
+    }
+  };
 
   return (
     <>
@@ -44,18 +56,20 @@ export default function Header() {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-6 text-xs font-semibold tracking-widest uppercase">
-            <Link
+            <a
               href="/orchestrator-agent"
-              className="text-emerald-700 font-bold hover:text-emerald-900 transition-colors flex items-center gap-1"
+              onClick={(e) => handleProtectedAction(e, '/orchestrator-agent')}
+              className="text-emerald-700 font-bold hover:text-emerald-900 transition-colors flex items-center gap-1 cursor-pointer"
             >
               <span>⚡</span> {t('nav_orchestrator', 'Orchestrator OS')}
-            </Link>
-            <Link
+            </a>
+            <a
               href="/orchestrator-agent?tab=hospital"
-              className="text-pink-600 font-bold hover:text-pink-800 transition-colors flex items-center gap-1"
+              onClick={(e) => handleProtectedAction(e, '/orchestrator-agent?tab=hospital')}
+              className="text-pink-600 font-bold hover:text-pink-800 transition-colors flex items-center gap-1 cursor-pointer"
             >
               <span>🗺️</span> Outbreak Map
-            </Link>
+            </a>
             <Link
               href="/projects"
               className="text-black/80 hover:text-black transition-colors"
@@ -74,16 +88,39 @@ export default function Header() {
             >
               {t('nav_contact', 'Contact')}
             </button>
-            <Link
+            <a
               href="/orchestrator-agent"
-              className="px-4 py-2 border border-black/30 rounded-full text-[11px] hover:bg-black hover:text-white transition-all"
+              onClick={(e) => handleProtectedAction(e, '/orchestrator-agent')}
+              className="px-4 py-2 border border-black/30 rounded-full text-[11px] hover:bg-black hover:text-white transition-all cursor-pointer font-bold"
             >
               {t('nav_available_homes', 'Launch Workspace')}
-            </Link>
+            </a>
           </nav>
 
-          {/* Controls: Language Selector + Menu Trigger */}
+          {/* Controls: Auth Pill + Language Selector + Menu Trigger */}
           <div className="flex items-center space-x-3">
+            {isAuthenticated && user ? (
+              <Link
+                href="/orchestrator-agent?tab=security"
+                className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full border border-black/20 bg-black/5 hover:bg-black/10 text-xs font-medium text-black transition-all"
+                title="Account Security & 2FA Sessions"
+              >
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="max-w-[120px] truncate">{user.name.split(' ')[0]}</span>
+                {user.userPreferences?.enable2FA && (
+                  <ShieldCheck size={14} className="text-emerald-700" />
+                )}
+              </Link>
+            ) : (
+              <Link
+                href="/login"
+                className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-black/30 text-xs font-semibold uppercase tracking-wider text-black hover:bg-black hover:text-white transition-all"
+              >
+                <LogIn size={13} />
+                <span>Sign In</span>
+              </Link>
+            )}
+
             <LanguageSelector variant="header" />
             <button
               onClick={() => setIsMenuOpen(true)}

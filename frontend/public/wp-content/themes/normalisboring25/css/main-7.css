@@ -310,6 +310,14 @@ ul {
   padding: 0;
 }
 
+/* Cursor fix: prevent text I-beam on all static elements */
+h1, h2, h3, h4, h5, h6,
+p, li, span, div, section, article,
+header, footer, nav, aside, main,
+figure, figcaption, blockquote {
+  cursor: default;
+}
+
 h1, h2, h3, h4, h5, p, li {
   font-weight: normal;
   margin: 0;

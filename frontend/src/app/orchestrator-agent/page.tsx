@@ -15,13 +15,14 @@ import MedicalScanPanel from '@/components/orchestrator/MedicalScanPanel';
 import BlockchainRecordsPanel from '@/components/orchestrator/BlockchainRecordsPanel';
 import HealthSyncPanel from '@/components/orchestrator/HealthSyncPanel';
 import RuralHealthPanel from '@/components/orchestrator/RuralHealthPanel';
+import SecuritySessionsPanel from '@/components/orchestrator/SecuritySessionsPanel';
 import ActionHubExportModal from '@/components/orchestrator/ActionHubExportModal';
 
 import { PatientInfo, VitalsData, DetectedCondition } from '@/components/orchestrator/types';
 import { MOCK_HEALTH_PROFILES, MockHealthProfile } from '@/data/mockHealthProfiles';
 
 export default function OrchestratorAgentPage() {
-  const [activeTab, setActiveTab] = useState<'overview' | 'swarm' | 'analytics' | 'hospital' | 'scan' | 'records' | 'sync' | 'rural'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'swarm' | 'analytics' | 'hospital' | 'scan' | 'records' | 'sync' | 'rural' | 'security'>('overview');
   const [isExportModalOpen, setIsExportModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -49,7 +50,7 @@ export default function OrchestratorAgentPage() {
 
       const params = new URLSearchParams(window.location.search);
       const tab = params.get('tab');
-      if (tab && ['overview', 'swarm', 'analytics', 'hospital', 'scan', 'records', 'sync'].includes(tab)) {
+      if (tab && ['overview', 'swarm', 'analytics', 'hospital', 'scan', 'records', 'sync', 'rural', 'security'].includes(tab)) {
         setActiveTab(tab as any);
       }
     }
@@ -491,6 +492,11 @@ export default function OrchestratorAgentPage() {
                 patient={patient}
                 vitals={vitals}
               />
+            )}
+
+            {/* TAB 8: 2FA & Multi-Device Sessions */}
+            {activeTab === 'security' && (
+              <SecuritySessionsPanel />
             )}
           </div>
         </div>

@@ -10,18 +10,20 @@ import {
   Scan, 
   FileText, 
   AlertOctagon, 
-  Sun, 
   Zap, 
   Globe,
+  ShieldCheck,
   Watch,
-  Smartphone
+  Smartphone,
+  LogOut
 } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
+import { useAuth } from '@/context/AuthContext';
 
 interface OrchestratorSidebarProps {
   onOpenSOS?: () => void;
   activeTab?: string;
-  onTabChange?: (tab: 'overview' | 'swarm' | 'analytics' | 'hospital' | 'scan' | 'records' | 'sync' | 'rural') => void;
+  onTabChange?: (tab: 'overview' | 'swarm' | 'analytics' | 'hospital' | 'scan' | 'records' | 'sync' | 'rural' | 'security') => void;
 }
 
 export default function OrchestratorSidebar({ 
@@ -31,6 +33,7 @@ export default function OrchestratorSidebar({
 }: OrchestratorSidebarProps) {
   const pathname = usePathname();
   const { t } = useLanguage();
+  const { logout } = useAuth();
 
   const primaryNavItems = [
     { labelKey: 'tab_swarm', fallback: 'Swarm Intelligence', tab: 'swarm', icon: Zap, isTab: true },
@@ -41,6 +44,7 @@ export default function OrchestratorSidebar({
     { labelKey: 'tab_scan', fallback: 'Medical Scan AI', tab: 'scan', icon: Scan, isTab: true },
     { labelKey: 'tab_records', fallback: 'ABHA & Records', tab: 'records', icon: FileText, isTab: true },
     { labelKey: 'tab_health_sync', fallback: 'Google & Apple Health', tab: 'sync', icon: Watch, isTab: true },
+    { labelKey: 'tab_security', fallback: '2FA & Sessions', tab: 'security', icon: ShieldCheck, isTab: true },
     { labelKey: 'brand_title', fallback: 'SynapseOS Home', href: '/', icon: Home }
   ];
 
@@ -216,22 +220,36 @@ export default function OrchestratorSidebar({
           </button>
         )}
 
-        <div
-          title="Clinical Day Mode"
+
+        {/* Sign Out Button */}
+        <button
+          onClick={() => logout()}
+          title="Sign Out of Sanjeevni OS"
           style={{
             width: '40px',
             height: '40px',
-            borderRadius: '50%',
-            background: '#f8fafc',
-            border: '1px solid #e2e8f0',
-            color: '#64748b',
+            borderRadius: '12px',
+            background: '#fef2f2',
+            border: '1px solid #fee2e2',
+            color: '#dc2626',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center'
+            justifyContent: 'center',
+            cursor: 'pointer',
+            transition: 'all 0.2s ease',
+            boxShadow: '0 2px 6px rgba(220, 38, 38, 0.08)'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = '#fee2e2';
+            e.currentTarget.style.borderColor = '#fca5a5';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = '#fef2f2';
+            e.currentTarget.style.borderColor = '#fee2e2';
           }}
         >
-          <Sun size={18} />
-        </div>
+          <LogOut size={18} />
+        </button>
       </div>
     </aside>
   );

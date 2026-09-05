@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Script from 'next/script';
 import '@/styles/main.css';
+import '@/app/globals.css';
 import SynapseOSAssistantModal from '@/components/SynapseOSAssistantModal';
 import ScriptsLoader from '@/components/ScriptsLoader';
 import LegacyThemeShell from '@/components/LegacyThemeShell';
@@ -22,6 +23,7 @@ export const metadata: Metadata = {
 import ContactModal from '@/components/ui/ContactModal';
 import MobileNoticeBarrier from '@/components/ui/MobileNoticeBarrier';
 import { LanguageProvider } from '@/context/LanguageContext';
+import { AuthProvider } from '@/context/AuthContext';
 
 export default function RootLayout({
   children,
@@ -41,22 +43,24 @@ export default function RootLayout({
         <link rel="stylesheet" href="/wp-content/themes/normalisboring25/css/main.css" suppressHydrationWarning />
       </head>
       <body suppressHydrationWarning>
-        <LanguageProvider>
-          {/* Mobile Screen Barrier Notice (Smart VIT Hackathon Edition) */}
-          <MobileNoticeBarrier />
+        <AuthProvider>
+          <LanguageProvider>
+            {/* Mobile Screen Barrier Notice (Smart VIT Hackathon Edition) */}
+            <MobileNoticeBarrier />
 
-          {/* Global Luxury Editorial Contact & Partnership Modal */}
-          <ContactModal />
+            {/* Global Luxury Editorial Contact & Partnership Modal */}
+            <ContactModal />
 
-          <LegacyThemeShell>
-            {children}
-          </LegacyThemeShell>
+            <LegacyThemeShell>
+              {children}
+            </LegacyThemeShell>
 
-          {/* LiveKit Isometric Agentic Architecture Controller */}
-          <Script src="/wp-content/themes/normalisboring25/js/agentic-diagram.js" strategy="afterInteractive" />
-          <SynapseOSAssistantModal />
-          <ScriptsLoader />
-        </LanguageProvider>
+            {/* LiveKit Isometric Agentic Architecture Controller */}
+            <Script src="/wp-content/themes/normalisboring25/js/agentic-diagram.js" strategy="afterInteractive" />
+            <SynapseOSAssistantModal />
+            <ScriptsLoader />
+          </LanguageProvider>
+        </AuthProvider>
       </body>
     </html>
   );
