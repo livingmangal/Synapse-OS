@@ -700,9 +700,9 @@ async def interpret_prescription(
         "Guidelines:\n"
         "1. Identify the likely condition, infection, or disease category being managed based on the prescribed regimen (e.g. Acute Bronchitis, Type 2 Diabetes, Bacterial Infection).\n"
         "2. Clearly state that this is an educational interpretation and the treating doctor has the definitive clinical diagnosis.\n"
-        "3. For each medication, explain its therapeutic purpose in everyday terms and translate abbreviations (1-0-1, OD, TDS, SOS) into clear timing (e.g. morning and night after meals).\n"
-        "4. Provide home-care advice (hydration, rest, diet) and key precautions (avoid taking antibiotics on empty stomach, complete full course).\n"
-        "5. Include 2-3 specific questions for the patient to ask their doctor or pharmacist.\n"
+        "3. For each medication, explain its therapeutic purpose and explicit administration timing (e.g. Empty Stomach 30 min before breakfast, After Meals, Bedtime).\n"
+        "4. Identify Jan Aushadhi / PMBJP low-cost generic equivalents for branded medicines to help the patient save costs in India.\n"
+        "5. Provide home-care advice, antibiotic completion rules (if applicable), and key precautions (e.g. avoid dairy/alcohol, hydration).\n"
         "6. Provide red flag warnings on when to seek urgent emergency care or call 108.\n"
         f"7. If language requested is '{lang}' and not 'en', localize all explanations into that language while keeping standard drug names recognizable.\n"
         "8. Return ONLY a valid JSON object matching the requested schema."
@@ -715,17 +715,17 @@ async def interpret_prescription(
         "Provide your clinical explanation as a JSON object with keys:\n"
         "{\n"
         '  "likely_condition": "Short title of condition/illness being treated",\n'
-        '  "plain_language_summary": "2-3 sentences explaining the treatment plan for the patient",\n'
+        '  "plain_language_summary": "1-2 sentences explaining the treatment plan",\n'
         '  "medication_guide": [\n'
         "    {\n"
         '      "medicine": "Medicine Name",\n'
-        '      "purpose": "Why this medicine is prescribed",\n'
-        '      "how_to_take": "Clear dosage, schedule, and timing instructions",\n'
-        '      "key_precaution": "Important safety warning or instruction"\n'
+        '      "purpose": "Why prescribed (e.g. Antibiotic, Antacid, Pain relief)",\n'
+        '      "timing": "When to take (e.g. 1 tab after food twice daily / 1 cap empty stomach)",\n'
+        '      "generic_alternative": "Jan Aushadhi generic equivalent or None"\n'
         "    }\n"
         "  ],\n"
-        '  "home_care_and_lifestyle": ["Tip 1", "Tip 2"],\n'
-        '  "questions_for_doctor": ["Question 1", "Question 2"],\n'
+        '  "generic_savings_tip": "Optional 1-line Jan Aushadhi cost-saving tip or None",\n'
+        '  "precautions_and_rules": ["Rule 1 (e.g. Complete full 5-day antibiotic course)", "Rule 2"],\n'
         '  "red_flag_warnings": ["Warning symptom 1", "Warning symptom 2"]\n'
         "}"
     )
@@ -736,23 +736,20 @@ async def interpret_prescription(
         "medication_guide": [
             {
                 "medicine": m.get("name") or m.get("raw_name") or "Prescribed Medicine",
-                "purpose": "Symptom relief and recovery as directed by your physician.",
-                "how_to_take": f"Frequency: {m.get('frequency', 'As directed')}, Timing: {m.get('timing', 'after meals')}",
-                "key_precaution": "Do not skip doses; take with water after food unless instructed otherwise."
+                "purpose": "Symptom relief as directed by your physician.",
+                "timing": f"{m.get('frequency', 'As directed')} ({m.get('timing', 'after meals')})",
+                "generic_alternative": "Ask pharmacist for Jan Aushadhi generic"
             }
             for m in meds
         ],
-        "home_care_and_lifestyle": [
-            "Drink plenty of water and stay well hydrated.",
-            "Ensure adequate physical rest to support recovery."
-        ],
-        "questions_for_doctor": [
-            "Should I take these medications before or after meals?",
-            "Are there any potential interactions with other supplements?"
+        "generic_savings_tip": "Ask at PM Jan Aushadhi Kendra for generic equivalents to save 50-80% on medicine costs.",
+        "precautions_and_rules": [
+            "Complete the full prescribed course without skipping doses.",
+            "Take with plenty of water after meals unless specified for empty stomach."
         ],
         "red_flag_warnings": [
-            "High persistent fever not responding to medication.",
-            "Shortness of breath, chest pain, or severe allergic reaction."
+            "High persistent fever > 102°F or shortness of breath.",
+            "Severe dizziness, rash, or persistent vomiting."
         ]
     }
 
@@ -781,49 +778,57 @@ def format_prescription_for_whatsapp(
     - Status badge with emoji
     - Divider: ━━━━━━━━━━━━━━━━━━━━
     - Suspected Diagnosis
-    - Council Consensus
-    - Immediate Actions
-    - Medications & Relief (India)
+    - Prescribed Medicines with Timing
+    - Jan Aushadhi Generic Savings
+    - Key Precautions & Course Rules
     - Seek Emergency Care / Call 108 If
     - Quick Shortcuts
     - Powered by Sanjeevni-OS Multi-Agent Swarm
     """
     condition = interpretation.get("likely_condition") or ocr_data.get("diagnosis") or "Outpatient Medical Regimen"
-    summary = interpretation.get("plain_language_summary", "")
+    doctor_info = ocr_data.get("doctor", {})
+    doc_name = doctor_info.get("name")
+    doc_header = f"👨‍⚕️ {doc_name}\n" if doc_name and doc_name.lower() != "doctor" else ""
 
     med_lines = []
     med_guide = interpretation.get("medication_guide", [])
     if med_guide:
-        for idx, item in enumerate(med_guide[:5], 1):
+        for idx, item in enumerate(med_guide[:4], 1):
             name = item.get("medicine", "Medication")
+            timing = item.get("timing") or item.get("how_to_take", "As directed")
             purpose = item.get("purpose", "")
-            schedule = item.get("how_to_take", "")
-            med_lines.append(f"{idx}. {name}:")
-            if purpose:
-                med_lines.append(f"   • Purpose: {purpose}")
-            if schedule:
-                med_lines.append(f"   • Timing: {schedule}")
+            p_str = f" ({purpose})" if purpose else ""
+            med_lines.append(f"{idx}. {name}{p_str} — {timing}")
     else:
-        for idx, m in enumerate(ocr_data.get("medications", [])[:5], 1):
+        for idx, m in enumerate(ocr_data.get("medications", [])[:4], 1):
             m_name = m.get("name") or m.get("raw_name") or "Medication"
             strength = f" {m['strength']}" if m.get("strength") else ""
-            freq = f" ({m['frequency']})" if m.get("frequency") else ""
-            timing = f" [{m['timing']}]" if m.get("timing") else ""
-            med_lines.append(f"{idx}. {m_name}{strength}{freq}{timing}")
+            freq = f" {m['frequency']}" if m.get("frequency") else ""
+            timing = f" ({m['timing']})" if m.get("timing") else " (after meals)"
+            med_lines.append(f"{idx}. {m_name}{strength} —{freq}{timing}")
 
     meds_formatted = "\n".join(med_lines) if med_lines else "Follow doctor's verbal instructions."
 
-    actions = interpretation.get("home_care_and_lifestyle", [
-        "Take prescribed doses at scheduled times after meals.",
-        "Drink adequate water and rest."
+    # Generic alternatives / savings tip
+    savings_tip = interpretation.get("generic_savings_tip")
+    generic_alts = []
+    if med_guide:
+        for item in med_guide:
+            alt = item.get("generic_alternative")
+            if alt and alt.lower() not in ("none", "null", "n/a", "not available"):
+                generic_alts.append(f"• {item.get('medicine')}: {alt}")
+
+    precautions = interpretation.get("precautions_and_rules") or interpretation.get("home_care_and_lifestyle", [
+        "Complete full medicine course without skipping doses.",
+        "Take on time with clean water."
     ])
-    actions_formatted = "\n".join(f"• {a}" for a in actions[:2])
+    precautions_formatted = "\n".join(f"• {p}" for p in precautions[:2])
 
     red_flags = interpretation.get("red_flag_warnings", [
-        "High persistent fever > 102°F or difficulty breathing.",
-        "Severe dizziness, rash, or persistent vomiting."
+        "Persistent high fever > 102°F or breathing difficulty.",
+        "Severe allergic rash, swelling, or persistent vomiting."
     ])
-    red_flags_formatted = "\n• ".join(red_flags[:2])
+    red_flags_formatted = "\n".join(f"• {rf}" for rf in red_flags[:2])
 
     # Construct clean plain text (NO MARKDOWN)
     lines = [
@@ -834,12 +839,24 @@ def format_prescription_for_whatsapp(
         "📊 Council Consensus: 94% Concordance",
         "",
         "📋 Immediate Actions:",
-        f"{actions_formatted}",
+        f"{precautions_formatted}",
         "",
         "💊 Medications & Relief (India):",
-        f"{meds_formatted}",
+        f"{meds_formatted}"
+    ]
+
+    if generic_alts:
+        lines.append("")
+        lines.append("💰 Low-Cost Jan Aushadhi Equivalent:")
+        for g in generic_alts[:2]:
+            lines.append(g)
+    elif savings_tip and savings_tip.lower() != "none":
+        lines.append("")
+        lines.append(f"💰 Generic Savings Tip: {savings_tip}")
+
+    lines.extend([
         "",
-        f"🚨 Seek Emergency Care / Call 108 If:\n• {red_flags_formatted}",
+        f"🚨 Seek Emergency Care / Call 108 If:\n{red_flags_formatted}",
         "",
         "👉 Quick Shortcuts:",
         "Reply 5 — Find nearby PM-JAY clinic / pharmacy",
@@ -847,9 +864,9 @@ def format_prescription_for_whatsapp(
         "Reply menu — Main Menu",
         "",
         "🌿 Powered by Sanjeevni-OS Multi-Agent Swarm"
-    ]
+    ])
 
     raw_text = "\n".join(lines)
     # Strip any stray markdown syntax
     clean = raw_text.replace("**", "").replace("*", "").replace("`", "").replace("___", "").replace("##", "")
-    return clean
+    return clean.strip()
