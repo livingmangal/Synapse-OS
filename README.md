@@ -59,11 +59,12 @@
 | ⚙️ | **Environment Configuration** | Required environment variables and API keys | [Go to section](#️-14-environment-configuration) |
 | 🚀 | **Installation & Local Setup** | Step-by-step guide to running the platform locally | [Go to section](#-15-installation--local-setup) |
 | 🐳 | **Docker & Kubernetes Deployment** | Containerization and cluster auto-scaling | [Go to section](#-16-docker--kubernetes-deployment) |
-| 🔒 | **Security Considerations** | Deterministic safety gates and data privacy | [Go to section](#-17-security-considerations) |
-| 📖 | **Feature Documentation** | List of all 21 core features and capabilities | [Go to section](#-18-feature-documentation) |
-| 📈 | **Scalability & Future Improvements** | Planned enhancements and production roadmap | [Go to section](#-19-scalability--future-improvements) |
-| 🤝 | **Contributing** | Guidelines for contributing to the repository | [Go to section](#-20-contributing) |
-| 📜 | **License** | Open-source licensing and hackathon usage terms | [Go to section](#-21-license) |
+| 🔒 | **Security Considerations** | Deterministic safety gates and data privacy | [Go to section](#-16-security-considerations) |
+| 🔐 | **Two-Factor Authentication (2FA)** | TOTP MFA, email verification, session management | [Go to section](#-161-two-factor-authentication-2fa--mfa) |
+| 📖 | **Feature Documentation** | List of all 21 core features and capabilities | [Go to section](#-17-feature-documentation) |
+| 📈 | **Scalability & Future Improvements** | Planned enhancements and production roadmap | [Go to section](#-18-scalability--future-improvements) |
+| 🤝 | **Contributing** | Guidelines for contributing to the repository | [Go to section](#-19-contributing) |
+| 📜 | **License** | Open-source licensing and hackathon usage terms | [Go to section](#-20-license) |
 
 
 ## 📸 Product & Interface Showcase
@@ -903,16 +904,105 @@ kubectl get pods -n synapseos
 | **CORS Policy** | FastAPI CORSMiddleware (restrict origins in production) | ✅ Implemented |
 | **Non-Root Containers** | Frontend and backend Docker images run as `appuser` (UID 1000) | ✅ Implemented |
 | **Environment Variables** | All secrets via `.env` / Kubernetes Secrets — no hardcoded credentials | ✅ Implemented |
+| **Email Verification (OTP)** | 6-digit code, 10-min TTL, delivered via Resend transactional email | ✅ Implemented |
+| **Two-Factor Authentication** | RFC 6238 TOTP — Google Authenticator / Authy compatible | ✅ Implemented |
+| **Session Management** | httpOnly JWT cookies, 7-day TTL, multi-session list + revocation | ✅ Implemented |
+| **Password Reset** | Tokenized email link, 1-hour TTL, bcrypt 12-round hashing | ✅ Implemented |
+| **Middleware Route Guard** | Cookie-validated session required for all `/orchestrator-agent` routes | ✅ Implemented |
 | **Blockchain Access Control** | `msg.sender` ownership enforced in `MedicalRecords.sol` | ✅ Implemented |
 | **File Integrity** | SHA-256 hash computed client-side before on-chain commit | ✅ Implemented |
 | **IPFS Content Addressing** | CID-based retrieval — tampering is detectable | ✅ Implemented |
 | **API Key Failover** | Graceful deterministic fallback if all LLM API keys absent | ✅ Implemented |
 | **Medical Disclaimer** | Every AI clinical response includes a professional disclaimer | ✅ Implemented |
-| **No PII Persistence** | No user accounts, no database, no PII stored server-side | ✅ Implemented |
+
+---
+
+### 🔐 16.1 Two-Factor Authentication (2FA / MFA)
+
+> **Full documentation:** [`docs/2FA.md`](./docs/2FA.md)
+
+Sanjeevni OS ships a complete, production-grade **multi-factor authentication system** built into the Next.js App Router — no third-party auth provider required.
+
+#### Authentication Architecture
+
+```mermaid
+flowchart LR
+    classDef page fill:#0f172a,stroke:#3b82f6,color:#fff
+    classDef api fill:#1e3a5f,stroke:#60a5fa,color:#fff
+    classDef store fill:#14532d,stroke:#22c55e,color:#fff
+    classDef mfa fill:#2d0a44,stroke:#a855f7,color:#fff
+
+    U(["👤 User"])
+
+    subgraph AUTH ["Auth Pages"]
+        direction TB
+        REG["📄 /signup"]:::page
+        CONF["📄 /confirm-account\n(OTP)"]:::page
+        LOG["📄 /login"]:::page
+        MFP["📄 /verify-mfa\n(TOTP)"]:::page
+        FP["📄 /forgot-password"]:::page
+    end
+
+    subgraph API ["API Routes /api/v1/"]
+        direction TB
+        A1["/auth/[action]"]:::api
+        A2["/mfa/[action]"]:::api
+        A3["/session/[action]"]:::api
+        A4["/password/[action]"]:::api
+    end
+
+    subgraph STORE ["AuthStore"]
+        direction TB
+        US["👥 Users\n(bcrypt hashed)"]:::store
+        SS["🎫 Sessions\n(httpOnly cookie)"]:::store
+        TOTP["🔢 TOTP Engine\n(speakeasy RFC 6238)"]:::mfa
+    end
+
+    PROTECTED["🏥 /orchestrator-agent\n(Protected)"]:::page
+    MW["🛡️ middleware.ts\nRoute Guard"]
+
+    U --> REG --> A1 --> US
+    A1 -->|"OTP email (Resend)"| CONF --> A1
+    A1 -->|"Session cookie"| SS
+    U --> LOG --> A1
+    A1 -->|"2FA enabled?"| TOTP
+    TOTP -->|"MFA pending"| MFP --> A2 --> SS
+    SS --> PROTECTED
+    PROTECTED <--> MW
+    U --> FP --> A4 --> US
+```
+
+#### Auth Capabilities
+
+| Capability | Implementation | File |
+| :--- | :--- | :--- |
+| **Registration** | Email + password, bcrypt 12 rounds | `auth/[action]/route.ts` |
+| **Email Verification** | 6-digit OTP via Resend, 10-min TTL | `resend-mailer.ts` |
+| **Login** | Credential check + 2FA routing | `AuthContext.tsx` |
+| **TOTP 2FA Setup** | QR code + manual key, speakeasy | `mfa/[action]/route.ts` |
+| **2FA Login Challenge** | `/verify-mfa` page, 30-second TOTP window | `verify-mfa/page.tsx` |
+| **Session Management** | Multi-session list, revoke by ID | `SecuritySessionsPanel.tsx` |
+| **Password Reset** | Email link, 1-hour token TTL | `password/[action]/route.ts` |
+| **Middleware Guard** | Cookie → session validation on all protected routes | `middleware.ts` |
+
+#### Login Flow (with 2FA)
+
+```
+POST /auth/login
+    ├─ Password invalid → 401
+    ├─ Email not verified → redirect /confirm-account
+    ├─ 2FA disabled → create session → /orchestrator-agent
+    └─ 2FA enabled  → create MFA-pending session
+                          └─ redirect /verify-mfa
+                               └─ POST /mfa/login { TOTP code }
+                                    ├─ Invalid → 400
+                                    └─ Valid → upgrade session → /orchestrator-agent
+```
 
 ### 🛡️ Responsible Disclosure
 
 If you discover a security vulnerability, please **do not** open a public GitHub issue. Open a private security advisory via the GitHub Security tab. Allow a minimum 72-hour disclosure window before any public disclosure.
+
 
 ---
 
@@ -922,6 +1012,7 @@ If you discover a security vulnerability, please **do not** open a public GitHub
 | :--- | :--- | :--- |
 | **Clinical AI Copilot** | Floating assistant with 5 personas, markdown streaming, multi-persona context | FastAPI, Groq LLM, React |
 | **Live Voice AI Orb** | WebRTC voice session with animated orb, real-time transcript, 11-language STT | VAPI AI, React |
+| **2FA / MFA Security** | TOTP 2FA (Google Authenticator / Authy), email OTP verification, session management, password reset | speakeasy, Resend, bcryptjs |
 | **3D Digital Health Twin** | Anatomical body with clickable hotspots, real-time organ vitality scores (0-100) | Python ML engine |
 | **10-Year Organ Simulation** | Multi-organ trajectory simulation with intervention scenario modeling | `ml/digital_twin.py` |
 | **FractureNet YOLOv8** | Genuine bone fracture detection on uploaded X-rays using `Final.pt` (22 MB) | Ultralytics YOLO |
@@ -959,7 +1050,7 @@ If you discover a security vulnerability, please **do not** open a public GitHub
 | Area | Improvement | Complexity |
 | :--- | :--- | :--- |
 | **LLM** | Fine-tuned Indic medical LLM (Ayush-LLM) for Hindi/Tamil clinical accuracy | High |
-| **Authentication** | Optional Supabase Auth for persistent cross-device health history | Medium |
+| **Authentication** | Full MFA system: email OTP, TOTP 2FA, JWT sessions, password reset — powered by Resend + speakeasy | **✅ Implemented** |
 | **Database** | PostgreSQL for structured patient telemetry history | Medium |
 | **Blockchain** | ERC-721 Non-Fungible Health Records with ABDM-compliant metadata | High |
 | **RAG Pipeline** | ChromaDB/Qdrant vector store for persistent semantic memory | Medium |
