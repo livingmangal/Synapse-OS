@@ -130,28 +130,39 @@ const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
  * @returns {Promise<{cid: string, simulated: boolean, gateway_url?: string}>}
  */
 export async function uploadFile(file) {
-  // 1. Preferred Route: Backend Pinata API (bypasses browser CORS & guarantees Pinata upload)
-  try {
-    const formData = new FormData();
-    formData.append("file", file);
+  // 1. Preferred Route: Backend Pinata API
+  const candidateBackends = [
+    API_BASE,
+    "http://127.0.0.1:8000",
+    "https://synapse-os-8tig.onrender.com"
+  ];
+  // Deduplicate backend URLs
+  const uniqueBackends = [...new Set(candidateBackends.filter(Boolean))];
 
-    const res = await fetch(`${API_BASE}/api/ipfs/pin-file`, {
-      method: "POST",
-      body: formData,
-    });
+  for (const backendUrl of uniqueBackends) {
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
 
-    if (res.ok) {
-      const data = await res.json();
-      if (data.cid) {
-        return {
-          cid: data.cid,
-          simulated: data.simulated === true,
-          gateway_url: data.gateway_url || `${PINATA_GATEWAY}/${data.cid}`
-        };
+      const res = await fetch(`${backendUrl}/api/ipfs/pin-file`, {
+        method: "POST",
+        body: formData,
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        if (data.cid && data.simulated === false) {
+          console.info(`[IPFS] Successfully pinned via backend (${backendUrl}): ${data.cid}`);
+          return {
+            cid: data.cid,
+            simulated: false,
+            gateway_url: data.gateway_url || `${PINATA_GATEWAY}/${data.cid}`
+          };
+        }
       }
+    } catch (backendErr) {
+      console.warn(`[IPFS] Backend proxy at ${backendUrl} unavailable:`, backendErr?.message || backendErr);
     }
-  } catch (backendErr) {
-    console.warn("Backend IPFS pinning unavailable, attempting direct browser Pinata upload:", backendErr);
   }
 
   // 2. Secondary Route: Direct browser upload using NEXT_PUBLIC_PINATA_JWT
@@ -159,17 +170,19 @@ export async function uploadFile(file) {
   if (jwt) {
     try {
       const cid = await uploadToPinata(file, jwt);
+      console.info(`[IPFS] Successfully pinned directly to Pinata: ${cid}`);
       return { 
         cid, 
         simulated: false,
         gateway_url: `${PINATA_GATEWAY}/${cid}`
       };
     } catch (directErr) {
-      console.warn("Direct browser Pinata upload failed, falling back to local simulation:", directErr);
+      console.warn("[IPFS] Direct browser Pinata upload failed:", directErr?.message || directErr);
     }
   }
 
-  // 3. Fallback Route: Local simulated storage (offline only)
+  // 3. Fallback Route: Local simulated storage (offline / demo only)
+  console.warn("[IPFS] All cloud pinning routes failed. Falling back to simulated local storage.");
   const cid = await uploadSimulated(file);
   return { cid, simulated: true, gateway_url: `${PINATA_GATEWAY}/${cid}` };
 }
