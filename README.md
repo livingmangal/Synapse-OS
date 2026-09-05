@@ -92,14 +92,14 @@ The platform delivers a full clinical AI stack covering:
 | 🎯 | **Hackathon Problem Statement & Solution Mapping** | Alignment with SVH26006 Problem Statement | [Go to section](#🎯-hackathon-problem-statement-solution-mapping) |
 | 📸 | **Product & Interface Showcase** | Visual gallery of the SynapseOS platform | [Go to section](#📸-product-interface-showcase) |
 | 📖 | **2. Feature Documentation** | List of all 21 core features and capabilities | [Go to section](#📖-2-feature-documentation) |
-| 🔐 | **3. Two-Factor Authentication (2FA)** | TOTP MFA, email verification, session management | [Go to section](#🔐-3-two-factor-authentication-2fa) |
-| 🤖 | **4. Agent Swarm — 13 Specialized Agents** | Deep dive into the clinical AI swarm | [Go to section](#🤖-4-agent-swarm-13-specialized-agents) |
-| 🔗 | **5. Blockchain Architecture** | Tamper-proof medical records on Sepolia | [Go to section](#🔗-5-blockchain-architecture) |
-| ⌚ | **6. Wearable Telemetry Pipeline** | Apple Health & Google Fit ingestion pathways | [Go to section](#⌚-6-wearable-telemetry-pipeline) |
-| 🌐 | **7. Multilingual Architecture** | 11 Indic language translation engine details | [Go to section](#🌐-7-multilingual-architecture) |
-| 📱 | **8. Omnichannel 2-Way SMS Gateway & Twilio / Pinata IPFS Architecture** | Twilio SMS & Pinata IPFS decentralized records | [Go to section](#📱-8-omnichannel-2-way-sms-gateway-twilio-pinata-ipfs-architecture) |
-| 🏛️ | **9. System Architecture** | N-tier omnichannel and microservices design | [Go to section](#🏛️-9-system-architecture) |
-| 🏗️ | **10. Official Architecture Diagrams** | System flows and user journey maps | [Go to section](#🏗️-10-official-architecture-diagrams) |
+| 🏗️ | **3. Official Architecture Diagrams** | System flows and user journey maps | [Go to section](#🏗️-3-official-architecture-diagrams) |
+| 🏛️ | **4. System Architecture** | N-tier omnichannel and microservices design | [Go to section](#🏛️-4-system-architecture) |
+| 🔐 | **5. Two-Factor Authentication (2FA)** | TOTP MFA, email verification, session management | [Go to section](#🔐-5-two-factor-authentication-2fa) |
+| 🤖 | **6. Agent Swarm — 13 Specialized Agents** | Deep dive into the clinical AI swarm | [Go to section](#🤖-6-agent-swarm-13-specialized-agents) |
+| 🔗 | **7. Blockchain Architecture** | Tamper-proof medical records on Sepolia | [Go to section](#🔗-7-blockchain-architecture) |
+| ⌚ | **8. Wearable Telemetry Pipeline** | Apple Health & Google Fit ingestion pathways | [Go to section](#⌚-8-wearable-telemetry-pipeline) |
+| 🌐 | **9. Multilingual Architecture** | 11 Indic language translation engine details | [Go to section](#🌐-9-multilingual-architecture) |
+| 📱 | **10. Omnichannel 2-Way SMS Gateway & Twilio / Pinata IPFS Architecture** | Twilio SMS & Pinata IPFS decentralized records | [Go to section](#📱-10-omnichannel-2-way-sms-gateway-twilio-pinata-ipfs-architecture) |
 | 💻 | **11. Technology Stack** | Frameworks, ML models, and infrastructure used | [Go to section](#💻-11-technology-stack) |
 | 🔄 | **12. Application Workflow** | End-to-end request pipeline and intent routing | [Go to section](#🔄-12-application-workflow) |
 | 🌊 | **13. Data Flow** | Shared state management and blockchain anchoring | [Go to section](#🌊-13-data-flow) |
@@ -184,7 +184,93 @@ The platform delivers a full clinical AI stack covering:
 
 ---
 
-## 🔐 3. Two-Factor Authentication (2FA)
+## 🏗️ 3. Official Architecture Diagrams
+
+The following diagrams are official project artifacts from the `SVH-2026-Docs/` directory.
+
+### 🏛️ System Architecture (Dark Theme)
+
+![SynapseOS Architecture Diagram](./SVH-2026-Docs/Architecture%20Diagram%20Dark.png)
+
+*Five-layer freeform architecture: 6 user channels → Channel Adapter → Orchestrator Agent → 18-agent swarm in 5 clusters → shared memory (Vector DB + Relational DB + Event Bus) + external APIs + blockchain verification.*
+
+### 🔹 User Journey Flowchart (Light Theme)
+
+![SynapseOS Flowchart](./SVH-2026-Docs/Flowchart%20dark.png)
+
+*Five-layer flow: User Channels → Channel Adapter → Orchestrator ("Sanjeevani") → Specialized Agent Swarm (18 agents, 5 clusters) → Shared State, Live Data & Verification Layer.*
+
+---
+
+## 🏛️ 4. System Architecture
+
+### 🥞 Five-Layer Architecture Overview
+
+```mermaid
+flowchart LR
+    classDef client fill:#0f172a,stroke:#3b82f6,stroke-width:2px,color:#ffffff
+    classDef api fill:#2e1065,stroke:#8b5cf6,stroke-width:2px,color:#ffffff
+    classDef core fill:#451a03,stroke:#f59e0b,stroke-width:2px,color:#ffffff
+    classDef agent fill:#052e16,stroke:#22c55e,stroke-width:2px,color:#ffffff
+    classDef db fill:#083344,stroke:#06b6d4,stroke-width:2px,color:#ffffff
+    classDef web3 fill:#450a0a,stroke:#ef4444,stroke-width:2px,color:#ffffff
+
+    subgraph Clients ["📱 1. Channels"]
+        direction TB
+        WEB["🖥️ Web Dashboard"]:::client
+        VOICE["🎙️ Live Voice AI"]:::client
+        WA["💬 WhatsApp / SMS"]:::client
+    end
+
+    subgraph API ["⚙️ 2. Gateway"]
+        direction TB
+        SAFETY{"🛡️ Safety Gate"}:::api
+        I18N["🌐 11-Lang i18n"]:::api
+        FHIR["🏥 FHIR R4"]:::api
+    end
+
+    subgraph Core ["🧠 3. Orchestrator"]
+        ORCH{"Groq LLaMA-70B\nAgent Router"}:::core
+    end
+
+    subgraph Swarm ["🤖 4. Agent Swarm"]
+        direction TB
+        TRIAGE["Symptom Triage"]:::agent
+        SCAN["Medical Scan"]:::agent
+        OUTBREAK["Outbreak EWS"]:::agent
+        VAX["UIP Vaccine"]:::agent
+        TWIN["Digital Twin"]:::agent
+        ABDM["ABHA Gateway"]:::agent
+    end
+
+    subgraph Data ["💾 5. Data & Chain"]
+        direction TB
+        REDIS[("⚡ Redis Cache")]:::db
+        IPFS[("📦 IPFS Pinata")]:::web3
+        CHAIN{{"⛓️ Sepolia Chain"}}:::web3
+    end
+
+    Clients --> API
+    API --> Core
+    Core <--> Swarm
+    Swarm --> Data
+```
+
+### 🔑 Authentication & Session Flow
+
+SynapseOS uses a **session-based stateless model**. Each API request receives a UUID-based `session_id` generated server-side. No third-party authentication provider is implemented — the platform operates as a public health tool without user accounts, preserving anonymity for rural populations.
+
+| Layer | Mechanism | Purpose |
+| :--- | :--- | :--- |
+| Session Identity | UUID v4 `session_id` | Ties multi-turn conversations without user registration |
+| Safety Gating | Deterministic regex patterns | Intercepts crisis/emergency before any LLM is invoked |
+| CORS | FastAPI CORSMiddleware | Allows cross-origin from Next.js frontend |
+| Blockchain Auth | `msg.sender` (wallet address) | Owner-controlled record access on `MedicalRecords.sol` |
+| IPFS | Pinata JWT | Authenticated upload; public gateway for retrieval |
+
+---
+
+## 🔐 5. Two-Factor Authentication (2FA)
 
 
 > **Full documentation:** [`docs/2FA.md`](./docs/2FA.md)
@@ -267,7 +353,7 @@ POST /auth/login
                                     └─ Valid → upgrade session → /orchestrator-agent
 ```
 
-## 🤖 4. Agent Swarm — 13 Specialized Agents
+## 🤖 6. Agent Swarm — 13 Specialized Agents
 
 All 13 agents share a common `SynapseOSState` Pydantic schema and contribute structured outputs to a unified execution trace that the frontend renders as a visual DAG progress tracker.
 
@@ -310,7 +396,7 @@ All 13 agents share a common `SynapseOSState` Pydantic schema and contribute str
 
 ---
 
-## 🔗 5. Blockchain Architecture
+## 🔗 7. Blockchain Architecture
 
 ### 📝 Smart Contract: `MedicalRecords.sol`
 
@@ -360,7 +446,7 @@ sequenceDiagram
 
 ---
 
-## ⌚ 6. Wearable Telemetry Pipeline
+## ⌚ 8. Wearable Telemetry Pipeline
 
 SynapseOS implements four production-grade pathways to ingest real-world health telemetry from consumer wearables:
 
@@ -394,7 +480,7 @@ flowchart TD
 
 ---
 
-## 🌐 7. Multilingual Architecture
+## 🌐 9. Multilingual Architecture
 
 SynapseOS natively supports **11 Indic languages + English** across both frontend UI and backend clinical responses.
 
@@ -419,7 +505,7 @@ SynapseOS natively supports **11 Indic languages + English** across both fronten
 
 ---
 
-## 📱 8. Omnichannel 2-Way SMS Gateway & Twilio / Pinata IPFS Architecture
+## 📱 10. Omnichannel 2-Way SMS Gateway & Twilio / Pinata IPFS Architecture
 
 SynapseOS provides a complete **2-way conversational SMS engine** designed specifically for **2G feature phones and low-bandwidth rural populations**, fully integrated with **Twilio** and **Pinata IPFS decentralized medical record storage**.
 
@@ -477,92 +563,6 @@ sequenceDiagram
    * Twilio provides **$15 in free trial balance** on signup without asking for credit card details.
    * Gives **~1,750 free SMS messages** ($1.15/month virtual number + $0.0079/SMS), ideal for hackathon demonstrations and trial deployments.
    * Also supports self-hosted **Android SMS Gateways** (Termux / Android SMS Gateway app) using any spare phone with an unlimited SIM SMS pack.
-
----
-
-## 🏛️ 9. System Architecture
-
-### 🥞 Five-Layer Architecture Overview
-
-```mermaid
-flowchart LR
-    classDef client fill:#0f172a,stroke:#3b82f6,stroke-width:2px,color:#ffffff
-    classDef api fill:#2e1065,stroke:#8b5cf6,stroke-width:2px,color:#ffffff
-    classDef core fill:#451a03,stroke:#f59e0b,stroke-width:2px,color:#ffffff
-    classDef agent fill:#052e16,stroke:#22c55e,stroke-width:2px,color:#ffffff
-    classDef db fill:#083344,stroke:#06b6d4,stroke-width:2px,color:#ffffff
-    classDef web3 fill:#450a0a,stroke:#ef4444,stroke-width:2px,color:#ffffff
-
-    subgraph Clients ["📱 1. Channels"]
-        direction TB
-        WEB["🖥️ Web Dashboard"]:::client
-        VOICE["🎙️ Live Voice AI"]:::client
-        WA["💬 WhatsApp / SMS"]:::client
-    end
-
-    subgraph API ["⚙️ 2. Gateway"]
-        direction TB
-        SAFETY{"🛡️ Safety Gate"}:::api
-        I18N["🌐 11-Lang i18n"]:::api
-        FHIR["🏥 FHIR R4"]:::api
-    end
-
-    subgraph Core ["🧠 3. Orchestrator"]
-        ORCH{"Groq LLaMA-70B\nAgent Router"}:::core
-    end
-
-    subgraph Swarm ["🤖 4. Agent Swarm"]
-        direction TB
-        TRIAGE["Symptom Triage"]:::agent
-        SCAN["Medical Scan"]:::agent
-        OUTBREAK["Outbreak EWS"]:::agent
-        VAX["UIP Vaccine"]:::agent
-        TWIN["Digital Twin"]:::agent
-        ABDM["ABHA Gateway"]:::agent
-    end
-
-    subgraph Data ["💾 5. Data & Chain"]
-        direction TB
-        REDIS[("⚡ Redis Cache")]:::db
-        IPFS[("📦 IPFS Pinata")]:::web3
-        CHAIN{{"⛓️ Sepolia Chain"}}:::web3
-    end
-
-    Clients --> API
-    API --> Core
-    Core <--> Swarm
-    Swarm --> Data
-```
-
-### 🔑 Authentication & Session Flow
-
-SynapseOS uses a **session-based stateless model**. Each API request receives a UUID-based `session_id` generated server-side. No third-party authentication provider is implemented — the platform operates as a public health tool without user accounts, preserving anonymity for rural populations.
-
-| Layer | Mechanism | Purpose |
-| :--- | :--- | :--- |
-| Session Identity | UUID v4 `session_id` | Ties multi-turn conversations without user registration |
-| Safety Gating | Deterministic regex patterns | Intercepts crisis/emergency before any LLM is invoked |
-| CORS | FastAPI CORSMiddleware | Allows cross-origin from Next.js frontend |
-| Blockchain Auth | `msg.sender` (wallet address) | Owner-controlled record access on `MedicalRecords.sol` |
-| IPFS | Pinata JWT | Authenticated upload; public gateway for retrieval |
-
----
-
-## 🏗️ 10. Official Architecture Diagrams
-
-The following diagrams are official project artifacts from the `SVH-2026-Docs/` directory.
-
-### 🏛️ System Architecture (Dark Theme)
-
-![SynapseOS Architecture Diagram](./SVH-2026-Docs/Architecture%20Diagram%20Dark.png)
-
-*Five-layer freeform architecture: 6 user channels → Channel Adapter → Orchestrator Agent → 18-agent swarm in 5 clusters → shared memory (Vector DB + Relational DB + Event Bus) + external APIs + blockchain verification.*
-
-### 🔹 User Journey Flowchart (Light Theme)
-
-![SynapseOS Flowchart](./SVH-2026-Docs/Flowchart%20dark.png)
-
-*Five-layer flow: User Channels → Channel Adapter → Orchestrator ("Sanjeevani") → Specialized Agent Swarm (18 agents, 5 clusters) → Shared State, Live Data & Verification Layer.*
 
 ---
 
