@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface ContactModalProps {
   isOpen?: boolean;
@@ -8,6 +9,7 @@ interface ContactModalProps {
 }
 
 export default function ContactModal({ isOpen: controlledIsOpen, onClose }: ContactModalProps = {}) {
+  const { t } = useLanguage();
   const [internalIsOpen, setInternalIsOpen] = useState(false);
   const isOpen = controlledIsOpen !== undefined ? controlledIsOpen : internalIsOpen;
   const [copied, setCopied] = useState(false);
@@ -112,14 +114,14 @@ export default function ContactModal({ isOpen: controlledIsOpen, onClose }: Cont
               <span className="synapseos-contact-badge-dot" />
               <span>SYNAPSEOS OS</span>
             </div>
-            <span className="synapseos-contact-meta">CONTACT &amp; PARTNERSHIPS</span>
+            <span className="synapseos-contact-meta">{t('contact_direct_clinical', 'CONTACT & PARTNERSHIPS')}</span>
           </div>
 
           <h2 className="synapseos-contact-title">
-            Deploy SynapseOS in Your <em>Clinical Network</em>.
+            {t('contact_modal_title', 'Deploy SynapseOS in Your Clinical Network.')}
           </h2>
           <p className="synapseos-contact-subtitle">
-            Partner with <strong>Team ACDC</strong> for hospital deployments, research collaborations, ABHA blockchain integrations, or smart diagnostics.
+            {t('contact_modal_sub', 'Partner with Team ACDC for hospital deployments, research collaborations, ABHA blockchain integrations, or smart diagnostics.')}
           </p>
         </div>
 
@@ -127,9 +129,9 @@ export default function ContactModal({ isOpen: controlledIsOpen, onClose }: Cont
         {submitted ? (
           <div className="synapseos-contact-success">
             <div className="synapseos-contact-success-icon">✓</div>
-            <h3 className="synapseos-contact-success-title">Inquiry Transmitted</h3>
+            <h3 className="synapseos-contact-success-title">{t('contact_success_title', 'Inquiry Transmitted')}</h3>
             <p className="synapseos-contact-success-desc">
-              Thank you, <strong>{formData.name || 'Partner'}</strong>. Your clinical deployment request has been logged. Our core engineering team at <strong>Team ACDC</strong> will contact you via <strong>{formData.email}</strong> shortly.
+              {t('contact_success_desc', 'Thank you. Your clinical deployment request has been logged. Our core engineering team will contact you shortly.')}
             </p>
             <button
               type="button"
@@ -137,7 +139,7 @@ export default function ContactModal({ isOpen: controlledIsOpen, onClose }: Cont
               className="synapseos-contact-btn-primary"
               style={{ maxWidth: '240px', margin: '16px auto 0' }}
             >
-              Return to Platform
+              {t('contact_return', 'Return to Platform')}
             </button>
           </div>
         ) : (
@@ -147,7 +149,7 @@ export default function ContactModal({ isOpen: controlledIsOpen, onClose }: Cont
               {/* Full Name */}
               <div className="synapseos-contact-field">
                 <label className="synapseos-contact-label">
-                  Your Name / Clinical Lead <span style={{ color: '#10b981' }}>*</span>
+                  {t('contact_lead_name', 'Your Name / Clinical Lead')} <span style={{ color: '#10b981' }}>*</span>
                 </label>
                 <input
                   type="text"
@@ -162,7 +164,7 @@ export default function ContactModal({ isOpen: controlledIsOpen, onClose }: Cont
               {/* Organization */}
               <div className="synapseos-contact-field">
                 <label className="synapseos-contact-label">
-                  Hospital / Institution / University
+                  {t('contact_org', 'Hospital / Institution / University')}
                 </label>
                 <input
                   type="text"
@@ -176,7 +178,7 @@ export default function ContactModal({ isOpen: controlledIsOpen, onClose }: Cont
               {/* Work Email */}
               <div className="synapseos-contact-field">
                 <label className="synapseos-contact-label">
-                  Work Email Address <span style={{ color: '#10b981' }}>*</span>
+                  {t('contact_email', 'Work Email Address')} <span style={{ color: '#10b981' }}>*</span>
                 </label>
                 <input
                   type="email"
@@ -191,7 +193,7 @@ export default function ContactModal({ isOpen: controlledIsOpen, onClose }: Cont
               {/* Scope of Interest */}
               <div className="synapseos-contact-field">
                 <label className="synapseos-contact-label">
-                  Inquiry Scope
+                  {t('contact_scope', 'Inquiry Scope')}
                 </label>
                 <select
                   value={formData.category}
@@ -209,12 +211,12 @@ export default function ContactModal({ isOpen: controlledIsOpen, onClose }: Cont
               {/* Message Details */}
               <div className="synapseos-contact-field" style={{ gridColumn: '1 / -1' }}>
                 <label className="synapseos-contact-label">
-                  Clinical Requirements / Deployment Scope <span style={{ color: '#10b981' }}>*</span>
+                  {t('contact_reqs', 'Clinical Requirements / Deployment Scope')} <span style={{ color: '#10b981' }}>*</span>
                 </label>
                 <textarea
                   required
                   rows={3}
-                  placeholder="Describe your facility requirements, patient volume, or research objectives..."
+                  placeholder={t('contact_reqs_placeholder', 'Describe your facility requirements, patient volume, or research objectives...')}
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   className="synapseos-contact-textarea"
@@ -230,7 +232,7 @@ export default function ContactModal({ isOpen: controlledIsOpen, onClose }: Cont
                 disabled={isSubmitting}
                 className="synapseos-contact-btn-primary"
               >
-                {isSubmitting ? 'Transmitting Request...' : 'Send Clinical Inquiry →'}
+                {isSubmitting ? t('contact_btn_sending', 'Transmitting Request...') : t('contact_btn_send', 'Send Clinical Inquiry →')}
               </button>
             </div>
           </form>
@@ -239,14 +241,14 @@ export default function ContactModal({ isOpen: controlledIsOpen, onClose }: Cont
         {/* Direct Contact Channels */}
         <div className="synapseos-contact-direct-bar">
           <div className="synapseos-contact-direct-info">
-            <span className="synapseos-contact-direct-label">DIRECT EMAIL</span>
+            <span className="synapseos-contact-direct-label">{t('contact_direct_email', 'DIRECT EMAIL')}</span>
             <button 
               type="button"
               onClick={handleCopyEmail}
               className="synapseos-contact-copy-btn"
               title="Click to copy email address"
             >
-              hello@synapseos.com {copied ? '✓ Copied!' : '📋'}
+              hello@synapseos.com {copied ? t('contact_copied', '✓ Copied!') : '📋'}
             </button>
           </div>
 

@@ -1,12 +1,17 @@
+'use client';
+
 import React from 'react';
+import { useLanguage } from '@/context/LanguageContext';
 
 export function ProjectsSection() {
+  const { t } = useLanguage();
+
   return (
     <>
       {/* FEATURE 01: Multi-Agent Swarm Orchestrator */}
       <div
         className="mod-scroll__projectInt bg-beige c-black expand_mouse"
-        data-text="Launch Swarm"
+        data-text={t('feat_btn_launch_swarm', 'Launch Swarm')}
         data-url="/orchestrator-agent?tab=swarm"
         data-no-swup="true"
       >
@@ -15,7 +20,7 @@ export function ProjectsSection() {
           data-no-swup="true"
           className="btn btn--circle follow__mouse--md f-izmir t-parrafo-l d-none d-md-flex"
         >
-          Launch Swarm
+          {t('feat_btn_launch_swarm', 'Launch Swarm')}
         </a>
 
         <div className="mod-scroll__projectInt__image flipMedia flipMedia--rightLeft">
@@ -44,14 +49,14 @@ export function ProjectsSection() {
 
         <div className="mod-scroll__projectInt__content">
           <div className="mod-scroll__projectInt__section mod-scroll__section t-parrafo-l f-edit">
-            (CORE FEATURE)
+            {t('core_feature_badge', '(CORE FEATURE)')}
           </div>
           <div className="mod-scroll__projectInt__number t-parrafo-l f-izmir">01</div>
           <div className="mod-scroll__projectInt__text t-parrafo-l f-edit">
-            Autonomous Planning, DAG Execution &amp; Sub-Agent Coordination
+            {t('feat_1_sub', 'Autonomous Planning, DAG Execution & Sub-Agent Coordination')}
           </div>
           <div className="mod-scroll__projectInt__title t-titulo-xxl t-upper f-regular">
-            Multi-Agent Swarm
+            {t('feat_1_title', 'Multi-Agent Swarm')}
           </div>
 
           <div className="mod-scroll__projectInt__image-small flipMedia flipMedia--leftRight">
@@ -83,7 +88,7 @@ export function ProjectsSection() {
       {/* FEATURE 02: Medical Scan Diagnostic AI */}
       <div
         className="mod-scroll__projectInt bg-grey expand_mouse"
-        data-text="Inspect Scans"
+        data-text={t('feat_btn_inspect_scans', 'Inspect Scans')}
         data-url="/orchestrator-agent?tab=scan"
         data-no-swup="true"
       >
@@ -92,7 +97,7 @@ export function ProjectsSection() {
           data-no-swup="true"
           className="btn btn--circle follow__mouse--md f-izmir t-parrafo-l d-none d-md-flex"
         >
-          Inspect Scans
+          {t('feat_btn_inspect_scans', 'Inspect Scans')}
         </a>
 
         <div className="mod-scroll__projectInt__image flipMedia flipMedia--rightLeft">
@@ -121,14 +126,14 @@ export function ProjectsSection() {
 
         <div className="mod-scroll__projectInt__content">
           <div className="mod-scroll__projectInt__section mod-scroll__section t-parrafo-l f-edit">
-            (CORE FEATURE)
+            {t('core_feature_badge', '(CORE FEATURE)')}
           </div>
           <div className="mod-scroll__projectInt__number t-parrafo-l f-izmir">02</div>
           <div className="mod-scroll__projectInt__text t-parrafo-l f-edit">
-            Multimodal YOLOv8 Vision, CT, MRI &amp; Radiograph Segmentation
+            {t('feat_2_sub', 'Multimodal YOLOv8 Vision, CT, MRI & Radiograph Segmentation')}
           </div>
           <div className="mod-scroll__projectInt__title t-titulo-xxl t-upper f-edit">
-            Medical Scan AI
+            {t('feat_2_title', 'Medical Scan AI')}
           </div>
 
           <div className="mod-scroll__projectInt__image-small flipMedia flipMedia--leftRight">
@@ -160,7 +165,7 @@ export function ProjectsSection() {
       {/* FEATURE 03: Symptom Triage & Omnichannel Ingestion */}
       <div
         className="mod-scroll__projectInt bg-blue expand_mouse"
-        data-text="Start Triage"
+        data-text={t('feat_btn_start_triage', 'Start Triage')}
         data-url="/orchestrator-agent"
         data-no-swup="true"
       >
@@ -169,7 +174,7 @@ export function ProjectsSection() {
           data-no-swup="true"
           className="btn btn--circle follow__mouse--md f-izmir t-parrafo-l d-none d-md-flex"
         >
-          Start Triage
+          {t('feat_btn_start_triage', 'Start Triage')}
         </a>
 
         <div className="mod-scroll__projectInt__image flipMedia flipMedia--rightLeft">
@@ -198,14 +203,14 @@ export function ProjectsSection() {
 
         <div className="mod-scroll__projectInt__content">
           <div className="mod-scroll__projectInt__section mod-scroll__section t-parrafo-l f-edit">
-            (CORE FEATURE)
+            {t('core_feature_badge', '(CORE FEATURE)')}
           </div>
           <div className="mod-scroll__projectInt__number t-parrafo-l f-izmir">03</div>
           <div className="mod-scroll__projectInt__text t-parrafo-l f-edit">
-            Empathetic Clinical Intake via WhatsApp, WebRTC &amp; SIP Telephony
+            {t('feat_3_sub', 'Empathetic Clinical Intake via WhatsApp, WebRTC & SIP Telephony')}
           </div>
           <div className="mod-scroll__projectInt__title t-titulo-xxl t-upper f-regular">
-            Symptom Triage Agent
+            {t('feat_3_title', 'Symptom Triage Agent')}
           </div>
 
           <div className="mod-scroll__projectInt__image-small flipMedia flipMedia--leftRight">
@@ -237,7 +242,7 @@ export function ProjectsSection() {
       {/* FEATURE 04: Interactive 3D Digital Body Twin */}
       <div
         className="mod-scroll__projectInt bg-grey expand_mouse"
-        data-text="Explore 3D"
+        data-text={t('feat_btn_explore_3d', 'Explore 3D')}
         data-url="/vibrant"
         data-no-swup="true"
         style={{ backgroundColor: '#0b0f19' }}
@@ -248,7 +253,7 @@ export function ProjectsSection() {
           className="btn btn--circle follow__mouse--md f-izmir t-parrafo-l d-none d-md-flex"
           style={{ backgroundColor: '#6366f1', color: '#fff' }}
         >
-          Explore 3D
+          {t('feat_btn_explore_3d', 'Explore 3D')}
         </a>
 
         <div className="mod-scroll__projectInt__image flipMedia flipMedia--rightLeft">
@@ -277,16 +282,16 @@ export function ProjectsSection() {
 
         <div className="mod-scroll__projectInt__content">
           <div className="mod-scroll__projectInt__section mod-scroll__section t-parrafo-l f-edit" style={{ color: '#818cf8' }}>
-            (3D LIVE ENGINE)
+            {t('feat_4_badge', '(3D LIVE ENGINE)')}
           </div>
           <div className="mod-scroll__projectInt__number t-parrafo-l f-izmir" style={{ color: '#818cf8' }}>
             04
           </div>
           <div className="mod-scroll__projectInt__text t-parrafo-l f-edit" style={{ color: '#cbd5e1' }}>
-            Real-Time Anatomical &amp; Organ Intelligence with Live Vitals
+            {t('feat_4_sub', 'Real-Time Anatomical & Organ Intelligence with Live Vitals')}
           </div>
           <div className="mod-scroll__projectInt__title t-titulo-xxl t-upper f-izmir" style={{ color: '#ffffff' }}>
-            Interactive 3D Body
+            {t('feat_4_title', 'Interactive 3D Body')}
           </div>
 
           <div className="mod-scroll__projectInt__image-small flipMedia flipMedia--leftRight">
@@ -318,7 +323,7 @@ export function ProjectsSection() {
       {/* FEATURE 05: ABDM Verified ABHA ID & Blockchain Records */}
       <div
         className="mod-scroll__projectInt bg-grey expand_mouse"
-        data-text="Verify Records"
+        data-text={t('feat_btn_access_records', 'Verify Records')}
         data-url="/orchestrator-agent?tab=records"
         data-no-swup="true"
       >
@@ -327,7 +332,7 @@ export function ProjectsSection() {
           data-no-swup="true"
           className="btn btn--circle follow__mouse--md f-izmir t-parrafo-l d-none d-md-flex"
         >
-          Verify Records
+          {t('feat_btn_access_records', 'Verify Records')}
         </a>
 
         <div className="mod-scroll__projectInt__image flipMedia flipMedia--rightLeft">
@@ -336,7 +341,7 @@ export function ProjectsSection() {
               <img
                 className="media__source w-100"
                 src="/images/medical/blockchain_doctor_tablet.jpg"
-                alt="Digital Health Records &amp; ABHA Verification"
+                alt="Digital Health Records & ABHA Verification"
                 style={{ objectFit: 'cover', width: '100%', height: '100%' }}
               />
             </div>
@@ -356,14 +361,14 @@ export function ProjectsSection() {
 
         <div className="mod-scroll__projectInt__content">
           <div className="mod-scroll__projectInt__section mod-scroll__section t-parrafo-l f-edit">
-            (CORE FEATURE)
+            {t('core_feature_badge', '(CORE FEATURE)')}
           </div>
           <div className="mod-scroll__projectInt__number t-parrafo-l f-izmir">05</div>
           <div className="mod-scroll__projectInt__text t-parrafo-l f-edit">
-            Ayushman Bharat Digital Health Records &amp; Encrypted IPFS Vaults
+            {t('feat_5_sub', 'Ayushman Bharat Digital Health Records & Encrypted IPFS Vaults')}
           </div>
           <div className="mod-scroll__projectInt__title t-titulo-xxl t-upper f-edit">
-            Blockchain Records &amp; ABHA
+            {t('feat_5_title', 'Blockchain Records & ABHA')}
           </div>
 
           <div className="mod-scroll__projectInt__image-small flipMedia flipMedia--leftRight">
@@ -395,7 +400,7 @@ export function ProjectsSection() {
       {/* FEATURE 06: WHO Disease Surveillance & Outbreak Radar */}
       <div
         className="mod-scroll__projectInt bg-beige c-black expand_mouse"
-        data-text="View Heatmaps"
+        data-text={t('feat_btn_open_gis', 'View Heatmaps')}
         data-url="/orchestrator-agent?tab=hospital"
         data-no-swup="true"
       >
@@ -404,7 +409,7 @@ export function ProjectsSection() {
           data-no-swup="true"
           className="btn btn--circle follow__mouse--md f-izmir t-parrafo-l d-none d-md-flex"
         >
-          View Heatmaps
+          {t('feat_btn_open_gis', 'View Heatmaps')}
         </a>
 
         <div className="mod-scroll__projectInt__image flipMedia flipMedia--rightLeft">
@@ -433,14 +438,14 @@ export function ProjectsSection() {
 
         <div className="mod-scroll__projectInt__content">
           <div className="mod-scroll__projectInt__section mod-scroll__section t-parrafo-l f-edit">
-            (CORE FEATURE)
+            {t('core_feature_badge', '(CORE FEATURE)')}
           </div>
           <div className="mod-scroll__projectInt__number t-parrafo-l f-izmir">06</div>
           <div className="mod-scroll__projectInt__text t-parrafo-l f-edit">
-            Global &amp; National Spatio-Temporal Outbreak Radar &amp; Early-Warning Alerts
+            {t('feat_6_sub', 'Global & National Spatio-Temporal Outbreak Radar & Early-Warning Alerts')}
           </div>
           <div className="mod-scroll__projectInt__title t-titulo-xxl t-upper f-izmir">
-            WHO Disease Surveillance
+            {t('feat_6_title', 'WHO Disease Surveillance')}
           </div>
 
           <div className="mod-scroll__projectInt__image-small flipMedia flipMedia--leftRight">

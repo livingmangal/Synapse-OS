@@ -115,22 +115,21 @@
   z-index: 2147483647 !important;
   width: 58px !important;
   height: 58px !important;
-  border-radius: 14px !important;
-  background: transparent !important;
-  border: none !important;
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.22), 0 3px 10px rgba(0, 0, 0, 0.12) !important;
+  border-radius: 50% !important;
+  background: #ffffff !important;
+  border: 1.5px solid #10b981 !important;
+  box-shadow: 0 10px 30px rgba(16, 185, 129, 0.35), 0 4px 12px rgba(0, 0, 0, 0.08) !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
   cursor: pointer !important;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
   outline: none !important;
-  padding: 0 !important;
 }
 
 .synapseos-trigger-pill:hover {
-  transform: scale(1.08) translateY(-2px) !important;
-  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.28), 0 6px 16px rgba(16, 185, 129, 0.25) !important;
+  transform: scale(1.08) !important;
+  box-shadow: 0 14px 40px rgba(16, 185, 129, 0.45) !important;
 }
 
 .synapseos-trigger-pill:active {
@@ -871,109 +870,310 @@
   }
 }
 
-.synapseos-voice-overlay {
+/* ═══════════════════════════════════════════════════════
+   VOICE MODE OVERLAY  — Minimal Professional Redesign
+   ═══════════════════════════════════════════════════════ */
+
+/* Root panel */
+.snj-voice-root {
   position: absolute !important;
   inset: 0 !important;
   z-index: 50 !important;
-  background: radial-gradient(circle at 50% 35%, #f0fdf4 0%, #ecfdf5 35%, #ffffff 85%) !important;
+  background: #ffffff !important;
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
   justify-content: space-between !important;
-  padding: 20px 20px 24px !important;
+  padding: 18px 20px 22px !important;
   animation: modalSlideUp 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
 }
 
-/* Central Voice Orb (190px) */
-.synapseos-voice-orb-box {
-  position: relative !important;
-  width: 200px !important;
-  height: 200px !important;
+/* ── Top bar ─────────────────────────────────────────── */
+.snj-voice-topbar {
+  width: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 8px !important;
+}
+
+.snj-voice-brand {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+.snj-voice-logo {
+  width: 28px !important;
+  height: 28px !important;
+  border-radius: 7px !important;
+  object-fit: contain !important;
+  flex-shrink: 0 !important;
+}
+
+.snj-voice-brand-name {
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  color: #0f172a !important;
+  line-height: 1.2 !important;
+  letter-spacing: -0.2px !important;
+}
+
+.snj-voice-brand-sub {
+  font-size: 10px !important;
+  color: #94a3b8 !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.1px !important;
+}
+
+.snj-voice-status-pill {
+  display: flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  padding: 4px 10px !important;
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 20px !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
+}
+
+.snj-voice-status-dot {
+  width: 7px !important;
+  height: 7px !important;
+  border-radius: 50% !important;
+  flex-shrink: 0 !important;
+  animation: snj-pulse-dot 2s ease-in-out infinite !important;
+}
+
+@keyframes snj-pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.6; transform: scale(0.8); }
+}
+
+.snj-voice-close-btn {
+  width: 28px !important;
+  height: 28px !important;
+  border-radius: 50% !important;
+  background: #f1f5f9 !important;
+  border: 1px solid #e2e8f0 !important;
+  color: #64748b !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  margin: auto 0 !important;
+  cursor: pointer !important;
+  flex-shrink: 0 !important;
+  transition: all 0.2s !important;
 }
 
-.synapseos-voice-orb-box.speaking .synapseos-orb-3d-sphere {
-  animation: voiceOrbPulseSpeaking 1.8s ease-in-out infinite !important;
+.snj-voice-close-btn:hover {
+  background: #fee2e2 !important;
+  color: #dc2626 !important;
+  border-color: #fca5a5 !important;
 }
 
-.synapseos-voice-orb-box.listening .synapseos-orb-3d-sphere {
-  animation: voiceOrbPulseListening 2.4s ease-in-out infinite !important;
+/* ── Orb area ─────────────────────────────────────────── */
+.snj-voice-orb-wrap {
+  position: relative !important;
+  width: 160px !important;
+  height: 160px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
 }
 
-/* Acoustic Shockwave Rings */
-.synapseos-voice-shockwave {
+/* Ripple rings — centered on orb */
+.snj-voice-ring {
   position: absolute !important;
-  width: 170px !important;
-  height: 170px !important;
+  inset: 0 !important;
   border-radius: 50% !important;
-  border: 2px solid rgba(52, 211, 153, 0.6) !important;
-  animation: acousticWaveRing 2.2s cubic-bezier(0.16, 1, 0.3, 1) infinite !important;
+  border: 1.5px solid rgba(16, 185, 129, 0.35) !important;
+  animation: snj-ring-expand 2.1s cubic-bezier(0.16, 1, 0.3, 1) infinite !important;
   pointer-events: none !important;
 }
 
-.synapseos-voice-shockwave:nth-child(2) {
-  animation-delay: 0.75s !important;
+@keyframes snj-ring-expand {
+  0%   { transform: scale(0.85); opacity: 0.8; }
+  100% { transform: scale(1.9);  opacity: 0;   }
 }
 
-.synapseos-voice-shockwave:nth-child(3) {
-  animation-delay: 1.5s !important;
-}
-
-/* Real-Time Soundwave Visualizer Spectrum Bars */
-.synapseos-voice-spectrum {
-  display: flex !important;
-  align-items: center !important;
-  gap: 4px !important;
-  height: 32px !important;
-}
-
-.synapseos-voice-bar {
-  width: 3.5px !important;
-  border-radius: 4px !important;
-  background: #10b981 !important;
-  animation: voiceSpectrumBar 1s ease-in-out infinite alternate !important;
-}
-
-/* Control Dock */
-.synapseos-voice-controls {
+/* Main orb button */
+.snj-voice-orb {
+  position: relative !important;
+  z-index: 2 !important;
+  width: 110px !important;
+  height: 110px !important;
+  border-radius: 50% !important;
+  border: none !important;
+  cursor: pointer !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  gap: 20px !important;
-  width: 100% !important;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s !important;
+  /* Default idle state */
+  background: linear-gradient(145deg, #e2e8f0 0%, #cbd5e1 100%) !important;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.10), inset 0 1px 1px rgba(255,255,255,0.7) !important;
+  color: #64748b !important;
 }
 
-.synapseos-voice-action-btn {
-  width: 52px !important;
-  height: 52px !important;
+/* State colours */
+.snj-voice-orb--listening {
+  background: linear-gradient(145deg, #34d399 0%, #10b981 60%, #059669 100%) !important;
+  box-shadow: 0 12px 36px rgba(16,185,129,0.40), inset 0 1px 2px rgba(255,255,255,0.25) !important;
+  color: #ffffff !important;
+  animation: snj-orb-breathe-listen 2.4s ease-in-out infinite !important;
+}
+
+.snj-voice-orb--speaking {
+  background: linear-gradient(145deg, #6ee7b7 0%, #10b981 50%, #047857 100%) !important;
+  box-shadow: 0 14px 42px rgba(16,185,129,0.50), inset 0 1px 2px rgba(255,255,255,0.2) !important;
+  color: #ffffff !important;
+  animation: snj-orb-breathe-speak 1.6s ease-in-out infinite !important;
+}
+
+.snj-voice-orb--thinking {
+  background: linear-gradient(145deg, #7dd3fc 0%, #0284c7 60%, #0369a1 100%) !important;
+  box-shadow: 0 12px 36px rgba(2,132,199,0.40), inset 0 1px 2px rgba(255,255,255,0.2) !important;
+  color: #ffffff !important;
+  animation: snj-orb-spin-slow 4s linear infinite !important;
+}
+
+.snj-voice-orb--connecting {
+  background: linear-gradient(145deg, #fde68a 0%, #f59e0b 60%, #d97706 100%) !important;
+  box-shadow: 0 10px 30px rgba(245,158,11,0.35) !important;
+  color: #ffffff !important;
+  animation: snj-orb-pulse-slow 2s ease-in-out infinite !important;
+}
+
+.snj-voice-orb--muted {
+  background: linear-gradient(145deg, #fca5a5 0%, #ef4444 60%, #dc2626 100%) !important;
+  box-shadow: 0 10px 28px rgba(239,68,68,0.30) !important;
+  color: #ffffff !important;
+}
+
+.snj-voice-orb:hover  { transform: scale(1.05) !important; }
+.snj-voice-orb:active { transform: scale(0.96) !important; }
+
+@keyframes snj-orb-breathe-listen {
+  0%,100% { transform: scale(1);    }
+  50%     { transform: scale(1.06); }
+}
+@keyframes snj-orb-breathe-speak {
+  0%,100% { transform: scale(1);    }
+  50%     { transform: scale(1.10); }
+}
+@keyframes snj-orb-spin-slow {
+  from { filter: hue-rotate(0deg);   }
+  to   { filter: hue-rotate(30deg);  }
+}
+@keyframes snj-orb-pulse-slow {
+  0%,100% { opacity: 1;   }
+  50%     { opacity: 0.7; }
+}
+
+/* ── Wave visualizer ─────────────────────────────────── */
+.snj-voice-wave-wrap {
+  width: 100% !important;
+  height: 60px !important;
+  border-radius: 12px !important;
+  background: #f8fafc !important;
+  border: 1px solid #f1f5f9 !important;
+  overflow: hidden !important;
+  flex-shrink: 0 !important;
+}
+
+/* ── Subtitle / transcript ───────────────────────────── */
+.snj-voice-subtitle {
+  width: 100% !important;
+  min-height: 52px !important;
+  max-height: 72px !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  padding: 10px 14px !important;
+  border-radius: 12px !important;
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  font-size: 12.5px !important;
+  font-weight: 500 !important;
+  color: #334155 !important;
+  line-height: 1.5 !important;
+  text-align: center !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+}
+
+.snj-voice-subtitle--listening  { border-color: rgba(16,185,129,0.25) !important; color: #0f172a !important; }
+.snj-voice-subtitle--speaking   { border-color: rgba(5,150,105,0.25) !important;  color: #064e3b !important; }
+.snj-voice-subtitle--thinking   { border-color: rgba(2,132,199,0.2) !important;   color: #0c4a6e !important; }
+.snj-voice-subtitle--muted      { border-color: rgba(239,68,68,0.2) !important;   color: #991b1b !important; }
+
+/* ── Bottom controls ─────────────────────────────────── */
+.snj-voice-controls {
+  width: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 16px !important;
+  flex-shrink: 0 !important;
+}
+
+/* Base button */
+.snj-voice-btn {
+  width: 48px !important;
+  height: 48px !important;
   border-radius: 50% !important;
   border: none !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
   cursor: pointer !important;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08) !important;
+  transition: transform 0.2s cubic-bezier(0.16,1,0.3,1), box-shadow 0.2s !important;
+  flex-shrink: 0 !important;
 }
 
-.synapseos-voice-action-btn:hover {
-  transform: scale(1.08) !important;
+.snj-voice-btn:hover  { transform: scale(1.08) !important; }
+.snj-voice-btn:active { transform: scale(0.94) !important; }
+
+/* Ghost (mute / chat) */
+.snj-voice-btn--ghost {
+  background: #f1f5f9 !important;
+  color: #475569 !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06) !important;
+}
+.snj-voice-btn--ghost:hover { background: #e2e8f0 !important; }
+
+/* Danger (muted state) */
+.snj-voice-btn--danger {
+  background: #fef2f2 !important;
+  color: #dc2626 !important;
+  border: 1.5px solid #fca5a5 !important;
+  box-shadow: 0 2px 8px rgba(239,68,68,0.12) !important;
 }
 
-.synapseos-voice-action-btn:active {
-  transform: scale(0.94) !important;
+/* End call — large */
+.snj-voice-btn--end {
+  width: 60px !important;
+  height: 60px !important;
+  background: #ef4444 !important;
+  color: #ffffff !important;
+  box-shadow: 0 6px 20px rgba(239,68,68,0.40) !important;
 }
+.snj-voice-btn--end:hover { background: #dc2626 !important; }
 
+/* ── Fullscreen layout adjustments ─────────────────── */
 .synapseos-modal-fullscreen .synapseos-drawer {
   max-width: 760px !important;
   margin: 0 auto !important;
   border-radius: 24px 24px 0 0 !important;
 }
 
-/* Desktop Responsiveness for Multi-Column Clinical Cockpit */
+/* Desktop responsiveness */
 @media (max-width: 1200px) {
   .synapseos-fullscreen-dossier {
     width: 280px !important;

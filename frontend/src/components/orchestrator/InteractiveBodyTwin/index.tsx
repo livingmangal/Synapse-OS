@@ -307,14 +307,14 @@ export default function InteractiveBodyTwin({
               }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <span style={{ fontSize: '12px', fontWeight: 800, color: '#0f172a' }}>
-                    {lungsCondition?.title || 'Pulmonary Function'}
+                    {translateText(lungsCondition?.title || 'Pulmonary Aerobic Function')}
                   </span>
                   <span style={{ fontSize: '10px', fontWeight: 700, color: '#059669', background: '#ecfdf5', padding: '1px 6px', borderRadius: '4px' }}>
                     {lungsCondition?.metrics?.o2 || '98.5%'}
                   </span>
                 </div>
                 <div style={{ fontSize: '11px', color: '#64748b', marginTop: '2px' }}>
-                  FEV1: <strong>{lungsCondition?.metrics?.fev1 || '4.8 L'}</strong> • Heart: <strong>{lungsCondition?.metrics?.heartRate || '74 BPM'}</strong>
+                  {translateText('FEV1')}: <strong>{lungsCondition?.metrics?.fev1 || '4.8 L'}</strong> • {translateText('Heart')}: <strong>{lungsCondition?.metrics?.heartRate || '74 BPM'}</strong>
                 </div>
                 <div style={{ fontSize: '10px', color: '#0284c7', fontWeight: 700, marginTop: '4px', display: 'flex', alignItems: 'center', gap: '4px' }}>
                   <span>{lungsCondition?.doctor || 'Dr. Rajesh K. Varma'}</span>
@@ -561,10 +561,10 @@ export default function InteractiveBodyTwin({
             </div>
             <div style={{ textAlign: 'left' }}>
               <div style={{ fontSize: '14px', fontWeight: 800, color: '#831843', letterSpacing: '-0.01em' }}>
-                Run Agent Swarm DAG
+                {translateText('Run Agent Swarm DAG')}
               </div>
               <div style={{ fontSize: '11px', color: '#ec4899', fontWeight: 600, marginTop: '2px' }}>
-                Execute cross-agent diagnostic & clinical consensus protocol
+                {translateText('Execute cross-agent diagnostic & clinical consensus protocol')}
               </div>
             </div>
           </div>
@@ -581,7 +581,7 @@ export default function InteractiveBodyTwin({
             fontWeight: 800,
             boxShadow: '0 2px 8px rgba(219, 39, 119,0.3)'
           }}>
-            <span>Launch Swarm</span>
+            <span>{translateText('Launch Swarm')}</span>
             <ChevronRight size={15} />
           </div>
         </button>

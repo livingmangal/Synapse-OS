@@ -5,9 +5,13 @@ Interactive Menu Engine, FSM, and Multi-Agent Dispatcher.
 """
 
 import base64
+import json
 import logging
+import re
 from typing import Dict, Any, Optional, List
+import httpx
 
+from backend.app.core.config import settings
 from backend.app.services.meta_whatsapp_client import (
     send_whatsapp_message,
     send_whatsapp_image,
@@ -431,6 +435,102 @@ def _extract_medications_guidance(text: str, is_emergency: bool) -> List[str]:
     return meds[:2]
 
 
+async def classify_medical_image_type(image_base64: Optional[str], caption: Optional[str] = None) -> str:
+    """
+    Uses OpenRouter Vision to accurately classify incoming WhatsApp media into:
+    - 'prescription' (Handwritten/printed doctor prescription, medicine receipt, lab report)
+    - 'chest_xray' (Chest radiograph / lung scan)
+    - 'bone_fracture' (Limb, wrist, hand, leg, foot, joint orthopedic X-ray / CT)
+    Falls back gracefully to caption heuristics if OpenRouter vision is unavailable.
+    """
+    caption_lower = (caption or "").lower().strip()
+    if any(k in caption_lower for k in ["rx", "prescription", "medicine", "doctor note", "pills", "syrup", "slip", "parcha", "dawa", "report"]):
+        return "prescription"
+    if any(k in caption_lower for k in ["chest", "lung", "pneumonia", "covid", "cough", "breath", "thorax"]):
+        return "chest_xray"
+    if any(k in caption_lower for k in ["fracture", "bone", "wrist", "hand", "leg", "arm", "knee", "foot", "ankle", "joint", "ortho"]):
+        return "bone_fracture"
+
+    if not image_base64 or not settings.OPENROUTER_API_KEY:
+        return "bone_fracture"
+
+    try:
+        data_url = image_base64 if image_base64.startswith("data:") else f"data:image/jpeg;base64,{image_base64}"
+        headers = {
+            "Authorization": f"Bearer {settings.OPENROUTER_API_KEY}",
+            "Content-Type": "application/json",
+            "HTTP-Referer": settings.OPENROUTER_REFERER or "https://synapseos.health",
+            "X-Title": settings.OPENROUTER_APP_TITLE or "SynapseOS Image Classifier"
+        }
+        vision_model = settings.OPENROUTER_PRIMARY_MODEL or "google/gemini-2.0-flash-001"
+        payload = {
+            "model": vision_model,
+            "messages": [
+                {
+                    "role": "user",
+                    "content": [
+                        {
+                            "type": "text",
+                            "text": (
+                                "Analyze this image and classify it into exactly one of three categories:\n"
+                                "1. 'prescription' if it is a doctor's prescription, medical slip, medicine bill, or lab test report.\n"
+                                "2. 'chest_xray' if it is a chest radiograph or lung X-ray.\n"
+                                "3. 'bone_fracture' if it is an orthopedic bone X-ray, fracture scan, or limb scan.\n\n"
+                                "Return JSON only in this exact format: {\"category\": \"prescription\" | \"chest_xray\" | \"bone_fracture\"}"
+                            )
+                        },
+                        {
+                            "type": "image_url",
+                            "image_url": {"url": data_url}
+                        }
+                    ]
+                }
+            ],
+            "temperature": 0.0,
+            "max_tokens": 80
+        }
+        async with httpx.AsyncClient(timeout=10.0) as client:
+            resp = await client.post("https://openrouter.ai/api/v1/chat/completions", headers=headers, json=payload)
+            if resp.status_code == 200:
+                raw_content = resp.json()["choices"][0]["message"]["content"]
+                clean_json = raw_content.replace("```json", "").replace("```", "").strip()
+                parsed = json.loads(clean_json)
+                cat = parsed.get("category", "").lower().strip()
+                if cat in ("prescription", "lab_report", "report"):
+                    return "prescription"
+                elif cat in ("chest_xray", "chest", "lung"):
+                    return "chest_xray"
+                elif cat in ("bone_fracture", "bone", "fracture", "orthopedic"):
+                    return "bone_fracture"
+    except Exception as exc:
+        logger.warning(f"[OpenRouter Vision Classifier] Fallback triggered: {exc}")
+
+    return "bone_fracture"
+
+
+def format_compact_generic_qa_card(text: str) -> str:
+    """
+    Formats generic health inquiries into a clean, concise, 3-section WhatsApp advice card.
+    Avoids unsolicited clinical consensus or fake triage headings.
+    """
+    cleaned = strip_markdown_to_plain_text(text)
+    paragraphs = [p.strip() for p in cleaned.split("\n\n") if p.strip()]
+    
+    # Extract main answer
+    main_ans = "\n\n".join(paragraphs[:2]) if paragraphs else cleaned
+    
+    lines = [
+        "🟢 SANJEEVNI HEALTH ADVISORY",
+        "━━━━━━━━━━━━━━━━━━━━",
+        f"💡 Key Information:\n{main_ans}",
+        "",
+        "⚠️ Medical Note: Educational guidance only. Consult a doctor for personal evaluation.",
+        "━━━━━━━━━━━━━━━━━━━━",
+        "🌿 Powered by Sanjeevni-OS"
+    ]
+    return "\n".join(lines).strip()
+
+
 def format_compact_whatsapp_card(text: str) -> str:
     """
     Transforms verbose multi-agent diagnostic audit into a punchy, normal plain-text WhatsApp card (no markdown).
@@ -541,15 +641,26 @@ def format_response_for_whatsapp(text: str, compact: bool = True) -> str:
         return "Thank you for consulting Synapse-OS. Please monitor your health and consult a physician if needed."
 
     text_lower = text.lower()
+    # Check if this is a general informational Q&A without active symptoms
+    is_general_inquiry = any(k in text_lower for k in [
+        "informational inquiry", "general inquiry", "inquiry regarding",
+        "what is ", "what is calpol", "benefits of ", "how does ", "why is "
+    ]) and not any(k in text_lower for k in ["patient status: emergency", "fever", "severe pain", "vomiting", "diarrhea"])
+
+    if is_general_inquiry:
+        plain = strip_markdown_to_plain_text(text)
+        footer = "🌿 Powered by Synapse-OS Multi-Agent Swarm"
+        if not plain.endswith(footer):
+            plain += f"\n\n{footer}"
+        return plain
+
     # Only formal multi-agent diagnostic audits get transformed into compact triage cards
     is_triage_audit = (
         any(k in text_lower for k in [
             "patient status:", "triage level:", "triage & outbreak", 
-            "clinical assessment & care guidance", "symptom triage"
+            "clinical assessment & care guidance", "symptom triage", "suspected condition"
         ]) or ("🔴" in text and "emergency" in text_lower)
-    ) and not any(k in text_lower for k in [
-        "informational inquiry", "pharmacological", "what is calpol", "brand name for paracetamol"
-    ])
+    )
 
     if compact and is_triage_audit:
         return format_compact_whatsapp_card(text)
@@ -651,13 +762,7 @@ async def process_whatsapp_inbound_webhook(payload: Dict[str, Any]) -> Dict[str,
             if media_bytes:
                 image_base64 = f"data:image/jpeg;base64,{base64.b64encode(media_bytes).decode('utf-8')}"
 
-        caption_lower = (caption or message_text).lower()
-        if any(k in caption_lower for k in ["rx", "prescription", "medicine", "doctor note"]):
-            img_type = "prescription"
-        elif any(k in caption_lower for k in ["chest", "lung", "pneumonia", "covid"]):
-            img_type = "chest_xray"
-        else:
-            img_type = "bone_fracture"
+        img_type = await classify_medical_image_type(image_base64, caption=caption or message_text)
 
         if img_type == "prescription":
             try:
@@ -676,7 +781,7 @@ async def process_whatsapp_inbound_webhook(payload: Dict[str, Any]) -> Dict[str,
                         data_url = normalize_and_resize_image(pil_img)
                         ok, err_obj, ocr_data = await run_prescription_ocr(data_url)
                         if ok and ocr_data:
-                            # Run downstream Groq clinical interpretation & triage
+                            # Run downstream clinical interpretation & triage
                             interp = await interpret_prescription(ocr_data=ocr_data, lang=user_lang or "en")
                             reply_text = format_prescription_for_whatsapp(ocr_data=ocr_data, interpretation=interp)
                             dispatch_res = await send_whatsapp_message(to_phone=sender_phone, text=reply_text)
@@ -698,25 +803,25 @@ async def process_whatsapp_inbound_webhook(payload: Dict[str, Any]) -> Dict[str,
         )
 
         boxes = scan_result.get("visual_bounding_boxes", [])
-        box_str = f"\n🎯 *Detections:* {len(boxes)} anomaly zone(s) localized." if boxes else "\n✅ *No acute cortical fracture displaced.*"
+        box_str = f"• Detections: {len(boxes)} anomaly zone(s) localized." if boxes else "• Findings: No acute displaced fracture."
 
-        reply_parts = [
-            "📷 *SYNAPSE-OS MEDICAL SCAN DIAGNOSTICS* 📷\n",
-            f"• *Modality:* {img_type.replace('_', ' ').title()}",
-            f"• *AI Diagnosis:* {scan_result.get('ai_diagnosis_summary', 'Analysis Completed')}",
-            f"• *Urgency:* {scan_result.get('urgency_badge', 'Standard Review')}",
+        reply_lines = [
+            "📷 SANJEEVNI X-RAY SCAN ANALYSIS",
+            "━━━━━━━━━━━━━━━━━━━━",
+            f"• Modality: {img_type.replace('_', ' ').title()}",
+            f"• Status: {scan_result.get('urgency_badge', 'Standard Review')}",
+            f"• AI Impression: {scan_result.get('ai_diagnosis_summary', 'Analysis Completed')}",
             box_str,
-            f"\n📋 *Clinical Interpretation:*\n{scan_result.get('plain_english_explanation', '')}",
-            f"\n💡 *Recommended Next Step:*\n{scan_result.get('recommended_clinical_action', 'Consult a registered orthopedic surgeon.')}",
+            "",
+            "💡 Recommended Next Step:",
+            f"{scan_result.get('recommended_clinical_action', 'Consult a registered orthopedic specialist.')}",
+            "",
+            "⚠️ Preliminary AI analysis. Must be confirmed by a radiologist.",
+            "━━━━━━━━━━━━━━━━━━━━",
+            "🌿 Powered by Sanjeevni-OS"
         ]
-        if scan_result.get("remote_result_image"):
-            reply_parts.append(f"\n🖼️ *YOLOv8 Detection Overlay:*\n{scan_result['remote_result_image']}")
-        if scan_result.get("remote_gradcam_image"):
-            reply_parts.append(f"\n🔥 *Grad-CAM Attention Map:*\n{scan_result['remote_gradcam_image']}")
 
-        reply_parts.append("\n_⚠️ AI screening support only. Always verify with a certified radiologist._")
-
-        reply_text = strip_markdown_to_plain_text("\n".join(reply_parts))
+        reply_text = "\n".join(reply_lines)
         dispatch_res = await send_whatsapp_message(to_phone=sender_phone, text=reply_text)
 
         # Dispatch the actual annotated YOLOv8 JPG and Grad-CAM JPG straight into the chat bubble
@@ -781,7 +886,7 @@ async def process_whatsapp_inbound_webhook(payload: Dict[str, Any]) -> Dict[str,
                 "gu": "ગુજરાતી (Gujarati)", "kn": "ಕನ್ನಡ (Kannada)", "ml": "മലയാളം (Malayalam)",
                 "pa": "ਪੰਜਾਬੀ (Punjabi)", "or": "ଓଡ଼ିଆ (Odia)"
             }
-            confirm_msg = f"🌐 *Language Selected:* {lang_names.get(selected_code, 'English')}\n━━━━━━━━━━━━━━━━━━━━\n\n"
+            confirm_msg = f"🌐 Language Selected: {lang_names.get(selected_code, 'English')}\n━━━━━━━━━━━━━━━━━━━━\n\n"
             menu_text = confirm_msg + LOCALIZED_MENUS.get(selected_code, LOCALIZED_MENUS["en"])
 
             dispatch_res = await send_whatsapp_message(to_phone=sender_phone, text=menu_text)
@@ -794,20 +899,16 @@ async def process_whatsapp_inbound_webhook(payload: Dict[str, Any]) -> Dict[str,
                 "reply_dispatched": dispatch_res
             }
         elif any(text_lower.startswith(prefix) for prefix in ["1 ", "2 ", "3 ", "4 ", "5 ", "6", "7 ", "8 ", "9 ", "sos", "emergency"]):
-            # User sent a direct command while in LANG_SELECT, reset and process command directly
             session_manager.reset_flow(sender_phone)
         elif len(text_lower) > 12:
-            # Natural language clinical query, reset and route to orchestrator
             session_manager.reset_flow(sender_phone)
         else:
-            # Invalid selection prompt
-            retry_msg = "⚠️ Invalid selection. Please reply with a number from `1` to `11`:\n\n" + LANGUAGE_SELECTION_MENU
+            retry_msg = "⚠️ Invalid selection. Please reply with a number from 1 to 11:\n\n" + LANGUAGE_SELECTION_MENU
             dispatch_res = await send_whatsapp_message(to_phone=sender_phone, text=retry_msg)
             return {"status": "processed", "type": "language_retry"}
 
     # 7. Greeting / Main Menu Trigger
     if text_lower in ("hi", "hello", "hey", "menu", "help", "start", "guide", "synapse", "synapseos", "sanjeevni", "options"):
-        # If user has not chosen a language yet, prompt with language selection first!
         if not session["context"].get("lang"):
             session_manager.set_flow(sender_phone, "LANG_SELECT")
             dispatch_res = await send_whatsapp_message(to_phone=sender_phone, text=LANGUAGE_SELECTION_MENU)
@@ -819,7 +920,6 @@ async def process_whatsapp_inbound_webhook(payload: Dict[str, Any]) -> Dict[str,
                 "reply_dispatched": dispatch_res
             }
         else:
-            # Deliver in their saved language
             chosen_lang = session["context"].get("lang", "en")
             active_menu = LOCALIZED_MENUS.get(chosen_lang, LOCALIZED_MENUS["en"])
             dispatch_res = await send_whatsapp_message(to_phone=sender_phone, text=active_menu)
@@ -836,7 +936,7 @@ async def process_whatsapp_inbound_webhook(payload: Dict[str, Any]) -> Dict[str,
         last_report = session["context"].get("last_full_report")
         if last_report:
             clean_full = strip_markdown_to_plain_text(last_report)
-            footer = "🌿 Powered by Synapse-OS Multi-Agent Swarm"
+            footer = "🌿 Powered by Sanjeevni-OS Multi-Agent Swarm"
             if not clean_full.endswith(footer):
                 clean_full += f"\n\n{footer}"
             dispatch_res = await send_whatsapp_message(to_phone=sender_phone, text=clean_full)
@@ -849,8 +949,8 @@ async def process_whatsapp_inbound_webhook(payload: Dict[str, Any]) -> Dict[str,
             }
         else:
             no_rep = (
-                "ℹ️ *No previous diagnostic report found in this session.*\n\n"
-                "Please describe your symptoms or text `1 <symptoms>` (e.g. `1 High fever, headache and dry cough`) to start an AI clinical triage!"
+                "ℹ️ No previous diagnostic report found in this session.\n\n"
+                "Please describe your symptoms or text '1 <symptoms>' (e.g. '1 High fever, headache and dry cough') to start an AI clinical triage!"
             )
             dispatch_res = await send_whatsapp_message(to_phone=sender_phone, text=no_rep)
             return {"status": "processed", "type": "no_prior_report", "dispatch": dispatch_res, "reply_dispatched": dispatch_res}
@@ -858,13 +958,18 @@ async def process_whatsapp_inbound_webhook(payload: Dict[str, Any]) -> Dict[str,
     # 8. Emergency SOS Trigger
     if text_lower in ("sos", "emergency", "112", "108", "save me", "help me"):
         sos_res = (
-            "🚨 *SYNAPSE-OS — IMMEDIATE EMERGENCY PROTOCOL ACTIVATED* 🚨\n\n"
-            "If you or someone nearby is experiencing a life-threatening emergency:\n\n"
-            "📞 *National Emergency:* Call `112` directly\n"
-            "🚑 *Ambulance Services:* Call `108` immediately\n"
-            "🧠 *Tele-MANAS Mental Crisis:* Call `14416` (24x7 Toll-Free)\n"
-            "🏥 *Poison Control:* Call `1800-116-117`\n\n"
-            "⚠️ Please stay calm, keep the patient comfortable, and seek direct hospital emergency care immediately."
+            "🔴 SANJEEVNI EMERGENCY DISPATCH\n"
+            "━━━━━━━━━━━━━━━━━━━━\n"
+            "🚨 Immediate Emergency Call:\n"
+            "• Ambulance: 108 (Direct Emergency)\n"
+            "• National Emergency: 112\n"
+            "• Tele-MANAS Mental Crisis: 14416 (24x7)\n"
+            "• Poison Control: 1800-116-117\n\n"
+            "🏥 First-Aid Protocol:\n"
+            "1. Place patient in recovery position (on their side).\n"
+            "2. Keep airway clear and loosen tight clothes.\n"
+            "3. DO NOT give oral food/water if unconscious or dizzy.\n\n"
+            "📍 Share WhatsApp Location to find nearest Emergency Room."
         )
         dispatch_res = await send_whatsapp_message(to_phone=sender_phone, text=sos_res)
         return {
@@ -875,7 +980,7 @@ async def process_whatsapp_inbound_webhook(payload: Dict[str, Any]) -> Dict[str,
             "reply_dispatched": dispatch_res
         }
 
-    # 9. Handle Active Multi-Turn FSM (e.g. Health Literacy Quiz Flow)
+    # 9. Handle Active Multi-Turn FSM (Health Literacy Quiz Flow)
     if session.get("active_flow") == "QUIZ_FLOW":
         questions = session["context"].get("questions", [])
         answers = session["context"].get("answers", {})
@@ -890,19 +995,19 @@ async def process_whatsapp_inbound_webhook(payload: Dict[str, Any]) -> Dict[str,
 
         if next_step < len(questions):
             q = questions[next_step]
-            opts = "\n".join([f"*{chr(65+i)}.* {opt}" for i, opt in enumerate(q["options"])])
-            msg = f"📝 *Community Health Quiz — Question {next_step + 1}/{len(questions)}:*\n\n{q['question']}\n\n{opts}\n\n_Reply with A, B, C, or D._"
+            opts = "\n".join([f"{chr(65+i)}. {opt}" for i, opt in enumerate(q["options"])])
+            msg = f"📝 Health Quiz — Question {next_step + 1}/{len(questions)}:\n\n{q['question']}\n\n{opts}\n\nReply with A, B, C, or D."
             await send_whatsapp_message(to_phone=sender_phone, text=msg)
             return {"status": "processed", "type": "quiz_step", "step": next_step}
         else:
             eval_res = evaluate_quiz_answers(answers)
             session_manager.reset_flow(sender_phone)
             quiz_summary = (
-                "🏆 *COMMUNITY HEALTH LITERACY QUIZ COMPLETED!* 🏆\n\n"
-                f"• *Score:* {eval_res.get('score', '3/3')} ({eval_res.get('percentage', 100)}%)\n"
-                f"• *Badge:* {eval_res.get('grade', 'Health Champion')}\n"
-                f"• *Community Literacy Impact:* +25.4% Awareness Gain\n\n"
-                "💡 *Key Takeaway:* Always combine ORS + Zinc for diarrhea and empty standing water to stop dengue!"
+                "🏆 HEALTH LITERACY QUIZ COMPLETED!\n"
+                "━━━━━━━━━━━━━━━━━━━━\n"
+                f"• Score: {eval_res.get('score', '3/3')} ({eval_res.get('percentage', 100)}%)\n"
+                f"• Grade: {eval_res.get('grade', 'Health Champion')}\n\n"
+                "💡 Key Takeaway: Always combine ORS + Zinc for diarrhea and empty standing water to prevent dengue!"
             )
             await send_whatsapp_message(to_phone=sender_phone, text=quiz_summary)
             return {"status": "processed", "type": "quiz_completed", "score": eval_res.get("score")}
@@ -911,26 +1016,33 @@ async def process_whatsapp_inbound_webhook(payload: Dict[str, Any]) -> Dict[str,
     if text_lower.startswith("2 ") or text_lower == "2":
         query = message_text[2:].strip() if text_lower.startswith("2 ") else ""
         if not query:
-            reply_text = "💊 *Drug Safety & RxNav Checker*\nPlease reply with the medication names (e.g. `2 Aspirin and Ibuprofen` or `2 Paracetamol with Alcohol`)."
+            reply_text = (
+                "💊 DRUG SAFETY & RXNAV CHECKER\n"
+                "━━━━━━━━━━━━━━━━━━━━\n"
+                "Please reply with medicine names (e.g. '2 Aspirin with Ibuprofen' or '2 Paracetamol and Alcohol')."
+            )
         else:
             drug_res = await evaluate_drug_safety(query)
-            reply_parts = ["💊 *SYNAPSE-OS DRUG SAFETY & RXNAV REPORT* 💊\n"]
-            meds = drug_res.get("detected_medications", [])
-            if meds:
-                reply_parts.append(f"• *Detected Medications:* {', '.join(meds)}")
-            reply_parts.append(f"• *Safety Status:* {drug_res.get('overall_status', 'Evaluated')}")
-            
+            status = drug_res.get("overall_status", "Evaluated")
+            badge_icon = "🔴" if "risk" in status.lower() or "danger" in status.lower() or "severe" in status.lower() else "🟢"
+            reply_parts = [
+                "⚠️ SANJEEVNI DRUG SAFETY CHECK",
+                "━━━━━━━━━━━━━━━━━━━━",
+                f"💊 Query: {query}",
+                f"{badge_icon} Status: {status}"
+            ]
             interactions = drug_res.get("interactions", [])
             if interactions:
-                reply_parts.append(f"\n⚠️ *Interactions Detected ({len(interactions)}):*")
-                for item in interactions:
-                    reply_parts.append(f"- *{item.get('severity', 'Risk')} Risk:* {item.get('effect')}\n  ↳ _Action: {item.get('recommended_action')}_")
+                reply_parts.append("\n🔍 Interactions Detected:")
+                for item in interactions[:2]:
+                    reply_parts.append(f"• {item.get('severity', 'Risk')} Risk: {item.get('effect')}\n  Action: {item.get('recommended_action')}")
             else:
-                reply_parts.append("\n✅ *No severe high-risk drug interactions identified.*")
+                reply_parts.append("✅ No severe drug-drug interactions detected.")
 
             if drug_res.get("safe_alternatives"):
-                reply_parts.append(f"\n💡 *Safe Alternatives:* {', '.join(drug_res['safe_alternatives'])}")
-            
+                reply_parts.append(f"\n💡 Safe Alternative: {', '.join(drug_res['safe_alternatives'][:2])}")
+
+            reply_parts.append("\n━━━━━━━━━━━━━━━━━━━━\n🌿 Powered by Sanjeevni-OS")
             reply_text = "\n".join(reply_parts)
 
         dispatch_res = await send_whatsapp_message(to_phone=sender_phone, text=reply_text)
@@ -946,22 +1058,26 @@ async def process_whatsapp_inbound_webhook(payload: Dict[str, Any]) -> Dict[str,
     if text_lower.startswith("5 ") or text_lower == "5":
         specialty = message_text[2:].strip() if text_lower.startswith("5 ") else "General Physician"
         doctors_res = find_doctors_by_specialty(specialty or "General Physician")
-        reply_parts = [f"🏥 *EMPANELLED PM-JAY DOCTORS ({specialty.title()})* 🏥\n"]
+        reply_parts = [
+            f"🏥 EMPANELLED PM-JAY DOCTORS ({specialty.title()})",
+            "━━━━━━━━━━━━━━━━━━━━"
+        ]
         doctors_list = doctors_res if isinstance(doctors_res, list) else doctors_res.get("available_doctors", [])
         if doctors_list:
-            for doc in doctors_list[:4]:
+            for doc in doctors_list[:3]:
                 slots = doc.get("available_slots", [])
                 next_slot = slots[0] if slots else "Available Today"
                 hospital = doc.get("hospital", "AIIMS / Empanelled Center")
                 reply_parts.append(
-                    f"👨‍⚕️ *{doc.get('name')}* — {doc.get('specialty')}\n"
+                    f"👨‍⚕️ {doc.get('name')} — {doc.get('specialty')}\n"
                     f"   🏥 {hospital}\n"
-                    f"   💳 Fee: {doc.get('fee', '₹0 (PM-JAY)')} | Next Slot: {next_slot}\n"
+                    f"   💳 Fee: {doc.get('fee', '₹0 (PM-JAY)')} | Next: {next_slot}"
                 )
-            reply_parts.append("_To book an appointment, reply with preferred slot time._")
+            reply_parts.append("\n👉 Reply with preferred slot to schedule.")
         else:
             reply_parts.append(f"No specific doctors found for '{specialty}'. Please consult a General Physician.")
 
+        reply_parts.append("━━━━━━━━━━━━━━━━━━━━\n🌿 Powered by Sanjeevni-OS")
         reply_text = "\n".join(reply_parts)
         dispatch_res = await send_whatsapp_message(to_phone=sender_phone, text=reply_text)
         return {
@@ -974,19 +1090,24 @@ async def process_whatsapp_inbound_webhook(payload: Dict[str, Any]) -> Dict[str,
 
     # 12. Command Option 6: ABHA Health Card & PM-JAY
     if text_lower == "6" or text_lower.startswith("6 "):
-        abha_data = generate_abha_id(name="Sanjeevni User", year_of_birth=1998, state_code="DL")
-        schemes = check_ayushman_bharat_schemes().get("schemes", [])
+        abha_data = generate_abha_id(name="Sanjeevni User", year_of_birth=1998, state_code="MP")
+        abha_num = abha_data.get("abha_number") or abha_data.get("abha_id")
+        schemes_data = check_ayushman_bharat_schemes()
+        pmjay_cov = schemes_data.get("pmjay", {}).get("coverage", "₹5 Lakh / family / year free care")
+        jan_benefit = schemes_data.get("jan_aushadhi", {}).get("benefit", "Generic medicines at 50-90% savings")
         reply_parts = [
-            "🪪 *AYUSHMAN BHARAT DIGITAL MISSION (ABDM)* 🪪\n",
-            f"• *ABHA ID:* `{abha_data.get('abha_id')}`",
-            f"• *ABHA Address:* `{abha_data.get('abha_address')}`",
-            f"• *PM-JAY Wallet:* ₹5,00,000 / Family / Year",
-            f"• *Status:* {abha_data.get('status')}\n",
-            "📜 *Available National Health Schemes:*"
+            "🪪 AYUSHMAN BHARAT DIGITAL MISSION (ABDM)",
+            "━━━━━━━━━━━━━━━━━━━━",
+            f"• ABHA ID: {abha_num}",
+            f"• ABHA Address: {abha_data.get('abha_address')}",
+            "• PM-JAY Wallet: ₹5,00,000 / Family / Year",
+            f"• Card Status: {abha_data.get('status', 'ACTIVE')}\n",
+            "📜 Active National Health Schemes:",
+            f"• PM-JAY: {pmjay_cov}",
+            f"• Jan Aushadhi (PMBJP): {jan_benefit}"
         ]
-        for s in schemes[:3]:
-            reply_parts.append(f"• *{s.get('name')}:* {s.get('coverage_details')}")
 
+        reply_parts.append("\n━━━━━━━━━━━━━━━━━━━━\n🌿 Powered by Sanjeevni-OS")
         reply_text = "\n".join(reply_parts)
         dispatch_res = await send_whatsapp_message(to_phone=sender_phone, text=reply_text)
         return {
@@ -1003,13 +1124,14 @@ async def process_whatsapp_inbound_webhook(payload: Dict[str, Any]) -> Dict[str,
         if "preg" in param:
             v_res = calculate_vaccination_schedule(category="pregnant")
             reply_parts = [
-                "💉 *MATERNAL VACCINATION SCHEDULE (UIP / U-WIN)* 💉\n",
-                "• *Protocol:* Universal Maternal Immunization Protection",
-                "• *Recommended Vaccines:*"
+                "💉 MATERNAL VACCINATION SCHEDULE (UIP)",
+                "━━━━━━━━━━━━━━━━━━━━",
+                "• Protocol: Universal Maternal Immunization",
+                "• Vaccines Due:"
             ]
-            for v in v_res.get("recommended_vaccines", []):
-                reply_parts.append(f"  ↳ *{v['name']}:* {v['protects_against']} ({v['route']})")
-            reply_parts.append(f"\n💡 *Guidance:* {v_res.get('guideline')}")
+            for v in v_res.get("recommended_vaccines", [])[:2]:
+                reply_parts.append(f"  • {v['name']}: {v['protects_against']}")
+            reply_parts.append(f"\n💡 Guidance: {v_res.get('guideline')}")
         else:
             weeks = 6
             if "birth" in param or "0" in param:
@@ -1023,24 +1145,26 @@ async def process_whatsapp_inbound_webhook(payload: Dict[str, Any]) -> Dict[str,
 
             v_res = calculate_vaccination_schedule(age_in_weeks=weeks)
             reply_parts = [
-                "💉 *UNIVERSAL IMMUNIZATION PROGRAMME (UIP)* 💉\n",
-                f"• *Progress:* {v_res.get('uip_compliance_pct')}% Milestones Covered",
-                f"• *Next Due:* *{v_res.get('next_vaccine_due')}*",
-                f"• *Status:* {v_res.get('next_due_date')}\n"
+                "💉 UNIVERSAL IMMUNIZATION PROGRAMME (UIP)",
+                "━━━━━━━━━━━━━━━━━━━━",
+                f"• UIP Progress: {v_res.get('uip_compliance_pct')}% Covered",
+                f"• Next Due: {v_res.get('next_vaccine_due')}",
+                f"• Milestone: {v_res.get('next_due_date')}\n"
             ]
             if v_res.get("current_due"):
-                reply_parts.append("📋 *Due at this age:*")
-                for m in v_res["current_due"]:
-                    for v in m["vaccines"]:
-                        reply_parts.append(f"  • *{v['name']}:* {v['protects_against']}")
+                reply_parts.append("📋 Due at this age:")
+                for m in v_res["current_due"][:1]:
+                    for v in m["vaccines"][:3]:
+                        reply_parts.append(f"  • {v['name']}: {v['protects_against']}")
             elif v_res.get("upcoming"):
                 next_m = v_res["upcoming"][0]
-                reply_parts.append(f"📋 *Upcoming Milestone ({next_m['milestone_label']}):*")
-                for v in next_m["vaccines"]:
-                    reply_parts.append(f"  • *{v['name']}:* {v['protects_against']}")
+                reply_parts.append(f"📋 Upcoming ({next_m['milestone_label']}):")
+                for v in next_m["vaccines"][:3]:
+                    reply_parts.append(f"  • {v['name']}: {v['protects_against']}")
 
-            reply_parts.append("\n🏥 *Available free at all Anganwadis & Primary Health Centres.*")
+            reply_parts.append("\n🏥 Free at all Anganwadis & Primary Health Centres.")
 
+        reply_parts.append("━━━━━━━━━━━━━━━━━━━━\n🌿 Powered by Sanjeevni-OS")
         reply_text = "\n".join(reply_parts)
         dispatch_res = await send_whatsapp_message(to_phone=sender_phone, text=reply_text)
         return {
@@ -1056,13 +1180,14 @@ async def process_whatsapp_inbound_webhook(payload: Dict[str, Any]) -> Dict[str,
         district_query = message_text[2:].strip() if text_lower.startswith("8 ") else "Delhi"
         outbreak_res = get_district_outbreak_risk(district_query or "Delhi")["data"]
         reply_parts = [
-            f"🚨 *DISTRICT OUTBREAK SURVEILLANCE ({outbreak_res['district']})* 🚨\n",
-            f"• *Active Outbreak:* {outbreak_res['primary_outbreak']}",
-            f"• *Risk Status:* {outbreak_res['risk_badge']}",
-            f"• *Weekly Cases:* {outbreak_res['weekly_cases']} ({outbreak_res['velocity_pct']})",
-            f"• *Transmission:* {outbreak_res['transmission']}\n",
-            f"📋 *Advisory:* {outbreak_res['preventive_advisory']}\n",
-            f"📞 *Helpdesk:* {outbreak_res['helpline']}"
+            f"🚨 DISTRICT OUTBREAK SURVEILLANCE ({outbreak_res['district']})",
+            "━━━━━━━━━━━━━━━━━━━━",
+            f"• Active Infection: {outbreak_res['primary_outbreak']}",
+            f"• Risk Level: {outbreak_res['risk_badge']}",
+            f"• Weekly Cases: {outbreak_res['weekly_cases']} ({outbreak_res['velocity_pct']})",
+            f"\n📋 Advisory: {outbreak_res['preventive_advisory']}",
+            f"📞 Helpdesk: {outbreak_res['helpline']}",
+            "━━━━━━━━━━━━━━━━━━━━\n🌿 Powered by Sanjeevni-OS"
         ]
         reply_text = "\n".join(reply_parts)
         dispatch_res = await send_whatsapp_message(to_phone=sender_phone, text=reply_text)
@@ -1082,12 +1207,13 @@ async def process_whatsapp_inbound_webhook(payload: Dict[str, Any]) -> Dict[str,
             if questions:
                 session_manager.set_flow(sender_phone, "QUIZ_FLOW", {"questions": questions, "answers": {}})
                 q1 = questions[0]
-                opts = "\n".join([f"*{chr(65+i)}.* {opt}" for i, opt in enumerate(q1["options"])])
+                opts = "\n".join([f"{chr(65+i)}. {opt}" for i, opt in enumerate(q1["options"])])
                 msg = (
-                    "📝 *COMMUNITY HEALTH AWARENESS QUIZ (1/3)* 📝\n\n"
+                    "📝 COMMUNITY HEALTH AWARENESS QUIZ (1/3)\n"
+                    "━━━━━━━━━━━━━━━━━━━━\n"
                     f"{q1['question']}\n\n"
                     f"{opts}\n\n"
-                    "_Reply with A, B, C, or D to submit your answer!_"
+                    "Reply with A, B, C, or D to submit your answer!"
                 )
                 dispatch_res = await send_whatsapp_message(to_phone=sender_phone, text=msg)
                 return {
@@ -1099,13 +1225,14 @@ async def process_whatsapp_inbound_webhook(payload: Dict[str, Any]) -> Dict[str,
                 }
 
         reply_parts = [
-            "🌿 *RURAL PREVENTIVE HEALTHCARE GUIDES* 🌿\n",
-            "1. 💧 *ORS & Diarrhea Control:* Mix 1 packet in 1L clean water + Zinc 20mg for 14 days.",
-            "2. 🤱 *Poshan & Maternal Nutrition:* Daily IFA iron tablets + 6 months exclusive breastfeeding.",
-            "3. 🦟 *Vector Control (Dengue/Malaria):* Empty water coolers every Sunday; use mosquito nets.",
-            "4. 🧼 *Clean Water & Hygiene:* Boil water for 2 mins; 20-second handwashing before eating.",
-            "5. ❤️ *NCD Prevention:* Less than 5g salt daily, no tobacco, 30 min brisk walk.\n",
-            "_Reply '9 quiz' to take a 3-question awareness quiz & boost your health literacy score!_"
+            "🌿 RURAL PREVENTIVE HEALTHCARE GUIDES",
+            "━━━━━━━━━━━━━━━━━━━━",
+            "1. 💧 ORS & Diarrhea: Mix 1 packet in 1L clean water + Zinc 20mg for 14 days.",
+            "2. 🤱 Poshan Nutrition: Daily IFA iron tablets + 6 months exclusive breastfeeding.",
+            "3. 🦟 Dengue Control: Empty water coolers every Sunday; sleep under mosquito nets.",
+            "4. 🧼 Safe Water: Boil water for 2 mins; 20-second handwashing before food.\n",
+            "👉 Reply '9 quiz' to take the 3-question awareness quiz!",
+            "━━━━━━━━━━━━━━━━━━━━\n🌿 Powered by Sanjeevni-OS"
         ]
         reply_text = "\n".join(reply_parts)
         dispatch_res = await send_whatsapp_message(to_phone=sender_phone, text=reply_text)
@@ -1139,17 +1266,18 @@ async def process_whatsapp_inbound_webhook(payload: Dict[str, Any]) -> Dict[str,
     except Exception as exc:
         logger.error(f"[WhatsApp Swarm Exception] Fallback triggered: {exc}", exc_info=True)
         response_text = (
-            "⚠️ *SYNAPSE-OS — CLINICAL ASSISTANT NOTICE*\n\n"
-            "We encountered a temporary processing delay with our live clinical reasoning nodes. Your symptom query has been safely recorded.\n\n"
-            "🚨 *Immediate Emergency Guidance:*\n"
-            "If you or the patient are experiencing severe acute symptoms (such as intense chest pain, sudden difficulty breathing, persistent high fever, or loss of consciousness):\n"
-            "• 📞 Call *112* (National Emergency Helpline) or *108* (Ambulance) immediately.\n"
-            "• 🧠 Mental Health Crisis: Call *14416* (Tele-MANAS 24x7 Toll-Free).\n\n"
-            "📋 *Offline Menu Options:*\n"
-            "• Reply *menu* to view offline guides, doctor directory, and vaccination schedules.\n"
-            "• Reply *sos* for instant emergency contact dispatch.\n"
-            "• Reply *2 <medicine name>* to verify drug interactions.\n\n"
-            "_🌿 SynapseOS Active Medical Protection_"
+            "⚠️ SANJEEVNI CLINICAL ADVISORY\n"
+            "━━━━━━━━━━━━━━━━━━━━\n"
+            "We encountered a temporary processing delay with our live clinical reasoning swarm. Your symptom query has been recorded.\n\n"
+            "🚨 Immediate Emergency Guidance:\n"
+            "If you or the patient have severe symptoms (intense chest pain, breathlessness, high fever, or confusion):\n"
+            "• Call 112 (National Emergency) or 108 (Ambulance) immediately.\n"
+            "• Mental Health: Call 14416 (Tele-MANAS 24x7).\n\n"
+            "━━━━━━━━━━━━━━━━━━━━\n"
+            "👉 Quick Shortcuts:\n"
+            "• Reply menu for directory and schedules\n"
+            "• Reply sos for instant ambulance dispatch\n\n"
+            "🌿 Powered by Sanjeevni-OS"
         )
         trace_steps = 0
         intent = "fallback_emergency_advisory"

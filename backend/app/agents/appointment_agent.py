@@ -8,34 +8,70 @@ import uuid
 from typing import Dict, Any, List
 from datetime import datetime, timedelta
 
-# Sample Available Specialist Roster
+# Bhopal PM-JAY Empanelled Specialist Doctor Roster
 DOCTORS_ROSTER = [
     {
         "doctor_id": "DOC-AIIMS-101",
         "name": "Dr. Rajesh K. Varma",
         "specialty": "Cardiologist",
-        "hospital": "AIIMS New Delhi",
+        "hospital": "AIIMS Bhopal (Saket Nagar)",
         "experience": "18 Years",
         "fee": "₹0 (PM-JAY Empanelled)",
         "available_slots": ["Tomorrow at 10:30 AM", "Tomorrow at 02:00 PM", "Friday at 11:00 AM"]
     },
     {
-        "doctor_id": "DOC-MAX-102",
+        "doctor_id": "DOC-HAMIDIA-102",
         "name": "Dr. Ananya Sen",
         "specialty": "General Physician / Internal Medicine",
-        "hospital": "Max Super Speciality Hospital",
-        "experience": "12 Years",
+        "hospital": "Hamidia Hospital & GMC Bhopal (Royal Market)",
+        "experience": "14 Years",
         "fee": "₹0 (PM-JAY Empanelled)",
         "available_slots": ["Today at 04:30 PM", "Tomorrow at 11:15 AM", "Thursday at 03:00 PM"]
     },
     {
-        "doctor_id": "DOC-APOLLO-103",
+        "doctor_id": "DOC-BMHRC-103",
         "name": "Dr. Sameer Deshmukh",
         "specialty": "Pulmonologist",
-        "hospital": "Apollo Hospitals",
-        "experience": "15 Years",
+        "hospital": "Bhopal Memorial Hospital & Research Centre (BMHRC)",
+        "experience": "16 Years",
         "fee": "₹0 (PM-JAY Empanelled)",
         "available_slots": ["Tomorrow at 09:00 AM", "Friday at 01:30 PM"]
+    },
+    {
+        "doctor_id": "DOC-BANSAL-104",
+        "name": "Dr. Vivek Agrawal",
+        "specialty": "Cardiologist",
+        "hospital": "Bansal Hospital (Shahpura, Bhopal)",
+        "experience": "15 Years",
+        "fee": "₹0 (PM-JAY Empanelled)",
+        "available_slots": ["Today at 05:00 PM", "Tomorrow at 12:00 PM"]
+    },
+    {
+        "doctor_id": "DOC-CHIRAYU-105",
+        "name": "Dr. Pooja Chouhan",
+        "specialty": "Orthopedic Surgeon",
+        "hospital": "Chirayu Medical College & Hospital (Bhopal)",
+        "experience": "11 Years",
+        "fee": "₹0 (PM-JAY Empanelled)",
+        "available_slots": ["Tomorrow at 10:00 AM", "Saturday at 02:30 PM"]
+    },
+    {
+        "doctor_id": "DOC-JPHOSP-106",
+        "name": "Dr. Manoj Tiwari",
+        "specialty": "General Physician",
+        "hospital": "JP District Hospital (1250 Hospital, Tulsi Nagar, Bhopal)",
+        "experience": "20 Years",
+        "fee": "₹0 (PM-JAY Empanelled)",
+        "available_slots": ["Today at 03:30 PM", "Tomorrow at 09:30 AM"]
+    },
+    {
+        "doctor_id": "DOC-KAMLA-107",
+        "name": "Dr. Ritu Saxena",
+        "specialty": "Pediatrician & Neonatologist",
+        "hospital": "Kamla Nehru Hospital / GMC Bhopal",
+        "experience": "13 Years",
+        "fee": "₹0 (PM-JAY Empanelled)",
+        "available_slots": ["Tomorrow at 11:00 AM", "Thursday at 04:00 PM"]
     }
 ]
 

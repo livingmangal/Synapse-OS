@@ -27,19 +27,32 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   useEffect(() => {
     try {
-      const savedLang = localStorage.getItem('synapseos_lang') as LanguageCode;
+      const savedLang = (localStorage.getItem('synapseos_lang') || localStorage.getItem('synapseos_language')) as LanguageCode;
       if (savedLang && TRANSLATIONS[savedLang]) {
         setLanguageState(savedLang);
       }
     } catch {
       // localStorage fallback
     }
+
+    const handleExternalLangChange = (e: any) => {
+      const newLang = e.detail as LanguageCode;
+      if (newLang && TRANSLATIONS[newLang]) {
+        setLanguageState(newLang);
+      }
+    };
+    window.addEventListener('synapseos-language-change', handleExternalLangChange);
+    return () => {
+      window.removeEventListener('synapseos-language-change', handleExternalLangChange);
+    };
   }, []);
 
   const setLanguage = (lang: LanguageCode) => {
     setLanguageState(lang);
     try {
       localStorage.setItem('synapseos_lang', lang);
+      localStorage.setItem('synapseos_language', lang);
+      window.dispatchEvent(new CustomEvent('synapseos-language-change', { detail: lang }));
     } catch {}
   };
 

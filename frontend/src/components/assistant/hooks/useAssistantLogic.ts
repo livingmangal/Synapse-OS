@@ -198,9 +198,19 @@ export function useAssistantLogic() {
     window.addEventListener('toggle-synapseos-assistant', handleToggle);
     window.addEventListener('open-synapseos-assistant', handleOpen);
     (window as any).openSynapseOSAssistant = handleOpen;
+
+    const handleExternalLang = (e: any) => {
+      const newLang = e.detail as SupportedLanguage;
+      if (newLang) {
+        setSelectedLanguage(newLang);
+      }
+    };
+    window.addEventListener('synapseos-language-change', handleExternalLang);
+
     return () => {
       window.removeEventListener('toggle-synapseos-assistant', handleToggle);
       window.removeEventListener('open-synapseos-assistant', handleOpen);
+      window.removeEventListener('synapseos-language-change', handleExternalLang);
     };
   }, []);
 
@@ -216,6 +226,8 @@ export function useAssistantLogic() {
     if (typeof window !== 'undefined') {
       try {
         localStorage.setItem('synapseos_language', newLang);
+        localStorage.setItem('synapseos_lang', newLang);
+        window.dispatchEvent(new CustomEvent('synapseos-language-change', { detail: newLang }));
       } catch (e) {}
     }
   };

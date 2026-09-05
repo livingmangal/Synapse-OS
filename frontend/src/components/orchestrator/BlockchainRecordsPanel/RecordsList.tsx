@@ -67,7 +67,8 @@ export default function RecordsList({ state }: { state: any }) {
         timestamp_raw: timestampFormatted,
         timestamp: timestampFormatted,
         facility: facilityName,
-        verified: true
+        verified: true,
+        simulated: simulated === true
       };
 
       // Persist permanently in Supabase
@@ -176,7 +177,27 @@ export default function RecordsList({ state }: { state: any }) {
             </div>
             
             {!state.walletAddress && (
-              <span style={{ fontSize: '12px', color: '#ef4444' }}>Please connect wallet (Burner or MetaMask) in the header to register records.</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                <span style={{ fontSize: '12px', color: '#ef4444' }}>Please connect a wallet to register records:</span>
+                <button
+                  onClick={state.connectBurner}
+                  style={{
+                    padding: '4px 10px',
+                    borderRadius: '6px',
+                    background: '#ecfdf5',
+                    border: '1px solid #10b981',
+                    color: '#065f46',
+                    fontSize: '11.5px',
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '4px'
+                  }}
+                >
+                  ⚡ Connect Burner Wallet (Instant)
+                </button>
+              </div>
             )}
             {uploadError && (
               <span style={{ fontSize: '13px', color: '#ef4444', background: '#fef2f2', padding: '8px 12px', borderRadius: '6px', border: '1px solid #fecaca' }}>{uploadError}</span>
@@ -217,19 +238,32 @@ export default function RecordsList({ state }: { state: any }) {
               <div key={i} style={{ background: '#ffffff', border: '1px solid #cbd5e1', borderRadius: '14px', padding: '20px', boxShadow: '0 2px 8px rgba(0,0,0,0.02)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px', flexWrap: 'wrap', gap: '10px' }}>
                   <span style={{ fontWeight: 800, color: '#db2777', fontSize: '15px', fontFamily: 'system-ui, -apple-system, sans-serif' }}>{translateText(r.type)}</span>
-                  <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                  <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
                     <span style={{ fontSize: '11px', color: '#059669', background: '#ecfdf5', border: '1px solid #a7f3d0', padding: '4px 10px', borderRadius: '20px', fontWeight: 700, fontFamily: 'system-ui, -apple-system, sans-serif' }}>
                       ✓ {translateText('On-Chain Verified')}
                     </span>
                     <span style={{ fontSize: '10.5px', color: '#2563eb', background: '#eff6ff', border: '1px solid #bfdbfe', padding: '4px 8px', borderRadius: '20px', fontWeight: 700 }}>
                       ⚡ Supabase Synced
                     </span>
+                    {r.simulated === true ? (
+                      <span style={{ fontSize: '10.5px', color: '#d97706', background: '#fffbeb', border: '1px solid #fde68a', padding: '4px 8px', borderRadius: '20px', fontWeight: 700 }}>
+                        ⚠️ Local Simulation
+                      </span>
+                    ) : (
+                      <span style={{ fontSize: '10.5px', color: '#7c3aed', background: '#f5f3ff', border: '1px solid #ddd6fe', padding: '4px 8px', borderRadius: '20px', fontWeight: 700 }}>
+                        ☁️ Pinata IPFS Pinned
+                      </span>
+                    )}
                   </div>
                 </div>
                 <div style={{ fontSize: '14px', color: '#475569', marginBottom: '8px' }}>Patient: <b style={{ color: '#0f172a' }}>{r.patient || r.patient_name}</b> (ABHA: {r.abha || r.abha_number})</div>
                 <div style={{ fontSize: '12px', color: '#64748b', wordBreak: 'break-all', marginBottom: '4px', fontFamily: 'monospace' }}>Record ID: <span style={{ color: '#db2777' }}>{r.id || 'N/A'}</span></div>
                 <div style={{ fontSize: '12px', color: '#64748b', wordBreak: 'break-all', marginBottom: '4px', fontFamily: 'monospace' }}>
-                  IPFS CID: <a href={`https://gateway.pinata.cloud/ipfs/${r.cid}`} target="_blank" rel="noopener noreferrer" style={{ color: '#3b82f6', textDecoration: 'underline' }}>{r.cid} ↗</a>
+                  IPFS CID: {r.simulated === true ? (
+                    <span style={{ color: '#d97706' }}>{r.cid} <i style={{ fontSize: '11px', fontFamily: 'sans-serif' }}>(Simulated Local Digest)</i></span>
+                  ) : (
+                    <a href={`https://gateway.pinata.cloud/ipfs/${r.cid}`} target="_blank" rel="noopener noreferrer" style={{ color: '#3b82f6', textDecoration: 'underline' }}>{r.cid} ↗</a>
+                  )}
                 </div>
                 <div style={{ fontSize: '12px', color: '#64748b', wordBreak: 'break-all', marginBottom: '4px', fontFamily: 'monospace' }}>SHA-256 Digest: {r.hash || r.tx_hash}</div>
                 {r.facility && (

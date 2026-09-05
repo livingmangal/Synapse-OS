@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { SynapseOSState, PatientInfo } from '../types';
 import { ShieldCheck, GitBranch, Activity, Pill, Users } from 'lucide-react';
+import { useLanguage } from '@/context/LanguageContext';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
 
@@ -13,38 +14,50 @@ export interface DAGNode {
   latencyMs: number;
 }
 
+const DEFAULT_QUERY = 'Patient presents with acute chest pain and shortness of breath. Can we combine aspirin with warfarin?';
+
 export function useSwarmLogic(patient: PatientInfo) {
-  const [query, setQuery] = useState('Patient presents with acute chest pain and shortness of breath. Can we combine aspirin with warfarin?');
+  const { translateText, language } = useLanguage();
+  const [query, setQuery] = useState(() => translateText(DEFAULT_QUERY));
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<SynapseOSState | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'synthesis' | 'tabular' | 'dag_trace' | 'interactions'>('synthesis');
 
+  useEffect(() => {
+    setQuery(prev => {
+      if (!prev || prev === DEFAULT_QUERY || prev.includes('aspirin') || prev.includes('एस्पिरिन') || prev.includes('ওয়ারফারিন') || prev.includes('వార్ఫరిన్') || prev.includes('வார்ஃபரின்') || prev.includes('वारफेरिन')) {
+        return translateText(DEFAULT_QUERY);
+      }
+      return prev;
+    });
+  }, [language, translateText]);
+
   const presets = [
     { 
       category: 'Vaccination',
       title: '💉 UIP 6-Week Infant Immunization', 
-      query: 'What vaccines are due for a 6-week old baby in India under the Universal Immunization Programme (UIP)?' 
+      query: translateText('What vaccines are due for a 6-week old baby in India under the Universal Immunization Programme (UIP)?') 
     },
     { 
       category: 'Preventive Health',
       title: '🌿 Child Diarrhea & ORS Preparation', 
-      query: 'How to prepare WHO-standard ORS and Zinc at home for a child experiencing acute watery diarrhea and dehydration?' 
+      query: translateText('How to prepare WHO-standard ORS and Zinc at home for a child experiencing acute watery diarrhea and dehydration?') 
     },
     { 
       category: 'Outbreak Alerts',
       title: '🚨 Delhi Dengue Outbreak Early Warning', 
-      query: 'Check real-time Dengue outbreak surge status, containment zones, and preventive directives in Delhi NCR.' 
+      query: translateText('Check real-time Dengue outbreak surge status, containment zones, and preventive directives in Delhi NCR.') 
     },
     { 
       category: 'Pharmacology',
       title: '💊 Warfarin & Ibuprofen Interaction', 
-      query: 'Patient is on Warfarin 5mg daily. Experiences acute joint pain and fever; can they take Ibuprofen 400mg with Warfarin?' 
+      query: translateText('Patient is on Warfarin 5mg daily. Experiences acute joint pain and fever; can they take Ibuprofen 400mg with Warfarin?') 
     },
     { 
       category: 'Emergency',
       title: '🚨 Acute Chest Pain & Dyspnea', 
-      query: 'Severe crushing chest pain radiating to left arm and jaw with cold sweat, O2 saturation 92%, BP 145/95.' 
+      query: translateText('Severe crushing chest pain radiating to left arm and jaw with cold sweat, O2 saturation 92%, BP 145/95.') 
     }
   ];
 

@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { useLanguage } from '@/context/LanguageContext';
 import { 
   Users, 
   Bed, 
@@ -14,6 +15,7 @@ import {
 import { HospitalMetrics } from '../types';
 
 export default function HospitalOperationsPanel() {
+  const { t } = useLanguage();
   const metrics: HospitalMetrics = {
     totalAdmitted: 859,
     malePatients: 529,
@@ -88,15 +90,15 @@ export default function HospitalOperationsPanel() {
           }}
         >
           <div style={{ fontSize: '11px', fontWeight: 700, color: '#64748b', textTransform: 'uppercase' }}>
-            Total Admitted Patients
+            {t('hosp_total_admitted', 'Total Admitted Patients')}
           </div>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginTop: '6px' }}>
             <span style={{ fontSize: '28px', fontWeight: 900, color: '#db2777' }}>{metrics.totalAdmitted}</span>
             <span style={{ fontSize: '12px', fontWeight: 800, color: '#059669' }}>+2%</span>
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: '#64748b', marginTop: '12px', borderTop: '1px solid #f1f5f9', paddingTop: '8px' }}>
-            <span>{metrics.malePatients} Male • {metrics.femalePatients} Female</span>
-            <span>{metrics.waiting} Waiting • {metrics.discharge} Discharge</span>
+            <span>{metrics.malePatients} {t('hosp_male', 'Male')} • {metrics.femalePatients} {t('hosp_female', 'Female')}</span>
+            <span>{metrics.waiting} {t('hosp_waiting', 'Waiting')} • {metrics.discharge} {t('hosp_discharge', 'Discharge')}</span>
           </div>
         </div>
 
@@ -112,14 +114,14 @@ export default function HospitalOperationsPanel() {
           }}
         >
           <div style={{ fontSize: '11px', fontWeight: 700, color: '#64748b', textTransform: 'uppercase' }}>
-            Total Active Staff
+            {t('hosp_active_staff', 'Total Active Staff')}
           </div>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginTop: '6px' }}>
             <span style={{ fontSize: '28px', fontWeight: 900, color: '#0f172a' }}>{metrics.activeStaff}</span>
           </div>
           <div style={{ display: 'flex', gap: '14px', fontSize: '11px', color: '#64748b', marginTop: '12px', borderTop: '1px solid #f1f5f9', paddingTop: '8px' }}>
-            <span><strong>{metrics.doctors}</strong> Doctors</span>
-            <span><strong>{metrics.nursing}</strong> Nursing</span>
+            <span><strong>{metrics.doctors}</strong> {t('hosp_doctors', 'Doctors')}</span>
+            <span><strong>{metrics.nursing}</strong> {t('hosp_nurses', 'Nursing')}</span>
           </div>
         </div>
 
@@ -135,14 +137,14 @@ export default function HospitalOperationsPanel() {
           }}
         >
           <div style={{ fontSize: '11px', fontWeight: 700, color: '#64748b', textTransform: 'uppercase' }}>
-            Operational Cost
+            {t('hosp_operational_cost', 'Operational Cost')}
           </div>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginTop: '6px' }}>
             <span style={{ fontSize: '28px', fontWeight: 900, color: '#0f172a' }}>{metrics.operationalCost}</span>
             <span style={{ fontSize: '12px', fontWeight: 800, color: '#059669' }}>+5%</span>
           </div>
           <div style={{ fontSize: '11px', color: '#64748b', marginTop: '12px', borderTop: '1px solid #f1f5f9', paddingTop: '8px' }}>
-            Avg cost per patient: <strong>{metrics.avgCostPerPatient}</strong>
+            {t('hosp_avg_cost_patient', 'Avg cost per patient')}: <strong>{metrics.avgCostPerPatient}</strong>
           </div>
         </div>
 
@@ -158,14 +160,14 @@ export default function HospitalOperationsPanel() {
           }}
         >
           <div style={{ fontSize: '11px', fontWeight: 700, color: '#64748b', textTransform: 'uppercase' }}>
-            Patient Satisfaction Rate
+            {t('hosp_satisfaction_rate', 'Patient Satisfaction Rate')}
           </div>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginTop: '6px' }}>
             <span style={{ fontSize: '28px', fontWeight: 900, color: '#059669' }}>{metrics.patientSatisfactionRate}%</span>
           </div>
           <div style={{ display: 'flex', gap: '10px', fontSize: '10px', color: '#64748b', marginTop: '12px', borderTop: '1px solid #f1f5f9', paddingTop: '8px' }}>
-            <span style={{ color: '#059669', fontWeight: 700 }}>Excellent {metrics.satisfactionBreakdown.excellent}%</span>
-            <span style={{ color: '#f59e0b', fontWeight: 700 }}>Good {metrics.satisfactionBreakdown.good}%</span>
+            <span style={{ color: '#059669', fontWeight: 700 }}>{t('hosp_sat_excellent', 'Excellent')} {metrics.satisfactionBreakdown.excellent}%</span>
+            <span style={{ color: '#f59e0b', fontWeight: 700 }}>{t('hosp_sat_good', 'Good')} {metrics.satisfactionBreakdown.good}%</span>
           </div>
         </div>
 
@@ -185,15 +187,15 @@ export default function HospitalOperationsPanel() {
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
           <div>
             <h3 style={{ fontSize: '15px', fontWeight: 800, color: '#0f172a', margin: 0 }}>
-              Recently Admitted Patients
+              {t('hosp_admitted_patients', 'Recently Admitted Patients')}
             </h3>
-            <span style={{ fontSize: '11px', color: '#64748b' }}>Live ER and Ward Admissions</span>
+            <span style={{ fontSize: '11px', color: '#64748b' }}>{t('hosp_live_admissions', 'Live ER and Ward Admissions')}</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <span style={{ fontSize: '11px', color: '#ef4444', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '4px' }}>
-              ● Critical Flag
+              ● {t('hosp_critical_flag', 'Critical Flag')}
             </span>
-            <span style={{ fontSize: '12px', color: '#db2777', fontWeight: 700, cursor: 'pointer' }}>Details →</span>
+            <span style={{ fontSize: '12px', color: '#db2777', fontWeight: 700, cursor: 'pointer' }}>{t('hosp_details', 'Details →')}</span>
           </div>
         </div>
 
@@ -202,12 +204,12 @@ export default function HospitalOperationsPanel() {
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '12px' }}>
             <thead>
               <tr style={{ borderBottom: '1px solid #f1f5f9', color: '#64748b', textAlign: 'left' }}>
-                <th style={{ padding: '8px 12px' }}>Patient Name</th>
-                <th style={{ padding: '8px 12px' }}>Patient ID</th>
-                <th style={{ padding: '8px 12px' }}>Ward-Room No.</th>
-                <th style={{ padding: '8px 12px' }}>Assigned Doctor</th>
-                <th style={{ padding: '8px 12px' }}>Assigned Nurse</th>
-                <th style={{ padding: '8px 12px' }}>Division</th>
+                <th style={{ padding: '8px 12px' }}>{t('hosp_patient_name', 'Patient Name')}</th>
+                <th style={{ padding: '8px 12px' }}>{t('hosp_patient_id', 'Patient ID')}</th>
+                <th style={{ padding: '8px 12px' }}>{t('hosp_room_no', 'Ward-Room No.')}</th>
+                <th style={{ padding: '8px 12px' }}>{t('hosp_assigned_doc', 'Assigned Doctor')}</th>
+                <th style={{ padding: '8px 12px' }}>{t('hosp_assigned_nurse', 'Assigned Nurse')}</th>
+                <th style={{ padding: '8px 12px' }}>{t('hosp_division', 'Division')}</th>
               </tr>
             </thead>
             <tbody>
@@ -253,9 +255,9 @@ export default function HospitalOperationsPanel() {
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
             <h3 style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a', margin: 0 }}>
-              Bed Occupancy ({metrics.bedOccupancy.occupied}/{metrics.bedOccupancy.total})
+              {t('hosp_bed_occupancy', 'Bed Occupancy')} ({metrics.bedOccupancy.occupied}/{metrics.bedOccupancy.total})
             </h3>
-            <span style={{ fontSize: '12px', color: '#db2777', fontWeight: 700 }}>Details →</span>
+            <span style={{ fontSize: '12px', color: '#db2777', fontWeight: 700 }}>{t('hosp_details', 'Details →')}</span>
           </div>
 
           <div style={{ height: '140px', position: 'relative' }}>
@@ -292,7 +294,7 @@ export default function HospitalOperationsPanel() {
         >
           <div>
             <h3 style={{ fontSize: '14px', fontWeight: 800, color: '#0f172a', margin: '0 0 12px 0' }}>
-              Critical Patient Management
+              {t('hosp_critical_patients', 'Critical Patient Management')}
             </h3>
             <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
               <div style={{
@@ -324,19 +326,19 @@ export default function HospitalOperationsPanel() {
               <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '11px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                   <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#ef4444' }} />
-                  <span style={{ color: '#475569' }}>Active ICU: <strong>{metrics.criticalPatients.active} (30%)</strong></span>
+                  <span style={{ color: '#475569' }}>{t('hosp_active_patients', 'Active ICU')}: <strong>{metrics.criticalPatients.active} (30%)</strong></span>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                   <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#facc15' }} />
-                  <span style={{ color: '#475569' }}>Recovered: <strong>{metrics.criticalPatients.recovered} (53%)</strong></span>
+                  <span style={{ color: '#475569' }}>{t('hosp_recovered', 'Recovered')}: <strong>{metrics.criticalPatients.recovered} (53%)</strong></span>
                 </div>
               </div>
             </div>
           </div>
 
           <div style={{ borderTop: '1px solid #f1f5f9', paddingTop: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '11px' }}>
-            <span>Ventilators in Use: <strong>{metrics.criticalPatients.ventilatorsInUse}/{metrics.criticalPatients.ventilatorsTotal}</strong></span>
-            <span style={{ color: '#db2777', fontWeight: 700 }}>Usage Rate →</span>
+            <span>{t('hosp_ventilators_in_use', 'Ventilators in Use')}: <strong>{metrics.criticalPatients.ventilatorsInUse}/{metrics.criticalPatients.ventilatorsTotal}</strong></span>
+            <span style={{ color: '#db2777', fontWeight: 700 }}>{t('hosp_usage_rate', 'Usage Rate →')}</span>
           </div>
         </div>
 

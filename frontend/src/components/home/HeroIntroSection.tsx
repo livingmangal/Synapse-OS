@@ -1,6 +1,11 @@
+'use client';
+
 import React from 'react';
+import { useLanguage } from '@/context/LanguageContext';
 
 export function HeroIntroSection() {
+  const { t } = useLanguage();
+
   return (
     <div className="mod-scroll__intro bg-white">
       {/* Top-to-Top Minimal Luminous Glowing Arc */}
@@ -246,37 +251,37 @@ export function HeroIntroSection() {
           <g className="diagram-badge" transform="translate(30, 80)">
             <rect x="0" y="0" width="146" height="28" rx="14" fill="#edebe8" stroke="rgb(205, 200, 194)" strokeWidth="0.8" />
             <text x="73" y="18" textAnchor="middle" fontFamily="monospace, Courier" fontSize="11" fill="#44403c">
-              vitals telemetry
+              {t('badge_vitals_telemetry', 'vitals telemetry')}
             </text>
           </g>
           <g className="diagram-badge" transform="translate(30, 248)">
             <rect x="0" y="0" width="148" height="28" rx="14" fill="#edebe8" stroke="rgb(205, 200, 194)" strokeWidth="0.8" />
             <text x="74" y="18" textAnchor="middle" fontFamily="monospace, Courier" fontSize="11" fill="#44403c">
-              prescription ocr
+              {t('badge_prescription_ocr', 'prescription ocr')}
             </text>
           </g>
           <g className="diagram-badge" transform="translate(230, 164)">
             <rect x="0" y="0" width="138" height="28" rx="14" fill="#edebe8" stroke="rgb(205, 200, 194)" strokeWidth="0.8" />
             <text x="69" y="18" textAnchor="middle" fontFamily="monospace, Courier" fontSize="11" fill="#44403c">
-              symptom triage
+              {t('badge_symptom_triage', 'symptom triage')}
             </text>
           </g>
           <g className="diagram-badge" transform="translate(774, 164)">
             <rect x="0" y="0" width="142" height="28" rx="14" fill="#edebe8" stroke="rgb(205, 200, 194)" strokeWidth="0.8" />
             <text x="71" y="18" textAnchor="middle" fontFamily="monospace, Courier" fontSize="11" fill="#44403c">
-              ct &amp; x-ray scans
+              {t('badge_ct_xray', 'ct & x-ray scans')}
             </text>
           </g>
           <g className="diagram-badge" transform="translate(950, 80)">
             <rect x="0" y="0" width="162" height="28" rx="14" fill="#edebe8" stroke="rgb(205, 200, 194)" strokeWidth="0.8" />
             <text x="81" y="18" textAnchor="middle" fontFamily="monospace, Courier" fontSize="11" fill="#44403c">
-              who outbreak radar
+              {t('badge_who_radar', 'who outbreak radar')}
             </text>
           </g>
           <g className="diagram-badge" transform="translate(930, 248)">
             <rect x="0" y="0" width="180" height="28" rx="14" fill="#edebe8" stroke="rgb(205, 200, 194)" strokeWidth="0.8" />
             <text x="90" y="18" textAnchor="middle" fontFamily="monospace, Courier" fontSize="11" fill="#44403c">
-              abha on-chain records
+              {t('badge_abha_records', 'abha on-chain records')}
             </text>
           </g>
         </svg>
@@ -285,38 +290,36 @@ export function HeroIntroSection() {
       <div className="wrapper">
         <ul id="menu-principal-1" className="mod-scroll__intro__menu f-izmir t-parrafo t-upper">
           <li className="link menu-item menu-item-type-post_type menu-item-object-page menu-item-1411">
-            <a href="/about-us">About Us</a>
+            <a href="/about-us">{t('nav_about_us', 'About Us')}</a>
           </li>
 
           <li className="link menu-item">
             <a href="/vibrant" data-no-swup="true" style={{ color: '#6366f1', fontWeight: 600 }}>
-              3D Model
+              {t('nav_3d_model', '3D Model')}
             </a>
           </li>
           <li className="link menu-item menu-item-type-custom menu-item-object-custom menu-item-1088">
-            <a href="#contacto">Contact</a>
+            <a href="#contacto">{t('nav_inquiries', 'Contact')}</a>
           </li>
           <li className="no-show-scroll link menu-item menu-item-type-custom menu-item-object-custom menu-item-1089">
-            <a href="#disponibilidad">Availability</a>
+            <a href="#disponibilidad">{t('nav_availability', 'Availability')}</a>
           </li>
         </ul>
-        <div className="mod-scroll__intro__section mod-scroll__section t-parrafo-l f-edit">Home</div>
+        <div className="mod-scroll__intro__section mod-scroll__section t-parrafo-l f-edit">{t('nav_home', 'Home')}</div>
         <div className="mod-scroll__intro__copyright t-subtitulo f-izmir">SynapseOS ©2026</div>
 
         <div className="mod-scroll__intro__content">
           <div className="mod-scroll__intro__wrap-titles">
             <div className="mod-scroll__intro__title f-izmir t-titulo-xxl line lh-less is_home">
-              Global Health
+              {t('hero_title_1', 'Global Health')}
             </div>
             <div className="mod-scroll__intro__title f-izmir t-titulo-xxl line lh-less is_home">
-              Driven by <em>AI Agents</em>
+              {t('hero_title_2', 'Driven by AI Agents')}
             </div>
           </div>
           <div className="mod-scroll__intro__text">
             <p>
-              SynapseOS is an open-source health platform powered by a swarm of specialized AI agents,
-              bridging the gap between everyday tracking and complex medical triage with absolute privacy and
-              blockchain verification.
+              {t('hero_desc', 'SynapseOS is an open-source health platform powered by a swarm of specialized AI agents, bridging the gap between everyday tracking and complex medical triage with absolute privacy and blockchain verification.')}
             </p>
           </div>
         </div>

@@ -401,18 +401,18 @@ export default function SwarmIntelligencePanel({
                 </span>
               </div>
               <span style={{ fontSize: '11px', color: '#047857' }}>
-                Grounded in 23 WHO/ICMR Guidelines, NIH RxNav, MoHFW UIP Immunization & IDSP Outbreak Surveillance.
+                {translateText('Grounded in 23 WHO/ICMR Guidelines, NIH RxNav, MoHFW UIP Immunization & IDSP Outbreak Surveillance.')}
               </span>
             </div>
           </div>
 
           <div style={{ display: 'flex', gap: '8px' }}>
             <div style={{ textAlign: 'center', background: '#ffffff', padding: '6px 12px', borderRadius: '8px', border: '1px solid #bbf7d0' }}>
-              <div style={{ fontSize: '10px', color: '#64748b' }}>Emergency Recall</div>
+              <div style={{ fontSize: '10px', color: '#64748b' }}>{translateText('Emergency Recall')}</div>
               <div style={{ fontSize: '13px', fontWeight: 900, color: '#059669' }}>99.2%</div>
             </div>
             <div style={{ textAlign: 'center', background: '#ffffff', padding: '6px 12px', borderRadius: '8px', border: '1px solid #bbf7d0' }}>
-              <div style={{ fontSize: '10px', color: '#64748b' }}>RxNav Sensitivity</div>
+              <div style={{ fontSize: '10px', color: '#64748b' }}>{translateText('RxNav Sensitivity')}</div>
               <div style={{ fontSize: '13px', fontWeight: 900, color: '#059669' }}>96.8%</div>
             </div>
           </div>

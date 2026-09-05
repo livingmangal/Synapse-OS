@@ -1,8 +1,11 @@
 'use client';
 
 import React from 'react';
+import { useLanguage } from '@/context/LanguageContext';
 
 export function TryPlatformSection() {
+  const { t } = useLanguage();
+
   return (
     <section
       className="try-platform-section wrapper bg-beige c-black relative w-full overflow-hidden"
@@ -18,7 +21,7 @@ export function TryPlatformSection() {
       <div className="mod-title__intro t-center" style={{ marginBottom: '0.75rem' }}>
         <span className="mod-title__anchor" id="" />
         <div className="f-edit t-titulo" style={{ fontSize: '1.15rem', color: '#d84b16' }}>
-          (Clinical Proof &amp; Testimonials)
+          {t('try_badge', '(Clinical Proof & Testimonials)')}
         </div>
       </div>
 
@@ -31,7 +34,7 @@ export function TryPlatformSection() {
           marginBottom: '0.75rem',
         }}
       >
-        TRY THE PLATFORM
+        {t('try_title', 'TRY THE PLATFORM')}
       </div>
 
       <div
@@ -43,8 +46,7 @@ export function TryPlatformSection() {
           style={{ color: '#524b44', fontSize: '0.925rem', lineHeight: 1.55 }}
         >
           <p style={{ margin: 0 }}>
-            See how leading clinicians, hospitals, and emergency specialists deploy SynapseOS
-            multi-agent intelligence to streamline triage, diagnostic imaging, and decentralized care.
+            {t('try_desc', 'See how leading clinicians, hospitals, and emergency specialists deploy SynapseOS multi-agent intelligence to streamline triage, diagnostic imaging, and decentralized care.')}
           </p>
         </div>
       </div>
@@ -136,9 +138,7 @@ export function TryPlatformSection() {
                   userSelect: 'none',
                 }}
               >
-                Real
-                <br />
-                feedback.
+                {t('try_real_feedback', 'Real feedback.')}
               </div>
             </div>
           </div>
@@ -186,7 +186,7 @@ export function TryPlatformSection() {
                 color: '#ffffff',
               }}
             >
-              Trauma OT 04
+              {t('try_trauma_ot', 'Trauma OT 04')}
             </div>
           </div>
 
@@ -225,7 +225,7 @@ export function TryPlatformSection() {
                 fontSize: '0.825rem',
               }}
             >
-              (Chief Neurologist)
+              {t('try_amelia_role', '(Chief Neurologist)')}
             </div>
 
             <div
@@ -240,12 +240,10 @@ export function TryPlatformSection() {
               }}
             >
               <p style={{ margin: 0 }}>
-                These multi-agent triage workflows should be a mandatory standard for every trauma
-                emergency wing.
+                {t('try_amelia_p1', 'These multi-agent triage workflows should be a mandatory standard for every trauma emergency wing.')}
               </p>
               <p style={{ margin: 0 }}>
-                The scan OCR parsed multi-slice CT findings with zero hallucinations in 3.4 seconds.
-                It cuts diagnostic latency down by more than 60% during critical golden hour cases.
+                {t('try_amelia_p2', 'The scan OCR parsed multi-slice CT findings with zero hallucinations in 3.4 seconds. It cuts diagnostic latency down by more than 60% during critical golden hour cases.')}
               </p>
             </div>
           </div>
@@ -293,7 +291,7 @@ export function TryPlatformSection() {
                 color: '#ffffff',
               }}
             >
-              Live Telemetry
+              {t('try_live_telemetry', 'Live Telemetry')}
             </div>
           </div>
 
@@ -332,7 +330,7 @@ export function TryPlatformSection() {
                 fontSize: '0.825rem',
               }}
             >
-              (Lead Intensivist &amp; ER)
+              {t('try_hamza_role', '(Lead Intensivist & ER)')}
             </div>
 
             <div
@@ -347,12 +345,10 @@ export function TryPlatformSection() {
               }}
             >
               <p style={{ margin: 0 }}>
-                I used to spend 45 minutes per shift reconciling intake vitals and telemetry from
-                disparate EHR systems. SynapseOS aggregates multimodal streams instantaneously.
+                {t('try_hamza_p1', 'I used to spend 45 minutes per shift reconciling intake vitals and telemetry from disparate EHR systems. SynapseOS aggregates multimodal streams instantaneously.')}
               </p>
               <p style={{ margin: 0 }}>
-                The verifiable ledger ensures every triage decision and diagnostic prescription is
-                cryptographically audited on Polygon with zero patient privacy leaks ;)
+                {t('try_hamza_p2', 'The verifiable ledger ensures every triage decision and diagnostic prescription is cryptographically audited on Polygon with zero patient privacy leaks ;)')}
               </p>
             </div>
           </div>
@@ -425,7 +421,7 @@ export function TryPlatformSection() {
                 fontSize: '0.825rem',
               }}
             >
-              (Pediatric Pulmonology)
+              {t('try_diora_role', '(Pediatric Pulmonology)')}
             </div>
 
             <div
@@ -440,12 +436,10 @@ export function TryPlatformSection() {
               }}
             >
               <p style={{ margin: 0 }}>
-                The conversational triage assistant conducts multi-lingual symptom intake with
-                empathetic, high-accuracy clinical rigor that our hospital hadn't seen in four years.
+                {t('try_diora_p1', "The conversational triage assistant conducts multi-lingual symptom intake with empathetic, high-accuracy clinical rigor that our hospital hadn't seen in four years.")}
               </p>
               <p style={{ margin: 0 }}>
-                Parents feel heard, and pediatricians receive structured FHIR summaries the second
-                the patient enters triage.
+                {t('try_diora_p2', 'Parents feel heard, and pediatricians receive structured FHIR summaries the second the patient enters triage.')}
               </p>
             </div>
           </div>
@@ -547,7 +541,7 @@ export function TryPlatformSection() {
                 fontSize: '0.825rem',
               }}
             >
-              (Director, Telehealth Network)
+              {t('try_sylo_role', '(Director, Telehealth Network)')}
             </div>
 
             <div
@@ -562,14 +556,10 @@ export function TryPlatformSection() {
               }}
             >
               <p style={{ margin: 0 }}>
-                Our clinicians absolutely love SynapseOS! As soon as an intake begins on WhatsApp
-                or SIP telephony, the Orchestrator delegates tasks seamlessly to scan and triage
-                agents.
+                {t('try_sylo_p1', 'Our clinicians absolutely love SynapseOS! As soon as an intake begins on WhatsApp or SIP telephony, the Orchestrator delegates tasks seamlessly to scan and triage agents.')}
               </p>
               <p style={{ margin: 0 }}>
-                They're clearly one of our favorite tools. I love knowing we give clinicians a
-                system that genuinely boosts diagnostic wellbeing. Definitely a staple in our
-                network!
+                {t('try_sylo_p2', "They're clearly one of our favorite tools. I love knowing we give clinicians a system that genuinely boosts diagnostic wellbeing. Definitely a staple in our network!")}
               </p>
             </div>
           </div>

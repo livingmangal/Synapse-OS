@@ -1,15 +1,17 @@
 import React from 'react';
 import { RefreshCw } from 'lucide-react';
 import { ModalityType } from './useMedicalScan';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function ScanViewer({ state }: { state: any }) {
+  const { t, translateText } = useLanguage();
   return (
     <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '24px', padding: '24px', display: 'flex', flexDirection: 'column', boxShadow: '0 4px 16px rgba(0,0,0,0.02)' }}>
       {/* Canvas Toolbar */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', flexWrap: 'wrap', gap: '8px' }}>
         <div style={{ fontSize: '13px', fontWeight: 800, color: '#0f172a', display: 'flex', alignItems: 'center', gap: '8px', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
           <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: state.uploadedImagePreview ? '#10b981' : '#3b82f6' }}></span>
-          <span>{state.uploadedFileName ? `Scan: ${state.uploadedFileName}` : `${state.modality === 'bone_fracture' ? 'FractureNet Orthopedic X-Ray Specimen' : state.modality === 'chest_xray' ? 'Standard PA Chest Radiograph' : state.modality === 'prescription' ? 'Digital Prescription Specimen' : 'Clinical Metabolic Specimen'}`}</span>
+          <span>{state.uploadedFileName ? `${translateText('Scan:')} ${state.uploadedFileName}` : translateText(state.modality === 'bone_fracture' ? 'FractureNet Orthopedic X-Ray Specimen' : state.modality === 'chest_xray' ? 'Standard PA Chest Radiograph' : state.modality === 'prescription' ? 'Digital Prescription Specimen' : 'Clinical Metabolic Specimen')}</span>
         </div>
 
         {/* Canvas Controls */}
@@ -29,7 +31,7 @@ export default function ScanViewer({ state }: { state: any }) {
                 fontFamily: 'system-ui, -apple-system, sans-serif'
               }}
             >
-              {state.showGradCam ? '🔥 Grad-CAM ON' : '🔥 Grad-CAM Heatmap'}
+              {state.showGradCam ? translateText('🔥 Grad-CAM ON') : translateText('🔥 Grad-CAM Heatmap')}
             </button>
           )}
 
@@ -47,7 +49,7 @@ export default function ScanViewer({ state }: { state: any }) {
               fontFamily: 'system-ui, -apple-system, sans-serif'
             }}
           >
-            {state.showOverlays ? '👁️ Overlays ON' : '👁️ Overlays OFF'}
+            {state.showOverlays ? translateText('👁️ Overlays ON') : translateText('👁️ Overlays OFF')}
           </button>
 
           <button
@@ -65,7 +67,7 @@ export default function ScanViewer({ state }: { state: any }) {
             }}
             title="Cycle contrast windowing"
           >
-            🌓 {state.contrastMode.toUpperCase()}
+            🌓 {translateText(state.contrastMode.toUpperCase())}
           </button>
         </div>
       </div>
@@ -122,13 +124,13 @@ export default function ScanViewer({ state }: { state: any }) {
 
             {/* DICOM Overlay Header */}
             <div style={{ position: 'absolute', top: '10px', left: '12px', color: 'rgba(255,255,255,0.8)', fontSize: '11px', fontFamily: 'monospace', pointerEvents: 'none', textShadow: '0 2px 4px rgba(0,0,0,0.8)' }}>
-              PATIENT: ORTHO-RADIUS-9148<br/>
-              STUDY: FOREARM / WRIST AP-LAT<br/>
-              MODEL: FRACTURENET YOLOV8
+              {translateText('PATIENT:')} ORTHO-RADIUS-9148<br/>
+              {translateText('STUDY:')} FOREARM / WRIST AP-LAT<br/>
+              {translateText('MODEL:')} FRACTURENET YOLOV8
             </div>
 
             <div style={{ position: 'absolute', top: '10px', right: '12px', color: '#38bdf8', fontSize: '12px', fontWeight: 'bold', fontFamily: 'sans-serif', pointerEvents: 'none', textShadow: '0 2px 4px rgba(0,0,0,0.8)' }}>
-              YOLOV8 INFERENCE: 14.2ms
+              {translateText('YOLOV8 INFERENCE: 14.2ms')}
             </div>
           </div>
 
@@ -335,7 +337,7 @@ export default function ScanViewer({ state }: { state: any }) {
                 pointerEvents: 'none',
                 fontFamily: 'system-ui, -apple-system, sans-serif'
               }}>
-                {box.label} ({Math.round(box.confidence * 100)}%)
+                {translateText(box.label)} ({Math.round(box.confidence * 100)}%)
               </div>
             </div>
           );
@@ -358,7 +360,7 @@ export default function ScanViewer({ state }: { state: any }) {
             fontFamily: 'system-ui, -apple-system, sans-serif'
           }}>
             <div style={{ width: '32px', height: '32px', border: '3px solid #db2777', borderTopColor: 'transparent', borderRadius: '50%', animation: 'spin 1s linear infinite' }} />
-            <div>Running AI Detection Engine...</div>
+            <div>{t('scan_running_engine', 'Running AI Detection Engine...')}</div>
           </div>
         )}
       </div>
@@ -387,7 +389,7 @@ export default function ScanViewer({ state }: { state: any }) {
           }}
         >
           <RefreshCw size={14} />
-          {state.loading ? 'Processing Visualizer...' : 'Re-Run Detection Engine'}
+          {state.loading ? t('scan_processing', 'Processing Visualizer...') : t('scan_rerun_detection', 'Re-Run Detection Engine')}
         </button>
 
         {state.uploadedImagePreview && (
@@ -410,7 +412,7 @@ export default function ScanViewer({ state }: { state: any }) {
               fontFamily: 'system-ui, -apple-system, sans-serif'
             }}
           >
-            Reset
+            {t('scan_reset', 'Reset')}
           </button>
         )}
       </div>

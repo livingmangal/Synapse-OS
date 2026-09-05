@@ -80,7 +80,7 @@ export default function AbhaGenerator({ state }: { state: any }) {
               {translateText('Auto-Synced with Active Citizen Profile')}
             </div>
             <div style={{ fontSize: '11.5px', color: '#475569' }}>
-              {translateText('Showing verified ABDM records for')} <strong style={{ color: '#0f172a' }}>{state.name}</strong> • DOB: <strong style={{ color: '#0f172a' }}>{state.dob || state.yearOfBirth}</strong>
+              {translateText('Showing verified ABDM records for')} <strong style={{ color: '#0f172a' }}>{state.name}</strong> • {translateText('DOB:')} <strong style={{ color: '#0f172a' }}>{translateText(state.dob || state.yearOfBirth)}</strong>
             </div>
           </div>
         </div>
@@ -298,7 +298,7 @@ export default function AbhaGenerator({ state }: { state: any }) {
                 <div>
                   <div style={{ fontSize: '10.5px', color: '#64748b', fontWeight: 700, textTransform: 'uppercase' }}>{translateText('Date of Birth')}</div>
                   <div style={{ fontSize: '13px', fontWeight: 800, color: '#0f172a', marginTop: '2px' }}>
-                    {state.dob || `YOB: ${state.yearOfBirth}`}
+                    {translateText(state.dob || `YOB: ${state.yearOfBirth}`)}
                   </div>
                 </div>
 
