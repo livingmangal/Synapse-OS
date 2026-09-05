@@ -4,7 +4,12 @@
 
 # AI-Driven Public Health Chatbot for Disease Awareness
 
-**Open-Source · Multi-Agent Clinical AI · Hackathon Edition — SMART VIThackathon(SVH)-2026**
+**SMART VIThackathon(SVH)-2026 | Problem Statement ID: SVH26006**
+
+> **Organization:** Government of Odisha <br/>
+> **Department:** Electronics & IT Department <br/>
+> **Category:** Software <br/>
+> **Expected Outcome:** A chatbot accessible via WhatsApp or SMS, reaching 80% accuracy in answering health queries and increasing awareness by 20% in target communities.
 
 *A multilingual AI chatbot designed to educate rural and semi-urban populations about preventive healthcare, disease symptoms, and vaccination schedules. It integrates with government health databases and provides real-time alerts for outbreaks. Powered by a swarm of 13 specialized AI agents, it bridges the gap between everyday health tracking and complex clinical intelligence — with government ABDM compliance, blockchain-verified records, and multilingual accessibility for 650+ million rural citizens.*
 
@@ -37,12 +42,30 @@
 
 ---
 
+## 🎯 Hackathon Problem Statement & Solution Mapping
+
+> **Problem Statement ID**: *SVH26006* <br/>
+> **Problem Statement Title**: *AI-Driven Public Health Chatbot for Disease Awareness* <br/>
+> **Description**: Create a multilingual AI chatbot to educate rural and semi-urban populations about preventive healthcare, disease symptoms, and vaccination schedules. The chatbot should integrate with government health databases and provide real-time alerts for outbreaks.
+
+| Hackathon Requirement | Target Benchmark | SynapseOS Production Implementation |
+| :--- | :--- | :--- |
+| **Target Population** | Rural & semi-urban populations | **11 Indic language NLU** (Hindi, Bengali, Tamil, Telugu, Marathi, Gujarati, Kannada, Malayalam, Punjabi, Odia) + Low-Bandwidth ASHA field-worker offline mode |
+| **Accessibility Channels** | WhatsApp or SMS | **Meta WhatsApp Cloud API** via OpenWA Bridge, 2G GSM 160-char SMS simulator, WebRTC VAPI voice AI |
+| **Technical Feasibility** | NLP frameworks (Rasa/Dialogflow) & Cloud | **Llama 3 70B NLP Engine** via Groq, extensible API framework, fully deployable on AWS/GCP with **Docker & Kubernetes** scaling |
+| **Preventive & Clinical Care** | Symptoms, preventive care, vaccines | **13 Autonomous Clinical Agents**: Clinical Copilot, Symptom Triage (ESI L1–L5), UIP Vaccination Scheduler, Preventive Health Hub, Tele-MANAS Mental Health, Drug Safety, Outbreak EWS |
+| **Government Health Integration** | Government health databases | **ABDM Sandbox M1/M2/M3** compliance, 14-digit ABHA ID minting, HL7 FHIR R4 bundle serialization, PM-JAY eligibility mapping |
+| **Outbreak & Epidemic Alerts** | Real-time outbreak detection | **WHO & IDSP GeoJSON district surveillance** engine with real-time R₀ transmission modeling, containment advisories, proactive WhatsApp push |
+| **Expected Outcome** | >80% accuracy, +20% awareness | **98.8%** MONAI chest radiograph confidence, **99.2%** YOLOv8 FractureNet accuracy, deterministic safety gating, longitudinal digital health twin simulations |
+
+---
+
 ## 📑 Table of Contents
 
 | Icon | Section | Description | Link |
 | :---: | :--- | :--- | :--- |
+| 🎯 | **Hackathon Problem Statement** | Alignment with SVH26006 Problem Statement | [Go to section](#-hackathon-problem-statement--solution-mapping) |
 | 📸 | **Product & Interface Showcase** | Visual gallery of the SynapseOS platform | [Go to section](#-product--interface-showcase) |
-| 🎯 | **Hackathon Problem Statement** | Alignment with SMART VIThackathon(SVH)-2026 goals | [Go to section](#-hackathon-problem-statement--solution-mapping) |
 | 📝 | **Executive Summary** | High-level overview of the health platform | [Go to section](#1-executive-summary) |
 | 🏗️ | **Official Architecture Diagrams** | System flows and user journey maps | [Go to section](#2-official-architecture-diagrams) |
 | 🏛️ | **System Architecture** | N-tier omnichannel and microservices design | [Go to section](#3-system-architecture) |
@@ -106,21 +129,6 @@
 
 </div>
 
----
-
-## 🎯 Hackathon Problem Statement & Solution Mapping
-
-> **Problem Track**: *AI-Driven Public Health Chatbot for Disease Awareness*
-> **Mission**: Create a multilingual AI chatbot to educate rural and semi-urban populations about preventive healthcare, disease symptoms, and vaccination schedules. Integrate with government health databases and provide real-time alerts for outbreaks with WhatsApp/SMS accessibility.
-
-| Hackathon Requirement | Target Benchmark | SynapseOS Production Implementation |
-| :--- | :--- | :--- |
-| **Target Population** | Rural & semi-urban populations | **11 Indic language NLU** (Hindi, Bengali, Tamil, Telugu, Marathi, Gujarati, Kannada, Malayalam, Punjabi, Odia) + Low-Bandwidth ASHA field-worker offline mode |
-| **Accessibility Channels** | WhatsApp or SMS | **Meta WhatsApp Cloud API** via OpenWA Bridge, 2G GSM 160-char SMS simulator, WebRTC VAPI voice AI |
-| **Preventive & Clinical Care** | Symptoms, preventive care, vaccines | **13 Autonomous Clinical Agents**: Clinical Copilot, Symptom Triage (ESI L1–L5), UIP Vaccination Scheduler, Preventive Health Hub, Tele-MANAS Mental Health, Drug Safety, Outbreak EWS |
-| **Government Health Integration** | Government health databases | **ABDM Sandbox M1/M2/M3** compliance, 14-digit ABHA ID minting, HL7 FHIR R4 bundle serialization, PM-JAY eligibility mapping |
-| **Outbreak & Epidemic Alerts** | Real-time outbreak detection | **WHO & IDSP GeoJSON district surveillance** engine with real-time R₀ transmission modeling, containment advisories, proactive WhatsApp push |
-| **Accuracy & Uplift Goals** | >80% accuracy, +20% awareness | **98.8%** MONAI chest radiograph confidence, **99.2%** YOLOv8 FractureNet accuracy, deterministic safety gating, longitudinal digital health twin simulations |
 
 ---
 
